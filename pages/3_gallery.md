@@ -1,11 +1,10 @@
 ---
 layout: page
-title: Moments
+title: Gallery
 subtitle: Moments from past shows
 permalink: /moments/
-gallery_path: "assets/img/pexels"
-feature-img: "assets/img/pexels/computer.jpeg"
-tags: [Page]
+gallery_path: "assets/img/gallery"
+feature-img: "assets/img/pages/gallery.png"
 ---
 
 Looking back at past IN YOUR FACE comedy nights.

@@ -2,8 +2,7 @@
 layout: page
 title: Follow
 permalink: /follow/
-feature-img: "assets/img/pexels/travel.jpeg"
-tags: [Page]
+feature-img: "assets/img/pages/follow.png"
 ---
 
 Type on Strap is based on Type Theme, a free and open-source theme for [Jekyll](http://jekyllrb.com/), licensed under the MIT License.
