@@ -1,8 +1,8 @@
 --- 
 layout: page
-title : Portfolio 
-permalink: /portfolio/
-subtitle: "Projects I am working on" 
+title : Shows
+permalink: /shows/
+subtitle: "IN YOUR FACE Shows and Venues" 
 feature-img: "assets/img/pexels/computer.jpeg"
 tags: [Page]
 ---

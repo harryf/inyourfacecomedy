@@ -4,12 +4,12 @@ behance:
 bitbucket:
 calendly:
 dribbble:
-facebook:
+facebook: inyourfacecomedy
 flickr:
-github: sylhare
+github: 
 gitlab:
 google-scholar:   # e.g. "WXAAOb0AAAAJ"
-instagram:
+instagram: inyourfacecomedy
 hacker-news:
 keybase:
 linkedin:
@@ -27,11 +27,11 @@ sms:              # e.g. "+11111111111"
 stack-exchange:   # e.g. "123456789"
 stack-overflow:   # e.g. "123456789"
 steam:
-telegram:
+telegram: inyourfacecomedy
 tumblr:
 twitch:
 twitter:
 vimeo:
 vk:
 wordpress:
-youtube:          # e.g. "UCqECaJ8Gagnn7YCbPEzWH6g"
+youtube: UC0PG5jlgH2BAOsfElO_yJDA         # e.g. "UCqECaJ8Gagnn7YCbPEzWH6g"

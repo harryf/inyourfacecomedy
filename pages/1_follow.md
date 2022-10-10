@@ -1,7 +1,7 @@
 ---
 layout: page
-title: About
-permalink: /about/
+title: Follow
+permalink: /follow/
 feature-img: "assets/img/pexels/travel.jpeg"
 tags: [Page]
 ---
