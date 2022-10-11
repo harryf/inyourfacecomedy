@@ -25,7 +25,7 @@ Normally comedians request a "spot" by posting in the discussion on [IN YOUR FAC
 - You'll also find some handy joke writing tips in [this guide](https://docs.google.com/presentation/d/1Cyt-pNP6PPuyOq0eqMKAn5PU9QQVkkR7h5wgsFpty7c/edit?usp=sharing)...
 - For your first show, aim for about a 5 minute long _set_.
 - Practice, practice, practice at home like a crazy person. Pace around your living room and talk into a carrot or a cucumber as you practice. And time it as well so you know how long it takes (aiming for 5 minutes)
-- The host of the show will tell you the line-up. This is usually done via Facebook Messenger - a group will be created for the show.
+- The host of the show will tell you the line-up - where you'll be performing in the show. This is usually done via Facebook Messenger - a group will be created for the show.
 - Get to the show on time and check in the host of the show and tell them what they should say about you when they _bring you up_. The host will usually tell the audience it's your very first time so the crowd should be a little kinder.
 - Start stong and finish strong: put your best jokes at the start and the end of your set.
 - Play the underdog. It's usually good to start with a joke telling how miserable your life is, to get the audience on your side.
