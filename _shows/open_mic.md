@@ -6,4 +6,4 @@ img: "assets/img/shows/openmic.png"
 tags: [Shows]
 ---
 
-Comedy at the Kafi blah blah
+{% include dalis.html %}
