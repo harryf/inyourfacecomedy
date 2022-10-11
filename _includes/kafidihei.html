@@ -1,0 +1,35 @@
+<h2>Comedy at the Kafi</h2>
+
+<p>That cosiest comedy show in town at Kafi Dihei, just up the road from Idaplatz in Zürich.</p>
+
+<p>The doors open 7:30pm and we're usually done by 10pm latest.</p>
+
+<h3>Getting There</h3>
+
+<p>Trams Number 2 and 3 take you close or bus number 72. <a href="https://goo.gl/maps/1dJTL4p3JNJeHyZF9">Directions to Kafi Dihei on Google Maps here</a>.</p>
+
+<h3>Moments from Past Shows</h3>
+
+<style>
+/* force scrollbar */
+html { overflow-y: scroll; }
+
+/* To overwrite page's padding, to get bigger images */
+/* article {padding:2%;} */
+</style>
+
+<div id='masonry' class="grid">
+<div class="grid-sizer"></div>
+<div class="gutter-sizer"></div>
+{% for image in site.static_files %}
+    {% if image.path contains ""assets/img/gallery" and image.path contains 'kafi_' %}
+    {% unless image.path contains '.md' %}
+        <img src="{{ image.path | relative_url }}" alt="" class="grid-item" style="padding: 0;">
+    {% endunless %}
+    {% endif %}
+{% endfor %}
+</div>
+
+<script src="{{ '/assets/js/vendor/imagesloaded.pkgd.min.js' | relative_url }}" type="text/javascript"></script>
+<script src="{{ '/assets/js/vendor/masonry.pkgd.min.js' | relative_url }}" type="text/javascript"></script>
+    

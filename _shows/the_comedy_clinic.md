@@ -6,4 +6,4 @@ img: "assets/img/shows/clinic.png"
 tags: [Shows]
 ---
 
-Comedy at the Kafi blah blah
+{% include ebrietas.html %}

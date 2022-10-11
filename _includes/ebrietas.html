@@ -1,0 +1,39 @@
+<h2>The Comedy Clinic</h2>
+
+<p>Do you have problems? We all do. And this is the show to get them fixed by comedians live on stage. Before the show we collect your problems on paper and then hand them to the comedians live on stage to fix it.</p>
+
+<p>The show takes place in the Catacombe below Ebietas Metal and Rock Bar in Niederdorf, Zürich.</p>
+
+<p>The doors open 7:30pm and we're usually done by 10pm latest.</p>
+
+<h3>Getting There</h3>
+
+<p>Tram station Central is the nearest stop. <a href="https://goo.gl/maps/PjTrMFkt34evcwu27">Directions to Ebrietas on Google Maps here</a>.</p>
+
+<h3>Moments from Past Shows</h3>
+
+<p>Check out the <a href="https://www.youtube.com/channel/UC0PG5jlgH2BAOsfElO_yJDA">videos on YouTube</a> as well.</p>
+
+<style>
+/* force scrollbar */
+html { overflow-y: scroll; }
+
+/* To overwrite page's padding, to get bigger images */
+/* article {padding:2%;} */
+</style>
+
+<div id='masonry' class="grid">
+<div class="grid-sizer"></div>
+<div class="gutter-sizer"></div>
+{% for image in site.static_files %}
+    {% if image.path contains ""assets/img/gallery" and image.path contains 'clinic_' %}
+    {% unless image.path contains '.md' %}
+        <img src="{{ image.path | relative_url }}" alt="" class="grid-item" style="padding: 0;">
+    {% endunless %}
+    {% endif %}
+{% endfor %}
+</div>
+
+<script src="{{ '/assets/js/vendor/imagesloaded.pkgd.min.js' | relative_url }}" type="text/javascript"></script>
+<script src="{{ '/assets/js/vendor/masonry.pkgd.min.js' | relative_url }}" type="text/javascript"></script>
+    

@@ -16,7 +16,7 @@ footer_text: >
   Get early updates on shows on the <a href="https://t.me/inyourfacecomedy">IN YOUR FACE Telegram Channel</a>
 
 # Blog
-excerpt: true                                           # Or "truncate" (first 250 characters), "false" to disable
+excerpt: false                                           # Or "truncate" (first 250 characters), "false" to disable
 post_navigation: false
 color_image: /assets/img/lineart.png                    # A bit transparent for color posts.
 future: true
