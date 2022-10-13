@@ -2,8 +2,8 @@
 layout: post
 title: Comedy at the Kafi
 tags: [Comedy at the Kafi]
-feature-img: "assets/img/shows/kafi_featured.png"
-thumbnail: "assets/img/shows/kafi.png"
+feature-img: "assets/img/shows/kafi2.png"
+thumbnail: "assets/img/shows/kafi2.png"
 author: harryfucks
 excerpt_separator: <!--more-->
 ---
