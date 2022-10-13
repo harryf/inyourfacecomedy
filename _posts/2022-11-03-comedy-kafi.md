@@ -10,6 +10,6 @@ excerpt_separator: <!--more-->
 
 # Thursday 3rd Nov at Kafi Dihei
 
-[Get Tickets](https://bit.ly/iyf031122w){: .btn}
+[Tickets](https://bit.ly/iyf031122w){: .btn}
 
 {% include kafidihei.html %}
