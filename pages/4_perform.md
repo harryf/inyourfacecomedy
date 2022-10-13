@@ -4,6 +4,7 @@ title: Perform
 subtitle: Got the comedy itch?
 permalink: /perform/
 feature-img: "assets/img/pages/perform.png"
+thumbnail: "assets/img/pages/perform.png"
 ---
 
 # Want to try stand-up comedy?

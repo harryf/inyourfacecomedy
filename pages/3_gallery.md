@@ -5,6 +5,7 @@ subtitle: Moments from past shows
 permalink: /moments/
 gallery_path: "assets/img/gallery"
 feature-img: "assets/img/pages/gallery.png"
+thumbnail: "assets/img/inyourface.png"
 ---
 
 {% include gallery.html gallery_path=page.gallery_path %}
