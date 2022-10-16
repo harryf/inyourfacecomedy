@@ -8,7 +8,7 @@ feature-img: "assets/img/pages/gallery.png"
 thumbnail: "assets/img/thumbs/inyourface_thumb.png"
 ---
 
-# Bringing You Laughter since Sept 2021
+# Fresh Laughs since Sept 2021
 
 {% include gallery.html gallery_path=page.gallery_path %}
 
