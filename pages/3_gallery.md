@@ -5,8 +5,10 @@ subtitle: Moments from past shows
 permalink: /moments/
 gallery_path: "assets/img/gallery"
 feature-img: "assets/img/pages/gallery.png"
-thumbnail: "assets/img/inyourface.png"
+thumbnail: "assets/img/thumbs/inyourface_thumb.png"
 ---
+
+# Bringing You Laughter since Sept 2021
 
 {% include gallery.html gallery_path=page.gallery_path %}
 
