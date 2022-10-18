@@ -8,8 +8,10 @@ author: harryfucks
 excerpt_separator: <!--more-->
 ---
 
-# Thursday 3rd Nov at Kafi Dihei
+[Get Tickets](https://bit.ly/iyf031122w){: .btn}
 
-[Tickets](https://bit.ly/iyf031122w){: .btn}
+# Thursday 3rd Nov at Kafi Dihei - Doors Open 7:30pm
 
 {% include kafidihei.html %}
+
+[Get Tickets](https://bit.ly/iyf031122w){: .btn}

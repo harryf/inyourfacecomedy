@@ -285,3 +285,16 @@ kbd {
   width: 30%;
   margin: auto;
 }
+
+@media screen and (max-width: $break) {
+  .btn {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: $x-sm-break) {
+  .btn {
+    padding: 5px 15px;
+    width: 50%;
+  }
+}
