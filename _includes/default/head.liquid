@@ -44,9 +44,9 @@
   <!-- Mermaid 9.1.1 -->
   {% if site.mermaid %}
     <script defer src="{{ '/assets/js/vendor/mermaid.min.js' | relative_url }}" onload="mermaid.initialize({
-                                                            startOnLoad:true,
-                                                            theme: '{{ site.mermaid }}',
-                                                          });"></script>
+                                                                  startOnLoad:true,
+                                                                  theme: '{{ site.mermaid }}',
+                                                                });"></script>
   {% endif %}
 
   <!-- Simple Jekyll Search 1.10.0 -->
@@ -54,7 +54,7 @@
 
   <!-- Google Analytics / Cookie Consent -->
   <script>
-    const cookieName = 'cookie-notice-dismissed-         {{ site.url }}';
+    const cookieName = 'cookie-notice-dismissed-          {{ site.url }}';
     const isCookieConsent = '{{ site.cookie_consent }}';
     const analyticsName = '{{ site.google_analytics }}';
     const analyticsNameGA4 = '{{ site.google_analytics_ga4 }}';
@@ -129,6 +129,7 @@
     </script>
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={{ site.meta_pixel }}&ev=PageView&noscript=1"/></noscript>
     <!-- End Meta Pixel -->
+    <meta name="facebook-domain-verification" content="vfh6iqlb9bj47nfhx2fnglh79bv7pi"/>
   {% endif %}
 
 
