@@ -13,12 +13,16 @@ Are you funny? Do you friends keep telling you you're funny? Or do you just have
 
 Yes... getting up on stage is absolutely terrifying. And yes... when you make people laugh, it feels fantastic!
 
-## Requesting your First Spot
+## Getting your First Spot
 
-- The best show to try comedy on is the [Open Mic at Dali's](/shows/open-mic)
+- The best IN YOUR FACE show to try comedy on is the [Open Mic at Dali's](/shows/open-mic)
 - DM [Harry on Instagram](https://www.instagram.com/harryf.cks/) ( or via [@inyourfacecomedy](https://www.instagram.com/inyourfacecomedy/) ) and he'll get you setup
 
 Normally comedians request a "spot" by posting in the discussion on [IN YOUR FACE events on Facebook](https://www.facebook.com/inyourfacecomedy/events/). There's also a WhatsApp group with lots of other comedians, where you can join to get notified early of upcoming events (ask Harry for an invite).
+
+### Where else can I get spots?
+
+Have a look at [this list of Swiss Stand-Up Comedy Shows](https://docs.google.com/spreadsheets/d/1hhZ_SN9Sp3ormM74Vuu20dyYFdp7qNiGbgf8wZ9KGyA/edit?usp=sharing). In Zürich talk to [Ahmet with Comedy Night Zürich](https://www.instagram.com/ahmetbilgecomedy/), [Chris with Down Under Comedy](https://www.instagram.com/chrisdarwa/) and [Shane with Comedy Kiss](https://www.instagram.com/comedykiss.ch/).
 
 ## Comedy Tips to get you started
 
