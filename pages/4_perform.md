@@ -9,7 +9,7 @@ thumbnail: "assets/img/pages/perform.png"
 
 # Want to try stand-up comedy?
 
-Are you funny? Do you friends keep telling you you're funny? Or do you just have that itch to see if you can do it? The only way to know is to try...
+Are you funny? Do your friends keep telling you you're funny? Or do you just have that itch to see if you can do it? The only way to know is to try...
 
 Yes... getting up on stage is absolutely terrifying. And yes... when you make people laugh, it feels fantastic!
 
