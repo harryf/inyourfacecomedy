@@ -42,7 +42,7 @@ Jokes have a structure and form. Perhaps the most basic joke structure is "setup
 
 There are differing opinions on how many different joke structures there are. Some say [there are 5.5](https://goldcomedy.com/resources/essential-types-of-jokes-rise/) ... some say [there are 13](https://www.thegag.club/comedianknowledgebase/13-Comedy-Structures)... The number doesn't matter but knowing some of these structures and fitting your jokes to them gives you a better chance of getting laughs.
 
-You'll also find some handy joke writing tips in [this guide](https://docs.google.com/presentation/d/1Cyt-pNP6PPuyOq0eqMKAn5PU9QQVkkR7h5wgsFpty7c/edit?usp=sharing) which is based on the [New Comedy Bible](https://www.amazon.com/NEW-Comedy-Bible-Ultimate-Performing/dp/1947480847).
+You'll also find some handy joke writing tips in [this guide](https://docs.google.com/presentation/d/1Cyt-pNP6PPuyOq0eqMKAn5PU9QQVkkR7h5wgsFpty7c/edit?usp=sharing) which is based on the [New Comedy Bible](https://www.amazon.com/NEW-Comedy-Bible-Ultimate-Performing/dp/1947480847). And if you get through all that have look at [Gary Gulman's Writing Tips for Comedians](https://deadant.co/all-365-of-gary-gulmans-writing-tips/) ... come back to this link after you've done some shows...
 
 ### Coping with Stage Fright
 
