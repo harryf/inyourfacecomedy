@@ -10,8 +10,6 @@ excerpt_separator: <!--more-->
 
 [Get Tickets](https://bit.ly/iyf011222w){: .btn}
 
-(tickets coming soon)
-
 # Thursday 1st Dec at Kafi Dihei - Doors Open 7:30pm
 
 {% include kafidihei.html %}
