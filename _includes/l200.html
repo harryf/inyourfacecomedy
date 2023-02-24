@@ -1,3 +1,10 @@
+{% for post in site.posts reversed %}
+{% if post.tags contains 'L200 Comedy' %}
+[Tickets for Next Show]({{post.ticket_link}}){: .btn}
+{% break %} 
+{% endif %}
+{% endfor %}
+
 <h2>L200 Comedy</h2>
 
 <p>Comedy at L200 on Langstrasse! North of the tracks...</p>
@@ -32,7 +39,6 @@
 {% endif %}
 {% endfor %}
 
-
 <h3>Moments from Past Shows</h3>
 
 <style>
@@ -59,3 +65,10 @@ html { overflow-y: scroll; }
 <script src="{{ '/assets/js/vendor/masonry.pkgd.min.js' | relative_url }}" type="text/javascript"></script>
     
 <!-- <p>Thanks to <a href="https://www.instagram.com/theurb4ncaveman/">Joël Daniel</a> for photography.</p> -->
+
+{% for post in site.posts reversed %}
+{% if post.tags contains 'L200 Comedy' %}
+[Tickets for Next Show]({{post.ticket_link}}){: .btn}
+{% break %} 
+{% endif %}
+{% endfor %}
