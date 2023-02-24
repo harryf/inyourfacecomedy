@@ -1,5 +1,5 @@
 {% for post in site.posts reversed %}
-{% if post.tags contains 'L200 Comedy' %}
+{% if post.tags contains 'L200 Comedy' and page.title == 'L200' %}
 [Tickets for Next Show]({{post.ticket_link}}){: .btn}
 {% break %} 
 {% endif %}
@@ -67,7 +67,7 @@ html { overflow-y: scroll; }
 <!-- <p>Thanks to <a href="https://www.instagram.com/theurb4ncaveman/">Joël Daniel</a> for photography.</p> -->
 
 {% for post in site.posts reversed %}
-{% if post.tags contains 'L200 Comedy' %}
+{% if post.tags contains 'L200 Comedy' and page.title == 'L200' %}
 [Tickets for Next Show]({{post.ticket_link}}){: .btn}
 {% break %} 
 {% endif %}

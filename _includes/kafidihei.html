@@ -1,5 +1,5 @@
 {% for post in site.posts reversed %}
-{% if post.tags contains 'Comedy at the Kafi' %}
+{% if post.tags contains 'Comedy at the Kafi' and page.title == 'Comedy at the Kafi' %}
 [Tickets for Next Show]({{post.ticket_link}}){: .btn}
 {% break %} 
 {% endif %}
@@ -61,7 +61,7 @@ html { overflow-y: scroll; }
 <p>Thanks to <a href="https://www.instagram.com/theurb4ncaveman/">Joël Daniel</a> for photography.</p>
 
 {% for post in site.posts reversed %}
-{% if post.tags contains 'Comedy at the Kafi' %}
+{% if post.tags contains 'Comedy at the Kafi' and page.title == 'Comedy at the Kafi' %}
 [Tickets for Next Show]({{post.ticket_link}}){: .btn}
 {% break %} 
 {% endif %}
