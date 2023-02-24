@@ -23,6 +23,9 @@
 
 {% assign has_shows = 0 %}
 {% for post in site.posts reversed %}
+{% if page.title != 'L200' %}
+{% break %}
+{% endif %}
 {% if post.tags contains 'L200 Comedy' %}
 {% if has_shows == 0 %}
 <h3>Upcoming shows at L200</h3>

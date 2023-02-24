@@ -17,6 +17,9 @@
 
 {% assign has_shows = 0 %}
 {% for post in site.posts reversed %}
+{% if page.title != 'Comedy at the Kafi' %}
+{% break %}
+{% endif %}
 {% if post.tags contains 'Comedy at the Kafi' %}
 {% if has_shows == 0 %}
 <h3>Upcoming shows at Kafi Dihei</h3>
