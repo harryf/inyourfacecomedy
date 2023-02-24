@@ -8,6 +8,24 @@
 
 <p>Trams Number 2 and 3 take you close or bus number 72. <a href="https://goo.gl/maps/1dJTL4p3JNJeHyZF9">Directions to Kafi Dihei on Google Maps here</a>.</p>
 
+{% assign has_shows = 0 %}
+{% for post in site.posts reversed %}
+{% if post.tags contains 'Comedy at the Kafi' %}
+{% if has_shows == 0 %}
+<h3>Upcoming shows at Kafi Dihei</h3>
+{% assign has_shows = 1 %}
+{% endif %}
+<h5 class="tag-title">
+    <a href="{{ post.url | relative_url }}">
+        <i class="far fa-file-alt" aria-hidden="true"></i>
+        {{ post.title }}
+    </a>
+
+    {% include blog/post_info.liquid date=post.date %}
+</h5>
+{% endif %}
+{% endfor %}
+
 <h3>Moments from Past Shows</h3>
 
 <style>

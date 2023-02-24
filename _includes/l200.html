@@ -14,6 +14,25 @@
 
 <p>L200 is not a bar so if you'd like drinks and want to support the show, we have higher priced tickets that include drinks, so we can get them for you in advance.</p>
 
+{% assign has_shows = 0 %}
+{% for post in site.posts reversed %}
+{% if post.tags contains 'L200 Comedy' %}
+{% if has_shows == 0 %}
+<h3>Upcoming shows at L200</h3>
+{% assign has_shows = 1 %}
+{% endif %}
+<h5 class="tag-title">
+    <a href="{{ post.url | relative_url }}">
+        <i class="far fa-file-alt" aria-hidden="true"></i>
+        {{ post.title }}
+    </a>
+
+    {% include blog/post_info.liquid date=post.date %}
+</h5>
+{% endif %}
+{% endfor %}
+
+
 <h3>Moments from Past Shows</h3>
 
 <style>
