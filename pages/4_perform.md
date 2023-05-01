@@ -71,6 +71,18 @@ Develop a stage persona. This is usally some part of your personality that you a
 - **Record your Set** The memory is a tricky thing and how you remember your first performance may be different to what actually happened. Get a friend in the audience to make a video of your first time with their phone, or simply record the audio of your first time with the Voice Memo app on your phone - usually there will be a stool on stage... you can put your phone on it.
 - **Don't read notes** You *might* take a list of jokes up with you on stage to remind you just in case you forget. But reading notes outloud will bore the audience. If you practiced enough before the show, you won't need to look at your notes.
 
+### The Importance of Keeping to Your Time
+
+For an Open Mic show, where you get started, you get 5 minutes on stage. Why 5 minutes? Because the audience attention and energy levels are limited... eventually they get tired.
+
+So we divide the limited time of the show up into little chunks of 5 minutes that are given to each of the comedians - and yes there's a bias towards experienced and proven comedians that consistently get laughs to have more time, because they will make good use of it to make the audience laugh. There's a meritocracy at work...
+
+So **when you over-run your time, you're actually stealing from the other comedians** on the show, _especially_ if you're not getting laughs. You're draining the audience of attention and patience, which makes it harder for the comedians that come after you.
+
+So long story short, practice and time your material BEFORE you get on stage. And also look for the host of the show giving you a light (from their phone) that time is up - you should finish within 30 seconds of seeing the light.
+
+But you're a comedy genius and could show the world if only you had more time? That may be true _one day_ but learning how to make an audience go wild in just 5 minutes will make you a better comedian, so when you start doing longer sets, the crowd will be in hysterics.
+
 ### English Stand-Up Comedy Audiences in Switzerland
 
 The crowds we get at English comedy shows are typically a mix of Swiss people that speak English and foreigners who have either moved here, are studying here or are visiting the country. In Zürich it's common for crowds to be 20% Swiss, 80% foreigners. Most importantly, for the typical crowd here **80% DO NOT HAVE ENGLISH as their mother tongue!**. Age ranges vary too... most of the crowds will be in their 20's and 30's but all ages come to shows. And mostly crowds are smart and educated... it's rare to have a really drunk and rowdy crowd in Switzerland.
