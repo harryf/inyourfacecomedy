@@ -1,0 +1,94 @@
+{% for post in site.posts reversed %}
+{% if page.title == 'Comedy Brew' and post.title contains 'Comedy Brew' %}
+[Tickets for Next Show]({{post.ticket_link}}){: .btn}
+{% break %} 
+{% endif %}
+{% endfor %}
+
+<h2>Comedy Brew</h2>
+
+<p>Comedy Brew is an Open Mic show at ROBINs coffee at Zähringerstr 33, 8001 Zürich ... just 2 minutes from Central tram station.</p>
+
+<p>The doors open 7:30pm and we're usually done by 10pm latest.</p>
+
+<p>ROBINs is a coffee bar during the day and was as an delicious pizza restaurant. And if the evening the bars open... Check out <a href="https://robins-coffee.ch/">robins-coffee.ch</a> and <a href="https://robins-littleitaly.ch/">robins-littleitaly.ch</a> for an impression</p>
+
+<h3>Getting There</h3>
+
+<p>Any tram or bus that stops at Central then walk around the corner to ROBINs - <a href="https://goo.gl/maps/RLpgaaVbGDYWaZmEA">directions to the ROBINs on Google Maps here</a>.</p>
+
+{% assign has_shows = 0 %}
+{% for post in site.posts reversed %}
+{% if page.title != 'Comedy Brew' %}
+{% break %}
+{% endif %}
+{% if post.title contains 'Comedy Brew' %}
+{% if has_shows == 0 %}
+<h3>Upcoming Comedy Brew shows at ROBINs</h3>
+{% assign has_shows = 1 %}
+{% endif %}
+<h5 class="tag-title">
+    <a href="{{ post.url | relative_url }}">
+        <i class="far fa-file-alt" aria-hidden="true"></i>
+        {{ post.title }}
+    </a>
+
+    {% include blog/post_info.liquid date=post.date %}
+</h5>
+{% endif %}
+{% endfor %}
+
+<!--
+<h2>Our Curated Canapé Selections</h2>
+
+<p>Delight in our curated canapé selections available to order online with your ticket, ready to be savoured upon your arrival.</p>
+
+{% assign canape_food = "assets/img/shows/canape_food.png" %}
+<img src="{{ canape_food | relative_url }}" alt="" style="padding: 0;">
+
+<h3>Vegetarian Delight - CHF 15</h3>
+<p>This pair of exquisite canapés promises to charm your palate. One features smoked carrot that mimics the flavor of smoked salmon, while the other stars a vegan Tatar made of hearty chickpeas. It's a delightful treat for vegetarians and adventurous eaters alike!</p>
+
+<h3>Carnivores Treat - CHF 15</h3>
+<p>Indulge in a delectable duo of canapés, one offering a savoury beer Tatar, and the other featuring the distinct flavor of Appenzeller cheese. It's a perfect pairing for those who appreciate fine meats and cheeses!</p>
+
+
+<h3>Canapé Combo - CHF 25</h3>
+<p>Why choose when you can have it all? This selection includes five canapés - the vegetarian delights, the carnivore's treats, and the classic Canapé Bar's egg canapé. It's a gastronomic adventure perfect for sharing, or for ensuring a variety of tastes for your individual pleasure.</p>
+
+<p>Pre-ordered canapés will be ready for your enjoyment upon arrival. Savor these gourmet bites before the show or nibble on them throughout the evening for a truly delectable Comedy Canapé experience.</p>
+
+<p><small><strong>Note:</strong> prices above <em>exclude</em> the entrance price of the ticket.</small></p>
+-->
+
+<h3>Moments from Past Shows</h3>
+
+<style>
+/* force scrollbar */
+html { overflow-y: scroll; }
+
+/* To overwrite page's padding, to get bigger images */
+/* article {padding:2%;} */
+</style>
+
+<div id='masonry' class="grid">
+<div class="grid-sizer"></div>
+<div class="gutter-sizer"></div>
+{% for image in site.static_files %}
+    {% if image.path contains ""assets/img/gallery" and image.path contains 'comedybrew_' %}
+    {% unless image.path contains '.md' %}
+        <img src="{{ image.path | relative_url }}" alt="" class="grid-item" style="padding: 0;">
+    {% endunless %}
+    {% endif %}
+{% endfor %}
+</div>
+
+<script src="{{ '/assets/js/vendor/imagesloaded.pkgd.min.js' | relative_url }}" type="text/javascript"></script>
+<script src="{{ '/assets/js/vendor/masonry.pkgd.min.js' | relative_url }}" type="text/javascript"></script>
+
+{% for post in site.posts reversed %}
+{% if page.title == 'Comedy Brew' and post.title contains 'Comedy Brew' %}
+[Tickets for Next Show]({{post.ticket_link}}){: .btn}
+{% break %} 
+{% endif %}
+{% endfor %}
