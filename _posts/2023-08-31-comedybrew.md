@@ -11,7 +11,7 @@ ticket_link: "https://bit.ly/iyf20230831"
 
 [Get Tickets]({{page.ticket_link}}){: .btn}
 
-# Thu 31st August at the ROBINs coffee - Doors Open 7:30pm
+# Thu 31st August at the ROBIN&apos;s coffee - Doors Open 7:30pm
 
 {% include comedybrew.html %}
 
