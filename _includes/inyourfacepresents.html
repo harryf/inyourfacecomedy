@@ -1,17 +1,15 @@
 {% for post in site.posts reversed %}
-{% if page.title == 'Comedy Brew' and post.title contains 'Comedy Brew' %}
+{% if page.title == 'IN YOUR FACE Presents' and post.title contains 'IN YOUR FACE Presents' %}
 [Tickets for Next Show]({{post.ticket_link}}){: .btn}
 {% break %} 
 {% endif %}
 {% endfor %}
 
-<h2>Comedy Brew</h2>
+<h2>IN YOUR FACE Presents</h2>
 
-<p>Comedy Brew is an <em>Open Mic Comedy Show</em> at ROBIN&apos;s coffee at Zähringerstr 33, 8001 Zürich ... just 2 minutes from Central tram station. <strong>&quot;What&apos;s and Open Mic?&quot;</strong> It&apos;s a comedy show where experienced comedians try new jokes and new comedians try comedy for the first time. Usually we&apos;ve got at least 10 comedians performing on the night, so there&apos;s something for everyone. And if you&apos;d like to try comedy yourself check out our page on <a href="https://inyourfacecomedy.ch/perform/">performing for the first time</a>...</p>
+<p>From time to time IN YOUR FACE Comedy presents well known comedians, perhaps travelling through Switzerland, giving them an intimate setting to try new material.</p>
 
-<p>The doors open 7:30pm and we're usually done by 10pm latest.</p>
-
-<p>ROBIN&apos;s is a coffee bar during the day and delicious pizza restaurant. In the evening the bars open... Check out <a href="https://robins-coffee.ch/">robins-coffee.ch</a> and <a href="https://robins-littleitaly.ch/">robins-littleitaly.ch</a> for an impression</p>
+<p>Shows happen at ROBIN&apos;s - a coffee bar during the day and delicious pizza restaurant. In the evening the bars open... Check out <a href="https://robins-coffee.ch/">robins-coffee.ch</a> and <a href="https://robins-littleitaly.ch/">robins-littleitaly.ch</a> for an impression</p>
 
 <h3>Getting There</h3>
 
@@ -38,7 +36,7 @@
 {% endif %}
 {% endfor %}
 
-<h3>Moments from Past Shows</h3>
+<!-- <h3>Moments from Past Shows</h3>
 
 <style>
 /* force scrollbar */
@@ -58,13 +56,13 @@ html { overflow-y: scroll; }
     {% endunless %}
     {% endif %}
 {% endfor %}
-</div>
+</div> -->
 
 <script src="{{ '/assets/js/vendor/imagesloaded.pkgd.min.js' | relative_url }}" type="text/javascript"></script>
 <script src="{{ '/assets/js/vendor/masonry.pkgd.min.js' | relative_url }}" type="text/javascript"></script>
 
 {% for post in site.posts reversed %}
-{% if page.title == 'Comedy Brew' and post.title contains 'Comedy Brew' %}
+{% if page.title == 'IN YOUR FACE Presents' and post.title contains 'IN YOUR FACE Presents' %}
 [Tickets for Next Show]({{post.ticket_link}}){: .btn}
 {% break %} 
 {% endif %}
