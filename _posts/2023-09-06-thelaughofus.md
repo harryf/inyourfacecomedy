@@ -2,8 +2,8 @@
 layout: post
 title: IN YOUR FACE Presents - The Laugh of Us with Kiran Deol - 6th Sept 2023
 tags: [IN YOUR FACE Presents]
-feature-img: "assets/img/shows/inyourfacepresents.png"
-thumbnail: "assets/img/thumbs/inyourfacepresents_thumb.png"
+feature-img: "/assets/img/shows/thelaughofus.png"
+thumbnail: "/assets/img/shows/thelaughofus.png"
 author: harryfucks
 excerpt_separator: <!--more-->
 ticket_link: "https://bit.ly/iyfthelaughofus"
