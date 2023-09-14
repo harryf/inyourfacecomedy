@@ -12,4 +12,4 @@ thumbnail: "assets/img/thumbs/inyourface_thumb.png"
 
 {% include gallery.html gallery_path=page.gallery_path %}
 
-Photography thanks to [Tim Hughes](https://www.instagram.com/timhughesphotos/) and [Joël Daniel](https://www.instagram.com/theurb4ncaveman/)
+Photography thanks to [Tim Hughes](https://www.instagram.com/timhughesphotos/), [Joël Daniel](https://www.instagram.com/theurb4ncaveman/), [Carlota](https://instagram.com/marmota_carlota) and [Denis Cobarrubias](https://instagram.com/dennis.cobarrubias)
