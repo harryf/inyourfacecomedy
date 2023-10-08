@@ -1,0 +1,88 @@
+{% for post in site.posts reversed %}
+{% if page.title == 'IN YOUR FACE 3X' and post.title contains 'IN YOUR FACE 3X' %}
+[Tickets for Next Show]({{post.ticket_link}}){: .btn}
+{% break %} 
+{% endif %}
+{% endfor %}
+
+<h2>🍕 Special Tip for Comedy Goers 🍕</h2>
+<p>Arrive early and make the night even more special! If you show up by 19:00, you can indulge in a delicious pizza 🍕 along with two drinks 🍻 or one of ROBIN's signature cocktails 🍹 for just CHF 23! Just mention that you've come for the comedy show to avail of this fantastic offer.</p>
+
+<p>The combination of gourmet pizza and a comedy show packed with laughter and insights makes for the perfect date night 💑 or a fun outing with friends! 🎉</p>
+
+<h2>🎤 IN YOUR FACE 3X: 3 locally sourced comedians, 1 stage 🎤</h2>
+
+<p>Get ready for an evening of non-stop laughter that will leave you in stitches! Welcome to IN YOUR FACE 3X, where comedy takes center stage in the most hilarious way possible.</p>
+
+<p>Our unique concept features three incredible locally sourced English speaking comedians, each performing longer sets of 10, 20, and 30 minutes, guaranteeing a comedy journey like no other. It's a rollercoaster of humor, wit, and belly-aching laughter that will keep you entertained from start to finish.</p>
+
+<h2>🌟 What Makes IN YOUR FACE 3X Special?</h2>
+
+<h3>✅ Diverse Lineup</h3>
+<p>We bring together a diverse group of talented comedians who are masters at their craft. Each show features a fresh lineup of comedians, ensuring a variety of comedic styles and perspectives.</p>
+
+<h3>✅ Extended Sets</h3>
+<p>Tired of short comedy acts? We're here to change the game. Our comedians take the stage for extended sets, allowing them to dive deep into their material and deliver unforgettable performances.</p>
+
+<h3>✅ Laughter for Everyone</h3>
+<p>Whether you're a die-hard comedy fan or new to stand-up, IN YOUR FACE 3X offers something for everyone. Our comedians tackle a wide range of topics, from everyday life to social commentary, ensuring there's a joke for every sense of humor.</p>
+
+<h3>✅ Intimate Venue</h3>
+<p>Shows happen at ROBIN&apos;s - a coffee bar during the day and delicious pizza restaurant. In the evening the bars open... Check out <a href="https://robins-coffee.ch/">robins-coffee.ch</a> and <a href="https://robins-littleitaly.ch/">robins-littleitaly.ch</a> for an impression</p>
+
+<h3>Getting There</h3>
+
+<p>Any tram or bus that stops at Central then walk around the corner to ROBIN&apos;s - <a href="https://goo.gl/maps/RLpgaaVbGDYWaZmEA">directions to the ROBINs on Google Maps here</a>.</p>
+
+<!-- {% assign has_shows = 0 %}
+{% for post in site.posts reversed %}
+{% if page.title != 'Comedy Brew' %}
+{% break %}
+{% endif %}
+{% if post.title contains 'Comedy Brew' %}
+{% if has_shows == 0 %}
+<h3>Upcoming shows at ROBINs</h3>
+{% assign has_shows = 1 %}
+{% endif %}
+<h5 class="tag-title">
+    <a href="{{ post.url | relative_url }}">
+        <i class="far fa-file-alt" aria-hidden="true"></i>
+        {{ post.title }}
+    </a>
+
+    {% include blog/post_info.liquid date=post.date %}
+</h5>
+{% endif %}
+{% endfor %} -->
+
+<!-- <h3>Moments from Past Shows</h3>
+
+<style>
+/* force scrollbar */
+html { overflow-y: scroll; }
+
+/* To overwrite page's padding, to get bigger images */
+/* article {padding:2%;} */
+</style>
+
+<div id='masonry' class="grid">
+<div class="grid-sizer"></div>
+<div class="gutter-sizer"></div>
+{% for image in site.static_files %}
+    {% if image.path contains ""assets/img/gallery" and image.path contains 'comedybrew_' %}
+    {% unless image.path contains '.md' %}
+        <img src="{{ image.path | relative_url }}" alt="" class="grid-item" style="padding: 0;">
+    {% endunless %}
+    {% endif %}
+{% endfor %}
+</div> -->
+
+<script src="{{ '/assets/js/vendor/imagesloaded.pkgd.min.js' | relative_url }}" type="text/javascript"></script>
+<script src="{{ '/assets/js/vendor/masonry.pkgd.min.js' | relative_url }}" type="text/javascript"></script>
+
+{% for post in site.posts reversed %}
+{% if page.title == 'IN YOUR FACE 3X' and post.title contains 'IN YOUR FACE 3X' %}
+[Tickets for Next Show]({{post.ticket_link}}){: .btn}
+{% break %} 
+{% endif %}
+{% endfor %}
