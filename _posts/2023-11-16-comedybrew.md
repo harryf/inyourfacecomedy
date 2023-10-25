@@ -11,7 +11,7 @@ ticket_link: "https://bit.ly/iyf20231116"
 
 [Get Tickets]({{page.ticket_link}}){: .btn}
 
-# Thu 16th Nov at the ROBIN&apos;s coffee - Doors Open 7:30pm
+# Thursday 16th November - Doors Open 7:30pm
 
 {% include comedybrew.html %}
 
