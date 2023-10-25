@@ -11,7 +11,7 @@ ticket_link: "https://bit.ly/iyf20231102"
 
 [Get Tickets]({{page.ticket_link}}){: .btn}
 
-# Thursday 2nd Nov - Doors Open 7:30pm
+# Thursday 2nd November - Doors Open 7:30pm
 
 {% include comedybrew.html %}
 

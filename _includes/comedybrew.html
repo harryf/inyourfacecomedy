@@ -1,5 +1,5 @@
 {% for post in site.posts reversed %}
-{% if page.title == 'Comedy Brew' and post.title contains 'Comedy Brew' %}
+{% if page.layout == 'page' and post.title contains 'Comedy Brew' %}
 [Tickets for Next Show]({{post.ticket_link}}){: .btn}
 {% break %} 
 {% endif %}
@@ -70,7 +70,7 @@ html { overflow-y: scroll; }
 <script src="{{ '/assets/js/vendor/masonry.pkgd.min.js' | relative_url }}" type="text/javascript"></script>
 
 {% for post in site.posts reversed %}
-{% if page.title == 'Comedy Brew' and post.title contains 'Comedy Brew' %}
+{% if page.layout == 'page' and post.title contains 'Comedy Brew' %}
 [Tickets for Next Show]({{post.ticket_link}}){: .btn}
 {% break %} 
 {% endif %}
