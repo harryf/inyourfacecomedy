@@ -1,0 +1,91 @@
+{% for post in site.posts reversed %}
+{% if page.layout == 'page' and post.title contains 'Fists of Funny' %}
+[Tickets for Next Show]({{post.ticket_link}}){: .btn}
+{% break %} 
+{% endif %}
+{% endfor %}
+
+<h2>🎙️ Fists of Funny: Stories with a Kick 🦶 Jokes with a Jab 👊 🎙️</h2>
+
+Welcome to <em>Fists of Funny</em>, Zürich's most electrifying comedy night, hosted monthly at the iconic <a href="https://robins-littleitaly.ch">ROBIN's Little Italy</a>. This one-of-a-kind show delivers comedy with the force of a roundhouse kick, wrapped up in the irresistible charm of a 70s kung fu and cop drama.
+
+![Fists of Funny 1](/assets/img/shows/fistsoffunny-1.png){:class="img-responsive"}
+
+<h3>🚓 What's the Beat? 🥷</h3>
+
+Every month, we assemble a lineup of 3 uproarious comedians plus an equally hilarious host, each delivering their unique blend of jokes, stories, and shenanigans. You'll laugh, you'll cheer, and you'll leave with your funny bone thoroughly tickled!
+
+<h3>🎙 Why Fists of Funny? 🤜🤛</h3>
+
+Because we believe comedy hits hard, just like Kung Fu! It's a fusion of raw storytelling power, high-impact humor, and the sort of unforgettable characters you'd expect to find in an action-packed cop show or a Kung Fu flick.
+
+<h3>🍝 Where? 📍</h3>
+
+Right in the heart of Zürich at <a href="https://robins-littleitaly.ch">ROBIN's Little Italy</a>. It's a spot as legendary as the acts that grace our stage. And arrive early for special deals on pizza before the show!
+
+<h3>📅 When? 🕖</h3>
+
+Once a month, we unleash this comedic beast. Keep an eye on our events page for the latest updates, and get ready to experience comedy that's so good, it should be illegal.
+
+<h3>🎫 Tickets & Info 📲</h3>
+
+Look out for details on the IN YOUR FACE website...
+
+<h3>When Does it Start?</h3>
+
+The doors open 7:30pm on Thursday evenings and we're usually done by 10pm latest.
+
+{% include robins.html %}
+
+{% assign has_shows = 0 %}
+{% for post in site.posts reversed %}
+{% if page.title != 'Comedy Brew' %}
+{% break %}
+{% endif %}
+{% if post.title contains 'Comedy Brew' %}
+{% if has_shows == 0 %}
+<h3>Upcoming Comedy Brew shows at ROBINs</h3>
+{% assign has_shows = 1 %}
+{% endif %}
+<h5 class="tag-title">
+    <a href="{{ post.url | relative_url }}">
+        <i class="far fa-file-alt" aria-hidden="true"></i>
+        {{ post.title }}
+    </a>
+
+    {% include blog/post_info.liquid date=post.date %}
+</h5>
+{% endif %}
+{% endfor %}
+
+<h3>Moments from Past Shows</h3>
+
+<style>
+/* force scrollbar */
+html { overflow-y: scroll; }
+
+/* To overwrite page's padding, to get bigger images */
+/* article {padding:2%;} */
+</style>
+
+<div id='masonry' class="grid">
+<div class="grid-sizer"></div>
+<div class="gutter-sizer"></div>
+{% for image in site.static_files %}
+    {% if image.path contains ""assets/img/gallery" and image.path contains 'comedybrew_' %}
+    {% unless image.path contains '.md' %}
+        <img src="{{ image.path | relative_url }}" alt="" class="grid-item" style="padding: 0;">
+    {% endunless %}
+    {% endif %}
+{% endfor %}
+</div>
+
+<script src="{{ '/assets/js/vendor/imagesloaded.pkgd.min.js' | relative_url }}" type="text/javascript"></script>
+<script src="{{ '/assets/js/vendor/masonry.pkgd.min.js' | relative_url }}" type="text/javascript"></script>
+
+{% for post in site.posts reversed %}
+{% if page.layout == 'page' and post.title contains 'Fists of Funny' %}
+[Tickets for Next Show]({{post.ticket_link}}){: .btn}
+{% break %} 
+{% endif %}
+{% endfor %}
