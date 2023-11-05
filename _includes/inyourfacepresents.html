@@ -1,33 +1,30 @@
 {% for post in site.posts reversed %}
-{% if page.title == 'IN YOUR FACE Presents' and post.title contains 'IN YOUR FACE Presents' %}
+{% if page.layout == 'page' and post.title contains 'Presents' %}
 [Tickets for Next Show]({{post.ticket_link}}){: .btn}
 {% break %} 
 {% endif %}
 {% endfor %}
 
-<h2>🍕 Special Tip for Comedy Goers 🍕</h2>
-<p>Arrive early and make the night even more special! If you show up by 19:00, you can indulge in a delicious pizza 🍕 along with two drinks 🍻 or one of ROBIN's signature cocktails 🍹 for just CHF 23! Just mention that you've come for the comedy show to avail of this fantastic offer.</p>
+<h2>🎙️ IN YOUR FACE Presents: Comedians without Borders 🇨🇭🇪🇺🚑 🎙️</h2>
 
-<p>The combination of gourmet pizza and a comedy show packed with laughter and insights makes for the perfect date night 💑 or a fun outing with friends! 🎉</p>
+In an era craving laughter more than ever, English stand-up comedy has become a beacon of light across Switzerland and Europe at large. 'IN YOUR FACE Presents: Comedians without Borders' showcases a handpicked selection of top-tier talent, drawn from the vibrant scenes of Switzerland, Berlin, Amsterdam, Paris, Barcelona, Vienna, and beyond. Join us as we celebrate the universal language of comedy with some of the most exhilarating voices from across the continent.
 
-<h2>IN YOUR FACE Presents</h2>
+![IN YOUR FACE Presents](/assets/img/shows/IN_YOUR_FACE_Presents_Website.png){:class="img-responsive"}
 
-<p>From time to time IN YOUR FACE Comedy presents well known comedians, perhaps travelling through Switzerland, giving them an intimate setting to try new material.</p>
+<h3>🍝 Where? 📍</h3>
 
-<p>Shows happen at ROBIN&apos;s - a coffee bar during the day and delicious pizza restaurant. In the evening the bars open... Check out <a href="https://robins-coffee.ch/">robins-coffee.ch</a> and <a href="https://robins-littleitaly.ch/">robins-littleitaly.ch</a> for an impression</p>
+Right in the heart of Zürich at <a href="https://robins-littleitaly.ch">ROBIN's Little Italy</a>. It's a spot as legendary as the acts that grace our stage!
 
-<h3>Getting There</h3>
-
-<p>Any tram or bus that stops at Central then walk around the corner to ROBIN&apos;s - <a href="https://goo.gl/maps/RLpgaaVbGDYWaZmEA">directions to the ROBINs on Google Maps here</a>.</p>
+{% include robins.html %}
 
 {% assign has_shows = 0 %}
 {% for post in site.posts reversed %}
-{% if page.title != 'Comedy Brew' %}
+{% if page.title == 'page' %}
 {% break %}
 {% endif %}
-{% if post.title contains 'Comedy Brew' %}
+{% if post.title contains 'Presents' %}
 {% if has_shows == 0 %}
-<h3>Upcoming Comedy Brew shows at ROBINs</h3>
+<h3>Upcoming shows at ROBINs</h3>
 {% assign has_shows = 1 %}
 {% endif %}
 <h5 class="tag-title">
@@ -41,33 +38,8 @@
 {% endif %}
 {% endfor %}
 
-<!-- <h3>Moments from Past Shows</h3>
-
-<style>
-/* force scrollbar */
-html { overflow-y: scroll; }
-
-/* To overwrite page's padding, to get bigger images */
-/* article {padding:2%;} */
-</style>
-
-<div id='masonry' class="grid">
-<div class="grid-sizer"></div>
-<div class="gutter-sizer"></div>
-{% for image in site.static_files %}
-    {% if image.path contains ""assets/img/gallery" and image.path contains 'comedybrew_' %}
-    {% unless image.path contains '.md' %}
-        <img src="{{ image.path | relative_url }}" alt="" class="grid-item" style="padding: 0;">
-    {% endunless %}
-    {% endif %}
-{% endfor %}
-</div> -->
-
-<script src="{{ '/assets/js/vendor/imagesloaded.pkgd.min.js' | relative_url }}" type="text/javascript"></script>
-<script src="{{ '/assets/js/vendor/masonry.pkgd.min.js' | relative_url }}" type="text/javascript"></script>
-
 {% for post in site.posts reversed %}
-{% if page.title == 'IN YOUR FACE Presents' and post.title contains 'IN YOUR FACE Presents' %}
+{% if page.layout == 'page' and post.title contains 'Presents' %}
 [Tickets for Next Show]({{post.ticket_link}}){: .btn}
 {% break %} 
 {% endif %}
