@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Comedy Brew 16th November 2023
-tags: [Comedy Brew]
+tags: [Comedy Brew, ROBINS]
 feature-img: "assets/img/shows/comedybrew.png"
 thumbnail: "assets/img/thumbs/comedybrew.png"
 author: harryfucks

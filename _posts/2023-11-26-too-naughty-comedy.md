@@ -1,7 +1,7 @@
 ---
 layout: post
 title: IN YOUR FACE Presents Too Naughty Comedy
-tags: [Comedy Brew, ROBINS]
+tags: [IN YOUR FACE Presents, ROBINS]
 feature-img: "assets/img/shows/too_naughty_comedy.png"
 thumbnail: "assets/img/shows/too_naughty_comedy.png"
 author: harryfucks
