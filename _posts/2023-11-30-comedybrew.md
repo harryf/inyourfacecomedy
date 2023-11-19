@@ -6,12 +6,12 @@ feature-img: "assets/img/shows/comedybrew.png"
 thumbnail: "assets/img/thumbs/comedybrew.png"
 author: harryfucks
 excerpt_separator: <!--more-->
-ticket_link: "https://bit.ly/iyf20231116"
+ticket_link: "https://bit.ly/iyf20231130"
 ---
 
 [Get Tickets]({{page.ticket_link}}){: .btn}
 
-# Thursday 16th November - Doors Open 7:30pm
+# Thursday 16th November - Doors Open 8:30pm
 
 {% include comedybrew.html %}
 
