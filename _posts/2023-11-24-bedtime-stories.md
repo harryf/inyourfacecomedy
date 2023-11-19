@@ -11,6 +11,8 @@ ticket_link: "https://bit.ly/bedtimestories241123"
 
 [Get Tickets]({{page.ticket_link}}){: .btn}
 
+![Bedtime Stories](/assets/img/shows/bedtimestories.png){:class="img-responsive"}
+
 # Sweet Dreams
 
 Welcome to "Bedtime Stories", a unique late-night comedy show perfect for the chilly, wind-whipped evenings of November. 🍂🌬 As the nights grow longer and the air turns brisk, we invite you to warm up with laughter and good cheer.
