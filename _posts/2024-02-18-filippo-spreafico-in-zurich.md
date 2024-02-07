@@ -10,6 +10,8 @@ ticket_link: "https://bit.ly/italian-rhapsody-1"
 
 # Filippo Spreafico in Zurich - Two Nights, Four Shows!
 
+🎟 SCROLL DOWN FOR TICKETS 🎟
+
 ![IN YOUR FACE Presents](/assets/img/shows/filippo-spreafico-banner.png){:class="img-responsive"}
 
 Don't miss the chance to see Italian comedian Filippo Spreafico in Zurich for just two nights, with two incredible shows each night! Filippo will take the stage with his solo show "Italian Rhapsody" and then join local comedians for "Love & Regret" at the Prime Tower in Zurich at the Hotel Rivington & Sons.
