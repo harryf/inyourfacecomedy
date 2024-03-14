@@ -18,7 +18,7 @@ Yes... getting up on stage is absolutely terrifying. And yes... when you make pe
 - The best IN YOUR FACE show to try comedy on is the [Comedy Brew at ROBIN's](/shows/comedybrew)
 - DM [Harry on Instagram](https://www.instagram.com/harryf.cks/) ( or via [@inyourfacecomedy](https://www.instagram.com/inyourfacecomedy/) ) and he'll get you setup
 
-Normally comedians request a "spot" by posting in the discussion on [IN YOUR FACE events on Facebook](https://www.facebook.com/inyourfacecomedy/events/). There's also a WhatsApp group with lots of other comedians, where you can join to get notified early of upcoming events (ask Harry for an invite).
+Normally comedians request a "spot" by posting in the discussion on [IN YOUR FACE events on Facebook](https://www.facebook.com/inyourfacecomedy.ch/events/). There's also a WhatsApp group with lots of other comedians, where you can join to get notified early of upcoming events (ask Harry for an invite).
 
 ### Where else can I get spots?
 
