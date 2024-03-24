@@ -16,27 +16,17 @@
         .timer { margin-left: 20px; }
         .floating-title { position: fixed; top: 0; left: 0; width: 100%; background-color: #f8f8f8; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); text-align: center; }
         /* Base styles for larger screens */
-        .floating-title, .control-btn {
-            font-size: 16px; /* Adjust as needed */
-        }
 
+        .floating-title, .control-btn, div {
+            font-size: 20px; /* Larger font size for better readability */
+        }
+        
         .control-btn {
-            padding: 10px 15px; /* Larger padding for easier clicking */
+            padding: 15px 20px; /* Even larger padding for touch targets */
         }
 
-        /* Responsive styles for smaller screens */
-        @media (max-width: 768px) {
-            .floating-title, .control-btn, div {
-                font-size: 20px; /* Larger font size for better readability */
-            }
-            
-            .control-btn {
-                padding: 15px 20px; /* Even larger padding for touch targets */
-            }
-
-            .transcript, .audio-player {
-                padding: 20px; /* Add more padding around content */
-            }
+        .transcript, .audio-player {
+            padding: 20px; /* Add more padding around content */
         }
     </style>
 </head>
