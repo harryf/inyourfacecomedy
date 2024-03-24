@@ -26,6 +26,7 @@ future: true
 # For layout customization, go to the "_sass > base" folder, and check "_variables.scss"
 katex: false                                             # Enable if using math markup
 mermaid: default                                        # Enable mermaid-js for diagrams, use theme: base, forest, dark, default, neutral
+google_tagmanager: GTM-M7Z9D4Z
 google_analytics: G-JZBDD4CQWV                          # Tracking ID, e.g. "UA-000000-01"
 meta_pixel: 1545619842905042                            # Tracking ID for Facebook Meta Pixel
 cookie_consent: false                                   # To respect the usage of cookies
