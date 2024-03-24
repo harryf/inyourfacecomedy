@@ -1,0 +1,940 @@
+[
+  {
+    "time": {
+      "start": 0,
+      "end": 10
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.1982465982437134
+      ],
+      [
+        "Clapping",
+        0.14412809908390045
+      ],
+      [
+        "Applause",
+        -0.19344806671142578
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 10,
+      "end": 20
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.8877712488174438
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 20,
+      "end": 30
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.9260074496269226
+      ],
+      [
+        "Chuckle, chortle",
+        -0.529697597026825
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 30,
+      "end": 40
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.5754833221435547
+      ],
+      [
+        "Chuckle, chortle",
+        -0.6553421020507812
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 40,
+      "end": 50
+    },
+    "audio tags": []
+  },
+  {
+    "time": {
+      "start": 50,
+      "end": 60
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.8997977375984192
+      ],
+      [
+        "Chuckle, chortle",
+        -0.687228262424469
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 60,
+      "end": 70
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.6987266540527344
+      ],
+      [
+        "Chuckle, chortle",
+        -0.7995632886886597
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 70,
+      "end": 80
+    },
+    "audio tags": [
+      [
+        "Speech",
+        -0.46456223726272583
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 80,
+      "end": 90
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.8778626918792725
+      ],
+      [
+        "Chuckle, chortle",
+        0.055442627519369125
+      ],
+      [
+        "Snicker",
+        -0.443606436252594
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 90,
+      "end": 100
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.0148253440856934
+      ],
+      [
+        "Chuckle, chortle",
+        -0.40128445625305176
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 100,
+      "end": 110
+    },
+    "audio tags": []
+  },
+  {
+    "time": {
+      "start": 110,
+      "end": 120
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.6341331005096436
+      ],
+      [
+        "Chuckle, chortle",
+        0.7624669075012207
+      ],
+      [
+        "Male speech, man speaking",
+        -0.736533522605896
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 120,
+      "end": 130
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.6535816192626953
+      ],
+      [
+        "Chuckle, chortle",
+        -0.8323372006416321
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 130,
+      "end": 140
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.3043748140335083
+      ],
+      [
+        "Chuckle, chortle",
+        0.524243175983429
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 140,
+      "end": 150
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.8166517019271851
+      ],
+      [
+        "Chuckle, chortle",
+        -0.48602598905563354
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 150,
+      "end": 160
+    },
+    "audio tags": [
+      [
+        "Speech",
+        -0.26434338092803955
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 160,
+      "end": 170
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.5269619226455688
+      ],
+      [
+        "Narration, monologue",
+        -0.09550082683563232
+      ],
+      [
+        "Male speech, man speaking",
+        -0.3157784640789032
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 170,
+      "end": 180
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.2020200490951538
+      ],
+      [
+        "Chuckle, chortle",
+        -0.7651026248931885
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 180,
+      "end": 190
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.1673146486282349
+      ],
+      [
+        "Chuckle, chortle",
+        -0.0329873189330101
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 190,
+      "end": 200
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.8161634802818298
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 200,
+      "end": 210
+    },
+    "audio tags": [
+      [
+        "Speech",
+        -0.559451699256897
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 210,
+      "end": 220
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.2753368616104126
+      ],
+      [
+        "Chuckle, chortle",
+        0.31660139560699463
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 220,
+      "end": 230
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.4787644147872925
+      ],
+      [
+        "Chuckle, chortle",
+        -0.828143835067749
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 230,
+      "end": 240
+    },
+    "audio tags": [
+      [
+        "Speech",
+        -0.22214291989803314
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 240,
+      "end": 250
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        1.3781986236572266
+      ],
+      [
+        "Speech",
+        1.3366440534591675
+      ],
+      [
+        "Snicker",
+        -0.4790456295013428
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 250,
+      "end": 260
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.222930908203125
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 260,
+      "end": 270
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.0655211210250854
+      ],
+      [
+        "Narration, monologue",
+        0.26127710938453674
+      ],
+      [
+        "Male speech, man speaking",
+        0.16113126277923584
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 270,
+      "end": 280
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.1937463283538818
+      ],
+      [
+        "Chuckle, chortle",
+        -0.7858557105064392
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 280,
+      "end": 290
+    },
+    "audio tags": [
+      [
+        "Speech",
+        -0.21343421936035156
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 290,
+      "end": 300
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.6134411096572876
+      ],
+      [
+        "Chuckle, chortle",
+        0.2235524207353592
+      ],
+      [
+        "Male speech, man speaking",
+        -0.668989360332489
+      ],
+      [
+        "Narration, monologue",
+        -0.7016028761863708
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 300,
+      "end": 310
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.5655925869941711
+      ],
+      [
+        "Chuckle, chortle",
+        -0.4029984474182129
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 310,
+      "end": 320
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.1874080896377563
+      ],
+      [
+        "Chuckle, chortle",
+        0.08390137553215027
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 320,
+      "end": 330
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.1059643030166626
+      ],
+      [
+        "Chuckle, chortle",
+        -0.9000316858291626
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 330,
+      "end": 340
+    },
+    "audio tags": []
+  },
+  {
+    "time": {
+      "start": 340,
+      "end": 350
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.1913995742797852
+      ],
+      [
+        "Chuckle, chortle",
+        0.7430562376976013
+      ],
+      [
+        "Snicker",
+        -0.5894352197647095
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 350,
+      "end": 360
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.5475530028343201
+      ],
+      [
+        "Chuckle, chortle",
+        -0.9024364352226257
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 360,
+      "end": 370
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.008171085268259048
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 370,
+      "end": 380
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.5524752140045166
+      ],
+      [
+        "Chuckle, chortle",
+        0.6429698467254639
+      ],
+      [
+        "Male speech, man speaking",
+        -0.4470096826553345
+      ],
+      [
+        "Narration, monologue",
+        -0.9339838027954102
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 380,
+      "end": 390
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.9667465090751648
+      ],
+      [
+        "Chuckle, chortle",
+        -0.7089405655860901
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 390,
+      "end": 400
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.7190166711807251
+      ],
+      [
+        "Chuckle, chortle",
+        0.09975802153348923
+      ],
+      [
+        "Snicker",
+        -0.9242105484008789
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 400,
+      "end": 410
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.5849848389625549
+      ],
+      [
+        "Chuckle, chortle",
+        -0.6074954271316528
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 410,
+      "end": 420
+    },
+    "audio tags": []
+  },
+  {
+    "time": {
+      "start": 420,
+      "end": 430
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.7137078642845154
+      ],
+      [
+        "Chuckle, chortle",
+        0.651454746723175
+      ],
+      [
+        "Snicker",
+        -0.9995512962341309
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 430,
+      "end": 440
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.1946246325969696
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 440,
+      "end": 450
+    },
+    "audio tags": []
+  },
+  {
+    "time": {
+      "start": 450,
+      "end": 460
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.1888039112091064
+      ],
+      [
+        "Chuckle, chortle",
+        1.1299291849136353
+      ],
+      [
+        "Snicker",
+        -0.5778085589408875
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 460,
+      "end": 470
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.9816228747367859
+      ],
+      [
+        "Chuckle, chortle",
+        -0.71001797914505
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 470,
+      "end": 480
+    },
+    "audio tags": []
+  },
+  {
+    "time": {
+      "start": 480,
+      "end": 490
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.2315571308135986
+      ],
+      [
+        "Chuckle, chortle",
+        0.5641570091247559
+      ],
+      [
+        "Snicker",
+        -0.9788348078727722
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 490,
+      "end": 500
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.1573950052261353
+      ],
+      [
+        "Chuckle, chortle",
+        -0.5316934585571289
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 500,
+      "end": 510
+    },
+    "audio tags": [
+      [
+        "Speech",
+        -0.2631952464580536
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 510,
+      "end": 520
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.209909439086914
+      ],
+      [
+        "Chuckle, chortle",
+        0.5884964466094971
+      ],
+      [
+        "Snicker",
+        -0.7551403641700745
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 520,
+      "end": 530
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.9570882320404053
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 530,
+      "end": 540
+    },
+    "audio tags": [
+      [
+        "Speech",
+        -0.31154218316078186
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 540,
+      "end": 550
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.7042772769927979
+      ],
+      [
+        "Chuckle, chortle",
+        -0.14236462116241455
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 550,
+      "end": 560
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.5977187752723694
+      ],
+      [
+        "Chuckle, chortle",
+        -0.7155135869979858
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 560,
+      "end": 570
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.27964773774147034
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 570,
+      "end": 580
+    },
+    "audio tags": [
+      [
+        "Speech",
+        1.1969722509384155
+      ],
+      [
+        "Chuckle, chortle",
+        -0.09930770844221115
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 580,
+      "end": 590
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.505594789981842
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 590,
+      "end": 600
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.6708351373672485
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 600,
+      "end": 610
+    },
+    "audio tags": [
+      [
+        "Speech",
+        0.6627064943313599
+      ],
+      [
+        "Applause",
+        -0.2644568979740143
+      ]
+    ]
+  },
+  {
+    "time": {
+      "start": 610,
+      "end": 620
+    },
+    "audio tags": [
+      [
+        "Speech",
+        -0.38699862360954285
+      ],
+      [
+        "Applause",
+        -0.6152971386909485
+      ]
+    ]
+  }
+]

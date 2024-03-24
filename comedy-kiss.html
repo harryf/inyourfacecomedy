@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comedy Show Transcript with Audience Reactions</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        .transcript { margin: 20px; padding-top: 60px; padding-bottom: 80px; }
+        .line { cursor: pointer; margin: 5px 0; }
+        .line:hover { background-color: #f0f0f0; }
+        .highlight { color: #ffffff; background-color: #000000; }
+        .reaction { font-weight: bold; color: #007BFF; }
+        .audio-player { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #f8f8f8; padding: 10px; box-shadow: 0 -2px 5px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center; }
+        .control-btn { cursor: pointer; padding: 10px; margin: 0 5px; background-color: #eee; border: none; }
+        .timer { margin-left: 20px; }
+        .floating-title { position: fixed; top: 0; left: 0; width: 100%; background-color: #f8f8f8; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); text-align: center; }
+    </style>
+</head>
+<body>
+<div class="floating-title">Comedy Kiss, March 13th 2024, <span id="totalTime">00:00</span></div>
+<div class="transcript">
+    <div id="loadingIndicator" style="display:none;">Loading...</div>
+    <div id="errorMessage" style="display:none; color: red;"></div>
+</div>
+<div class="audio-player">
+    <button id="playBtn" class="control-btn">Play</button>
+    <button id="pauseBtn" class="control-btn">Pause</button>
+    <button id="stopBtn" class="control-btn">Stop</button>
+    <div id="timer" class="timer">00:00</div>
+</div>
+<script>
+var sound; 
+function initSound() {
+    if (!sound) {
+        sound = new Howl({
+            src: ['assets/data/Comedy-Kiss.m4a'],
+            html5: true,
+            onload: function() {
+                document.getElementById('totalTime').innerText = formatTime(sound.duration());
+            }
+        });
+    }
+}
+
+function formatTime(seconds) {
+    let minutes = Math.floor(seconds / 60) || 0;
+    seconds = Math.floor(seconds - minutes * 60) || 0;
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+}
+
+document.getElementById('playBtn').addEventListener('click', function() {
+    initSound();
+    sound.play();
+});
+
+document.getElementById('pauseBtn').addEventListener('click', function() {
+    sound.pause();
+});
+
+document.getElementById('stopBtn').addEventListener('click', function() {
+    sound.stop();
+});
+
+let intervalId = setInterval(function() {
+    if (sound && sound.playing()) { // Check if sound is defined and playing
+        let currentTime = sound.seek() || 0;
+        document.getElementById('timer').innerText = formatTime(currentTime);
+        document.querySelectorAll('.line').forEach(item => {
+            let start = parseFloat(item.getAttribute('data-start'));
+            let end = parseFloat(item.getAttribute('data-end'));
+            if (currentTime >= start && currentTime <= end) {
+                item.classList.add('highlight');
+            } else {
+                item.classList.remove('highlight');
+            }
+        });
+    }
+}, 100);
+
+function associateReactions(transcriptData, soundsData) {
+    const container = document.querySelector('.transcript');
+    
+    // First Pass: Add all segments
+    transcriptData.segments.forEach((segment, index) => {
+        const segmentDiv = document.createElement('div');
+        segmentDiv.id = `segment-${index}`;
+        segmentDiv.className = 'line';
+        segmentDiv.setAttribute('data-start', segment.start);
+        segmentDiv.setAttribute('data-end', segment.end);
+        segmentDiv.textContent = "["+formatTime(segment.start)+"] " + segment.text;
+        container.appendChild(segmentDiv);
+    });
+
+    // soundsData.forEach(sound => {
+    //     const relevantTags = sound['audio tags'].filter(tag => 
+    //         ['Chuckle, chortle', 'Applause', 'Snicker', 'Clapping'].includes(tag[0])
+    //     );
+
+    //     if (relevantTags.length > 0) {
+    //         const soundAverageTime = (sound.time.start + sound.time.end) / 2;
+    //         const tagText = relevantTags.map(tag => tag[0]).join(', ');
+
+    //         let nearestSegmentIndex = -1;
+    //         let smallestDifference = Infinity;
+
+    //         transcriptData.segments.forEach((segment, index) => {
+    //             const segmentAverageTime = (parseFloat(segment.start) + parseFloat(segment.end)) / 2;
+    //             const difference = soundAverageTime - segmentAverageTime;
+                
+    //             if (difference >= 0 && difference < smallestDifference) {
+    //                 nearestSegmentIndex = index;
+    //                 smallestDifference = difference;
+    //             }
+    //         });
+
+    //         if (nearestSegmentIndex !== -1) {
+    //             const reactionDiv = document.createElement('div');
+    //             reactionDiv.className = 'reaction';
+    //             reactionDiv.setAttribute('data-start', sound.time.start);
+    //             reactionDiv.setAttribute('data-end', sound.time.end);
+    //             reactionDiv.textContent = `[${formatTime(sound.time.start)}] Reaction: ${tagText}`;
+                
+    //             const insertAfterSegmentDiv = document.getElementById(`segment-${nearestSegmentIndex}`);
+    //             insertAfterSegmentDiv.parentNode.insertBefore(reactionDiv, insertAfterSegmentDiv.nextSibling);
+    //         }
+    //     }
+    // });
+
+    document.querySelectorAll('.line').forEach(item => {
+        item.addEventListener('click', event => {
+            initSound();
+            let start = item.getAttribute('data-start');
+            sound.seek(start);
+            sound.play();
+        });
+    });
+}
+
+function getReactionsForSegment(start, end, soundsData) {
+    return soundsData.filter(sound => {
+        const soundStart = sound.time.start;
+        const soundEnd = sound.time.end;
+        return (soundStart >= start && soundStart <= end) || (soundEnd >= start && soundEnd <= end);
+    })
+    .flatMap(sound => sound['audio tags'])
+    .filter(tag => ['Chuckle, chortle', 'Applause', 'Snicker', 'Clapping'].includes(tag))
+    .filter((value, index, self) => self.indexOf(value) === index); // Remove duplicates
+}
+
+async function loadAndDisplayData() {
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    const errorMessage = document.getElementById('errorMessage');
+    
+    try {
+        // Show loading indicator
+        loadingIndicator.style.display = 'block';
+        errorMessage.style.display = 'none'; // Hide error message in case of a retry
+
+        const transcriptResponse = await fetch('assets/data/Comedy-Kiss.json');
+        if (!transcriptResponse.ok) throw new Error('Transcript data not found');
+        const transcriptData = await transcriptResponse.json();
+
+        console.log("Transcript Loaded");
+        // console.log(transcriptData);
+        
+        const soundsResponse = await fetch('assets/data/Comedy-Kiss-Sounds.json');
+        if (!soundsResponse.ok) throw new Error('Sounds data not found');
+        const soundsData = await soundsResponse.json();
+
+        console.log("Sounds Loaded");
+        // console.log(soundsData);
+
+        // Hide loading indicator
+        loadingIndicator.style.display = 'none';
+
+        associateReactions(transcriptData, soundsData);
+    } catch (error) {
+        console.error("Failed to load data:", error);
+        // Hide loading indicator and show error message
+        loadingIndicator.style.display = 'none';
+        errorMessage.style.display = 'block';
+        errorMessage.textContent = "Failed to load data: " + error.message;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadAndDisplayData);
+
+</script>
+</body>
+</html>
