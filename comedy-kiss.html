@@ -6,7 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <style>
         body { font-family: Arial, sans-serif; line-height: 1.6; }
-        .transcript { margin: 20px; padding-top: 60px; padding-bottom: 80px; }
+        .transcript { margin: 20px; margin-top: 60px; margin-bottom: 80px; }
         .line { cursor: pointer; margin: 5px 0; }
         .line:hover { background-color: #f0f0f0; }
         .highlight { color: #ffffff; background-color: #000000; }
@@ -14,7 +14,7 @@
         .audio-player { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #f8f8f8; padding: 10px; box-shadow: 0 -2px 5px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center; }
         .control-btn { cursor: pointer; padding: 10px; margin: 0 5px; background-color: #eee; border: none; }
         .timer { margin-left: 20px; }
-        .floating-title { position: fixed; top: 0; left: 0; width: 100%; background-color: #f8f8f8; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); text-align: center; }
+        .floating-title { position: fixed; top: 0; left: 0; width: 100%; background-color: #f8f8f8; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); text-align: center; font-weight: bold; }
         /* Base styles for larger screens */
 
         .floating-title, .control-btn, div {
@@ -31,7 +31,7 @@
     </style>
 </head>
 <body>
-<div class="floating-title">Comedy Kiss, March 13th 2024, <span id="totalTime">00:00</span></div>
+<div class="floating-title">Comedy Kiss, March 13th 2024</div>
 <div class="transcript">
     <div id="loadingIndicator" style="display:none;">Loading...</div>
     <div id="errorMessage" style="display:none; color: red;"></div>
@@ -41,6 +41,7 @@
     <button id="pauseBtn" class="control-btn">Pause</button>
     <button id="stopBtn" class="control-btn">Stop</button>
     <div id="timer" class="timer">00:00</div>
+    <div>&nbsp;of&nbsp;<span id="totalTime">00:00</span></div>
 </div>
 <script>
 var sound; 
