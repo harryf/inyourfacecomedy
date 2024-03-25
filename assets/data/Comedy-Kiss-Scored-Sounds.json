@@ -1,0 +1,1058 @@
+[
+  {
+    "time": {
+      "start": 1.2,
+      "end": 2.4
+    },
+    "audio tags": [
+      [
+        "Clapping",
+        -0.4960854649543762
+      ]
+    ],
+    "score": 0
+  },
+  {
+    "time": {
+      "start": 4.8,
+      "end": 9.6
+    },
+    "audio tags": [
+      [
+        "Applause",
+        0.08980418741703033
+      ],
+      [
+        "Clapping",
+        -0.9396982192993164
+      ]
+    ],
+    "score": 0
+  },
+  {
+    "time": {
+      "start": 21.599999999999998,
+      "end": 26.4
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        0.9047775268554688
+      ],
+      [
+        "Snicker",
+        0.3223065137863159
+      ],
+      [
+        "Laughter",
+        -0.4231322407722473
+      ]
+    ],
+    "score": 3
+  },
+  {
+    "time": {
+      "start": 33.6,
+      "end": 36.0
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        0.21568317711353302
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 43.199999999999996,
+      "end": 44.4
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.5998131632804871
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 49.199999999999996,
+      "end": 50.4
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.4528449475765228
+      ],
+      [
+        "Snicker",
+        -0.8796923160552979
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 51.6,
+      "end": 52.8
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.3178953528404236
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 78.0,
+      "end": 79.2
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.7796945571899414
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 81.6,
+      "end": 84.0
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.7409950494766235
+      ],
+      [
+        "Snicker",
+        -0.3923223912715912
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 97.2,
+      "end": 99.6
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.7834729552268982
+      ],
+      [
+        "Snicker",
+        -0.7292896509170532
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 104.39999999999999,
+      "end": 105.6
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.74859219789505
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 116.39999999999999,
+      "end": 120.0
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.6058894991874695
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 133.2,
+      "end": 135.6
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.31559523940086365
+      ],
+      [
+        "Snicker",
+        -0.6716753840446472
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 148.79999999999998,
+      "end": 151.2
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.9149299263954163
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 156.0,
+      "end": 159.6
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.987468957901001
+      ],
+      [
+        "Snicker",
+        -0.8263744115829468
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 172.79999999999998,
+      "end": 174.0
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.29197776317596436
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 182.4,
+      "end": 183.6
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        0.13479408621788025
+      ],
+      [
+        "Snicker",
+        -0.508104145526886
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 186.0,
+      "end": 189.6
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.3659849464893341
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 199.2,
+      "end": 200.4
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.8637297749519348
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 212.4,
+      "end": 213.6
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.9204298853874207
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 223.2,
+      "end": 225.6
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.22019845247268677
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 236.39999999999998,
+      "end": 237.6
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.2855020761489868
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 240.0,
+      "end": 241.2
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.7561324834823608
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 242.39999999999998,
+      "end": 243.6
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.28890368342399597
+      ],
+      [
+        "Snicker",
+        -0.8861108422279358
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 246.0,
+      "end": 247.2
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.0894227996468544
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 265.2,
+      "end": 267.59999999999997
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        0.03567158430814743
+      ],
+      [
+        "Snicker",
+        -0.23661069571971893
+      ],
+      [
+        "Laughter",
+        -0.7639076113700867
+      ]
+    ],
+    "score": 3
+  },
+  {
+    "time": {
+      "start": 282.0,
+      "end": 284.4
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.8304167985916138
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 303.59999999999997,
+      "end": 307.2
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.5516887307167053
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 312.0,
+      "end": 314.4
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.7547262907028198
+      ],
+      [
+        "Snicker",
+        -0.40172097086906433
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 316.8,
+      "end": 322.8
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.5509144067764282
+      ],
+      [
+        "Snicker",
+        0.19473688304424286
+      ],
+      [
+        "Laughter",
+        -0.7701370120048523
+      ]
+    ],
+    "score": 3
+  },
+  {
+    "time": {
+      "start": 325.2,
+      "end": 327.59999999999997
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.4633308947086334
+      ],
+      [
+        "Snicker",
+        -0.84282386302948
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 337.2,
+      "end": 339.59999999999997
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.06219581514596939
+      ],
+      [
+        "Laughter",
+        -0.9105456471443176
+      ]
+    ],
+    "score": 3
+  },
+  {
+    "time": {
+      "start": 348.0,
+      "end": 350.4
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        0.2137347161769867
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 355.2,
+      "end": 356.4
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.8296166658401489
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 372.0,
+      "end": 373.2
+    },
+    "audio tags": [
+      [
+        "Snicker",
+        0.1794157475233078
+      ],
+      [
+        "Chuckle, chortle",
+        0.17850323021411896
+      ],
+      [
+        "Laughter",
+        -0.31503018736839294
+      ]
+    ],
+    "score": 3
+  },
+  {
+    "time": {
+      "start": 374.4,
+      "end": 375.59999999999997
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.22008636593818665
+      ],
+      [
+        "Snicker",
+        -0.9178642630577087
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 385.2,
+      "end": 386.4
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.14116209745407104
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 393.59999999999997,
+      "end": 398.4
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        0.3506034314632416
+      ],
+      [
+        "Snicker",
+        -0.22478574514389038
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 400.8,
+      "end": 406.8
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.7969714999198914
+      ],
+      [
+        "Snicker",
+        -0.49464988708496094
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 408.0,
+      "end": 412.8
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        0.721598744392395
+      ],
+      [
+        "Snicker",
+        -0.37456807494163513
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 418.8,
+      "end": 420.0
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.10012256354093552
+      ],
+      [
+        "Snicker",
+        -0.8914061784744263
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 423.59999999999997,
+      "end": 426.0
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.12233026325702667
+      ],
+      [
+        "Snicker",
+        -0.6878299117088318
+      ],
+      [
+        "Laughter",
+        -0.7431812286376953
+      ]
+    ],
+    "score": 3
+  },
+  {
+    "time": {
+      "start": 428.4,
+      "end": 433.2
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.5662355422973633
+      ],
+      [
+        "Snicker",
+        -0.27194714546203613
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 434.4,
+      "end": 440.4
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        0.18260179460048676
+      ],
+      [
+        "Snicker",
+        -0.8979982733726501
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 458.4,
+      "end": 460.79999999999995
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.29194051027297974
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 462.0,
+      "end": 464.4
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        0.7931482791900635
+      ],
+      [
+        "Snicker",
+        -0.9995545744895935
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 465.59999999999997,
+      "end": 466.79999999999995
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.2825060486793518
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 471.59999999999997,
+      "end": 472.79999999999995
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.8410297632217407
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 475.2,
+      "end": 477.59999999999997
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.3416840136051178
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 484.79999999999995,
+      "end": 486.0
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        0.29393619298934937
+      ],
+      [
+        "Snicker",
+        -0.5413109064102173
+      ],
+      [
+        "Laughter",
+        -0.8048685193061829
+      ]
+    ],
+    "score": 3
+  },
+  {
+    "time": {
+      "start": 488.4,
+      "end": 490.79999999999995
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.3120066821575165
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 499.2,
+      "end": 500.4
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.24156136810779572
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 507.59999999999997,
+      "end": 511.2
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.16395550966262817
+      ],
+      [
+        "Snicker",
+        -0.20554743707180023
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 512.4,
+      "end": 513.6
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.6498639583587646
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 514.8,
+      "end": 516.0
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.5646568536758423
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 517.1999999999999,
+      "end": 519.6
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.8381959795951843
+      ],
+      [
+        "Snicker",
+        -0.624566912651062
+      ],
+      [
+        "Laughter",
+        -0.7961972951889038
+      ]
+    ],
+    "score": 3
+  },
+  {
+    "time": {
+      "start": 526.8,
+      "end": 529.1999999999999
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        0.7663804888725281
+      ],
+      [
+        "Snicker",
+        -0.530443012714386
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 536.4,
+      "end": 538.8
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        0.4377676248550415
+      ],
+      [
+        "Snicker",
+        -0.8174006938934326
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 540.0,
+      "end": 541.1999999999999
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.3156050145626068
+      ],
+      [
+        "Snicker",
+        -0.3482677936553955
+      ],
+      [
+        "Laughter",
+        -0.5879440903663635
+      ]
+    ],
+    "score": 3
+  },
+  {
+    "time": {
+      "start": 547.1999999999999,
+      "end": 548.4
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        0.3006317615509033
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 550.8,
+      "end": 553.1999999999999
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.9583360552787781
+      ],
+      [
+        "Snicker",
+        -0.2619737684726715
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 564.0,
+      "end": 565.1999999999999
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.5856891870498657
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 571.1999999999999,
+      "end": 573.6
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.5351273417472839
+      ],
+      [
+        "Snicker",
+        -0.4612188935279846
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 576.0,
+      "end": 577.1999999999999
+    },
+    "audio tags": [
+      [
+        "Chuckle, chortle",
+        -0.9187859892845154
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 596.4,
+      "end": 597.6
+    },
+    "audio tags": [
+      [
+        "Snicker",
+        -0.8511205911636353
+      ],
+      [
+        "Chuckle, chortle",
+        -0.8593223094940186
+      ]
+    ],
+    "score": 2
+  },
+  {
+    "time": {
+      "start": 600.0,
+      "end": 602.4
+    },
+    "audio tags": [
+      [
+        "Applause",
+        0.8361433744430542
+      ],
+      [
+        "Clapping",
+        -0.45378533005714417
+      ]
+    ],
+    "score": 0
+  },
+  {
+    "time": {
+      "start": 607.1999999999999,
+      "end": 610.8
+    },
+    "audio tags": [
+      [
+        "Applause",
+        -0.14723435044288635
+      ],
+      [
+        "Clapping",
+        0.10324794799089432
+      ]
+    ],
+    "score": 0
+  },
+  {
+    "time": {
+      "start": 614.4,
+      "end": 616.8
+    },
+    "audio tags": [
+      [
+        "Applause",
+        -0.42116791009902954
+      ]
+    ],
+    "score": 0
+  }
+]
