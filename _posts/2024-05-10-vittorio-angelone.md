@@ -1,6 +1,6 @@
 ---
 layout: post
-title: VITTORIO ANGELONE
+title: Vittorio Angelone - Who Do You Think You Are? I Am
 tags: 
 feature-img: "assets/img/shows/vittorio.png"
 thumbnail: "assets/img/thumbs/vittorio.png"
