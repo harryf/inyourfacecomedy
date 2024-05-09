@@ -17,10 +17,10 @@ ticket_link: "https://bit.ly/iyfvic1"
 
 All new jokes, none of these jokes you've heard before! This comedy show is a testing ground for a new show Victor Patrascan will start touring in September 2024!
 
-## 🎭STAND-UP COMEDY IN ENGLISH 🎭
-[Hotel Rivington and Sons, Prime Tower, Zürich](https://maps.app.goo.gl/6BJLw9m6sHxfed9w7)
-doors at 7:00 PM/ showtime at 8:00 PM
-🎟️ online tickets from 15 CHF / tickets on the door 20 CHF
+## 🎭 STAND-UP COMEDY IN ENGLISH 🎭
+- [Hotel Rivington and Sons, Prime Tower, Zürich](https://maps.app.goo.gl/6BJLw9m6sHxfed9w7)
+- doors at 7:00 PM/ showtime at 8:00 PM
+- 🎟️ [online tickets](https://bit.ly/iyfvic1) from 15 CHF / tickets on the door 20 CHF
 
 The show will be held entirely in English.
 
