@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Stand up Comedy in broken English • a work in progress show by Victor Patrascan
-tags: 
+tags: [Prime Tower]
 feature-img: "assets/img/shows/victor_rect.png"
 thumbnail: "assets/img/shows/victor_square.png"
 author: harryfucks
