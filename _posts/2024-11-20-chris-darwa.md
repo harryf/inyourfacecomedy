@@ -1,7 +1,7 @@
 ---
 layout: post
 title: RECKLESS HUMOUR with Chris Darwa
-tags: [Prime Tower]
+tags: [ComedyHaus]
 feature-img: "assets/img/shows/RECKLESS_HUMOUR_WEBSITE.png"
 thumbnail: "assets/img/thumbs/RECKLESS_HUMOUR_WEBSITE.png"
 author: harryfucks
