@@ -1,7 +1,6 @@
 ---
 layout: post
 title: RECKLESS HUMOUR with Chris Darwa
-tags: [ComedyHaus]
 feature-img: "assets/img/shows/RECKLESS_HUMOUR_WEBSITE.png"
 thumbnail: "assets/img/shows/RECKLESS_HUMOUR_WEBSITE.png"
 author: harryfucks
