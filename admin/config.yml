@@ -5,6 +5,11 @@ backend:
 media_folder: "assets/img/uploads"
 public_folder: "/assets/img/uploads"
 
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "_"
+
 collections:
   - name: "shows"
     label: "Shows"
@@ -13,9 +18,9 @@ collections:
       preview: true
     filter: {field: "editable", value: "true"}
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-      encoding: "ascii"
-      clean_accents: true
-      sanitize_replacement: "_"
+    encoding: "ascii"
+    clean_accents: true
+    sanitize_replacement: "_"
     extension: "md"
     create: true
     fields:
