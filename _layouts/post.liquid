@@ -20,7 +20,13 @@ layout: default
     {% if page.bootstrap %}
       <div class="bootstrap-iso">
       {% endif %}
+      {% if page.ticket_link %}
+      <p><a href="{{ page.ticket_link }}" class="btn">Get Tickets</a></p>
+      {% endif %}
       {{ content }}
+      {% if page.ticket_link %}
+      <p><a href="{{ page.ticket_link }}" class="btn">Get Tickets</a></p>
+      {% endif %}
       {% if page.bootstrap %}
       </div>
     {% endif %}

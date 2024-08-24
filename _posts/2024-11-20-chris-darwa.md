@@ -9,8 +9,6 @@ excerpt_separator: <!--more-->
 ticket_link: "https://bit.ly/iyfcd"
 ---
 
-[Get Tickets]({{page.ticket_link}}){: .btn}
-
 # Reckless Humour - Stand Up Comedy with Chris Darwa at ComedyHaus in Zürich
 
 *Experience a night of uproarious comedy with Chris Darwa's "RECKLESS HUMOUR"!*
@@ -31,4 +29,3 @@ Originally from Australia, Chris has carved out a prominent place in the Europea
 
 Don't miss out on this chance to witness Chris Darwa's "RECKLESS HUMOUR" live at [ComedyHaus](https://comedyhaus.ch/). Reserve your seats now for an evening guaranteed to tickle your funny bone and leave you craving more!
 
-[Get Tickets]({{page.ticket_link}}){: .btn}

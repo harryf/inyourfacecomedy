@@ -10,10 +10,6 @@ excerpt_separator: <!--more-->
 ticket_link: "https://bit.ly/iyfcb"
 ---
 
-[Get Tickets]({{page.ticket_link}}){: .btn}
-
 # Every Thursday at ROBINS - Doors Open 7:30pm
 
 {% include comedybrew.html %}
-
-[Get Tickets]({{page.ticket_link}}){: .btn}
