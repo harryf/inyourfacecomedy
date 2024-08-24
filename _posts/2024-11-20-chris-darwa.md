@@ -1,5 +1,6 @@
 ---
 layout: post
+editable: false
 title: RECKLESS HUMOUR with Chris Darwa
 feature-img: "assets/img/shows/RECKLESS_HUMOUR_WEBSITE.png"
 thumbnail: "assets/img/shows/RECKLESS_HUMOUR_WEBSITE.png"

@@ -10,15 +10,18 @@ collections:
     label: "Shows"
     folder: "_posts"
     editor:
-      preview: false
+      preview: true
+    filter: {field: "editable", value: "true"}
     create: true
     fields:
       - { label: "Layout", name: "layout", widget: "hidden", default: "post"}
+      - { label: "Editable", name: "editable", widget: "hidden", default: "true"}
       - { label: "Title", name: "title", widget: "string", hint: "Title of the show. Avoid quotes." }
       - { label: "Feature Image", name: "feature-img", widget: "image", allow_multiple: false, hint: "Main image appears top of page as background. Keep it under 300k for faster loading."}
       - { label: "Thumbnail", name: "thumbnail", widget: "image", allow_multiple: false, hint: "Square image e.g. 1080x1080. Keep it under 300k for faster loading."}
       - { label: "Author", name: "author", widget: "hidden", default: "harryfucks"}
       - { label: "Excerpt Separator", name: "excerpt_separator", widget: "hidden", default: "<!--more-->"}
       - { label: "Ticket URL", name: "ticket_url", widget: "string", hint: "Link to the ticket page. Use bit.ly to track!!!" }
+      - { label: 'Body', name: 'body', widget: 'markdown', hint: "Format of page is markdown. See https://www.markdownguide.org/cheat-sheet/ for tips" }
 
 

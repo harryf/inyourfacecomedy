@@ -1,5 +1,6 @@
 ---
 layout: post
+editable: false
 title: Comedy Brew - Every Thursday at ROBINS
 tags: [Comedy Brew, ROBINS]
 feature-img: "assets/img/shows/comedybrew.png"
