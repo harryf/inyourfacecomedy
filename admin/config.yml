@@ -1,7 +1,14 @@
 backend:
   name: git-gateway
   branch: master
+  commit_messages:
+    create: Create {{collection}} “{{slug}}” - {{author-login}}
+    update: Update {{collection}} “{{slug}}” - {{author-login}}
+    delete: Delete {{collection}} “{{slug}}” - {{author-login}}
+    uploadMedia: Upload “{{path}}” - {{author-login}}
+    deleteMedia: Delete “{{path}}” - {{author-login}}
 
+publish_mode: editorial_workflow
 media_folder: "assets/img/uploads"
 public_folder: "/assets/img/uploads"
 
