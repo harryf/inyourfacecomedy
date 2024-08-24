@@ -12,6 +12,11 @@ collections:
     editor:
       preview: true
     filter: {field: "editable", value: "true"}
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+      encoding: "ascii"
+      clean_accents: true
+      sanitize_replacement: "_"
+    extension: "md"
     create: true
     fields:
       - { label: "Layout", name: "layout", widget: "hidden", default: "post"}
@@ -23,6 +28,6 @@ collections:
       - { label: "Author", name: "author", widget: "hidden", default: "harryfucks"}
       - { label: "Excerpt Separator", name: "excerpt_separator", widget: "hidden", default: "<!--more-->"}
       - { label: "Ticket URL", name: "ticket_url", widget: "string", hint: "Link to the ticket page. Use bit.ly to track!!!", required: false }
-      - { label: 'Body', name: 'body', widget: 'markdown', hint: "Format of page is markdown. See https://www.markdownguide.org/cheat-sheet/ for tips" }
+      - { label: 'Body', name: 'body', widget: 'markdown', mode: 'rich_text', buttons: ['bold', 'italic', 'link', 'heading-one', 'heading-two', 'heading-three', 'bulleted-list', 'numbered-list'], 'editor_components': ['image'] }
 
 
