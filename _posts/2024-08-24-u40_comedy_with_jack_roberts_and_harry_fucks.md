@@ -6,6 +6,7 @@ feature-img: /assets/img/uploads/u40_comedy_-_feature_image.png
 thumbnail: /assets/img/uploads/u40_comedy_square.png
 author: harryfucks
 excerpt_separator: <!--more-->
+ticket_url: https://bit.ly/iyfu40
 ---
 # Ü40 Comedy with Jack Roberts and Harry Fücks
 
