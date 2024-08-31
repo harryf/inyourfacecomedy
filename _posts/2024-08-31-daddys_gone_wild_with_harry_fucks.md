@@ -27,3 +27,7 @@ Harry, a UK native with a zest of German and 20 years of Swiss living, invites y
 Since his comedy debut in August 2018, Harry has become a staple in the comedy scenes of Switzerland and beyond, performing in Spain, France, Germany, and Holland. His background in software development adds a geeky charm to his storytelling, making his humor resonate with a wide range of audiences.
 
 Join Harry Fücks, the ginger-bearded, stand-up comedian as he navigates life over 50, singledom, fatherhood, tech chaos and challenges you to ask... Who's Your Daddy?
+
+## ⏰ When? Where? 📍
+
+Friday 20th September at [ROBIN's in Niederdorf, Zürich](https://maps.app.goo.gl/1SyrGDVecCejyFQx5) - just 2 mins from Central Tram Station
