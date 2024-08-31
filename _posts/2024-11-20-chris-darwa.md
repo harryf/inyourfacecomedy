@@ -6,7 +6,7 @@ feature-img: "assets/img/shows/RECKLESS_HUMOUR_WEBSITE.png"
 thumbnail: "assets/img/shows/RECKLESS_HUMOUR_WEBSITE.png"
 author: harryfucks
 excerpt_separator: <!--more-->
-ticket_link: "https://bit.ly/iyfcd"
+ticket_url: "https://bit.ly/iyfcd"
 ---
 
 # Reckless Humour - Stand Up Comedy with Chris Darwa at ComedyHaus in Zürich
