@@ -2,7 +2,7 @@
 layout: post
 editable: "true"
 title: Daddy's Gone Wild with Harry Fücks
-feature-img: /assets/img/uploads/daddys_gone_wild_website_banner.png
+feature-img: /assets/img/uploads/daddys_gone_wild_website_header.png
 thumbnail: /assets/img/uploads/daddys_gone_wild_website_thumbnail.png
 author: harryfucks
 excerpt_separator: <!--more-->
