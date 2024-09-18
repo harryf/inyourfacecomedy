@@ -6,6 +6,7 @@ feature-img: /assets/img/uploads/wurenlol_website_featured.png
 thumbnail: /assets/img/uploads/wurenlol_website_thumb.png
 author: harryfucks
 excerpt_separator: <!--more-->
+ticket_url: https://bit.ly/iyfwl1
 ---
 # WürenLOL – Something’s Actually Happening in Würenlos!
 
