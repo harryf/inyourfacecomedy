@@ -8,7 +8,7 @@ author: harryfucks
 excerpt_separator: <!--more-->
 ticket_url: https://bit.ly/iyfmv1
 ---
-As the days get shorter and the cool autumn breeze sweeps over Lake Zurich, it’s time to escape the chill and dive into **Miami Vibes**! Get ready for a comedy night that brings the fire to hottest nightlife venue **Club Bellevue**, with a lineup of the best local comedians who will keep you laughing all night long
+As the days get shorter and the cool autumn breeze sweeps over Lake Zurich, it’s time to escape the chill and dive into **Miami Vibes**! Get ready for a comedy night that brings the fire to hottest nightlife venue **Club Bellevue**, with a lineup of the best local comedians who will keep you laughing all night long... **Tuesday, 29th October**.
 
 ![Miami Vibes - English Stand-Up Comedy at Club Bellevue in Zurich](/assets/img/uploads/miami_vibes_website_flyer.png "Miami Vibes - English Stand-Up Comedy at Club Bellevue in Zurich")
 
@@ -39,6 +39,7 @@ Expect nothing less than a night filled with energy, passion, and fun. With some
 
 How to get there... **[Club Bellevue on Google Maps](https://maps.app.goo.gl/FNpgwfVELWTdBwd46)**.
 
+* **When:** Tuesday, 29th October
 * **Doors Open:** 19:30
 * **Show Begins:** 20:00
 * **Club Entrance:** Freieckgasse 9, round the back, in the courtyard and down the stairs
