@@ -14,7 +14,7 @@ thumbnail: "assets/img/thumbs/comedy_in_switzerland.png"
 
 ![Performing Stand-Up Comedy in Switzerland](/assets/img/pages/comedy_in_switzerland.png "Performing Stand-Up Comedy in Switzerland")
 
-_A quick guide for comedians visiting Switzerland to perform stand-up comedy_
+_A quick guide for comedians visiting Switzerland to perform stand-up comedy. You can find most of the people that organise shows here in [this Google Sheet](https://docs.google.com/spreadsheets/d/1hhZ_SN9Sp3ormM74Vuu20dyYFdp7qNiGbgf8wZ9KGyA/edit?usp=sharing) (big thanks to [Ivan Semachev](https://www.instagram.com/ivan_semashev/) who keeps it updated)_
 
 ## Audience Demographics
 Picture this – you're standing before a mini United Nations. Only 20% of your audience will be Swiss, the rest? A mix of expats, foreign students, and global wanderers, mostly hailing from Europe. Imagine telling a joke at the UN - but here, everyone actually wants to listen.
