@@ -29,7 +29,7 @@ Note there's also a WhatsApp group (which we can't post here before spam) with l
 
 ### Where else can I get spots?
 
-Have a look at [this list of Swiss Stand-Up Comedy Shows](https://docs.google.com/spreadsheets/d/1hhZ_SN9Sp3ormM74Vuu20dyYFdp7qNiGbgf8wZ9KGyA/edit?usp=sharing). In Zürich talk to [Ahmet at Comedy Nights Zürich](https://www.instagram.com/ahmetbilgecomedy/), [Chris at Down Under Comedy](https://www.instagram.com/chrisdarwa/) and [Shane at Comedy Kiss](https://www.instagram.com/comedykiss.ch/).
+Have a look at [this list of Swiss Stand-Up Comedy Shows](https://docs.google.com/spreadsheets/d/1hhZ_SN9Sp3ormM74Vuu20dyYFdp7qNiGbgf8wZ9KGyA/edit?usp=sharing).
 
 ## Comedy Tips to get you started
 
