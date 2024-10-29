@@ -101,6 +101,8 @@ Specifically that means...
 - Avoid puns and word play. Often the double-meaning of words will be lost on the audience, unless it's something *really* simple and obvious.
 - Avoid cultural references. Just because you know who Christopher Nolan is, you may find the audience has no idea. Swiss people are generally tapped into German culture and the foreigners more into American, so dropping celebrity names in and assuming everyone will know who they are may backfire horribly. Also, in the age of social media, TikTok addicts may know who Bella Poarch is but the rest of the crowd is probably clueless.
 
+For more information about performing in Switzerland see [this page](https://inyourfacecomedy.ch/switzerland/).
+
 ### More stuff to read and watch
 
 - There's a bunch of good advice on YouTube for [how to be a stand-up comedian](https://www.youtube.com/results?search_query=how+to+stand+up+comedy).
