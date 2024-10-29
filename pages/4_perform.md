@@ -15,10 +15,17 @@ Yes... getting up on stage is absolutely terrifying. And yes... when you make pe
 
 ## Getting your First Spot
 
-- The best IN YOUR FACE show to try comedy on is the [Comedy Brew at ROBIN's](/shows/comedybrew)
-- DM [Harry on Instagram](https://www.instagram.com/harryf.cks/) ( or via [@inyourfacecomedy](https://www.instagram.com/inyourfacecomedy/) ) and he'll get you setup
+- The best IN YOUR FACE show to try comedy on is the [Comedy Brew at ROBIN's](https://inyourfacecomedy.ch/2024/01/18/comedybrew.html)
+- DM [@inyourfacecomedy](https://www.instagram.com/inyourfacecomedy/) on Instagram and either [Harry](https://www.instagram.com/harryf.cks/) or [Martina](https://instagram.com/martinadoescomedy) will sort you out.
 
-Normally comedians request a "spot" by posting in the discussion on [IN YOUR FACE events on Facebook](https://www.facebook.com/inyourfacecomedy.ch/events/). There's also a WhatsApp group with lots of other comedians, where you can join to get notified early of upcoming events (ask Harry for an invite).
+### The Process
+
+1. Request a "spot" by posting in the discussion on [IN YOUR FACE events on Facebook](https://www.facebook.com/inyourfacecomedy.ch/events/) for Comedy Brew - put the dates you're interested in performing in the comment.
+2. Typically on the Sunday before the event we'll create a Facebook Messenger group for the show (that means you need to install the Facebook Messenger app on your phone) to let you know if you've got a spot and where you'll be on the show
+3. On Facebook Messenger we will publish _the lineup_ ... this is where you will be performing on the show. Please note the times and show up at least 30 minutes before to check in with the _host_ of the show
+4. You get a 5 minute spot. Please practice and stick to this time. On stage the host will give you "the light" (they'll shine the line from their phone from the back of the room) to show you, you have max 60 seconds left and need to wrap up.
+
+Note there's also a WhatsApp group (which we can't post here before spam) with lots of other comedians, where you can join to get notified early of upcoming events (ask Martina or Harry for an invite).
 
 ### Where else can I get spots?
 
