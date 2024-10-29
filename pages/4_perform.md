@@ -106,7 +106,7 @@ For more information about performing in Switzerland see [this page](https://iny
 ### More stuff to read and watch
 
 - There's a bunch of good advice on YouTube for [how to be a stand-up comedian](https://www.youtube.com/results?search_query=how+to+stand+up+comedy).
-- The [New Comedy Bible](https://www.amazon.com/NEW-Comedy-Bible-Ultimate-Performing/dp/1947480847) is highly recommended!
+- The [New Comedy Bible](https://www.amazon.com/NEW-Comedy-Bible-Ultimate-Performing/dp/1947480847) and [The Tao of Comedy](https://taocomedystudio.com/book/) are both highly recommended!
 - [Let's Talk about Sets!](https://www.letstalkaboutsets.com) is a really great podcast about comedy - listen on Spotify [here](https://open.spotify.com/show/7C8pOy9YWcHOfUwROch7B3?si=c18572aaab0f43a1)
 - More tips and resources in [this great list](https://docs.google.com/document/d/1DCs3QwuGIDuSO3w5U_wmsr-aV7qehqExj9kfGihQeVQ/edit) by [Pavel](https://www.instagram.com/pavelcomedy/). Also Pavel has a WhatsApp group for comedy advice... ask him to add you.
 
