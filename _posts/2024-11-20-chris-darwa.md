@@ -2,8 +2,8 @@
 layout: post
 editable: false
 title: RECKLESS HUMOUR with Chris Darwa
-feature-img: "assets/img/shows/RECKLESS_HUMOUR_WEBSITE.png"
-thumbnail: "assets/img/shows/RECKLESS_HUMOUR_WEBSITE.png"
+feature-img: "assets/img/shows/chris_darwa_barbaric.png"
+thumbnail: "assets/img/shows/chris_darwa_barbaric.png"
 author: harryfucks
 excerpt_separator: <!--more-->
 ticket_url: "https://bit.ly/iyfcd"
@@ -15,7 +15,7 @@ ticket_url: "https://bit.ly/iyfcd"
 
 Prepare for an evening of unbridled hilarity as [Chris Darwa](https://www.instagram.com/chrisdarwa/), one of Zürich's favorite comedic talents, presents "RECKLESS HUMOUR" to his beloved home team audience. Renowned on the English comedy circuit in Zürich and beyond, Chris blends energetic storytelling with sharp wit and fearless humor. His comedic arsenal includes punch-heavy anecdotes, pointed observations on modern living, and a knack for playful crowd interaction.
 
-![RECKLESS HUMOUR](/assets/img/shows/RECKLESS_HUMOUR_WEBSITE.png)
+![RECKLESS HUMOUR](/assets/img/shows/chris_darwa_barbaric.png)
 
 ## What's it about?
 
