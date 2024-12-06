@@ -43,7 +43,7 @@ Check out this tutorial: [Use as Ruby Gem](#use-as-ruby-gem-)
 
 ## Structure
 
-Here are the main files of the template
+Here are the main files of the template 
 
 ```shell
 Type-on-Strap
