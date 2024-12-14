@@ -18,7 +18,7 @@ This event is **Y-RATED** – Yoshi Rated – and *strictly for adult audiences*
 
 Yoshi Obayashi is not only a former insider in the adult industry, but a seasoned comedian with appearances on popular podcasts and stages across the world. Don't believe us? [Search YouTube](https://www.youtube.com/results?search_query=yoshi+obayashi). He brings a unique blend of dark humour and real-life experience that will leave you laughing and thinking long after the show is over.
 
-Don’t miss this one-of-a-kind event at **Club Bellevue**, Zurich’s premier nightlife venue, where Miami vibes meet the untold stories of Hollywood’s adult underworld.
+Don’t miss this one-of-a-kind event at [ROBIN's](https://maps.app.goo.gl/29oHdnbcaDCT2Qu16), just 2 minutes from Central tram stop.
 
 Doors open: 19:30\
 Show begins: 20:00
