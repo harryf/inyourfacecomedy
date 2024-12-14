@@ -1,16 +1,16 @@
 ---
 layout: post
 editable: "true"
-title: "ADULT GAMES: Yoshi’s Tales from Hollywood to Cornhub"
+title: "ADULT CONTENT: Yoshi’s Tales from Hollywood to Cornhub"
 feature-img: /assets/img/uploads/yoshi-website-banner.png
-thumbnail: /assets/img/uploads/yoshi-website-thumb.png
+thumbnail: /assets/img/uploads/yoshi-facebook-square.png
 author: harryfucks
 excerpt_separator: <!--more-->
-ticket_url: https://bit.ly/iyfyoshi
+ticket_url: https://bit.ly/iyfac
 ---
 Ever wondered what it’s like behind the scenes in the adult entertainment industry? Get ready for a night unlike any other as comedian **Yoshi Obayashi** takes the stage for a hilarious and raw journey into his wild, uncensored life working in the heart of Hollywood’s adult entertainment scene.
 
-![](/assets/img/uploads/yoshi-website-featured.png)
+![](/assets/img/uploads/yoshi-facebook-event.png)
 
 **Half comedy**, **half live podcast**, Yoshi will share outrageous, explicit, and unapologetic stories from his time in Los Angeles, working alongside legends like **Rocco Siffredi**, and being a close friend to comedy stars **Russell Peters**, **Tom Segura**, and **Joe Rogan**.
 
