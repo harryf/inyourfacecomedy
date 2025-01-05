@@ -1,16 +1,16 @@
 ---
 layout: post
 editable: "true"
-title: "ADULT GAMES: Yoshi’s Tales from Hollywood to Cornhub"
+title: "ADULT CONTENT: Yoshi’s Tales from Hollywood to Cornhub"
 feature-img: /assets/img/uploads/yoshi-website-banner.png
-thumbnail: /assets/img/uploads/yoshi-website-thumb.png
+thumbnail: /assets/img/uploads/yoshi-facebook-square.png
 author: harryfucks
 excerpt_separator: <!--more-->
-ticket_url: https://bit.ly/iyfyoshi
+ticket_url: https://bit.ly/iyfac
 ---
 Ever wondered what it’s like behind the scenes in the adult entertainment industry? Get ready for a night unlike any other as comedian **Yoshi Obayashi** takes the stage for a hilarious and raw journey into his wild, uncensored life working in the heart of Hollywood’s adult entertainment scene.
 
-![](/assets/img/uploads/yoshi-website-featured.png)
+![](/assets/img/uploads/yoshi-facebook-event.png)
 
 **Half comedy**, **half live podcast**, Yoshi will share outrageous, explicit, and unapologetic stories from his time in Los Angeles, working alongside legends like **Rocco Siffredi**, and being a close friend to comedy stars **Russell Peters**, **Tom Segura**, and **Joe Rogan**.
 
@@ -18,7 +18,7 @@ This event is **Y-RATED** – Yoshi Rated – and *strictly for adult audiences*
 
 Yoshi Obayashi is not only a former insider in the adult industry, but a seasoned comedian with appearances on popular podcasts and stages across the world. Don't believe us? [Search YouTube](https://www.youtube.com/results?search_query=yoshi+obayashi). He brings a unique blend of dark humour and real-life experience that will leave you laughing and thinking long after the show is over.
 
-Don’t miss this one-of-a-kind event at **Club Bellevue**, Zurich’s premier nightlife venue, where Miami vibes meet the untold stories of Hollywood’s adult underworld.
+Don’t miss this one-of-a-kind event at [ROBIN's](https://maps.app.goo.gl/29oHdnbcaDCT2Qu16), just 2 minutes from Central tram stop.
 
 Doors open: 19:30\
 Show begins: 20:00
