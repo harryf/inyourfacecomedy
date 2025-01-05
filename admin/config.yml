@@ -35,7 +35,7 @@ collections:
       - { label: "Editable", name: "editable", widget: "hidden", default: "true"}
       - { label: "Title", name: "title", widget: "string", hint: "Title of the show. Avoid quotes." }
       - { label: "Feature Image", name: "feature-img", widget: "image", allow_multiple: false, hint: "Main image appears top of page as background. Recommend 1920x1005. Keep it under 300k for faster loading."}
-      - { label: "Thumbnail", name: "thumbnail", widget: "image", allow_multiple: false, hint: "Square image e.g. 1080x1080. Keep it under 300k for faster loading."}
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", allow_multiple: false, hint: "Square image e.g. 1080x1080. Keep it under 300k for faster loading. This is shown when sharing the link on e.g. WhatsApp"}
       - { label: "Author", name: "author", widget: "hidden", default: "harryfucks"}
       - { label: "Excerpt Separator", name: "excerpt_separator", widget: "hidden", default: "<!--more-->"}
       - { label: "Ticket URL", name: "ticket_url", widget: "string", hint: "Link to the ticket page for a nice red button. Use bit.ly to track!!!", required: false }
