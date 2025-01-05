@@ -8,7 +8,7 @@ backend:
     uploadMedia: Upload “{{path}}” - {{author-login}}
     deleteMedia: Delete “{{path}}” - {{author-login}}
 
-publish_mode: editorial_workflow
+publish_mode: simple
 media_folder: "assets/img/uploads"
 public_folder: "/assets/img/uploads"
 
