@@ -6,7 +6,7 @@ feature-img: /assets/img/uploads/whatsapp_image_2025-01-04_at_14.10.01.jpeg
 thumbnail: /assets/img/uploads/whatsapp_image_2024-12-17_at_19.01.24.jpeg
 author: harryfucks
 excerpt_separator: <!--more-->
-ticket_url: https://bit.ly/brexiles1
+ticket_url: https://bit.ly/brexiles
 ---
 Join three of Switzerland's sharpest comedy imports, all the way from the UK, as they navigate life post-Brexit in the land of cheese, chocolate, and punctuality. Expect a side-splitting evening of biting wit, dark satire, and self-deprecating British humour, as these three exiles attempt to make sense of their Swiss existence while grappling with the baggage of their homeland.
 
