@@ -2,8 +2,8 @@
 layout: post
 editable: "true"
 title: Brexiles - English Comedy Night in Zurich Kreis 4
-feature-img: /assets/img/uploads/whatsapp_image_2025-01-04_at_14.10.01.jpeg
-thumbnail: /assets/img/uploads/whatsapp_image_2024-12-17_at_19.01.24.jpeg
+feature-img: /assets/img/uploads/brexiles_horizontal.png
+thumbnail: /assets/img/uploads/brexiles_square.png
 author: harryfucks
 excerpt_separator: <!--more-->
 ticket_url: https://bit.ly/brexiles
