@@ -31,3 +31,8 @@ Reparations Spot: Each show will feature a guest comedian from a country which w
 **Venue:**\
 \
 [Monroe Music Bar & Bites](https://www.monroe.zuerich/) - [Brauerstrasse 26, 8004 Zürich](https://maps.app.goo.gl/8C7nrhUqhJ4X83ku9) (Kreis 4) - just off Langstrasse - [check them out on Instagram](https://www.instagram.com/monroe.zuerich/).
+
+**Playlist:**
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6xSp6YofixrRTmOvgB68YE?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
