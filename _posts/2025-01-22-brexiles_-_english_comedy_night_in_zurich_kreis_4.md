@@ -10,7 +10,7 @@ ticket_url: https://bit.ly/brexiles
 ---
 Join three of Switzerland's sharpest comedy imports, all the way from the UK, as they navigate life post-Brexit in the land of cheese, chocolate, and punctuality. Expect a side-splitting evening of biting wit, dark satire, and self-deprecating British humour, as these three exiles attempt to make sense of their Swiss existence while grappling with the baggage of their homeland.
 
-![Brexiles - English Comedy Night in Zurich Kreis 4](/assets/img/uploads/whatsapp_image_2025-01-04_at_14.10.01.jpeg "Brexiles - English Comedy Night in Zurich Kreis 4")
+![Brexiles - English Comedy Night in Zurich Kreis 4](/assets/img/uploads/brexiles_horizontrol_mar_5th.png "Brexiles - English Comedy Night in Zurich Kreis 4")
 
 Do all British people have terrible teeth? Are they all actually addicted to tea? Are the royal family actually peadophile lizards? Does anyone actually care anymore? Come along for answers to these questions and more, and pose your own to our panel of cultural experts* to win a free drink!
 
