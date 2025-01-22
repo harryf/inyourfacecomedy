@@ -16,7 +16,7 @@ Do all British people have terrible teeth? Are they all actually addicted to tea
 
 \*mid-aged comedians who used to read the news in the early 2000s
 
-Featuring:
+**Featuring:**
 
 **[Harry Fücks](https://www.instagram.com/harryf.cks/)** is a half-German who grew up in the UK, where he witnessed too many late trains provoking wristwatch-staring fits from his German genes. He later moved to Switzerland, the last place in Europe where trains run on time, to avoid constant triggering. Now over 50, a single dad, and failing to live up to his name, Harry uses comedy as his coping strategy.
 
@@ -26,4 +26,8 @@ Featuring:
 
 With over 20 years collectively in the biz, this show is guaranteed to bring a smile to your face, and whether you love or hate the British, there is something for everyone.
 ​
-Reparations Spot: Each show will feature a guest comedian from a country which was formerly colonised by the British. This is our way of personally apologising for the hundreds of years of murder, subjugation, and terror inflicted upon the peoples of the planet. We hope you agree that we are even now.
+Reparations Spot: Each show will feature a guest comedian from a country which was formerly colonised by the British. This is our way of personally apologising for the hundreds of years of murder, subjugation, and terror inflicted upon the peoples of the planet. We hope you agree that we are even now.\
+\
+**Venue:**\
+\
+[Monroe Music Bar & Bites](https://www.monroe.zuerich/) - [Brauerstrasse 26, 8004 Zürich](https://maps.app.goo.gl/8C7nrhUqhJ4X83ku9) (Kreis 4) - just off Langstrasse - [check them out on Instagram](https://www.instagram.com/monroe.zuerich/).
