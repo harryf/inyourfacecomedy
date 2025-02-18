@@ -14,6 +14,11 @@ redirect_from:
   - /2024/01/18/comedybrew.html
 ---
 
-# Every Thursday at ROBINS - Doors Open 7:30pm
+## Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday
+
+Is looking for friends in Zurich harder than finding affordable rent? Tired of getting up at 5am on Saturday just to hike? Do meetup groups start to feel like a cult? We've got you! With IN YOUR FACE Comedy Brew...
+
+Join local English-speaking comedians and new-comers for a Thursday night of comedy! It's a great way to low-key meet people while enjoying the laughs (and awkward moments) of an English stand-up comedy open mic.
+
 
 {% include comedybrew.html %}
