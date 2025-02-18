@@ -32,6 +32,9 @@ meta_pixel: 5349931195130820                            # Tracking ID for Facebo
 cookie_consent: false                                   # To respect the usage of cookies
 color_theme: dark                                       # auto, dark or light
 
+include:
+  - 4428d17dabee4ceb92c215e99a3dec6e.txt
+
 # Comments
 comments:
   disqus_shortname:                                     # Your discus shortname for comments
