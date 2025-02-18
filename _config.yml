@@ -32,6 +32,15 @@ meta_pixel: 5349931195130820                            # Tracking ID for Facebo
 cookie_consent: false                                   # To respect the usage of cookies
 color_theme: dark                                       # auto, dark or light
 
+facebook:
+  publisher: https://www.facebook.com/inyourfacecomedy.ch/
+
+social:
+  instagram: https://instagram.com/inyourfacecomedy
+  tiktok: https://tiktok.com/@inyourfacecomedy
+  facebook: https://www.facebook.com/inyourfacecomedy.ch/
+  telegram: https://t.me/inyourfacecomedy
+
 include:
   - 4428d17dabee4ceb92c215e99a3dec6e.txt
 
