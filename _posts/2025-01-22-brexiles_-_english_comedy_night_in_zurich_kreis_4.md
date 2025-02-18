@@ -7,6 +7,11 @@ thumbnail: /assets/img/uploads/brexiles_square.png
 author: harryfucks
 excerpt_separator: <!--more-->
 ticket_url: https://bit.ly/brexiles
+permalink: /brexiles/
+redirect_from:
+  - /2025/01/22/brexiles_-_english_comedy_night_in_zurich_kreis_4/
+  - /2025/01/22/brexiles_-_english_comedy_night_in_zurich_kreis_4
+  - /2025/01/22/brexiles_-_english_comedy_night_in_zurich_kreis_4.html
 ---
 Join three of Switzerland's sharpest comedy imports, all the way from the UK, as they navigate life post-Brexit in the land of cheese, chocolate, and punctuality. Expect a side-splitting evening of biting wit, dark satire, and self-deprecating British humour, as these three exiles attempt to make sense of their Swiss existence while grappling with the baggage of their homeland.
 
