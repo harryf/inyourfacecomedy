@@ -64,6 +64,8 @@ steam:
   pre: "https://steamcommunity.com/id/"
 telegram:
   pre: "https://t.me/"
+tiktok:
+  pre: "https://tiktok.com/@"
 tumblr:
   pre: "https://"
   pos: ".tumblr.com/"
@@ -79,4 +81,4 @@ wordpress:
   pre: "https://"
   pos: ".wordpress.com/"
 youtube:
-  pre: "https://www.youtube.com/channel/"
+  pre: "https://www.youtube.com/@"
