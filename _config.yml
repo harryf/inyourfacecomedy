@@ -30,6 +30,8 @@ google_tagmanager: GTM-M7Z9D4Z
 google_analytics: G-JZBDD4CQWV                          # Tracking ID, e.g. "UA-000000-01"
 meta_pixel: 5349931195130820                            # Tracking ID for Facebook Meta Pixel
 cookie_consent: false                                   # To respect the usage of cookies
+ms_clarify: qbtk7v2ls4                                  # Tracking ID for Microsoft Clarity
+
 color_theme: dark                                       # auto, dark or light
 
 facebook:
