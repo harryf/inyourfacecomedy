@@ -2,10 +2,12 @@
 layout: post
 editable: "true"
 title: Zfescht Integriert - En Obe mit Valerie Mirindi
+description: "Valerie Mirindi isch zfescht integriert – so fescht, dass sogar sini eigeti Mueter seit, er seg zwit gange!"
 feature-img: /assets/img/uploads/vale_website_feature.png
 thumbnail: /assets/img/uploads/vale_website_thumbnail.png
 author: harryfucks
 excerpt_separator: <!--more-->
+permalink: /zfescht-integriert/
 ticket_url: https://bit.ly/zfescht
 ---
 ![Valerie Mirindi isch zfescht integriert](/assets/img/uploads/vale_website_event.png "Valerie Mirindi isch zfescht integriert")
