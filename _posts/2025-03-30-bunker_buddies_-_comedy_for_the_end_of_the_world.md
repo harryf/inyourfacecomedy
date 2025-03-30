@@ -2,10 +2,12 @@
 layout: post
 editable: "true"
 title: BUNKER BUDDIES - Comedy for the End of the World
+description: "What happens when World War 3 kicks off and you're stuck in your Swiss cellar with your weird neighbours?"
 feature-img: /assets/img/uploads/bunker_buddies_facebook.png
 thumbnail: /assets/img/uploads/bunker_buddies_insta_post.png
 author: harryfucks
 excerpt_separator: <!--more-->
+permalink: /bunker-buddies/
 ticket_url: https://bit.ly/bunkerbuddies
 ---
 **What happens when World War 3 kicks off and you're stuck in your Swiss cellar with your weird neighbours?**
