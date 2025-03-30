@@ -2,7 +2,8 @@
 layout: post
 editable: "true"
 title: BUNKER BUDDIES - Comedy for the End of the World
-description: "What happens when World War 3 kicks off and you're stuck in your Swiss cellar with your weird neighbours?"
+description: What happens when World War 3 kicks off and you're stuck in your
+  Swiss cellar with your weird neighbours?
 feature-img: /assets/img/uploads/bunker_buddies_facebook.png
 thumbnail: /assets/img/uploads/bunker_buddies_insta_post.png
 author: harryfucks
@@ -11,6 +12,8 @@ permalink: /bunker-buddies/
 ticket_url: https://bit.ly/bunkerbuddies
 ---
 **What happens when World War 3 kicks off and you're stuck in your Swiss cellar with your weird neighbours?**
+
+![Bunker Buddies - Comedy for the End of the World](/assets/img/uploads/bunker_buddies_eventfrog.png "Bunker Buddies")
 
 Welcome to Bunker Buddies – a comedy show staged deep in the actual dungeon of Ebrietas Metal Bar, where we simulate the “Oh sh!t, this is really happening!” vibes of nuclear war… with jokes!
 
