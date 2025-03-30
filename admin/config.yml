@@ -34,10 +34,12 @@ collections:
       - { label: "Layout", name: "layout", widget: "hidden", default: "post"}
       - { label: "Editable", name: "editable", widget: "hidden", default: "true"}
       - { label: "Title", name: "title", widget: "string", hint: "Title of the show. Avoid quotes." }
+      - { label: "Description", name: "description", widget: "string", hint: "Short 150 chars description for SEO"}
       - { label: "Feature Image", name: "feature-img", widget: "image", allow_multiple: false, hint: "Main image appears top of page as background. Recommend 1920x1005. Keep it under 300k for faster loading."}
       - { label: "Thumbnail", name: "thumbnail", widget: "image", allow_multiple: false, hint: "Square image e.g. 1080x1080. Keep it under 300k for faster loading. This is shown when sharing the link on e.g. WhatsApp"}
       - { label: "Author", name: "author", widget: "hidden", default: "harryfucks"}
       - { label: "Excerpt Separator", name: "excerpt_separator", widget: "hidden", default: "<!--more-->"}
+      - { label: "Permalink", name: "permalink", widget: "string", hint: "Should begin and end in forward slack e.g. /comedybrew/", required: true}
       - { label: "Ticket URL", name: "ticket_url", widget: "string", hint: "Link to the ticket page for a nice red button. Use bit.ly to track!!!", required: false }
       - { label: 'Body', name: 'body', widget: 'markdown', mode: 'rich_text', buttons: ['bold', 'italic', 'link', 'heading-one', 'heading-two', 'heading-three', 'bulleted-list', 'numbered-list'], 'editor_components': ['image'] }
 
