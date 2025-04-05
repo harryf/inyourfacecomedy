@@ -18,10 +18,12 @@ ticket_url: https://bit.ly/frbrick
 Expect a night of stand-up, stories, and totally unscripted hilarity from Zürich’s funniest English-speaking comedians (and a few brave newcomers). Whether you’re a comedy regular or just need a laugh after work, this is your midweek mood booster.
 
 📅 **Wednesday, 16th April**
+
 🕗 **Doors open: 19:30 | Show starts: 20:00**
+
 📍 **Brick Cocktailbar, Langstrasse 21, 8004 Zürich**
 
-🎟 **Entry: Free!** (Bring friends, dates, flatmates… even that colleague with the bad jokes.)
+🎟 **Entry: Free!** (Bring friends, dates, flatmates… even that colleague with the bad jokes.) -- grab a free ticket to reserve your spot!
 
 🍸 **Drinks:** Killer cocktails, cozy vibes, and no two-drink minimums – just good times.
 
