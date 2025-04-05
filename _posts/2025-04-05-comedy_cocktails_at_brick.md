@@ -13,6 +13,8 @@ ticket_url: https://bit.ly/frbrick
 ---
 **Zürich, ready to LOL?** We’re bringing the laughs *in English* to **Brick Cocktailbar** with a brand-new **Comedy Night** — and you’re invited!
 
+![Comedy Cocktails at BRICK](/assets/img/uploads/whatsapp_image_2025-04-05_at_13.33.08_1_.jpeg "Comedy Cocktails at BRICK")
+
 Expect a night of stand-up, stories, and totally unscripted hilarity from Zürich’s funniest English-speaking comedians (and a few brave newcomers). Whether you’re a comedy regular or just need a laugh after work, this is your midweek mood booster.
 
 📅 **Wednesday, 16th April**
