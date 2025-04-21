@@ -12,8 +12,8 @@ description: "🎤 SALT & PEPPER – Comedy Night 🌶️🧂 📍 Live at Fusio
   18:00–20:00 – come early and enjoy!  Then, at 20:00, the comedy kicks off!
   🎤  Expect: ✅ Big laughs ✅ Tasty food ✅ Good vibes only  🎟️ Seats are limited
   – book now! Come hungry and ready to laugh!"
-feature-img: /assets/img/uploads/saltpepperbanner.png
-thumbnail: /assets/img/uploads/saltpeppersquare.png
+feature-img: /assets/img/uploads/saltandpepperbanner.png
+thumbnail: /assets/img/uploads/saltandpeppersquare.png
 author: harryfucks
 excerpt_separator: <!--more-->
 permalink: /saltandpepper/
@@ -24,6 +24,8 @@ ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/pizza-comedy-
 🗓️ *Monday, 5 May 2025*
 
 🍕 **Pizza from 18:00 -** **Show starts at 20:00**
+
+![](/assets/img/uploads/saltandpepperbanner.png)
 
 Get ready for a fun night full of laughter, good vibes, and delicious pizza!
 
