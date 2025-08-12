@@ -10,7 +10,7 @@ thumbnail: /assets/img/uploads/surf_and_the_city_square.png
 author: harryfucks
 excerpt_separator: <!--more-->
 permalink: /surf-and-the-city/
-ticket_url: https://bit.ly/surfncity
+ticket_url: https://eventfrog.ch/de/p/gruppen/surf-and-the-city-english-standup-comedy-at-urbansurf-7339993551659388370.html 
 ---
 **Is your dating life a wipeout? Ours too.**
 
