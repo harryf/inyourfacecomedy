@@ -25,6 +25,7 @@ The best IN YOUR FACE comedy show to get started is [Comedy Brew at ROBIN's](htt
 3. Typically on the Friday or Saturday before the show, you'll see a message in the group saying something like "Who wants a spot next Thursday? React with a 👍"
 4. Later on Sunday we'll post the _line-up_ of comedians selected for the show (also in the WhatsApp group). As there's limited time on a show and lots of people wanting spots, we can't guarantee you a spot the first time you try. But keep trying... eventually you'll get a spot.
 5. When you get a spot, you get _5 minutes_. Please practice and stick to this time (don't overrun). On stage the host will give you "the light" (they'll shine the line from their phone from the back of the room) to show you, you have _max_ 60 seconds left and need to wrap up.
+6. Show up at the show a bit early and check in with the host so we can put a face to the name and give you a quick briefing. If you can't make it (e.g. you get sick) please let us know early on WhatsApp!
 
 ### Where else can I get spots?
 
