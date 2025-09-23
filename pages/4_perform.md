@@ -9,27 +9,26 @@ thumbnail: "assets/img/pages/perform.png"
 
 # Want to try stand-up comedy?
 
-Are you funny? Do your friends keep telling you you're funny? Or do you just have that itch to see if you can do it? The only way to know is to try...
+Are you funny? Do your friends keep telling you you're funny? Or do you just have that itch to see if you can do it? Getting up on stage in front of a room full or people absolutely terrifies you... but when you can make people laugh, it feels fantastic!
 
-Yes... getting up on stage is absolutely terrifying. And yes... when you make people laugh, it feels fantastic!
+On this page you'll find how to get a "spot" on [IN YOUR FACE Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) as well as a whole bunch of tips on opinions on how to write jokes, how to perform on stage, comedy podcasts to listen to etc. In other words, WAY too much info ...
 
-## Getting your First Spot
+## Getting your First Standup Comedy Spot
 
-- The best IN YOUR FACE show to try comedy on is the [Comedy Brew at ROBIN's](https://inyourfacecomedy.ch/2024/01/18/comedybrew.html)
-- DM [@inyourfacecomedy](https://www.instagram.com/inyourfacecomedy/) on Instagram and either [Harry](https://www.instagram.com/harryf.cks/) or [Martina](https://instagram.com/martinadoescomedy) will sort you out.
+The best IN YOUR FACE comedy show to get started is [Comedy Brew at ROBIN's](https://inyourfacecomedy.ch/comedybrew/) every Thursday. Come by, check out a show as an audience memeber and talk to whoever is hosting a show about trying standup yourself, and we'll set you up for a future show.
+
 
 ### The Process
 
-1. Request a "spot" by posting in the discussion on [IN YOUR FACE events on Facebook](https://www.facebook.com/inyourfacecomedy.ch/events/) for Comedy Brew - put the dates you're interested in performing in the comment.
-2. Typically on the Sunday before the event we'll create a Facebook Messenger group for the show (that means you need to install the Facebook Messenger app on your phone) to let you know if you've got a spot and where you'll be on the show
-3. On Facebook Messenger we will publish _the lineup_ ... this is where you will be performing on the show. Please note the times and show up at least 30 minutes before to check in with the _host_ of the show
-4. You get a 5 minute spot. Please practice and stick to this time. On stage the host will give you "the light" (they'll shine the line from their phone from the back of the room) to show you, you have max 60 seconds left and need to wrap up.
-
-Note there's also a WhatsApp group (which we can't post here before spam) with lots of other comedians, where you can join to get notified early of upcoming events (ask Martina or Harry for an invite).
+1. Send a DM to [@inyourfacecomedy](https://www.instagram.com/inyourfacecomedy/) on Instagram saying you'd like a spot and that you're a new comedian. Either [Harry](https://www.instagram.com/harryf.cks/) or [Martina](https://instagram.com/martinadoescomedy) will sort you out.
+2. You'll get invited to a WhatsApp Group for Comedians (we can't post the link here or it will get spammed) - this is where you can signup.
+3. Typically on the Friday or Saturday before the show, you'll see a message in the group saying something like "Who wants a spot next Thursday? React with a 👍"
+4. Later on Sunday we'll post the _line-up_ of comedians selected for the show (also in the WhatsApp group). As there's limited time on a show and lots of people wanting spots, we can't guarantee you a spot the first time you try. But keep trying... eventually you'll get a spot.
+5. When you get a spot, you get _5 minutes_. Please practice and stick to this time (don't overrun). On stage the host will give you "the light" (they'll shine the line from their phone from the back of the room) to show you, you have _max_ 60 seconds left and need to wrap up.
 
 ### Where else can I get spots?
 
-Have a look at [this list of Swiss Stand-Up Comedy Shows](https://docs.google.com/spreadsheets/d/1hhZ_SN9Sp3ormM74Vuu20dyYFdp7qNiGbgf8wZ9KGyA/edit?usp=sharing).
+There are lots of English standup shows in Switzerland. Have a look at [this list of Swiss Stand-Up Comedy Shows](https://docs.google.com/spreadsheets/d/1hhZ_SN9Sp3ormM74Vuu20dyYFdp7qNiGbgf8wZ9KGyA/edit?usp=sharing) which is maintained by [Ivan](https://www.instagram.com/ivan_semashev).
 
 ## Comedy Tips to get you started
 
@@ -50,6 +49,10 @@ Jokes have a structure and form. Perhaps the most basic joke structure is "setup
 There are differing opinions on how many different joke structures there are. Some say [there are 5.5](https://goldcomedy.com/resources/essential-types-of-jokes-rise/) ... some say [there are 13](https://www.thegag.club/comedianknowledgebase/13-Comedy-Structures)... The number doesn't matter but knowing some of these structures and fitting your jokes to them gives you a better chance of getting laughs.
 
 You'll also find some handy joke writing tips in [this guide](https://docs.google.com/presentation/d/1Cyt-pNP6PPuyOq0eqMKAn5PU9QQVkkR7h5wgsFpty7c/edit?usp=sharing) which is based on the [New Comedy Bible](https://www.amazon.com/NEW-Comedy-Bible-Ultimate-Performing/dp/1947480847). And if you get through all that have look at [Gary Gulman's Writing Tips for Comedians](https://deadant.co/all-365-of-gary-gulmans-writing-tips/) ... come back to this link after you've done some shows...
+
+### Books on Standup Comedy
+
+Our two favorite books on stand-up comedy are [The New Comedy Bible](https://www.amazon.com/NEW-Comedy-Bible-Ultimate-Performing/dp/1947480847) and [The Tao of Comedy](https://www.amazon.com/Tao-Comedy-Embrace-Pause/dp/1794002502). There are lots more but if you just get one of these, you'll learn everything from joke writing, tips for on stage to how to handle yourself "backstage" with other comedians.
 
 ### Coping with Stage Fright
 
@@ -106,9 +109,16 @@ For more information about performing in Switzerland see [this page](https://iny
 ### More stuff to read and watch
 
 - There's a bunch of good advice on YouTube for [how to be a stand-up comedian](https://www.youtube.com/results?search_query=how+to+stand+up+comedy).
-- The [New Comedy Bible](https://www.amazon.com/NEW-Comedy-Bible-Ultimate-Performing/dp/1947480847) and [The Tao of Comedy](https://taocomedystudio.com/book/) are both highly recommended!
+- The [New Comedy Bible](https://www.amazon.com/NEW-Comedy-Bible-Ultimate-Performing/dp/1947480847)
+- [The Tao of Comedy](https://taocomedystudio.com/book/) are both highly recommended!
 - [Let's Talk about Sets!](https://www.letstalkaboutsets.com) is a really great podcast about comedy - listen on Spotify [here](https://open.spotify.com/show/7C8pOy9YWcHOfUwROch7B3?si=c18572aaab0f43a1)
-- More tips and resources in [this great list](https://docs.google.com/document/d/1DCs3QwuGIDuSO3w5U_wmsr-aV7qehqExj9kfGihQeVQ/edit) by [Pavel](https://www.instagram.com/pavelcomedy/). Also Pavel has a WhatsApp group for comedy advice... ask him to add you.
+- [Comedy Writing Secrets](https://www.amazon.com/Comedy-Writing-Secrets-Melvin-Helitzer/dp/1599639610) - A practical workbook-style guide with tons of joke-writing exercises.
+- [The Comedian’s Comedian Podcast](https://www.comedianscomedian.com/) - Stu Goldsmith interviews comedians about process, creativity, and the business of comedy. Great for hearing how pros think.
+- [Mastering Stand-Up by Stephen Rosenfield](https://www.amazon.com/Mastering-Stand-Up-Stephen-Rosenfield/dp/1613736924) — a complete guide to becoming a successful comedian; covers joke writing, performance technique, and stage craft.
+- [Truth in Comedy: The Manual of Improvisation by Charna Halpern, Del Close & Kim Johnson](https://www.amazon.com/Truth-Comedy-Improvisation-Charna-Halpern/dp/1566080037) — a foundational improv book; helps with spontaneity, crowd interaction and thinking on your feet.
+- [Poking a Dead Frog: Conversations with Today’s Top Comedy Writers](https://www.amazon.com/Poking-Dead-Frog-Conversations-Writers/dp/0143123785) - Interviews with comedians and TV writers about how they work, full of practical wisdom.
+- [The Stand-Up Comedy Clinic Blog](https://www.standupcomedyclinic.com/blog/) - A blog full of free articles on joke structure, writing techniques, and performance tips.
+- [Good One Podcast](https://www.vulture.com/good-one/) - Each episode a comedian breaks down one of their own jokes, explaining the thought process and revisions behind it.
 
 Good luck!
 
