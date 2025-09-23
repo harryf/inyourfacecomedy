@@ -11,7 +11,7 @@ thumbnail: "assets/img/pages/perform.png"
 
 Are you funny? Do your friends keep telling you you're funny? Or do you just have that itch to see if you can do it? Getting up on stage in front of a room full or people absolutely terrifies you... but when you can make people laugh, it feels fantastic!
 
-On this page you'll find how to get a "spot" on [IN YOUR FACE Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) as well as a whole bunch of tips on opinions on how to write jokes, how to perform on stage, comedy podcasts to listen to etc. In other words, WAY too much info ...
+On this page you'll find how to get a "spot" on [IN YOUR FACE Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) as well as a whole bunch of tips and opinions on how to write jokes, how to perform on stage, comedy podcasts to listen to etc. In other words, WAY too much info ...
 
 ## Getting your First Standup Comedy Spot
 
@@ -109,8 +109,8 @@ For more information about performing in Switzerland see [this page](https://iny
 ### More stuff to read and watch
 
 - There's a bunch of good advice on YouTube for [how to be a stand-up comedian](https://www.youtube.com/results?search_query=how+to+stand+up+comedy).
-- The [New Comedy Bible](https://www.amazon.com/NEW-Comedy-Bible-Ultimate-Performing/dp/1947480847)
-- [The Tao of Comedy](https://taocomedystudio.com/book/) are both highly recommended!
+- The [New Comedy Bible](https://www.amazon.com/NEW-Comedy-Bible-Ultimate-Performing/dp/1947480847) - like the Catholic Church... but for comedy.
+- [The Tao of Comedy](https://taocomedystudio.com/book/) - like Asian mysticism... but for comedy.
 - [Let's Talk about Sets!](https://www.letstalkaboutsets.com) is a really great podcast about comedy - listen on Spotify [here](https://open.spotify.com/show/7C8pOy9YWcHOfUwROch7B3?si=c18572aaab0f43a1)
 - [Comedy Writing Secrets](https://www.amazon.com/Comedy-Writing-Secrets-Melvin-Helitzer/dp/1599639610) - A practical workbook-style guide with tons of joke-writing exercises.
 - [The Comedian’s Comedian Podcast](https://www.comedianscomedian.com/) - Stu Goldsmith interviews comedians about process, creativity, and the business of comedy. Great for hearing how pros think.
