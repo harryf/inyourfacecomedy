@@ -20,7 +20,7 @@ The best IN YOUR FACE comedy show to get started is [Comedy Brew at ROBIN's](htt
 
 ### The Process
 
-1. Send a DM to [@inyourfacecomedy](https://www.instagram.com/inyourfacecomedy/) on Instagram saying you'd like a spot and that you're a new comedian. Either [Harry](https://www.instagram.com/harryf.cks/) or [Martina](https://instagram.com/martinadoescomedy) will sort you out.
+1. Send a DM to [@inyourfacecomedy](https://www.instagram.com/inyourfacecomedy/) on Instagram saying you'd like a spot and that you're a new comedian. Either [Martina](https://instagram.com/martinadoescomedy) or [Harry](https://www.instagram.com/harryf.cks/) will sort you out.
 2. You'll get invited to a WhatsApp Group for Comedians (we can't post the link here or it will get spammed) - this is where you can signup.
 3. Typically on the Friday or Saturday before the show, you'll see a message in the group saying something like "Who wants a spot next Thursday? React with a 👍"
 4. Later on Sunday we'll post the _line-up_ of comedians selected for the show (also in the WhatsApp group). As there's limited time on a show and lots of people wanting spots, we can't guarantee you a spot the first time you try. But keep trying... eventually you'll get a spot.
