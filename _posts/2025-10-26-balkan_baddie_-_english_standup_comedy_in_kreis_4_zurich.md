@@ -23,7 +23,9 @@ Bianca’s performed all over Europe and racked up over 230,000 views on her vir
 Supporting acts include:
 
 🇮🇹 [Domenico](https://www.instagram.com/laugh_at_domenico/) - A wild Italian nerd with pineapple hair and too much espresso in his system.
+
 🇨🇭 [Martina](https://www.instagram.com/martinadoescomedy) - The minority Swiss person keeping everyone honest (and slightly uncomfortable).
+
 🎤 Hosted by [Harry Fücks](https://www.instagram.com/harryf.cks) - Zurich’s British dad of comedy and chaos coordinator for the night.
 
 Come for the laughs, stay for the cocktails and maybe the karaoke after if you’re brave enough
