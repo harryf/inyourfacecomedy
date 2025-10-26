@@ -14,6 +14,8 @@ ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/balkan-badd
 ---
 Get ready for one last laugh before Christmas chaos hits. Headlining this festive meltdown is [Bianca Lala](https://www.instagram.com/biancascomedy/) - the self-proclaimed Balkan Baddie herself. She’s Romanian, Gen Z, and emotionally unavailable in three languages. After performing in 17 countries (and surviving five airport panic attacks), she’s bringing her sharp, chaotic comedy to Zurich for one night only.
 
+![Balkan Baddie - English Comedy Night in Zurich Kreis 4](/assets/img/uploads/Balkan_Baddie_Wide.png "Balkan Baddie - English Comedy Night in Zurich Kreis 4")
+
 If you’ve ever cried on a Flixbus, argued with your mom on speakerphone, or tried to fix a man with a “deep” tattoo and a podcast - this show’s for you.
 
 Bianca’s performed all over Europe and racked up over 230,000 views on her viral YouTube set “[What Doesn’t Kill You Makes You Kinky](https://youtu.be/btwjDuLTv-g?si=Ekaty6V6cgMs4fGK)”. Expect stories about travel, trauma, and trying not to text your ex  all delivered with that Balkan confidence that says, “I could heal, but I’d rather be funny.”
