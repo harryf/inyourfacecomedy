@@ -12,6 +12,8 @@ ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-j
 ---
 A non-obvious English stand-up night with comics from Zurich and beyond. Expect loose ideas, polished bits, unexpected jokes, and laughter from places you don’t expect.
 
+![Brexiles - English Comedy Night in Zurich Kreis 4](/assets/img/uploads/Jokes_Jokes_Jokes_Insta_Post.png "Jokes, Jokes, Jokes - English Standup Comedy with Woocash")
+
 Hosted by Swiss-based comedian Łukasz Segiet ( [@woocash.comedy](https://instagram.com/woocash.comedy) ), known for off-beat, unpredictable, vibe-driven comedy and a favourite among fellow comedians for his distinctive, non-obvious approach. He invites a lineup of friends and local comics to share the stage each edition.
 
 Tuesdays at [ROBIN's](https://maps.app.goo.gl/F6mSwUn5meKK1C8dA) - just 2 mins walk from Central tram station in Zürich
