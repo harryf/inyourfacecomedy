@@ -9,7 +9,7 @@ thumbnail: /assets/img/uploads/down_under_comedy_thumbnail.png
 author: harryfucks
 excerpt_separator: <!--more-->
 permalink: /downunder/
-ticket_url: https://eventfrog.ch/de/p/gruppen/down-under-comedy-7411510651711957320.html
+ticket_url: https://eventfrog.ch/downunder
 ---
 **Chris Darwa** brings his brand of unstoppable Australian comedy to the stage, along with a mix of hilarious friends from the Swiss Comedy scene, some experimenting with new material, others honing their act, either way, your Tuesday is sure to end pissing yourself with laughs.
 
