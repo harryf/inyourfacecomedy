@@ -8,7 +8,7 @@ thumbnail: /assets/img/uploads/jokes_jokes_jokes_insta_post.png
 author: harryfucks
 excerpt_separator: <!--more-->
 permalink: /jokesjokesjokes/
-ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7398081347976218038.html
+ticket_url: https://eventfrog.ch/jokes-jokes-jokes
 ---
 A non-obvious English stand-up night with comics from Zurich and beyond. Expect loose ideas, polished bits, unexpected jokes, and laughter from places you don’t expect.
 
