@@ -17,4 +17,5 @@ A new stand-up comedy night that takes you down into the dark to see comedians b
 
 A new comedy show in a fantastic venue - the finest comics from the Swiss scene, hand-picked for your pleasure.  Only jokes, no crowdwork.  Just funny people being funny and hoping to make it out of there alive...
 
-Wednesdays at [Bar Otro](https://otro.bar/) (downstairs) - [Zwinglistrasse 22, 8004 Zürich](https://maps.app.goo.gl/TjhAGitd5ei45bN17)
+* (some) Wednesdays at [Bar Otro](https://otro.bar/) (downstairs) - [Zwinglistrasse 22, 8004 Zürich](https://maps.app.goo.gl/TjhAGitd5ei45bN17)
+* Show Begins: 20:00
