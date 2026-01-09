@@ -9,13 +9,7 @@ thumbnail: "assets/img/pages/perform.png"
 
 # How to Start an Open Mic Comedy Night in a Bar
 
-This guide is based on what we have learned running shows with **IN YOUR FACE Comedy** in Switzerland.
-
-It is not theory. It is not how comedy should work in an ideal world. It is what actually works when you are running open mics and small shows in bars, cafés, and non traditional venues.
-
-Many of these lessons apply anywhere. Some of them are very Swiss. Take what is useful and adapt the rest.
-
-You do not need a theatre, a sound engineer, or a big budget. You need the right basics, the right room, and the right mindset.
+This guide is based on what we have learned running shows with [**IN YOUR FACE Comedy**](https://inyourfacecomedy.ch) in Switzerland. It is not theory. It is not how comedy should work in an ideal world. It is what actually works when you are running open mics and small shows in bars, cafés, and non traditional venues. Many of these lessons apply anywhere. Some of them are very Swiss. Take what is useful and adapt the rest. You do not need a theatre, a sound engineer, or a big budget. You need the right basics, the right room, and the right mindset.
 
 ## Basic Equipment You Actually Need
 
@@ -99,25 +93,23 @@ That is enough to run shows almost anywhere, up to about 50 people in a room.
 
 ![Great comedy room setup](/assets/img/pages/stage.png)
 
-Comedy is not about space. It is about _closeness_.
-
-The goal is for the audience to feel safe and comfortable laughing at anything.
+Comedy is _not_ about space. It is about _closeness_. The goal is for the audience to feel safe and comfortable laughing at anything.
 
 What makes a room great for comedy:
 - Low ceilings
 - Audience seated close together
 - People close to the performer
 - A feeling of intimacy
+- Dim lighting other than the stage
 
 Things that usually kill comedy:
 - High ceilings
 - Large open rooms
 - Audiences spread around tables
 - Long narrow rooms where half the crowd feels far away
+- Too much light on the crowd
 
-If the room is long and narrow, it is often better to put the performer on one of the long walls, not the short wall. You want as many people as possible close to the comedian so they feel part of the show.
-
-Comedy works best when the audience feels like one group, not separate islands.
+If the room is long and narrow, it is often better to put the performer on one of the long walls, not the short wall. You want as many people as possible close to the comedian so they feel part of the show. Comedy works best when the audience feels like one group, not separate islands.
 
 ## Working With the Bar
 
@@ -134,9 +126,7 @@ Your relationship with the bar is as important as the comedy.
 - The bar keeps all drink sales
 - Comedians may get one or two free drinks, agreed in advance
 
-You bring people in. The bar sells drinks. Everyone wins.
-
-Always tag the bar on Instagram and other platforms. You are promoting their venue, not just your show. Visibility matters.
+You bring people in. The bar sells drinks. Everyone wins. Always tag the bar on Instagram and other platforms. You are promoting their venue, not just your show. Visibility matters.
 
 ## Tickets, Pricing, and the Swiss Reality
 
@@ -183,9 +173,5 @@ You do not need permission to start a comedy night.
 - A respectful relationship with the venue
 - Consistency and patience
 
-Most comedy scenes start exactly like this. One person, one mic, one room, done regularly.
-
-If you build it with care, people come back.
-
-And that is how scenes grow.
+Most comedy scenes start exactly like this. One person, one mic, one room, done regularly. If you build it with care, people come back. And that is how scenes grow...
 
