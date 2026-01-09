@@ -87,7 +87,7 @@ A wired mic with an **XLR cable** plugged directly into the amp is simple and re
 
 **Total:** around CHF 400 to 450
 
-That is enough to run shows almost anywhere, up to about 50 people in a room.
+That is enough to run shows almost anywhere, up to about 50 people in a room. More hardware tips [here on /r/Standup](https://old.reddit.com/r/Standup/comments/1q8h2l9/tips_on_starting_a_comedy_show_at_a_bar_eg/nyogao1/)
 
 ## Choosing and Setting Up the Room
 
