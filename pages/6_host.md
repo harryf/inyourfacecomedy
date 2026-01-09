@@ -117,8 +117,8 @@ Your relationship with the bar is as important as the comedy.
 
 **Basic rules:**
 - Find out who is actually in charge
-- Get their direct contact, WhatsApp works best
-- Tell them in advance how many people to expect
+- Get their direct contact, WhatsApp (in Europe) works best
+- Tell them in advance how many people to expect _every time_ you have a show. For open mics where tickets move in the last 24 that gets tricky.
 - Treat bar staff with respect, always
 
 **Typical setup for open mics and small shows:**
@@ -126,7 +126,7 @@ Your relationship with the bar is as important as the comedy.
 - The bar keeps all drink sales
 - Comedians may get one or two free drinks, agreed in advance
 
-You bring people in. The bar sells drinks. Everyone wins. Always tag the bar on Instagram and other platforms. You are promoting their venue, not just your show. Visibility matters.
+You bring people in. The bar sells drinks _and_ attracts new customers. Everyone wins. Always tag the bar on Instagram and other platforms. You are promoting their venue, not just your show. Visibility matters.
 
 ## Tickets, Pricing, and the Swiss Reality
 
