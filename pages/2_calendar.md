@@ -52,7 +52,7 @@ thumbnail: "assets/img/thumbs/inyourface_thumb.png"
 - [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/)
 
 **Fri 13 Feb**
-- British Comedy Night at SOHO
+- [British Comedy Night at SOHO](https://www.tickettailor.com/events/sohozurich/1901603)
 
 **Tue 17 Feb**
 - [Down Under Comedy](https://inyourfacecomedy.ch/downunder/)
