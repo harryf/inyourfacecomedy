@@ -6,7 +6,7 @@ description: "Wondering where to meet people in Zürich? Tired of hiking and mee
 feature-img: "assets/img/shows/comedybrew.png"
 thumbnail: "assets/img/thumbs/comedybrew.png"
 excerpt_separator: <!--more-->
-ticket_url: "https://bit.ly/iyfcb"
+ticket_url: "https://eventfrog.ch/comedybrew"
 permalink: /comedybrew/
 redirect_from:
   - /2024/01/18/comedybrew/
