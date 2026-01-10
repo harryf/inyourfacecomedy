@@ -12,7 +12,7 @@ ticket_url: https://eventfrog.ch/latarima
 ---
 ![]()
 
-![La Tarima - Comedia en Español](/assets/img/uploads/la_tarima_-_general.png "La Tarima - Comedia en Español")
+![La Tarima - Comedia en Español](/assets/img/uploads/copy_of_red_and_beige_collage_aesthetic_open_mic_poetry_reading_event_invitation_animated_instagram_story_1920_x_1080_px_.png "La Tarima - Comedia en Español")
 
 **La Tarima** es un open mic de comedia **100% en español**, que se celebra una vez al mes en **Zúrich y Basilea**, y se ha convertido en un punto de encuentro para la comunidad latina en Suiza.
 
