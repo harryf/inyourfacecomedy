@@ -10,7 +10,7 @@ excerpt_separator: <!--more-->
 permalink: /latarima/
 ticket_url: https://eventfrog.ch/latarima
 ---
-![La Tarima - Comedia en Español]( "La Tarima - Comedia en Español")
+![La Tarima - Comedia en Español](/assets/img/uploads/img_5475.jpg "La Tarima - Comedia en Español")
 
 ![](/assets/img/uploads/la_tarima_-_general.png)
 
