@@ -25,3 +25,5 @@ La Tarima es presentada por **Andrea Ramírez**, comediante y productora.
 Host: Andrea Ramírez
 
 Instagram: **[@andrea.comedy](https://www.instagram.com/andrea.comedy/)**
+
+![](/assets/img/uploads/byjuano-3.jpeg)
