@@ -28,4 +28,4 @@ Host: Andrea Ramírez
 
 Instagram: **[@andrea.comedy](https://www.instagram.com/andrea.comedy/)**
 
-![¡ Nos vemos en LA TARIMA!](/assets/img/uploads/img_5410.jpg)
+![¡¡ Nos vemos en LA TARIMA !!](/assets/img/uploads/img_5410.jpg)
