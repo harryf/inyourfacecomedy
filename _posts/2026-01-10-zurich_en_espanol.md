@@ -2,7 +2,7 @@
 layout: post
 editable: "true"
 title: Zúrich en Español
-description: Comedia Stand-up de México, Venezuela y Dominicana!
+description: Comedia Stand-up de México, Venezuela y Dominicana! - 23 de Enero
 feature-img: /assets/img/uploads/zurich_en_espan_ol_7_._2.jpeg
 thumbnail: /assets/img/uploads/zurich_en_espan_ol_7_._2.jpeg
 author: harryfucks
