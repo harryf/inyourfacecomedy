@@ -8,7 +8,7 @@ thumbnail: /assets/img/uploads/whatsapp_image_2025-05-13_at_00.05.38.jpeg
 author: harryfucks
 excerpt_separator: <!--more-->
 permalink: /latarima/
-ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/la-tarima-comedia-en-espanol-7353122271572033043.html
+ticket_url: https://eventfrog.ch/latarima
 ---
 ![La Tarima - Comedia en Español](/assets/img/uploads/whatsapp_image_2025-05-13_at_00.05.28.jpeg "La Tarima - Comedia en Español")
 
