@@ -3,8 +3,8 @@ layout: post
 editable: "true"
 title: La Tarima - Comedia en Español
 description: Zúrich habla español… y también se ríe en español.
-feature-img: /assets/img/uploads/whatsapp_image_2025-05-13_at_00.05.28.jpeg
-thumbnail: /assets/img/uploads/whatsapp_image_2025-05-13_at_00.05.38.jpeg
+feature-img: /assets/img/uploads/la_tarima_-_logo_universal.png
+thumbnail: /assets/img/uploads/la_tarima_-_general.png
 author: harryfucks
 excerpt_separator: <!--more-->
 permalink: /latarima/
@@ -12,22 +12,16 @@ ticket_url: https://eventfrog.ch/latarima
 ---
 ![La Tarima - Comedia en Español](/assets/img/uploads/whatsapp_image_2025-05-13_at_00.05.28.jpeg "La Tarima - Comedia en Español")
 
-**¿Estás cansado de reírte en “HAHA” y no en “JAJA”?**
+**La Tarima** es un open mic de comedia **100% en español**, que se celebra una vez al mes en **Zúrich y Basilea**, y se ha convertido en un punto de encuentro para la comunidad latina en Suiza.
 
-Zúrich habla español… y también se ríe en español.
+Migración, choques culturales y relaciones fallidas convertidas en chistes. Con acento, sin culpa y para no pagar terapia.
 
-La Tarima es un open mic de comedia 100% en español, donde latinos con historias, acentos y traumas convertidos en chistes se suben al escenario sin miedo (o con miedo, pero igual se suben).
+En La Tarima no prometemos que encuentres el amor de tu visa… pero quién sabe si encuentras el de verdad. Lo que sí es seguro es que puedes conocer gente, hacer amigos, sentirte en casa y, si te pica el gusanito, incluso subirte al escenario y probar suerte haciendo comedia.
 
-Ven a reírte con comediantes que no superan a sus ex, inmigrantes que convierten el sufrimiento en material, y gente que simplemente habla demasiado… en español.
+La Tarima es un espacio donde el español no se traduce, la experiencia migrante se comparte y el humor nos une. No es solo un open mic: es comunidad, catarsis y risas en tu idioma.
 
-Martes 28 de mayo
+La Tarima es presentada por **Andrea Ramírez**, comediante y productora.
 
-[Monroe Bar](https://maps.app.goo.gl/wX2ynKFeEf3Ca9W67) – Zúrich
+Host: Andrea Ramírez
 
-Puertas: 19:00 | Show: 19:30
-
-Entrada: CHF 10
-
-Idioma: Español
-
-Formato: Stand-up Comedy
+Instagram: **[@andrea.comedy](https://www.instagram.com/andrea.comedy/)**
