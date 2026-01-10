@@ -3,7 +3,7 @@ layout: post
 editable: "true"
 title: La Tarima - Comedia en Español
 description: Zúrich habla español… y también se ríe en español.
-feature-img: /assets/img/uploads/la_tarima_-_logo_universal.png
+feature-img: /assets/img/uploads/formato_1200_x_400_general_la_tarima.png
 thumbnail: /assets/img/uploads/formato_1200_x_400_general_la_tarima.png
 author: harryfucks
 excerpt_separator: <!--more-->
