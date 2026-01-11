@@ -11,11 +11,14 @@ excerpt_separator: <!--more-->
 permalink: /thecomedyvault/
 ticket_url: https://eventfrog.ch/comedyvault
 ---
-A new stand-up comedy night that takes you down into the dark to see comedians busting out new jokes.  Can they enter the vault and fill up the room with laughter?  Can one of them steal the show?  
+We live in desperate times - the global financial system is collapsing, assets are being frozen, the stock market bubble looks set to burst.  What should you do? Join us at **The Comedy Vault** where we offer the chance to invest in the only thing that has any intrinsic worth - **that’s right, JOKES!!** 
 
 ![The Comedy Vault - English Stand-Up Comedy at Bar Otro](/assets/img/uploads/the_comedy_vault_eventfrog.png "The Comedy Vault - English Stand-Up Comedy at Bar Otro")
 
-A new comedy show in a fantastic venue - the finest comics from the Swiss scene, hand-picked for your pleasure.  Only jokes, no crowdwork.  Just funny people being funny and hoping to make it out of there alive...
+As politicians and AI look determined to destroy us, take this opportunity to **enhance your portfolio** with **guaranteed humour** that will only go **up in value** - downstairs at **OTRO** we offer **unique, comedic investment possibilities** with **unbeatable returns** from our **industry experts**, all showing why laughter is the only hedge you can have against such uncertain times. 
 
-* (some) Wednesdays at [Bar Otro](https://otro.bar/) (downstairs) - [Zwinglistrasse 22, 8004 Zürich](https://maps.app.goo.gl/TjhAGitd5ei45bN17)
-* Show Begins: 20:00
+**Put your money into (comedy) gold and see the appreciation!!** 
+
+**SHOW BEGINS AT 20:00 (Doors at 19:00)**
+
+(some) Wednesdays at [Bar Otro](<>) (downstairs) - [Zwinglistrasse 22, 8004 Zürich](<>)
