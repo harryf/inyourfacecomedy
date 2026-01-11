@@ -18,5 +18,5 @@ ticket_url: https://eventfrog.ch/downunder
 Find out more about Chris Darwa on instagram [@chrisdarwa](https://www.instagram.com/chrisdarwa).
 
 * **Location**: [ROBIN's](https://maps.app.goo.gl/efKHNmaQrZSRUabh9) - [Zähringerstrasse 33, 8001 Zürich](https://maps.app.goo.gl/5tLh6G4ubC7xumpA6) - just 2 mins walk from Central Tram stop
-* **Doors Open**: 19:30
-* **Show Begin**: 20:00
+* **Doors Open**: 19:15
+* **Show Begin**: 19:30
