@@ -13,7 +13,7 @@ ticket_url: https://eventfrog.ch/downunder
 ---
 **Chris Darwa** brings his brand of unstoppable Australian comedy to the stage, along with a mix of hilarious friends from the Swiss Comedy scene, some experimenting with new material, others honing their act, either way, your Tuesday is sure to end pissing yourself with laughs.
 
-![Down Under Comedy with Chris Darwa](/assets/img/uploads/down_under_comedy_thumbnail.png "Down Under Comedy with Chris Darwa")
+![Down Under Comedy with Chris Darwa](/assets/img/uploads/down_under_comedy_wide_0.5x.png "Down Under Comedy with Chris Darwa")
 
 Find out more about Chris Darwa on instagram [@chrisdarwa](https://www.instagram.com/chrisdarwa).
 
