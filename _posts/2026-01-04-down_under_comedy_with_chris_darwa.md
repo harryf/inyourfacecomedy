@@ -5,7 +5,7 @@ title: Down Under Comedy with Chris Darwa
 description: English stand-up comedy with Chris Darwa and Friends on Tuesdays in
   Zürich at ROBINs in Niederdorf
 feature-img: /assets/img/uploads/down_under_comedy_wide_0.5x.png
-thumbnail: /assets/img/uploads/down_under_comedy_thumbnail.png
+thumbnail: /assets/img/uploads/down_under_comedy_insta_post_0.5x.png
 author: harryfucks
 excerpt_separator: <!--more-->
 permalink: /downunder/
