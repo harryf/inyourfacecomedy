@@ -37,6 +37,17 @@ Approx price: CHF 150
 
 You do not need fancy lighting. One good spotlight on the performer is enough.
 
+#### Lighting Plan B
+
+![Eurolite AKKU Mini PARty RGBW Spot MK2](/assets/img/pages/eurolite-led-party-spot.png)
+
+Sadly the Eurolite AKKU Dot 1 seems to have been discontinued. An alternative option is the [Eurolite AKKU Mini PARty RGBW Spot MK2](https://www.digitec.ch/en/s1/product/eurolite-set-4x-akku-mini-party-rgbw-spot-mk2-soft-bag-led-stage-lighting-32914837) which is a bit more expensive at ~ CHF 220 but is also battery powered (has about 4 hours from fully charged).
+
+If you get this you may also want to get a clamp like the [Ulanzi Multi-functional Super Clamp](https://www.galaxus.ch/en/s1/product/ulanzi-multi-functional-super-clamp-stand-clamp-tripod-accessories-20912576?utm_source=chatgpt.com).
+
+Also if you're placing the light about people's heads, consider a [BeamZ safety cable](https://www.galaxus.ch/en/s1/product/beamz-safety-cable-lighting-technology-mounting-6062028) to prevent the light (0.5kg) from dropping on someone...
+
+
 ### Sound System
 
 ![Alto Uber FX2](/assets/img/pages/uber-fx2.png)
