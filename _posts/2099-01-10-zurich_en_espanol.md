@@ -1,13 +1,82 @@
 ---
 layout: post
 editable: "true"
-title: Zúrich en Español
-description: Comedia Stand-up de México, Venezuela y Dominicana! - 23 de Enero
+title: "Zúrich en Español"
+description: "Comedia stand-up de México, Venezuela y República Dominicana, 23 de enero"
 feature-img: /assets/img/uploads/zurich_en_espan_ol_7_._2.jpeg
 thumbnail: /assets/img/uploads/zurich_en_espan_ol_7_._2.jpeg
 author: harryfucks
 excerpt_separator: <!--more-->
 permalink: /zurich-en-espanol/
-ticket_url: "https://www.eventbrite.de/e/zurich-en-espanol-7-comedia-stand-up-de-mexico-venezuela-y-dominicana-tickets-1979524422836?aff=Inyourface"
+# Important: keep this URL clean, no query string, to avoid Netlify invalid filename issues
+ticket_url: "https://www.eventbrite.de/e/zurich-en-espanol-7-comedia-stand-up-de-mexico-venezuela-y-dominicana-tickets-1979524422836"
 ---
-¡Más comedia latina! Nuestro show #7 en Zúrich! Ven a reírte de nuevo con algunos de los mejores standuperos de habla hispana de la región. Vengan a reírse y a conectar con otros latinos e hispanos de la región en nuestro sexto show en Zúrich! Trayendo lo mejor de la comedia stand-up en español desde 2024.  En esta ocasión Chadmax presenta su show más exitoso "Importado" por primera vez en dos años en esta ciudad! SI no lo han viato, NO SE LO PIERDAN!  Sobre el headliner:  Chadmax, de México. En los escenarios desde 2010. En el stand-up desde 2013. Uno de los pioneros del stand-up en Español en Alemania y alrededores.  Ha compartido escenarios en México y Europa con algunos de los comediantes más importantes de Latinoamérica como "La Cotorrisa", Ricardo O'farrill, Alex Fernández, El Cojo Feliz, El Tío Rober, Adal Ramones, Franco Escamilla, entre otros.  Desde 2022 está de gira por el mundo prácticamente non-stop haciendo reír a miles de personas! 20 países y contando!  Artista marcial y maestro de stand-up de la mayoría de los comediantes de la escena en la región, por lo que lleva el título de "el sensei de la comedia".  Host del podcast "Ninja Creativo" y "Alemania en Español". Creador del colectivo "The Comedy Fire" , responsables de la mayoría de los shows de stand-up en Español de Alemania y alrededores desde 2022 (Con 300+ shows y contando)  INSTAGRAM: @Mrchadmax  "Importado" es un show especial de comedia stand-up centrado en los primeros años de un inmigrante latino en Alemania. Con divertidas historias que van desde los barrios bajos de México, enfrentarse a un nuevo idioma, conocer a los suegros alemanes, un amor internacional y mucho más. Siempre abordado desde la observación, la empatía y el humor. Es una carta de amor para la comunidad latina de Europa que está lejos de casa.  ¡ Risas garantizadas!  \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  Featuring:  Ruben García:  Es un comediante dominicano nacido en Nueva York y residente en Suiza que busca combinar la energía caribeña y del Bronx con la eficiencia suiza (con resultados dispares). Ha aparecido en el programa 10 vor 10 de SRF por su singular forma de usar el humor para desenvolverse en la vida suiza, y en 20 Minuten por traer la cultura del stand-up neoyorquino inglés a Zúrich.  INSTAGRAM: @Rubengarciacomedy  ---  Andrea Ramírez  Comediante venezolana con espíritu de fuego. Es Dinamita pura en el escenario. Con un estilo muy auténtico que atrapa la atención de todos en la sala. Una de las más destacadas representantes de la comedia en Español en Suiza y una de las mejores nuevas comediantes que salieron de los talleres de "The Comedy Fire".  Nominada en 2025 a "Novato del año" en los premios el Fuego de la Comedia.En 2025 estuvo de invitada en el festival de comedia "Miami es un Chiste" donde compartió escenario con algunos de los top comediantes de latinoamérica.  Instagram: @Andrea.comedy  \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  Precio:  Early bird: 22 CHF (hasta el 10.01.26.)  Preventa: 25 CHF (hasta el 22.01.26.)  Día del evento: 30 CHF  CUPO LIMITADO - Recomendamos ampliamente comprar sus entradas en línea y con tiempo para asegurar su lugar.  Puertas desde las 7 pm. Inicio del show 7:45 pm  Este show es una producción de The Comedy Fire en colaboración con In Your Face.  Información importante:  -El line-up del evento puede llegar a variar en el día del show por causas de fuerza mayor.  -En los shows se toman muchas fotografías donde puede aparecer el público, al asistir a cualquiera de nuestros shows aceptan que pueden salir en dichas fotografías. Estas fotografías pueden ser utilizadas en redes sociales con fines de difusión de nuestros eventos. Para cualquier duda o solicitud referente a dichas fotografías nos pueden contactar en Instagram @Standupcomedyberlin o en el correo info@standupcomedyberlin.com  -Este show será grabado en video para redes sociales. Los videos pueden incluir tomas del público. Al asistir al show se acepta de antemano la posibilidad de aparecer en dichos videos y fotos del evento. Si tiene dudas al respecto por favor comunicarse a info@standupcomedyberlin.com  El precio mencionado en la descripción puede no incluir la comisión de la boletera.  No se hacen reembolsos.
+
+¡Más comedia latina! Nuestro show número 7 en Zúrich. Ven a reírte y a conectar con otros latinos e hispanohablantes de la región.
+
+**Entradas:** [Comprar en Eventbrite](https://www.eventbrite.de/e/zurich-en-espanol-7-comedia-stand-up-de-mexico-venezuela-y-dominicana-tickets-1979524422836?aff=Inyourface)
+
+<!--more-->
+
+## Headliner
+
+### Chadmax (México), "Importado"
+
+Chadmax presenta su show más exitoso **"Importado"** por primera vez en dos años en esta ciudad. Si no lo has visto, no te lo pierdas.
+
+- En escenarios desde 2010, en stand-up desde 2013
+- Pionero del stand-up en español en Alemania y alrededores
+- Ha compartido escenario en México y Europa con: La Cotorrisa, Ricardo O'farrill, Alex Fernández, El Cojo Feliz, El Tío Rober, Adal Ramones, Franco Escamilla, entre otros
+- De gira casi sin parar desde 2022, 20 países y contando
+- Host de los podcasts **"Ninja Creativo"** y **"Alemania en Español"**
+- Creador del colectivo **"The Comedy Fire"** (300+ shows desde 2022)
+
+Instagram: **@Mrchadmax**
+
+"Importado" es un show de comedia centrado en los primeros años de un inmigrante latino en Alemania: idioma, choques culturales, suegros alemanes, amor internacional y mucho más, contado con observación, empatía y humor.
+
+## Featuring
+
+### Ruben García
+Comediante dominicano nacido en Nueva York y residente en Suiza. Combina la energía caribeña y del Bronx con la eficiencia suiza, con resultados dispares.
+
+- Ha aparecido en **10 vor 10 (SRF)** y **20 Minuten**
+
+Instagram: **@Rubengarciacomedy**
+
+### Andrea Ramírez
+Comediante venezolana con energía explosiva en el escenario, una de las representantes destacadas de la comedia en español en Suiza.
+
+- Nominada en 2025 a **"Novato del año"** en los premios El Fuego de la Comedia
+- Invitada en 2025 al festival **"Miami es un Chiste"**
+
+Instagram: **@Andrea.comedy**
+
+## Precios
+
+- **Early bird:** 22 CHF (hasta el 10.01.26)
+- **Preventa:** 25 CHF (hasta el 22.01.26)
+- **Día del evento:** 30 CHF
+
+Cupo limitado, recomendamos comprar las entradas en línea con anticipación.  
+El precio mencionado puede no incluir la comisión de la boletera.
+
+## Horarios
+
+- **Puertas:** 19:00
+- **Inicio del show:** 19:45
+
+## Producción
+
+Este show es una producción de **The Comedy Fire** en colaboración con **In Your Face**.
+
+## Información importante
+
+- El line-up puede variar el día del show por causas de fuerza mayor.
+- En los shows se toman fotografías y puede aparecer el público. Al asistir, aceptas que puedas salir en dichas fotos, que pueden usarse en redes sociales para difusión.
+- Este show será grabado en video para redes sociales. Los videos pueden incluir tomas del público. Al asistir, aceptas la posibilidad de aparecer en dichos videos y fotos.
+- No se hacen reembolsos.
+
+Contacto para dudas o solicitudes sobre fotos y video:
+- Instagram: **@Standupcomedyberlin**
+- Email: **info@standupcomedyberlin.com**
