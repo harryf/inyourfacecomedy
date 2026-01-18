@@ -112,6 +112,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="twitter:card" content="{% unless page.thumbnail %}summary{% else %}summary_large_image{% endunless %}">
   <meta name="twitter:image" content="{{ '/' | absolute_url }}{% if page.thumbnail %}{{ page.thumbnail }}{% else %}{{ page.feature-img | default: site.header_feature_image }}{% endif %}">
   <meta name="twitter:image:alt" content="{{ page.title | default: site.title }}">
+  <meta name="msvalidate.01" content="93E1F6DB62CD6E40E6F6C6B50046CDA4" />
 
   {% if site.meta_pixel %}
     <!-- Meta Pixel -->
