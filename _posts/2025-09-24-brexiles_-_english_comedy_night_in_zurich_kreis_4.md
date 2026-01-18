@@ -3,6 +3,7 @@ layout: post
 editable: "true"
 title: Brexiles - English Comedy Night in Zurich Kreis 4
 description: "Join three of Switzerland's sharpest comedy imports, all the way from the UK, as they navigate life post-Brexit in the land of cheese, chocolate, and punctuality • English Stand-Up Comedy in Zürich • Switzerland"
+last_modified_at: 2026-01-17T10:03:00+00:00
 feature-img: /assets/img/uploads/brexiles_horizontal.png
 thumbnail: /assets/img/uploads/brexiles_square.png
 author: harryfucks

@@ -3,6 +3,7 @@ layout: post
 editable: "true"
 title: "Zúrich en Español"
 description: "Comedia stand-up de México, Venezuela y República Dominicana, 23 de enero"
+last_modified_at: 2026-01-17T09:07:00+00:00
 feature-img: /assets/img/uploads/zurich_en_espan_ol_7_._2.jpeg
 thumbnail: /assets/img/uploads/zurich_en_espan_ol_7_._2.jpeg
 author: harryfucks

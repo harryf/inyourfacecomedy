@@ -4,6 +4,7 @@ editable: "true"
 title: Jack Robert's Comedy Vault - downstairs @ OTRO
 description: Jack Robert's Comedy Vault - English Stand-up Comedy - Wednesdays
   at Bar Otro in Zwinglistrasse, just off Langstrasse, Zürich
+last_modified_at: 2026-01-17T10:04:00+00:00
 feature-img: /assets/img/uploads/jack_roberts_comedy_vault_eventfrog.png
 thumbnail: /assets/img/uploads/jack_roberts_comedy_vault_square.png
 author: harryfucks

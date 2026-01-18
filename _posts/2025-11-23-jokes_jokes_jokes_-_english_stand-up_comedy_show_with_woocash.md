@@ -3,6 +3,7 @@ layout: post
 editable: "true"
 title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
 description: A non-obvious English stand-up night with comics from Zurich and beyond.
+last_modified_at: 2026-01-17T11:03:00+00:00
 feature-img: /assets/img/uploads/jokes_jokes_jokes_facebook_event.png
 thumbnail: /assets/img/uploads/jokes_jokes_jokes_insta_post.png
 author: harryfucks
