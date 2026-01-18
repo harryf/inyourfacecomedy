@@ -1,3 +1,32 @@
+# Submitting the site to indexnow
+
+curl -X POST "https://api.indexnow.org/IndexNow" \
+  -H "Content-Type: application/json; charset=utf-8" \
+  -d '{
+    "host": "inyourfacecomedy.ch",
+    "key": "4b04fa2d03884c6794d4ece40fb41a29",
+    "keyLocation": "https://inyourfacecomedy.ch/4b04fa2d03884c6794d4ece40fb41a29.txt",
+    "urlList": [
+      "https://inyourfacecomedy.ch/",
+      "https://inyourfacecomedy.ch/calendar/",
+      "https://inyourfacecomedy.ch/follow/",
+      "https://inyourfacecomedy.ch/perform/",
+      "https://inyourfacecomedy.ch/host/",
+      "https://inyourfacecomedy.ch/switzerland/",
+      "https://inyourfacecomedy.ch/moments/",
+      "https://inyourfacecomedy.ch/comedybrew/",
+      "https://inyourfacecomedy.ch/brexiles/",
+      "https://inyourfacecomedy.ch/jokesjokesjokes/",
+      "https://inyourfacecomedy.ch/downunder/",
+      "https://inyourfacecomedy.ch/thecomedyvault/",
+      "https://inyourfacecomedy.ch/zurich-en-espanol/",
+      "https://inyourfacecomedy.ch/latarima/"
+    ]
+  }'
+
+
+
+
 # Type on Strap 🎨
  
 [![Build](https://github.com/sylhare/Type-on-Strap/actions/workflows/jekyll-build.yml/badge.svg)](https://github.com/sylhare/Type-on-Strap/actions/workflows/jekyll-build.yml)
