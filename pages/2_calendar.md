@@ -3,7 +3,7 @@ layout: page
 title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
-description: "Upcoming IN YOUR FACE English Stand-Up Comedy Shows in Zurich in 2026"
+description: "See all upcoming English stand-up comedy shows in Zurich with dates, venues and ticket links. Updated calendar of IN YOUR FACE Comedy events."
 permalink: /calendar/
 feature-img: "assets/img/pages/follow.png"
 thumbnail: "assets/img/thumbs/inyourface_thumb.png"
