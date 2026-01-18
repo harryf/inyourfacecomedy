@@ -7,7 +7,13 @@ feature-img: "assets/img/pages/follow.png"
 thumbnail: "assets/img/thumbs/inyourface_thumb.png"
 ---
 
-> Upcoming IN YOUR FACE English Stand-Up Comedy Shows in Zurich in 2026
+# English Stand-Up Comedy Show Calendar – Zurich 2026
+
+Discover all upcoming **English stand-up comedy shows in Zurich** from IN YOUR FACE Comedy.
+
+This calendar lists show dates, venues and ticket links for our regular comedy nights and special events throughout 2026.
+
+Whether you are looking for open mics, featured shows or touring comedians, you will find all upcoming performances here.
 
 ---
 
