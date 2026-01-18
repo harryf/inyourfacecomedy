@@ -4,6 +4,7 @@ title: Perform
 title_override: Perform Stand-Up Comedy in Zurich
 subtitle: Got the comedy itch? Get Your First Spot and Tips – IN YOUR FACE Comedy
 description: "Learn how to perform stand-up comedy in Zurich with IN YOUR FACE Comedy, get a spot on our shows and find practical tips on joke writing, stage craft and cracking the mic. Start your comedy journey here."
+last_modified_at: 2026-01-17T08:42:00+00:00
 permalink: /perform/
 feature-img: "assets/img/pages/perform.png"
 thumbnail: "assets/img/pages/perform.png"
