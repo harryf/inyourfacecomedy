@@ -6,7 +6,12 @@ layout: default
 
   <header id="main" style="background-image: url('{{ page.feature-img | relative_url }}')">
     <div class="title-padder">
-      {% if page.hide_title %}
+      {% if page.title_override %}
+        <h1 id="{{ page.title_override | default: "" | cgi_escape }}" class="title"> {{ page.title_override }}</h1>
+        {% if page.subtitle %}
+        <h2 class="subtitle">{{ page.subtitle }}</h2>
+        {% endif %}
+      {% elsif page.hide_title %}
         <div class="feature-image-padding"></div>
       {% else %}
         <h1 id="{{ page.title | default: "" | cgi_escape }}" class="title"> {{ page.title }}</h1>
