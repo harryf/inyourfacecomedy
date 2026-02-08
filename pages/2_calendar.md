@@ -4,7 +4,7 @@ title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
 description: "See all upcoming English stand-up comedy shows in Zurich with dates, venues and ticket links. Updated calendar of IN YOUR FACE Comedy events."
-last_modified_at: 2026-01-17T08:17:00+00:00
+last_modified_at: 2026-02-08T08:00:00+00:00
 permalink: /calendar/
 feature-img: "assets/img/pages/follow.png"
 thumbnail: "assets/img/thumbs/inyourface_thumb.png"
@@ -20,30 +20,13 @@ Whether you are looking for open mics, featured shows or touring comedians, you 
 
 ---
 
-## January 2026
-*New year, new jokes! Start 2026 right by laughing at other people's problems instead of your own.*
-
-| Date | Day | Show | Info | Tickets |
-|------|-----|------|------|---------|
-| Jan 20 | Tue | [Down Under Comedy](https://inyourfacecomedy.ch/downunder/) | Unstoppable Aussie comedy + Swiss friends 🇦🇺 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/down-under-comedy-7411510117378565146.html) |
-| Jan 21 | Wed | [Jack Robert's Comedy Vault](https://inyourfacecomedy.ch/thecomedyvault/) | Invest in jokes - the only hedge against uncertain times! 💰 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jack-robert-s-comedy-vault-downstairs-otro-7413646370723116567.html) |
-| Jan 22 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Open mic chaos! Pros testing + newbies sweating 😅 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413523490920236523.html) |
-| Jan 27 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | Non-obvious comedy from unexpected places 🎭 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7413564581858042221.html) |
-| Jan 28 | Wed | [Brexiles](https://inyourfacecomedy.ch/brexiles/) | British expats roast Brexit & Swiss life 🇬🇧🇨🇭 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/brexiles-english-comedy-night-in-zurich-kreis-4-7413657866953868976.html) |
-| Jan 29 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Where seasoned acts meet glorious train-wrecks 🚂 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413524101078240126.html) |
-
----
-
 ## February 2026
 *The shortest month with the longest laughs – because February believes in quality over quantity!*
 
 | Date | Day | Show | Info | Tickets |
 |------|-----|------|------|---------|
-| Feb 3 | Tue | [Down Under Comedy](https://inyourfacecomedy.ch/downunder/) | Chris Darwa + hilarious Swiss scene friends 🎤 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/down-under-comedy-7411510651737123153.html) |
-| Feb 4 | Wed | [Jack Robert's Comedy Vault](https://inyourfacecomedy.ch/thecomedyvault/) | Comedy gold - better returns than crypto! 📈 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jack-robert-s-comedy-vault-downstairs-otro-7413646370962192605.html) |
-| Feb 5 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Fresh material testing ground - gems & flops! 💎 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413524414686303818.html) |
 | Feb 10 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | Woocash's vibe-driven, off-beat comedy show ✨ | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7413564801874460031.html) |
-| Feb 11 | Wed | [Jack Robert's Comedy Vault](https://inyourfacecomedy.ch/thecomedyvault/) | Unique comedic investments with unbeatable returns 💸 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jack-robert-s-comedy-vault-downstairs-otro-7413646371079633146.html) |
+| Feb 11 | Wed | [Jackpot Comedy](https://inyourfacecomedy.ch/jackpotcomedy/) | Brand-new jokes + proven hits underground at Bar OTRO 🎰 | [Get Tickets](https://eventfrog.ch/jackpotcomedy) |
 | Feb 12 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Best local talent + first-timers = wild night! 🎢 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413524549147305969.html) |
 | Feb 13 | Fri | British Comedy Night at SOHO | Special event! | [Get Tickets](https://www.tickettailor.com/events/sohozurich/1901603) |
 | Feb 17 | Tue | [Down Under Comedy](https://inyourfacecomedy.ch/downunder/) | End your Tuesday pissing yourself with laughs 😂 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/down-under-comedy-7411510651871341523.html) |
@@ -60,11 +43,13 @@ Whether you are looking for open mics, featured shows or touring comedians, you 
 | Date | Day | Show | Info | Tickets |
 |------|-----|------|------|---------|
 | Mar 3 | Tue | [Down Under Comedy](https://inyourfacecomedy.ch/downunder/) | Australian comedy + honed acts = guaranteed laughs 🎪 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/down-under-comedy-7411510651988782071.html) |
-| Mar 4 | Wed | [Jack Robert's Comedy Vault](https://inyourfacecomedy.ch/thecomedyvault/) | Industry experts in comedic gold downstairs @ OTRO 🏦 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jack-robert-s-comedy-vault-downstairs-otro-7413646371327097162.html) |
+| Mar 4 | Wed | [Jackpot Comedy](https://inyourfacecomedy.ch/jackpotcomedy/) | Comics risking their dignity for your entertainment 🎲 | [Get Tickets](https://eventfrog.ch/jackpotcomedy) |
 | Mar 5 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Meetup groups feeling cult-y? We've got you! 🙏 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413525254054636285.html) |
 | Mar 10 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | Unexpected jokes & laughter from weird places 🌀 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7413564802449079830.html) |
+| Mar 11 | Wed | [Jackpot Comedy](https://inyourfacecomedy.ch/jackpotcomedy/) | High-risk jokes off Langstrasse - roll the dice! 🎰 | [Get Tickets](https://eventfrog.ch/jackpotcomedy) |
 | Mar 12 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | 10+ comedians = something for everyone! 🎉 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413525430471260831.html) |
 | Mar 17 | Tue | [Down Under Comedy](https://inyourfacecomedy.ch/downunder/) | Unstoppable Chris Darwa + experimental material 🧪 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/down-under-comedy-7411510652114611243.html) |
+| Mar 18 | Wed | [Jackpot Comedy](https://inyourfacecomedy.ch/jackpotcomedy/) | Some hit the jackpot, some crash out spectacularly 💥 | [Get Tickets](https://eventfrog.ch/jackpotcomedy) |
 | Mar 19 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Comedy born in real time - witness the chaos! ⚡ | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413525575631931716.html) |
 | Mar 24 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | Comedian's favourite: distinctive non-obvious comedy 🎨 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7413564802700738074.html) |
 | Mar 25 | Wed | [Brexiles](https://inyourfacecomedy.ch/brexiles/) | UK expats navigate cheese, chocolate & punctuality ⏰ | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/brexiles-english-comedy-night-in-zurich-kreis-4-7413658540479362355.html) |
