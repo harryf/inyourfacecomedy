@@ -12,11 +12,9 @@ excerpt_separator: <!--more-->
 permalink: /jackpotcomedy/
 ticket_url: https://eventfrog.ch/jackpotcomedy
 ---
-We live in desperate times - the global financial system is collapsing, assets are being frozen, the stock market bubble looks set to burst.  What should you do? Join us at **The Comedy Vault** where we offer the chance to invest in the only thing that has any intrinsic worth - **that’s right, JOKES!!** 
+**Down on your luck?** Perfect. Comedy works best on people with low expectations. At **Jackpot Comedy**, comedians test brand-new jokes alongside the ones that actually work. Some hit the jackpot, some crash out spectacularly. Either way, you win, because it’s funnier when anything can happen.
 
 ![Jackpot Coemdy - English Stand-Up Comedy at Bar Otro](/assets/img/uploads/jackpot_comedy_website_wide.png "Jackpot Comedy - English Stand-Up Comedy at Bar Otro")
-
-**Down on your luck?** Perfect. Comedy works best on people with low expectations. At **Jackpot Comedy**, comedians test brand-new jokes alongside the ones that actually work. Some hit the jackpot, some crash out spectacularly. Either way, you win, because it’s funnier when anything can happen.
 
 Expect a proper underground comedy night, close to the stage, real crowd energy, and comics who are risking their dignity for your entertainment. Hosted by **[Jack Roberts](https://www.instagram.com/jackrobertscomedy/)**, a man who has invested his long-term financial stability entirely into making strangers laugh.
 
