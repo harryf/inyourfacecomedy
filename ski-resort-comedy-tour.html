@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swiss Alpine Comedy Circuit</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d1b2a;
+    --snow: #f0f4f8;
+    --ice: #a8c8e8;
+    --glacier: #4a90c4;
+    --fire: #e85d26;
+    --gold: #c9a84c;
+    --pine: #2d5a3d;
+    --mist: rgba(168,200,232,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--ink);
+    color: var(--snow);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* MOUNTAIN BG */
+  .mountain-bg {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 45vh;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.07;
+  }
+
+  header {
+    position: relative;
+    z-index: 10;
+    padding: 60px 48px 40px;
+    border-bottom: 1px solid rgba(168,200,232,0.15);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .logo-area h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--snow);
+  }
+
+  .logo-area h1 em {
+    color: var(--fire);
+    font-style: italic;
+  }
+
+  .logo-area p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ice);
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+
+  .season-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    background: var(--fire);
+    color: white;
+    padding: 8px 18px;
+    text-transform: uppercase;
+  }
+
+  /* MAIN GRID */
+  main {
+    position: relative;
+    z-index: 10;
+    padding: 0 48px 80px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* SECTION TITLES */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--ice);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    margin-top: 56px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(168,200,232,0.2);
+  }
+
+  /* KPI ROW */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 2px;
+    margin-bottom: 2px;
+  }
+
+  .kpi {
+    background: var(--mist);
+    border: 1px solid rgba(168,200,232,0.1);
+    padding: 28px 24px;
+    transition: background 0.2s;
+  }
+  .kpi:hover { background: rgba(168,200,232,0.18); }
+
+  .kpi .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--snow);
+  }
+  .kpi .num span { color: var(--fire); font-size: 1.4rem; }
+  .kpi .label {
+    font-size: 0.72rem;
+    color: var(--ice);
+    margin-top: 8px;
+    letter-spacing: 0.05em;
+  }
+  .kpi .sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: rgba(168,200,232,0.5);
+    margin-top: 4px;
+  }
+
+  /* SEASON CALENDAR */
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: 80px repeat(5, 1fr);
+    gap: 2px;
+  }
+
+  .cal-header {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--ice);
+    padding: 10px 14px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .cal-week {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: rgba(168,200,232,0.4);
+    padding: 10px 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .cal-cell {
+    padding: 10px 8px;
+    text-align: center;
+    font-size: 0.68rem;
+    border: 1px solid transparent;
+    position: relative;
+    min-height: 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    cursor: default;
+  }
+
+  .cal-cell.show {
+    background: rgba(232,93,38,0.15);
+    border-color: rgba(232,93,38,0.3);
+    color: var(--snow);
+  }
+  .cal-cell.show:hover {
+    background: rgba(232,93,38,0.28);
+  }
+  .cal-cell.show .show-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--fire);
+  }
+  .cal-cell.show .show-name {
+    font-size: 0.58rem;
+    color: var(--ice);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
+  }
+  .cal-cell.travel {
+    background: rgba(74,144,196,0.08);
+    border-color: rgba(74,144,196,0.15);
+    color: var(--glacier);
+    font-size: 0.6rem;
+  }
+  .cal-cell.empty {
+    background: rgba(255,255,255,0.02);
+    border-color: rgba(255,255,255,0.04);
+    color: rgba(168,200,232,0.2);
+  }
+
+  /* VENUE GRID */
+  .venues-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2px;
+  }
+
+  .venue-card {
+    background: var(--mist);
+    border: 1px solid rgba(168,200,232,0.08);
+    padding: 24px;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .venue-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--glacier);
+    opacity: 0.4;
+    transition: opacity 0.2s;
+  }
+  .venue-card.hot::before { background: var(--fire); opacity: 0.7; }
+  .venue-card:hover { background: rgba(168,200,232,0.14); }
+  .venue-card:hover::before { opacity: 1; }
+
+  .venue-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .venue-resort {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--ice);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .venue-stats {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .vstat { }
+  .vstat .v { font-size: 1.1rem; font-weight: 500; color: var(--snow); }
+  .vstat .k { font-size: 0.6rem; color: var(--ice); margin-top: 2px; }
+
+  .venue-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.56rem;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border: 1px solid rgba(168,200,232,0.2);
+    color: var(--ice);
+    text-transform: uppercase;
+  }
+  .tag.hot { border-color: rgba(232,93,38,0.4); color: var(--fire); }
+  .tag.ok { border-color: rgba(74,144,196,0.4); color: var(--glacier); }
+
+  /* REVENUE MODEL */
+  .rev-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .rev-panel {
+    background: var(--mist);
+    border: 1px solid rgba(168,200,232,0.08);
+    padding: 32px;
+  }
+
+  .rev-panel h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: var(--snow);
+  }
+
+  .rev-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(168,200,232,0.07);
+    font-size: 0.8rem;
+  }
+  .rev-row:last-child { border-bottom: none; }
+  .rev-row .label { color: var(--ice); }
+  .rev-row .value { font-family: 'DM Mono', monospace; color: var(--snow); }
+  .rev-row .value.pos { color: #6fcf97; }
+  .rev-row .value.neg { color: #eb5757; }
+  .rev-row .value.total {
+    color: var(--gold);
+    font-size: 1rem;
+  }
+
+  /* BAR CHART */
+  .bar-chart {
+    margin-top: 20px;
+  }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .bar-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--ice);
+    width: 80px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .bar-track {
+    flex: 1;
+    height: 20px;
+    background: rgba(168,200,232,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--glacier), var(--fire));
+    transition: width 1s ease;
+    position: relative;
+  }
+  .bar-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--snow);
+    width: 60px;
+    flex-shrink: 0;
+  }
+
+  /* TOUR ROUTES */
+  .routes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2px;
+  }
+
+  .route-card {
+    background: var(--mist);
+    border: 1px solid rgba(168,200,232,0.08);
+    padding: 28px;
+  }
+
+  .route-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .route-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--ice);
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+
+  .route-stops {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .stop {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    position: relative;
+  }
+  .stop-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 16px;
+  }
+  .stop-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--glacier);
+    background: var(--ink);
+    flex-shrink: 0;
+  }
+  .stop-dot.show { border-color: var(--fire); background: var(--fire); }
+  .stop-connector {
+    width: 1px;
+    flex: 1;
+    min-height: 28px;
+    background: rgba(74,144,196,0.25);
+    margin: 2px 0;
+  }
+  .stop-info { padding-bottom: 16px; padding-top: 0; }
+  .stop-info .sname { font-size: 0.82rem; color: var(--snow); font-weight: 500; }
+  .stop-info .sday {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--ice);
+    margin-top: 2px;
+  }
+  .stop-info .stype {
+    font-size: 0.6rem;
+    color: var(--fire);
+    margin-top: 3px;
+  }
+
+  /* TIPS */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 2px;
+  }
+  .tip {
+    background: var(--mist);
+    border: 1px solid rgba(168,200,232,0.08);
+    padding: 24px;
+  }
+  .tip .icon { font-size: 1.4rem; margin-bottom: 12px; }
+  .tip .tip-title { font-weight: 500; font-size: 0.88rem; margin-bottom: 8px; color: var(--snow); }
+  .tip .tip-body { font-size: 0.75rem; color: var(--ice); line-height: 1.6; }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 10;
+    border-top: 1px solid rgba(168,200,232,0.1);
+    padding: 28px 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: rgba(168,200,232,0.3);
+    letter-spacing: 0.1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+    gap: 16px;
+  }
+
+  /* ANIMATE IN */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .kpi, .venue-card, .rev-panel, .route-card, .tip {
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @media (max-width: 768px) {
+    header, main { padding-left: 20px; padding-right: 20px; }
+    .rev-grid { grid-template-columns: 1fr; }
+    .calendar-grid { grid-template-columns: 60px repeat(5, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Mountain silhouette -->
+<svg class="mountain-bg" viewBox="0 0 1440 400" preserveAspectRatio="xMidYMax slice">
+  <path d="M0,400 L0,250 L120,180 L240,260 L360,120 L480,200 L600,80 L720,160 L840,60 L960,140 L1080,40 L1200,120 L1320,180 L1440,100 L1440,400 Z" fill="white"/>
+  <path d="M0,400 L0,300 L180,240 L360,310 L540,200 L720,280 L900,180 L1080,250 L1260,200 L1440,260 L1440,400 Z" fill="white" opacity="0.5"/>
+</svg>
+
+<header>
+  <div class="logo-area">
+    <h1>Swiss Alpine<br><em>Comedy Circuit</em></h1>
+    <p>IN YOUR FACE Comedy &mdash; Resort Expansion Model &mdash; Season 2025/26</p>
+  </div>
+  <div class="season-badge">Winter Season Analysis</div>
+</header>
+
+<main>
+
+  <!-- KPIs -->
+  <div class="section-label">Season at a glance</div>
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="num">18<span>–24</span></div>
+      <div class="label">Shows per season</div>
+      <div class="sub">Dec – Mar (16 weeks)</div>
+    </div>
+    <div class="kpi">
+      <div class="num">6<span>–8</span></div>
+      <div class="label">Resort venues</div>
+      <div class="sub">Verbier, St. Moritz, Davos, Zermatt, Gstaad, Saas-Fee, Crans-Montana, Engelberg</div>
+    </div>
+    <div class="kpi">
+      <div class="num">60<span>–120</span></div>
+      <div class="label">Seats per show</div>
+      <div class="sub">Hotel bar / lounge format</div>
+    </div>
+    <div class="kpi">
+      <div class="num">CHF<span> </span>35<span>–65</span></div>
+      <div class="label">Ticket price</div>
+      <div class="sub">incl. drink, alpine premium</div>
+    </div>
+    <div class="kpi">
+      <div class="num">2<span>–3</span></div>
+      <div class="label">Acts per show</div>
+      <div class="sub">headliner + support</div>
+    </div>
+    <div class="kpi">
+      <div class="num">CHF<span> </span>4k<span>+</span></div>
+      <div class="label">Revenue potential</div>
+      <div class="sub">per sold-out show</div>
+    </div>
+  </div>
+
+  <!-- SEASON CALENDAR -->
+  <div class="section-label">Typical season calendar (16 weeks)</div>
+  <div class="calendar-grid">
+    <div class="cal-header"></div>
+    <div class="cal-header">Dec</div>
+    <div class="cal-header">Jan</div>
+    <div class="cal-header">Feb</div>
+    <div class="cal-header">Mar</div>
+    <div class="cal-header">Apr</div>
+
+    <!-- Week rows -->
+    <div class="cal-week">Wk 1</div>
+    <div class="cal-cell empty">–</div>
+    <div class="cal-cell show"><div class="show-dot"></div><div class="show-name">Verbier</div></div>
+    <div class="cal-cell show"><div class="show-dot"></div><div class="show-name">Davos</div></div>
+    <div class="cal-cell show"><div class="show-dot"></div><div class="show-name">Verbier</div></div>
+    <div class="cal-cell empty">–</div>
+
+    <div class="cal-week">Wk 2</div>
+    <div class="cal-cell empty">–</div>
+    <div class="cal-cell travel">✈ travel</div>
+    <div class="cal-cell show"><div class="show-dot"></div><div class="show-name">Zermatt</div></div>
+    <div class="cal-cell show"><div class="show-dot"></div><div class="show-name">Crans-M.</div></div>
+    <div class="cal-cell empty">–</div>
+
+    <div class="cal-week">Wk 3</div>
+    <div class="cal-cell show"><div class="show-dot"></div><div class="show-name">Engelberg</div></div>
+    <div class="cal-cell show"><div class="show-dot"></div><div class="show-name">St. Moritz</div></div>
+    <div class="cal-cell show" style="background:rgba(201,168,76,0.18);border-color:rgba(201,168,76,0.35)"><div class="show-dot" style="background:var(--gold)"></div><div class="show-name" style="color:var(--gold)">Half-term!</div></div>
+    <div class="cal-cell travel">✈ travel</div>
+    <div class="cal-cell empty">–</div>
+
+    <div class="cal-week">Wk 4</div>
+    <div class="cal-cell show"><div class="show-dot"></div><div class="show-name">Gstaad</div></div>
+    <div class="cal-cell show"><div class="show-dot"></div><div class="show-name">Saas-Fee</div></div>
+    <div class="cal-cell show" style="background:rgba(201,168,76,0.18);border-color:rgba(201,168,76,0.35)"><div class="show-dot" style="background:var(--gold)"></div><div class="show-name" style="color:var(--gold)">Half-term!</div></div>
+    <div class="cal-cell show"><div class="show-dot"></div><div class="show-name">St. Moritz</div></div>
+    <div class="cal-cell empty">season end</div>
+  </div>
+  <div style="display:flex;gap:24px;margin-top:12px;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:8px;font-size:0.65rem;color:var(--ice)"><div style="width:10px;height:10px;background:var(--fire);border-radius:50%"></div> Show night</div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:0.65rem;color:var(--ice)"><div style="width:10px;height:10px;background:var(--glacier);border-radius:50%"></div> Travel day</div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:0.65rem;color:var(--ice)"><div style="width:10px;height:10px;background:var(--gold);border-radius:50%"></div> School holiday peak (double capacity)</div>
+  </div>
+
+  <!-- VENUES -->
+  <div class="section-label">Target venues — opportunity rating</div>
+  <div class="venues-grid">
+    <div class="venue-card hot">
+      <div class="venue-name">W Verbier</div>
+      <div class="venue-resort">Verbier &mdash; 5★</div>
+      <div class="venue-stats">
+        <div class="vstat"><div class="v">~80</div><div class="k">seats</div></div>
+        <div class="vstat"><div class="v">Int'l</div><div class="k">crowd</div></div>
+        <div class="vstat"><div class="v">★★★★★</div><div class="k">opportunity</div></div>
+      </div>
+      <div class="venue-tags">
+        <span class="tag hot">Top pick</span>
+        <span class="tag">Après-ski bar</span>
+        <span class="tag">English-speaking</span>
+        <span class="tag ok">Ski-in/out</span>
+      </div>
+    </div>
+    <div class="venue-card hot">
+      <div class="venue-name">Ultima Gstaad</div>
+      <div class="venue-resort">Gstaad &mdash; 5★</div>
+      <div class="venue-stats">
+        <div class="vstat"><div class="v">~60</div><div class="k">seats</div></div>
+        <div class="vstat"><div class="v">Luxury</div><div class="k">crowd</div></div>
+        <div class="vstat"><div class="v">★★★★★</div><div class="k">opportunity</div></div>
+      </div>
+      <div class="venue-tags">
+        <span class="tag hot">Top pick</span>
+        <span class="tag">Celebrity guests</span>
+        <span class="tag ok">High spend</span>
+      </div>
+    </div>
+    <div class="venue-card">
+      <div class="venue-name">Kempinski Engelberg</div>
+      <div class="venue-resort">Engelberg &mdash; 5★</div>
+      <div class="venue-stats">
+        <div class="vstat"><div class="v">~100</div><div class="k">seats</div></div>
+        <div class="vstat"><div class="v">Family</div><div class="k">crowd</div></div>
+        <div class="vstat"><div class="v">★★★★</div><div class="k">opportunity</div></div>
+      </div>
+      <div class="venue-tags">
+        <span class="tag">Family-friendly</span>
+        <span class="tag ok">Kids' club tie-in</span>
+        <span class="tag">Near Zürich</span>
+      </div>
+    </div>
+    <div class="venue-card">
+      <div class="venue-name">The Chedi Andermatt</div>
+      <div class="venue-resort">Andermatt &mdash; 5★</div>
+      <div class="venue-stats">
+        <div class="vstat"><div class="v">~80</div><div class="k">seats</div></div>
+        <div class="vstat"><div class="v">Mixed</div><div class="k">crowd</div></div>
+        <div class="vstat"><div class="v">★★★★</div><div class="k">opportunity</div></div>
+      </div>
+      <div class="venue-tags">
+        <span class="tag">Asian luxury</span>
+        <span class="tag ok">Central location</span>
+        <span class="tag">Growing resort</span>
+      </div>
+    </div>
+    <div class="venue-card">
+      <div class="venue-name">Six Senses Crans-Montana</div>
+      <div class="venue-resort">Crans-Montana &mdash; 5★</div>
+      <div class="venue-stats">
+        <div class="vstat"><div class="v">~70</div><div class="k">seats</div></div>
+        <div class="vstat"><div class="v">Wellness</div><div class="k">crowd</div></div>
+        <div class="vstat"><div class="v">★★★</div><div class="k">opportunity</div></div>
+      </div>
+      <div class="venue-tags">
+        <span class="tag">Wellness focus</span>
+        <span class="tag ok">Spa clientele</span>
+      </div>
+    </div>
+    <div class="venue-card">
+      <div class="venue-name">Grace La Margna</div>
+      <div class="venue-resort">St. Moritz &mdash; 5★</div>
+      <div class="venue-stats">
+        <div class="vstat"><div class="v">~60</div><div class="k">seats</div></div>
+        <div class="vstat"><div class="v">Prestige</div><div class="k">crowd</div></div>
+        <div class="vstat"><div class="v">★★★★</div><div class="k">opportunity</div></div>
+      </div>
+      <div class="venue-tags">
+        <span class="tag">High net worth</span>
+        <span class="tag ok">Prestige</span>
+        <span class="tag">International</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOUR ROUTES -->
+  <div class="section-label">Tour circuit options</div>
+  <div class="routes-grid">
+    <div class="route-card">
+      <div class="route-title">The Western Loop</div>
+      <div class="route-sub">4 shows &mdash; 5 days &mdash; 1 act</div>
+      <div class="route-stops">
+        <div class="stop">
+          <div class="stop-line"><div class="stop-dot"></div><div class="stop-connector"></div></div>
+          <div class="stop-info">
+            <div class="sname">Zürich (depart)</div>
+            <div class="sday">Day 1, morning — 2h drive</div>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-line"><div class="stop-dot show"></div><div class="stop-connector"></div></div>
+          <div class="stop-info">
+            <div class="sname">Gstaad</div>
+            <div class="sday">Day 1, evening</div>
+            <div class="stype">● Show night — Ultima Gstaad</div>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-line"><div class="stop-dot show"></div><div class="stop-connector"></div></div>
+          <div class="stop-info">
+            <div class="sname">Crans-Montana</div>
+            <div class="sday">Day 2, evening — 1.5h drive</div>
+            <div class="stype">● Show night — Six Senses</div>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-line"><div class="stop-dot show"></div><div class="stop-connector"></div></div>
+          <div class="stop-info">
+            <div class="sname">Verbier</div>
+            <div class="sday">Day 3–4 — 1h drive</div>
+            <div class="stype">● 2× Show nights — W Hotel</div>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-line"><div class="stop-dot"></div></div>
+          <div class="stop-info">
+            <div class="sname">Zürich (return)</div>
+            <div class="sday">Day 5, morning — 3h drive</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="route-card">
+      <div class="route-title">The Graubünden Express</div>
+      <div class="route-sub">3 shows &mdash; 4 days &mdash; train-friendly</div>
+      <div class="route-stops">
+        <div class="stop">
+          <div class="stop-line"><div class="stop-dot"></div><div class="stop-connector"></div></div>
+          <div class="stop-info">
+            <div class="sname">Zürich HB</div>
+            <div class="sday">Day 1, morning — direct train</div>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-line"><div class="stop-dot show"></div><div class="stop-connector"></div></div>
+          <div class="stop-info">
+            <div class="sname">Davos</div>
+            <div class="sday">Day 1, evening — 2h train</div>
+            <div class="stype">● Show night</div>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-line"><div class="stop-dot show"></div><div class="stop-connector"></div></div>
+          <div class="stop-info">
+            <div class="sname">St. Moritz</div>
+            <div class="sday">Day 2–3 — Glacier Express</div>
+            <div class="stype">● Show night — Grace La Margna</div>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-line"><div class="stop-dot show"></div><div class="stop-connector"></div></div>
+          <div class="stop-info">
+            <div class="sname">Saas-Fee</div>
+            <div class="sday">Day 3, evening — bus + train</div>
+            <div class="stype">● Show night — The Capra</div>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-line"><div class="stop-dot"></div></div>
+          <div class="stop-info">
+            <div class="sname">Zürich return</div>
+            <div class="sday">Day 4, morning</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="route-card">
+      <div class="route-title">Half-Term Blitz</div>
+      <div class="route-sub">6 shows &mdash; 7 days &mdash; Feb school hols</div>
+      <div class="route-stops">
+        <div class="stop">
+          <div class="stop-line"><div class="stop-dot show"></div><div class="stop-connector"></div></div>
+          <div class="stop-info">
+            <div class="sname">Engelberg ×2</div>
+            <div class="sday">Mon + Tue — family crowd</div>
+            <div class="stype">● Kempinski — kids' club tie-in</div>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-line"><div class="stop-dot show"></div><div class="stop-connector"></div></div>
+          <div class="stop-info">
+            <div class="sname">Andermatt ×2</div>
+            <div class="sday">Wed + Thu — shoulder dates</div>
+            <div class="stype">● The Chedi</div>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-line"><div class="stop-dot show"></div><div class="stop-connector"></div></div>
+          <div class="stop-info">
+            <div class="sname">Verbier ×2</div>
+            <div class="sday">Fri + Sat — peak weekend</div>
+            <div class="stype">● W Verbier — full capacity</div>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-line"><div class="stop-dot" style="border-color:var(--gold)"></div></div>
+          <div class="stop-info">
+            <div class="sname" style="color:var(--gold)">~CHF 20k+ revenue week</div>
+            <div class="sday">Best week of the season</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HYBRID MODEL EXPLAINER -->
+  <div class="section-label">The hybrid model — how it works</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;" class="rev-grid">
+    <div class="rev-panel" style="grid-column:1/-1;background:rgba(201,168,76,0.08);border-color:rgba(201,168,76,0.2)">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap">
+        <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700">The Sponsorship + Public Ticket Model</div>
+        <div style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;background:var(--gold);color:var(--ink);padding:4px 12px;text-transform:uppercase">Recommended</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;">
+        <div style="background:rgba(168,200,232,0.06);border:1px solid rgba(168,200,232,0.1);padding:20px;">
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;color:var(--ice);text-transform:uppercase;margin-bottom:10px">Hotel contributes</div>
+          <div style="font-size:0.8rem;color:var(--snow);line-height:1.8">
+            ✦ Venue space (bar / lounge)<br>
+            ✦ Accommodation for 2–3 comedians<br>
+            ✦ Staff to run the room<br>
+            ✦ Promotion to guests (concierge, app, room cards)<br>
+            ✦ Optional: complimentary drinks for performers
+          </div>
+        </div>
+        <div style="background:rgba(168,200,232,0.06);border:1px solid rgba(168,200,232,0.1);padding:20px;">
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;color:var(--ice);text-transform:uppercase;margin-bottom:10px">Hotel guests get</div>
+          <div style="font-size:0.8rem;color:var(--snow);line-height:1.8">
+            ✦ Free entry (included in stay)<br>
+            ✦ Reserved seating priority<br>
+            ✦ "Exclusive" feel — part of the hotel experience<br>
+            ✦ English-language entertainment (rare in Alps)
+          </div>
+        </div>
+        <div style="background:rgba(168,200,232,0.06);border:1px solid rgba(168,200,232,0.1);padding:20px;">
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;color:var(--ice);text-transform:uppercase;margin-bottom:10px">Public tickets</div>
+          <div style="font-size:0.8rem;color:var(--snow);line-height:1.8">
+            ✦ ~30–40% of seats sold externally<br>
+            ✦ CHF 35–55 per ticket<br>
+            ✦ Sold via Eventfrog / hotel concierge<br>
+            ✦ Walk-ins from resort visitors<br>
+            ✦ Drives bar revenue for hotel
+          </div>
+        </div>
+        <div style="background:rgba(232,93,38,0.08);border:1px solid rgba(232,93,38,0.2);padding:20px;">
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;color:var(--fire);text-transform:uppercase;margin-bottom:10px">IN YOUR FACE earns</div>
+          <div style="font-size:0.8rem;color:var(--snow);line-height:1.8">
+            ✦ Hotel sponsorship fee: CHF 1,000–2,500<br>
+            ✦ External ticket revenue: CHF 800–1,500<br>
+            ✦ Accommodation saved: ~CHF 300–500 value<br>
+            ✦ <strong style="color:var(--gold)">Total per show: CHF 2,000–4,000</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVENUE MODEL -->
+  <div class="section-label">Revenue model per show</div>
+  <div class="rev-grid">
+    <div class="rev-panel">
+      <h3>Per Show — Hybrid model</h3>
+      <div class="rev-row">
+        <span class="label">Hotel sponsorship fee</span>
+        <span class="value pos">CHF 1,500</span>
+      </div>
+      <div class="rev-row">
+        <span class="label">External tickets (~30 seats × CHF 45)</span>
+        <span class="value pos">CHF 1,350</span>
+      </div>
+      <div class="rev-row" style="border-top:1px solid rgba(168,200,232,0.15);margin-top:4px;padding-top:14px">
+        <span class="label">Headliner fee</span>
+        <span class="value neg">– CHF 800</span>
+      </div>
+      <div class="rev-row">
+        <span class="label">Support act fee</span>
+        <span class="value neg">– CHF 300</span>
+      </div>
+      <div class="rev-row">
+        <span class="label">Travel (accommodation covered by hotel)</span>
+        <span class="value neg">– CHF 150</span>
+      </div>
+      <div class="rev-row">
+        <span class="label">Promoter / IN YOUR FACE net</span>
+        <span class="value total">≈ CHF 1,600</span>
+      </div>
+      <div style="margin-top:16px;font-size:0.68rem;color:rgba(168,200,232,0.5);line-height:1.5">Accommodation for comedians covered by hotel = significant cost saving vs. pure ticket model</div>
+    </div>
+
+    <div class="rev-panel">
+      <h3>Season revenue (18 shows)</h3>
+      <div class="bar-chart">
+        <div class="bar-row">
+          <div class="bar-label">Low (CHF 1k/show)</div>
+          <div class="bar-track"><div class="bar-fill" style="width:30%"></div></div>
+          <div class="bar-val">CHF 18k</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Mid (CHF 1.6k)</div>
+          <div class="bar-track"><div class="bar-fill" style="width:50%"></div></div>
+          <div class="bar-val">CHF 29k</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Strong (CHF 2.5k)</div>
+          <div class="bar-track"><div class="bar-fill" style="width:75%"></div></div>
+          <div class="bar-val">CHF 45k</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Peak Feb deals</div>
+          <div class="bar-track"><div class="bar-fill" style="width:100%; background: linear-gradient(90deg, var(--gold), var(--fire))"></div></div>
+          <div class="bar-val">CHF 60k+</div>
+        </div>
+      </div>
+      <div style="margin-top:16px;font-size:0.7rem;color:var(--ice);line-height:1.6">
+        <strong style="color:var(--snow)">Note:</strong> Peak scenario includes February half-term premium pricing and multi-show hotel residency deals with higher sponsorship fees.
+      </div>
+    </div>
+  </div>
+
+  <!-- REVENUE & PROFIT CHART -->
+  <div class="section-label">Season revenue &amp; profit — by scenario</div>
+  <div style="background:var(--mist);border:1px solid rgba(168,200,232,0.08);padding:36px 40px 28px;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;margin-bottom:32px;">
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--snow);margin-bottom:4px">Full season (18 shows) — Revenue vs. Profit after all costs</div>
+        <div style="font-size:0.7rem;color:var(--ice)">Costs per show: comedian fees CHF 1,100 + travel CHF 150 + misc CHF 100 = CHF 1,350 fixed costs/show</div>
+      </div>
+      <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:8px;font-size:0.68rem;color:var(--ice)"><div style="width:14px;height:14px;background:var(--glacier);opacity:0.8"></div>Gross revenue</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:0.68rem;color:var(--ice)"><div style="width:14px;height:14px;background:var(--fire);opacity:0.9"></div>Net profit</div>
+      </div>
+    </div>
+    <canvas id="revenueChart" style="width:100%;max-height:340px;"></canvas>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:24px;">
+      <div style="padding:16px;background:rgba(168,200,232,0.05);border:1px solid rgba(168,200,232,0.08);text-align:center;">
+        <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--ice);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px">Conservative</div>
+        <div style="font-size:0.65rem;color:var(--ice);margin-bottom:4px">12 shows</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--snow)">CHF 18k</div>
+        <div style="font-size:0.68rem;color:rgba(107,207,147,0.9);margin-top:4px">profit CHF 3k</div>
+        <div style="font-size:0.6rem;color:var(--ice);margin-top:3px">17% margin</div>
+      </div>
+      <div style="padding:16px;background:rgba(168,200,232,0.05);border:1px solid rgba(168,200,232,0.08);text-align:center;">
+        <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--ice);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px">Mid-tier</div>
+        <div style="font-size:0.65rem;color:var(--ice);margin-bottom:4px">18 shows</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--snow)">CHF 29k</div>
+        <div style="font-size:0.68rem;color:rgba(107,207,147,0.9);margin-top:4px">profit CHF 6.5k</div>
+        <div style="font-size:0.6rem;color:var(--ice);margin-top:3px">22% margin</div>
+      </div>
+      <div style="padding:16px;background:rgba(168,200,232,0.05);border:1px solid rgba(168,200,232,0.08);text-align:center;">
+        <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--ice);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px">Strong</div>
+        <div style="font-size:0.65rem;color:var(--ice);margin-bottom:4px">20 shows</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--snow)">CHF 45k</div>
+        <div style="font-size:0.68rem;color:rgba(107,207,147,0.9);margin-top:4px">profit CHF 20k</div>
+        <div style="font-size:0.6rem;color:var(--ice);margin-top:3px">44% margin</div>
+      </div>
+      <div style="padding:16px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);text-align:center;">
+        <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px">Peak / Feb blitz</div>
+        <div style="font-size:0.65rem;color:var(--ice);margin-bottom:4px">24 shows</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--snow)">CHF 60k</div>
+        <div style="font-size:0.68rem;color:rgba(107,207,147,0.9);margin-top:4px">profit CHF 30k</div>
+        <div style="font-size:0.6rem;color:var(--ice);margin-top:3px">50% margin</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    const canvas = document.getElementById('revenueChart');
+    const dpr = window.devicePixelRatio || 1;
+    const container = canvas.parentElement;
+
+    // Revenue = sponsorship + external tickets. Costs = comedian fees + travel (accom covered by hotel).
+    // Conservative: 12 shows × CHF 1,500 avg = 18k; costs 12 × CHF 1,250 = 15k; profit 3k
+    // Mid-tier:     18 shows × CHF 1,600 avg = 29k; costs 18 × CHF 1,250 = 22.5k; profit 6.5k
+    // Strong:       20 shows × CHF 2,250 avg = 45k; costs 20 × CHF 1,250 = 25k; profit 20k
+    // Peak:         24 shows × CHF 2,500 avg = 60k; costs 24 × CHF 1,250 = 30k; profit 30k
+    const scenarios = ['Conservative', 'Mid-tier', 'Strong', 'Peak / Feb'];
+    const revenues  = [18000, 29000, 45000, 60000];
+    const costs     = [15000, 22500, 25000, 30000];
+    const profits   = revenues.map((r, i) => r - costs[i]);
+
+    function draw() {
+      const W = container.clientWidth - 80;
+      const H = Math.min(320, Math.max(220, window.innerHeight * 0.38));
+      canvas.width  = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width  = W + 'px';
+      canvas.style.height = H + 'px';
+
+      const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+
+      const maxVal = 65000;
+      const padL = 54, padR = 20, padT = 24, padB = 50;
+      const chartW = W - padL - padR;
+      const chartH = H - padT - padB;
+      const groupW = chartW / scenarios.length;
+      const barW   = Math.min(groupW * 0.28, 48);
+      const gap    = barW * 0.45;
+
+      // Grid lines + Y labels
+      [0, 15000, 30000, 45000, 60000].forEach(v => {
+        const y = padT + chartH - (v / maxVal) * chartH;
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgba(168,200,232,0.1)';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([4, 5]);
+        ctx.moveTo(padL, y);
+        ctx.lineTo(padL + chartW, y);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = 'rgba(168,200,232,0.45)';
+        ctx.font = '400 10px DM Mono, monospace';
+        ctx.textAlign = 'right';
+        ctx.fillText('CHF ' + (v / 1000) + 'k', padL - 6, y + 4);
+      });
+
+      // Bars
+      scenarios.forEach((label, i) => {
+        const cx  = padL + (i + 0.5) * groupW;
+        const revH  = (revenues[i] / maxVal) * chartH;
+        const profH = (Math.max(0, profits[i]) / maxVal) * chartH;
+        const ry = padT + chartH - revH;
+        const py = padT + chartH - profH;
+
+        // Revenue bar
+        const revGrad = ctx.createLinearGradient(0, ry, 0, padT + chartH);
+        revGrad.addColorStop(0, 'rgba(74,144,196,0.85)');
+        revGrad.addColorStop(1, 'rgba(74,144,196,0.3)');
+        ctx.fillStyle = revGrad;
+        ctx.fillRect(cx - gap / 2 - barW, ry, barW, revH);
+
+        // Profit bar
+        const profGrad = ctx.createLinearGradient(0, py, 0, padT + chartH);
+        profGrad.addColorStop(0, i === 3 ? 'rgba(201,168,76,0.95)' : 'rgba(232,93,38,0.92)');
+        profGrad.addColorStop(1, i === 3 ? 'rgba(201,168,76,0.4)' : 'rgba(232,93,38,0.4)');
+        ctx.fillStyle = profGrad;
+        ctx.fillRect(cx + gap / 2, py, barW, profH);
+
+        // Value labels above bars
+        ctx.textAlign = 'center';
+        ctx.fillStyle = 'rgba(240,244,248,0.85)';
+        ctx.font = '500 10px DM Mono, monospace';
+        if (revH > 18)  ctx.fillText((revenues[i]/1000) + 'k',  cx - gap/2 - barW/2, ry - 5);
+        if (profH > 18) ctx.fillText('+' + (profits[i]/1000) + 'k', cx + gap/2 + barW/2, py - 5);
+
+        // Scenario labels below
+        ctx.fillStyle = 'rgba(168,200,232,0.65)';
+        ctx.font = '400 10px DM Sans, sans-serif';
+        label.split(' / ').forEach((word, wi) => {
+          ctx.fillText(word, cx, padT + chartH + 16 + wi * 13);
+        });
+      });
+
+      // Baseline
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(168,200,232,0.2)';
+      ctx.lineWidth = 1;
+      ctx.moveTo(padL, padT + chartH);
+      ctx.lineTo(padL + chartW, padT + chartH);
+      ctx.stroke();
+    }
+
+    draw();
+    window.addEventListener('resize', draw);
+  })();
+  </script>
+
+  <!-- SALES PIPELINE -->
+  <div class="section-label">Sales pipeline — who to sell to and how</div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2px;margin-bottom:2px;">
+
+    <!-- Stage 1 -->
+    <div style="background:rgba(74,144,196,0.1);border:1px solid rgba(74,144,196,0.2);padding:28px;position:relative;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;color:var(--glacier);text-transform:uppercase;margin-bottom:6px">Stage 1 — Anchor Hotels</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:4px;color:var(--snow)">Land one flagship deal</div>
+      <div style="font-size:0.72rem;color:var(--ice);margin-bottom:16px;line-height:1.6">One confirmed anchor hotel gives you proof of concept, accommodation, and a calling card for every other pitch.</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="background:rgba(168,200,232,0.06);border:1px solid rgba(168,200,232,0.1);padding:14px;">
+          <div style="font-weight:500;font-size:0.82rem;color:var(--snow)">W Verbier</div>
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--glacier);margin:3px 0">PRIMARY TARGET</div>
+          <div style="font-size:0.7rem;color:var(--ice);line-height:1.5">Largest English-speaking crowd in Swiss Alps. W brand is entertainment-forward. Contact: F&amp;B Manager or Guest Experience Director.</div>
+        </div>
+        <div style="background:rgba(168,200,232,0.06);border:1px solid rgba(168,200,232,0.1);padding:14px;">
+          <div style="font-weight:500;font-size:0.82rem;color:var(--snow)">Kempinski Engelberg</div>
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--glacier);margin:3px 0">CLOSE TO ZÜRICH — EASY LOGISTICS</div>
+          <div style="font-size:0.7rem;color:var(--ice);line-height:1.5">Large family hotel with kids' club and existing entertainment programme. 1.5h from Zürich. Contact: Entertainment / Activities Manager.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 2 -->
+    <div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.18);padding:28px;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;margin-bottom:6px">Stage 2 — Tour Hotels</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:4px;color:var(--snow)">Build the circuit</div>
+      <div style="font-size:0.72rem;color:var(--ice);margin-bottom:16px;line-height:1.6">Sell to 3–4 more hotels per season. Use anchor hotel as social proof. Offer a "circuit package" — one booking for 2+ dates across the season.</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(168,200,232,0.05);border:1px solid rgba(168,200,232,0.08);">
+          <div>
+            <div style="font-size:0.8rem;color:var(--snow);font-weight:500">Ultima Gstaad</div>
+            <div style="font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--ice)">Gstaad — luxury crowd</div>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--gold)">★★★★★</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(168,200,232,0.05);border:1px solid rgba(168,200,232,0.08);">
+          <div>
+            <div style="font-size:0.8rem;color:var(--snow);font-weight:500">The Chedi Andermatt</div>
+            <div style="font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--ice)">Andermatt — growing resort</div>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--gold)">★★★★</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(168,200,232,0.05);border:1px solid rgba(168,200,232,0.08);">
+          <div>
+            <div style="font-size:0.8rem;color:var(--snow);font-weight:500">Grace La Margna</div>
+            <div style="font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--ice)">St. Moritz — high net worth</div>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--gold)">★★★★</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(168,200,232,0.05);border:1px solid rgba(168,200,232,0.08);">
+          <div>
+            <div style="font-size:0.8rem;color:var(--snow);font-weight:500">Six Senses Crans-Montana</div>
+            <div style="font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--ice)">Crans-Montana — wellness</div>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--gold)">★★★</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 3 -->
+    <div style="background:rgba(232,93,38,0.08);border:1px solid rgba(232,93,38,0.18);padding:28px;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;color:var(--fire);text-transform:uppercase;margin-bottom:6px">Stage 3 — Scale</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:4px;color:var(--snow)">The full circuit</div>
+      <div style="font-size:0.72rem;color:var(--ice);margin-bottom:16px;line-height:1.6">Once you have 3+ confirmed hotels, pitch a branded "Alpine Comedy Season" package to hotel groups (Marriott/W, Kempinski) at a multi-property level.</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="padding:14px;background:rgba(232,93,38,0.08);border:1px solid rgba(232,93,38,0.15);">
+          <div style="font-size:0.78rem;color:var(--snow);font-weight:500;margin-bottom:6px">Robinson Club Arosa</div>
+          <div style="font-size:0.7rem;color:var(--ice);line-height:1.5">Already runs shows and discos. Highest-volume family audience. Perfect for a recurring weekly slot. Contact: Entertainment Manager directly.</div>
+        </div>
+        <div style="padding:14px;background:rgba(232,93,38,0.08);border:1px solid rgba(232,93,38,0.15);">
+          <div style="font-size:0.78rem;color:var(--snow);font-weight:500;margin-bottom:6px">Villars Palace</div>
+          <div style="font-size:0.7rem;color:var(--ice);line-height:1.5">Has a nightclub on-site, which is unusual for Swiss Alps. Ready-made late-night show slot. Younger luxury crowd.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PITCH TIMELINE -->
+  <div style="background:var(--mist);border:1px solid rgba(168,200,232,0.08);padding:32px;margin-top:2px;">
+    <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:24px;color:var(--snow)">Pitch timeline for Season 2025/26</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0;position:relative;">
+      <div style="position:absolute;top:18px;left:0;right:0;height:2px;background:rgba(168,200,232,0.15);z-index:0;"></div>
+      <div style="text-align:center;position:relative;z-index:1;">
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--fire);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-family:'DM Mono',monospace;font-size:0.65rem;font-weight:500">Apr</div>
+        <div style="font-size:0.72rem;color:var(--snow);font-weight:500;margin-bottom:4px">First contact</div>
+        <div style="font-size:0.65rem;color:var(--ice);line-height:1.5">Email F&amp;B / Entertainment Managers at W Verbier + Kempinski Engelberg</div>
+      </div>
+      <div style="text-align:center;position:relative;z-index:1;">
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--glacier);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-family:'DM Mono',monospace;font-size:0.65rem;font-weight:500">May</div>
+        <div style="font-size:0.72rem;color:var(--snow);font-weight:500;margin-bottom:4px">Pitch meetings</div>
+        <div style="font-size:0.65rem;color:var(--ice);line-height:1.5">In-person visits to anchor hotels. Bring show reel + Zürich audience metrics</div>
+      </div>
+      <div style="text-align:center;position:relative;z-index:1;">
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--glacier);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-family:'DM Mono',monospace;font-size:0.65rem;font-weight:500">Jun</div>
+        <div style="font-size:0.72rem;color:var(--snow);font-weight:500;margin-bottom:4px">Contracts</div>
+        <div style="font-size:0.65rem;color:var(--ice);line-height:1.5">Sign anchor deal. Hotel budgets for winter entertainment are set in summer</div>
+      </div>
+      <div style="text-align:center;position:relative;z-index:1;">
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--glacier);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-family:'DM Mono',monospace;font-size:0.65rem;font-weight:500">Sep</div>
+        <div style="font-size:0.72rem;color:var(--snow);font-weight:500;margin-bottom:4px">Circuit hotels</div>
+        <div style="font-size:0.65rem;color:var(--ice);line-height:1.5">Use anchor as proof. Close 3–4 more hotel deals for the circuit</div>
+      </div>
+      <div style="text-align:center;position:relative;z-index:1;">
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--glacier);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-family:'DM Mono',monospace;font-size:0.65rem;font-weight:500">Nov</div>
+        <div style="font-size:0.72rem;color:var(--snow);font-weight:500;margin-bottom:4px">Lineup confirmed</div>
+        <div style="font-size:0.65rem;color:var(--ice);line-height:1.5">Book comedians, confirm dates, open external ticket sales via Eventfrog</div>
+      </div>
+      <div style="text-align:center;position:relative;z-index:1;">
+        <div style="width:36px;height:36px;border-radius:50%;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-family:'DM Mono',monospace;font-size:0.65rem;font-weight:500;color:var(--gold)">Dec</div>
+        <div style="font-size:0.72rem;color:var(--gold);font-weight:500;margin-bottom:4px">Season opens</div>
+        <div style="font-size:0.65rem;color:var(--ice);line-height:1.5">First show. Document everything — video, testimonials — for year 2 pitch</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIPS -->
+  <div class="section-label">Key strategic considerations</div>
+  <div class="tips-grid">
+    <div class="tip">
+      <div class="icon">🎿</div>
+      <div class="tip-title">Target the après-ski window</div>
+      <div class="tip-body">Shows at 19:30–20:00 catch guests before dinner. The W Verbier and similar properties already have evening programming slots available.</div>
+    </div>
+    <div class="tip">
+      <div class="icon">🇬🇧</div>
+      <div class="tip-title">British market is gold</div>
+      <div class="tip-body">Verbier, Zermatt and Saas-Fee have large British expat and tourist populations. English comedy is a natural fit with near-zero language barrier.</div>
+    </div>
+    <div class="tip">
+      <div class="icon">📅</div>
+      <div class="tip-title">Half-term = jackpot</div>
+      <div class="tip-body">UK and Swiss school half-term weeks (Feb) double or triple the affluent English-speaking audience. Plan your highest-capacity shows in that window.</div>
+    </div>
+    <div class="tip">
+      <div class="icon">🤝</div>
+      <div class="tip-title">Sell it as guest experience</div>
+      <div class="tip-body">Frame the pitch as adding value to hotel guests' stay — not as a ticketing operation. "Your guests get exclusive English-language entertainment" lands better than "we'll sell tickets in your bar."</div>
+    </div>
+    <div class="tip">
+      <div class="icon">🎭</div>
+      <div class="tip-title">Bring your Zürich track record</div>
+      <div class="tip-body">150+ shows and 3,000+ tickets sold is a strong proof point. Hotels want credibility. Lead with the numbers in every pitch.</div>
+    </div>
+    <div class="tip">
+      <div class="icon">📞</div>
+      <div class="tip-title">Right contact at each hotel</div>
+      <div class="tip-body">F&amp;B Manager or Guest Experience Director, not the general manager. They own the evening entertainment budget and have the most to gain from adding a novel programme.</div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span>IN YOUR FACE Comedy &mdash; Swiss Alpine Circuit &mdash; Opportunity Analysis 2025/26</span>
+  <span>All figures are estimates based on comparable venue/market data</span>
+</footer>
+
+</body>
+</html>
