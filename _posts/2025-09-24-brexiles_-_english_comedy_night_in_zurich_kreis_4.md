@@ -15,7 +15,7 @@ redirect_from:
   - /2025/01/22/brexiles_-_english_comedy_night_in_zurich_kreis_4/
   - /2025/01/22/brexiles_-_english_comedy_night_in_zurich_kreis_4
   - /2025/01/22/brexiles_-_english_comedy_night_in_zurich_kreis_4.html
-ticket_url: http://eventfrog.ch/brexiles/
+ticket_url: https://eventfrog.ch/brexiles/
 ---
 Join three of Switzerland's sharpest comedy imports, all the way from the UK, as they navigate life post-Brexit in the land of cheese, chocolate, and punctuality. Expect a side-splitting evening of biting wit, dark satire, and self-deprecating British humour, as these three exiles attempt to make sense of their Swiss existence while grappling with the baggage of their homeland.
 
