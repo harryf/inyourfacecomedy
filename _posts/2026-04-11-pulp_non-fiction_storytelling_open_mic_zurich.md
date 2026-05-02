@@ -9,7 +9,7 @@ thumbnail: /assets/img/uploads/pulpnonfiction_square.png
 author: harryfucks
 excerpt_separator: <!--more-->
 permalink: /pulpnonfiction/
-ticket_url: https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html
+ticket_url: https://eventfrog.ch/pulpnonfiction/
 ---
 **Storytelling is an art from that has evolved with us over millennia. It is in our DNA to share stories. Let's keep this ancient tradition alive in the funkiest way. Join us for an unforgettable evening where laughter intertwines with the strange and the surreal, as comedian Albert Louw and his extraordinary friends share their most captivating tales!**
 
