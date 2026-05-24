@@ -1,0 +1,36 @@
+# Venue lookup table — referenced from _posts/*.md via `venue_slug:` front-matter.
+# Consumed by _includes/jsonld-event.html and _includes/jsonld-itemlist.html
+# to produce schema.org Event JSON-LD.
+#
+# Keep keys lowercase ascii (a-z, 0-9, underscore) so they slot cleanly into front-matter.
+# When adding a venue, fill all required fields (name, street, postal_code, city, country).
+# latitude/longitude are optional but boost Google Event eligibility — fill when known.
+
+robins:
+  name: "ROBIN's"
+  street: "Zähringerstrasse 33"
+  postal_code: "8001"
+  city: "Zürich"
+  country: "CH"
+  latitude: 47.3757403
+  longitude: 8.5444532
+  website: "https://robins-coffee.ch/"
+  google_maps_url: "https://maps.app.goo.gl/aac8sjwkZjsTQaAT8"
+
+otro:
+  name: "Bar OTRO"
+  street: "Zwinglistrasse 22"
+  postal_code: "8004"
+  city: "Zürich"
+  country: "CH"
+  website: "https://otro.bar/"
+  google_maps_url: "https://maps.app.goo.gl/LiX9rDWX6ZmY3cKKA"
+
+monroe:
+  name: "Monroe Music Bar & Bites"
+  street: "Brauerstrasse 26"
+  postal_code: "8004"
+  city: "Zürich"
+  country: "CH"
+  website: "https://www.monroe.zuerich/"
+  google_maps_url: "https://maps.app.goo.gl/8C7nrhUqhJ4X83ku9"

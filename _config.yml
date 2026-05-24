@@ -5,6 +5,12 @@ url: "https://inyourfacecomedy.ch"
 # THEME-SPECIFIC CONFIGURATION
 title: IN YOUR FACE Comedy                                    # site's title
 description: "English Stand-Up Comedy in Zürich, Switzerland"      # used by search engines
+
+# Default author for all pages (consumed by jekyll-seo-tag → BlogPosting JSON-LD)
+# Per-post `author:` front-matter overrides this when present.
+author:
+  name: "IN YOUR FACE Comedy"
+  url: "https://inyourfacecomedy.ch"
 avatar: assets/img/inyourface.png                         # Empty for no avatar in navbar
 favicon: assets/favicon.ico                             # Icon displayed in the tab
 

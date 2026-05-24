@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2026-01-17T10:03:00+00:00
+last_modified_at: 2026-05-24T10:00:00+00:00
 layout: post
 editable: "true"
 title: Brexiles - English Comedy Night in Zurich Kreis 4
@@ -7,6 +7,7 @@ description: Join three of Switzerland's sharpest comedy imports, all the way
   from the UK, as they navigate life post-Brexit in the land of cheese,
   chocolate, and punctuality • English Stand-Up Comedy in Zürich • Switzerland
 feature-img: /assets/img/uploads/brexiles_horizontal.png
+image: /assets/img/uploads/brexiles_horizontal.png
 thumbnail: /assets/img/uploads/brexiles_square.png
 author: harryfucks
 excerpt_separator: <!--more-->
@@ -16,6 +17,20 @@ redirect_from:
   - /2025/01/22/brexiles_-_english_comedy_night_in_zurich_kreis_4
   - /2025/01/22/brexiles_-_english_comedy_night_in_zurich_kreis_4.html
 ticket_url: https://eventfrog.ch/brexiles/
+event_type: series
+venue_slug: monroe
+recurrence_day: Wednesday
+recurrence_time: "20:00"
+default_duration_minutes: 150
+next_event_date: 2026-06-17T20:00:00+02:00
+next_event_end_date: 2026-06-17T22:30:00+02:00
+price_chf: 17
+event_status: EventScheduled
+event_attendance_mode: OfflineEventAttendanceMode
+performers:
+  - "Harry Fücks"
+  - "Jack Roberts"
+  - "Shawn Jay"
 ---
 Join three of Switzerland's sharpest comedy imports, all the way from the UK, as they navigate life post-Brexit in the land of cheese, chocolate, and punctuality. Expect a side-splitting evening of biting wit, dark satire, and self-deprecating British humour, as these three exiles attempt to make sense of their Swiss existence while grappling with the baggage of their homeland.
 

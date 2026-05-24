@@ -1,0 +1,50 @@
+{%- comment -%}
+  ItemList JSON-LD partial for /calendar/.
+  Loops site.posts with next_event_date in the future, sorted ascending, limit 20.
+  Each entry is an inline Event with name, url, startDate, location.
+  Activated by `schema_type: ItemList` in the calendar page front-matter.
+  Both p.next_event_date and site.time are Time objects — comparison is direct.
+{%- endcomment -%}
+{%- assign upcoming = site.posts | where_exp: "p", "p.next_event_date" | where_exp: "p", "p.next_event_date >= site.time" | sort: "next_event_date" -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Upcoming English Stand-Up Comedy Shows in Zürich",
+  "numberOfItems": {{ upcoming.size }},
+  "itemListElement": [
+    {%- for post in upcoming limit: 20 -%}
+    {%- assign venue = site.data.venues[post.venue_slug] -%}
+    {
+      "@type": "ListItem",
+      "position": {{ forloop.index }},
+      "item": {
+        "@type": "Event",
+        "name": {{ post.title | jsonify }},
+        "url": "{{ post.url | absolute_url }}",
+        "startDate": "{{ post.next_event_date | date_to_xmlschema }}",
+        {%- if post.next_event_end_date %}
+        "endDate": "{{ post.next_event_end_date | date_to_xmlschema }}",
+        {%- endif %}
+        "eventStatus": "https://schema.org/{{ post.event_status | default: 'EventScheduled' }}",
+        "eventAttendanceMode": "https://schema.org/{{ post.event_attendance_mode | default: 'OfflineEventAttendanceMode' }}"
+        {%- if venue %},
+        "location": {
+          "@type": "Place",
+          "name": {{ venue.name | jsonify }},
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": {{ venue.street | jsonify }},
+            "postalCode": {{ venue.postal_code | jsonify }},
+            "addressLocality": {{ venue.city | jsonify }},
+            "addressCountry": {{ venue.country | jsonify }}
+          }
+        }{%- endif %}
+        {%- if post.feature-img %},
+        "image": "{{ post.feature-img | absolute_url }}"{%- endif %}
+      }
+    }{%- unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>

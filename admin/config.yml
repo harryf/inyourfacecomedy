@@ -36,11 +36,26 @@ collections:
       - { label: "Title", name: "title", widget: "string", hint: "Title of the show. Avoid quotes." }
       - { label: "Description", name: "description", widget: "string", hint: "Short 150 chars description for SEO"}
       - { label: "Feature Image", name: "feature-img", widget: "image", allow_multiple: false, hint: "Main image appears top of page as background. Recommend 1920x1005. Keep it under 300k for faster loading."}
+      - { label: "SEO Image", name: "image", widget: "image", allow_multiple: false, required: false, hint: "Used by Google for Event/Article rich results. Usually mirror Feature Image. 1200x630 minimum."}
       - { label: "Thumbnail", name: "thumbnail", widget: "image", allow_multiple: false, hint: "Square image e.g. 1080x1080. Keep it under 300k for faster loading. This is shown when sharing the link on e.g. WhatsApp"}
       - { label: "Author", name: "author", widget: "hidden", default: "harryfucks"}
       - { label: "Excerpt Separator", name: "excerpt_separator", widget: "hidden", default: "<!--more-->"}
       - { label: "Permalink", name: "permalink", widget: "string", hint: "Should begin and end in forward slack e.g. /comedybrew/", required: true}
       - { label: "Ticket URL", name: "ticket_url", widget: "string", hint: "Link to the ticket page for a nice red button. Use bit.ly to track!!!", required: false }
+      - { label: "Event type", name: "event_type", widget: "select", required: false, options: ["series", "monthly", "one-off", "variable-venue"], hint: "How does this show recur? `series` = same weekday every week (cron rolls next_event_date forward). `monthly` / `one-off` / `variable-venue` = manual updates."}
+      - { label: "Venue (slug)", name: "venue_slug", widget: "string", required: false, hint: "Foreign key into _data/venues.yml. Examples: robins, otro, monroe. Determines location info in Event schema."}
+      - { label: "Recurrence day", name: "recurrence_day", widget: "select", required: false, options: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], hint: "Only for event_type=series. Cron rolls next instance to this weekday."}
+      - { label: "Recurrence time (HH:MM)", name: "recurrence_time", widget: "string", required: false, pattern: ["^[0-2][0-9]:[0-5][0-9]$", "Use 24h HH:MM"], hint: "Show start time, 24h format. E.g. 19:30 or 20:00."}
+      - { label: "Default duration (minutes)", name: "default_duration_minutes", widget: "number", required: false, value_type: "int", min: 30, max: 360, hint: "Used to compute next_event_end_date. Typical: 150."}
+      - { label: "Next event date (ISO 8601)", name: "next_event_date", widget: "datetime", required: false, format: "YYYY-MM-DDTHH:mm:ssZZ", picker_utc: false, date_format: "YYYY-MM-DD", time_format: "HH:mm", hint: "Computed by cron for series shows. Manual for one-offs / monthly. Used as Event startDate in JSON-LD."}
+      - { label: "Next event end date (ISO 8601)", name: "next_event_end_date", widget: "datetime", required: false, format: "YYYY-MM-DDTHH:mm:ssZZ", picker_utc: false, date_format: "YYYY-MM-DD", time_format: "HH:mm", hint: "Computed by cron for series shows. Manual for one-offs / monthly."}
+      - { label: "Price (CHF)", name: "price_chf", widget: "number", required: false, value_type: "int", min: 0, hint: "0 = free / pay-what-you-can. Used as offers.price in Event JSON-LD."}
+      - { label: "Price max (CHF)", name: "price_chf_max", widget: "number", required: false, value_type: "int", min: 0, hint: "Optional. For sliding-scale shows: emits priceSpecification range."}
+      - { label: "Event status", name: "event_status", widget: "select", required: false, default: "EventScheduled", options: ["EventScheduled", "EventCancelled", "EventPostponed", "EventRescheduled"], hint: "Defaults to EventScheduled. Set to EventCancelled to suppress from rich results."}
+      - { label: "Event attendance mode", name: "event_attendance_mode", widget: "select", required: false, default: "OfflineEventAttendanceMode", options: ["OfflineEventAttendanceMode", "OnlineEventAttendanceMode", "MixedEventAttendanceMode"]}
+      - { label: "Performers", name: "performers", widget: "list", required: false, hint: "One name per item. Host first, then notable acts."}
+      - { label: "Last modified at", name: "last_modified_at", widget: "datetime", required: false, format: "YYYY-MM-DDTHH:mm:ssZZ", picker_utc: false, hint: "Bumped automatically when you edit. Forces Google re-index."}
       - { label: 'Body', name: 'body', widget: 'markdown', mode: 'rich_text', buttons: ['bold', 'italic', 'link', 'heading-one', 'heading-two', 'heading-three', 'bulleted-list', 'numbered-list'], 'editor_components': ['image'] }
-
-
+# Venues editor deferred — _data/venues.yml is hash-keyed (slug → venue) which doesn't
+# map cleanly to Decap CMS file collections. Manual edits to _data/venues.yml for now.
+# Sprint 2 task: introduce a list-of-objects venues file and a Decap venues collection.

@@ -1,0 +1,99 @@
+{%- comment -%}
+  Event JSON-LD partial.
+
+  Consumed by: _includes/default/head.liquid (conditional include).
+  Renders only when page.next_event_date is set AND in the future (compared at build time).
+  Looks up venue from site.data.venues[page.venue_slug] (see _data/venues.yml).
+
+  Required front-matter on the page:
+    next_event_date       — ISO-8601 with offset (e.g. 2026-05-28T19:30:00+02:00)
+    venue_slug            — key into _data/venues.yml
+    title, description    — already standard
+    ticket_url            — for offers.url
+
+  Optional front-matter:
+    next_event_end_date           — ISO-8601, end time
+    price_chf                     — numeric; default 0
+    price_chf_max                 — numeric; if set emits priceSpecification range
+    performers                    — list of strings
+    event_status                  — default EventScheduled
+    event_attendance_mode         — default OfflineEventAttendanceMode
+    feature-img                   — used for image[]
+{%- endcomment -%}
+{%- assign now_xml = 'now' | date_to_xmlschema -%}
+{%- assign event_xml = page.next_event_date | date_to_xmlschema -%}
+{%- if page.next_event_date and event_xml >= now_xml -%}
+{%- assign venue = site.data.venues[page.venue_slug] -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": {{ page.title | jsonify }},
+  "description": {{ page.description | jsonify }},
+  "url": "{{ page.url | absolute_url }}",
+  "startDate": "{{ page.next_event_date | date_to_xmlschema }}",
+  {%- if page.next_event_end_date %}
+  "endDate": "{{ page.next_event_end_date | date_to_xmlschema }}",
+  {%- endif %}
+  "eventStatus": "https://schema.org/{{ page.event_status | default: 'EventScheduled' }}",
+  "eventAttendanceMode": "https://schema.org/{{ page.event_attendance_mode | default: 'OfflineEventAttendanceMode' }}",
+  {%- if venue %}
+  "location": {
+    "@type": "Place",
+    "name": {{ venue.name | jsonify }},
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": {{ venue.street | jsonify }},
+      "postalCode": {{ venue.postal_code | jsonify }},
+      "addressLocality": {{ venue.city | jsonify }},
+      "addressCountry": {{ venue.country | default: 'CH' | jsonify }}
+    }{%- if venue.latitude and venue.longitude %},
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": {{ venue.latitude }},
+      "longitude": {{ venue.longitude }}
+    }{%- endif %}
+  },
+  {%- endif %}
+  {%- if page.feature-img %}
+  "image": [
+    "{{ page.feature-img | absolute_url }}"
+  ],
+  {%- endif %}
+  "organizer": {
+    "@type": "Organization",
+    "name": "IN YOUR FACE Comedy",
+    "url": "{{ site.url }}"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "IN YOUR FACE Comedy",
+    "url": "{{ site.url }}"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": {{ page.ticket_url | default: page.url | absolute_url | jsonify }},
+    "price": "{{ page.price_chf | default: 0 }}",
+    "priceCurrency": "CHF",
+    "availability": "https://schema.org/InStock",
+    "validFrom": "{{ page.date | date_to_xmlschema }}"
+    {%- if page.price_chf_max %},
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "minPrice": "{{ page.price_chf | default: 0 }}",
+      "maxPrice": "{{ page.price_chf_max }}",
+      "priceCurrency": "CHF"
+    }
+    {%- endif %}
+  }{%- if page.performers and page.performers.size > 0 %},
+  "performer": [
+    {%- for performer in page.performers %}
+    {
+      "@type": "PerformingGroup",
+      "name": {{ performer | jsonify }}
+    }{%- unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]{%- endif %}
+}
+</script>
+{%- endif -%}

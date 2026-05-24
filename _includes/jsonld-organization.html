@@ -1,0 +1,39 @@
+{%- comment -%}
+  Organization JSON-LD partial.
+  Emitted only on the homepage. Identifies IYF Comedy as a ComedyClub serving Zürich,
+  with full sameAs social URLs for Knowledge Graph linking.
+{%- endcomment -%}
+{%- assign robins = site.data.venues.robins -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "additionalType": "ComedyClub",
+  "name": "IN YOUR FACE Comedy",
+  "alternateName": "IYF Comedy",
+  "url": "{{ site.url }}",
+  "logo": "{{ '/assets/img/inyourface.png' | absolute_url }}",
+  "image": "{{ site.header_feature_image | absolute_url }}",
+  "description": {{ site.description | jsonify }},
+  "foundingDate": "2021-09-01",
+  "areaServed": {
+    "@type": "City",
+    "name": "Zürich"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": {{ robins.street | jsonify }},
+    "postalCode": {{ robins.postal_code | jsonify }},
+    "addressLocality": {{ robins.city | jsonify }},
+    "addressCountry": {{ robins.country | jsonify }}
+  },
+  "sameAs": [
+    {{ site.social.instagram | jsonify }},
+    {{ site.social.tiktok | jsonify }},
+    {{ site.social.facebook | jsonify }},
+    {{ site.social.telegram | jsonify }},
+    {{ site.social.meetup | jsonify }},
+    {{ site.social.youtube | jsonify }}
+  ]
+}
+</script>
