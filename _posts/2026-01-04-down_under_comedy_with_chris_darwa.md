@@ -8,7 +8,6 @@ last_modified_at: 2026-05-24T10:00:00+00:00
 feature-img: /assets/img/uploads/down_under_comedy_wide_0.5x.png
 image: /assets/img/uploads/down_under_comedy_wide_0.5x.png
 thumbnail: /assets/img/uploads/down_under_comedy_insta_post_0.5x.png
-author: harryfucks
 excerpt_separator: <!--more-->
 permalink: /downunder/
 ticket_url: https://eventfrog.ch/downunder

@@ -9,7 +9,6 @@ description: Join three of Switzerland's sharpest comedy imports, all the way
 feature-img: /assets/img/uploads/brexiles_horizontal.png
 image: /assets/img/uploads/brexiles_horizontal.png
 thumbnail: /assets/img/uploads/brexiles_square.png
-author: harryfucks
 excerpt_separator: <!--more-->
 permalink: /brexiles/
 redirect_from:

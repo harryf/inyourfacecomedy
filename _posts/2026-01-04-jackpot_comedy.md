@@ -8,7 +8,6 @@ description: Jackpot Comedy - English Stand-up Comedy - Wednesdays at Bar Otro
 feature-img: /assets/img/uploads/jackpot_comedy_website_wide.png
 image: /assets/img/uploads/jackpot_comedy_website_wide.png
 thumbnail: /assets/img/uploads/jackpot_comedy_website_square.png
-author: harryfucks
 excerpt_separator: <!--more-->
 permalink: /jackpotcomedy/
 ticket_url: https://eventfrog.ch/jackpotcomedy

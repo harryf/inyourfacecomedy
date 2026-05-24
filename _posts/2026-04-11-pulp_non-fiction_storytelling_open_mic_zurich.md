@@ -8,7 +8,6 @@ last_modified_at: 2026-05-24T10:00:00+00:00
 feature-img: /assets/img/uploads/pulpnonfiction_horizontal.png
 image: /assets/img/uploads/pulpnonfiction_horizontal.png
 thumbnail: /assets/img/uploads/pulpnonfiction_square.png
-author: harryfucks
 excerpt_separator: <!--more-->
 permalink: /pulpnonfiction/
 ticket_url: https://eventfrog.ch/pulpnonfiction/

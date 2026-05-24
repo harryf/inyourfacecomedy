@@ -7,7 +7,6 @@ last_modified_at: 2026-05-24T10:00:00+00:00
 feature-img: /assets/img/uploads/jokes_jokes_jokes_facebook_event.png
 image: /assets/img/uploads/jokes_jokes_jokes_facebook_event.png
 thumbnail: /assets/img/uploads/jokes_jokes_jokes_insta_post.png
-author: harryfucks
 excerpt_separator: <!--more-->
 permalink: /jokesjokesjokes/
 ticket_url: https://eventfrog.ch/jokes-jokes-jokes
