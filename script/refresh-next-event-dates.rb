@@ -29,6 +29,7 @@ require "net/http"
 require "uri"
 require "time"
 require "date"
+require "open3"
 require "optparse"
 
 POSTS_DIR = File.expand_path("../_posts", __dir__)
@@ -60,6 +61,50 @@ end
 load_dotenv
 
 HEALTHCHECKS_URL = ENV["HEALTHCHECKS_URL"]
+
+# ---------- Git ----------
+
+# Run git with the project root pinned via `-C`. Returns [stdout+stderr, success?].
+# Uses Open3 so no shell escaping concerns.
+def git_run(*args)
+  out, status = Open3.capture2e("git", "-C", PROJECT_ROOT, *args)
+  [out.strip, status.success?]
+end
+
+# Stage, commit, and push refreshed posts. Retries once on non-fast-forward
+# rejection by pulling --rebase against origin/master.
+# Raises on unrecoverable failure; the top-level rescue then pings HC fail.
+# Dry-run is implicit: process_post skips writes in --dry-run, so there's
+# nothing for `git add` to stage, and we return early via `no_staged`.
+def commit_and_push!(updated_count)
+  return :no_changes if updated_count == 0
+
+  out, ok = git_run("add", "-A", "_posts")
+  raise "git add failed: #{out}" unless ok
+
+  _, no_staged = git_run("diff", "--quiet", "--staged")
+  return :no_changes if no_staged   # files identical to HEAD — nothing to commit
+
+  out, ok = git_run("commit", "-m", "chore: refresh next_event_date from Eventfrog")
+  raise "git commit failed: #{out}" unless ok
+
+  # First push attempt.
+  out, ok = git_run("push", "origin", "master")
+  return :pushed if ok
+
+  # If rejected for being behind origin, rebase and retry once.
+  if out =~ /non-fast-forward|fetch first|rejected.*Updates were rejected/im
+    puts "  push rejected (branch behind origin), pulling --rebase..."
+    out, ok = git_run("pull", "--rebase", "origin", "master")
+    raise "git pull --rebase failed: #{out}" unless ok
+
+    out, ok = git_run("push", "origin", "master")
+    raise "git push (after rebase) failed: #{out}" unless ok
+    return :pushed_after_rebase
+  end
+
+  raise "git push failed: #{out}"
+end
 
 # ---------- Notifications ----------
 
@@ -244,12 +289,29 @@ begin
   summary = "#{updated} post(s) updated. #{errors} error(s)."
   puts summary
 
-  if errors > 0
-    body = ["IYF refresh script: #{errors} error(s)", *error_lines.map { |l| "  - #{l}" }].join("\n")
-    healthcheck_ping(:fail, body)
+  # Run git ONLY if file refresh was clean. A parse error means we don't trust
+  # the resulting tree and shouldn't push half-correct dates.
+  git_result = nil
+  git_error  = nil
+  if errors == 0
+    begin
+      git_result = commit_and_push!(updated)
+      puts "git: #{git_result}"
+    rescue => e
+      git_error = e.message
+      puts "git: ERROR — #{git_error}"
+    end
+  end
+
+  if errors > 0 || git_error
+    body_lines = ["IYF refresh script failed"]
+    body_lines << "Parse errors: #{errors}" if errors > 0
+    body_lines.concat(error_lines.map { |l| "  - #{l}" })
+    body_lines << "Git: #{git_error}" if git_error
+    healthcheck_ping(:fail, body_lines.join("\n"))
     exit 1
   else
-    healthcheck_ping(:success, summary)
+    healthcheck_ping(:success, "#{summary} git: #{git_result}")
     exit 0
   end
 rescue => e

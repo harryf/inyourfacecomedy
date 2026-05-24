@@ -121,17 +121,15 @@ crontab -e
 **2. Add this line:**
 
 ```cron
-# Roll forward IN YOUR FACE Comedy show schedule, daily at 04:00 local time.
-# After roll, commit + push the change so Netlify rebuilds and Google re-indexes.
-# The script auto-loads .env at /Users/harry/Code/personal/inyourfacecomedy/.env
-# for TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID / HEALTHCHECKS_URL.
-0 4 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.rbenv/versions/3.2.4/bin/ruby script/refresh-next-event-dates.rb >> script/refresh.log 2>&1 && git add -A _posts && (git diff --quiet --staged || (git commit -m "chore: refresh next_event_date from Eventfrog" && git push origin master))
+# IYF Comedy — refresh next_event_date from Eventfrog, daily at 04:00.
+# Script handles file edits, git commit + push, and Healthchecks.io alerts.
+0 4 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.rbenv/versions/3.2.4/bin/ruby script/refresh-next-event-dates.rb >> script/refresh.log 2>&1
 ```
 
 Notes:
 - Ruby path is the rbenv 3.2.4 install (cron's minimal `PATH` won't resolve rbenv shims, so we use the version-specific absolute path). If you upgrade Ruby via rbenv, update this path.
-- The `git diff --quiet --staged || …` guard means a no-op day (no posts changed) doesn't try to commit empty.
-- Cron's `PATH` is minimal — always use absolute paths.
+- The script owns everything: edits front-matter, stages `_posts/`, commits with a fixed message, pushes to `origin master`. If push is rejected (branch behind origin) it pulls `--rebase` and retries once.
+- Any failure — parse error, git failure, push retry exhausted — pings Healthchecks.io `/fail` so you get a Telegram alert. Success-only paths produce no alerts because HC is configured fail-only.
 - Log goes to `script/refresh.log` (gitignored).
 - The script reads `.env` from the project root itself — no need to `source` it in the cron line.
 
