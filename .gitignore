@@ -34,3 +34,9 @@ jekyll-theme-type-on-strap.gemspec
 *copy.md
 test/*
 /type-on-strap*/*
+
+# Cron output from script/refresh-next-event-dates.rb
+script/refresh.log
+
+# Local secrets for script/refresh-next-event-dates.rb
+.env
