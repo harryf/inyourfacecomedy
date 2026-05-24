@@ -18,7 +18,7 @@ redirect_from:
   - /2025/01/22/brexiles_-_english_comedy_night_in_zurich_kreis_4.html
 ticket_url: https://eventfrog.ch/brexiles/
 event_type: series
-venue_slug: monroe
+venue_slug: otro
 recurrence_day: Wednesday
 recurrence_time: "20:00"
 default_duration_minutes: 150
@@ -51,10 +51,10 @@ Do all British people have terrible teeth? Are they all actually addicted to tea
 With over 20 years collectively in the biz, this show is guaranteed to bring a smile to your face, and whether you love or hate the British, there is something for everyone.
 ​
 Reparations Spot: Each show will feature a guest comedian from a country which was formerly colonised by the British. This is our way of personally apologising for the hundreds of years of murder, subjugation, and terror inflicted upon the peoples of the planet. We hope you agree that we are even now.\
-\
-**Venue:**\
-\
-[Monroe Music Bar & Bites](https://www.monroe.zuerich/) - [Brauerstrasse 26, 8004 Zürich](https://maps.app.goo.gl/8C7nrhUqhJ4X83ku9) (Kreis 4) - just off Langstrasse - [check them out on Instagram](https://www.instagram.com/monroe.zuerich/).
+
+**Venue:**
+
+[Bar Otro](https://otro.bar/) (downstairs!) - [Zwinglistrasse 22, 8004 Zürich](https://maps.app.goo.gl/LiX9rDWX6ZmY3cKKA) (Kreis 4) - just off Langstrasse - [check them out on Instagram](https://www.instagram.com/bar.otro/).
 
 **Playlist:**
 

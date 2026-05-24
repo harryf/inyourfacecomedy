@@ -36,4 +36,6 @@ We’re downstairs at **Bar OTRO,** just off Langstrasse, the ideal location f
 
 **SHOW BEGINS AT 20:00 (Doors at 19:00)**
 
-(some) Wednesdays at [Bar Otro](<>) (downstairs) - [Zwinglistrasse 22, 8004 Zürich](<>)
+**Venue:**
+
+[Bar Otro](https://otro.bar/) (downstairs!) - [Zwinglistrasse 22, 8004 Zürich](https://maps.app.goo.gl/LiX9rDWX6ZmY3cKKA) (Kreis 4) - just off Langstrasse - [check them out on Instagram](https://www.instagram.com/bar.otro/).
