@@ -6,9 +6,11 @@ url: "https://inyourfacecomedy.ch"
 title: IN YOUR FACE Comedy                                    # site's title
 description: "English Stand-Up Comedy in Zürich, Switzerland"      # used by search engines
 
-# Default author for all pages (consumed by jekyll-seo-tag → BlogPosting JSON-LD)
+# Default author for all pages (consumed by jekyll-seo-tag → BlogPosting JSON-LD).
 # Per-post `author:` front-matter overrides this when present.
+# The `type: Organization` field requires jekyll-seo-tag >= 2.8.0 (see type-on-strap.gemspec).
 author:
+  type: Organization
   name: "IN YOUR FACE Comedy"
   url: "https://inyourfacecomedy.ch"
 avatar: assets/img/inyourface.png                         # Empty for no avatar in navbar
