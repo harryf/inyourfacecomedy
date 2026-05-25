@@ -1,6 +1,7 @@
 /* --- Header text feature --- */
 .call-out {
   @extend %padding-header;
+  position: relative; // anchor for ::after gradient overlay
   display: inline-block;
   width: 100%;
   height: 100%;
@@ -8,12 +9,30 @@
   text-align: center;
   color: var(--header-text);
   background: no-repeat var(--header-background);
-  backdrop-filter: brightness(0.5);
   background-size: cover;
+
+  // D-03 hero gradient — bottom-up dark gradient so the top of the photo breathes
+  // while text stays readable. Spec per 03-DESIGN-REVIEW.md §2.3-C.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(15, 15, 16, 0) 40%,
+      rgba(15, 15, 16, 0.85) 100%
+    );
+    pointer-events: none;
+  }
 
   h1 {
     font-family: $font-family-logo;
     @extend .subtle-txt-shadow;
+    // D-02 hero clamp — stops H1 truncating on <375px and exploding on 1440px.
+    font-size: clamp(1.75rem, 6vw, 4rem);
+    line-height: 1.05;
+    position: relative; // raise above ::after gradient
+    z-index: 1;
   }
 
   /* --- Responsive --- */
