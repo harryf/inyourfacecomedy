@@ -10,9 +10,11 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;        // was flex-end — no empty gap above title
+  align-items: center;             // centered by default; --centered modifier is now a no-op alias
+  text-align: center;
   width: 100%;
-  min-height: 50vh; // was 60vh; less empty top space on inner pages
+  min-height: auto;                // was 50vh — hero is content-tall; background image shows behind text only
   padding: var(--space-7) var(--space-5) var(--space-6);
   background-position: center;
   background-size: cover;
@@ -81,7 +83,7 @@
     font-size: var(--fs-lg);
     line-height: var(--lh-snug);
     color: var(--brand-yellow);
-    margin: 0 0 var(--space-5);
+    margin: 0 auto var(--space-5);   // auto sides so subtitle stays centered under the title
     max-width: 32rem;
     text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55);
   }
@@ -89,6 +91,7 @@
   &__actions {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;          // centered actions by default
     gap: var(--space-3);
   }
 }
@@ -105,47 +108,25 @@
   }
 }
 
-.iyf-hero--centered {
-  align-items: center;
-  text-align: center;
+// --centered is now a no-op alias: defaults are centered. Kept so existing
+// templates (home.liquid uses .iyf-hero--centered) keep parsing cleanly.
+.iyf-hero--centered {}
 
-  .iyf-hero__subtitle {
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .iyf-hero__actions {
-    justify-content: center;
-  }
-}
-
-// .iyf-hero--compact — used on inner pages (page.liquid). Text near the top,
-// horizontally centered (comedy-poster default). Tighter than the full hero.
+// --compact — used on inner pages (page.liquid). Tighter padding + smaller
+// title than the default. Centering + content-height behaviour are inherited.
 .iyf-hero--compact {
-  min-height: auto;
   padding: var(--space-6) var(--space-5) var(--space-5);
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 
   .iyf-hero__title {
     font-size: var(--fs-2xl);
-  }
-  .iyf-hero__subtitle {
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .iyf-hero__actions {
-    justify-content: center;
   }
 }
 
 @media (max-width: 767px) {
   .iyf-hero {
-    min-height: 50vh;                              // was 70vh — too much empty space at top
     padding: var(--space-5) var(--space-4) var(--space-5);
   }
   .iyf-hero--compact {
-    min-height: auto;
     padding: var(--space-4) var(--space-4) var(--space-4);
   }
   // Cap title size on mobile so long show titles don't dominate the viewport.
