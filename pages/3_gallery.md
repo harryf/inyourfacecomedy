@@ -1,9 +1,9 @@
 ---
 layout: page
-title: "Comedy Moments — Photos from Zürich Shows"
+title: "Comedy Moments - Photos from Zürich Shows"
 nav_title: Gallery
 subtitle: Moments from past shows
-description: "Behind-the-scenes photos and highlights from English stand-up comedy nights in Zürich — open mics, headline shows, and post-show moments at IN YOUR FACE."
+description: "Behind-the-scenes photos and highlights from English stand-up comedy nights in Zürich - open mics, headline shows, and post-show moments at IN YOUR FACE."
 last_modified_at: 2026-05-25T12:00:00+00:00
 permalink: /moments/
 gallery_path: "assets/img/gallery"
