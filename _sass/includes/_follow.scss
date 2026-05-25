@@ -21,24 +21,7 @@
     }
   }
 
-  // Sibling to .btn: outline variant for secondary CTAs.
-  // Uses brand tokens — keeps light/dark themes coherent.
-  .btn-secondary {
-    display: inline-block;
-    padding: 0.55em 1.1em;
-    border: 2px solid var(--cta-bg);
-    border-radius: 0.25em;
-    background-color: transparent;
-    color: var(--cta-bg);
-    font-weight: bold;
-    text-decoration: none;
-    transition: background-color 0.15s ease, color 0.15s ease;
-
-    &:hover {
-      background-color: var(--cta-bg);
-      color: var(--cta-text);
-    }
-  }
+  // .btn-secondary lives at global scope in _sass/base/_global.scss — sibling to .btn.
 
   // Other-places-we-are list — icon + label rows
   .hub-channel-list {

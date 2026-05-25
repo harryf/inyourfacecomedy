@@ -291,6 +291,26 @@ kbd {
   background-color: var(--cta-bg-hover);
 }
 
+// Outline variant — sibling to .btn, brand-token-driven.
+// Lives at global scope so footer/hero/layout consumers all pick it up,
+// not just .post-content children.
+.btn-secondary {
+  display: inline-block;
+  padding: 0.55em 1.1em;
+  border: 2px solid var(--cta-bg);
+  border-radius: 0.25em;
+  background-color: transparent;
+  color: var(--cta-bg);
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--cta-bg);
+  color: var(--cta-text);
+}
+
 @media screen and (max-width: $break) {
   .btn {
     width: 45%;
