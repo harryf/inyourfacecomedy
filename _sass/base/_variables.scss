@@ -158,11 +158,12 @@ html, html[data-theme="light"] {
   --border: rgba(0, 0, 0, 0.2);
 }
 
-// Design-system dark scheme override — keeps surface/elev sensible in dark mode.
+// Design-system dark scheme override — keeps surface/elev/muted sensible in dark mode.
 html[data-theme="dark"] {
   --surface:          var(--brand-ink);
   --surface-elev:     var(--surface-dark-2);
   --ink-on-cream:     var(--brand-cream);
+  --muted:            rgba(255, 243, 224, 0.65);   // soft cream — readable on dark surfaces
   --border-soft:      rgba(255, 243, 224, 0.16);
   --border-strong:    rgba(255, 243, 224, 0.4);
 }

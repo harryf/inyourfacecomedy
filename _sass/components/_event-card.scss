@@ -114,7 +114,7 @@
     font-family: var(--font-accent);
     font-size: var(--fs-md);
     line-height: var(--lh-snug);
-    color: var(--brand-ink-soft);
+    color: var(--muted); // theme-aware; was --brand-ink-soft (always dark, unreadable in dark mode)
     margin: 0;
   }
 

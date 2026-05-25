@@ -36,6 +36,7 @@
     border-bottom: 1px solid var(--border-soft);
     vertical-align: middle;
     font-size: var(--fs-base);
+    color: var(--text); // theme-aware — light in dark mode, dark in light mode
   }
 
   tbody tr:hover {
@@ -47,7 +48,7 @@
     font-size: var(--fs-md);
     letter-spacing: 0.02em;
     text-transform: uppercase;
-    color: var(--brand-ink);
+    color: var(--text); // theme-aware; was var(--brand-ink) which fights dark mode
     text-decoration: none;
   }
   tbody td:nth-child(3) a:hover {
@@ -100,6 +101,7 @@
       margin-bottom: var(--space-5);
       padding: var(--space-4) var(--space-5);
       background: var(--surface-elev);
+      color: var(--text); // explicit so cards stay readable in dark mode
       border: 1px solid var(--border-soft);
       border-left: 4px solid var(--brand-red);
       border-radius: var(--radius-lg);
@@ -152,7 +154,7 @@
     tbody td:nth-child(4) {
       font-family: var(--font-body);
       font-size: var(--fs-sm);
-      color: var(--brand-ink-soft);
+      color: var(--muted); // theme-aware; was --brand-ink-soft (always dark)
       padding: var(--space-1) 0 var(--space-3);
       line-height: var(--lh-normal);
     }

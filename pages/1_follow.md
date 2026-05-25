@@ -15,7 +15,7 @@ thumbnail: "assets/img/thumbs/inyourface_thumb.png"
 <section class="hub-shows" markdown="0">
   <h2>Next up?</h2>
   <p>We run shows almost every week — Comedy Brew on Thursdays at ROBIN's little italy, plus monthly specials.</p>
-  <a class="btn-ticket" href="/calendar/">See upcoming shows &rarr;</a>
+  <a class="btn-ticket" href="/calendar/">See upcoming shows</a>
 </section>
 
 <section class="hub-mailchimp" markdown="0">

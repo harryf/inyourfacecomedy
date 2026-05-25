@@ -13,9 +13,21 @@ layout: default
       {% if page.next_event_date %}
         <p class="iyf-hero__eyebrow">{{ page.next_event_date | date: "%a · %e %b" }}{% if page.venue %} · {{ page.venue }}{% endif %}</p>
       {% endif %}
-      <h1 id="{{ page.title | cgi_escape }}" class="iyf-hero__title">{{ page.title }}</h1>
+      {%- comment -%}
+        Show titles often pack SEO metadata after a bullet ('•') —
+        "Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS …".
+        First segment is the show name (the h1). The rest collapses into a subtitle
+        only when page.tagline isn't already providing one.
+      {%- endcomment -%}
+      {%- assign title_parts = page.title | split: '•' -%}
+      {%- assign primary_title = title_parts[0] | strip -%}
+      <h1 id="{{ page.title | cgi_escape }}" class="iyf-hero__title">{{ primary_title }}</h1>
       {% if page.tagline %}
         <p class="iyf-hero__subtitle">{{ page.tagline }}</p>
+      {% elsif title_parts.size > 1 %}
+        {%- assign rest_segments = title_parts | slice: 1, 99 -%}
+        {%- assign secondary_title = rest_segments | join: ' · ' | strip -%}
+        <p class="iyf-hero__subtitle">{{ secondary_title }}</p>
       {% endif %}
       {% if page.ticket_url %}
         <div class="iyf-hero__actions">
@@ -29,12 +41,9 @@ layout: default
     {% if page.bootstrap %}
       <div class="bootstrap-iso">
     {% endif %}
-    {% if page.ticket_url %}
-      <p><a href="{{ page.ticket_url }}" class="btn-ticket btn-ticket--xl">Get Tickets</a></p>
-    {% endif %}
     {{ content }}
     {% if page.ticket_url %}
-      <p><a href="{{ page.ticket_url }}" class="btn-ticket btn-ticket--xl">Get Tickets</a></p>
+      <p><a href="{{ page.ticket_url }}" class="btn-ticket btn-ticket--xl" rel="noopener" target="_blank">Get Tickets</a></p>
     {% endif %}
     {% if page.bootstrap %}
       </div>

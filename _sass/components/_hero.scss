@@ -12,8 +12,8 @@
   flex-direction: column;
   justify-content: flex-end;
   width: 100%;
-  min-height: 60vh;
-  padding: var(--space-9) var(--space-5) var(--space-7);
+  min-height: 50vh; // was 60vh; less empty top space on inner pages
+  padding: var(--space-7) var(--space-5) var(--space-6);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -118,18 +118,43 @@
   }
 }
 
+// .iyf-hero--compact — used on inner pages (page.liquid). Text near the top,
+// horizontally centered (comedy-poster default). Tighter than the full hero.
 .iyf-hero--compact {
-  min-height: 40vh;
-  padding: var(--space-7) var(--space-5) var(--space-5);
+  min-height: auto;
+  padding: var(--space-6) var(--space-5) var(--space-5);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 
   .iyf-hero__title {
     font-size: var(--fs-2xl);
+  }
+  .iyf-hero__subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .iyf-hero__actions {
+    justify-content: center;
   }
 }
 
 @media (max-width: 767px) {
   .iyf-hero {
-    min-height: 70vh;
-    padding: var(--space-7) var(--space-4) var(--space-6);
+    min-height: 50vh;                              // was 70vh — too much empty space at top
+    padding: var(--space-5) var(--space-4) var(--space-5);
+  }
+  .iyf-hero--compact {
+    min-height: auto;
+    padding: var(--space-4) var(--space-4) var(--space-4);
+  }
+  // Cap title size on mobile so long show titles don't dominate the viewport.
+  // Show pages (.iyf-hero--dim) get a tighter cap because their titles tend to
+  // be the longest ("Comedy Brew • English Stand-Up Comedy Open Mic …").
+  .iyf-hero__title {
+    font-size: var(--fs-2xl);
+  }
+  .iyf-hero--dim .iyf-hero__title {
+    font-size: var(--fs-xl);
   }
 }
