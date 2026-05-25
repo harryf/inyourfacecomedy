@@ -272,8 +272,8 @@ kbd {
 }
 
 .btn {
-  background-color: #ED1C24;
-  color: white;
+  background-color: var(--cta-bg);
+  color: var(--cta-text);
   font-weight: bold;
   padding: 15px 25px;
   text-decoration: none;
@@ -284,6 +284,11 @@ kbd {
   display: block;
   width: 40%;
   margin: auto;
+  transition: background-color 0.15s ease;
+}
+
+.btn:hover {
+  background-color: var(--cta-bg-hover);
 }
 
 @media screen and (max-width: $break) {

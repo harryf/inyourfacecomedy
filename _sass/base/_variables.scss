@@ -27,6 +27,21 @@ $sm-break: 576px;
 $x-sm-break: 320px;
 
 
+/* BRAND TOKENS */
+// Theme-invariant brand palette per 03-DESIGN-REVIEW.md §2.3-A.
+// Red is red in both light and dark mode; defined at :root so it survives any theme switch.
+:root {
+  --brand-red:      #E53935; // sampled from the IYF logo
+  --brand-red-deep: #B71C1C; // hover / pressed state for CTAs
+  --brand-cream:    #FFF3E0; // warm off-white for text on red surfaces
+  --brand-ink:      #0F0F10; // near-black for cards-on-dark contexts
+  --accent-yellow:  #FFD54F; // future "Tonight" badge + focus rings
+  --cta-bg:         var(--brand-red);
+  --cta-bg-hover:   var(--brand-red-deep);
+  --cta-text:       var(--brand-cream);
+}
+
+
 /* THEME COLOR SCHEMES */
 html, html[data-theme="light"] {
   --background: #ffffff;
