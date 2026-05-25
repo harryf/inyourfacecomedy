@@ -15,7 +15,7 @@ thumbnail: "assets/img/thumbs/inyourface_thumb.png"
 <section class="hub-shows" markdown="0">
   <h2>Next up?</h2>
   <p>We run shows almost every week — Comedy Brew on Thursdays at ROBIN's little italy, plus monthly specials.</p>
-  <a class="btn" href="/calendar/">See upcoming shows &rarr;</a>
+  <a class="btn-ticket" href="/calendar/">See upcoming shows &rarr;</a>
 </section>
 
 <section class="hub-mailchimp" markdown="0">
@@ -59,19 +59,19 @@ thumbnail: "assets/img/thumbs/inyourface_thumb.png"
 <section class="hub-telegram" markdown="0">
   <h2>Want first dibs?</h2>
   <p>48-hour early access on new shows + occasional flash promos. Quieter than the newsletter — usually one post a week.</p>
-  <a class="btn btn-secondary" href="{{ site.social.telegram }}" rel="noopener" target="_blank">Join the Telegram channel &rarr;</a>
+  <a class="btn-ghost" href="{{ site.social.telegram }}" rel="noopener" target="_blank">Join the Telegram channel &rarr;</a>
 </section>
 
 <section class="hub-meetup" markdown="0">
   <h2>Prefer Meetup?</h2>
   <p>All shows are also on Meetup. RSVP there if that's your habit.</p>
-  <a class="btn btn-secondary" href="{{ site.social.meetup }}" rel="noopener" target="_blank">RSVP on Meetup &rarr;</a>
+  <a class="btn-ghost" href="{{ site.social.meetup }}" rel="noopener" target="_blank">RSVP on Meetup &rarr;</a>
 </section>
 
 <section class="hub-google" markdown="0">
   <h2>Been to a show?</h2>
   <p>Help others find us — leave us a Google review.</p>
-  <a class="btn btn-secondary" href="{{ site.gbp_review_url }}" rel="noopener" target="_blank">Leave a Google review &rarr;</a>
+  <a class="btn-ghost" href="{{ site.gbp_review_url }}" rel="noopener" target="_blank">Leave a Google review &rarr;</a>
 </section>
 
 <section class="hub-channels" markdown="0">

@@ -271,58 +271,8 @@ kbd {
   }
 }
 
-.btn {
-  background-color: var(--cta-bg);
-  color: var(--cta-text);
-  font-weight: bold;
-  padding: 15px 25px;
-  text-decoration: none;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  text-align: center;
-  display: block;
-  width: 40%;
-  margin: auto;
-  transition: background-color 0.15s ease;
-}
-
-.btn:hover {
-  background-color: var(--cta-bg-hover);
-}
-
-// Outline variant — sibling to .btn, brand-token-driven.
-// Lives at global scope so footer/hero/layout consumers all pick it up,
-// not just .post-content children.
-.btn-secondary {
-  display: inline-block;
-  padding: 0.55em 1.1em;
-  border: 2px solid var(--cta-bg);
-  border-radius: 0.25em;
-  background-color: transparent;
-  color: var(--cta-bg);
-  font-weight: bold;
-  text-decoration: none;
-  transition: background-color 0.15s ease, color 0.15s ease;
-}
-
-.btn-secondary:hover {
-  background-color: var(--cta-bg);
-  color: var(--cta-text);
-}
-
-@media screen and (max-width: $break) {
-  .btn {
-    width: 45%;
-  }
-}
-
-@media screen and (max-width: $x-sm-break) {
-  .btn {
-    padding: 5px 15px;
-    width: 50%;
-  }
-}
+// Legacy .btn / .btn-secondary removed in design-system v1.
+// All consumers now use .btn-ticket / .btn-ghost from _sass/components/_button.scss.
 
 img.centered {
   display: block;

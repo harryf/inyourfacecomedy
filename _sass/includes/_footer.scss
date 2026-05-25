@@ -36,14 +36,12 @@
       line-height: 1.4;
     }
 
-    .btn {
-      width: 100%;
+    // .btn-ticket inside .footer-block: tame the width so it doesn't span the
+    // full footer column on desktop. .btn-ticket already handles its own
+    // mobile-full-width behaviour.
+    .btn-ticket {
       max-width: 280px;
       margin: 0.5rem 0 0;
-      padding: 0.7rem 1rem;
-      font-size: 0.95rem;
-      display: inline-block;
-      white-space: nowrap; // keep "→" on same line as label
 
       @media screen and (max-width: $break) {
         margin-left: auto;
