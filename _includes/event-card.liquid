@@ -3,7 +3,7 @@
   Renders one .iyf-event-card from a post object.
   Required: post (a Jekyll page/post object with at least .title, .url).
   Optional consumed: next_event_date, venue_slug, ticket_url, price_chf, tagline,
-                     feature-img, recurrence_day, recurrence_time.
+                     image, recurrence_day, recurrence_time.
   Per-show palette: the `data-show` lookup on the post's permalink hooks into
                     _sass/components/_show-override.scss when the card is
                     rendered inside (or as) a .show-banner. When rendered
@@ -13,10 +13,10 @@
 {%- assign show_slug = post.permalink | replace: '/', '' | strip -%}
 {%- assign event_date = post.next_event_date | default: nil -%}
 <article class="iyf-event-card show-banner" data-show="{{ show_slug }}">
-  {% if post.feature-img %}
+  {% if post.image %}
     <div class="iyf-event-card__media">
       <a href="{{ post.url | relative_url }}" aria-label="{{ post.title }}">
-        <img src="{{ post.feature-img | relative_url }}" alt="{{ post.title }}" loading="lazy">
+        <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
       </a>
     </div>
   {% endif %}
