@@ -33,7 +33,7 @@ future: true
 # More in the _data folder for share buttons, author and language
 # For layout customization, go to the "_sass > base" folder, and check "_variables.scss"
 katex: false                                             # Enable if using math markup
-mermaid: default                                        # Enable mermaid-js for diagrams, use theme: base, forest, dark, default, neutral
+mermaid: false                                          # Disabled — no page uses mermaid diagrams. Re-enable per-theme: base, forest, dark, default, neutral
 google_tagmanager: GTM-M7Z9D4Z
 google_analytics: G-JZBDD4CQWV                          # Tracking ID, e.g. "UA-000000-01"
 meta_pixel: 5349931195130820                            # Tracking ID for Facebook Meta Pixel
