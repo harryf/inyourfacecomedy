@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "How to Host a Stand-up Comedy Show — Practical Guide"
+title: "How to Host a Stand-up Comedy Show"
 nav_title: Host
 title_override: "How to Host a Stand-Up Comedy Show"
 subtitle: "Start your own comedy show - a guide for open mics"

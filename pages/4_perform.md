@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Perform Stand-up in Zürich — Open Mic Sign-Ups"
+title: "Perform Stand-up in Zürich — Open Mic"
 nav_title: Perform
 title_override: Perform Stand-Up Comedy in Zurich
 subtitle: Got the comedy itch? Get Your First Spot and Tips – IN YOUR FACE Comedy

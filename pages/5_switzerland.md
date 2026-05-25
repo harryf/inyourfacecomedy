@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Stand-up Comedy in Switzerland — A Performer's Guide"
+title: "Stand-up Comedy in Switzerland — Guide"
 nav_title: Switzerland
 title_override: "Perform Stand-Up Comedy in Switzerland"
 subtitle: "Comedy Tips and Guide for Visiting Comedians"

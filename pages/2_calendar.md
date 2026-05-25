@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Comedy in Zürich Tonight & This Week — English Shows"
+title: "Comedy in Zürich Tonight & This Week"
 nav_title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
