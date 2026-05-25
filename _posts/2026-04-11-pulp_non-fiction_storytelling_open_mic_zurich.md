@@ -18,8 +18,6 @@ default_duration_minutes: 150
 next_event_date: 2026-06-06T19:30:00+02:00
 next_event_end_date: 2026-06-06T22:00:00+02:00
 price_chf: 0
-event_status: EventScheduled
-event_attendance_mode: OfflineEventAttendanceMode
 performers:
   - "Albert Louw"
   - "Various local and visiting storytellers"

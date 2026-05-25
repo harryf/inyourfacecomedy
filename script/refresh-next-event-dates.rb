@@ -129,31 +129,95 @@ rescue => e
 end
 
 # ---------- Eventfrog parsing ----------
+#
+# Eventfrog ticket URLs land on one of two page shapes:
+#
+#   GROUP PAGE (e.g. /comedybrew → /de/p/gruppen/...html)
+#     - Multiple <td class="datecol"> rows, one per upcoming instance
+#     - Each row has its own <a itemprop="offers" href="...individual..."> link
+#     - The page's own <time itemprop="startDate"> reflects the next future instance
+#
+#   INDIVIDUAL EVENT PAGE (e.g. /de/p/theater-buehne/.../{slug}-{id}.html)
+#     - One <time itemprop="startDate" datetime="YYYY-MM-DDTHH:MM…">
+#     - Two <time itemprop="doorTime"> entries: door-open (= start) and door-close (= end)
+#     - Inline JSON-like "price": "10.0" + "priceCurrency": "CHF"
+#
+# Strategy: if the URL lands on a GROUP page, find the next future row's
+# individual ticket page, fetch THAT, and parse the richer per-instance data
+# (start, end, price). If the URL lands directly on an INDIVIDUAL page, parse
+# that page in place. Either path returns { start:, end_at:, price_chf: } where
+# end_at and price_chf may be nil if the page doesn't expose them.
 
-# Returns Time of next future event start, or nil if not parseable / no future event found.
-def next_start_from_eventfrog(html, now)
-  # Primary signal: <time itemprop="startDate" datetime="2026-05-28T19:30TZD">
-  # Eventfrog uses the literal "TZD" placeholder, so we strip the timezone suffix
-  # and apply Zurich offset ourselves.
-  start_match = html.match(/<time[^>]+itemprop="startDate"[^>]+datetime="(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})/)
-  default_time = start_match ? start_match[2] : "20:00"
+EventDetails = Struct.new(:start, :end_at, :price_chf, keyword_init: true)
 
-  if start_match
-    iso = "#{start_match[1]}T#{start_match[2]}:00#{ZURICH_TZ_OFFSET}"
-    t = Time.iso8601(iso)
-    return t if t > now
+def is_group_page?(html)
+  html.scan(/<td class="datecol"/).length > 1
+end
+
+# Walk <tr> rows on a group page, returning the offers URL of the first row
+# whose datecol date is in the future. Returns nil if no future row exists.
+def next_future_individual_url(group_html, now)
+  group_html.scan(/<tr[^>]*>(.*?)<\/tr>/m).each do |row_match|
+    row = row_match[0]
+    date_m = row.match(/(\d{2})\.(\d{2})\.(\d{4})/)
+    time_m = row.match(/(\d{1,2}):(\d{2})\s+Uhr/)
+    href_m = row.match(/<a[^>]+itemprop="offers"[^>]+href="([^"]+)"/)
+    next unless date_m && href_m
+
+    dd, mm, yyyy = date_m[1], date_m[2], date_m[3]
+    hh = (time_m ? time_m[1] : "20").rjust(2, "0")
+    mn = time_m ? time_m[2] : "00"
+    iso = "#{yyyy}-#{mm}-#{dd}T#{hh}:#{mn}:00#{ZURICH_TZ_OFFSET}"
+    t = (Time.iso8601(iso) rescue nil)
+    next unless t && t > now
+
+    return href_m[1]
   end
-
-  # Fallback: extract all DD.MM.YYYY occurrences, dedupe, pick soonest future.
-  # Use default_time from itemprop=startDate (or 20:00 if absent).
-  dates = html.scan(/(\d{2})\.(\d{2})\.(\d{4})/).map { |dd, mm, yyyy| "#{yyyy}-#{mm}-#{dd}" }.uniq.sort
-  dates.each do |d|
-    iso = "#{d}T#{default_time}:00#{ZURICH_TZ_OFFSET}"
-    t = Time.iso8601(iso)
-    return t if t > now
-  end
-
   nil
+end
+
+# Parse an individual event page. Returns EventDetails or nil.
+def parse_individual_page(html, now)
+  start_m = html.match(/<time[^>]+itemprop="startDate"[^>]+datetime="(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})/)
+  return nil unless start_m
+  start_iso = "#{start_m[1]}T#{start_m[2]}:00#{ZURICH_TZ_OFFSET}"
+  start_t = (Time.iso8601(start_iso) rescue nil)
+  return nil unless start_t && start_t > now
+
+  # Two <time itemprop="doorTime"> entries: [door-open, door-close].
+  # door-close is the de-facto end time. If only one entry exists, return nil end.
+  door_times = html.scan(/<time[^>]+itemprop="doorTime"[^>]+datetime="(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})/)
+  end_t = nil
+  if door_times.length >= 2
+    end_iso = "#{door_times[1][0]}T#{door_times[1][1]}:00#{ZURICH_TZ_OFFSET}"
+    end_t = (Time.iso8601(end_iso) rescue nil)
+  end
+
+  # Price: inline JSON "price": "10.0", "priceCurrency": "CHF"
+  price = nil
+  if (m = html.match(/"price":\s*"([0-9.]+)".{0,100}?"priceCurrency":\s*"CHF"/m))
+    price = m[1].to_f
+  elsif (m = html.match(/"price":\s*"([0-9.]+)"/))
+    price = m[1].to_f
+  end
+  price_int = price ? price.round : nil
+
+  EventDetails.new(start: start_t, end_at: end_t, price_chf: price_int)
+end
+
+# Top-level: from a ticket_url, return EventDetails for the next future event,
+# or nil. Handles both group and individual page shapes.
+def fetch_event_details(ticket_url, now)
+  html = fetch_url(ticket_url)
+
+  if is_group_page?(html)
+    href = next_future_individual_url(html, now)
+    return nil unless href
+    individual_url = URI.join(ticket_url, href).to_s
+    html = fetch_url(individual_url)
+  end
+
+  parse_individual_page(html, now)
 end
 
 def fetch_url(url, limit = 5)
@@ -232,30 +296,35 @@ def process_post(path, now, options)
   end
 
   begin
-    html = fetch_url(ticket_url)
+    details = fetch_event_details(ticket_url, now)
   rescue => e
     return [:error, "fetch failed: #{e.message}"]
   end
 
-  start_t = next_start_from_eventfrog(html, now)
-  return [:skip, "no future event found on Eventfrog page"] unless start_t
+  return [:skip, "no future event found on Eventfrog"] unless details
 
+  start_t = details.start
   duration_min = (yaml_get(raw_fm, "default_duration_minutes") || DEFAULT_DURATION_MIN).to_i
-  end_t = start_t + (duration_min * 60)
+  end_t = details.end_at || (start_t + duration_min * 60)
   modified_at = now.utc.strftime("%Y-%m-%dT%H:%M:%S+00:00")
 
   new_fm = raw_fm
   new_fm = yaml_set(new_fm, "next_event_date", start_t.iso8601)
   new_fm = yaml_set(new_fm, "next_event_end_date", end_t.iso8601)
+  new_fm = yaml_set(new_fm, "price_chf", details.price_chf) if details.price_chf
   new_fm = yaml_set(new_fm, "last_modified_at", modified_at)
 
   if options[:dry_run]
-    puts "    [would-write] next_event_date: #{start_t.iso8601}" if options[:verbose]
+    puts "    [would-write] start=#{start_t.iso8601} end=#{end_t.iso8601} price=#{details.price_chf}" if options[:verbose]
   else
     File.write(path, "---\n#{new_fm}\n---\n#{parsed[:body]}")
   end
 
-  [:updated, "rolled to #{start_t.iso8601}"]
+  msg = "rolled to #{start_t.iso8601}"
+  msg += " (end #{end_t.iso8601 == (start_t + duration_min * 60).iso8601 ? 'default' : 'from Eventfrog'}"
+  msg += ", price CHF #{details.price_chf})" if details.price_chf
+  msg += ")" unless details.price_chf
+  [:updated, msg]
 end
 
 # ---------- Main ----------

@@ -51,12 +51,32 @@ Exit code 0 on success (with or without updates); exit code 1 if any Eventfrog f
 
 ### Parsing strategy in detail
 
-Eventfrog renders server-side (no JS required), so `curl -L` returns the full DOM with all dates inline. We use two complementary signals:
+Eventfrog renders server-side (no JS required), so `curl -L` returns the full DOM with all dates inline. The script walks the ticket page in two stages:
 
-1. **Primary** — `<time itemprop="startDate" datetime="2026-05-28T19:30TZD">` — present on both single-event pages and group/series pages. Always reflects the next upcoming event. `TZD` in the page is a literal placeholder, so we strip it and apply Zurich's `+02:00` offset.
-2. **Fallback** — `DD.MM.YYYY,` patterns scattered through the page (group/series tables list every instance this way). If the `itemprop="startDate"` value happens to be stale (we haven't observed Eventfrog doing this, but the defensive scan covers it), pick the soonest future `DD.MM.YYYY` and pair it with the `itemprop="startDate"` time as default.
+**Stage 1 — detect page shape.**
 
-No Eventfrog endpoint exposes an end time, so duration falls back to the post's `default_duration_minutes` (or 150 min if unset).
+A ticket URL like `eventfrog.ch/comedybrew` redirects to one of two page shapes:
+
+- **Group/series page** — `/de/p/gruppen/...html` — table of every upcoming instance, each row carrying its own per-instance ticket URL (`<a itemprop="offers" href="...">`).
+- **Individual event page** — `/de/p/theater-buehne/.../{slug}-{id}.html` — one single event.
+
+The script counts `<td class="datecol">` rows. More than one → group page. Otherwise individual.
+
+**Stage 2 — extract per-instance details.**
+
+If on a **group page**: walk `<tr>` rows top-to-bottom, parse `DD.MM.YYYY` + `HH:MM Uhr` from each `<td class="datecol">`, take the first row whose datetime is in the future, follow its `itemprop="offers"` link, and fetch that individual page (one extra HTTP request).
+
+If already on an **individual page**: parse it directly. No extra fetch.
+
+From the individual page, the script extracts:
+
+| Field | Source on individual page | Notes |
+|---|---|---|
+| Start | `<time itemprop="startDate" datetime="2026-05-28T19:30TZD">` | `TZD` is a literal placeholder; we apply `+02:00` |
+| End | Second `<time itemprop="doorTime" datetime="2026-05-28T22:00TZD">` | Door-close time. If only one doorTime exists, falls back to start + `default_duration_minutes` |
+| Price | `"price": "10.0"` (inline JSON, paired with `"priceCurrency": "CHF"`) | Rounded to integer CHF; not written if absent |
+
+What we don't extract (still post front-matter): performer lineup (no reliable markup), venue (we use `venue_slug` from post + `_data/venues.yml`).
 
 ### Failure notification
 

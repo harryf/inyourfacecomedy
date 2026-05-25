@@ -40,3 +40,6 @@ script/refresh.log
 
 # Local secrets for script/refresh-next-event-dates.rb
 .env
+
+# OAuth credentials — never commit
+ga-mcp-oauth-client.json

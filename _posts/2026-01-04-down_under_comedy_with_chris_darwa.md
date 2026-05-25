@@ -19,8 +19,6 @@ default_duration_minutes: 150
 next_event_date: 2026-05-26T19:30:00+02:00
 next_event_end_date: 2026-05-26T22:00:00+02:00
 price_chf: 10
-event_status: EventScheduled
-event_attendance_mode: OfflineEventAttendanceMode
 performers:
   - "Chris Darwa"
   - "Various local and visiting comedians"

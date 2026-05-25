@@ -24,8 +24,6 @@ default_duration_minutes: 150
 next_event_date: 2026-06-17T20:00:00+02:00
 next_event_end_date: 2026-06-17T22:30:00+02:00
 price_chf: 17
-event_status: EventScheduled
-event_attendance_mode: OfflineEventAttendanceMode
 performers:
   - "Harry Fücks"
   - "Jack Roberts"
