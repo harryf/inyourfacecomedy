@@ -11,6 +11,7 @@ feature-img: "assets/img/pages/follow.png"
 image: "/assets/img/pages/follow.png"
 thumbnail: "assets/img/thumbs/inyourface_thumb.png"
 schema_type: ItemList
+hero_jump_button: true
 ---
 
 # English Stand-Up Comedy Show Calendar – Zurich 2026
@@ -93,3 +94,5 @@ Whether you are looking for open mics, featured shows or touring comedians, you 
 ---
 
 *Can't make it to a show? [Follow us](/follow/) for updates on new events and special guests!*
+
+<script src="{{ '/assets/js/jump-to-next-show.js' | relative_url }}" defer></script>

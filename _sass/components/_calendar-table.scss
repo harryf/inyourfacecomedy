@@ -197,3 +197,37 @@
   color: var(--brand-red);
   margin: 0 0 var(--space-5);
 }
+
+// =============================================================================
+// Next-show highlight — subtle permanent accent + click-time flash
+// =============================================================================
+// Set by assets/js/jump-to-next-show.js after computing the first row whose
+// date >= today. Theme-aware: yellow tint mixes with surface-elev so it stays
+// readable in both light and dark mode. Distinct from brand-red (ticket CTA
+// + mobile-card left border) so the markers don't compete.
+// -----------------------------------------------------------------------------
+.iyf-calendar tbody tr[data-next-show="true"] {
+  background: color-mix(in oklab, var(--brand-yellow) 14%, var(--surface-elev));
+  box-shadow: inset 4px 0 0 var(--brand-yellow);
+}
+.iyf-calendar tbody tr[data-next-show="true"]:hover {
+  background: color-mix(in oklab, var(--brand-yellow) 22%, var(--surface-elev));
+}
+
+@media (max-width: 767px) {
+  .iyf-calendar tbody tr[data-next-show="true"] {
+    border-left-color: var(--brand-yellow);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 6px 14px -10px rgba(0, 0, 0, 0.10);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .iyf-calendar tbody tr.is-jump-flash {
+    animation: iyfJumpFlash 1.4s var(--ease-out);
+  }
+}
+
+@keyframes iyfJumpFlash {
+  0%, 100% { background-color: color-mix(in oklab, var(--brand-yellow) 14%, var(--surface-elev)); }
+  20%      { background-color: color-mix(in oklab, var(--brand-yellow) 60%, var(--surface-elev)); }
+}

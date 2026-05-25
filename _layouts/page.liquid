@@ -22,6 +22,15 @@ layout: default
         {% endif %}
       {% endif %}
     {% endunless %}
+
+    {% if page.hero_jump_button %}
+      <div class="iyf-hero__actions">
+        <a class="btn-ghost btn-ghost--on-dark"
+           id="jump-to-next-show"
+           href="#"
+           aria-label="Scroll to the next upcoming comedy show">Jump to Next Show &darr;</a>
+      </div>
+    {% endif %}
   </header>
 
   <section class="post-content">
