@@ -1,12 +1,44 @@
-<footer class="site-footer">
-    <p class="text">
-        {{ site.footer_text | default: "Powered by <a href='https://jekyllrb.com/'>Jekyll</a> with <a href='https://github.com/sylhare/Type-on-Strap'>Type on Strap</a>" }}</p>
-            <div class="footer-icons">
-                <ul>
-                <!-- Social icons from Font Awesome, if enabled -->
-                {% include social/icons.liquid %}
-                </ul>
-            </div>
+<footer class="site-footer" id="footer">
+  <div class="footer-grid">
+
+    <div class="footer-block footer-mailchimp">
+      <h4>Get show alerts</h4>
+      <p>Email when tickets drop. About once a week.</p>
+      <a class="btn" href="/follow/#mc_embed_signup">Sign me up &rarr;</a>
+    </div>
+
+    <div class="footer-block footer-social">
+      <h4>Follow us</h4>
+      <ul class="social-list">
+        {% if site.social.telegram %}
+          <li><a href="{{ site.social.telegram }}" rel="noopener" target="_blank" aria-label="Telegram"><i class="fab fa-telegram" aria-hidden="true"></i> Telegram</a></li>
+        {% endif %}
+        {% if site.social.instagram %}
+          <li><a href="{{ site.social.instagram }}" rel="noopener" target="_blank" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i> Instagram</a></li>
+        {% endif %}
+        {% if site.social.meetup %}
+          <li><a href="{{ site.social.meetup }}" rel="noopener" target="_blank" aria-label="Meetup"><i class="fab fa-meetup" aria-hidden="true"></i> Meetup</a></li>
+        {% endif %}
+        {% if site.social.facebook %}
+          <li><a href="{{ site.social.facebook }}" rel="noopener" target="_blank" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i> Facebook</a></li>
+        {% endif %}
+        {% if site.social.youtube %}
+          <li><a href="{{ site.social.youtube }}" rel="noopener" target="_blank" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+        {% endif %}
+        {% if site.social.tiktok %}
+          <li><a href="{{ site.social.tiktok }}" rel="noopener" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok" aria-hidden="true"></i> TikTok</a></li>
+        {% endif %}
+      </ul>
+    </div>
+
+    <div class="footer-block footer-review">
+      <h4>Like the show?</h4>
+      <a class="btn" href="https://maps.app.goo.gl/eY6ZwxCLRNaaJ1ES9" rel="noopener" target="_blank">Leave us a Google review &rarr;</a>
+    </div>
+
+  </div>
+
+  <div class="footer-meta">
+    <p>&copy; IN YOUR FACE Comedy. English stand-up comedy in Z&uuml;rich since 2018. <a href="/calendar/">See all shows</a> &middot; <a href="/perform/">Want to perform?</a></p>
+  </div>
 </footer>
-
-

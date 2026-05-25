@@ -1,12 +1,94 @@
 .site-footer {
   @extend %padding-post;
-  z-index: -1;
-  display: inline-block;
-  text-align: center;
+  display: block;
   width: 100%;
   color: var(--meta);
-  font-size: 0.9em;
+  font-size: 0.95rem;
 
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem 0 1rem;
+    text-align: left;
+    align-items: start;
+
+    @media screen and (max-width: $break) {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      text-align: center;
+    }
+  }
+
+  .footer-block {
+    h4 {
+      color: var(--brand-cream);
+      font-size: 1.1rem;
+      margin: 0 0 0.5rem 0;
+      letter-spacing: 0.02em;
+    }
+
+    p {
+      margin: 0 0 0.75rem 0;
+      line-height: 1.4;
+    }
+
+    .btn {
+      width: 100%;
+      max-width: 280px;
+      margin: 0.5rem 0 0;
+      padding: 0.7rem 1rem;
+      font-size: 0.95rem;
+      display: inline-block;
+
+      @media screen and (max-width: $break) {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+
+  .social-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: block;
+      padding: 0.3rem 0;
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--brand-red);
+    }
+
+    i {
+      display: inline-block;
+      width: 1.4rem;
+      color: var(--brand-red);
+      text-align: center;
+      margin-right: 0.4rem;
+    }
+  }
+
+  .footer-meta {
+    border-top: 1px solid var(--border);
+    padding: 1rem 0;
+    font-size: 0.85rem;
+    color: var(--meta);
+    text-align: center;
+    margin-top: 1rem;
+
+    p { margin: 0; }
+    a { color: var(--link); }
+  }
+
+  // Legacy compat — preserve .footer-icons styling for any other surface still using it
   .footer-icons {
     ul {
       list-style: none;
