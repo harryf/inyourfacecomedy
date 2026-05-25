@@ -2,6 +2,7 @@
 layout: page
 title: Gallery
 subtitle: Moments from past shows
+last_modified_at: 2026-05-25T11:35:00+00:00
 permalink: /moments/
 gallery_path: "assets/img/gallery"
 feature-img: "assets/img/pages/gallery.png"
