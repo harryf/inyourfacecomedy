@@ -1,0 +1,88 @@
+// =============================================================================
+// Typography — design-system v1
+// =============================================================================
+// Anton (display) + Inter (body) + Permanent Marker (accent) load from Google
+// Fonts via the <link> tag in _includes/default/head.liquid.
+// SCSS font-family vars live in _variables.scss so this partial only owns the
+// fluid type scale + placeholder primitives.
+// -----------------------------------------------------------------------------
+
+:root {
+  --font-display: #{$font-family-headings};
+  --font-body:    #{$font-family-main};
+  --font-accent:  'Permanent Marker', 'Caveat', 'Brush Script MT', cursive;
+  --font-mono:    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  // Fluid type scale -- mobile 375px to desktop 1440px
+  --fs-xs:      clamp(0.78rem, 0.74rem + 0.20vw, 0.86rem);
+  --fs-sm:      clamp(0.88rem, 0.85rem + 0.18vw, 0.98rem);
+  --fs-base:    clamp(1.00rem, 0.96rem + 0.20vw, 1.10rem);
+  --fs-md:      clamp(1.13rem, 1.07rem + 0.30vw, 1.30rem);
+  --fs-lg:      clamp(1.30rem, 1.18rem + 0.60vw, 1.65rem);
+  --fs-xl:      clamp(1.60rem, 1.35rem + 1.25vw, 2.30rem);
+  --fs-2xl:     clamp(2.10rem, 1.70rem + 2.00vw, 3.20rem);
+  --fs-3xl:     clamp(2.75rem, 2.00rem + 3.75vw, 4.80rem);
+  --fs-display: clamp(3.20rem, 2.30rem + 4.50vw, 6.00rem);
+
+  --lh-tight:  1.05;
+  --lh-snug:   1.20;
+  --lh-normal: 1.50;
+  --lh-loose:  1.65;
+
+  --ls-tight: -0.02em;
+  --ls-snug:  -0.01em;
+  --ls-wide:  0.08em;
+  --ls-extra: 0.18em;
+}
+
+%type-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-tight);
+  text-transform: uppercase;
+}
+
+%type-h1 {
+  @extend %type-display;
+  font-size: var(--fs-3xl);
+}
+
+%type-h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  letter-spacing: var(--ls-snug);
+  line-height: var(--lh-snug);
+  text-transform: uppercase;
+}
+
+%type-h3 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--fs-lg);
+  letter-spacing: var(--ls-snug);
+  line-height: var(--lh-snug);
+}
+
+%type-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+}
+
+%type-meta {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--fs-sm);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+%type-accent {
+  font-family: var(--font-accent);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: var(--lh-snug);
+}

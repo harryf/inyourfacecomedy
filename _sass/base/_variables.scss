@@ -1,7 +1,7 @@
-/* TYPOGRAPHY */
-$font-family-main: 'Source Sans Pro', Helvetica, Arial, sans-serif;
-$font-family-headings: 'Source Sans Pro', Helvetica, Arial, sans-serif;
-$font-family-logo: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+/* TYPOGRAPHY — design-system v1 (Inter / Anton / Permanent Marker via Google Fonts) */
+$font-family-main:     'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+$font-family-headings: 'Anton', 'Bebas Neue', 'Oswald', 'Impact', system-ui, sans-serif;
+$font-family-logo:     'Anton', 'Bebas Neue', 'Oswald', 'Impact', system-ui, sans-serif;
 $font-size: 1.25em;
 
 $monospace: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, sans-serif !default;
@@ -27,19 +27,112 @@ $sm-break: 576px;
 $x-sm-break: 320px;
 
 
-/* BRAND TOKENS */
-// Theme-invariant brand palette per 03-DESIGN-REVIEW.md §2.3-A.
-// Red is red in both light and dark mode; defined at :root so it survives any theme switch.
+/* BRAND TOKENS — design-system v1 (sourced from inyourface_design_system/tokens/colors.scss) */
+// Theme-invariant brand palette sampled from the IYF logo.
+// Component partials MUST NOT write hex literals; add a token here first.
+// Precedence when a component reads a colour:
+//   1. Per-show override (--show-*)  - if inside .show-banner
+//   2. Semantic token   (--cta, ...)
+//   3. Surface token    (--surface, ...)
+//   4. Brand primitive  (--brand-red, ...)
 :root {
-  --brand-red:      #E53935; // sampled from the IYF logo
-  --brand-red-deep: #B71C1C; // hover / pressed state for CTAs
-  --brand-cream:    #FFF3E0; // warm off-white for text on red surfaces
-  --brand-ink:      #0F0F10; // near-black for cards-on-dark contexts
-  --accent-yellow:  #FFD54F; // future "Tonight" badge + focus rings
-  --cta-bg:         var(--brand-red);
-  --cta-bg-hover:   var(--brand-red-deep);
-  --cta-text:       var(--brand-cream);
+  // ---- 1. Brand primitives -----------------------------------------------
+  --brand-red:        #E53935;
+  --brand-red-deep:   #B71C1C;
+  --brand-red-glow:   #FF5252;
+  --brand-yellow:     #FFD54F;
+  --brand-yellow-hot: #FFB300;
+  --brand-cream:      #FFF3E0;
+  --brand-ink:        #0F0F10;
+  --brand-ink-soft:   #2A2A2D;
+  --accent-yellow:    var(--brand-yellow); // legacy alias
+
+  // ---- 2. Surface tokens -------------------------------------------------
+  --surface:          #FFFFFF;
+  --surface-elev:     #FFF8EE;
+  --surface-dark:     var(--brand-ink);
+  --surface-dark-2:   #1A1A1D;
+  --ink-on-cream:     var(--brand-ink);
+  --ink-on-dark:      var(--brand-cream);
+  --muted:            #6B6B70;
+  --border-soft:      rgba(15, 15, 16, 0.12);
+  --border-strong:    rgba(15, 15, 16, 0.32);
+  --scrim-bottom:     rgba(15, 15, 16, 0.85);
+  --scrim-bottom-2:   rgba(15, 15, 16, 0.95);
+
+  // ---- 3. Semantic tokens ------------------------------------------------
+  --cta:              var(--brand-red);
+  --cta-hover:        var(--brand-red-deep);
+  --cta-text:         var(--brand-cream);
+  --cta-focus-ring:   var(--brand-yellow);
+  --cta-bg:           var(--brand-red);   // legacy alias for pre-design-system .btn
+  --cta-bg-hover:     var(--brand-red-deep);
+
+  --link:             var(--brand-red);
+  --link-hover:       var(--brand-red-deep);
+
+  --badge-tonight:    var(--brand-yellow-hot);
+  --badge-tonight-text: var(--brand-ink);
+  --badge-soldout:    var(--brand-ink);
+  --badge-soldout-text: var(--brand-cream);
+  --badge-new:        var(--brand-yellow);
+  --badge-new-text:   var(--brand-ink);
+
+  --success:          #2E7D32;
+  --warn:             #ED6C02;
+  --danger:           var(--brand-red-deep);
+
+  // ---- 4. Per-show overrides (defaults inherit brand) -------------------
+  --show-accent:      var(--brand-red);
+  --show-bg:          var(--surface-dark);
+  --show-text:        var(--ink-on-dark);
+  --show-cta:         var(--brand-red);
+  --show-cta-text:    var(--brand-cream);
+
+  // ---- 5. Spacing scale (8px base) --------------------------------------
+  --space-0:  0;
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-7:  2rem;
+  --space-8:  2.5rem;
+  --space-9:  3rem;
+  --space-10: 4rem;
+  --space-12: 6rem;
+
+  // Radii
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-pill: 999px;
+
+  // Touch target floor — WCAG 2.5.5
+  --touch-min: 48px;
+
+  // Container widths
+  --container-narrow: 36rem;
+  --container-prose:  44rem;
+  --container-wide:   68rem;
+
+  // Z-index scale
+  --z-base:    1;
+  --z-card:    10;
+  --z-sticky:  20;
+  --z-hero:    30;
+  --z-nav:     40;
+  --z-modal:   50;
 }
+
+// Design-system breakpoints (mirror existing $break / $sm-break)
+$bp-xs:  320px;
+$bp-sm:  576px;
+$bp-md:  768px;
+$bp-lg:  1024px;
+$bp-xl:  1400px;
 
 
 /* THEME COLOR SCHEMES */
@@ -63,6 +156,15 @@ html, html[data-theme="light"] {
   --h5: #262626;
   --h6: #262626;
   --border: rgba(0, 0, 0, 0.2);
+}
+
+// Design-system dark scheme override — keeps surface/elev sensible in dark mode.
+html[data-theme="dark"] {
+  --surface:          var(--brand-ink);
+  --surface-elev:     var(--surface-dark-2);
+  --ink-on-cream:     var(--brand-cream);
+  --border-soft:      rgba(255, 243, 224, 0.16);
+  --border-strong:    rgba(255, 243, 224, 0.4);
 }
 
 html[data-theme="dark"] {

@@ -1,0 +1,118 @@
+// =============================================================================
+// Gallery — design-system v1
+// =============================================================================
+// Column-based masonry (CSS columns), progressive upgrade to native masonry
+// where supported. iyf-flyer-strip is a horizontal-scroll variant for the
+// homepage. Lives under the .iyf-gallery class so it doesn't collide with
+// Type-on-Strap's existing _sass/includes/_gallery.scss .gallery rules.
+// -----------------------------------------------------------------------------
+
+.iyf-gallery {
+  column-count: 1;
+  column-gap: var(--space-3);
+
+  @media (min-width: 576px)  { column-count: 2; }
+  @media (min-width: 1024px) { column-count: 3; }
+  @media (min-width: 1400px) { column-count: 4; }
+
+  @supports (grid-template-rows: masonry) {
+    column-count: initial;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-rows: masonry;
+    gap: var(--space-3);
+  }
+
+  figure {
+    break-inside: avoid;
+    margin: 0 0 var(--space-3);
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background: var(--brand-ink);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 8px 16px -10px rgba(0, 0, 0, 0.18);
+    position: relative;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform var(--t-slow) var(--ease-out), filter var(--t-base) var(--ease-out);
+  }
+
+  figure:hover img {
+    transform: scale(1.04);
+    filter: saturate(1.05);
+  }
+
+  figcaption {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: var(--space-3) var(--space-3);
+    color: var(--brand-cream);
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    background: linear-gradient(
+      to top,
+      rgba(15, 15, 16, 0.85) 0%,
+      rgba(15, 15, 16, 0)    100%
+    );
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity var(--t-base) var(--ease-out), transform var(--t-base) var(--ease-out);
+    pointer-events: none;
+  }
+  figure:hover figcaption {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  figure.iyf-gallery__featured {
+    @supports (grid-template-rows: masonry) {
+      grid-column: span 2;
+    }
+  }
+}
+
+.iyf-flyer-strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 70%;
+  gap: var(--space-3);
+  overflow-x: auto;
+  padding: var(--space-3) 0 var(--space-5);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { display: none; }
+
+  @media (min-width: 768px) {
+    grid-auto-columns: 32%;
+  }
+  @media (min-width: 1024px) {
+    grid-auto-flow: row;
+    grid-auto-columns: initial;
+    grid-template-columns: repeat(4, 1fr);
+    overflow: visible;
+  }
+
+  > a, > figure {
+    scroll-snap-align: start;
+    display: block;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background: var(--brand-ink);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform var(--t-slow) var(--ease-out);
+    }
+    &:hover img {
+      transform: scale(1.05);
+    }
+  }
+}

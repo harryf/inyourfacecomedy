@@ -4,19 +4,32 @@
 // All the options to customize your theme in one file
 @import 'base/variables';
 
+/* Design-system base — typography placeholders + motion tokens */
+@import 'base/typography';
+@import 'base/motion';
+
 /* External */
 // CSS from external sources
 @import 'external/reset';
-@import 'external/font-awesome';
 @import 'external/pacifico';
 @import 'external/katex';
-@import 'external/source-sans-pro';
+// font-awesome + source-sans-pro now load from CDN / Google Fonts via head.liquid (design-system v1)
 
 /* Base */
 // For general CSS in the theme
 @import 'base/global';
 @import 'base/highlight';
 @import 'base/utility';
+
+/* Design-system components */
+@import 'components/button';
+@import 'components/hero';
+@import 'components/event-card';
+@import 'components/calendar-table';
+@import 'components/follow-buttons';
+@import 'components/gallery';
+@import 'components/badge';
+@import 'components/show-override';
 
 /* Includes */
 // Linked with the html in the _includes folder

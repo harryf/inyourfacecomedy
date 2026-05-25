@@ -1,0 +1,80 @@
+// =============================================================================
+// Per-Show Theme Override — design-system v1
+// =============================================================================
+// data-show selectors match the post permalinks (/latarima/, /brexiles/, etc.)
+// Brand tokens are NEVER touched — only the --show-* layer.
+// -----------------------------------------------------------------------------
+
+.show-banner {
+  --show-accent:   var(--brand-red);
+  --show-bg:       var(--surface-elev);
+  --show-text:     var(--brand-ink);
+  --show-cta:      var(--brand-red);
+  --show-cta-text: var(--brand-cream);
+}
+
+.show-banner[data-show="latarima"],
+.show-banner[data-show="la-tarima"] {
+  --show-accent:   #F5C518;
+  --show-bg:       #261812;
+  --show-text:     #FFF3E0;
+  --show-cta:      #E53935;
+  --show-cta-text: #FFF3E0;
+}
+
+.show-banner[data-show="brexiles"] {
+  --show-accent:   #C9A24A;
+  --show-bg:       #1E1B16;
+  --show-text:     #F6EDD9;
+  --show-cta:      #C9A24A;
+  --show-cta-text: #1E1B16;
+}
+
+.show-banner[data-show="downunder"],
+.show-banner[data-show="down-under"] {
+  --show-accent:   #6BAC00;
+  --show-bg:       #11150B;
+  --show-text:     #ECF7CC;
+  --show-cta:      #E53935;
+  --show-cta-text: #FFF3E0;
+}
+
+.show-banner[data-show="pulpnonfiction"],
+.show-banner[data-show="pulp-non-fiction"] {
+  --show-accent:   #FFD54F;
+  --show-bg:       #0E0D0B;
+  --show-text:     #FFF3E0;
+  --show-cta:      #FFD54F;
+  --show-cta-text: #0E0D0B;
+}
+
+.show-banner[data-show="comedybrew"],
+.show-banner[data-show="comedy-brew"] {
+  --show-accent:   #E53935;
+  --show-bg:       #FFF3E0;
+  --show-text:     #0F0F10;
+  --show-cta:      #E53935;
+  --show-cta-text: #FFF3E0;
+}
+
+// The actual post permalink is /jokesjokesjokes/ (three "jokes"); add aliases
+// for the slug variants the design system shipped with.
+.show-banner[data-show="jokesjokesjokes"],
+.show-banner[data-show="jokesjokes"],
+.show-banner[data-show="jokes-jokes-jokes"] {
+  --show-accent:   #FF5252;
+  --show-bg:       #14080A;
+  --show-text:     #FFE3D4;
+  --show-cta:      #FFD54F;
+  --show-cta-text: #14080A;
+}
+
+.show-banner[data-show="jackpot"],
+.show-banner[data-show="jackpotcomedy"],
+.show-banner[data-show="jackpot-comedy"] {
+  --show-accent:   #00A86B;
+  --show-bg:       #0E0F10;
+  --show-text:     #FFF3E0;
+  --show-cta:      #FFD54F;
+  --show-cta-text: #0E0F10;
+}

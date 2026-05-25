@@ -1,0 +1,197 @@
+// =============================================================================
+// Calendar Table — design-system v1 (mobile-first transform)
+// =============================================================================
+// Wraps the Kramdown-emitted markdown table at pages/2_calendar.md.
+// Under 768px each <tr> becomes a stacked card; the ticket-link column becomes
+// a full-width red CTA at the bottom of every card.
+// -----------------------------------------------------------------------------
+
+.iyf-calendar {
+  width: 100%;
+  margin: var(--space-7) 0;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+    word-wrap: break-word;
+    // Reset Type-on-Strap's `display: inline-block` on tables.
+    display: table;
+  }
+
+  thead th {
+    text-align: left;
+    padding: var(--space-3) var(--space-4);
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    border-bottom: 2px solid var(--brand-red);
+    background: transparent;
+  }
+
+  tbody td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-soft);
+    vertical-align: middle;
+    font-size: var(--fs-base);
+  }
+
+  tbody tr:hover {
+    background: var(--surface-elev);
+  }
+
+  tbody td:nth-child(3) a {
+    font-family: var(--font-display);
+    font-size: var(--fs-md);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--brand-ink);
+    text-decoration: none;
+  }
+  tbody td:nth-child(3) a:hover {
+    color: var(--brand-red);
+  }
+
+  tbody td:last-child a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.5rem 1rem;
+    min-height: var(--touch-min);
+    border-radius: var(--radius-md);
+    background: var(--cta);
+    color: var(--cta-text);
+    font-family: var(--font-display);
+    font-size: var(--fs-sm);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color var(--t-fast) var(--ease-out);
+  }
+  tbody td:last-child a::after {
+    content: "\2192";
+    margin-left: 0.2rem;
+  }
+  tbody td:last-child a:hover {
+    background: var(--cta-hover);
+  }
+
+  @media (max-width: 767px) {
+    table {
+      display: block;
+      overflow: visible;
+    }
+    thead {
+      position: absolute;
+      left: -10000px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+    tbody, tr {
+      display: block;
+      width: 100%;
+    }
+    tbody tr {
+      position: relative;
+      margin-bottom: var(--space-5);
+      padding: var(--space-4) var(--space-5);
+      background: var(--surface-elev);
+      border: 1px solid var(--border-soft);
+      border-left: 4px solid var(--brand-red);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 6px 14px -10px rgba(0, 0, 0, 0.10);
+    }
+    tbody tr:hover {
+      background: var(--surface-elev);
+    }
+
+    tbody td {
+      display: block;
+      width: 100%;
+      padding: var(--space-1) 0;
+      border: none;
+      font-size: var(--fs-base);
+    }
+
+    tbody td:nth-child(1) {
+      display: inline-block;
+      width: auto;
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      color: var(--brand-red);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      padding-right: var(--space-2);
+    }
+    tbody td:nth-child(2) {
+      display: inline-block;
+      width: auto;
+      font-family: var(--font-body);
+      font-size: var(--fs-sm);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0 0 var(--space-2) 0;
+    }
+    tbody td:nth-child(2)::before {
+      content: "\00b7\00a0";
+      color: var(--muted);
+    }
+
+    tbody td:nth-child(3) {
+      padding: var(--space-1) 0 var(--space-1);
+    }
+    tbody td:nth-child(3) a {
+      font-size: var(--fs-lg);
+    }
+
+    tbody td:nth-child(4) {
+      font-family: var(--font-body);
+      font-size: var(--fs-sm);
+      color: var(--brand-ink-soft);
+      padding: var(--space-1) 0 var(--space-3);
+      line-height: var(--lh-normal);
+    }
+
+    tbody td:last-child {
+      padding: 0;
+      margin-top: var(--space-2);
+    }
+    tbody td:last-child a {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      font-size: var(--fs-md);
+      padding: 0.85rem 1rem;
+    }
+  }
+
+  @media (max-width: 375px) {
+    tbody tr {
+      padding: var(--space-3) var(--space-4);
+      margin-bottom: var(--space-4);
+    }
+  }
+}
+
+.iyf-month-heading {
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--brand-ink);
+  margin: var(--space-9) 0 var(--space-2);
+  padding-bottom: var(--space-2);
+  border-bottom: 3px solid var(--brand-yellow);
+}
+
+.iyf-month-flavor {
+  font-family: var(--font-accent);
+  font-size: var(--fs-md);
+  color: var(--brand-red);
+  margin: 0 0 var(--space-5);
+}

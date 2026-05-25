@@ -1,0 +1,55 @@
+// =============================================================================
+// Badges — design-system v1
+// =============================================================================
+
+.iyf-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  background: var(--brand-cream);
+  color: var(--brand-ink);
+  border: 1px solid var(--border-soft);
+}
+
+.iyf-badge--tonight {
+  background: var(--badge-tonight);
+  color: var(--badge-tonight-text);
+  border-color: transparent;
+  animation: iyf-badge-pulse 2.8s var(--ease-in-out) infinite;
+}
+@keyframes iyf-badge-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 179, 0, 0.45); }
+  50%      { box-shadow: 0 0 0 6px rgba(255, 179, 0, 0); }
+}
+
+.iyf-badge--soldout {
+  background: var(--badge-soldout);
+  color: var(--badge-soldout-text);
+  border-color: transparent;
+}
+
+.iyf-badge--new {
+  background: var(--badge-new);
+  color: var(--badge-new-text);
+  border-color: transparent;
+}
+
+.iyf-badge--lang {
+  background: var(--show-accent, var(--brand-red));
+  color: var(--brand-cream);
+  border-color: transparent;
+}
+
+.iyf-badge--muted {
+  background: transparent;
+  color: var(--muted);
+  border-color: var(--border-strong);
+}

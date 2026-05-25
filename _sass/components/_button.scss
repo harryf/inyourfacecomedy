@@ -1,0 +1,162 @@
+// =============================================================================
+// Buttons — design-system v1
+// =============================================================================
+// Primary CTA (.btn-ticket), outline (.btn-ghost), social chip (.btn-chip),
+// inline arrow link (.btn-link). WCAG 2.5.5 touch target floor on all four.
+// -----------------------------------------------------------------------------
+
+%btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: var(--touch-min);
+  padding: 0.65rem 1.4rem;
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color var(--t-fast) var(--ease-out),
+    color            var(--t-fast) var(--ease-out),
+    border-color     var(--t-fast) var(--ease-out),
+    transform        var(--t-fast) var(--ease-out);
+
+  &:focus-visible {
+    outline: 3px solid var(--cta-focus-ring);
+    outline-offset: 2px;
+  }
+  &:active {
+    transform: translateY(1px);
+  }
+  &[aria-disabled="true"],
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.btn-ticket {
+  @extend %btn-base;
+  background-color: var(--show-cta, var(--cta));
+  color: var(--show-cta-text, var(--cta-text));
+  border-color: var(--show-cta, var(--cta));
+  font-size: var(--fs-md);
+  box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.10);
+
+  &::after {
+    content: "\2192";
+    font-family: var(--font-body);
+    font-weight: 700;
+    margin-left: 0.1rem;
+    transition: transform var(--t-fast) var(--ease-out);
+  }
+  &:hover {
+    background-color: var(--cta-hover);
+    border-color: var(--cta-hover);
+    color: var(--cta-text);
+  }
+  &:hover::after {
+    transform: translateX(3px);
+  }
+
+  width: 100%;
+  @media (min-width: 768px) {
+    width: auto;
+    min-width: 14rem;
+  }
+}
+
+.btn-ticket--xl {
+  font-size: var(--fs-lg);
+  padding: 1rem 1.8rem;
+  min-height: 56px;
+}
+
+.btn-ticket--sm {
+  font-size: var(--fs-sm);
+  padding: 0.5rem 1rem;
+  min-height: var(--touch-min);
+}
+
+.btn-ghost {
+  @extend %btn-base;
+  background-color: transparent;
+  color: var(--cta);
+  border-color: var(--cta);
+
+  &:hover {
+    background-color: var(--cta);
+    color: var(--cta-text);
+  }
+}
+
+.btn-ghost--on-dark {
+  color: var(--brand-cream);
+  border-color: var(--brand-cream);
+
+  &:hover {
+    background-color: var(--brand-cream);
+    color: var(--brand-ink);
+  }
+}
+
+.btn-chip {
+  @extend %btn-base;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  background-color: var(--brand-ink);
+  color: var(--brand-cream);
+  border-color: var(--brand-ink);
+  padding: 0.6rem 1.1rem;
+
+  i, svg {
+    width: 1.1em;
+    height: 1.1em;
+    color: var(--brand-yellow);
+  }
+
+  &:hover {
+    background-color: var(--brand-red);
+    border-color: var(--brand-red);
+    color: var(--brand-cream);
+  }
+  &:hover i,
+  &:hover svg {
+    color: var(--brand-cream);
+  }
+}
+
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: var(--link);
+  text-decoration: none;
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 1px;
+  transition: color var(--t-fast) var(--ease-out);
+
+  &::after {
+    content: "\2192";
+    transition: transform var(--t-fast) var(--ease-out);
+  }
+  &:hover {
+    color: var(--link-hover);
+  }
+  &:hover::after {
+    transform: translateX(2px);
+  }
+}
