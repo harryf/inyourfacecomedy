@@ -21,8 +21,10 @@ This calendar lists show dates, venues and ticket links for our regular comedy n
 
 Whether you are looking for open mics, featured shows or touring comedians, you will find all upcoming performances here.
 
-## May 2026
-*May the laughs be with you! Warmer weather, longer days, and comedians who've finally figured out their material.*
+<h2 class="iyf-month-heading">May 2026</h2>
+<p class="iyf-month-flavor">May the laughs be with you! Warmer weather, longer days, and comedians who've finally figured out their material.</p>
+
+<div class="iyf-calendar" markdown="1">
 
 | Date | Day | Show | Info | Tickets |
 |------|-----|------|------|---------|
@@ -42,10 +44,12 @@ Whether you are looking for open mics, featured shows or touring comedians, you 
 | May 26 | Tue | [Down Under Comedy](https://inyourfacecomedy.ch/downunder/) | Aussie comic + Swiss scene friends 🦘 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/down-under-comedy-7411510652743756943.html) |
 | May 28 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Cold beer, hot takes, done by 10pm ⏰ | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413532023959106952.html) |
 
----
+</div>
 
-## June 2026
-*Summer is coming! Laugh your way into the season before you realize you haven't achieved your New Year's resolutions.*
+<h2 class="iyf-month-heading">June 2026</h2>
+<p class="iyf-month-flavor">Summer is coming! Laugh your way into the season before you realize you haven't achieved your New Year's resolutions.</p>
+
+<div class="iyf-calendar" markdown="1">
 
 | Date | Day | Show | Info | Tickets |
 |------|-----|------|------|---------|
@@ -65,10 +69,12 @@ Whether you are looking for open mics, featured shows or touring comedians, you 
 | Jun 25 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Wild Thursday tradition, done by 10pm ⏰ | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413532715268450504.html) |
 | Jun 30 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | Non-obvious approach to comedy perfection 🎨 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7413564804391042731.html) |
 
----
+</div>
 
-## July 2026
-*The heat is on! Cool down with comedy that's hotter than the Swiss summer sun.*
+<h2 class="iyf-month-heading">July 2026</h2>
+<p class="iyf-month-flavor">The heat is on! Cool down with comedy that's hotter than the Swiss summer sun.</p>
+
+<div class="iyf-calendar" markdown="1">
 
 | Date | Day | Show | Info | Tickets |
 |------|-----|------|------|---------|
@@ -81,6 +87,8 @@ Whether you are looking for open mics, featured shows or touring comedians, you 
 | Jul 16 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | English-speaking comics + new-comers unite 🤝 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413533116034214227.html) |
 | Jul 23 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Great way to meet people while laughing 😄 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413533231490825074.html) |
 | Jul 30 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Summer edition, still wild and unpredictable ☀️ | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413533348730017041.html) |
+
+</div>
 
 ---
 
