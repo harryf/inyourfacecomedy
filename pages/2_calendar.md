@@ -1,10 +1,11 @@
 ---
 layout: page
-title: Calendar
+title: "Comedy in Zürich Tonight & This Week — English Shows"
+nav_title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
-description: "See all upcoming English stand-up comedy shows in Zurich with dates, venues and ticket links. Updated calendar of IN YOUR FACE Comedy events."
-last_modified_at: 2026-05-24T10:00:00+00:00
+description: "See English stand-up comedy in Zürich tonight, this week, and beyond — full calendar with dates, venues, and ticket links. Updated weekly."
+last_modified_at: 2026-05-25T12:00:00+00:00
 permalink: /calendar/
 feature-img: "assets/img/pages/follow.png"
 image: "/assets/img/pages/follow.png"

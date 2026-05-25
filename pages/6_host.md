@@ -1,10 +1,11 @@
 ---
 layout: page
-title: Host
+title: "How to Host a Stand-up Comedy Show — Practical Guide"
+nav_title: Host
 title_override: "How to Host a Stand-Up Comedy Show"
 subtitle: "Start your own comedy show - a guide for open mics"
-description: "Learn how to start and host a successful stand-up comedy night in a bar or venue with practical tips from IN YOUR FACE Comedy, including equipment, setup and audience guidance."
-last_modified_at: 2026-01-17T09:28:00+00:00
+description: "How to start and host a stand-up comedy night — equipment, room setup, audience management, and lessons from IN YOUR FACE Comedy in Zürich."
+last_modified_at: 2026-05-25T12:00:00+00:00
 permalink: /host/
 feature-img: "assets/img/pages/perform.png"
 thumbnail: "assets/img/pages/perform.png"
