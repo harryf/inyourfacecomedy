@@ -1,10 +1,10 @@
 ---
 layout: page
-title: "Stand-up Comedy in Switzerland — Guide"
+title: "Stand-up Comedy in Switzerland: A Guide"
 nav_title: Switzerland
 title_override: "Perform Stand-Up Comedy in Switzerland"
 subtitle: "Comedy Tips and Guide for Visiting Comedians"
-description: "A practical guide for English comedians performing in Switzerland — audiences, promoters, and cultural tips from the IN YOUR FACE Comedy team in Zürich."
+description: "A practical guide for English comedians performing in Switzerland: audiences, promoters, and cultural tips from the IN YOUR FACE Comedy team in Zürich."
 last_modified_at: 2026-05-25T12:00:00+00:00
 permalink: /switzerland/
 feature-img: "assets/img/pages/comedy_in_switzerland_banner.png"
