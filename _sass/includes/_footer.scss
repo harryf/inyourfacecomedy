@@ -50,33 +50,8 @@
     }
   }
 
-  .social-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-    li {
-      display: block;
-      padding: 0.3rem 0;
-    }
-
-    a {
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    a:hover {
-      color: var(--brand-red);
-    }
-
-    i {
-      display: inline-block;
-      width: 1.4rem;
-      color: var(--brand-red);
-      text-align: center;
-      margin-right: 0.4rem;
-    }
-  }
+  // .social-list block removed in design-system v1 — replaced by
+  // .iyf-follow-chips (see _sass/components/_follow-buttons.scss).
 
   .footer-meta {
     border-top: 1px solid var(--border);

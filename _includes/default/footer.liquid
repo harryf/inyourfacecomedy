@@ -2,14 +2,16 @@
   <div class="footer-grid">
 
     <div class="footer-block footer-mailchimp">
-      <h4>Get show alerts</h4>
-      <p>Email when tickets drop. About once a week.</p>
-      <a class="btn-ticket" href="/follow/#mc_embed_signup">Sign me up &rarr;</a>
+      <div class="iyf-newsletter-card">
+        <h4>Get show alerts</h4>
+        <p>Email when tickets drop. About once a week.</p>
+        <a class="btn-ticket" href="/follow/#mc_embed_signup">Sign me up &rarr;</a>
+      </div>
     </div>
 
     <div class="footer-block footer-social">
       <h4>Follow us</h4>
-      <ul class="social-list">
+      <ul class="iyf-follow-chips">
         {% if site.social.telegram %}
           <li><a href="{{ site.social.telegram }}" rel="noopener" target="_blank" aria-label="Telegram"><i class="fab fa-telegram" aria-hidden="true"></i> Telegram</a></li>
         {% endif %}
@@ -33,7 +35,7 @@
 
     <div class="footer-block footer-review">
       <h4>Like the show?</h4>
-      <a class="btn-ticket" href="{{ site.gbp_review_url }}" rel="noopener" target="_blank">Leave us a Google review &rarr;</a>
+      <a class="btn-ghost" href="{{ site.gbp_review_url }}" rel="noopener" target="_blank">Leave us a Google review &rarr;</a>
     </div>
 
   </div>
