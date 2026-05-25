@@ -1,0 +1,69 @@
+{%- comment -%}
+  event-card.liquid — design-system v1
+  Renders one .iyf-event-card from a post object.
+  Required: post (a Jekyll page/post object with at least .title, .url).
+  Optional consumed: next_event_date, venue_slug, ticket_url, price_chf, tagline,
+                     feature-img, recurrence_day, recurrence_time.
+  Per-show palette: the `data-show` lookup on the post's permalink hooks into
+                    _sass/components/_show-override.scss when the card is
+                    rendered inside (or as) a .show-banner. When rendered
+                    standalone (e.g. on the home grid), we add the class so
+                    the card itself reads --show-*.
+{%- endcomment -%}
+{%- assign show_slug = post.permalink | replace: '/', '' | strip -%}
+{%- assign event_date = post.next_event_date | default: nil -%}
+<article class="iyf-event-card show-banner" data-show="{{ show_slug }}">
+  {% if post.feature-img %}
+    <div class="iyf-event-card__media">
+      <a href="{{ post.url | relative_url }}" aria-label="{{ post.title }}">
+        <img src="{{ post.feature-img | relative_url }}" alt="{{ post.title }}" loading="lazy">
+      </a>
+    </div>
+  {% endif %}
+
+  <div class="iyf-event-card__header">
+    {% if event_date %}
+      <div class="iyf-event-card__date" aria-hidden="true">
+        <span class="iyf-event-card__day">{{ event_date | date: "%d" }}</span>
+        <span class="iyf-event-card__month">{{ event_date | date: "%b" }}</span>
+      </div>
+    {% endif %}
+    <div class="iyf-event-card__meta">
+      {% if event_date %}
+        <span class="iyf-event-card__weekday-time">
+          {{ event_date | date: "%a" }}{% if post.recurrence_time %} · {{ post.recurrence_time }}{% endif %}
+        </span>
+      {% elsif post.recurrence_day %}
+        <span class="iyf-event-card__weekday-time">{{ post.recurrence_day }}{% if post.recurrence_time %} · {{ post.recurrence_time }}{% endif %}</span>
+      {% endif %}
+      {% if post.venue_slug %}
+        <span class="iyf-event-card__venue">{{ post.venue_slug | replace: '_', ' ' | capitalize }}</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <h3 class="iyf-event-card__title">
+    <a href="{{ post.url | relative_url }}">{{ post.title | split: '•' | first | strip }}</a>
+  </h3>
+
+  {% if post.tagline %}
+    <p class="iyf-event-card__tagline">{{ post.tagline }}</p>
+  {% endif %}
+
+  <div class="iyf-event-card__footer">
+    {% if post.price_chf and post.price_chf != 0 %}
+      <span class="iyf-event-card__price">CHF&nbsp;{{ post.price_chf }}</span>
+    {% elsif post.price_chf == 0 %}
+      <span class="iyf-event-card__price">Free</span>
+    {% endif %}
+    {% if post.ticket_url %}
+      <span class="iyf-event-card__cta">
+        <a class="btn-ticket btn-ticket--sm" href="{{ post.ticket_url }}" rel="noopener" target="_blank">Get Tickets</a>
+      </span>
+    {% else %}
+      <span class="iyf-event-card__cta">
+        <a class="btn-ghost" href="{{ post.url | relative_url }}">More info</a>
+      </span>
+    {% endif %}
+  </div>
+</article>

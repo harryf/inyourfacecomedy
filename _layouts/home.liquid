@@ -39,6 +39,25 @@ thumbnail: "assets/img/thumbs/inyourface_thumb.png"
     <p><a class="clear" aria-label="Stand up comedy show dates and calendar for Zurich" title="Stand up comedy show dates and calendar for Zurich" href="/calendar/">All Show Dates</a></p>
   </div>
 
+  {%- comment -%}
+    Surface the next 3 upcoming shows by `next_event_date` (the same field
+    populated by the calendar generator). Filter out posts whose next_event_date
+    has already passed using `site.time` as the comparison anchor.
+  {%- endcomment -%}
+  {%- assign upcoming = site.posts | where_exp: "p", "p.next_event_date" | sort: "next_event_date" -%}
+  {%- if upcoming and upcoming.size > 0 -%}
+    <div class="iyf-event-grid" style="padding: 0 9% var(--space-9); margin: 0 auto;">
+      {%- assign shown = 0 -%}
+      {%- for post in upcoming -%}
+        {%- if shown >= 3 -%}{%- break -%}{%- endif -%}
+        {%- if post.next_event_date >= site.time -%}
+          {% include event-card.liquid post=post %}
+          {%- assign shown = shown | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
   {% include blog/blog.liquid %}
 
 </div>
