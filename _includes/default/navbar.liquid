@@ -31,11 +31,12 @@
         {% assign name_page = "" %}
         {% for page in site.pages %}
             {% unless page.title == null or page.hide or name_page contains page.title %}
+            {% assign nav_label = page.nav_title | default: page.title %}
             <li class="separator"> | </li>
             <li>
-                <a class="clear" aria-label="{{ page.title }}" title="{{ page.title }}" href="{{ page.url | relative_url }}">
+                <a class="clear" aria-label="{{ nav_label }}" title="{{ nav_label }}" href="{{ page.url | relative_url }}">
                     {% if page.icon %} <i class="fas {{ page.icon }}" aria-hidden="true"></i>
-                    {% else %} {{ page.title }} {% endif %}
+                    {% else %} {{ nav_label }} {% endif %}
                 </a>
             </li>
             {% endunless %}
