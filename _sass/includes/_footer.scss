@@ -22,7 +22,9 @@
 
   .footer-block {
     h4 {
-      color: var(--brand-cream);
+      // Use brand-red so it reads on both light + dark themes
+      // (--brand-cream would vanish on white in light theme).
+      color: var(--brand-red);
       font-size: 1.1rem;
       margin: 0 0 0.5rem 0;
       letter-spacing: 0.02em;
@@ -40,6 +42,7 @@
       padding: 0.7rem 1rem;
       font-size: 0.95rem;
       display: inline-block;
+      white-space: nowrap; // keep "→" on same line as label
 
       @media screen and (max-width: $break) {
         margin-left: auto;
