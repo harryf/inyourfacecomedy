@@ -1,5 +1,6 @@
 .site-footer {
   @extend %padding-post;
+  clear: both; // article is `float: left`; without clear the footer's box overlaps the article and its border-top renders inside the page content
   display: block;
   width: 100%;
   color: var(--meta);
