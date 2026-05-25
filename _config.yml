@@ -5,7 +5,14 @@ url: "https://inyourfacecomedy.ch"
 # THEME-SPECIFIC CONFIGURATION
 title: IN YOUR FACE Comedy                                    # site's title
 description: "English Stand-Up Comedy in Zürich, Switzerland"      # used by search engines
-image: /assets/img/thumbs/inyourface_thumb.png               # site-wide og:image / twitter:image fallback (jekyll-seo-tag uses this when page.image is unset)
+
+# Default image for og:image / twitter:image — jekyll-seo-tag 2.9.0 only reads page.image
+# (not site.image), so we inject `image:` as a front-matter default via Jekyll defaults below.
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/img/thumbs/inyourface_thumb.png
 
 # Default author for all pages (consumed by jekyll-seo-tag → BlogPosting JSON-LD).
 # Per-post `author:` front-matter overrides this when present.
