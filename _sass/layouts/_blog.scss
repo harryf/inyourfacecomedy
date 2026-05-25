@@ -28,9 +28,10 @@
   h1 {
     font-family: $font-family-logo;
     @extend .subtle-txt-shadow;
-    // D-02 hero clamp — stops H1 truncating on <375px and exploding on 1440px.
-    font-size: clamp(1.75rem, 6vw, 4rem);
-    line-height: 1.05;
+    // D-02 hero clamp — stops H1 truncating on 320–375px and exploding on 1440px.
+    // 1.4rem min lets "English Stand-Up Comedy in Zürich" wrap cleanly at 320px.
+    font-size: clamp(1.4rem, 6vw, 4rem);
+    line-height: 1.1;
     position: relative; // raise above ::after gradient
     z-index: 1;
   }
