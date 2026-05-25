@@ -1,33 +1,42 @@
 ---
 layout: default
 ---
-<article {% if page.feature-img or page.color %}class="feature-image"{% endif %}>
-  <header id="main" style="">
-    <div class="title-padder">
-      {% if page.hide_title %}
-        <div class="feature-image-padding"></div>
-      {% else %}
-        <h1 id="{{ page.title | cgi_escape }}" class="title">{{ page.title }}
-        </h1>
-        {%- comment -%}
-          {% include blog/post_info.liquid author=page.author date=page.date %}
-        {%- endcomment -%}
+<article
+  {% if page.feature-img or page.color %}class="show-banner feature-image" data-show="{{ page.permalink | replace: '/', '' | strip }}"{% else %}class="show-banner" data-show="{{ page.permalink | replace: '/', '' | strip }}"{% endif %}
+>
+  <header
+    id="main"
+    class="iyf-hero iyf-hero--dim"
+    {% if page.feature-img %}style="background-image: url('{{ page.feature-img | relative_url }}');"{% elsif page.color %}style="background-color: {{ page.color }}; background-image: url('{{ site.color_image | relative_url }}');"{% endif %}
+  >
+    {% unless page.hide_title %}
+      {% if page.next_event_date %}
+        <p class="iyf-hero__eyebrow">{{ page.next_event_date | date: "%a · %e %b" }}{% if page.venue %} · {{ page.venue }}{% endif %}</p>
       {% endif %}
-    </div>
+      <h1 id="{{ page.title | cgi_escape }}" class="iyf-hero__title">{{ page.title }}</h1>
+      {% if page.tagline %}
+        <p class="iyf-hero__subtitle">{{ page.tagline }}</p>
+      {% endif %}
+      {% if page.ticket_url %}
+        <div class="iyf-hero__actions">
+          <a class="btn-ticket btn-ticket--xl" href="{{ page.ticket_url }}" rel="noopener" target="_blank">Get Tickets</a>
+        </div>
+      {% endif %}
+    {% endunless %}
   </header>
 
   <section class="post-content">
     {% if page.bootstrap %}
       <div class="bootstrap-iso">
-      {% endif %}
-      {% if page.ticket_url %}
+    {% endif %}
+    {% if page.ticket_url %}
       <p><a href="{{ page.ticket_url }}" class="btn-ticket btn-ticket--xl">Get Tickets</a></p>
-      {% endif %}
-      {{ content }}
-      {% if page.ticket_url %}
+    {% endif %}
+    {{ content }}
+    {% if page.ticket_url %}
       <p><a href="{{ page.ticket_url }}" class="btn-ticket btn-ticket--xl">Get Tickets</a></p>
-      {% endif %}
-      {% if page.bootstrap %}
+    {% endif %}
+    {% if page.bootstrap %}
       </div>
     {% endif %}
   </section>
@@ -54,49 +63,25 @@ layout: default
   {% include social/disqus.liquid %}
 {% endif %}
 
-<!-- To change color of links in the page -->
+{% if page.color %}
 <style>
-  header#main {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+  /* page.color tinting kept for posts that override link/share/footer accent. */
+  .post-content a,
+  .share-buttons a,
+  .tag-list a:not(:hover),
+  div#post-nav a,
+  footer a {
+    color: {{ page.color }} !important;
   }
-
-  {% if page.color %}
-    .post-content a {
-      color: {{ page.color }} !important;
-    }
-    .share-buttons a {
-      color: {{ page.color }} !important;
-    }
-    .tag-list a:not(:hover) {
-      color: {{ page.color }} !important;
-    }
-    div#post-nav a {
-      color: {{ page.color }} !important;
-    }
-    footer a {
-      color: {{ page.color }} !important;
-    }
-    .site-header nav a:hover {
-      color: {{ page.color }} !important;
-    }
-    a.button:hover {
-      background: {{ page.color }} !important;
-      border: 1px solid{{ page.color }}!important;
-      color: white;
-      text-decoration: none;
-      filter: none;
-    }
-    header#main {
-      background-color: {{ page.color }} !important;
-      background-image: url('{{ site.color_image | relative_url }}');
-    }
-  {% endif %}
-
-  {% if page.feature-img %}
-    header#main {
-      background-image: url('{{ page.feature-img | relative_url }}');
-    }
-  {% endif %}
+  .site-header nav a:hover {
+    color: {{ page.color }} !important;
+  }
+  a.button:hover {
+    background: {{ page.color }} !important;
+    border: 1px solid {{ page.color }} !important;
+    color: white;
+    text-decoration: none;
+    filter: none;
+  }
 </style>
+{% endif %}

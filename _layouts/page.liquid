@@ -4,22 +4,24 @@ layout: default
 
 <article {% if page.feature-img %}class="feature-image"{% endif %}>
 
-  <header id="main" style="background-image: url('{{ page.feature-img | relative_url }}')">
-    <div class="title-padder">
+  <header
+    id="main"
+    class="iyf-hero iyf-hero--compact"
+    {% if page.feature-img %}style="background-image: url('{{ page.feature-img | relative_url }}');"{% endif %}
+  >
+    {% unless page.hide_title %}
       {% if page.title_override %}
-        <h1 id="{{ page.title_override | default: "" | cgi_escape }}" class="title"> {{ page.title_override }}</h1>
+        <h1 id="{{ page.title_override | default: '' | cgi_escape }}" class="iyf-hero__title">{{ page.title_override }}</h1>
         {% if page.subtitle %}
-        <h2 class="subtitle">{{ page.subtitle }}</h2>
+          <p class="iyf-hero__subtitle">{{ page.subtitle }}</p>
         {% endif %}
-      {% elsif page.hide_title %}
-        <div class="feature-image-padding"></div>
       {% else %}
-        <h1 id="{{ page.title | default: "" | cgi_escape }}" class="title"> {{ page.title }}</h1>
+        <h1 id="{{ page.title | default: '' | cgi_escape }}" class="iyf-hero__title">{{ page.title }}</h1>
         {% if page.subtitle %}
-        <h2 class="subtitle">{{ page.subtitle }}</h2>
+          <p class="iyf-hero__subtitle">{{ page.subtitle }}</p>
         {% endif %}
       {% endif %}
-    </div>
+    {% endunless %}
   </header>
 
   <section class="post-content">
