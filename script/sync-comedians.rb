@@ -26,6 +26,7 @@ require "json"
 require "fileutils"
 require "tempfile"
 require "open3"
+require "time"   # Time#iso8601
 
 # -----------------------------------------------------------------------------
 # Configuration — keep in sync with grist_api_example.py
@@ -248,6 +249,28 @@ def yaml_escape(value)
   '"' + value.to_s.gsub('\\', '\\\\').gsub('"', '\\"') + '"'
 end
 
+# Meta-description budget — search engines truncate around 155-160 characters.
+META_DESCRIPTION_MAX = 155
+
+# Build the `<meta name="description">` text for one comedian. Uses the bio if
+# present (collapsed to one line, word-boundary truncated with ellipsis), else
+# falls back to a brand-voiced one-liner so the SERP snippet stays useful.
+def description_for(name, bio)
+  cleaned = bio.to_s.gsub(/\s+/, " ").strip
+  if cleaned.empty?
+    "#{name} performs English stand-up comedy with IN YOUR FACE in Zürich, Switzerland."
+  elsif cleaned.length <= META_DESCRIPTION_MAX
+    cleaned
+  else
+    trimmed = cleaned[0, META_DESCRIPTION_MAX]
+    last_space = trimmed.rindex(" ") || META_DESCRIPTION_MAX
+    # Drop trailing sentence/clause punctuation so the appended ellipsis doesn't
+    # render as e.g. "strategy.…" — keep words, lose dangling marks.
+    base = trimmed[0, last_space].rstrip.sub(/[\.,;:!?…]+\z/, "")
+    base + "…"
+  end
+end
+
 def write_comedian_page(slug, fields, photo_web_path)
   page_path = File.join(COMEDIANS_DIR, "#{slug}.md")
   FileUtils.mkdir_p(COMEDIANS_DIR)
@@ -261,10 +284,14 @@ def write_comedian_page(slug, fields, photo_web_path)
                 "bio: |\n" + bio.lines.map { |ln| "  #{ln.chomp}" }.join("\n")
               end
 
+  name        = fields["Stage_Name"].to_s
+  description = description_for(name, bio)
+
   frontmatter_lines = [
     "---",
     "layout: comedian",
-    "title: #{yaml_escape(fields['Stage_Name'])}",
+    "title: #{yaml_escape(name)}",
+    "description: #{yaml_escape(description)}",
     "slug: #{yaml_escape(slug)}",
     "photo: #{yaml_escape(photo_web_path)}"
   ]
