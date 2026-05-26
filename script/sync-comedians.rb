@@ -249,8 +249,11 @@ def yaml_escape(value)
   '"' + value.to_s.gsub('\\', '\\\\').gsub('"', '\\"') + '"'
 end
 
-# Meta-description budget — search engines truncate around 155-160 characters.
-META_DESCRIPTION_MAX = 155
+# Meta-description budget. Google truncates SERP snippets around 155-160 chars,
+# but og:description / Slack / Twitter cards happily render up to ~300 — 200
+# is the negotiated middle so longer bios survive (verified: Martina's 221-char
+# bio now needs only ~30 chars of trim).
+META_DESCRIPTION_MAX = 200
 
 # Build the `<meta name="description">` text for one comedian. Uses the bio if
 # present (collapsed to one line, word-boundary truncated with ellipsis), else
