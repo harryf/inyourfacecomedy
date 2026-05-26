@@ -37,6 +37,7 @@ test/*
 
 # Cron output from script/refresh-next-event-dates.rb
 script/refresh.log
+script/sync-comedians.log
 
 # Local secrets for script/refresh-next-event-dates.rb
 .env
