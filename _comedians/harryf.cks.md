@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Harry Fücks"
-description: "Harry Fücks is struggling with the trifecta of passing 50, being a single dad and failing to live up to his own name… comedy is his coping strategy…"
-last_modified_at: "2026-05-26T07:47:04+00:00"
+description: "Harry Fücks is struggling with the trifecta of passing 50, being a single dad and failing to live up to his own name… comedy is his coping strategy. Originally from the UK - with just a hint of…"
+last_modified_at: "2026-05-26T07:55:57+00:00"
 slug: "harryf.cks"
 photo: "/assets/img/comedians/harryf.cks.jpg"
 instagram: "https://instagram.com/harryf.cks"
