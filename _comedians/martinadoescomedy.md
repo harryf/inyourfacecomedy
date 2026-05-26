@@ -2,6 +2,7 @@
 layout: comedian
 title: "Martina"
 description: "Martina does comedy, Funny Women Zurich Showcase and Open Mics, and sometimes her laundry. Expect comedic chaos that's somehow cute. Think hurricane but…"
+last_modified_at: "2026-05-26T07:47:06+00:00"
 slug: "martinadoescomedy"
 photo: "/assets/img/comedians/martinadoescomedy.jpg"
 instagram: "https://instagram.com/martinadoescomedy"
