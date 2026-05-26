@@ -271,6 +271,16 @@ def description_for(name, bio)
   end
 end
 
+# Strip the `last_modified_at: ...` line from a file's text so the rest of the
+# content can be compared for "data unchanged" semantics. Idempotent re-runs
+# must preserve the existing timestamp; only real data changes bump it.
+LAST_MODIFIED_RE = /^last_modified_at:\s*.*\R?/.freeze
+
+def existing_last_modified_at(page_path)
+  return nil unless File.exist?(page_path)
+  File.read(page_path)[/^last_modified_at:\s*(.+)$/, 1]&.strip&.gsub(/\A["']|["']\z/, "")
+end
+
 def write_comedian_page(slug, fields, photo_web_path)
   page_path = File.join(COMEDIANS_DIR, "#{slug}.md")
   FileUtils.mkdir_p(COMEDIANS_DIR)
@@ -287,7 +297,10 @@ def write_comedian_page(slug, fields, photo_web_path)
   name        = fields["Stage_Name"].to_s
   description = description_for(name, bio)
 
-  frontmatter_lines = [
+  # Build the data-bearing frontmatter first — last_modified_at gets injected
+  # AFTER the change-detection comparison so we can keep the timestamp stable
+  # across no-op re-runs.
+  data_lines = [
     "---",
     "layout: comedian",
     "title: #{yaml_escape(name)}",
@@ -297,18 +310,32 @@ def write_comedian_page(slug, fields, photo_web_path)
   ]
 
   FIELD_TO_KEY.each do |grist_field, fm_key|
-    frontmatter_lines << "#{fm_key}: #{yaml_escape(fields[grist_field])}"
+    data_lines << "#{fm_key}: #{yaml_escape(fields[grist_field])}"
   end
 
-  frontmatter_lines << "image: #{yaml_escape(photo_web_path)}" unless photo_web_path.to_s.empty?
-  frontmatter_lines << bio_block
-  frontmatter_lines << "---"
-  frontmatter_lines << ""
+  data_lines << "image: #{yaml_escape(photo_web_path)}" unless photo_web_path.to_s.empty?
+  data_lines << bio_block
+  data_lines << "---"
+  data_lines << ""
 
-  contents = frontmatter_lines.join("\n") + "\n"
+  data_only_content = data_lines.join("\n") + "\n"
+
+  # Decide the timestamp: preserve existing if data didn't change, else now.
+  existing_lm    = existing_last_modified_at(page_path)
+  existing_data  = File.exist?(page_path) ? File.read(page_path).sub(LAST_MODIFIED_RE, "") : nil
+  data_unchanged = existing_data == data_only_content && !existing_lm.nil?
+
+  timestamp = data_unchanged ? existing_lm : Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S+00:00")
+
+  # Inject last_modified_at right after `description:` so SEO-relevant lines
+  # cluster at the top of the frontmatter.
+  final_lines = data_lines.dup
+  insertion_idx = final_lines.index { |ln| ln.start_with?("description:") } || 2
+  final_lines.insert(insertion_idx + 1, "last_modified_at: #{yaml_escape(timestamp)}")
+  contents = final_lines.join("\n") + "\n"
 
   if DRY_RUN
-    log "  [dry-run] would write #{page_path} (#{contents.bytesize} bytes)"
+    log "  [dry-run] would write #{page_path} (#{contents.bytesize} bytes, timestamp #{data_unchanged ? 'preserved' : 'updated'})"
   else
     File.write(page_path, contents)
   end
