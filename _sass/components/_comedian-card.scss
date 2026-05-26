@@ -1,0 +1,108 @@
+// =============================================================================
+// Comedian Card + Grid — design-system v1.3
+// =============================================================================
+// Two surfaces, one component family:
+//   - .iyf-comedian-grid : mobile-first responsive grid (2 / 3 / 4 columns)
+//   - .iyf-comedian-card : square photo + name, tap-target the whole card
+//
+// Used on /comedians/ to list every Live comedian alphabetically. The card
+// links to /comedians/<slug>/ where the profile component takes over.
+// Mirrors `.iyf-event-card` in motion + shadow; uses a 1:1 photo crop so
+// faces (not show artwork) read at thumb size.
+// -----------------------------------------------------------------------------
+
+.iyf-comedian-grid {
+  list-style: none;
+  margin: var(--space-7) auto;
+  padding: 0 var(--space-5);
+  display: grid;
+  gap: var(--space-5);
+  // Mobile-first: 2 columns at <480px, 3 at ≥768px, 4 at ≥1024px.
+  grid-template-columns: repeat(2, 1fr);
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1200px;
+  }
+
+  &__item {
+    list-style: none;
+  }
+
+  &__empty {
+    text-align: center;
+    color: var(--muted);
+    font-family: var(--font-body);
+    margin: var(--space-9) auto;
+  }
+}
+
+.iyf-comedian-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--text);
+  background: var(--surface-elev);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 8px 20px -12px rgba(0, 0, 0, 0.12);
+  transition:
+    transform   var(--t-base) var(--ease-out),
+    box-shadow  var(--t-base) var(--ease-out);
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 14px 28px -14px rgba(0, 0, 0, 0.20);
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  &__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background: color-mix(in oklab, var(--brand-yellow) 8%, var(--surface-elev));
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform var(--t-slow) var(--ease-out);
+    }
+
+    &--placeholder {
+      // No photo — neutral filled square; aria-hidden in markup so SR users skip it.
+      background:
+        linear-gradient(135deg,
+          color-mix(in oklab, var(--brand-yellow) 12%, var(--surface-elev)),
+          color-mix(in oklab, var(--brand-red) 8%, var(--surface-elev)));
+    }
+  }
+
+  &:hover &__media img,
+  &:focus-visible &__media img {
+    transform: scale(1.04);
+  }
+
+  &__name {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--fs-md);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--text);
+    padding: 0 var(--space-2) var(--space-2);
+    line-height: var(--lh-tight);
+  }
+}

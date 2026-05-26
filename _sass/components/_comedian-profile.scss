@@ -1,0 +1,140 @@
+// =============================================================================
+// Comedian Profile — design-system v1.3
+// =============================================================================
+// Layout for /comedians/<slug>/. Three blocks:
+//   - .iyf-comedian-profile__header : photo + name (mobile: stacked; ≥768: side-by-side)
+//   - .iyf-comedian-profile__bio    : prose, max-readable line length
+//   - .iyf-comedian-profile__socials: chunky tap-target row, only present if any
+//
+// Tap-target rule: every link in __socials is ≥44px tall. Brand colours are
+// applied per-platform; if a comedian doesn't have a link for a platform,
+// nothing renders (no greyed-out buttons).
+// -----------------------------------------------------------------------------
+
+.iyf-comedian-profile {
+  max-width: 760px;
+  margin: var(--space-7) auto var(--space-9);
+  padding: 0 var(--space-5);
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    text-align: center;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: center;
+      text-align: left;
+      gap: var(--space-6);
+    }
+  }
+
+  &__media {
+    flex: 0 0 auto;
+    width: 180px;
+    height: 180px;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: color-mix(in oklab, var(--brand-yellow) 8%, var(--surface-elev));
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 12px 24px -14px rgba(0, 0, 0, 0.20);
+
+    @media (min-width: 768px) {
+      width: 200px;
+      height: 200px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  &__name {
+    font-family: var(--font-display);
+    font-size: var(--fs-3xl);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin: 0;
+    line-height: var(--lh-tight);
+  }
+
+  &__bio {
+    font-family: var(--font-body);
+    font-size: var(--fs-md);
+    color: var(--text);
+    line-height: var(--lh-loose);
+    margin: var(--space-6) 0;
+
+    p {
+      margin: 0 0 var(--space-4);
+    }
+  }
+
+  &__socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin: var(--space-6) 0;
+  }
+
+  &__back {
+    margin: var(--space-7) 0 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-base);
+
+    a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    a:hover {
+      color: var(--text);
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Social link buttons — chunky tap targets, brand colours on hover only.
+// -----------------------------------------------------------------------------
+.iyf-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.95rem;
+  min-height: var(--touch-min, 44px);
+  border-radius: var(--radius-md);
+  background: var(--surface-elev);
+  color: var(--text);
+  border: 1px solid var(--border-soft);
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background-color var(--t-fast) var(--ease-out),
+    color            var(--t-fast) var(--ease-out),
+    border-color     var(--t-fast) var(--ease-out),
+    transform        var(--t-fast) var(--ease-out);
+
+  i {
+    font-size: var(--fs-md);
+  }
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+
+  &--instagram:hover { background: #E1306C; color: #FFFFFF; border-color: transparent; }
+  &--tiktok:hover    { background: #000000; color: #FFFFFF; border-color: transparent; }
+  &--facebook:hover  { background: #1877F2; color: #FFFFFF; border-color: transparent; }
+  &--x:hover         { background: #000000; color: #FFFFFF; border-color: transparent; }
+  &--youtube:hover   { background: #FF0000; color: #FFFFFF; border-color: transparent; }
+  &--website:hover   { background: var(--brand-red); color: #FFFFFF; border-color: transparent; }
+}

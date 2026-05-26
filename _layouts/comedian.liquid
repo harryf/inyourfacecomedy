@@ -1,0 +1,81 @@
+---
+layout: default
+---
+
+{%- assign socials = '' | split: '' -%}
+{%- if page.instagram and page.instagram != ''     -%}{%- assign socials = socials | push: 'instagram'     -%}{%- endif -%}
+{%- if page.tiktok and page.tiktok != ''           -%}{%- assign socials = socials | push: 'tiktok'        -%}{%- endif -%}
+{%- if page.facebook_page and page.facebook_page != '' -%}{%- assign socials = socials | push: 'facebook' -%}{%- endif -%}
+{%- if page.x and page.x != ''                     -%}{%- assign socials = socials | push: 'x'            -%}{%- endif -%}
+{%- if page.youtube_channel and page.youtube_channel != '' -%}{%- assign socials = socials | push: 'youtube' -%}{%- endif -%}
+{%- if page.website and page.website != ''         -%}{%- assign socials = socials | push: 'website'       -%}{%- endif -%}
+
+<article class="iyf-comedian-profile">
+  <header class="iyf-comedian-profile__header">
+    {% if page.photo %}
+      <div class="iyf-comedian-profile__media">
+        <img src="{{ page.photo | relative_url }}"
+             alt="{{ page.title }}"
+             loading="lazy" />
+      </div>
+    {% endif %}
+    <h1 class="iyf-comedian-profile__name">{{ page.title }}</h1>
+  </header>
+
+  {% if page.bio and page.bio != '' %}
+    <section class="iyf-comedian-profile__bio">
+      {{ page.bio | markdownify }}
+    </section>
+  {% endif %}
+
+  {% if socials.size > 0 %}
+    <nav class="iyf-comedian-profile__socials" aria-label="{{ page.title }} on social media">
+      {% if page.instagram and page.instagram != '' %}
+        <a class="iyf-social-link iyf-social-link--instagram"
+           href="{{ page.instagram }}" target="_blank" rel="noopener"
+           aria-label="{{ page.title }} on Instagram">
+          <i class="fab fa-instagram" aria-hidden="true"></i><span>Instagram</span>
+        </a>
+      {% endif %}
+      {% if page.tiktok and page.tiktok != '' %}
+        <a class="iyf-social-link iyf-social-link--tiktok"
+           href="{{ page.tiktok }}" target="_blank" rel="noopener"
+           aria-label="{{ page.title }} on TikTok">
+          <i class="fab fa-tiktok" aria-hidden="true"></i><span>TikTok</span>
+        </a>
+      {% endif %}
+      {% if page.facebook_page and page.facebook_page != '' %}
+        <a class="iyf-social-link iyf-social-link--facebook"
+           href="{{ page.facebook_page }}" target="_blank" rel="noopener"
+           aria-label="{{ page.title }} on Facebook">
+          <i class="fab fa-facebook" aria-hidden="true"></i><span>Facebook</span>
+        </a>
+      {% endif %}
+      {% if page.x and page.x != '' %}
+        <a class="iyf-social-link iyf-social-link--x"
+           href="{{ page.x }}" target="_blank" rel="noopener"
+           aria-label="{{ page.title }} on X">
+          <i class="fab fa-x-twitter" aria-hidden="true"></i><span>X</span>
+        </a>
+      {% endif %}
+      {% if page.youtube_channel and page.youtube_channel != '' %}
+        <a class="iyf-social-link iyf-social-link--youtube"
+           href="{{ page.youtube_channel }}" target="_blank" rel="noopener"
+           aria-label="{{ page.title }} on YouTube">
+          <i class="fab fa-youtube" aria-hidden="true"></i><span>YouTube</span>
+        </a>
+      {% endif %}
+      {% if page.website and page.website != '' %}
+        <a class="iyf-social-link iyf-social-link--website"
+           href="{{ page.website }}" target="_blank" rel="noopener"
+           aria-label="{{ page.title }}'s website">
+          <i class="fas fa-globe" aria-hidden="true"></i><span>Website</span>
+        </a>
+      {% endif %}
+    </nav>
+  {% endif %}
+
+  <p class="iyf-comedian-profile__back">
+    <a class="clear" href="{{ '/comedians/' | relative_url }}">&larr; All comedians</a>
+  </p>
+</article>

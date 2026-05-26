@@ -78,10 +78,18 @@ paginate_path: "/blog/page:num"
 
 permalink: /:title/
 
+# COLLECTIONS
+# Comedians directory: sourced from Grist via `script/sync-comedians.rb`.
+# Each `_comedians/<slug>.md` becomes a page at /comedians/<slug>/.
+collections:
+  comedians:
+    output: true
+    permalink: /comedians/:name/
+
 # BUILD SETTINGS
 sass:
   style: compressed
-exclude: [".jekyll-cache", ".jekyll-metadata", ".idea", "vendor/*", "assets/node_modules/*"]
+exclude: [".jekyll-cache", ".jekyll-metadata", ".idea", "vendor/*", "assets/node_modules/*", "script/*"]
 
 plugins:
   - jekyll-paginate

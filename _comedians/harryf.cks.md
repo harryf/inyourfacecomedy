@@ -1,0 +1,16 @@
+---
+layout: comedian
+title: "Harry Fücks"
+slug: "harryf.cks"
+photo: "/assets/img/comedians/harryf.cks.jpg"
+instagram: "https://instagram.com/harryf.cks"
+tiktok: "https://tiktok.com/@harryf.cks"
+facebook_page: "https://www.facebook.com/harryf.ckscomedy"
+x: "https://x.com/hfuecks"
+youtube_channel: "https://youtube.com/@harryfucks"
+website: "https://harryf.ckscomedy.com/"
+image: "/assets/img/comedians/harryf.cks.jpg"
+bio: |
+  Harry Fücks is struggling with the trifecta of passing 50, being a single dad and failing to live up to his own name… comedy is his coping strategy. Originally from the UK - with just a hint of German - Harry has spent 23 years living in Switzerland and working in that most dangerous of professions - software development.
+---
+
