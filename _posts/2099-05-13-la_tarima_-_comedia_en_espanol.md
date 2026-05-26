@@ -3,13 +3,17 @@ layout: post
 editable: "true"
 title: La Tarima - Comedia en Español
 description: Zúrich habla español… y también se ríe en español.
-last_modified_at: 2026-05-24T09:41:51+00:00
+last_modified_at: 2026-05-26T17:12:25+00:00
 feature-img: /assets/img/uploads/ultra_mega_final_formato_1200_x_400_general_la_tarima_1200_x_400_px_.png
 image: /assets/img/uploads/ultra_mega_final_formato_1200_x_400_general_la_tarima_1200_x_400_px_.png
 thumbnail: /assets/img/uploads/last_one.png
 excerpt_separator: <!--more-->
 permalink: /latarima/
 ticket_url: https://eventfrog.ch/latarima
+event_type: monthly
+venue_slug: monroe
+next_event_date: 2026-06-04T20:00:00+02:00
+next_event_end_date: 2026-06-04T22:30:00+02:00
 ---
 ![]()
 
