@@ -51,7 +51,7 @@ Many starting comedians (especially the extroverts) begin with the idea "I've go
 
 Jokes have a structure and form. Perhaps the most basic joke structure is "setup / punch". In the setup you create some kind of tension, and with the punch you release that tension with surprise, the surprise usually coming from some kind of logical fallacy. "One liner" comedians like [Stephan Cookson](https://www.youtube.com/watch?v=Y0rAEjU3qwg) specialise in this style.
 
-There are differing opinions on how many different joke structures there are. Some say [there are 5.5](https://goldcomedy.com/resources/essential-types-of-jokes-rise/) ... some say [there are 13](https://www.thegag.club/comedianknowledgebase/13-Comedy-Structures)... The number doesn't matter but knowing some of these structures and fitting your jokes to them gives you a better chance of getting laughs.
+There are differing opinions on how many different joke structures there are. Some say [there are 5.5](https://goldcomedy.com/resources/essential-types-of-jokes-rise/) ... but there may be hundreds or even thousands... The number doesn't matter but knowing some of these structures and fitting your jokes to them gives you a better chance of getting laughs.
 
 You'll also find some handy joke writing tips in [this guide](https://docs.google.com/presentation/d/1Cyt-pNP6PPuyOq0eqMKAn5PU9QQVkkR7h5wgsFpty7c/edit?usp=sharing) which is based on the [New Comedy Bible](https://www.amazon.com/NEW-Comedy-Bible-Ultimate-Performing/dp/1947480847). And if you get through all that have look at [Gary Gulman's Writing Tips for Comedians](https://deadant.co/all-365-of-gary-gulmans-writing-tips/) ... come back to this link after you've done some shows...
 
@@ -74,7 +74,7 @@ Develop a stage persona. This is usally some part of your personality that you a
 - **Time It! And throw stuff out** While you practice at home, time it. Remember you're aiming for 5 minutes. You may have lots of ideas for jokes and you want to cram it all in. But a big part of comedy is *less is more*. And nothing annoys the hosts of a show more than people that "don't respect their time"
 - **Start strong, finish strong** Put your best jokes at the start and the end of your set. You want to get your first laugh as quickly as possible and you want to end on a high note.
 - **Play the Underdog** No one likes an overconfident prick. It's usually good to start with a joke telling the audience how miserable your life is, to get the audience on your side. This is not always true, but most of the time it is.
-- **Arrive on Time** The host of the show will tell you the *line-up* - the order of comedians on the show and when you'll be performing. In Switzerland this is usually done via Facebook Messenger - a group will be created for the show.
+- **Arrive on Time** The host of the show will tell you the *line-up* - the order of comedians on the show and when you'll be performing. With IN YOUR FACE Comedy, this is done over WhatsApp in the "Comedy Brew Signup" chat - look out for it.
 
 ### The First Time
 
