@@ -34,3 +34,12 @@ monroe:
   country: "CH"
   website: "https://www.monroe.zuerich/"
   google_maps_url: "https://maps.app.goo.gl/8C7nrhUqhJ4X83ku9"
+
+ambossrampe:
+  name: "Amboss Rampe"
+  street: "Sihlquai 125"
+  postal_code: "8005"
+  city: "Zürich"
+  country: "CH"
+  website: "https://www.ambossrampe.ch/"
+  google_maps_url: "https://maps.app.goo.gl/ZoqB8ogCUyZMXNLf6"
