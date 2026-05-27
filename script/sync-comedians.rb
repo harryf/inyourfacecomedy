@@ -400,9 +400,12 @@ def git_run!(*args)
 end
 
 def has_git_changes?
-  _, status = git_capture("diff", "--quiet", "HEAD", "--", *GIT_PATHS)
-  # `--quiet` exits 1 when there are diffs, 0 when clean.
-  !status.success?
+  # Use `status --porcelain` rather than `diff HEAD`: `git diff` only sees TRACKED
+  # files, so a sync that ONLY adds new comedians (untracked .md + photo) looked
+  # "clean" and we returned without committing. `status --porcelain` reports
+  # untracked, modified, and deleted paths alike — non-empty output means work to do.
+  out, _ = git_capture("status", "--porcelain", "--", *GIT_PATHS)
+  !out.empty?
 end
 
 def current_branch
