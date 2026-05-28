@@ -8,7 +8,10 @@
 .show-banner {
   --show-accent:   var(--brand-red);
   --show-bg:       var(--surface-elev);
-  --show-text:     var(--brand-ink);
+  // --show-text must be theme-aware so cards without a custom palette stay
+  // readable in dark mode. --brand-ink is hardcoded #0F0F10 and goes invisible
+  // on the dark-mode --surface-elev; --ink-on-cream flips to cream in dark.
+  --show-text:     var(--ink-on-cream);
   --show-cta:      var(--brand-red);
   --show-cta-text: var(--brand-cream);
 }
@@ -50,11 +53,26 @@
 
 .show-banner[data-show="comedybrew"],
 .show-banner[data-show="comedy-brew"] {
-  --show-accent:   #E53935;
-  --show-bg:       #FFF3E0;
-  --show-text:     #0F0F10;
-  --show-cta:      #E53935;
-  --show-cta-text: #FFF3E0;
+  // Coffee-bar warmth: espresso bg, caramel-amber accent (pulled from the
+  // flyer's stage lighting), warm cream text, brand-red CTA. Replaces the
+  // cream-on-cream palette that broke meta readability in dark mode.
+  --show-accent:   #FF8C42;  // caramel-amber for date box + price
+  --show-bg:       #1B0F08;  // espresso
+  --show-text:     #FFE8C8;  // warm cream
+  --show-cta:      #E53935;  // brand-red ticket button
+  --show-cta-text: #FFF3E0;  // cream on red
+}
+
+.show-banner[data-show="randomfactsexchange"],
+.show-banner[data-show="random-facts-exchange"] {
+  // Science-night palette: deep midnight blue echoes the chalkboard / cosmos
+  // vibe; electric cyan accent mirrors the "Graphs" venn circle; yellow CTA
+  // mirrors the "Fun" venn circle. Cool cream text reads strong on the dark.
+  --show-accent:   #5FB8FF;  // electric cyan for date box + price
+  --show-bg:       #0B1424;  // deep midnight blue-black
+  --show-text:     #E6F2FF;  // cool cream
+  --show-cta:      #FFD54F;  // brand yellow ticket button
+  --show-cta-text: #0B1424;  // ink on yellow
 }
 
 // The actual post permalink is /jokesjokesjokes/ (three "jokes"); add aliases
