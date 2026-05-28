@@ -501,15 +501,41 @@ end
 # -----------------------------------------------------------------------------
 # Main
 # -----------------------------------------------------------------------------
-def attachment_id_from(value)
-  # Grist returns either a bare int or ["L", id, ...]. Mirror the Python normalisation.
-  return nil if value.nil?
-  return value if value.is_a?(Integer)
-  if value.is_a?(Array) && value.size > 1
-    candidate = value[1]
-    return candidate if candidate.is_a?(Integer)
-  end
-  nil
+# Grist encodes a multi-value attachment cell as ["L", id1, id2, ...] and appends
+# new uploads to the end of that list. Returning the FIRST id (what the previous
+# implementation did) meant we kept pulling the OLDEST headshot forever — so when
+# a comedian uploads a fresh photo, the site never picked it up.
+#
+# The reliable signal for "most recent" is each attachment's `timeUploaded`
+# metadata from /attachments/:id. ISO 8601 UTC strings sort chronologically as
+# plain strings (lexical max == chronological max), so we keep them raw.
+def extract_attachment_ids(cell)
+  # Tolerate a bare int "just in case", matching the Python helper.
+  return [cell] if cell.is_a?(Integer)
+  return [] unless cell.is_a?(Array) && cell.size > 1 && cell.first == "L"
+  cell.drop(1).select { |i| i.is_a?(Integer) }
+end
+
+def attachment_uploaded_at(attachment_id)
+  # Return "" on ANY failure so the id sorts oldest — a transient metadata hiccup
+  # must never wrongly promote an attachment to "newest". The all-empty fallback
+  # in newest_attachment_id covers the case where every call failed.
+  resp = http_get("attachments/#{attachment_id}")
+  return "" unless resp.is_a?(Net::HTTPSuccess)
+  JSON.parse(resp.body)["timeUploaded"].to_s
+rescue => e
+  warn "  ! attachment #{attachment_id} metadata failed: #{e.message}"
+  ""
+end
+
+def newest_attachment_id(cell)
+  ids = extract_attachment_ids(cell)
+  return nil if ids.empty?
+  return ids.first if ids.size == 1  # single-attachment short-circuit, zero HTTP
+  timed = ids.map { |id| [attachment_uploaded_at(id), id] }
+  # If every timestamp came back empty, trust list order (newest appended last).
+  return ids.last if timed.all? { |t, _| t.empty? }
+  timed.max_by(&:first).last
 end
 
 def main
@@ -542,7 +568,7 @@ def main
     public_fields = PUBLIC_FIELDS.each_with_object({}) { |k, h| h[k] = fields[k] }
 
     photo_web_path = nil
-    attachment_id  = attachment_id_from(fields["Photo"])
+    attachment_id  = newest_attachment_id(fields["Photo"])
 
     if attachment_id
       begin
