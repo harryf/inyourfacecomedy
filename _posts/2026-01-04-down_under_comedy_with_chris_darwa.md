@@ -1,10 +1,9 @@
 ---
 layout: post
 editable: "true"
-title: Down Under Comedy with Chris Darwa
+title: Down Under Comedy - English stand-up comedy with Chris Darwa and Friends
 description: English stand-up comedy with Chris Darwa and Friends on Tuesdays in
   Zürich at ROBINs in Niederdorf
-last_modified_at: 2026-05-27T07:05:38+00:00
 feature-img: /assets/img/uploads/down_under_comedy_wide_0.5x.png
 image: /assets/img/uploads/down_under_comedy_wide_0.5x.png
 thumbnail: /assets/img/uploads/down_under_comedy_insta_post_0.5x.png
@@ -14,14 +13,15 @@ ticket_url: https://eventfrog.ch/downunder
 event_type: series
 venue_slug: robins
 recurrence_day: Tuesday
-recurrence_time: "19:30"
+recurrence_time: 19:30
 default_duration_minutes: 150
 next_event_date: 2026-06-09T19:30:00+02:00
 next_event_end_date: 2026-06-09T22:00:00+02:00
 price_chf: 10
 performers:
-  - "Chris Darwa"
-  - "Various local and visiting comedians"
+  - Chris Darwa
+  - Various local and visiting comedians
+last_modified_at: 2026-05-27T07:05:38+00:00
 ---
 **Chris Darwa** brings his brand of unstoppable Australian comedy to the stage, along with a mix of hilarious friends from the Swiss Comedy scene, some experimenting with new material, others honing their act, either way, your Tuesday is sure to end pissing yourself with laughs.
 
