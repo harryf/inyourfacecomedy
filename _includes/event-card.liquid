@@ -42,9 +42,29 @@
     </div>
   </div>
 
+  {%- comment -%}
+    Same normalize-then-split contract as _layouts/post.liquid: replace
+    ' - ' with ' • ' so both bullet and space-dash-space separators
+    collapse to one delimiter without touching inner hyphens like
+    "Stand-Up". First segment is the show name; second segment becomes
+    the small subtitle line under the title. Cards stop after parts[1]
+    because tertiary segments (e.g. Comedy Brew's "EVERY Thursday at
+    ROBINS…") are already covered by the date/venue meta row.
+  {%- endcomment -%}
+  {%- assign card_title_normalized = post.title | replace: ' - ', ' • ' -%}
+  {%- assign card_title_parts = card_title_normalized | split: '•' -%}
+  {%- assign card_primary_title = card_title_parts[0] | strip -%}
+
   <h3 class="iyf-event-card__title">
-    <a href="{{ post.url | relative_url }}">{{ post.title | split: '•' | first | strip }}</a>
+    <a href="{{ post.url | relative_url }}">{{ card_primary_title }}</a>
   </h3>
+
+  {% if card_title_parts.size > 1 %}
+    {%- assign card_secondary_title = card_title_parts[1] | strip -%}
+    {% if card_secondary_title != '' %}
+      <p class="iyf-event-card__subtitle">{{ card_secondary_title }}</p>
+    {% endif %}
+  {% endif %}
 
   {% if post.tagline %}
     <p class="iyf-event-card__tagline">{{ post.tagline }}</p>

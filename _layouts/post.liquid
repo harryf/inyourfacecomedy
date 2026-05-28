@@ -14,12 +14,20 @@ layout: default
         <p class="iyf-hero__eyebrow">{{ page.next_event_date | date: "%a · %e %b" }}{% if page.venue %} · {{ page.venue }}{% endif %}</p>
       {% endif %}
       {%- comment -%}
-        Show titles often pack SEO metadata after a bullet ('•') —
-        "Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS …".
-        First segment is the show name (the h1). The rest collapses into a subtitle
-        only when page.tagline isn't already providing one.
+        Show titles often pack SEO metadata after a separator. Two are in
+        the wild: bullet ('•') and dashed-with-spaces (' - '). Examples:
+          "Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS …"
+          "Random Facts Exchange - the Science Comedy Show in Zürich"
+        Normalize ' - ' to ' • ' before splitting so both surfaces (hero
+        below, event card on the home grid) share one split contract. The
+        space-padding on the dash is deliberate — never replace bare '-'
+        because inner hyphens (e.g. "Stand-Up", "Stand-up") are part of
+        normal words.
+        First segment is the show name (the h1). The rest collapses into a
+        subtitle only when page.tagline isn't already providing one.
       {%- endcomment -%}
-      {%- assign title_parts = page.title | split: '•' -%}
+      {%- assign title_normalized = page.title | replace: ' - ', ' • ' -%}
+      {%- assign title_parts = title_normalized | split: '•' -%}
       {%- assign primary_title = title_parts[0] | strip -%}
       <h1 id="{{ page.title | cgi_escape }}" class="iyf-hero__title">{{ primary_title }}</h1>
       {% if page.tagline %}
