@@ -57,6 +57,11 @@ PHOTO_QUALITY_LADDER  = [75, 60, 45, 30].freeze
 REPO_ROOT     = File.expand_path("..", __dir__)
 COMEDIANS_DIR = File.join(REPO_ROOT, "_comedians")
 PHOTO_DIR     = File.join(REPO_ROOT, "assets/img/comedians")
+# Index page that renders /comedians/ — its frontmatter `last_modified_at` is the
+# freshness signal crawlers (Google, sitemap consumers) use to decide when to
+# reindex the listing. Bumped only when a real comedian-page change happened
+# this run (added, removed, content-modified); a no-op re-run leaves it alone.
+INDEX_PAGE    = File.join(REPO_ROOT, "pages/7_comedians.md")
 
 # Content-Type → file extension. Anything else falls back to jpg.
 CONTENT_TYPE_EXT = {
@@ -328,6 +333,17 @@ def write_comedian_page(slug, fields, photo_web_path)
   existing_data  = File.exist?(page_path) ? File.read(page_path).sub(LAST_MODIFIED_RE, "") : nil
   data_unchanged = existing_data == data_only_content && !existing_lm.nil?
 
+  # Status surfaced to the caller — drives the index-page last_modified_at bump.
+  # :unchanged contributes nothing; :created or :updated marks the listing as
+  # needing a reindex signal for crawlers.
+  status = if existing_data.nil?
+             :created
+           elsif data_unchanged
+             :unchanged
+           else
+             :updated
+           end
+
   timestamp = data_unchanged ? existing_lm : Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S+00:00")
 
   # Inject last_modified_at right after `description:` so SEO-relevant lines
@@ -338,11 +354,11 @@ def write_comedian_page(slug, fields, photo_web_path)
   contents = final_lines.join("\n") + "\n"
 
   if DRY_RUN
-    log "  [dry-run] would write #{page_path} (#{contents.bytesize} bytes, timestamp #{data_unchanged ? 'preserved' : 'updated'})"
+    log "  [dry-run] would write #{page_path} (#{contents.bytesize} bytes, timestamp #{data_unchanged ? 'preserved' : 'updated'}, status=#{status})"
   else
     File.write(page_path, contents)
   end
-  page_path
+  [page_path, status]
 end
 
 def delete_comedian(slug)
@@ -372,6 +388,39 @@ def delete_comedian(slug)
 end
 
 # -----------------------------------------------------------------------------
+# Index page bump — refresh `last_modified_at` on the listing page that renders
+# /comedians/, so Google (and other sitemap consumers) get a reindex signal when
+# a new comedian appears or an existing one is removed/modified. The bump only
+# fires when a real change happened this run; identical re-runs leave the page
+# alone, which keeps the auto-commit from churning the index timestamp.
+# -----------------------------------------------------------------------------
+INDEX_LAST_MODIFIED_RE = /^last_modified_at:[^\n]*$/.freeze
+
+def bump_index_last_modified_at
+  unless File.exist?(INDEX_PAGE)
+    warn "  ! index page #{INDEX_PAGE} missing — skipping last_modified_at bump"
+    return
+  end
+
+  content   = File.read(INDEX_PAGE)
+  timestamp = Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S+00:00")
+  new_line  = "last_modified_at: #{timestamp}"
+
+  unless content =~ INDEX_LAST_MODIFIED_RE
+    raise "no `last_modified_at:` line in #{INDEX_PAGE} — refusing to inject blindly"
+  end
+
+  new_content = content.sub(INDEX_LAST_MODIFIED_RE, new_line)
+
+  if DRY_RUN
+    log "  [dry-run] would bump #{File.basename(INDEX_PAGE)} last_modified_at → #{timestamp}"
+  else
+    File.write(INDEX_PAGE, new_content)
+    log "index: bumped #{File.basename(INDEX_PAGE)} last_modified_at → #{timestamp}"
+  end
+end
+
+# -----------------------------------------------------------------------------
 # Logging
 # -----------------------------------------------------------------------------
 def log(msg)
@@ -384,7 +433,7 @@ end
 # bypasses hooks. ff-only pull before commit so a cron run during a manual
 # edit aborts cleanly instead of creating a merge.
 # -----------------------------------------------------------------------------
-GIT_PATHS = ["_comedians/", "assets/img/comedians/"].freeze
+GIT_PATHS = ["_comedians/", "assets/img/comedians/", "pages/7_comedians.md"].freeze
 
 def git_capture(*args)
   out, status = Open3.capture2e("git", "-C", REPO_ROOT, *args)
@@ -469,6 +518,7 @@ def main
 
   seen_slugs = []
   written = 0
+  pages_changed = 0  # comedian pages actually created or modified this run
 
   records.each do |rec|
     fields = rec["fields"] || {}
@@ -517,7 +567,8 @@ def main
       log "  · no photo attachment for #{name}"
     end
 
-    write_comedian_page(slug, public_fields, photo_web_path)
+    _, status = write_comedian_page(slug, public_fields, photo_web_path)
+    pages_changed += 1 unless status == :unchanged
     written += 1
   end
 
@@ -550,6 +601,15 @@ def main
   end
 
   puts "comedians: #{written} written, #{removed} removed#{DRY_RUN ? ' (dry run)' : ''}"
+
+  # Refresh the listing page's freshness signal only when a real comedian-page
+  # change actually happened — a no-op re-run leaves the index alone, which
+  # keeps the auto-commit gate quiet.
+  if pages_changed > 0 || removed > 0
+    bump_index_last_modified_at
+  else
+    log "index: #{pages_changed} page changes, #{removed} removals — #{File.basename(INDEX_PAGE)} last_modified_at unchanged"
+  end
 
   commit_and_push(written: written, removed: removed) unless NO_COMMIT
 end
