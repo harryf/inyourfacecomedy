@@ -44,14 +44,15 @@ PUBLIC_FIELDS = [
   "Instagram", "TikTok", "Facebook_Page", "X", "Website", "YouTube_Channel"
 ].freeze
 
-# Photo size budget: Harry asked for <100KB, we target ≤95KB to leave headroom.
-PHOTO_MAX_BYTES = 95 * 1024
-# Iterative resize knobs — walk dimension down first; if still too big at the
-# min dimension, walk JPEG quality down through the ladder before giving up.
-PHOTO_START_DIMENSION = 800
-PHOTO_MIN_DIMENSION   = 300
-PHOTO_DIM_STEP        = 100
-PHOTO_QUALITY_LADDER  = [75, 60, 45, 30].freeze
+# Photo size budget. Output is a fixed 1024×1024 JPEG, so the budget is roomier
+# than the old sips-pipeline 95KB target — 200KB still keeps the gallery light
+# while letting q:v=2 land cleanly on most headshots.
+PHOTO_MAX_BYTES = 200 * 1024
+
+# ffmpeg JPEG quality ladder: ascending = worse quality / smaller file.
+# We walk from q=2 upward and stop at the first pass that fits the budget.
+# Beyond q=20 the image is visibly mushy; if 20 still overruns we raise.
+PHOTO_QUALITY_LADDER = [2, 4, 6, 10, 15, 20].freeze
 
 # Repo paths — script assumes it lives at <repo>/script/.
 REPO_ROOT     = File.expand_path("..", __dir__)
@@ -174,71 +175,271 @@ def shell_out(*cmd)
   out
 end
 
-def resize_photo(raw_bytes, source_ext, dest_path)
-  # Always normalise to JPEG. PNG and WebP are lossless / variably supported by
-  # sips, so the quality ladder only meaningfully bites when the output format
-  # is JPEG. Comedian headshots don't need transparency; the size win is worth
-  # more than the format match.
-  target_ext    = "jpg"
-  target_format = "jpeg"
-  final_path    = dest_path.sub(/\.[a-z]+\z/i, ".#{target_ext}")
+# Read pixel dimensions via macOS `sips` in a single call. sips outputs both
+# dimensions on separate lines after the file path; we regex rather than split
+# by position so field order can change without breaking us.
+def image_dimensions(path)
+  out = shell_out("sips", "-g", "pixelWidth", "-g", "pixelHeight", path)
+  w = out[/pixelWidth:\s*(\d+)/, 1]
+  h = out[/pixelHeight:\s*(\d+)/, 1]
+  raise "sips could not read dimensions for #{path}: #{out}" if w.nil? || h.nil?
+  [w.to_i, h.to_i]
+end
 
-  # Stage the raw download in a tempfile with its source extension so sips
-  # reads the format correctly.
+# Detect the subject face via Apple Vision (`auge --faces`) and return the
+# FULL bounding box in IMAGE PIXEL coords with TOP-LEFT origin: [x, y, w, h].
+# The crop calculator needs the bbox extents (not just the center) so it can
+# guarantee the face fits ENTIRELY inside the crop — without that, big faces
+# get their forehead/chin clipped at the rule-of-thirds line.
+#
+# Two coordinate gotchas, both handled here:
+#   1. Auge returns normalized 0..1 with a BOTTOM-LEFT origin (Apple Vision
+#      convention). A bbox at (x, y, w, h) in BL coords becomes
+#      (x*W, (1 - y - h)*H, w*W, h*H) in pixel TL coords — the y-flip applies
+#      to the TOP of the bbox, which in BL is `y + h`.
+#   2. Multi-face images: we pick the LARGEST face by area. For headshots
+#      this is the standard "subject" heuristic — `--faces` doesn't expose
+#      per-face confidence, so area is the cheapest reliable proxy.
+#
+# We trust Apple Vision's own threshold rather than imposing an absolute area
+# floor — real headshot faces can be as small as ~0.5% of the frame (verified
+# against the live comedians table), and adding an arbitrary floor would
+# silently drop them. Returns nil on no faces / parse failure / auge crash,
+# letting the caller fall back to saliency then center.
+def detect_face_bbox(path)
+  image_w, image_h = image_dimensions(path)
+  out = shell_out("auge", "--faces", path, "--json")
+  data = JSON.parse(out)
+
+  faces = data.dig("results", "faces") || []
+  return nil if faces.empty?
+
+  chosen = faces.max_by { |f| f["width"].to_f * f["height"].to_f }
+
+  x_norm = chosen["x"].to_f
+  y_norm = chosen["y"].to_f
+  w_norm = chosen["width"].to_f
+  h_norm = chosen["height"].to_f
+
+  bbox_x = x_norm * image_w
+  bbox_y = (1.0 - (y_norm + h_norm)) * image_h  # TOP of bbox in TL coords
+  bbox_w = w_norm * image_w
+  bbox_h = h_norm * image_h
+
+  [bbox_x, bbox_y, bbox_w, bbox_h]
+rescue JSON::ParserError => e
+  warn "auge --faces returned invalid JSON for #{path}: #{e.message}"
+  nil
+rescue => e
+  warn "auge --faces failed for #{path}: #{e.message}"
+  nil
+end
+
+# Fallback when no face is detected. Returns the salient region's full bbox
+# in pixel TL coords [x, y, w, h]. Apple Vision's attention-based saliency
+# surfaces the region a human eye would land on. Tiebreak across regions is
+# highest `confidence` (which --saliency-attention DOES include, unlike
+# --faces).
+def detect_saliency_bbox(path)
+  image_w, image_h = image_dimensions(path)
+  out = shell_out("auge", "--saliency-attention", path, "--json")
+  data = JSON.parse(out)
+
+  regions = data.dig("results", "regions") || []
+  return nil if regions.empty?
+
+  chosen = regions.max_by { |r| r["confidence"].to_f }
+
+  x_norm = chosen["x"].to_f
+  y_norm = chosen["y"].to_f
+  w_norm = chosen["width"].to_f
+  h_norm = chosen["height"].to_f
+
+  bbox_x = x_norm * image_w
+  bbox_y = (1.0 - (y_norm + h_norm)) * image_h  # TOP of bbox in TL coords
+  bbox_w = w_norm * image_w
+  bbox_h = h_norm * image_h
+
+  [bbox_x, bbox_y, bbox_w, bbox_h]
+rescue JSON::ParserError => e
+  warn "auge --saliency-attention returned invalid JSON for #{path}: #{e.message}"
+  nil
+rescue => e
+  warn "auge --saliency-attention failed for #{path}: #{e.message}"
+  nil
+end
+
+# Minimum crop side we're willing to ship. Final output is always 1024×1024,
+# so this caps the upscale factor at ~3× (1024 / 341 ≈ 3). Below that the
+# bilinear interpolation gets visibly soft; we'd rather compromise on
+# composition than ship a mushy headshot.
+MIN_CROP_SIDE = 341
+
+# Solve: "Place the subject (defined by its full bbox) at fractional position
+# `preferred_offsets = [ofx, ofy]` of the final square crop, with the bbox
+# entirely INSIDE the crop." Returns `[crop_x, crop_y, side]` in image pixel
+# TL coords.
+#
+# Why the bbox and not just the center: a center-only algorithm can place a
+# big face on the upper-third line and then clip the forehead off, because
+# the bbox extends past the crop's top edge. The clipping is invisible in
+# the math but obvious in the resulting photo. Carrying the full bbox lets
+# us check feasibility AND choose the largest square that still contains it.
+#
+# Per the user spec — "rule of thirds (if possible, bearing in mind the edge
+# of the original photo)" — we try the preferred placement first and only
+# compromise when geometry forbids it. Search order:
+#
+#   1. `preferred_offsets` (usually upper-third for faces).
+#   2. `[0.5, 0.5]` (center) — always feasible whenever side ≥ max(bw, bh)
+#      and the centered crop fits in the image.
+#   3. Last-resort clamp: largest possible square, anchor at preferred offset
+#      then clamped — bbox MAY be partially out of frame in extreme cases.
+#
+# Geometry for a given (ofx, ofy):
+#
+#   max_side (crop fits in image):
+#     min(image_w, image_h, cx/ofx, (image_w-cx)/(1-ofx),
+#         cy/ofy, (image_h-cy)/(1-ofy))
+#     where (cx, cy) is the bbox center.
+#
+#   min_side (bbox fits in crop):
+#     max(bw/(2*ofx), bw/(2*(1-ofx)), bh/(2*ofy), bh/(2*(1-ofy)))
+#
+# Feasible iff `max_side ≥ max(min_side, MIN_CROP_SIDE)`. We pick `max_side`
+# (largest crop, least upscaling), `.floor` to integer for ffmpeg.
+def compute_crop_origin(image_w, image_h, subject_bbox, preferred_offsets)
+  bx, by, bw, bh = subject_bbox
+  cx = bx + bw / 2.0
+  cy = by + bh / 2.0
+
+  # Try preferred, then center as a fallback. `uniq` collapses the second
+  # pass when preferred IS [0.5, 0.5] (saliency / center cases).
+  [preferred_offsets, [0.5, 0.5]].uniq.each do |ofx, ofy|
+    max_side = [
+      image_w.to_f, image_h.to_f,
+      cx / ofx, (image_w - cx) / (1.0 - ofx),
+      cy / ofy, (image_h - cy) / (1.0 - ofy)
+    ].min
+
+    min_side = [
+      bw / (2.0 * ofx), bw / (2.0 * (1.0 - ofx)),
+      bh / (2.0 * ofy), bh / (2.0 * (1.0 - ofy))
+    ].max
+
+    next if max_side < [min_side, MIN_CROP_SIDE.to_f].max
+
+    side   = max_side.floor
+    crop_x = (cx - ofx * side).floor
+    crop_y = (cy - ofy * side).floor
+    return [crop_x, crop_y, side]
+  end
+
+  # Both placements infeasible — keep the largest square anchored at the
+  # preferred offset, clamped into the image. Bbox may be partially clipped;
+  # better than failing the whole sync over one stubborn image.
+  ofx, ofy = preferred_offsets
+  side  = [image_w, image_h].min.to_i
+  max_x = image_w - side
+  max_y = image_h - side
+  crop_x = (cx - ofx * side).clamp(0, max_x).floor
+  crop_y = (cy - ofy * side).clamp(0, max_y).floor
+  [crop_x, crop_y, side]
+end
+
+# Single ffmpeg pass: crop a `side`×`side` square at (crop_x, crop_y), then
+# scale to 1024×1024. `-q:v` is JPEG quality on the ffmpeg 2..31 scale
+# (2 = best). `-y` overwrites previous attempts so the quality ladder can
+# render multiple times into the same dest path before converging.
+# `-loglevel error` keeps stderr quiet on success.
+def render_square(src_path, crop_x, crop_y, side, dest_path, quality:)
+  vf = "crop=#{side}:#{side}:#{crop_x}:#{crop_y},scale=1024:1024"
+  shell_out(
+    "ffmpeg",
+    "-y",
+    "-loglevel", "error",
+    "-i", src_path,
+    "-vf", vf,
+    "-q:v", quality.to_s,
+    dest_path
+  )
+  File.size(dest_path)
+end
+
+# Replaces the previous sips-based pipeline. Pipeline:
+#   1. Stage raw_bytes into a tempfile with its source extension (auge and
+#      ffmpeg both sniff format from the path's extension).
+#   2. Read pixel dimensions.
+#   3. Try face → saliency → center anchor selection.
+#   4. Pick a `target_offset` matched to anchor type:
+#        face     → (side/2, side/3) — rule-of-thirds eye line for portraits
+#        saliency → (side/2, side/2) — center the salient region (no eye
+#                   semantics, so eye-line bias would be wrong)
+#        center   → (side/2, side/2) — degenerate symmetric case
+#   5. Compute crop origin (clamped to image bounds).
+#   6. Walk PHOTO_QUALITY_LADDER until size ≤ PHOTO_MAX_BYTES.
+#   7. Raise if even the worst quality overruns the budget — better to fail
+#      loudly than ship an oversized image.
+#
+# Output is always 1024×1024 JPEG with `.jpg` extension regardless of source.
+def resize_photo(raw_bytes, source_ext, dest_path)
+  target_ext = "jpg"
+  final_path = dest_path.sub(/\.[a-z]+\z/i, ".#{target_ext}")
+  FileUtils.mkdir_p(File.dirname(final_path))
+
   Tempfile.create(["comedian-src", ".#{source_ext}"]) do |src|
     src.binmode
     src.write(raw_bytes)
     src.flush
 
-    FileUtils.mkdir_p(File.dirname(final_path))
+    image_w, image_h = image_dimensions(src.path)
+
+    # Anchor selection: face → saliency → synthetic-center-bbox. The third
+    # is a zero-extent bbox at the image center so the same crop calculator
+    # handles all three cases uniformly.
+    subject_bbox = detect_face_bbox(src.path)
+    anchor_kind  = :face
+
+    if subject_bbox.nil?
+      subject_bbox = detect_saliency_bbox(src.path)
+      anchor_kind  = :saliency
+    end
+
+    if subject_bbox.nil?
+      subject_bbox = [image_w / 2.0, image_h / 2.0, 0.0, 0.0]
+      anchor_kind  = :center
+    end
+
+    bx, by, bw, bh = subject_bbox
+    log "    anchor: #{anchor_kind} bbox=(#{bx.round(1)},#{by.round(1)} #{bw.round(1)}×#{bh.round(1)}) " \
+        "in #{image_w}×#{image_h}"
+
+    # Face gets upper-third (classic portrait composition); saliency and
+    # center fallback get dead-center. compute_crop_origin will fall back to
+    # center automatically when the face is too big to fit at upper-third.
+    preferred_offsets =
+      case anchor_kind
+      when :face              then [0.5, 1.0 / 3.0]
+      when :saliency, :center then [0.5, 0.5]
+      end
+
+    crop_x, crop_y, side_actual = compute_crop_origin(image_w, image_h, subject_bbox, preferred_offsets)
+    log "    crop: side=#{side_actual} origin=(#{crop_x},#{crop_y})"
 
     converged = false
-
-    # Pass 1 — walk dimension down at the default (highest) quality.
-    quality = PHOTO_QUALITY_LADDER.first
-    dimension = PHOTO_START_DIMENSION
-    while dimension >= PHOTO_MIN_DIMENSION
-      shell_out(
-        "sips",
-        "-s", "format", target_format,
-        "-s", "formatOptions", quality.to_s,
-        "--resampleHeightWidthMax", dimension.to_s,
-        src.path,
-        "--out", final_path
-      )
-      size = File.size(final_path)
-      log "    sips pass: dim=#{dimension} q=#{quality} → #{(size / 1024.0).round(1)}KB"
+    PHOTO_QUALITY_LADDER.each do |q|
+      size = render_square(src.path, crop_x, crop_y, side_actual, final_path, quality: q)
+      log "    ffmpeg pass: q=#{q} → #{(size / 1024.0).round(1)}KB"
       if size <= PHOTO_MAX_BYTES
         converged = true
         break
-      end
-      dimension -= PHOTO_DIM_STEP
-    end
-
-    # Pass 2 — at the min dimension, walk quality down the ladder.
-    unless converged
-      PHOTO_QUALITY_LADDER.drop(1).each do |q|
-        shell_out(
-          "sips",
-          "-s", "format", target_format,
-          "-s", "formatOptions", q.to_s,
-          "--resampleHeightWidthMax", PHOTO_MIN_DIMENSION.to_s,
-          src.path,
-          "--out", final_path
-        )
-        size = File.size(final_path)
-        log "    sips pass: dim=#{PHOTO_MIN_DIMENSION} q=#{q} → #{(size / 1024.0).round(1)}KB"
-        if size <= PHOTO_MAX_BYTES
-          converged = true
-          break
-        end
       end
     end
 
     unless converged
       File.delete(final_path) if File.exist?(final_path)
       raise "could not shrink photo below #{PHOTO_MAX_BYTES} bytes " \
-            "(min dim=#{PHOTO_MIN_DIMENSION}, min quality=#{PHOTO_QUALITY_LADDER.last})"
+            "(min quality=#{PHOTO_QUALITY_LADDER.last})"
     end
   end
 
