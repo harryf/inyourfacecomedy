@@ -5,23 +5,30 @@ nav_title: Comedians
 title_override: "Comedians"
 subtitle: "The performers you'll see at IN YOUR FACE shows."
 description: "Meet the stand-up comedians who perform at IN YOUR FACE Comedy in Zürich. Bios, photos, and links to their socials."
-last_modified_at: 2026-05-29T22:50:07+00:00
+last_modified_at: 2026-05-29T23:00:21+00:00
 permalink: /comedians/
 image: "/assets/img/thumbs/inyourface_thumb.png"
 thumbnail: "assets/img/thumbs/inyourface_thumb.png"
 ---
 
 {% comment %}
-  Order: Priority High → Medium → Low → (unset/unknown), alphabetical within each
-  tier. `sort_natural` gives a case-insensitive A→Z base; `where` preserves that
-  order inside each tier; `concat` stitches the tiers in priority order. Comedians
-  with no/unknown `priority` fall through to `rest` so nobody is ever dropped.
+  Order: Priority High → Medium → Low → (unset/unknown), RANDOM within each tier,
+  re-shuffled on every build. `where` splits the tiers; `sample: <size>` shuffles
+  each one; `concat` stitches them in priority order. Comedians with no/unknown
+  `priority` fall through to `rest` so nobody is ever dropped.
+
+  The `size > 1` guard is load-bearing: Jekyll's `sample` filter returns a single
+  element (not an array) when asked for exactly 1, which would break the `concat`.
+  A 0- or 1-comedian tier has no order to randomize, so we leave it as-is.
 {% endcomment %}
-{% assign by_name = site.comedians | sort_natural: "title" %}
-{% assign high = by_name | where: "priority", "High" %}
-{% assign medium = by_name | where: "priority", "Medium" %}
-{% assign low = by_name | where: "priority", "Low" %}
-{% assign rest = by_name | where_exp: "c", "c.priority != 'High' and c.priority != 'Medium' and c.priority != 'Low'" %}
+{% assign high = site.comedians | where: "priority", "High" %}
+{% assign medium = site.comedians | where: "priority", "Medium" %}
+{% assign low = site.comedians | where: "priority", "Low" %}
+{% assign rest = site.comedians | where_exp: "c", "c.priority != 'High' and c.priority != 'Medium' and c.priority != 'Low'" %}
+{% if high.size > 1 %}{% assign high = high | sample: high.size %}{% endif %}
+{% if medium.size > 1 %}{% assign medium = medium | sample: medium.size %}{% endif %}
+{% if low.size > 1 %}{% assign low = low | sample: low.size %}{% endif %}
+{% if rest.size > 1 %}{% assign rest = rest | sample: rest.size %}{% endif %}
 {% assign comedians_sorted = high | concat: medium | concat: low | concat: rest %}
 
 {% if comedians_sorted.size > 0 %}
