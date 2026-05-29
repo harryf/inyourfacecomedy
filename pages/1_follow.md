@@ -81,7 +81,6 @@ thumbnail: "assets/img/thumbs/inyourface_thumb.png"
     <li><a href="{{ site.social.facebook }}" rel="noopener" target="_blank"><i class="fab fa-facebook" aria-hidden="true"></i> Facebook</a></li>
     <li><a href="{{ site.social.tiktok }}" rel="noopener" target="_blank"><i class="fab fa-tiktok" aria-hidden="true"></i> TikTok</a></li>
     <li><a href="{{ site.social.youtube }}" rel="noopener" target="_blank"><i class="fab fa-youtube" aria-hidden="true"></i> YouTube</a></li>
-    <li><a href="https://eventfrog.ch/en/organiser/inyourfacecomedy" rel="noopener" target="_blank"><i class="fas fa-ticket-alt" aria-hidden="true"></i> Eventfrog organiser</a></li>
   </ul>
 </section>
 
