@@ -34,6 +34,7 @@ require "optparse"
 
 POSTS_DIR = File.expand_path("../_posts", __dir__)
 PROJECT_ROOT = File.expand_path("..", __dir__)
+HOMEPAGE = File.expand_path("../index.html", __dir__)
 DEFAULT_DURATION_MIN = 150
 ZURICH_TZ_OFFSET = "+02:00"            # CEST. Wrong by 1h Oct-Mar; acceptable for now.
 USER_AGENT = "Mozilla/5.0 (compatible; IYF schema refresh)"
@@ -79,7 +80,7 @@ end
 def commit_and_push!(updated_count)
   return :no_changes if updated_count == 0
 
-  out, ok = git_run("add", "-A", "_posts")
+  out, ok = git_run("add", "-A", "_posts", "index.html")
   raise "git add failed: #{out}" unless ok
 
   _, no_staged = git_run("diff", "--quiet", "--staged")
@@ -327,6 +328,26 @@ def process_post(path, now, options)
   [:updated, msg]
 end
 
+# Bump the homepage's `last_modified_at` so its sitemap <lastmod> reflects the
+# fact that the front page now shows refreshed event dates. Called only when at
+# least one post actually rolled. Returns true if the file was changed.
+def update_homepage_timestamp(modified_at, options)
+  return false unless File.exist?(HOMEPAGE)
+  content = File.read(HOMEPAGE, encoding: "UTF-8")
+  parsed = split_post(content)
+  return false unless parsed
+
+  new_fm = yaml_set(parsed[:raw_fm], "last_modified_at", modified_at)
+  return false if new_fm == parsed[:raw_fm]
+
+  if options[:dry_run]
+    puts "    [would-write] homepage last_modified_at=#{modified_at}" if options[:verbose]
+  else
+    File.write(HOMEPAGE, "---\n#{new_fm}\n---\n#{parsed[:body]}")
+  end
+  true
+end
+
 # ---------- Main ----------
 
 begin
@@ -357,6 +378,13 @@ begin
   puts
   summary = "#{updated} post(s) updated. #{errors} error(s)."
   puts summary
+
+  # If any post rolled, the homepage now displays new event dates — bump its
+  # last_modified_at so the sitemap <lastmod> for "/" advances too.
+  if updated > 0 && errors == 0
+    modified_at = now.utc.strftime("%Y-%m-%dT%H:%M:%S+00:00")
+    puts "homepage: #{update_homepage_timestamp(modified_at, options) ? "bumped to #{modified_at}" : 'unchanged'}"
+  end
 
   # Run git ONLY if file refresh was clean. A parse error means we don't trust
   # the resulting tree and shouldn't push half-correct dates.
