@@ -50,7 +50,7 @@ end.parse!
 def load_dotenv
   env_file = File.join(PROJECT_ROOT, ".env")
   return unless File.exist?(env_file)
-  File.foreach(env_file) do |line|
+  File.foreach(env_file, encoding: "UTF-8") do |line|
     line = line.strip
     next if line.empty? || line.start_with?("#")
     key, _, value = line.partition("=")
@@ -271,7 +271,7 @@ end
 # ---------- Per-post processing ----------
 
 def process_post(path, now, options)
-  content = File.read(path)
+  content = File.read(path, encoding: "UTF-8")
   parsed = split_post(content)
   return [:skip, "no frontmatter"] unless parsed
 
