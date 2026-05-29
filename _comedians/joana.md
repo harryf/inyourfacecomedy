@@ -2,7 +2,7 @@
 layout: comedian
 title: "Joana"
 description: "Joana performs English stand-up comedy with IN YOUR FACE in Zürich, Switzerland."
-last_modified_at: "2026-05-29T20:33:11+00:00"
+last_modified_at: "2026-05-29T21:20:51+00:00"
 slug: "joana"
 photo: "/assets/img/comedians/joana.jpg"
 instagram: "https://instagram.com/joana_pido"
@@ -11,6 +11,7 @@ facebook_page: ""
 x: ""
 youtube_channel: ""
 website: ""
+priority: "Medium"
 image: "/assets/img/comedians/joana.jpg"
 bio: ""
 ---
