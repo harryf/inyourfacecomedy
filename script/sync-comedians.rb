@@ -40,9 +40,13 @@ TABLE  = "Comedians"
 # Grist exposes columns via snake_case IDs (Stage_Name, not "Stage Name") —
 # this list MUST use those IDs or the projection silently drops to "".
 PUBLIC_FIELDS = [
-  "Stage_Name", "Slug", "Bio",
+  "Stage_Name", "Slug", "Bio", "Priority",
   "Instagram", "TikTok", "Facebook_Page", "X", "Website", "YouTube_Channel"
 ].freeze
+
+# Priority tiers, lowest number = highest priority. Drives the /comedians/ page
+# ordering (High first). Anything not in this map sorts to the end of the page.
+PRIORITY_RANK = { "High" => 0, "Medium" => 1, "Low" => 2 }.freeze
 
 # Photo size budget. Output is a fixed 1024×1024 JPEG, so the budget is roomier
 # than the old sips-pipeline 95KB target — 200KB still keeps the gallery light
@@ -114,7 +118,10 @@ end
 # lines ignored. Existing ENV always wins (so cron-set vars override the file).
 def load_dotenv(path)
   return unless File.exist?(path)
-  File.foreach(path) do |raw|
+  # Force UTF-8: cron runs with a US-ASCII default external encoding, so reading
+  # a .env containing any non-ASCII byte raises Encoding::CompatibilityError on
+  # the first String op (e.g. #strip). Same fix as refresh-next-event-dates.rb.
+  File.foreach(path, encoding: "UTF-8") do |raw|
     line = raw.strip
     next if line.empty? || line.start_with?("#")
     key, _, value = line.partition("=")
@@ -487,7 +494,24 @@ LAST_MODIFIED_RE = /^last_modified_at:\s*.*\R?/.freeze
 
 def existing_last_modified_at(page_path)
   return nil unless File.exist?(page_path)
-  File.read(page_path)[/^last_modified_at:\s*(.+)$/, 1]&.strip&.gsub(/\A["']|["']\z/, "")
+  File.read(page_path, encoding: "UTF-8")[/^last_modified_at:\s*(.+)$/, 1]&.strip&.gsub(/\A["']|["']\z/, "")
+end
+
+# Grist encodes a Choice List cell as ["L", "High", ...]; a single Choice is a
+# bare string. Return the SINGLE highest-priority recognized label (High beats
+# Medium beats Low) so a multi-tagged comedian still surfaces at their best tier,
+# or nil when unset/unrecognized — nil lets the page sort drop them to the end.
+def extract_priority(cell)
+  values =
+    case cell
+    when Array  then cell.first == "L" ? cell.drop(1) : cell
+    when String then [cell]
+    else []
+    end
+  values
+    .map { |v| v.to_s.strip }
+    .select { |v| PRIORITY_RANK.key?(v) }
+    .min_by { |v| PRIORITY_RANK[v] }
 end
 
 def write_comedian_page(slug, fields, photo_web_path)
@@ -522,6 +546,12 @@ def write_comedian_page(slug, fields, photo_web_path)
     data_lines << "#{fm_key}: #{yaml_escape(fields[grist_field])}"
   end
 
+  # Priority drives /comedians/ ordering. Only emit the key when set so unranked
+  # comedians have no `priority` frontmatter (the page sorts them last). Part of
+  # data_lines, so a priority change participates in last_modified_at bumping.
+  priority = extract_priority(fields["Priority"])
+  data_lines << "priority: #{yaml_escape(priority)}" if priority
+
   data_lines << "image: #{yaml_escape(photo_web_path)}" unless photo_web_path.to_s.empty?
   data_lines << bio_block
   data_lines << "---"
@@ -531,7 +561,7 @@ def write_comedian_page(slug, fields, photo_web_path)
 
   # Decide the timestamp: preserve existing if data didn't change, else now.
   existing_lm    = existing_last_modified_at(page_path)
-  existing_data  = File.exist?(page_path) ? File.read(page_path).sub(LAST_MODIFIED_RE, "") : nil
+  existing_data  = File.exist?(page_path) ? File.read(page_path, encoding: "UTF-8").sub(LAST_MODIFIED_RE, "") : nil
   data_unchanged = existing_data == data_only_content && !existing_lm.nil?
 
   # Status surfaced to the caller — drives the index-page last_modified_at bump.
@@ -603,7 +633,7 @@ def bump_index_last_modified_at
     return
   end
 
-  content   = File.read(INDEX_PAGE)
+  content   = File.read(INDEX_PAGE, encoding: "UTF-8")
   timestamp = Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S+00:00")
   new_line  = "last_modified_at: #{timestamp}"
 
