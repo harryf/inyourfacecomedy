@@ -12,6 +12,15 @@
 // -----------------------------------------------------------------------------
 
 .iyf-comedian-profile {
+  // The theme is a float-based layout: the navbar (`.site-header`) and every
+  // content `article` are `float: left; width: 100%`, stacking as floats. This
+  // bespoke component inherits that bare `article` rule. We want normal-flow
+  // centering instead (`margin: auto`), so we drop the float — but then we must
+  // `clear: both` to land BELOW the floated navbar (otherwise it renders at the
+  // top, under the menu). `border-bottom: 0` removes the theme's stray divider.
+  float: none;
+  clear: both;
+  border-bottom: 0;
   max-width: 760px;
   margin: var(--space-7) auto var(--space-9);
   padding: 0 var(--space-5);
@@ -26,6 +35,7 @@
     @media (min-width: 768px) {
       flex-direction: row;
       align-items: center;
+      justify-content: center;
       text-align: left;
       gap: var(--space-6);
     }
@@ -78,12 +88,14 @@
   &__socials {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: var(--space-3);
     margin: var(--space-6) 0;
   }
 
   &__back {
     margin: var(--space-7) 0 0;
+    text-align: center;
     font-family: var(--font-body);
     font-size: var(--fs-base);
 
