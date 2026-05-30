@@ -56,10 +56,20 @@ thumbnail: "assets/img/thumbs/comedians_card.png"
 
 {% comment %}
   Client-side lineup / show-promo filtering. Share /comedians/ with query params to
-  show only a show's bill (and promote it):
-    ?lineup=harryf.cks,martinadoescomedy,joana            (flat, ordered)
-    ?host=harryf.cks&first=joana,nik&second=omar,zeina    (labelled sections)
-    &title=Pulp%20Non-Fiction&date=2026-06-14&tickets=https://...  (promo banner)
-  Jekyll ignores the query string; the script does all the work in the browser.
+  show only a show's bill and promote an EXISTING IYF show:
+    ?lineup=harryf.cks,martinadoescomedy,joana             (flat, ordered)
+    ?host=harryf.cks&first=joana,nik&second=omar,zeina     (labelled sections)
+    ?headliner=woocash&lineup=joana,nik,omar               (featured headliner + rest)
+    ?show=brexiles&headliner=woocash&first=joana,nik       (+ show-promo banner)
+  The promo banner (name, description, next date, ticket link, show page) is sourced
+  ONLY from the build-time catalog below — never from a user-supplied URL — so a
+  crafted link can only ever point at one of our own shows. Jekyll ignores the query
+  string; assets/js/comedian-lineup.js does all the work in the browser.
+
+  Catalog: every post with a ticket_url, projected to the fields the banner needs.
 {% endcomment %}
+{% assign iyf_shows = site.posts | where_exp: "p", "p.ticket_url" %}
+<script type="application/json" id="iyf-shows">
+[{% for s in iyf_shows %}{"slug":{{ s.url | remove: "/" | jsonify }},"title":{{ s.title | jsonify }},"desc":{{ s.description | jsonify }},"url":{{ s.url | jsonify }},"tickets":{{ s.ticket_url | jsonify }},"next":{% if s.next_event_date %}{{ s.next_event_date | date_to_xmlschema | jsonify }}{% else %}""{% endif %}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+</script>
 <script src="{{ '/assets/js/comedian-lineup.js' | relative_url }}" defer></script>

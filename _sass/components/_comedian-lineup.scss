@@ -41,9 +41,19 @@
   color: inherit;
 }
 
+.iyf-lineup-banner__desc {
+  margin: 0 auto 0.9rem;
+  max-width: 52ch;
+  font-family: var(--font-body, inherit);
+  font-size: var(--fs-md);
+  line-height: 1.45;
+  opacity: 0.95;
+}
+
 .iyf-lineup-banner__date {
   margin: 0 0 1.3rem;
   font-size: var(--fs-md);
+  font-weight: 600;
   opacity: 0.92;
 }
 
@@ -72,4 +82,29 @@
   font-size: clamp(1.25rem, 3vw, 1.85rem);
   color: var(--ink-on-cream);
   border-bottom: 3px solid var(--show-accent, var(--brand-red));
+}
+
+// --- headliner: fewer, larger cards, centred --------------------------------
+// The headliner grid drops to 1 column (2 for co-headliners on wider screens),
+// so the same .iyf-comedian-card renders bigger — the photo and name scale with
+// the cell. Centred and width-capped so a lone headliner doesn't stretch full-bleed.
+.iyf-comedian-grid--headliner {
+  grid-template-columns: 1fr;
+  max-width: 360px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr;   // single headliner stays one big centred card
+  }
+
+  // Co-headliners (2+ cards) sit side by side on wider screens.
+  &:not(:has(> :only-child)) {
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 720px;
+    }
+  }
+
+  .iyf-comedian-card__name {
+    font-size: clamp(var(--fs-md), 2.5vw, var(--fs-lg, 1.5rem));
+  }
 }
