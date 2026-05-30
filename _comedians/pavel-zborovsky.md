@@ -1,8 +1,8 @@
 ---
 layout: comedian
-title: "Pavel Zborovsky"
-description: "Pavel Zborovsky performs English stand-up comedy with IN YOUR FACE in Zürich, Switzerland."
-last_modified_at: "2026-05-29T21:21:13+00:00"
+title: "Pavel Zborik"
+description: "Pavel Zborik grew up in Russia and Germany and moved to Switzerland to work in the laundry business (mostly wealth management). Between 3 managers, 2 cats and a wife, he’s only left with the stage to…"
+last_modified_at: "2026-05-30T10:14:06+00:00"
 slug: "pavel-zborovsky"
 photo: "/assets/img/comedians/pavel-zborovsky.jpg"
 instagram: "https://instagram.com/pavelcomedy"
@@ -13,6 +13,10 @@ youtube_channel: ""
 website: "https://linktr.ee/pavelcomedy"
 priority: "Medium"
 image: "/assets/img/comedians/pavel-zborovsky.jpg"
-bio: ""
+bio: |
+  Pavel Zborik grew up in Russia and Germany and moved to Switzerland to work in the laundry business (mostly wealth management).
+  Between 3 managers, 2 cats and a wife, he’s only left with the stage to get a word in.
+  Pavel stand-up is a tapestry of anecdotes and contemplations on culture, marriage and raising cats in his Jewish faith.
+  Pavel’s been mistaken for Mark Zuckerberg 19 times this month.
 ---
 
