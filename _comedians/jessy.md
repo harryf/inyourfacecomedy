@@ -1,18 +1,20 @@
 ---
 layout: comedian
 title: "Jessy"
-description: "Jessy performs English stand-up comedy with IN YOUR FACE in Zürich, Switzerland."
-last_modified_at: "2026-05-30T11:41:12+00:00"
+description: "Real Life Stories Humor is a Ventil for not getting insane and Stand up is my therapy"
+last_modified_at: "2026-05-30T11:45:01+00:00"
 slug: "jessy"
 photo: "/assets/img/comedians/jessy.jpg"
-instagram: ""
-tiktok: ""
+instagram: "https://instagram.com/jess.man1981"
+tiktok: "https://tiktok.com/@jessman_1981"
 facebook_page: ""
 x: ""
 youtube_channel: ""
 website: ""
 priority: "Low"
 image: "/assets/img/comedians/jessy.jpg"
-bio: ""
+bio: |
+  Real Life Stories
+  Humor is a Ventil for not getting insane and Stand up is my therapy
 ---
 
