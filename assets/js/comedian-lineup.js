@@ -11,6 +11,12 @@
  *                               embedded #iyf-shows catalog). Anti-spam by construction:
  *                               title, next date, ticket link, show page and feature image
  *                               all come from curated site data — never user input.
+ *    thankyou                   after-show mode (pair with show=). The hero styling is
+ *                               unchanged; only the lead-in copy and the two buttons swap:
+ *                               button 1 (btn-ticket--xl) becomes a follow/review CTA that
+ *                               scrolls to the site footer, button 2 (btn-ghost--on-dark)
+ *                               becomes "More Shows" → homepage. Treated as on when present
+ *                               unless its value is 0/false/no/off.
  *    headliner=slug[,slug]      featured comedian(s), shown first and larger
  *    lineup=slug,slug           flat ordered subset (no section label on its own)
  *    host=slug[,slug]           } structured bill: "Host" / "First Half" / "Second Half",
@@ -42,6 +48,9 @@
   }
 
   var showSlug = (params.get('show') || '').trim();
+  // After-show mode: on when the param is present, unless explicitly disabled.
+  var thankyou = params.has('thankyou') &&
+    !/^(0|false|no|off)$/i.test((params.get('thankyou') || '').trim());
   var headliner = list('headliner');
   var lineup = list('lineup');
   var host = list('host');
@@ -113,6 +122,14 @@
       secondary: parts.length > 1 ? parts.slice(1).join(' · ') : ''
     };
   }
+  // Smoothly scroll to the site footer (where follow links + reviews live).
+  function scrollToFooter(e) {
+    var footer = document.getElementById('footer');
+    if (!footer) return;                  // no footer → let the #footer anchor do its thing
+    if (e && e.preventDefault) e.preventDefault();
+    try { footer.scrollIntoView({ behavior: 'smooth' }); }
+    catch (err) { footer.scrollIntoView(); }
+  }
 
   // --- transform the page's own #main hero into the show hero -----------------
   if (show) {
@@ -152,22 +169,38 @@
 
       var actions = document.createElement('div');
       actions.className = 'iyf-hero__actions';
-      var ticketHref = safeUrl(show.tickets);
-      if (ticketHref) {
-        var buy = document.createElement('a');
-        buy.className = 'btn-ticket btn-ticket--xl';
-        buy.href = ticketHref;
-        buy.target = '_blank';
-        buy.rel = 'noopener noreferrer';
-        buy.textContent = 'Get Tickets';
-        actions.appendChild(buy);
-      }
-      if (show.url) {
-        var more = document.createElement('a');
-        more.className = 'btn-ghost btn-ghost--on-dark';
-        more.href = show.url;                 // internal show page — same origin
-        more.textContent = 'About this show';
-        actions.appendChild(more);
+      if (thankyou) {
+        // After-show: same hero styling, but the CTAs point at "stay connected".
+        var follow = document.createElement('a');
+        follow.className = 'btn-ticket btn-ticket--xl';
+        follow.href = '#footer';
+        follow.textContent = 'Follow us & drop a review';
+        follow.addEventListener('click', scrollToFooter);
+        actions.appendChild(follow);
+
+        var moreShows = document.createElement('a');
+        moreShows.className = 'btn-ghost btn-ghost--on-dark';
+        moreShows.href = '/';                  // homepage — same origin
+        moreShows.textContent = 'More Shows';
+        actions.appendChild(moreShows);
+      } else {
+        var ticketHref = safeUrl(show.tickets);
+        if (ticketHref) {
+          var buy = document.createElement('a');
+          buy.className = 'btn-ticket btn-ticket--xl';
+          buy.href = ticketHref;
+          buy.target = '_blank';
+          buy.rel = 'noopener noreferrer';
+          buy.textContent = 'Get Tickets';
+          actions.appendChild(buy);
+        }
+        if (show.url) {
+          var more = document.createElement('a');
+          more.className = 'btn-ghost btn-ghost--on-dark';
+          more.href = show.url;                 // internal show page — same origin
+          more.textContent = 'About this show';
+          actions.appendChild(more);
+        }
       }
       if (actions.childNodes.length) hero.appendChild(actions);
     }
@@ -199,7 +232,7 @@
   if (show) {
     var leadin = document.createElement('h2');
     leadin.className = 'iyf-lineup-leadin';
-    leadin.textContent = "Who's on the show?";
+    leadin.textContent = thankyou ? 'Go give your favourites a follow' : "Who's on the show?";
     fragment.appendChild(leadin);
   }
 
