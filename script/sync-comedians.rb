@@ -35,6 +35,17 @@ require "tempfile"
 require "open3"
 require "time"   # Time#iso8601
 
+# Cron runs with a minimal PATH (typically /usr/bin:/bin), which omits Homebrew.
+# `auge` and `ffmpeg` live in /opt/homebrew/bin, so under cron they were not
+# found and EVERY photo failed with "No such file or directory - auge/ffmpeg".
+# Prepend the usual Homebrew/local bin dirs (when they exist) so the external
+# tools resolve no matter how the script is launched. Idempotent.
+%w[/opt/homebrew/bin /opt/homebrew/sbin /usr/local/bin].each do |dir|
+  next unless Dir.exist?(dir)
+  parts = ENV["PATH"].to_s.split(File::PATH_SEPARATOR)
+  ENV["PATH"] = ([dir] + parts).join(File::PATH_SEPARATOR) unless parts.include?(dir)
+end
+
 # -----------------------------------------------------------------------------
 # Configuration — keep in sync with grist_api_example.py
 # -----------------------------------------------------------------------------
@@ -83,6 +94,12 @@ CONTENT_TYPE_EXT = {
   "image/webp" => "webp",
   "image/gif"  => "gif"
 }.freeze
+
+# auge (Apple Vision) accepts PNG/JPEG/TIFF/BMP/GIF/HEIC but NOT webp — webp
+# headshots threw "Unsupported image format" and silently fell back to a
+# dead-center crop. For these we transcode a PNG copy purely for analysis
+# (ffmpeg still crops the original). Lower-cased extensions.
+AUGE_INCOMPATIBLE_EXTS = %w[webp].freeze
 
 # Front-matter key mapping: Grist column ID → Jekyll key. Lowercased so Liquid
 # templates can read e.g. `page.facebook_page` cleanly.
@@ -187,6 +204,28 @@ def shell_out(*cmd)
   out, status = Open3.capture2e(*cmd)
   raise "command failed (#{cmd.inspect}): #{out}" unless status.success?
   out
+end
+
+# Is an executable named `name` resolvable on the current PATH?
+def tool_on_path?(name)
+  ENV["PATH"].to_s.split(File::PATH_SEPARATOR).any? do |dir|
+    exe = File.join(dir, name)
+    File.file?(exe) && File.executable?(exe)
+  end
+end
+
+# Verify the photo pipeline's external CLIs are reachable BEFORE we start.
+# Without this, a missing binary (the cron-PATH bug) makes every photo "fail"
+# while preserve-on-failure quietly keeps the old image — so the run looks
+# successful while doing nothing. ffmpeg + sips are hard requirements; auge
+# (face detection) is optional and degrades to a center crop, so its absence
+# is a one-line warning, not a fatal error.
+def assert_external_tools!
+  missing = %w[ffmpeg sips].reject { |t| tool_on_path?(t) }
+  unless missing.empty?
+    raise "required tool(s) not on PATH: #{missing.join(', ')} — PATH=#{ENV['PATH']}"
+  end
+  warn "  ! auge not on PATH — face detection disabled, using center crops" unless tool_on_path?("auge")
 end
 
 # Read pixel dimensions via macOS `sips` in a single call. sips outputs both
@@ -406,16 +445,33 @@ def resize_photo(raw_bytes, source_ext, dest_path)
     src.write(raw_bytes)
     src.flush
 
-    image_w, image_h = image_dimensions(src.path)
+    # auge can't read webp; hand it a PNG transcode for the analysis steps
+    # only. ffmpeg still crops the ORIGINAL src.path below (it reads webp fine),
+    # and the PNG has identical pixel dimensions so the crop math is unchanged.
+    analysis_path = src.path
+    transcoded    = nil
+    if AUGE_INCOMPATIBLE_EXTS.include?(source_ext.downcase)
+      transcoded = "#{src.path}.analysis.png"
+      begin
+        shell_out("ffmpeg", "-y", "-loglevel", "error", "-i", src.path, transcoded)
+        analysis_path = transcoded
+      rescue => e
+        warn "    could not transcode #{source_ext} for analysis (#{e.message}) — center crop"
+        transcoded = nil
+      end
+    end
+
+  begin
+    image_w, image_h = image_dimensions(analysis_path)
 
     # Anchor selection: face → saliency → synthetic-center-bbox. The third
     # is a zero-extent bbox at the image center so the same crop calculator
     # handles all three cases uniformly.
-    subject_bbox = detect_face_bbox(src.path)
+    subject_bbox = detect_face_bbox(analysis_path)
     anchor_kind  = :face
 
     if subject_bbox.nil?
-      subject_bbox = detect_saliency_bbox(src.path)
+      subject_bbox = detect_saliency_bbox(analysis_path)
       anchor_kind  = :saliency
     end
 
@@ -455,6 +511,9 @@ def resize_photo(raw_bytes, source_ext, dest_path)
       raise "could not shrink photo below #{PHOTO_MAX_BYTES} bytes " \
             "(min quality=#{PHOTO_QUALITY_LADDER.last})"
     end
+  ensure
+    File.delete(transcoded) if transcoded && File.exist?(transcoded)
+  end
   end
 
   final_path
@@ -821,6 +880,7 @@ def comedian_data_sig(fields)
 end
 
 def main
+  assert_external_tools!
   log "Fetching Comedians from Grist (doc=#{DOC_ID}, table=#{TABLE})..."
   records = fetch_records
 
