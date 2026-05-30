@@ -20,3 +20,7 @@ jobs:
 
       - name: Build site
         run: bundle exec jekyll build --future
+
+      - name: Health check (build output invariants + html-proofer)
+        run: ruby script/check-site.rb --no-build
+        timeout-minutes: 5

@@ -5,6 +5,21 @@ Standalone Ruby scripts that run alongside the Jekyll site. Ruby matches Jekyll'
 | Script | Purpose | Cadence |
 |---|---|---|
 | `refresh-next-event-dates.rb` | Scrape each show's Eventfrog page, write the next upcoming event's start/end into the post's front-matter. | Daily via cron |
+| `check-site.rb` | Post-build health smoke test: asserts build, page presence, sitemap, SEO/analytics, Event JSON-LD, promo + Lineup catalogs, script/data health, and link integrity. | On every push/PR (CI) + before release |
+
+## `check-site.rb`
+
+One command that asserts the invariants keeping the site working as it grows. Sources of truth are **derived** (shows = `_posts/*.md` with a `ticket_url`; comedians = `_comedians/*.md`), so adding a show or comedian needs no edit here.
+
+```bash
+ruby script/check-site.rb              # build the site, then run all checks
+ruby script/check-site.rb --no-build   # check the existing _site/ as-is (fast)
+ruby script/check-site.rb --no-proofer # skip the html-proofer link/image pass
+```
+
+Exit `0` = all checks passed; exit `1` = at least one failure (each is printed with a reason). It wires up `html-proofer` (already in the Gemfile) for internal-link + image integrity, ignoring third-party analytics/tracking endpoints. Wired into `.github/workflows/jekyll-build.yml` so every push/PR fails fast on a regression.
+
+**Covers:** build is clean · every show + comedian + core page built · sitemap lists the right URLs and excludes `noindex` pages · GA/GTM/Clarity/Pixel tags present · Event JSON-LD valid with `startDate`/`offers`/`location` · `/comedians/` promo + Lineup Maker 2000 catalogs are valid JSON · scripts pass `ruby -c` · no past-dated active show · canonical/OG present · no money page accidentally `noindex` · no site-wide `Disallow: /`.
 
 ## `refresh-next-event-dates.rb`
 

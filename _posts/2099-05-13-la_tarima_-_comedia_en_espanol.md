@@ -15,8 +15,6 @@ venue_slug: monroe
 next_event_date: 2026-06-04T20:00:00+02:00
 next_event_end_date: 2026-06-04T22:30:00+02:00
 ---
-![]()
-
 ![La Tarima - Comedia en Español](/assets/img/uploads/last_one.png "La Tarima - Comedia en Español")
 
 **La Tarima** es un open mic de comedia **100% en español**, que se celebra una vez al mes en **Zúrich y Basilea**, y se ha convertido en un punto de encuentro para la comunidad latina en Suiza.
