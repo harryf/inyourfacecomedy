@@ -6,11 +6,11 @@ permalink: /lineup/
 noindex: true
 sitemap: false
 hide: true
-description: "Internal tool for IN YOUR FACE show organizers to build and share a show lineup."
+description: "Power Tool for IN YOUR FACE show organizers to build and share a show lineup."
 ---
 
 {% comment %}
-  Lineup Lab — a URL-state power tool for show organizers. No auth, no storage: the entire
+  Lineup Maker 2000 — a URL-state power tool for show organizers. No auth, no storage: the entire
   state of a lineup lives in the query string, using the SAME scheme as the /comedians/
   show-promo links (show / headliner / host / first / second / lineup / thankyou) plus two
   helper params (type, stage). assets/js/lineup-lab.js does everything in the browser.
