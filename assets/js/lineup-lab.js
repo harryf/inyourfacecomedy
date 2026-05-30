@@ -56,6 +56,16 @@
     arr.forEach(function (s) { var c = findComedian(s); if (c && !seen[norm(c.slug)]) { seen[norm(c.slug)] = 1; out.push(c.slug); } });
     return out;
   }
+  // Slug-membership test that's tolerant of separator differences (harryf.cks == harryf-cks).
+  function hasNorm(arr, slug) {
+    var k = norm(slug);
+    for (var i = 0; i < arr.length; i++) { if (norm(arr[i]) === k) return true; }
+    return false;
+  }
+  function dropNorm(arr, slug) {
+    var k = norm(slug);
+    return arr.filter(function (s) { return norm(s) !== k; });
+  }
 
   function showDate(iso) {
     if (!iso) return '';
@@ -78,7 +88,7 @@
     show: (params.get('show') || '').trim(),
     type: (params.get('type') || '').trim().toLowerCase(),
     host: (params.get('host') || '').trim(),
-    headliner: (params.get('headliner') || '').trim(),
+    headliner: listParam('headliner'),
     lineup: listParam('lineup'),
     first: listParam('first'),
     second: listParam('second'),
@@ -114,7 +124,7 @@
     if (st.show) parts.push('show=' + enc(st.show));
     if (st.type) parts.push('type=' + enc(st.type));
     if (st.host) parts.push('host=' + enc(st.host));
-    if (st.headliner) parts.push('headliner=' + enc(st.headliner));
+    if (st.headliner.length) parts.push('headliner=' + st.headliner.map(enc).join(','));
     parts = parts.concat(billParts(st));
     if (stage) parts.push('stage=' + enc(stage));
     return parts.join('&');
@@ -122,7 +132,7 @@
   function promoQuery(st) {
     var parts = [];
     if (st.show) parts.push('show=' + enc(st.show));
-    if (st.headliner) parts.push('headliner=' + enc(st.headliner));
+    if (st.headliner.length) parts.push('headliner=' + st.headliner.map(enc).join(','));
     if (st.host) parts.push('host=' + enc(st.host));
     parts = parts.concat(billParts(st));
     return parts.join('&');
@@ -148,7 +158,7 @@
     var n = 0;
     function actLine(slug) {
       n++;
-      var extra = (norm(slug) === norm(st.headliner)) ? ' ⭐ (headliner)' : '';
+      var extra = hasNorm(st.headliner, slug) ? ' ⭐ (headliner)' : '';
       return n + '. ' + nameOf(slug) + extra;
     }
     if (st.type === 'split') {
@@ -286,6 +296,7 @@
 
     var initial = state.type === 'split' ? state.first.concat(state.second) : state.lineup.slice();
     if (state.host && initial.indexOf(state.host) < 0) initial.unshift(state.host);
+    state.headliner.forEach(function (h) { if (initial.indexOf(h) < 0) initial.unshift(h); });
     var selected = resolveSlugs(initial);
 
     var search = el('input', 'lineup-lab__search');
@@ -349,12 +360,12 @@
       if (!selected.length) return;
       // Resolve to CANONICAL slugs before comparing - a hand-built link may carry a host/
       // headliner in a different separator form (harryf.cks vs harryf-cks); compare like-for-like.
-      var ch = canonical(state.host), chl = canonical(state.headliner);
+      var ch = canonical(state.host);
       var st = {
         show: state.show,
         type: state.type === 'split' ? 'split' : 'flat',
         host: (ch && selected.indexOf(ch) >= 0) ? ch : '',
-        headliner: (chl && selected.indexOf(chl) >= 0) ? chl : '',
+        headliner: resolveSlugs(state.headliner).filter(function (s) { return selected.indexOf(s) >= 0; }),
         lineup: [], first: [], second: []
       };
       if (st.type === 'split') st.first = selected.slice();
@@ -376,7 +387,7 @@
     // re-slugged, they're dropped (anti-spam) - but say so rather than quietly shrinking the bill.
     var requested = (state.type === 'split' ? state.first.concat(state.second) : state.lineup.slice());
     if (state.host) requested.push(state.host);
-    if (state.headliner && requested.indexOf(state.headliner) < 0) requested.push(state.headliner);
+    state.headliner.forEach(function (h) { if (requested.indexOf(h) < 0) requested.push(h); });
     var dropped = requested.filter(function (s) { return !findComedian(s); }).length;
     if (dropped > 0) {
       root.appendChild(el('p', 'lineup-lab__notice',
@@ -396,7 +407,7 @@
     var work = {
       type: state.type,
       host: canonical(state.host) || '',
-      headliner: canonical(state.headliner) || '',
+      headliner: resolveSlugs(state.headliner),   // 0+ headliners (co-headliners allowed)
       order: order
     };
     // The host lives in its own slot, never in the numbered order.
@@ -412,7 +423,7 @@
     }
 
     function workToState() {
-      var st = { show: state.show, type: work.type, host: work.host, headliner: work.headliner, lineup: [], first: [], second: [] };
+      var st = { show: state.show, type: work.type, host: work.host, headliner: [], lineup: [], first: [], second: [] };
       if (work.type === 'split') {
         var afterInterval = false;
         work.order.forEach(function (t) {
@@ -422,11 +433,9 @@
       } else {
         work.order.forEach(function (t) { if (t !== INTERVAL) st.lineup.push(t); });
       }
-      // Never emit a headliner who isn't actually on the running order (e.g. after removal).
+      // Only keep headliners who are actually on the running order (drop any since removed).
       var bill = st.lineup.concat(st.first, st.second);
-      var inBill = false;
-      for (var i = 0; i < bill.length; i++) { if (norm(bill[i]) === norm(st.headliner)) { inBill = true; break; } }
-      if (st.headliner && !inBill) st.headliner = '';
+      st.headliner = work.headliner.filter(function (s) { return hasNorm(bill, s); });
       return st;
     }
 
@@ -466,15 +475,17 @@
       work.order = work.order.filter(function (t) { return t === INTERVAL || norm(t) !== norm(token); });
       if (work.host) work.order.unshift(work.host);
       work.host = token;
-      if (norm(work.headliner) === norm(token)) work.headliner = '';
+      work.headliner = dropNorm(work.headliner, token); // the MC isn't a headliner in the order
       rerender();
     }
 
     function buildRow(token, idx) {
       if (token === INTERVAL) {
         var iv = el('li', 'lineup-lab__row lineup-lab__interval');
-        iv.appendChild(el('span', 'lineup-lab__handle', '⠇'));
-        iv.appendChild(el('span', 'lineup-lab__interval-label', 'BREAK'));
+        var ivMain = el('div', 'lineup-lab__row-main');
+        ivMain.appendChild(el('span', 'lineup-lab__handle', '⠇'));
+        ivMain.appendChild(el('span', 'lineup-lab__interval-label', 'BREAK'));
+        iv.appendChild(ivMain);
         var ic = el('div', 'lineup-lab__row-ctrls');
         var iu = button('lineup-lab__move', '↑'); iu.setAttribute('aria-label', 'Move break up'); iu.addEventListener('click', function () { move(idx, -1); });
         var idn = button('lineup-lab__move', '↓'); idn.setAttribute('aria-label', 'Move break down'); idn.addEventListener('click', function () { move(idx, 1); });
@@ -485,34 +496,45 @@
       }
       var row = el('li', 'lineup-lab__row');
       row.setAttribute('data-slug', token);
-      row.appendChild(el('span', 'lineup-lab__handle', '⠇'));
-      row.appendChild(el('span', 'lineup-lab__pos', String(runningNumber(idx))));
-      var nm = el('span', 'lineup-lab__name', nameOf(token));
-      if (norm(token) === norm(work.headliner)) nm.appendChild(el('span', 'lineup-lab__star', ' ⭐'));
-      row.appendChild(nm);
+
+      // Main line: drag handle + running number + the name (the name IS the profile link).
+      var main = el('div', 'lineup-lab__row-main');
+      main.appendChild(el('span', 'lineup-lab__handle', '⠇'));
+      main.appendChild(el('span', 'lineup-lab__pos', String(runningNumber(idx))));
       var u = urlOf(token);
-      if (u) {
-        var a = el('a', 'lineup-lab__profile', '↗');
-        a.href = u; a.target = '_blank'; a.rel = 'noopener';
-        a.setAttribute('aria-label', 'Open ' + nameOf(token) + ' profile');
-        row.appendChild(a);
-      }
+      var nm = el(u ? 'a' : 'span', 'lineup-lab__name', nameOf(token));
+      if (u) { nm.href = u; nm.target = '_blank'; nm.rel = 'noopener'; nm.setAttribute('aria-label', 'Open ' + nameOf(token) + ' profile'); }
+      if (hasNorm(work.headliner, token)) nm.appendChild(el('span', 'lineup-lab__star', ' ⭐'));
+      main.appendChild(nm);
+      row.appendChild(main);
+
+      // Controls line: move up/down, host (🎤), headliner (⭐), remove (✕) - all compact icons.
       var ctr = el('div', 'lineup-lab__row-ctrls');
       var up = button('lineup-lab__move', '↑'); up.setAttribute('aria-label', 'Move up'); up.addEventListener('click', function () { move(idx, -1); });
       var dn = button('lineup-lab__move', '↓'); dn.setAttribute('aria-label', 'Move down'); dn.addEventListener('click', function () { move(idx, 1); });
       ctr.appendChild(up); ctr.appendChild(dn);
-      var hb = button('lineup-lab__tag' + (norm(token) === norm(work.host) ? ' is-on' : ''), 'Host');
-      hb.setAttribute('aria-pressed', norm(token) === norm(work.host) ? 'true' : 'false');
+      var isHost = norm(token) === norm(work.host);
+      var hb = button('lineup-lab__tag lineup-lab__tag--icon' + (isHost ? ' is-on' : ''), '🎤');
+      hb.setAttribute('aria-pressed', isHost ? 'true' : 'false');
+      hb.setAttribute('aria-label', isHost ? 'Unset host' : 'Set as host');
+      hb.title = 'Host (MC)';
       hb.addEventListener('click', function () { setHost(token); });
       ctr.appendChild(hb);
-      var hl = button('lineup-lab__tag' + (norm(token) === norm(work.headliner) ? ' is-on' : ''), 'Headliner');
-      hl.setAttribute('aria-pressed', norm(token) === norm(work.headliner) ? 'true' : 'false');
-      hl.addEventListener('click', function () { work.headliner = (norm(work.headliner) === norm(token)) ? '' : token; rerender(); });
+      var isHl = hasNorm(work.headliner, token);
+      var hl = button('lineup-lab__tag lineup-lab__tag--icon' + (isHl ? ' is-on' : ''), '⭐');
+      hl.setAttribute('aria-pressed', isHl ? 'true' : 'false');
+      hl.setAttribute('aria-label', isHl ? 'Unset headliner' : 'Set as headliner');
+      hl.title = 'Headliner';
+      hl.addEventListener('click', function () {
+        work.headliner = hasNorm(work.headliner, token) ? dropNorm(work.headliner, token) : work.headliner.concat(token);
+        rerender();
+      });
       ctr.appendChild(hl);
-      var rm = button('lineup-lab__tag lineup-lab__tag--rm', '✕');
+      var rm = button('lineup-lab__tag lineup-lab__tag--icon lineup-lab__tag--rm', '✕');
       rm.setAttribute('aria-label', 'Remove ' + nameOf(token));
+      rm.title = 'Remove';
       rm.addEventListener('click', function () {
-        if (norm(token) === norm(work.headliner)) work.headliner = '';
+        work.headliner = dropNorm(work.headliner, token);
         work.order.splice(idx, 1);
         rerender();
       });
@@ -609,6 +631,10 @@
       dynamic.textContent = '';
       dynamic.appendChild(buildFormatToggle());
       dynamic.appendChild(buildHostSlot());
+      var legend = el('p', 'lineup-lab__legend');
+      legend.appendChild(el('span', 'lineup-lab__legend-item', '🎤 = Host (the MC)'));
+      legend.appendChild(el('span', 'lineup-lab__legend-item', '⭐ = Headliner (you can star more than one)'));
+      dynamic.appendChild(legend);
       dynamic.appendChild(buildList());
       var updateRow = el('div', 'lineup-lab__actions');
       // Back must preserve in-progress edits (host/headliner/removals) just like Update does.

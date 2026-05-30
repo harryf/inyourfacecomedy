@@ -87,12 +87,15 @@
   // --- generic action rows ---------------------------------------------------
   &__actions {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: var(--space-3);
     align-items: center;
     margin-top: var(--space-5);
 
-    .btn-ticket { margin-left: auto; }
+    .lineup-lab__back { flex: 0 0 auto; }
+    // Keep the primary action beside Back on mobile (the global .btn-ticket is full-width,
+    // which would otherwise push it onto its own line below Back).
+    .btn-ticket { width: auto; flex: 1 1 auto; min-width: 0; margin-left: auto; }
   }
   // Pinned action bar for the long comedian-pick list, so Back/Continue stay reachable.
   &__actions--sticky {
@@ -269,23 +272,44 @@
     font-weight: 700;
   }
 
+  // Tiny key explaining the row icons.
+  &__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-4);
+    margin: 0 0 var(--space-3);
+    color: var(--muted);
+    font-size: var(--fs-sm);
+  }
+  &__legend-item { white-space: nowrap; }
+
   &__rows { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+  // Mobile: two lines - name on top (full width, never chopped), the five controls in one
+  // row below. Desktop (>=768px): a single line, since there's room.
   &__row {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
     gap: var(--space-2);
     padding: var(--space-2) var(--space-3);
     background-color: var(--surface-elev);
     border: 2px solid var(--border-soft);
     border-radius: var(--radius-md);
     &.is-dragging { opacity: 0.5; }
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: center;
+    }
   }
-  &__interval {
-    background-color: transparent;
-    border-style: dashed;
-    border-color: var(--brand-yellow-hot);
-    justify-content: center;
+  &__row-main {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-width: 0;
+    flex: 1 1 auto;
   }
+  &__interval { background-color: transparent; border-style: dashed; border-color: var(--brand-yellow-hot); }
   &__interval-label {
     font-family: var(--font-display);
     text-transform: uppercase;
@@ -294,7 +318,7 @@
     font-size: var(--fs-sm);
     margin-right: auto;
   }
-  &__handle { cursor: grab; color: var(--muted); font-size: 1.2em; touch-action: none; user-select: none; }
+  &__handle { cursor: grab; color: var(--muted); font-size: 1.2em; touch-action: none; user-select: none; flex: 0 0 auto; }
   &__pos {
     flex: 0 0 auto;
     min-width: 1.8em;
@@ -308,20 +332,24 @@
     font-family: var(--font-display);
     font-size: var(--fs-sm);
   }
-  &__name { flex: 1 1 auto; font-size: var(--fs-base); font-weight: 600; min-width: 0; }
-  &__star { color: var(--brand-yellow-hot); }
-  &__profile {
-    flex: 0 0 auto;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--touch-min);
-    height: var(--touch-min);
-    color: var(--link);
+  // The name is the profile link - no separate arrow button needed.
+  &__name {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: var(--fs-base);
+    font-weight: 600;
+    color: var(--ink-on-cream);
     text-decoration: none;
-    font-size: 1.1em;
+    &:hover { text-decoration: underline; }
   }
-  &__row-ctrls { display: flex; flex-wrap: wrap; gap: var(--space-1); justify-content: flex-end; }
+  &__star { color: var(--brand-yellow-hot); }
+  &__row-ctrls {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--space-1);
+    justify-content: flex-end;
+    flex: 0 0 auto;
+  }
   &__move,
   &__tag {
     min-width: var(--touch-min);
@@ -340,6 +368,8 @@
     &:hover { border-color: var(--brand-red); }
     &.is-on { background-color: var(--brand-red); border-color: var(--brand-red); color: var(--brand-cream); }
   }
+  // Host (🎤) / headliner (⭐) / remove (✕) as compact square icon buttons.
+  &__tag--icon { padding: 0; min-width: var(--touch-min); font-size: var(--fs-md); line-height: 1; }
   &__tag--rm { color: var(--muted); &:hover { border-color: var(--danger); color: var(--danger); } }
 
   // --- outputs ---------------------------------------------------------------
