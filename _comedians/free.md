@@ -1,8 +1,8 @@
 ---
 layout: comedian
-title: "Free"
-description: "Free performs English stand-up comedy with IN YOUR FACE in Zürich, Switzerland."
-last_modified_at: "2026-05-29T22:34:09+00:00"
+title: "Free Chamizo"
+description: "I only wanted to have a podcast. But here we are, doing dick jokes and stuff."
+last_modified_at: "2026-05-30T16:15:02+00:00"
 slug: "free"
 photo: "/assets/img/comedians/free.jpg"
 instagram: "https://instagram.com/freechc"
@@ -13,6 +13,7 @@ youtube_channel: ""
 website: ""
 priority: "Medium"
 image: "/assets/img/comedians/free.jpg"
-bio: ""
+bio: |
+  I only wanted to have a podcast. But here we are, doing dick jokes and stuff.
 ---
 
