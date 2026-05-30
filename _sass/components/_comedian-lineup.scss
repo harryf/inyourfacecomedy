@@ -1,0 +1,75 @@
+// =============================================================================
+// Comedian lineup / show-promo banner — design-system v1
+// =============================================================================
+// Rendered CLIENT-SIDE by assets/js/comedian-lineup.js when /comedians/ is
+// loaded with lineup/show query params (?lineup= | ?host=&first=&second= , plus
+// ?title= &date= &tickets=). Jekyll serves the static page; the script injects
+// the banner and regroups the existing .iyf-comedian-grid cards into sections.
+//
+// Tokens only — no hex literals (see base/_variables.scss precedence rules).
+// The banner carries .show-banner too, so it inherits the --show-* palette
+// (and any per-show override keyed off data-show).
+// -----------------------------------------------------------------------------
+
+.iyf-lineup-banner {
+  margin: 0 0 clamp(1.5rem, 4vw, 2.75rem);
+  padding: clamp(1.5rem, 4vw, 2.75rem) clamp(1.25rem, 4vw, 2.5rem);
+  border-radius: var(--radius-lg, 14px);
+  background: var(--show-bg, var(--surface-dark));
+  color: var(--show-text, var(--ink-on-dark));
+  text-align: center;
+  border: 1px solid var(--border-soft);
+}
+
+.iyf-lineup-banner__eyebrow {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-body, inherit);
+  font-size: var(--fs-sm, 0.8rem);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--show-accent, var(--brand-yellow));
+}
+
+.iyf-lineup-banner__title {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.04;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  text-transform: uppercase;
+  color: inherit;
+}
+
+.iyf-lineup-banner__date {
+  margin: 0 0 1.3rem;
+  font-size: var(--fs-md);
+  opacity: 0.92;
+}
+
+.iyf-lineup-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+// --- sectioned bill (Host / First Half / Second Half) ------------------------
+.iyf-lineup-section {
+  margin: 0 0 clamp(1.75rem, 4vw, 2.75rem);
+
+  &:last-child { margin-bottom: 0; }
+}
+
+.iyf-lineup-section__title {
+  margin: 0 0 1rem;
+  padding-bottom: 0.4rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: clamp(1.25rem, 3vw, 1.85rem);
+  color: var(--ink-on-cream);
+  border-bottom: 3px solid var(--show-accent, var(--brand-red));
+}
