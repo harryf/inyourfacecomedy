@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "IN YOUR FACE Comedians — Stand-Up Performers in Zürich"
+title: "IN YOUR FACE Comedians - Stand-Up Performers in Zürich"
 nav_title: Comedians
 title_override: "Comedians"
 subtitle: "The performers you'll see at IN YOUR FACE shows."
@@ -51,5 +51,5 @@ thumbnail: "assets/img/thumbs/comedians_card.png"
     {% endfor %}
   </ul>
 {% else %}
-  <p class="iyf-comedian-grid__empty">No comedians published yet — check back soon.</p>
+  <p class="iyf-comedian-grid__empty">No comedians published yet - check back soon.</p>
 {% endif %}
