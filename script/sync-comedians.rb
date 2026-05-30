@@ -7,12 +7,18 @@
 #
 # Behaviour:
 #   - Reads GRIST_API_KEY from environment (never read from a file in-repo).
-#   - For every row with Live=true and a Slug:
+#   - For every row with Live=true, a Slug, AND a photo attachment in Grist:
 #       * Whitelist-projects the public fields (Phone/Email never written).
 #       * Downloads the photo attachment, resizes via `sips` until ≤95KB.
 #       * Writes _comedians/<slug>.md with the layout: comedian frontmatter.
+#   - A Live comedian with NO photo on Grist is treated as unpublished: skipped
+#     and (if previously published) removed, exactly like a non-live row.
+#   - INCREMENTAL: keeps a per-slug fingerprint snapshot in script/comedians-state.json.
+#     A re-run skips any comedian whose text data AND photo (attachment-id list)
+#     are unchanged — no download, no resize, no page rewrite. Only changed
+#     comedians do work, so a quiet run is one API call and exits.
 #   - For every existing _comedians/<slug>.md whose comedian is NOT Live (or
-#     missing from the table), DELETES the file AND the matching photo.
+#     missing from the table, or now photoless), DELETES the file AND the photo.
 #   - Idempotent: re-running with no source change produces no filesystem diff.
 #
 # Usage:
@@ -23,6 +29,7 @@
 require "net/http"
 require "uri"
 require "json"
+require "digest"  # SHA256 fingerprint for incremental change detection
 require "fileutils"
 require "tempfile"
 require "open3"
@@ -664,7 +671,7 @@ end
 # bypasses hooks. ff-only pull before commit so a cron run during a manual
 # edit aborts cleanly instead of creating a merge.
 # -----------------------------------------------------------------------------
-GIT_PATHS = ["_comedians/", "assets/img/comedians/", "pages/7_comedians.md"].freeze
+GIT_PATHS = ["_comedians/", "assets/img/comedians/", "pages/7_comedians.md", "script/comedians-state.json"].freeze
 
 def git_capture(*args)
   out, status = Open3.capture2e("git", "-C", REPO_ROOT, *args)
@@ -769,13 +776,60 @@ def newest_attachment_id(cell)
   timed.max_by(&:first).last
 end
 
+# -----------------------------------------------------------------------------
+# Incremental-sync snapshot. Grist has no change-history API, so we store our
+# own per-slug fingerprint of the last successful sync and diff against it each
+# run. Committed to the repo (a fresh clone just reprocesses everyone once); a
+# missing OR corrupt file is treated as "no prior state" — never fatal.
+#
+#   { "<slug>": { "data": "<sha256 of text fields>", "photo": "<attachment ids>" }, ... }
+#
+# `data` covers everything that renders into the .md except the photo; `photo`
+# is the Grist attachment-id list, which changes iff a new headshot is uploaded
+# (Grist appends a fresh id per upload). So a steady-state run detects "nothing
+# changed" from the already-fetched record with ZERO extra HTTP.
+# -----------------------------------------------------------------------------
+STATE_FILE = File.join(__dir__, "comedians-state.json")
+
+def load_state
+  return {} unless File.exist?(STATE_FILE)
+  parsed = JSON.parse(File.read(STATE_FILE, encoding: "UTF-8"))
+  parsed.is_a?(Hash) ? parsed : {}
+rescue JSON::ParserError => e
+  warn "  ! state file unreadable (#{e.message}) — treating as empty, reprocessing all"
+  {}
+end
+
+def save_state(state)
+  # Sorted keys → stable, reviewable git diffs run-to-run.
+  File.write(STATE_FILE, JSON.pretty_generate(state.sort.to_h) + "\n")
+end
+
+# Fingerprint every Grist field that affects the rendered .md (everything but
+# the photo, tracked separately). `inspect` canonicalizes strings, nil and
+# booleans deterministically within a run. Priority is fingerprinted by its
+# RENDERED value (single highest label via extract_priority), not the raw
+# Choice-List cell — so reordering a multi-tag Priority in Grist doesn't force
+# a needless rewrite when the emitted `priority:` line is unchanged.
+def comedian_data_sig(fields)
+  payload = PUBLIC_FIELDS.map do |k|
+    value = (k == "Priority") ? extract_priority(fields[k]) : fields[k]
+    value = "" if value.nil?  # treat absent (nil) and empty ("") identically — both render as ""
+    "#{k}=#{value.inspect}"
+  end.join("\n")
+  Digest::SHA256.hexdigest(payload)
+end
+
 def main
   log "Fetching Comedians from Grist (doc=#{DOC_ID}, table=#{TABLE})..."
   records = fetch_records
 
+  state     = load_state   # last-synced fingerprints, keyed by slug
+  new_state = {}           # rebuilt this run; published comedians only
   seen_slugs = []
   written = 0
-  pages_changed = 0  # comedian pages actually created or modified this run
+  skipped = 0              # unchanged comedians skipped without any work
+  pages_changed = 0        # comedian pages actually created or modified this run
 
   records.each do |rec|
     fields = rec["fields"] || {}
@@ -792,21 +846,60 @@ def main
       next
     end
 
+    # A comedian with NO photo on Grist is not published. Leaving them out of
+    # seen_slugs means the removal sweep below deletes any page+photo they had
+    # before — they disappear from the site exactly like a non-live row.
+    photo_ids = extract_attachment_ids(fields["Photo"])
+    if photo_ids.empty?
+      log "  · skipping photoless: #{name.empty? ? slug : name}"
+      next
+    end
+
     seen_slugs << slug
+
+    page_path  = File.join(COMEDIANS_DIR, "#{slug}.md")
+    photo_file = Dir.glob(File.join(PHOTO_DIR, "#{slug}.*")).first
+    cur_data   = comedian_data_sig(fields)
+    # Sort ids for the signature so a nondeterministic Grist ordering can't
+    # produce a spurious "photo changed". (newest_attachment_id still uses the
+    # real upload order/timestamps when it actually needs the newest.)
+    cur_photo  = photo_ids.sort.join(",")
+    prev       = state[slug]
+
+    # "current" means the snapshot matches AND the artifact is actually on disk
+    # (a hand-deleted file must still be regenerated even if the sig matches).
+    photo_current = prev && prev["photo"] == cur_photo && photo_file
+    data_current  = prev && prev["data"]  == cur_data  && File.exist?(page_path)
+
+    # Fast path: nothing changed since last sync — skip download, resize, write.
+    if photo_current && data_current
+      log "  = unchanged, skipping: #{name} (#{slug})"
+      new_state[slug] = { "data" => cur_data, "photo" => cur_photo }
+      skipped += 1
+      next
+    end
+
     log "  + processing: #{name} (#{slug})"
 
     # Project public-field allowlist; Phone/Email never enter this hash.
     public_fields = PUBLIC_FIELDS.each_with_object({}) { |k, h| h[k] = fields[k] }
 
     photo_web_path = nil
-    attachment_id  = newest_attachment_id(fields["Photo"])
-
-    if attachment_id
+    photo_fresh    = false  # true iff the on-disk photo matches cur_photo this run
+    if photo_current
+      # Only the text data changed — reuse the existing headshot, no download.
+      photo_web_path = "/" + photo_file.sub("#{REPO_ROOT}/", "")
+      photo_fresh    = true
+      log "    photo unchanged — reusing #{File.basename(photo_file)}"
+    else
+      # Photo is new or missing — fetch the newest attachment and resize.
+      attachment_id = newest_attachment_id(fields["Photo"])
       begin
         bytes, source_ext = download_attachment(attachment_id)
         if DRY_RUN
           log "  [dry-run] would resize #{name} photo (source #{source_ext}, #{bytes.bytesize} bytes)"
           photo_web_path = "/assets/img/comedians/#{slug}.jpg"
+          photo_fresh    = true
         else
           dest = File.join(PHOTO_DIR, "#{slug}.#{source_ext}")
           final_path = resize_photo(bytes, source_ext, dest)
@@ -816,32 +909,48 @@ def main
             File.delete(existing) unless existing == final_path
           end
           photo_web_path = "/" + final_path.sub("#{REPO_ROOT}/", "")
+          photo_fresh    = true
         end
       rescue => e
         warn "  ! photo failed for #{slug}: #{e.message}"
+        # Transient download/resize failure — preserve the existing on-disk
+        # headshot rather than blanking it. A hiccup must never wipe a photo
+        # (this silently wiped every photo on the site once, 2026-05-30).
+        # photo_fresh stays false: we're serving the OLD photo, so we must NOT
+        # record cur_photo in state below — else next run sees a sig-match and
+        # never retries the new upload.
+        photo_web_path = "/" + photo_file.sub("#{REPO_ROOT}/", "") if photo_file
       end
-    else
-      log "  · no photo attachment for #{name}"
     end
 
-    # Preserve an existing on-disk headshot when this run produced no fresh one.
-    # A transient Grist hiccup — attachment metadata 5xx, a download/resize raise,
-    # or a momentarily empty Photo cell — leaves photo_web_path nil, and writing
-    # that nil blanks `photo:`/`image:` in the page even though the JPG is still
-    # sitting in assets/img/comedians/. That silently wiped every photo on the
-    # site once (2026-05-30). Photo fetching is a REFRESH, never a teardown:
-    # only the explicit removal sweep (comedian gone from Grist) deletes photos.
+    # Grist has a photo but we have neither a fresh download nor a prior on-disk
+    # copy (brand-new comedian whose first download failed). Don't write a
+    # photoless page and don't record state — retry on the next run. Kept in
+    # seen_slugs so the (nonexistent) page isn't mistaken for an orphan.
     if photo_web_path.nil?
-      existing = Dir.glob(File.join(PHOTO_DIR, "#{slug}.*")).first
-      if existing
-        photo_web_path = "/" + existing.sub("#{REPO_ROOT}/", "")
-        log "  · keeping existing photo for #{slug} (no fresh photo this run)"
-      end
+      warn "  ! no photo available yet for #{slug} — deferring to next run"
+      next
     end
 
     _, status = write_comedian_page(slug, public_fields, photo_web_path)
     pages_changed += 1 unless status == :unchanged
     written += 1
+    # Only record state when the on-disk photo is the CURRENT one. After a
+    # failed download we keep serving the stale photo, so we leave this slug
+    # out of new_state and reprocess it next run until the fresh photo lands.
+    new_state[slug] = { "data" => cur_data, "photo" => cur_photo } if photo_fresh
+  end
+
+  # Safety valve: if this run found ZERO publishable comedians but pages exist
+  # on disk, a bad/empty Grist fetch is far more likely than every comedian
+  # genuinely vanishing at once. Abort before the destructive sweep rather than
+  # mass-deleting the whole collection. (fetch_records already raises on a
+  # non-2xx response; this guards a 2xx that returned an empty/garbled body.)
+  if seen_slugs.empty? && Dir.exist?(COMEDIANS_DIR) &&
+     !Dir.glob(File.join(COMEDIANS_DIR, "*.md")).empty?
+    raise "refusing removal sweep: 0 publishable comedians from Grist but " \
+          "#{Dir.glob(File.join(COMEDIANS_DIR, '*.md')).size} pages on disk — " \
+          "likely a bad fetch; aborting to avoid mass deletion"
   end
 
   # Removal pass: anything on disk that isn't in seen_slugs gets deleted.
@@ -872,7 +981,12 @@ def main
     end
   end
 
-  puts "comedians: #{written} written, #{removed} removed#{DRY_RUN ? ' (dry run)' : ''}"
+  # Persist this run's fingerprints. new_state holds ONLY the comedians we
+  # published (skipped + written), so removed/photoless/deferred slugs drop out
+  # automatically — the state file self-cleans. Never write under --dry-run.
+  save_state(new_state) unless DRY_RUN
+
+  puts "comedians: #{written} written, #{skipped} unchanged, #{removed} removed#{DRY_RUN ? ' (dry run)' : ''}"
 
   # Refresh the listing page's freshness signal only when a real comedian-page
   # change actually happened — a no-op re-run leaves the index alone, which
@@ -886,10 +1000,15 @@ def main
   commit_and_push(written: written, removed: removed) unless NO_COMMIT
 end
 
-begin
-  main
-rescue => e
-  warn "FATAL: #{e.class}: #{e.message}"
-  warn e.backtrace.first(8).join("\n") if VERBOSE
-  exit 2
+# Guard so the file can be `require`d (e.g. for unit-testing the helpers)
+# without kicking off a live sync. Cron runs `ruby script/sync-comedians.rb`,
+# where __FILE__ == $PROGRAM_NAME, so production behaviour is unchanged.
+if __FILE__ == $PROGRAM_NAME
+  begin
+    main
+  rescue => e
+    warn "FATAL: #{e.class}: #{e.message}"
+    warn e.backtrace.first(8).join("\n") if VERBOSE
+    exit 2
+  end
 end
