@@ -824,6 +824,21 @@ def main
       log "  · no photo attachment for #{name}"
     end
 
+    # Preserve an existing on-disk headshot when this run produced no fresh one.
+    # A transient Grist hiccup — attachment metadata 5xx, a download/resize raise,
+    # or a momentarily empty Photo cell — leaves photo_web_path nil, and writing
+    # that nil blanks `photo:`/`image:` in the page even though the JPG is still
+    # sitting in assets/img/comedians/. That silently wiped every photo on the
+    # site once (2026-05-30). Photo fetching is a REFRESH, never a teardown:
+    # only the explicit removal sweep (comedian gone from Grist) deletes photos.
+    if photo_web_path.nil?
+      existing = Dir.glob(File.join(PHOTO_DIR, "#{slug}.*")).first
+      if existing
+        photo_web_path = "/" + existing.sub("#{REPO_ROOT}/", "")
+        log "  · keeping existing photo for #{slug} (no fresh photo this run)"
+      end
+    end
+
     _, status = write_comedian_page(slug, public_fields, photo_web_path)
     pages_changed += 1 unless status == :unchanged
     written += 1
