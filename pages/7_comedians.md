@@ -70,6 +70,6 @@ thumbnail: "assets/img/thumbs/comedians_card.png"
 {% endcomment %}
 {% assign iyf_shows = site.posts | where_exp: "p", "p.ticket_url" %}
 <script type="application/json" id="iyf-shows">
-[{% for s in iyf_shows %}{"slug":{{ s.url | remove: "/" | jsonify }},"title":{{ s.title | jsonify }},"desc":{{ s.description | jsonify }},"url":{{ s.url | jsonify }},"tickets":{{ s.ticket_url | jsonify }},"next":{% if s.next_event_date %}{{ s.next_event_date | date_to_xmlschema | jsonify }}{% else %}""{% endif %}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+[{% for s in iyf_shows %}{"slug":{{ s.url | remove: "/" | jsonify }},"title":{{ s.title | jsonify }},"desc":{{ s.description | jsonify }},"url":{{ s.url | jsonify }},"tickets":{{ s.ticket_url | jsonify }},"img":{{ s['feature-img'] | jsonify }},"next":{% if s.next_event_date %}{{ s.next_event_date | date_to_xmlschema | jsonify }}{% else %}""{% endif %}}{% unless forloop.last %},{% endunless %}{% endfor %}]
 </script>
 <script src="{{ '/assets/js/comedian-lineup.js' | relative_url }}" defer></script>

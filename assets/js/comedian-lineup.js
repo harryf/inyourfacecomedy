@@ -1,14 +1,16 @@
 /** Comedian lineup / show-promo — client-side filtering of /comedians/ via URL query params.
  *
  *  Jekyll serves the same static page regardless of the query string; this script reads it,
- *  (a) injects a show-promo banner sourced ONLY from the build-time show catalog, and
- *  (b) filters/reorders the comedian cards.
+ *  (a) transforms the page's own #main hero into a show hero (so a shared ?show= link reads
+ *      like the show's own page — background image, dim scrim, short date, split title,
+ *      ticket button), sourced ONLY from the build-time #iyf-shows catalog, and
+ *  (b) filters/reorders the comedian cards into the show's bill.
  *
  *  Params (all optional):
- *    show=slug                  promo banner for an EXISTING IYF show (looked up in the
+ *    show=slug                  promo hero for an EXISTING IYF show (looked up in the
  *                               embedded #iyf-shows catalog). Anti-spam by construction:
- *                               name, description, next date, ticket link and show-page
- *                               link all come from curated site data — never user input.
+ *                               title, next date, ticket link, show page and feature image
+ *                               all come from curated site data — never user input.
  *    headliner=slug[,slug]      featured comedian(s), shown first and larger
  *    lineup=slug,slug           flat ordered subset (no section label on its own)
  *    host=slug[,slug]           } structured bill: "Host" / "First Half" / "Second Half",
@@ -16,13 +18,17 @@
  *    second=slug,slug           }
  *
  *  Slug matching is case- and separator-insensitive (harryf-cks == harryf.cks). Unknown
- *  comedian slugs are ignored; an unknown show slug shows no banner. With no params the
- *  page is left exactly as rendered (everyone, normal order).
+ *  comedian slugs are ignored; an unknown show slug shows no hero change. With no params the
+ *  page is left exactly as rendered (everyone, normal order, normal "Comedians" hero).
  */
 (function () {
   'use strict';
 
-  var COMEDIANS_URL = '/comedians/';
+  // Weekday/month abbreviations to mirror Jekyll's `%a · %e %b` date filter on the show
+  // pages exactly (English, e.g. "Wed · 17 Jun") rather than a locale-dependent string.
+  var WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  var MO = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
   var params = new URLSearchParams(window.location.search);
 
   function list(name) {
@@ -75,90 +81,100 @@
     cardBySlug[norm(li.getAttribute('data-slug'))] = li;
   });
 
-  // --- promo banner (only ever from curated show data) --------------------
-  // Defence in depth: even though the URL is curated, never emit a non-http(s) href.
+  // --- validators (defence in depth, even though show data is curated) --------
   function safeUrl(u) {
     if (!u || !/^https?:\/\//i.test(u)) return null;
     try { return new URL(u).href; } catch (e) { return null; }
   }
-  function prettyFutureDate(iso) {
+  // Only same-origin asset paths — no scheme, no protocol-relative, known image suffix.
+  function safeImg(u) {
+    if (!u || typeof u !== 'string') return null;
+    if (/^(https?:)?\/\//i.test(u)) return null;     // reject absolute / //host
+    if (u.indexOf(':') !== -1) return null;          // reject any scheme (javascript:, data:)
+    var path = u.charAt(0) === '/' ? u : '/' + u;    // feature-img may omit the leading slash
+    if (!/^\/assets\/[\w\-./]+\.(png|jpe?g|webp|gif|avif)$/i.test(path)) return null;
+    return path;
+  }
+  function showDate(iso) {
     if (!iso) return null;
     var d = new Date(iso);
     if (isNaN(d.getTime())) return null;
     // Drop a stale (past) next-date rather than advertising a show that already happened.
     if (d.getTime() < Date.now() - 12 * 3600 * 1000) return null;
-    return d.toLocaleDateString(undefined, {
-      weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
-    });
+    return WD[d.getDay()] + ' · ' + d.getDate() + ' ' + MO[d.getMonth()];
+  }
+  // Mirror post.liquid's title-split contract: normalize ' - ' to ' • ', split on '•';
+  // first segment is the title, the rest collapse into a ' · '-joined subtitle.
+  function splitTitle(title) {
+    var normalized = (title || '').replace(/ - /g, ' • ');
+    var parts = normalized.split('•').map(function (s) { return s.trim(); }).filter(Boolean);
+    return {
+      primary: parts[0] || 'IN YOUR FACE',
+      secondary: parts.length > 1 ? parts.slice(1).join(' · ') : ''
+    };
   }
 
+  // --- transform the page's own #main hero into the show hero -----------------
   if (show) {
-    // Replace the generic hero ("Comedians" / "the performers you'll see…") with the show.
-    var heroTitle = document.querySelector('.iyf-hero__title');
-    var heroSub = document.querySelector('.iyf-hero__subtitle');
-    if (heroTitle) heroTitle.style.display = 'none';
-    if (heroSub) heroSub.style.display = 'none';
+    var hero = document.getElementById('main');
+    if (hero) {
+      hero.classList.remove('iyf-hero--compact');
+      hero.classList.add('iyf-hero--dim', 'show-banner');
+      hero.setAttribute('data-show', norm(show.slug)); // opt into the per-show CTA palette
+      // Dark base so cream hero text stays readable even if the image 404s or is absent.
+      hero.style.backgroundColor = 'var(--show-bg)';
+      var img = safeImg(show.img);
+      if (img) hero.style.backgroundImage = "url('" + img + "')";
 
-    var banner = document.createElement('aside');
-    banner.className = 'iyf-lineup-banner show-banner';
-    banner.setAttribute('data-show', norm(show.slug)); // opt into the per-show palette
+      hero.textContent = ''; // drop the generic "Comedians" / subtitle
 
-    var eyebrow = document.createElement('p');
-    eyebrow.className = 'iyf-lineup-banner__eyebrow';
-    eyebrow.textContent = 'IN YOUR FACE Comedy';
-    banner.appendChild(eyebrow);
+      var when = showDate(show.next);
+      if (when) {
+        var eyebrow = document.createElement('p');
+        eyebrow.className = 'iyf-hero__eyebrow';
+        eyebrow.textContent = when;
+        hero.appendChild(eyebrow);
+      }
 
-    var h1 = document.createElement('h1');
-    h1.className = 'iyf-lineup-banner__title';
-    h1.textContent = show.title || 'IN YOUR FACE';
-    banner.appendChild(h1);
+      var t = splitTitle(show.title);
+      var h1 = document.createElement('h1');
+      h1.className = 'iyf-hero__title';
+      h1.textContent = t.primary;
+      hero.appendChild(h1);
 
-    if (show.desc) {
-      var desc = document.createElement('p');
-      desc.className = 'iyf-lineup-banner__desc';
-      desc.textContent = show.desc;
-      banner.appendChild(desc);
+      var subText = t.secondary || show.desc || '';
+      if (subText) {
+        var sub = document.createElement('p');
+        sub.className = 'iyf-hero__subtitle';
+        sub.textContent = subText;
+        hero.appendChild(sub);
+      }
+
+      var actions = document.createElement('div');
+      actions.className = 'iyf-hero__actions';
+      var ticketHref = safeUrl(show.tickets);
+      if (ticketHref) {
+        var buy = document.createElement('a');
+        buy.className = 'btn-ticket btn-ticket--xl';
+        buy.href = ticketHref;
+        buy.target = '_blank';
+        buy.rel = 'noopener noreferrer';
+        buy.textContent = 'Get Tickets';
+        actions.appendChild(buy);
+      }
+      if (show.url) {
+        var more = document.createElement('a');
+        more.className = 'btn-ghost btn-ghost--on-dark';
+        more.href = show.url;                 // internal show page — same origin
+        more.textContent = 'About this show';
+        actions.appendChild(more);
+      }
+      if (actions.childNodes.length) hero.appendChild(actions);
     }
-
-    var when = prettyFutureDate(show.next);
-    if (when) {
-      var dateEl = document.createElement('p');
-      dateEl.className = 'iyf-lineup-banner__date';
-      dateEl.textContent = 'Next: ' + when;
-      banner.appendChild(dateEl);
-    }
-
-    var actions = document.createElement('div');
-    actions.className = 'iyf-lineup-banner__actions';
-    var ticketHref = safeUrl(show.tickets);
-    if (ticketHref) {
-      var buy = document.createElement('a');
-      buy.className = 'btn-ticket';
-      buy.href = ticketHref;
-      buy.target = '_blank';
-      buy.rel = 'noopener noreferrer';
-      buy.textContent = 'Get tickets';
-      actions.appendChild(buy);
-    }
-    if (show.url) {
-      var more = document.createElement('a');
-      more.className = 'btn-link';
-      more.href = show.url;                 // internal show page — same origin
-      more.textContent = 'About this show';
-      actions.appendChild(more);
-    }
-    var seeAll = document.createElement('a');
-    seeAll.className = 'btn-link';
-    seeAll.href = COMEDIANS_URL;
-    seeAll.textContent = 'See all comedians';
-    actions.appendChild(seeAll);
-    banner.appendChild(actions);
-
-    container.insertBefore(banner, grid);
   }
 
   // --- filter / section ---------------------------------------------------
-  if (!hasLineup) return; // show banner over the full roster
+  if (!hasLineup) return; // show hero over the full roster
 
   var groups = [];
   if (headliner.length) {
@@ -178,6 +194,14 @@
   var used = {};
   var missing = [];
   var fragment = document.createDocumentFragment();
+
+  // Lead-in heading that teases the bill below the show hero.
+  if (show) {
+    var leadin = document.createElement('h2');
+    leadin.className = 'iyf-lineup-leadin';
+    leadin.textContent = "Who's on the show?";
+    fragment.appendChild(leadin);
+  }
 
   groups.forEach(function (group) {
     var section = document.createElement('section');

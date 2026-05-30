@@ -1,68 +1,27 @@
 // =============================================================================
-// Comedian lineup / show-promo banner — design-system v1
+// Comedian lineup / show-promo — design-system v1
 // =============================================================================
 // Rendered CLIENT-SIDE by assets/js/comedian-lineup.js when /comedians/ is
-// loaded with lineup/show query params (?lineup= | ?host=&first=&second= , plus
-// ?title= &date= &tickets=). Jekyll serves the static page; the script injects
-// the banner and regroups the existing .iyf-comedian-grid cards into sections.
+// loaded with show/lineup query params (?show= , ?headliner= , ?lineup= ,
+// ?host=&first=&second=). The show-promo BANNER reuses the page's own #main
+// .iyf-hero (switched to .iyf-hero--dim + .show-banner with a background image)
+// — same hero contract as the show pages, so there is no banner CSS here. This
+// file styles only the lead-in heading and the regrouped card sections.
 //
 // Tokens only — no hex literals (see base/_variables.scss precedence rules).
-// The banner carries .show-banner too, so it inherits the --show-* palette
-// (and any per-show override keyed off data-show).
 // -----------------------------------------------------------------------------
 
-.iyf-lineup-banner {
-  margin: 0 0 clamp(1.5rem, 4vw, 2.75rem);
-  padding: clamp(1.5rem, 4vw, 2.75rem) clamp(1.25rem, 4vw, 2.5rem);
-  border-radius: var(--radius-lg, 14px);
-  background: var(--show-bg, var(--surface-dark));
-  color: var(--show-text, var(--ink-on-dark));
-  text-align: center;
-  border: 1px solid var(--border-soft);
-}
-
-.iyf-lineup-banner__eyebrow {
-  margin: 0 0 0.5rem;
-  font-family: var(--font-body, inherit);
-  font-size: var(--fs-sm, 0.8rem);
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--show-accent, var(--brand-yellow));
-}
-
-.iyf-lineup-banner__title {
-  margin: 0 0 0.4rem;
+// --- lead-in heading: teases the bill directly under the show hero ----------
+.iyf-lineup-leadin {
+  margin: clamp(1.5rem, 4vw, 2.5rem) 0 1.25rem;
   font-family: var(--font-display);
   font-weight: 400;
-  line-height: 1.04;
-  font-size: clamp(2rem, 6vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: inherit;
-}
-
-.iyf-lineup-banner__desc {
-  margin: 0 auto 0.9rem;
-  max-width: 52ch;
-  font-family: var(--font-body, inherit);
-  font-size: var(--fs-md);
-  line-height: 1.45;
-  opacity: 0.95;
-}
-
-.iyf-lineup-banner__date {
-  margin: 0 0 1.3rem;
-  font-size: var(--fs-md);
-  font-weight: 600;
-  opacity: 0.92;
-}
-
-.iyf-lineup-banner__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.1rem;
-  justify-content: center;
-  align-items: center;
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  color: var(--ink-on-cream);
+  text-align: center;
 }
 
 // --- sectioned bill (Host / First Half / Second Half) ------------------------
