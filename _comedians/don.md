@@ -1,8 +1,8 @@
 ---
 layout: comedian
-title: "Don"
-description: "Comedian in Zürich, but sometimes also Dublin, Rotterdam and Hamburg."
-last_modified_at: "2026-05-30T10:00:02+00:00"
+title: "Don Murphy"
+description: "Good craic"
+last_modified_at: "2026-05-30T11:00:05+00:00"
 slug: "don"
 photo: "/assets/img/comedians/don.jpg"
 instagram: "https://instagram.com/donmurphycomedy"
@@ -14,6 +14,6 @@ website: ""
 priority: "Low"
 image: "/assets/img/comedians/don.jpg"
 bio: |
-  Comedian in Zürich, but sometimes also Dublin, Rotterdam and Hamburg.
+  Good craic
 ---
 
