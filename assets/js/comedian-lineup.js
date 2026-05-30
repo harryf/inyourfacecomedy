@@ -221,6 +221,9 @@
     if (host.length)   groups.push({ label: host.length > 1 ? 'Hosts' : 'Host', slugs: host });
     if (first.length)  groups.push({ label: 'First Half', slugs: first });
     if (second.length) groups.push({ label: 'Second Half', slugs: second });
+    // A hosted but un-split bill (host + flat running order) — lets Lineup Lab's
+    // hosted-flat promo link render the running order under a plain "Line-up" header.
+    if (lineup.length) groups.push({ label: 'Line-up', slugs: lineup });
   } else if (lineup.length) {
     groups.push({ label: headliner.length ? 'Line-up' : null, slugs: lineup });
   }

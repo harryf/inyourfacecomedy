@@ -60,9 +60,14 @@ priority order, normal "Comedians" hero, no banner.
 | `thankyou` | `thankyou` (or `thankyou=1`) | **After-show mode** (pair with `show=`). Same hero styling; swaps the lead-in copy and the two buttons (see below). On when present unless the value is `0`/`false`/`no`/`off`. |
 
 You can combine `headliner` with either the flat `lineup` or the structured `host`/`first`/`second`.
-A comedian listed in two places is placed once (first mention wins). Comedians whose slugs don't
-match any card are skipped (logged to the console). When any lineup param is present, comedians
-**not** named are dropped from the page; with `show=` alone (no lineup), the full roster stays.
+You can also combine `host` with a flat `lineup` (`host=…&lineup=…`) for a **hosted, single-set**
+show — it renders a "Host" section followed by a "Line-up" section. A comedian listed in two places
+is placed once (first mention wins). Comedians whose slugs don't match any card are skipped (logged
+to the console). When any lineup param is present, comedians **not** named are dropped from the page;
+with `show=` alone (no lineup), the full roster stays.
+
+> **Don't hand-build these by hand — use Lineup Maker 2000.** The `/lineup/` tool (see the last
+> section) generates every link below, plus a WhatsApp-ready running order, from a tap-through UI.
 
 ---
 
@@ -144,3 +149,42 @@ date, title. Two things switch:
   `Follow us & drop a review`, `More Shows`). Change them there and rebuild.
 - **Where the data comes from:** the show catalog is generated in `pages/7_comedians.md` from
   every post with a `ticket_url`; the feature image is each post's `feature-img`.
+
+---
+
+## Lineup Maker 2000 - the organizer tool at `/lineup/`
+
+The links above are produced for you by **Lineup Maker 2000**: `https://inyourfacecomedy.ch/lineup/`.
+It's a phone-first power tool for whoever is building a show. No login, no saving — the **entire
+lineup lives in the URL**, using the exact same params documented above (`show`, `headliner`,
+`host`, `first`, `second`, `lineup`) plus two helpers (`type=flat|split`, `stage`). Share the link
+and you share the work.
+
+> **Not crawled / not indexed.** `/lineup/` carries `<meta robots noindex,nofollow>`, is excluded
+> from `sitemap.xml`, blocked in `robots.txt`, and hidden from the site nav. Share it directly with
+> organizers; search engines won't surface it.
+
+**The flow (each step reloads, rehydrating from the URL):**
+
+1. **Pick the show.** Or deep-link straight in — `…/lineup/?show=brexiles` lands with the show
+   already selected.
+2. **Pick the format** — straight line-up, hosted, or two halves.
+3. **Add the comedians** — type to search the roster by name, tap to add/remove.
+4. **Set the running order** — drag (on a laptop) or use the ↑/↓ buttons (rock-solid on a phone)
+   to reorder. Tap **Host** to pull someone into the MC slot, **Headliner** to ⭐ the closer, and
+   the **Interval** divider splits the bill into two halves. Hit **Update lineup** to bake the new
+   order into the URL.
+
+**Four copy buttons at the bottom:**
+
+| Button | Copies |
+|--------|--------|
+| 📋 Editing link | A `/lineup/?…` URL that re-opens the tool with every choice preserved — to keep tweaking or hand to a co-organizer. |
+| 📣 Promo link | The `/comedians/?show=…` show-promo link (features the headliner). |
+| 🙏 Thank-you link | The same promo link + `&thankyou` for after the show. |
+| 💬 Running order | Plain text — host first, numbered acts, headliner ⭐, halves + interval — to paste straight into WhatsApp. |
+
+**Implementation:** `assets/js/lineup-lab.js` (the tool) and `pages/lineup.md` (the page + its two
+build-time catalogs: shows and the full comedian roster). Copy/labels are plain strings near the
+relevant `render*` functions. Comedians and shows resolve only against the embedded catalogs, so a
+crafted Lab link can no more inject a fake performer than a promo link can.

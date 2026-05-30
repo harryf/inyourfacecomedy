@@ -2,6 +2,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.5, maximum-scale=5">
 
+  {% comment %} Opt-in per-page noindex (e.g. the /lineup/ organizer tool — see pages/lineup.md). {% endcomment %}
+  {% if page.noindex %}<meta name="robots" content="noindex, nofollow">{% endif %}
+
   <!-- Theme Mode-->
   {% if site.color_theme == 'auto' %}
     <script>

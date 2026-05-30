@@ -1,0 +1,10 @@
+---
+# Source robots.txt. Note: once this file exists, jekyll-sitemap stops auto-generating
+# robots.txt, so the Sitemap line below must be kept by hand.
+permalink: /robots.txt
+sitemap: false
+---
+User-agent: *
+Disallow: /lineup/
+
+Sitemap: {{ site.url }}/sitemap.xml
