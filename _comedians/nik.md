@@ -2,9 +2,9 @@
 layout: comedian
 title: "Nik"
 description: "Nik performs English stand-up comedy with IN YOUR FACE in Zürich, Switzerland."
-last_modified_at: "2026-05-29T21:20:49+00:00"
+last_modified_at: "2026-05-30T07:05:15+00:00"
 slug: "nik"
-photo: "/assets/img/comedians/nik.jpg"
+photo: ""
 instagram: "https://instagram.com/cooper_nik"
 tiktok: ""
 facebook_page: ""
@@ -12,7 +12,6 @@ x: ""
 youtube_channel: ""
 website: ""
 priority: "Medium"
-image: "/assets/img/comedians/nik.jpg"
 bio: ""
 ---
 
