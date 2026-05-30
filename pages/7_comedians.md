@@ -34,7 +34,7 @@ thumbnail: "assets/img/thumbs/comedians_card.png"
 {% if comedians_sorted.size > 0 %}
   <ul class="iyf-comedian-grid" role="list">
     {% for comedian in comedians_sorted %}
-      <li class="iyf-comedian-grid__item">
+      <li class="iyf-comedian-grid__item" data-slug="{{ comedian.slug }}">
         <a class="iyf-comedian-card" href="{{ comedian.url | relative_url }}">
           {% if comedian.photo %}
             <div class="iyf-comedian-card__media">
@@ -53,3 +53,13 @@ thumbnail: "assets/img/thumbs/comedians_card.png"
 {% else %}
   <p class="iyf-comedian-grid__empty">No comedians published yet - check back soon.</p>
 {% endif %}
+
+{% comment %}
+  Client-side lineup / show-promo filtering. Share /comedians/ with query params to
+  show only a show's bill (and promote it):
+    ?lineup=harryf.cks,martinadoescomedy,joana            (flat, ordered)
+    ?host=harryf.cks&first=joana,nik&second=omar,zeina    (labelled sections)
+    &title=Pulp%20Non-Fiction&date=2026-06-14&tickets=https://...  (promo banner)
+  Jekyll ignores the query string; the script does all the work in the browser.
+{% endcomment %}
+<script src="{{ '/assets/js/comedian-lineup.js' | relative_url }}" defer></script>
