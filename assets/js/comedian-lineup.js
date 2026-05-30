@@ -159,7 +159,8 @@
       h1.textContent = t.primary;
       hero.appendChild(h1);
 
-      var subText = t.secondary || show.desc || '';
+      // After-show: the subtitle becomes a warm thank-you (finger-heart + heart).
+      var subText = thankyou ? 'Thank you for coming out! 🫰❤️' : (t.secondary || show.desc || '');
       if (subText) {
         var sub = document.createElement('p');
         sub.className = 'iyf-hero__subtitle';
