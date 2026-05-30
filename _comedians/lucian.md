@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Lucian"
-description: "Lucian performs English stand-up comedy with IN YOUR FACE in Zürich, Switzerland."
-last_modified_at: "2026-05-29T21:20:53+00:00"
+description: "A Romanian comedian transplanted to Switzerland fixing his trauma on stage."
+last_modified_at: "2026-05-30T12:30:04+00:00"
 slug: "lucian"
 photo: "/assets/img/comedians/lucian.jpg"
 instagram: "https://instagram.com/todirica.lucian"
@@ -13,6 +13,7 @@ youtube_channel: ""
 website: ""
 priority: "Low"
 image: "/assets/img/comedians/lucian.jpg"
-bio: ""
+bio: |
+  A Romanian comedian transplanted to Switzerland fixing his trauma on stage.
 ---
 
