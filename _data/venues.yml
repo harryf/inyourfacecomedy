@@ -43,3 +43,27 @@ ambossrampe:
   country: "CH"
   website: "https://www.ambossrampe.ch/"
   google_maps_url: "https://maps.app.goo.gl/ZoqB8ogCUyZMXNLf6"
+
+natural-history-museum-of-the-university-of-zurich:
+  name: "Natural History Museum of the University of Zurich"
+  street: "Karl-Schmid-Strasse 4"
+  postal_code: "8006"
+  city: "Zürich"
+  country: "CH"
+  # website + google_maps_url: add by hand (not in EventFrog data)
+
+piranha-zurich:
+  name: "Piranha Zurich"
+  street: "Langstrasse 83"
+  postal_code: "8004"
+  city: "Zürich"
+  country: "CH"
+  # website + google_maps_url: add by hand (not in EventFrog data)
+
+the-beast-basel-comedy-club:
+  name: "The Beast Basel Comedy Club"
+  street: "Pfluggässlein 10"
+  postal_code: "4001"
+  city: "Basel"
+  country: "CH"
+  # website + google_maps_url: add by hand (not in EventFrog data)
