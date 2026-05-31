@@ -54,6 +54,8 @@ thumbnail: "assets/img/thumbs/comedians_card.png"
   <p class="iyf-comedian-grid__empty">No comedians published yet - check back soon.</p>
 {% endif %}
 
+<p class="iyf-perform-link"><a href="/perform/">Perform yourself &rarr;</a></p>
+
 {% comment %}
   Client-side lineup / show-promo filtering. Share /comedians/ with query params to
   show only a show's bill and promote an EXISTING IYF show:

@@ -1,0 +1,248 @@
+// =============================================================================
+// Show Row + section heads — homepage "All Our Shows" + comedians teaser
+// =============================================================================
+// Replaces the stock blog-teaser strip (which fixed-height-cropped feature-img
+// and lopped off heads). Each show is a single full-width stacked card: the
+// WHOLE flyer (feature-img at natural aspect — NEVER object-fit:cover'd) plus
+// the next date, description, the stable host(s) as small portrait card-faces
+// (rounded rectangle, matching the /comedians/ card — NOT round avatars), and
+// Get-Tickets / More-info CTAs.
+//
+// Flyers are landscape, so the card is a vertical STACK at every width (no
+// tiny-flyer-on-the-left). Only the order changes by breakpoint:
+//   mobile  : flyer on top      → poster · head · actions
+//   ≥720px  : header first      → head · poster · actions   (and hosts move up
+//             under the title, beside the date, per the brief)
+// The .show-banner data-show hook inherits the per-show --show-* palette from
+// _show-override.scss, same as .iyf-event-card.
+// -----------------------------------------------------------------------------
+
+// Shared centred section heading (All Shows + Comedians teaser).
+.iyf-section-head {
+  text-align: center;
+  max-width: 720px;
+  margin: var(--space-9) auto var(--space-7);
+  padding: 0 var(--space-5);
+
+  &__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-2xl, var(--fs-xl));
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-tight);
+    text-transform: uppercase;
+    margin: 0 0 var(--space-2);
+  }
+  &__subtitle {
+    font-family: var(--font-accent);
+    font-size: var(--fs-md);
+    color: var(--muted);
+    margin: 0;
+  }
+}
+
+// Centred text link ("Perform yourself →") — used under the comedians teaser
+// and at the bottom of /comedians/. A plain link, never a button.
+.iyf-perform-link {
+  text-align: center;
+  margin: var(--space-5) auto var(--space-9);
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+
+  a {
+    color: var(--show-accent, var(--brand-red));
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--t-base) var(--ease-out);
+    &:hover,
+    &:focus-visible { border-bottom-color: currentColor; }
+  }
+}
+
+.iyf-show-row-list {
+  max-width: 760px;              // contained reading column; flyer stays a sensible size
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.iyf-show-row {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  background: var(--surface-elev);
+  color: var(--show-text, var(--ink-on-cream));
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 8px 20px -12px rgba(0, 0, 0, 0.12);
+  transition:
+    transform  var(--t-base) var(--ease-out),
+    box-shadow var(--t-base) var(--ease-out);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 14px 28px -14px rgba(0, 0, 0, 0.20);
+  }
+
+  // --- Whole flyer, full card width. height:auto → never a fixed-height crop.
+  &__poster {
+    display: block;
+    overflow: hidden;
+    order: -1;                   // MOBILE: flyer on top
+    background: color-mix(in oklab, var(--brand-yellow) 6%, var(--surface-elev));
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;              // natural aspect → whole flyer, no cropped head
+      max-height: 70vh;          // insurance: a future PORTRAIT flyer letterboxes, never towers
+      object-fit: contain;
+      transition: transform var(--t-slow) var(--ease-out);
+    }
+  }
+  &:hover &__poster img { transform: scale(1.02); }
+
+  // Header block: date · title · description · hosts. Padded; poster is flush.
+  &__head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-5);
+
+    @media (min-width: 720px) { padding: var(--space-6) var(--space-6) var(--space-5); }
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  &__date { font-weight: 600; color: var(--show-accent, var(--brand-red)); }
+
+  &__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-xl);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-tight);
+    text-transform: uppercase;
+    margin: 0;
+
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: var(--show-accent, var(--brand-red)); }
+  }
+
+  &__desc {
+    font-family: var(--font-body);
+    font-size: var(--fs-md);
+    line-height: var(--lh-snug);
+    color: var(--text);
+    margin: 0;
+  }
+
+  // --- Stable hosts as small near-square card-faces (rounded rect) + names. ---
+  // Standalone block placed BELOW the CTAs (those matter more). Top gap comes
+  // from __actions' padding-bottom.
+  &__hosts {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-3);
+    padding: 0 var(--space-5) var(--space-5);
+  }
+  &__hosts-label {
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  &__host-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    li { list-style: none; }
+  }
+  &__host {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    text-decoration: none;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    &:hover { color: var(--show-accent, var(--brand-red)); }
+  }
+  // Square rounded face — same 1:1 ratio as .iyf-comedian-card__media, kept small.
+  &__host-face {
+    flex-shrink: 0;
+    display: block;
+    height: 2.25rem;            // ≤ the Get-Tickets button height (smaller is fine)
+    aspect-ratio: 1 / 1;        // match .iyf-comedian-card__media (wider than the old 6/7)
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: color-mix(in oklab, var(--brand-yellow) 8%, var(--surface-elev));
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 0 var(--space-5) var(--space-4);   // top gap from __head; small bottom gap before hosts
+  }
+
+  // ---- Desktop reorder: header → flyer → CTAs → hosts. ----
+  @media (min-width: 720px) {
+    &__poster  { order: 1; }      // flyer drops below the header
+    &__actions { order: 2; padding: var(--space-5) var(--space-6) var(--space-4); }   // own top gap below the flyer
+    &__hosts   { order: 3; padding: 0 var(--space-6) var(--space-6); }                // below the CTAs
+  }
+}
+
+// =============================================================================
+// Comedians teaser — recently-updated performers, on-ramp into /comedians/
+// =============================================================================
+// Reuses .iyf-comedian-card markup; the --teaser modifier swaps the full grid
+// for a centred wrapping row so a 3–5 card teaser reads tidy at every width.
+.iyf-comedians-teaser {
+  margin-bottom: var(--space-7);
+
+  &__cta {
+    text-align: center;
+    margin-top: var(--space-7);
+  }
+}
+
+.iyf-comedian-grid--teaser {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-5);
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+  grid-template-columns: none;   // override the base grid
+
+  .iyf-comedian-grid__item {
+    flex: 0 1 150px;
+    @media (min-width: 768px) { flex-basis: 180px; }
+  }
+}

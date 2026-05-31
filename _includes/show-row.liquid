@@ -1,0 +1,89 @@
+{%- comment -%}
+  show-row.liquid — design-system: single-column rich show row for the homepage
+  "All Our Shows" section. Shows the WHOLE flyer (feature-img, natural aspect —
+  never a fixed-height crop) plus the next date, a real description, the
+  Get-Tickets / More-info CTAs, and BELOW those the stable regular host(s) as
+  small near-square card-faces (rounded rect, NOT round avatars). Required: `post`.
+
+  Four blocks — `__poster`, `__head` (meta·title·desc), `__actions`, `__hosts` —
+  so CSS can reorder them per breakpoint: MOBILE shows the flyer on top
+  (poster → head → actions → hosts); DESKTOP puts the header first, then the
+  horizontal flyer, then CTAs, then hosts (head → poster → actions → hosts).
+  See _show-row.scss. Hosts sit below the CTAs because the CTAs matter more.
+
+  Title split mirrors event-card.liquid / post.liquid: normalize ' - ' to ' • '
+  so both separators collapse to one delimiter without touching inner hyphens
+  (e.g. "Stand-Up"); the first segment is the show name.
+{%- endcomment -%}
+{%- assign show_slug = post.permalink | replace: '/', '' | strip -%}
+{%- assign row_title_normalized = post.title | replace: ' - ', ' • ' -%}
+{%- assign row_title_parts = row_title_normalized | split: '•' -%}
+{%- assign row_primary_title = row_title_parts[0] | strip -%}
+<article class="iyf-show-row show-banner" data-show="{{ show_slug }}">
+  {%- if post['feature-img'] -%}
+    <a class="iyf-show-row__poster" href="{{ post.url | relative_url }}" aria-label="{{ post.title }}">
+      <img src="{{ post['feature-img'] | relative_url }}" alt="{{ post.title }}" loading="lazy">
+    </a>
+  {%- endif -%}
+
+  <div class="iyf-show-row__head">
+    <div class="iyf-show-row__meta">
+      {%- if post.next_event_date -%}
+        <span class="iyf-show-row__date">{{ post.next_event_date | date: "%a · %-d %b" }}</span>
+      {%- elsif post.recurrence_day -%}
+        <span class="iyf-show-row__date">{{ post.recurrence_day }}{% if post.recurrence_time %} · {{ post.recurrence_time }}{% endif %}</span>
+      {%- endif -%}
+      {%- if post.venue_slug -%}
+        <span class="iyf-show-row__venue">{{ post.venue_slug | replace: '_', ' ' | capitalize }}</span>
+      {%- endif -%}
+    </div>
+
+    <h3 class="iyf-show-row__title"><a href="{{ post.url | relative_url }}">{{ row_primary_title }}</a></h3>
+
+    {%- assign row_desc = post.tagline | default: post.description -%}
+    {%- if row_desc -%}
+      <p class="iyf-show-row__desc">{{ row_desc | strip_html | truncate: 220 }}</p>
+    {%- endif -%}
+  </div>
+
+  <div class="iyf-show-row__actions">
+    {%- if post.ticket_url -%}
+      <a class="btn-ticket btn-ticket--sm" href="{{ post.ticket_url }}" rel="noopener" target="_blank">Get Tickets</a>
+    {%- endif -%}
+    <a class="btn-ghost btn-ghost--sm" href="{{ post.url | relative_url }}">More info</a>
+  </div>
+
+  {%- comment -%}
+    Regular hosts — placed BELOW the CTAs (those matter more). Resolved from the
+    stable `hosts:` slug list against site.comedians; an unknown slug renders
+    nothing (never a broken link). `hosts_label` overrides the default "Hosted by".
+    Faces are small near-square card-thumbs (rounded rectangle), matching the
+    /comedians/ card aesthetic.
+  {%- endcomment -%}
+  {%- if post.hosts and post.hosts.size > 0 -%}
+    {%- assign row_host_pages = '' | split: '' -%}
+    {%- for slug in post.hosts -%}
+      {%- assign match = site.comedians | where: "slug", slug | first -%}
+      {%- if match -%}{%- assign row_host_pages = row_host_pages | push: match -%}{%- endif -%}
+    {%- endfor -%}
+    {%- if row_host_pages.size > 0 -%}
+      <div class="iyf-show-row__hosts">
+        <span class="iyf-show-row__hosts-label">{{ post.hosts_label | default: 'Hosted by' }}</span>
+        <ul class="iyf-show-row__host-list" role="list">
+          {%- for c in row_host_pages -%}
+            <li>
+              <a class="iyf-show-row__host" href="{{ c.url | relative_url }}">
+                {%- if c.photo -%}
+                  <span class="iyf-show-row__host-face">
+                    <img src="{{ c.photo | relative_url }}" alt="{{ c.title }}" loading="lazy">
+                  </span>
+                {%- endif -%}
+                <span class="iyf-show-row__host-name">{{ c.title }}</span>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+</article>

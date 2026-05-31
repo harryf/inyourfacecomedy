@@ -98,6 +98,13 @@
   }
 }
 
+.btn-ghost--sm {
+  // mirror .btn-ticket--sm so a ghost button sits at the SAME height beside it
+  font-size: var(--fs-sm);
+  padding: 0.5rem 1rem;
+  min-height: var(--touch-min);
+}
+
 .btn-ghost--on-dark {
   color: var(--brand-cream);
   border-color: var(--brand-cream);

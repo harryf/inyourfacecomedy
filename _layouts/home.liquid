@@ -57,6 +57,93 @@ thumbnail: "assets/img/thumbs/inyourface_thumb.png"
     </div>
   {%- endif -%}
 
-  {% include blog/blog.liquid %}
+  {%- comment -%}
+    All Our Shows — the full programme as single-column rich rows. Ordering: the
+    3 shows already featured in the Upcoming grid above are bumped to the BOTTOM,
+    so the first row here is the next show NOT already shown above. Everything is
+    sorted by next_event_date; we partition out the upcoming-3 (same logic as the
+    top grid) and append them last.
+  {%- endcomment -%}
+  {%- assign future_shows = site.posts | where_exp: "p", "p.next_event_date" | sort: "next_event_date" -%}
+  {%- assign upcoming_urls = '' | split: '' -%}
+  {%- assign u_count = 0 -%}
+  {%- for p in future_shows -%}
+    {%- if u_count >= 3 -%}{%- break -%}{%- endif -%}
+    {%- if p.next_event_date >= site.time -%}
+      {%- assign upcoming_urls = upcoming_urls | push: p.url -%}
+      {%- assign u_count = u_count | plus: 1 -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- assign all_shows = site.posts | sort: "next_event_date" -%}
+  {%- if all_shows and all_shows.size > 0 -%}
+    <section class="iyf-all-shows" aria-labelledby="all-shows-heading">
+      <div class="iyf-section-head">
+        <h2 id="all-shows-heading" class="iyf-section-head__title">All Our Shows</h2>
+        <p class="iyf-section-head__subtitle">Pick one and come laugh.</p>
+      </div>
+      <div class="iyf-show-row-list">
+        {%- comment -%} Next, the shows NOT already in the Upcoming grid — soonest first. {%- endcomment -%}
+        {%- for post in all_shows -%}
+          {%- unless upcoming_urls contains post.url -%}
+            {% include show-row.liquid post=post %}
+          {%- endunless -%}
+        {%- endfor -%}
+        {%- comment -%} Then the 3 Upcoming shows, bumped to the bottom. {%- endcomment -%}
+        {%- for post in all_shows -%}
+          {%- if upcoming_urls contains post.url -%}
+            {% include show-row.liquid post=post %}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%}
+    Meet Our Comedians — an on-ramp into the /comedians/ section. ALWAYS a random
+    selection, weighted by the same `priority` field the /comedians/ page uses:
+    2 random High, then 2 random Medium, then 1 random Low (re-shuffled every
+    build via `sample`, which the daily rebuild rotates). The `size > 1` guard is
+    load-bearing: `sample` returns a single element (not an array) when asked for
+    exactly 1, which would break `slice`/`concat` — a 0/1-comedian tier has no
+    order to randomize, so we leave it as-is.
+  {%- endcomment -%}
+  {%- assign teaser_high = site.comedians | where: "priority", "High" -%}
+  {%- if teaser_high.size > 1 %}{% assign teaser_high = teaser_high | sample: teaser_high.size %}{% endif -%}
+  {%- assign teaser_medium = site.comedians | where: "priority", "Medium" -%}
+  {%- if teaser_medium.size > 1 %}{% assign teaser_medium = teaser_medium | sample: teaser_medium.size %}{% endif -%}
+  {%- assign teaser_low = site.comedians | where: "priority", "Low" -%}
+  {%- if teaser_low.size > 1 %}{% assign teaser_low = teaser_low | sample: teaser_low.size %}{% endif -%}
+  {%- assign teaser_high = teaser_high | slice: 0, 2 -%}
+  {%- assign teaser_medium = teaser_medium | slice: 0, 2 -%}
+  {%- assign teaser_low = teaser_low | slice: 0, 1 -%}
+  {%- assign teaser_comedians = teaser_high | concat: teaser_medium | concat: teaser_low -%}
+  {%- if teaser_comedians and teaser_comedians.size > 0 -%}
+    <section class="iyf-comedians-teaser" aria-labelledby="comedians-teaser-heading">
+      <div class="iyf-section-head">
+        <h2 id="comedians-teaser-heading" class="iyf-section-head__title">Meet Our Comedians</h2>
+        <p class="iyf-section-head__subtitle">A few of the performers you'll catch on our stages.</p>
+      </div>
+      <ul class="iyf-comedian-grid iyf-comedian-grid--teaser" role="list">
+        {%- for comedian in teaser_comedians -%}
+          <li class="iyf-comedian-grid__item" data-slug="{{ comedian.slug }}">
+            <a class="iyf-comedian-card" href="{{ comedian.url | relative_url }}">
+              {%- if comedian.photo -%}
+                <div class="iyf-comedian-card__media">
+                  <img src="{{ comedian.photo | relative_url }}" alt="{{ comedian.title }}" loading="lazy" />
+                </div>
+              {%- else -%}
+                <div class="iyf-comedian-card__media iyf-comedian-card__media--placeholder" aria-hidden="true"></div>
+              {%- endif -%}
+              <span class="iyf-comedian-card__name">{{ comedian.title }}</span>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <div class="iyf-comedians-teaser__cta">
+        <a class="btn-ticket btn-ticket--xl" href="/comedians/">View all comedians</a>
+      </div>
+      <p class="iyf-perform-link"><a href="/perform/">Perform yourself &rarr;</a></p>
+    </section>
+  {%- endif -%}
 
 </div>
