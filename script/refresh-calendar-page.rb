@@ -100,6 +100,7 @@ FALLBACK_INFO = "English stand-up comedy you won't want to miss 🎤"
 def fallback_flavor(month_name, year) = "Live English stand-up comedy in Zürich — #{month_name} #{year}."
 
 options = { init: false, dry_run: false, no_push: false, no_refresh: false, verbose: false,
+            only: nil,
             pool_size: (ENV["CALENDAR_POOL_SIZE"] || 30).to_i,
             month_variants: (ENV["CALENDAR_MONTH_VARIANTS"] || 4).to_i,
             model: ENV["CALENDAR_CLAUDE_MODEL"] || "claude-sonnet-4-6" }
@@ -109,6 +110,9 @@ OptionParser.new do |o|
   o.on("--no-push")            { options[:no_push]        = true }
   o.on("--no-refresh")         { options[:no_refresh]     = true }
   o.on("--verbose")            { options[:verbose]        = true }
+  # --only LIST: with --init, (re)generate copy ONLY for these show slugs (comma-
+  # separated) and skip month generation — for topping up a single show's pool.
+  o.on("--only LIST")          { |l| options[:only] = l.split(",").map(&:strip).reject(&:empty?) }
   o.on("--pool-size N", Integer)      { |n| options[:pool_size]      = n }
   o.on("--month-variants K", Integer) { |k| options[:month_variants] = k }
   o.on("--model MODEL")        { |m| options[:model]      = m }
@@ -374,6 +378,7 @@ def init_pools!(cache, events, options)
   say("Initializing copy pools via claude (#{options[:model]})…")
 
   shows = events.map { |e| e[:show] }.uniq
+  shows &= options[:only] if options[:only]      # --only: target just these shows
   shows.each do |slug|
     meta = show_descriptions[slug]
     unless meta
@@ -392,7 +397,7 @@ def init_pools!(cache, events, options)
     say("  [info] #{slug} — pool now #{pool.size} (+#{added.size})")
   end
 
-  months = events.map { |e| e[:start].month }.uniq.sort
+  months = options[:only] ? [] : events.map { |e| e[:start].month }.uniq.sort  # --only skips months
   months.each do |m|
     mm  = format("%02d", m)
     out = claude_say(month_pool_prompt(options[:month_variants], MONTHS_FULL[m - 1], m), options[:model])
