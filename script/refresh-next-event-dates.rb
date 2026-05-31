@@ -29,15 +29,14 @@ require "net/http"
 require "uri"
 require "time"
 require "date"
+require "yaml"
 require "open3"
 require "optparse"
 
 POSTS_DIR = File.expand_path("../_posts", __dir__)
 PROJECT_ROOT = File.expand_path("..", __dir__)
 HOMEPAGE = File.expand_path("../index.html", __dir__)
-DEFAULT_DURATION_MIN = 150
-ZURICH_TZ_OFFSET = "+02:00"            # CEST. Wrong by 1h Oct-Mar; acceptable for now.
-USER_AGENT = "Mozilla/5.0 (compatible; IYF schema refresh)"
+DEFAULT_DURATION_MIN = 150             # fallback show length when EventFrog omits endDate
 
 options = { dry_run: false, verbose: false }
 OptionParser.new do |opts|
@@ -72,21 +71,28 @@ def git_run(*args)
   [out.strip, status.success?]
 end
 
-# Stage, commit, and push refreshed posts. Retries once on non-fast-forward
-# rejection by pulling --rebase against origin/master.
-# Raises on unrecoverable failure; the top-level rescue then pings HC fail.
-# Dry-run is implicit: process_post skips writes in --dry-run, so there's
-# nothing for `git add` to stage, and we return early via `no_staged`.
-def commit_and_push!(updated_count)
-  return :no_changes if updated_count == 0
+# Stage, commit, and push refreshed posts + regenerated calendar/venue data.
+# Retries once on non-fast-forward rejection by pulling --rebase against
+# origin/master. Raises on unrecoverable failure; the top-level rescue then pings
+# HC fail. Dry-run is implicit: nothing is written, so nothing stages and we
+# return early via `no_staged`. Commits only when something actually changed.
+def commit_and_push!
+  # Avoid daily churn: the extractor rewrites generated_at every run. If that is
+  # the ONLY change to _data/calendar.yml, discard it so we don't push a no-op
+  # site rebuild every day (matching the old "only commit when a date rolled").
+  diff, _ = git_run("diff", "--unified=0", "--", "_data/calendar.yml")
+  unless diff.empty?
+    body = diff.lines.select { |l| l =~ /\A[+-]/ && l !~ /\A(\+\+\+|---)/ }
+    git_run("checkout", "--", "_data/calendar.yml") if body.any? && body.all? { |l| l =~ /\A[+-]generated_at:/ }
+  end
 
-  out, ok = git_run("add", "-A", "_posts", "index.html")
+  out, ok = git_run("add", "-A", "_posts", "index.html", "_data/calendar.yml", "_data/venues.yml")
   raise "git add failed: #{out}" unless ok
 
   _, no_staged = git_run("diff", "--quiet", "--staged")
   return :no_changes if no_staged   # files identical to HEAD — nothing to commit
 
-  out, ok = git_run("commit", "-m", "chore: refresh next_event_date from Eventfrog")
+  out, ok = git_run("commit", "-m", "chore: refresh calendar data + next_event_date from Eventfrog")
   raise "git commit failed: #{out}" unless ok
 
   # First push attempt.
@@ -129,115 +135,37 @@ rescue => e
   warn "healthcheck_ping(#{status}) failed: #{e.message}"
 end
 
-# ---------- Eventfrog parsing ----------
+# ---------- Calendar data (single source of truth) ----------
 #
-# Eventfrog ticket URLs land on one of two page shapes:
-#
-#   GROUP PAGE (e.g. /comedybrew → /de/p/gruppen/...html)
-#     - Multiple <td class="datecol"> rows, one per upcoming instance
-#     - Each row has its own <a itemprop="offers" href="...individual..."> link
-#     - The page's own <time itemprop="startDate"> reflects the next future instance
-#
-#   INDIVIDUAL EVENT PAGE (e.g. /de/p/theater-buehne/.../{slug}-{id}.html)
-#     - One <time itemprop="startDate" datetime="YYYY-MM-DDTHH:MM…">
-#     - Two <time itemprop="doorTime"> entries: door-open (= start) and door-close (= end)
-#     - Inline JSON-like "price": "10.0" + "priceCurrency": "CHF"
-#
-# Strategy: if the URL lands on a GROUP page, find the next future row's
-# individual ticket page, fetch THAT, and parse the richer per-instance data
-# (start, end, price). If the URL lands directly on an INDIVIDUAL page, parse
-# that page in place. Either path returns { start:, end_at:, price_chf: } where
-# end_at and price_chf may be nil if the page doesn't expose them.
+# This script no longer scrapes EventFrog directly. script/refresh-calendar-data.rb
+# is the one EventFrog extractor: it resolves every show, parses each event's
+# JSON-LD (date, end, price, per-event venue) and writes _data/calendar.yml. Here
+# we regenerate that file and derive each show's NEXT event from it — so the
+# homepage / show-page dates and the /calendar/ page are built from one source and
+# can never disagree.
 
-EventDetails = Struct.new(:start, :end_at, :price_chf, keyword_init: true)
+CALENDAR_DATA = File.expand_path("../_data/calendar.yml", __dir__)
+EXTRACTOR     = File.expand_path("refresh-calendar-data.rb", __dir__)
 
-def is_group_page?(html)
-  html.scan(/<td class="datecol"/).length > 1
+# Regenerate _data/calendar.yml (and append any new venues to _data/venues.yml).
+# Raises on failure so we never derive dates from a stale or partial file.
+def regenerate_calendar_data!(options)
+  cmd = ["ruby", EXTRACTOR]
+  cmd << "--quiet" unless options[:verbose]
+  out, status = Open3.capture2e(*cmd, chdir: PROJECT_ROOT)
+  puts out if options[:verbose]
+  return if status.success?
+
+  raise "refresh-calendar-data.rb failed (exit #{status.exitstatus}):\n#{out.lines.last(12).join}"
 end
 
-# Walk <tr> rows on a group page, returning the offers URL of the first row
-# whose datecol date is in the future. Returns nil if no future row exists.
-def next_future_individual_url(group_html, now)
-  group_html.scan(/<tr[^>]*>(.*?)<\/tr>/m).each do |row_match|
-    row = row_match[0]
-    date_m = row.match(/(\d{2})\.(\d{2})\.(\d{4})/)
-    time_m = row.match(/(\d{1,2}):(\d{2})\s+Uhr/)
-    href_m = row.match(/<a[^>]+itemprop="offers"[^>]+href="([^"]+)"/)
-    next unless date_m && href_m
-
-    dd, mm, yyyy = date_m[1], date_m[2], date_m[3]
-    hh = (time_m ? time_m[1] : "20").rjust(2, "0")
-    mn = time_m ? time_m[2] : "00"
-    iso = "#{yyyy}-#{mm}-#{dd}T#{hh}:#{mn}:00#{ZURICH_TZ_OFFSET}"
-    t = (Time.iso8601(iso) rescue nil)
-    next unless t && t > now
-
-    return href_m[1]
-  end
-  nil
-end
-
-# Parse an individual event page. Returns EventDetails or nil.
-def parse_individual_page(html, now)
-  start_m = html.match(/<time[^>]+itemprop="startDate"[^>]+datetime="(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})/)
-  return nil unless start_m
-  start_iso = "#{start_m[1]}T#{start_m[2]}:00#{ZURICH_TZ_OFFSET}"
-  start_t = (Time.iso8601(start_iso) rescue nil)
-  return nil unless start_t && start_t > now
-
-  # Two <time itemprop="doorTime"> entries: [door-open, door-close].
-  # door-close is the de-facto end time. If only one entry exists, return nil end.
-  door_times = html.scan(/<time[^>]+itemprop="doorTime"[^>]+datetime="(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})/)
-  end_t = nil
-  if door_times.length >= 2
-    end_iso = "#{door_times[1][0]}T#{door_times[1][1]}:00#{ZURICH_TZ_OFFSET}"
-    end_t = (Time.iso8601(end_iso) rescue nil)
-  end
-
-  # Price: inline JSON "price": "10.0", "priceCurrency": "CHF"
-  price = nil
-  if (m = html.match(/"price":\s*"([0-9.]+)".{0,100}?"priceCurrency":\s*"CHF"/m))
-    price = m[1].to_f
-  elsif (m = html.match(/"price":\s*"([0-9.]+)"/))
-    price = m[1].to_f
-  end
-  price_int = price ? price.round : nil
-
-  EventDetails.new(start: start_t, end_at: end_t, price_chf: price_int)
-end
-
-# Top-level: from a ticket_url, return EventDetails for the next future event,
-# or nil. Handles both group and individual page shapes.
-def fetch_event_details(ticket_url, now)
-  html = fetch_url(ticket_url)
-
-  if is_group_page?(html)
-    href = next_future_individual_url(html, now)
-    return nil unless href
-    individual_url = URI.join(ticket_url, href).to_s
-    html = fetch_url(individual_url)
-  end
-
-  parse_individual_page(html, now)
-end
-
-def fetch_url(url, limit = 5)
-  raise "Too many redirects" if limit <= 0
-
-  uri = URI(url)
-  Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https", open_timeout: 10, read_timeout: 15) do |http|
-    req = Net::HTTP::Get.new(uri.request_uri)
-    req["User-Agent"] = USER_AGENT
-    res = http.request(req)
-    case res
-    when Net::HTTPSuccess
-      res.body
-    when Net::HTTPRedirection
-      next_uri = URI.join(url, res["location"]).to_s   # handles both absolute + relative redirects
-      fetch_url(next_uri, limit - 1)
-    else
-      raise "HTTP #{res.code} #{res.message}"
-    end
+# {show_slug => earliest upcoming event} parsed from _data/calendar.yml. Events are
+# already sorted ascending, but we take the min defensively.
+def next_event_by_show
+  doc = YAML.safe_load(File.read(CALENDAR_DATA), permitted_classes: [Date, Time], aliases: true) || {}
+  (doc["events"] || []).each_with_object({}) do |e, h|
+    slug = e["show"].to_s
+    h[slug] = e if h[slug].nil? || e["start"].to_s < h[slug]["start"].to_s
   end
 end
 
@@ -271,7 +199,7 @@ end
 
 # ---------- Per-post processing ----------
 
-def process_post(path, now, options)
+def process_post(path, next_by_show, now, options)
   content = File.read(path, encoding: "UTF-8")
   parsed = split_post(content)
   return [:skip, "no frontmatter"] unless parsed
@@ -281,50 +209,41 @@ def process_post(path, now, options)
   return [:skip, "no ticket_url"] unless ticket_url
   return [:skip, "not eventfrog (#{URI(ticket_url).host rescue 'unknown'})"] unless ticket_url.include?("eventfrog")
 
-  # Opt-out: posts without a venue can't emit valid Event schema (location is required by Google),
-  # so refreshing their next_event_date would only produce a half-baked block. La Tarima, for example,
-  # has variable venues (Basel + Monroe) — see Roadmap/Sprint-1/01-schema-event-and-calendar/decisions/.
-  unless yaml_get(raw_fm, "venue_slug")
-    return [:skip, "no venue_slug — Event schema can't be complete, refusing to roll"]
+  # The next event comes from _data/calendar.yml (keyed on the post's permalink slug),
+  # which carries the per-event venue — so variable-venue shows (La Tarima, Random
+  # Facts) get the RIGHT venue for the upcoming date, not a stale static one.
+  slug = yaml_get(raw_fm, "permalink").to_s.gsub(%r{^/|/$}, "")
+  ev = next_by_show[slug]
+  return [:skip, "no upcoming event in calendar.yml"] unless ev
+
+  start_iso = ev["start"].to_s
+  end_iso   = ev["end"].to_s
+  if end_iso.empty?
+    duration_min = (yaml_get(raw_fm, "default_duration_minutes") || DEFAULT_DURATION_MIN).to_i
+    end_iso = ((Time.iso8601(start_iso) + duration_min * 60).iso8601 rescue "")
   end
 
-  existing_iso = yaml_get(raw_fm, "next_event_date")
-  if existing_iso
-    existing = Time.iso8601(existing_iso) rescue nil
-    if existing && existing > now
-      return [:skip, "already future (#{existing.iso8601})"]
-    end
-  end
-
-  begin
-    details = fetch_event_details(ticket_url, now)
-  rescue => e
-    return [:error, "fetch failed: #{e.message}"]
-  end
-
-  return [:skip, "no future event found on Eventfrog"] unless details
-
-  start_t = details.start
-  duration_min = (yaml_get(raw_fm, "default_duration_minutes") || DEFAULT_DURATION_MIN).to_i
-  end_t = details.end_at || (start_t + duration_min * 60)
-  modified_at = now.utc.strftime("%Y-%m-%dT%H:%M:%S+00:00")
-
+  # Set substantive fields first (no timestamp) so a show whose next event is
+  # unchanged isn't churned with a new last_modified_at every single day.
   new_fm = raw_fm
-  new_fm = yaml_set(new_fm, "next_event_date", start_t.iso8601)
-  new_fm = yaml_set(new_fm, "next_event_end_date", end_t.iso8601)
-  new_fm = yaml_set(new_fm, "price_chf", details.price_chf) if details.price_chf
+  new_fm = yaml_set(new_fm, "next_event_date", start_iso)
+  new_fm = yaml_set(new_fm, "next_event_end_date", end_iso) unless end_iso.empty?
+  new_fm = yaml_set(new_fm, "price_chf", ev["price_chf"]) if ev["price_chf"]
+  new_fm = yaml_set(new_fm, "venue_slug", ev["venue"])    if ev["venue"]
+
+  return [:skip, "unchanged (next #{start_iso})"] if new_fm == raw_fm
+
+  modified_at = now.utc.strftime("%Y-%m-%dT%H:%M:%S+00:00")
   new_fm = yaml_set(new_fm, "last_modified_at", modified_at)
 
   if options[:dry_run]
-    puts "    [would-write] start=#{start_t.iso8601} end=#{end_t.iso8601} price=#{details.price_chf}" if options[:verbose]
+    puts "    [would-write] next=#{start_iso} end=#{end_iso} venue=#{ev["venue"]} price=#{ev["price_chf"]}" if options[:verbose]
   else
     File.write(path, "---\n#{new_fm}\n---\n#{parsed[:body]}")
   end
 
-  msg = "rolled to #{start_t.iso8601}"
-  msg += " (end #{end_t.iso8601 == (start_t + duration_min * 60).iso8601 ? 'default' : 'from Eventfrog'}"
-  msg += ", price CHF #{details.price_chf})" if details.price_chf
-  msg += ")" unless details.price_chf
+  msg = "rolled to #{start_iso} @ #{ev["venue"]}"
+  msg += " (CHF #{ev["price_chf"]})" if ev["price_chf"]
   [:updated, msg]
 end
 
@@ -358,8 +277,17 @@ begin
   errors = 0
   error_lines = []
 
+  # Regenerate _data/calendar.yml from EventFrog (the single extractor), then derive
+  # each show's next event from it. In --dry-run we use the existing file untouched.
+  if options[:dry_run]
+    puts "(dry-run: using existing _data/calendar.yml, not regenerating)"
+  else
+    regenerate_calendar_data!(options)
+  end
+  next_by_show = next_event_by_show
+
   Dir[File.join(POSTS_DIR, "*.md")].sort.each do |path|
-    status, reason = process_post(path, now, options)
+    status, reason = process_post(path, next_by_show, now, options)
     name = File.basename(path)
     tag = case status
           when :updated then "ROLLED"
@@ -386,13 +314,15 @@ begin
     puts "homepage: #{update_homepage_timestamp(modified_at, options) ? "bumped to #{modified_at}" : 'unchanged'}"
   end
 
-  # Run git ONLY if file refresh was clean. A parse error means we don't trust
-  # the resulting tree and shouldn't push half-correct dates.
+  # Run git ONLY if file refresh was clean AND this is a real run. A parse error
+  # means we don't trust the tree; --dry-run must NEVER stage, commit, or push.
   git_result = nil
   git_error  = nil
-  if errors == 0
+  if options[:dry_run]
+    puts "git: skipped (--dry-run)"
+  elsif errors == 0
     begin
-      git_result = commit_and_push!(updated)
+      git_result = commit_and_push!
       puts "git: #{git_result}"
     rescue => e
       git_error = e.message

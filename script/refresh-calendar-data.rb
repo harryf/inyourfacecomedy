@@ -100,6 +100,78 @@ def venues
   @venues ||= (YAML.safe_load(File.read(VENUES)) || {} rescue {})
 end
 
+# ---------- Venue resolution (per-event, from EventFrog JSON-LD location) ----------
+# Shows like La Tarima and Random Facts Exchange move venue per event, so the venue
+# can't come from the post's static venue_slug — it's read from each event's
+# schema.org Place. We map that Place back to a venues.yml slug (matching curated
+# venues by name so "ROBIN's Coffee" → robins, "Amboss Rampe" → ambossrampe), and
+# mint + queue a new slug for any venue we've never seen. Curated venues are never
+# overwritten; new ones are appended with the address EventFrog gives us (website /
+# google_maps_url left blank for a human to fill).
+
+def new_venues = (@new_venues ||= {})
+
+def alnum(s) = s.to_s.downcase.gsub(/[^a-z0-9]/, "")
+
+CH_NAMES = %w[switzerland schweiz suisse svizzera ch].freeze
+def normalize_country(c)
+  CH_NAMES.include?(c.to_s.downcase.strip) ? "CH" : c.to_s.strip
+end
+
+def venue_slugify(name)
+  name.to_s.downcase.gsub(/[^a-z0-9]+/, "-").gsub(/\A-+|-+\z/, "")
+end
+
+def resolve_venue(loc_name, addr)
+  return nil if loc_name.to_s.empty?
+  key = alnum(loc_name)
+  venues.merge(new_venues).each do |slug, v|
+    s = slug.to_s.gsub(/[^a-z0-9]/, "")
+    n = alnum(v && v["name"])
+    return slug if (s.length >= 4 && key.include?(s)) ||
+                   (n.length >= 4 && (key.include?(n) || n.include?(key)))
+  end
+  slug = venue_slugify(loc_name)
+  return nil if slug.empty?
+  new_venues[slug] = {
+    "name"        => loc_name,
+    "street"      => (addr && addr["street"].to_s.empty? ? nil : addr&.dig("street")),
+    "postal_code" => (addr && addr["postal_code"].to_s.empty? ? nil : addr&.dig("postal_code")),
+    "city"        => (addr && addr["city"].to_s.empty? ? nil : addr&.dig("city")),
+    "country"     => (addr && normalize_country(addr["country"]).then { |c| c.empty? ? nil : c })
+  }.compact
+  slug
+end
+
+def venue_name_for(slug)
+  v = venues[slug] || new_venues[slug]
+  v && v["name"]
+end
+
+# Non-destructively append any newly-discovered venues to _data/venues.yml,
+# preserving the existing curated file verbatim. Only slugs not already present
+# are appended. Returns the slugs actually written.
+def append_new_venues
+  return [] if new_venues.empty?
+  existing = File.read(VENUES)
+  yq = ->(s) { '"' + s.to_s.gsub("\\", "\\\\").gsub('"', '\\"') + '"' }
+  added = []
+  blocks = new_venues.filter_map do |slug, v|
+    next if existing =~ /^#{Regexp.escape(slug)}:\s*$/
+    added << slug
+    lines = ["", "#{slug}:", "  name: #{yq.call(v["name"])}"]
+    lines << "  street: #{yq.call(v["street"])}"           if v["street"]
+    lines << "  postal_code: #{yq.call(v["postal_code"])}" if v["postal_code"]
+    lines << "  city: #{yq.call(v["city"])}"               if v["city"]
+    lines << "  country: #{yq.call(v["country"])}"         if v["country"]
+    lines << "  # website + google_maps_url: add by hand (not in EventFrog data)"
+    lines.join("\n")
+  end
+  return [] if blocks.empty?
+  File.write(VENUES, existing.rstrip + "\n" + blocks.join("\n") + "\n")
+  added
+end
+
 # Every _posts show with a ticket_url → identity hash the calendar can link to.
 def shows
   Dir[File.join(POSTS_DIR, "*.md")].sort.filter_map do |path|
@@ -161,11 +233,19 @@ def parse_event(ev, ticket_url)
   end_t = (Time.parse(ev["endDate"].to_s) rescue nil)
   loc = ev["location"]
   loc = loc.first if loc.is_a?(Array)
+  addr = loc.is_a?(Hash) ? loc["address"] : nil
+  addr = addr.first if addr.is_a?(Array)
   {
     "start"     => start_t,
     "end"       => end_t,
     "status"    => ev["eventStatus"].to_s.split("/").last,   # e.g. EventScheduled
     "location"  => (loc.is_a?(Hash) ? loc["name"].to_s : nil),
+    "address"   => (addr.is_a?(Hash) ? {
+      "street"      => addr["streetAddress"].to_s,
+      "city"        => addr["addressLocality"].to_s,
+      "postal_code" => addr["postalCode"].to_s,
+      "country"     => addr["addressCountry"].to_s
+    } : nil),
     "price_chf" => lowest_chf_price(ev["offers"]),
     "eventfrog_name" => ev["name"].to_s,
     "ticket_url"     => ticket_url
@@ -236,6 +316,7 @@ end
 def iso(t) = t.is_a?(Time) ? t.getlocal(ZURICH_OFFSET).strftime("%Y-%m-%dT%H:%M:%S%:z") : nil
 
 def to_record(show, inst)
+  vslug = resolve_venue(inst["location"], inst["address"]) || show[:venue]
   {
     "show"           => show[:slug],
     "name"           => show[:name],
@@ -244,8 +325,8 @@ def to_record(show, inst)
     "date"           => inst["start"].getlocal(ZURICH_OFFSET).strftime("%Y-%m-%d"),
     "start"          => iso(inst["start"]),
     "end"            => iso(inst["end"]),
-    "venue"          => show[:venue],
-    "venue_name"     => (show[:venue] && venues.dig(show[:venue], "name")),
+    "venue"          => vslug,
+    "venue_name"     => (venue_name_for(vslug) || (show[:venue] && venues.dig(show[:venue], "name"))),
     "location"       => inst["location"],
     "price_chf"      => inst["price_chf"],
     "status"         => inst["status"],
@@ -327,9 +408,16 @@ yaml = build_yaml(all_records, unresolved, no_upcoming, now)
 if options[:dry_run]
   say("\n--- would write #{DATA_FILE} ---", options)
   puts yaml unless options[:quiet]
+  unless new_venues.empty?
+    missing = new_venues.reject { |slug, _| File.read(VENUES) =~ /^#{Regexp.escape(slug)}:\s*$/ }
+    say("\n[would append #{missing.size} new venue(s) to _data/venues.yml]:", options)
+    missing.each { |slug, v| say("  + #{slug}: #{v["name"]} (#{[v["street"], v["postal_code"], v["city"]].compact.join(", ")})", options) }
+  end
 else
   File.write(DATA_FILE, yaml)
   say("Wrote #{DATA_FILE}", options)
+  added = append_new_venues
+  say("Added #{added.size} new venue(s) to _data/venues.yml: #{added.join(", ")}", options) unless added.empty?
 end
 
 exit(errors.zero? ? 0 : 1)
