@@ -33,7 +33,13 @@
   // already callable here). Catalog/stage/render behavior is covered by
   // integration tests that run the whole IIFE against a fixture via new Function(src).
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { norm: norm, splitTitle: splitTitle, showDate: showDate };
+    // These MUST stay `function name(){}` declarations (they are hoisted across this early
+    // return). Converting any to `var x = function(){}` makes the export undefined and
+    // silently breaks the unit tests. dayLabel/faceScale/flyerSpec are defined far below.
+    module.exports = {
+      norm: norm, splitTitle: splitTitle, showDate: showDate,
+      dayLabel: dayLabel, faceScale: faceScale, flyerSpec: flyerSpec
+    };
     return;
   }
 
@@ -453,6 +459,9 @@
 
     var dynamic = el('div', 'lineup-lab__dynamic');
     root.appendChild(dynamic);
+    // Flyer panel lives below the wizard; (re)filled on demand from the current lineup.
+    var flyerWrap = el('div', 'lineup-lab__flyer-wrap');
+    root.appendChild(flyerWrap);
 
     function runningNumber(idx) { var n = 0; for (var i = 0; i <= idx; i++) { if (work.order[i] !== INTERVAL) n++; } return n; }
     function move(idx, dir) {
@@ -637,10 +646,25 @@
       addCopy('📣 Copy promo link', 'For posting the show - features the headliner.', function () { return absPromo(workToState(), false); }, { preview: true });
       addCopy('🙏 Copy thank-you link', 'For after the show.', function () { return absPromo(workToState(), true); }, { preview: true });
       addCopy('🔖 Save lineup for later', 'Re-open this tool with everything as it is now - keep tweaking, or hand to a co-organizer.', function () { return absLab(workToState()); }, { quiet: true, preview: true });
+
+      // Flyer launcher - builds a downloadable share image from the current lineup.
+      var flyerRow = el('div', 'lineup-lab__copy-row lineup-lab__copy-row--primary');
+      var fb = el('button', 'lineup-lab__copy lineup-lab__copy--primary', '🎨 Make a share image');
+      fb.type = 'button';
+      fb.addEventListener('click', function () {
+        openFlyer(flyerWrap, workToState());
+        try { flyerWrap.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) { /* jsdom */ }
+      });
+      var fhead = el('div', 'lineup-lab__copy-head');
+      fhead.appendChild(fb);
+      flyerRow.appendChild(fhead);
+      flyerRow.appendChild(el('span', 'lineup-lab__copy-hint', 'An Instagram-ready flyer with the comedians’ faces — post or story.'));
+      outputs.appendChild(flyerRow);
     }
 
     function rerender() {
       dynamic.textContent = '';
+      flyerWrap.textContent = ''; // dismiss any open flyer so a stale image can't be downloaded after an edit
       dynamic.appendChild(buildFormatToggle());
       dynamic.appendChild(buildHostSlot());
       var legend = el('p', 'lineup-lab__legend');
@@ -663,6 +687,508 @@
     }
     rerender();
   }
+
+  // =========================================================================
+  // Flyer Maker - client-side share-image generator (Instagram post + story)
+  //
+  // Draws an on-brand show flyer onto a <canvas> from the assembled lineup and
+  // downloads it as a PNG. Everything is same-origin (show feature image, the IYF
+  // logo, comedian photos) so the canvas never taints and toBlob() succeeds. Pure
+  // layout helpers (dayLabel / faceScale / flyerSpec) are hoisted above and unit
+  // tested; the drawing/DOM code below only runs in the browser (after the test seam).
+  // =========================================================================
+
+  // Day-of-week code (THU) when the show is within the coming 7 days, else the date
+  // (2 OCT). nowMs is injected for testability. '' for an unparseable/missing date.
+  // Reuses the WD/MO arrays declared before the test-export seam (so it works under
+  // `bun test`, where the IIFE returns before any var below the seam is assigned).
+  function dayLabel(iso, nowMs) {
+    if (!iso) return '';
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return '';
+    var nd = new Date((typeof nowMs === 'number') ? nowMs : Date.now());
+    // Difference in *calendar days* (local) - a raw ms delta would misclassify a show
+    // happening tonight as past (midnight already gone) and drop its weekday badge.
+    var a = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+    var b = new Date(nd.getFullYear(), nd.getMonth(), nd.getDate()).getTime();
+    var days = Math.round((a - b) / 86400000);
+    if (days >= 0 && days <= 7) return WD[d.getDay()].toUpperCase();
+    return d.getDate() + ' ' + MO[d.getMonth()].toUpperCase();
+  }
+
+  // Polaroid size multiplier by comedian priority - all stay clearly visible.
+  function faceScale(priority) {
+    switch (norm(priority)) {
+      case 'high': return 1.0;
+      case 'low': return 0.70;
+      case 'medium': return 0.82;
+      default: return 0.82;
+    }
+  }
+
+  // Canvas spec per Instagram format. Post = 1080x1350 (4:5). Story = 1080x1920
+  // (9:16) with a UI-safe inset (top bar/avatar ~250px, bottom reply+link ~320px).
+  function flyerSpec(format) {
+    if (format === 'story') return { w: 1080, h: 1920, safeTop: 250, safeBottom: 320, format: 'story' };
+    return { w: 1080, h: 1350, safeTop: 70, safeBottom: 70, format: 'post' };
+  }
+
+  // --- canvas primitives -----------------------------------------------------
+  function assetURL(p) {
+    if (!p) return '';
+    if (/^https?:/i.test(p) || /^data:/i.test(p)) return p;
+    return p.charAt(0) === '/' ? p : '/' + p;
+  }
+  function loadImg(src) {
+    return new Promise(function (res) {
+      if (!src) { res(null); return; }
+      var im = new Image();
+      var done = false;
+      function settle(v) { if (!done) { done = true; clearTimeout(timer); res(v); } }
+      var timer = setTimeout(function () { settle(null); }, 6000); // never hang the render on a stuck image
+      im.onload = function () { settle(im); };
+      im.onerror = function () { settle(null); };
+      // Same-origin assets keep the canvas untainted (the catalog paths are all root-relative,
+      // so this is the normal path). If a path is ever an absolute off-origin URL, request CORS:
+      // with CORS headers it stays exportable; without them it errors out to a placeholder -
+      // either way it can never silently taint the canvas and break the PNG download.
+      try { if (/^https?:/i.test(src) && src.indexOf(location.origin) !== 0) im.crossOrigin = 'anonymous'; } catch (e) { /* no location */ }
+      im.src = src;
+    });
+  }
+  function drawCover(ctx, img, x, y, w, h) {
+    var ir = img.width / img.height, rr = w / h, sw, sh, sx, sy;
+    if (ir > rr) { sh = img.height; sw = sh * rr; sx = (img.width - sw) / 2; sy = 0; }
+    else { sw = img.width; sh = sw / rr; sx = 0; sy = (img.height - sh) / 2; }
+    ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
+  }
+  function roundRect(ctx, x, y, w, h, r) {
+    r = Math.min(r, w / 2, h / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+  function firstName(name) { return (name || '').split(/\s+/)[0] || name || ''; }
+  function fitFont(ctx, text, maxW, startPx, minPx, weight, family) {
+    var px = startPx;
+    while (px > minPx) {
+      ctx.font = (weight ? weight + ' ' : '') + px + 'px ' + family;
+      if (ctx.measureText(text).width <= maxW) return px;
+      px -= 2;
+    }
+    ctx.font = (weight ? weight + ' ' : '') + minPx + 'px ' + family;
+    return minPx;
+  }
+  function wrapWords(ctx, text, maxW) {
+    var words = (text || '').split(/\s+/), lines = [], cur = '';
+    for (var i = 0; i < words.length; i++) {
+      var t = cur ? cur + ' ' + words[i] : words[i];
+      if (ctx.measureText(t).width <= maxW || !cur) cur = t;
+      else { lines.push(cur); cur = words[i]; }
+    }
+    if (cur) lines.push(cur);
+    return lines;
+  }
+  function fitTitle(ctx, text, maxW, startPx, minPx, maxLines, family) {
+    var px = startPx;
+    while (px >= minPx) {
+      ctx.font = '400 ' + px + 'px ' + family;
+      var lines = wrapWords(ctx, text, maxW);
+      if (lines.length <= maxLines) return { px: px, lines: lines };
+      px -= 4;
+    }
+    ctx.font = '400 ' + minPx + 'px ' + family;
+    return { px: minPx, lines: wrapWords(ctx, text, maxW).slice(0, maxLines) };
+  }
+
+  var FONT_DISPLAY = '"Anton", Impact, sans-serif';
+  var FONT_ACCENT = '"Permanent Marker", cursive';
+  var FONT_BODY = '"Inter", system-ui, sans-serif';
+  var TILTS = [-4, 3, -3, 4, -2, 2];
+
+  var _fontsP = null;
+  function loadBrandFonts() {
+    if (_fontsP) return _fontsP;
+    _fontsP = new Promise(function (resolve) {
+      try {
+        if (!document.getElementById('iyf-flyer-fonts')) {
+          var l = document.createElement('link');
+          l.id = 'iyf-flyer-fonts';
+          l.rel = 'stylesheet';
+          l.href = 'https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Permanent+Marker&display=swap';
+          document.head.appendChild(l);
+        }
+        var faces = ['400 64px "Anton"', '64px "Permanent Marker"', '700 48px "Inter"', '500 40px "Inter"'];
+        if (document.fonts && document.fonts.load) {
+          Promise.all(faces.map(function (f) { return document.fonts.load(f).catch(function () {}); }))
+            .then(function () { return document.fonts.ready; }).then(resolve, resolve);
+        } else resolve();
+      } catch (e) { resolve(); }
+    });
+    return _fontsP;
+  }
+
+  // --- flyer pieces ----------------------------------------------------------
+  function drawPolaroid(ctx, img, cx, topY, w, tilt, name, star) {
+    var frame = Math.round(w * 0.06);
+    var photo = w - frame * 2;
+    var capH = Math.round(w * 0.22);
+    var h = frame + photo + capH;
+    ctx.save();
+    ctx.translate(cx, topY + h / 2);
+    ctx.rotate(tilt * Math.PI / 180);
+    ctx.shadowColor = 'rgba(0,0,0,0.45)';
+    ctx.shadowBlur = 26;
+    ctx.shadowOffsetY = 12;
+    ctx.fillStyle = '#FFF8EE';
+    roundRect(ctx, -w / 2, -h / 2, w, h, 8);
+    ctx.fill();
+    ctx.shadowColor = 'transparent';
+    var px = -w / 2 + frame, py = -h / 2 + frame;
+    if (img) {
+      ctx.save();
+      roundRect(ctx, px, py, photo, photo, 4);
+      ctx.clip();
+      drawCover(ctx, img, px, py, photo, photo);
+      ctx.restore();
+    } else {
+      ctx.fillStyle = '#0F0F10';
+      ctx.fillRect(px, py, photo, photo);
+      ctx.fillStyle = '#FFD54F';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(photo * 0.5) + 'px ' + FONT_DISPLAY;
+      ctx.fillText((name || '?').charAt(0).toUpperCase(), px + photo / 2, py + photo / 2 + 4);
+    }
+    if (star) {
+      ctx.fillStyle = '#E53935';
+      ctx.beginPath();
+      ctx.arc(px + photo - 6, py + 6, Math.max(20, photo * 0.13), 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#FFD54F';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(photo * 0.16) + 'px ' + FONT_DISPLAY;
+      ctx.fillText('★', px + photo - 6, py + 6 + 2);
+    }
+    var cap = firstName(name).toUpperCase();
+    ctx.fillStyle = '#0F0F10';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    fitFont(ctx, cap, photo, Math.round(capH * 0.62), 18, '', FONT_ACCENT);
+    ctx.fillText(cap, 0, -h / 2 + frame + photo + capH / 2);
+    ctx.restore();
+    return h;
+  }
+
+  function drawHost(ctx, img, cx, cy, r, name) {
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,0.5)';
+    ctx.shadowBlur = 30;
+    ctx.shadowOffsetY = 12;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r + 9, 0, Math.PI * 2);
+    ctx.fillStyle = '#E53935';
+    ctx.fill();
+    ctx.shadowColor = 'transparent';
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.clip();
+    if (img) drawCover(ctx, img, cx - r, cy - r, 2 * r, 2 * r);
+    else {
+      ctx.fillStyle = '#0F0F10';
+      ctx.fillRect(cx - r, cy - r, 2 * r, 2 * r);
+      ctx.fillStyle = '#FFD54F';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(r) + 'px ' + FONT_DISPLAY;
+      ctx.fillText((name || '?').charAt(0).toUpperCase(), cx, cy + 4);
+    }
+    ctx.restore();
+    // HOST pill straddling the bottom of the ring
+    var pillH = Math.max(46, r * 0.42), pillW = r * 1.5, pillY = cy + r - pillH * 0.35;
+    roundRect(ctx, cx - pillW / 2, pillY, pillW, pillH, pillH / 2);
+    ctx.fillStyle = '#0F0F10';
+    ctx.fill();
+    ctx.fillStyle = '#FFD54F';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = '700 ' + Math.round(pillH * 0.5) + 'px ' + FONT_BODY;
+    ctx.fillText('H O S T', cx, pillY + pillH / 2 + 1);
+    // name under
+    var hostCap = firstName(name).toUpperCase();
+    ctx.fillStyle = '#FFF8EE';
+    fitFont(ctx, hostCap, pillW * 1.6, 48, 22, '', FONT_ACCENT);
+    ctx.fillText(hostCap, cx, pillY + pillH + 36);
+    ctx.restore();
+  }
+
+  // --- compositor ------------------------------------------------------------
+  function paintFlyer(ctx, spec, m) {
+    var W = spec.w, H = spec.h, top = spec.safeTop, bottom = spec.safeBottom, pad = 64;
+    var cx = W / 2;
+
+    // 1. background, cover-fit (fallback to brand blue)
+    if (m.bg) drawCover(ctx, m.bg, 0, 0, W, H);
+    else { ctx.fillStyle = '#10204a'; ctx.fillRect(0, 0, W, H); }
+
+    // 2. brand overlays: blue wash for cohesion + bottom ink scrim for legibility
+    var blue = ctx.createLinearGradient(0, 0, 0, H);
+    blue.addColorStop(0, 'rgba(12,28,72,0.34)');
+    blue.addColorStop(0.45, 'rgba(12,24,60,0.12)');
+    blue.addColorStop(1, 'rgba(8,12,28,0.30)');
+    ctx.fillStyle = blue;
+    ctx.fillRect(0, 0, W, H);
+
+    // title baseline anchored above the safe bottom
+    var metaBaseY = H - bottom - 30;
+    var nameMaxW = W - pad * 2;
+    var ttl = fitTitle(ctx, (m.show ? splitTitle(m.show.title) : 'IN YOUR FACE').toUpperCase(),
+      nameMaxW, spec.format === 'story' ? 150 : 138, 64, 3, FONT_DISPLAY);
+    var lineH = ttl.px * 1.02;
+    var nameBlockH = ttl.lines.length * lineH;
+    var nameBottomY = metaBaseY - 92;
+    var nameTopY = nameBottomY - nameBlockH;
+
+    // scrim behind name + meta
+    var scrimTop = nameTopY - 70;
+    var scrim = ctx.createLinearGradient(0, scrimTop, 0, H);
+    scrim.addColorStop(0, 'rgba(15,15,16,0)');
+    scrim.addColorStop(0.4, 'rgba(15,15,16,0.55)');
+    scrim.addColorStop(1, 'rgba(15,15,16,0.9)');
+    ctx.fillStyle = scrim;
+    ctx.fillRect(0, scrimTop, W, H - scrimTop);
+
+    // 3. logo (top, centered, inside safe top)
+    var logoH = spec.format === 'story' ? 150 : 132;
+    var logoY = top + (spec.format === 'story' ? 14 : 30);
+    if (m.logo) {
+      var lw = logoH * (m.logo.width / m.logo.height);
+      ctx.drawImage(m.logo, cx - lw / 2, logoY, lw, logoH);
+    }
+    ctx.fillStyle = '#FFD54F';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+    ctx.font = '34px ' + FONT_ACCENT;
+    ctx.fillText('live stand-up comedy', cx, logoY + logoH + 42);
+    var headerBottom = logoY + logoH + 70;
+
+    // 4. faces zone (between header and the title block)
+    var facesTop = headerBottom + 20;
+    var facesBottom = nameTopY - 40;
+    var bill = m.bill.slice(0, 6);
+    var hostR = spec.format === 'story' ? 165 : 150;
+    var rowTop;
+    if (m.host && m.host.slug) {
+      var hostCy = facesTop + hostR + 10;
+      drawHost(ctx, m.host.img, cx, hostCy, hostR, m.host.name);
+      rowTop = hostCy + hostR + 96;
+    } else {
+      rowTop = facesTop + 20;
+    }
+    // priority-scaled polaroid row, centered, uniformly shrunk to fit width
+    if (bill.length) {
+      var baseW = spec.format === 'story' ? 250 : 230;
+      var gap = 22;
+      var widths = bill.map(function (b) { return baseW * faceScale(b.priority); });
+      var totalW = widths.reduce(function (a, b) { return a + b; }, 0) + gap * (bill.length - 1);
+      var maxRowW = W - pad * 2;
+      var fit = Math.min(1, maxRowW / totalW);
+      // vertically center the (tallest) row in the available band
+      var tallW = Math.max.apply(null, widths) * fit;
+      var rowH = tallW * 1.28; // approx polaroid height
+      var bandMid = (rowTop + facesBottom) / 2;
+      var rowY = Math.max(rowTop, bandMid - rowH / 2);
+      var x = cx - (totalW * fit) / 2;
+      bill.forEach(function (b, i) {
+        var w = widths[i] * fit;
+        drawPolaroid(ctx, b.img, x + w / 2, rowY, w, TILTS[i % TILTS.length], b.name, b.headliner);
+        x += w + gap * fit;
+      });
+    }
+
+    // 5. show name (display, uppercase, largest), drawn from nameTop down
+    ctx.fillStyle = '#FFF8EE';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+    ctx.font = '400 ' + ttl.px + 'px ' + FONT_DISPLAY;
+    ctx.shadowColor = 'rgba(0,0,0,0.55)';
+    ctx.shadowBlur = 12;
+    ctx.shadowOffsetY = 4;
+    ttl.lines.forEach(function (ln, i) {
+      ctx.fillText(ln, cx, nameTopY + (i + 1) * lineH - lineH * 0.22);
+    });
+    ctx.shadowColor = 'transparent';
+
+    // 6. meta line: date pill + venue
+    var dl = m.show ? dayLabel(m.show.next, m.nowMs) : '';
+    var venue = (m.show && m.show.venue) ? m.show.venue.toUpperCase() : '';
+    ctx.textBaseline = 'middle';
+    var pillFont = '700 40px ' + FONT_BODY;
+    ctx.font = pillFont;
+    var pillTxtW = dl ? ctx.measureText(dl).width : 0;
+    var pillPad = 26, pillH = 64;
+    var pillW = pillTxtW + pillPad * 2;
+    ctx.font = '600 38px ' + FONT_BODY;
+    var venTxtW = venue ? ctx.measureText('  ' + venue).width : 0;
+    var gap2 = dl && venue ? 22 : 0;
+    var metaW = (dl ? pillW : 0) + gap2 + venTxtW;
+    var mx = cx - metaW / 2;
+    var pillCy = metaBaseY - pillH / 2;
+    if (dl) {
+      roundRect(ctx, mx, pillCy - pillH / 2, pillW, pillH, pillH / 2);
+      ctx.fillStyle = '#E53935';
+      ctx.fill();
+      ctx.fillStyle = '#FFF3E0';
+      ctx.font = pillFont;
+      ctx.textAlign = 'center';
+      ctx.fillText(dl, mx + pillW / 2, pillCy + 1);
+      mx += pillW + gap2;
+    }
+    if (venue) {
+      ctx.fillStyle = '#FFD54F';
+      ctx.font = '600 38px ' + FONT_BODY;
+      ctx.textAlign = 'left';
+      ctx.fillText(venue, mx, pillCy + 1);
+    }
+
+    // 7. story-only: bottom link affordance inside the safe band
+    if (spec.format === 'story') {
+      var by = H - bottom + 96;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#FFF8EE';
+      ctx.font = '700 40px ' + FONT_BODY;
+      ctx.fillText('@inyourfacecomedy', cx, by);
+      ctx.fillStyle = '#FFD54F';
+      ctx.font = '500 34px ' + FONT_BODY;
+      ctx.fillText('🔗 tickets & info → link in bio', cx, by + 54);
+    }
+  }
+
+  // Resolve lineup state -> draw the flyer -> callback. done(err|null).
+  function drawFlyer(canvas, st, format, done) {
+    var spec = flyerSpec(format);
+    canvas.width = spec.w;
+    canvas.height = spec.h;
+    var ctx = canvas.getContext('2d');
+    var s = findShow(st.show);
+    var hostSlug = (st.host && findComedian(st.host)) ? canonical(st.host) : '';
+    var raw = (st.type === 'split') ? st.first.concat(st.second) : st.lineup.slice();
+    var billSlugs = resolveSlugs(raw).filter(function (x) { return norm(x) !== norm(hostSlug); });
+    var hostC = hostSlug ? findComedian(hostSlug) : null;
+
+    var srcs = [assetURL(s && s.img), '/assets/img/inyourface.png', hostC ? assetURL(hostC.photo) : ''];
+    billSlugs.forEach(function (sl) { var c = findComedian(sl); srcs.push(c ? assetURL(c.photo) : ''); });
+
+    loadBrandFonts()
+      .then(function () { return Promise.all(srcs.map(loadImg)); })
+      .then(function (imgs) {
+        var bill = billSlugs.map(function (sl, i) {
+          var c = findComedian(sl) || {};
+          return { slug: sl, name: c.name || sl, priority: c.priority, img: imgs[3 + i], headliner: hasNorm(st.headliner, sl) };
+        });
+        paintFlyer(ctx, spec, {
+          show: s, st: st, bg: imgs[0], logo: imgs[1],
+          host: hostSlug ? { slug: hostSlug, name: (hostC && hostC.name) || hostSlug, img: imgs[2] } : null,
+          bill: bill, nowMs: Date.now()
+        });
+        if (done) done(null);
+      })
+      .catch(function (e) { if (done) done(e); });
+  }
+
+  function downloadCanvas(canvas, st, format, onFail) {
+    var s = findShow(st.show);
+    var base = (s ? splitTitle(s.title) : 'flyer').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    var fname = (base || 'flyer') + '-' + format + '.png';
+    function fail(e) { if (onFail) onFail(e); }
+    function trigger(url, revoke) {
+      try {
+        var a = document.createElement('a');
+        a.href = url; a.download = fname;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        if (revoke) setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+      } catch (e) { fail(e); }
+    }
+    // Both export paths assume an untainted (same-origin) canvas; guard anyway so a
+    // tainted canvas surfaces a message instead of an uncaught exception.
+    try {
+      if (canvas.toBlob) {
+        canvas.toBlob(function (b) {
+          if (b) { trigger(URL.createObjectURL(b), true); return; } // normal path
+          try { trigger(canvas.toDataURL('image/png'), false); }    // null -> data-URL fallback
+          catch (e) { fail(e); }
+        }, 'image/png');
+      } else {
+        trigger(canvas.toDataURL('image/png'), false);
+      }
+    } catch (e) { fail(e); }
+  }
+
+  function ensureFlyerCss() {
+    if (document.getElementById('iyf-flyer-css')) return;
+    var st = document.createElement('style');
+    st.id = 'iyf-flyer-css';
+    st.textContent =
+      '.lineup-lab__flyer{margin-top:1.5rem;padding:1.25rem;border-radius:14px;background:#1A1A1D;color:#FFF3E0}' +
+      '.lineup-lab__flyer .lineup-lab__outputs-title{margin-top:0}' +
+      '.lineup-lab__canvas{display:block;width:100%;max-width:420px;height:auto;margin:1rem auto;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.4)}' +
+      '.lineup-lab__flyer .btn-ticket{display:block;width:100%;max-width:420px;margin:0 auto}';
+    document.head.appendChild(st);
+  }
+
+  // Build/refresh the flyer panel for a lineup snapshot. Format persists on the host.
+  function openFlyer(container, st) {
+    ensureFlyerCss();
+    var fmt = container.__iyfFmt || 'story';
+    container.textContent = '';
+    var panel = el('div', 'lineup-lab__flyer');
+    panel.appendChild(el('h2', 'lineup-lab__outputs-title', '🎨 Share image'));
+    panel.appendChild(el('p', 'lineup-lab__copy-hint',
+      'A ready-to-post flyer built from this lineup. Pick a format and download.'));
+
+    var toggle = el('div', 'lineup-lab__fmt-toggle');
+    [['story', '📱 Story 9:16'], ['post', '🖼️ Post 4:5']].forEach(function (p) {
+      var b = button('lineup-lab__fmt-btn' + (fmt === p[0] ? ' is-on' : ''), p[1]);
+      b.setAttribute('aria-pressed', fmt === p[0] ? 'true' : 'false');
+      b.addEventListener('click', function () { container.__iyfFmt = p[0]; openFlyer(container, st); });
+      toggle.appendChild(b);
+    });
+    panel.appendChild(toggle);
+
+    var canvas = el('canvas', 'lineup-lab__canvas');
+    canvas.setAttribute('role', 'img');
+    canvas.setAttribute('aria-label', 'Generated show flyer preview');
+    panel.appendChild(canvas);
+
+    var status = el('p', 'lineup-lab__copy-status', 'Rendering…');
+    panel.appendChild(status);
+    var dl = el('button', 'btn-ticket', '⬇️ Download PNG');
+    dl.type = 'button';
+    dl.disabled = true;
+    panel.appendChild(dl);
+    container.appendChild(panel);
+
+    drawFlyer(canvas, st, fmt, function (err) {
+      if (err) { status.textContent = 'Could not render the image — try again.'; return; }
+      status.textContent = 'Looks good? Download and post it. 🎤';
+      dl.disabled = false;
+      dl.addEventListener('click', function () {
+        downloadCanvas(canvas, st, fmt, function () { status.textContent = 'Download failed — long-press / right-click the image to save it.'; });
+      });
+    });
+  }
+
+  // Test/preview seam: expose the flyer entry points on window (browser-only, mirrors
+  // __lineupMakerLastURL). Lets a harness render a flyer headlessly without walking the
+  // wizard UI. No-op in read-only envs.
+  try { window.__iyfDrawFlyer = drawFlyer; window.__iyfOpenFlyer = openFlyer; } catch (e) { /* read-only env */ }
 
   // --- route -----------------------------------------------------------------
   function render() {
