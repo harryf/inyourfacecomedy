@@ -1,7 +1,7 @@
-/** Lineup Lab - a URL-state power tool for IN YOUR FACE show organizers.
+/** Lineup Maker 2000 - a URL-state power tool for IN YOUR FACE show organizers.
  *
  *  Everything lives in the query string (no auth, no storage). The state vocabulary is the
- *  SAME one the /comedians/ show-promo links use, so a Lineup Lab URL and a promo URL are the
+ *  SAME one the /comedians/ show-promo links use, so a Lineup Maker 2000 URL and a promo URL are the
  *  same data at two paths:
  *
  *    show=slug        the show (resolved against the build-time #iyf-shows catalog)
@@ -24,6 +24,18 @@
   var INTERVAL = '::interval::';
   var WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   var MO = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  // --- test seam --------------------------------------------------------------
+  // In a CommonJS/test context (bun test) `module` exists: export the stateless
+  // pure helpers for fast unit assertions and stop before reading the DOM. In a
+  // browser there is no `module`, so this block is skipped and the wizard runs
+  // exactly as before (the function declarations below are hoisted, so they are
+  // already callable here). Catalog/stage/render behavior is covered by
+  // integration tests that run the whole IIFE against a fixture via new Function(src).
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { norm: norm, splitTitle: splitTitle, showDate: showDate };
+    return;
+  }
 
   var root = document.getElementById('lineup-lab');
   if (!root) return;
@@ -143,7 +155,7 @@
   // Reload-driven stage transition. Exposes the target on window for tests.
   function go(st, stage) {
     var url = window.location.pathname + '?' + labQuery(st, stage);
-    try { window.__lineupLabLastURL = url; } catch (e) { /* read-only env */ }
+    try { window.__lineupMakerLastURL = url; } catch (e) { /* read-only env */ }
     try { window.location.href = url; } catch (e) { /* jsdom: navigation not implemented */ }
   }
 

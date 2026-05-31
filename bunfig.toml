@@ -1,0 +1,4 @@
+[test]
+# Register a simulated DOM (happy-dom) before any test file runs, so the
+# client-side scripts find document/window/navigator/location just like a browser.
+preload = ["./assets/js/__tests__/setup.ts"]

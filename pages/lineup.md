@@ -13,7 +13,7 @@ description: "Power Tool for IN YOUR FACE show organizers to build and share a s
   Lineup Maker 2000 — a URL-state power tool for show organizers. No auth, no storage: the entire
   state of a lineup lives in the query string, using the SAME scheme as the /comedians/
   show-promo links (show / headliner / host / first / second / lineup / thankyou) plus two
-  helper params (type, stage). assets/js/lineup-lab.js does everything in the browser.
+  helper params (type, stage). assets/js/lineup-maker-2000.js does everything in the browser.
 
   Two build-time catalogs feed it — shows (every post with a ticket_url) and the full
   comedian roster. Both come ONLY from curated site data, so a crafted link can never
@@ -22,7 +22,7 @@ description: "Power Tool for IN YOUR FACE show organizers to build and share a s
 
 <div id="lineup-lab" class="lineup-lab" data-origin="{{ site.url }}">
   <noscript>
-    <p class="lineup-lab__noscript">Lineup Lab needs JavaScript — it builds your lineup entirely in the browser.</p>
+    <p class="lineup-lab__noscript">Lineup Maker 2000 needs JavaScript — it builds your lineup entirely in the browser.</p>
   </noscript>
 </div>
 
@@ -35,4 +35,4 @@ description: "Power Tool for IN YOUR FACE show organizers to build and share a s
 [{% for c in site.comedians %}{"slug":{{ c.slug | jsonify }},"name":{{ c.title | jsonify }},"url":{{ c.url | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
 </script>
 
-<script src="{{ '/assets/js/lineup-lab.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/lineup-maker-2000.js' | relative_url }}" defer></script>

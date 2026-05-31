@@ -313,7 +313,7 @@ check("/lineup/ #iyf-comedians valid JSON, count == roster") do
   data = inline_json(lin_html, "iyf-comedians")
   [data.is_a?(Array) && data.length == comedian_slugs.length, "got #{data&.length.inspect} vs #{comedian_slugs.length}"]
 end
-check("lineup-lab.js asset present") { [File.exist?(File.join(SITE, "assets/js/lineup-lab.js")), "missing"] }
+check("lineup-maker-2000.js asset present") { [File.exist?(File.join(SITE, "assets/js/lineup-maker-2000.js")), "missing"] }
 check("Anti: /lineup/ carries noindex robots meta") do
   [lin_html =~ /name=["']robots["']\s+content=["']noindex/i ? true : false, "no noindex meta"]
 end

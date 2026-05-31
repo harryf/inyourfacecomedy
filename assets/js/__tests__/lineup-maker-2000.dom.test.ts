@@ -1,0 +1,113 @@
+// DOM-integration tests for assets/js/lineup-maker-2000.js (the /lineup/ organizer wizard).
+// Builds the #lineup-lab root + the two build-time catalogs, sets the URL to a wizard
+// stage, runs the whole IIFE, and asserts the rendered step / share links.
+import { describe, expect, test, beforeEach } from "bun:test";
+import { buildLineupDOM, runScript, loadScript, setURL, FUTURE_ISO, type ShowCat } from "./helpers";
+
+const SRC = loadScript("lineup-maker-2000.js");
+
+const SHOWS: ShowCat[] = [
+  { slug: "latershow", title: "Later Show", next: "2030-12-01T19:00:00+00:00", tickets: "https://t.example/l" },
+  { slug: "soonshow", title: "Soon Show", next: "2030-06-01T19:00:00+00:00", tickets: "https://t.example/s" },
+];
+const ROSTER = [
+  { slug: "aaa", name: "Aaa Comedian" },
+  { slug: "bbb", name: "Bbb Comedian" },
+  { slug: "ccc", name: "Ccc Comedian" },
+];
+
+beforeEach(() => {
+  (window as unknown as { __lineupMakerLastURL?: string }).__lineupMakerLastURL = undefined;
+});
+
+describe("lineup-maker-2000 • no root element", () => {
+  test("no-ops when #lineup-lab is absent", () => {
+    document.body.innerHTML = "<div>unrelated page</div>";
+    setURL("?show=soonshow", "/lineup/");
+    expect(() => runScript(SRC)).not.toThrow();
+    expect(document.querySelector(".lineup-lab__title")).toBeNull();
+  });
+});
+
+describe("lineup-maker-2000 • seam is invisible in production (ISC-9/ISC-10)", () => {
+  test("running with no `module` auto-executes the IIFE and only the renamed hook leaks", () => {
+    // new Function runs in global scope where `module` is undefined — exactly the
+    // production <script defer> path. No manual render() is called.
+    buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+    setURL("", "/lineup/");
+    runScript(SRC);
+    // production IIFE actually rendered (proves the seam did NOT swallow the run)
+    expect(document.querySelector(".lineup-lab__title")?.textContent).toBe("🎤 Lineup Maker 2000");
+    // the old hook name must never appear; only the renamed one is used
+    expect("__lineupLabLastURL" in window).toBe(false);
+    (document.querySelector(".lineup-lab__show-btn") as HTMLElement).click();
+    expect("__lineupMakerLastURL" in window).toBe(true);
+  });
+});
+
+describe("lineup-maker-2000 • show picker (stage 1)", () => {
+  test("lists every catalog show, soonest first, under the Maker 2000 title", () => {
+    buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+    setURL("", "/lineup/");
+    runScript(SRC);
+    expect(document.querySelector(".lineup-lab__title")?.textContent).toBe("🎤 Lineup Maker 2000");
+    const names = Array.from(document.querySelectorAll(".lineup-lab__show-name")).map((n) => n.textContent);
+    expect(names).toEqual(["Soon Show", "Later Show"]); // soonest upcoming first
+  });
+
+  test("clicking a show advances the wizard via the renamed test hook", () => {
+    buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+    setURL("", "/lineup/");
+    runScript(SRC);
+    const firstShow = document.querySelector(".lineup-lab__show-btn") as HTMLElement;
+    firstShow.click();
+    const last = (window as unknown as { __lineupMakerLastURL?: string }).__lineupMakerLastURL;
+    expect(last).toContain("show=soonshow");
+    expect(last).toContain("stage=format");
+  });
+});
+
+describe("lineup-maker-2000 • order stage", () => {
+  test("a bill slug absent from the catalog triggers the dropped-act notice", () => {
+    buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+    setURL("?show=soonshow&type=flat&lineup=aaa,ghostact,bbb&stage=order", "/lineup/");
+    runScript(SRC);
+    const notice = document.querySelector(".lineup-lab__notice");
+    expect(notice).not.toBeNull();
+    expect(notice!.textContent).toContain("1"); // exactly one act left off
+  });
+
+  test("setting a performer as host moves them out of the order and into the share link", () => {
+    buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+    setURL("?show=soonshow&type=flat&lineup=aaa,bbb,ccc&stage=order", "/lineup/");
+    runScript(SRC);
+    // click the "set as host" control on bbb's row
+    const hostBtn = document.querySelector(
+      '.lineup-lab__row[data-slug="bbb"] button[aria-label="Set as host"]',
+    ) as HTMLElement;
+    expect(hostBtn).not.toBeNull();
+    hostBtn.click();
+    // bbb is now in the host slot, not the numbered running order
+    expect(document.querySelector('.lineup-lab__rows [data-slug="bbb"]')).toBeNull();
+    expect(document.querySelector(".lineup-lab__hostpill")?.textContent).toContain("Bbb Comedian");
+    // and every share link now carries host=bbb
+    const previews = Array.from(document.querySelectorAll("a.lineup-lab__preview")).map((a) =>
+      a.getAttribute("href"),
+    );
+    expect(previews.length).toBeGreaterThan(0);
+    expect(previews.some((h) => h && /host=bbb/.test(h))).toBe(true);
+    // ...and bbb must NOT remain in the numbered running-order params (host has its own slot)
+    expect(previews.every((h) => !!h && !/[?&](lineup|first|second)=[^&]*bbb/.test(h))).toBe(true);
+  });
+
+  test("anti-spam: the running order resolves only to canonical catalog slugs", () => {
+    buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+    // ghostact is not in the catalog; AAA is a case/separator variant of aaa (dupe)
+    setURL("?show=soonshow&type=flat&lineup=aaa,ghostact,bbb,AAA&stage=order", "/lineup/");
+    runScript(SRC);
+    const orderSlugs = Array.from(document.querySelectorAll(".lineup-lab__rows .lineup-lab__row[data-slug]")).map(
+      (el) => el.getAttribute("data-slug"),
+    );
+    expect(orderSlugs).toEqual(["aaa", "bbb"]); // ghost dropped, AAA de-duped to canonical aaa
+  });
+});

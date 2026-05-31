@@ -89,7 +89,7 @@ collections:
 # BUILD SETTINGS
 sass:
   style: compressed
-exclude: [".jekyll-cache", ".jekyll-metadata", ".idea", "vendor/*", "assets/node_modules/*", "script/*"]
+exclude: [".jekyll-cache", ".jekyll-metadata", ".idea", "vendor/*", "assets/node_modules/*", "script/*", "node_modules", "package.json", "bunfig.toml", "bun.lock", "bun.lockb", "assets/js/__tests__"]
 
 plugins:
   - jekyll-paginate

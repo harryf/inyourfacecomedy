@@ -35,13 +35,29 @@
   var WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   var MO = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+  // --- test seam --------------------------------------------------------------
+  // In a CommonJS/test context (bun test) `module` exists: export the stateless
+  // pure helpers for fast unit assertions and stop before reading location/DOM.
+  // In a browser there is no `module`, so this block is skipped and the script
+  // runs exactly as before. (The function declarations below are hoisted, so they
+  // are already callable here.) Catalog/DOM behavior is covered by integration
+  // tests that run the whole IIFE against a fixture via new Function(src).
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { norm: norm, splitList: splitList, safeUrl: safeUrl, safeImg: safeImg, showDate: showDate, splitTitle: splitTitle };
+    return;
+  }
+
   var params = new URLSearchParams(window.location.search);
 
-  function list(name) {
-    return (params.get(name) || '')
+  // Stateless split used by list() — extracted so it can be unit-tested directly.
+  function splitList(raw) {
+    return (raw || '')
       .split(',')
       .map(function (s) { return s.trim(); })
       .filter(Boolean);
+  }
+  function list(name) {
+    return splitList(params.get(name));
   }
   function norm(s) {
     return (s || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
@@ -221,7 +237,7 @@
     if (host.length)   groups.push({ label: host.length > 1 ? 'Hosts' : 'Host', slugs: host });
     if (first.length)  groups.push({ label: 'First Half', slugs: first });
     if (second.length) groups.push({ label: 'Second Half', slugs: second });
-    // A hosted but un-split bill (host + flat running order) — lets Lineup Lab's
+    // A hosted but un-split bill (host + flat running order) — lets Lineup Maker 2000's
     // hosted-flat promo link render the running order under a plain "Line-up" header.
     if (lineup.length) groups.push({ label: 'Line-up', slugs: lineup });
   } else if (lineup.length) {

@@ -1,0 +1,12 @@
+{
+  "name": "inyourfacecomedy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tests for the client-side JS (Lineup Maker 2000 + comedian-lineup show-promo).",
+  "scripts": {
+    "test": "TZ=UTC bun test"
+  },
+  "devDependencies": {
+    "@happy-dom/global-registrator": "^20.0.0"
+  }
+}

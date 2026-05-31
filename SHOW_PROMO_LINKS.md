@@ -184,7 +184,7 @@ and you share the work.
 | 🙏 Thank-you link | The same promo link + `&thankyou` for after the show. |
 | 💬 Running order | Plain text — host first, numbered acts, headliner ⭐, halves + interval — to paste straight into WhatsApp. |
 
-**Implementation:** `assets/js/lineup-lab.js` (the tool) and `pages/lineup.md` (the page + its two
+**Implementation:** `assets/js/lineup-maker-2000.js` (the tool) and `pages/lineup.md` (the page + its two
 build-time catalogs: shows and the full comedian roster). Copy/labels are plain strings near the
 relevant `render*` functions. Comedians and shows resolve only against the embedded catalogs, so a
 crafted Lab link can no more inject a fake performer than a promo link can.

@@ -32,4 +32,6 @@ All but the spreadsheet are already in `.gitignore`. Stage files by name when yo
 
 ## Two browser tools
 
-Both keep their whole state in the link and run in the browser, no server. The `/comedians/` show-promo links and the `/lineup/` Lineup Maker share one query-string scheme (see `SHOW_PROMO_LINKS.md`; the scripts are `assets/js/comedian-lineup.js` and `assets/js/lineup-lab.js`). `/lineup/` is held out of search and the nav on purpose (`noindex`, `sitemap: false`).
+Both keep their whole state in the link and run in the browser, no server. The `/comedians/` show-promo links and the `/lineup/` Lineup Maker share one query-string scheme (see `SHOW_PROMO_LINKS.md`; the scripts are `assets/js/comedian-lineup.js` and `assets/js/lineup-maker-2000.js`). Both are
+covered by `bun test` (happy-dom, in `assets/js/__tests__/`) — run `bun test` after touching them;
+the suite pins the anti-spam/security invariants and the URL-scheme reshape behavior. `/lineup/` is held out of search and the nav on purpose (`noindex`, `sitemap: false`).
