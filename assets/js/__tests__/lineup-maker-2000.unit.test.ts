@@ -8,6 +8,9 @@ const lm = require("../lineup-maker-2000.js") as {
   norm: (s: string) => string;
   splitTitle: (t: string) => string;
   showDate: (iso: string) => string;
+  isGuest: (token: string) => boolean;
+  guestName: (token: string) => string;
+  guestToken: (name: string) => string;
 };
 
 describe("lineup-maker-2000 • norm", () => {
@@ -34,5 +37,35 @@ describe("lineup-maker-2000 • showDate", () => {
   test("returns empty string for empty / unparseable input", () => {
     expect(lm.showDate("")).toBe("");
     expect(lm.showDate("nope")).toBe("");
+  });
+});
+
+describe("lineup-maker-2000 • guest (off-catalog) act tokens", () => {
+  test("isGuest detects the guest: prefix (case-insensitive), nothing else", () => {
+    expect(lm.isGuest("guest:Bob")).toBe(true);
+    expect(lm.isGuest("GUEST:Bob")).toBe(true);
+    expect(lm.isGuest("harryf.cks")).toBe(false);
+    expect(lm.isGuest("")).toBe(false);
+    expect(lm.isGuest(undefined as unknown as string)).toBe(false);
+  });
+
+  test("guestName strips the prefix and trims; '' for non-guests", () => {
+    expect(lm.guestName("guest:Bob Smith")).toBe("Bob Smith");
+    expect(lm.guestName("guest:  Padded Name  ")).toBe("Padded Name");
+    expect(lm.guestName("harryf.cks")).toBe("");
+    expect(lm.guestName("")).toBe("");
+  });
+
+  test("guestToken builds a guest:Name token, collapsing whitespace and killing commas", () => {
+    expect(lm.guestToken("Bob Smith")).toBe("guest:Bob Smith");
+    expect(lm.guestToken("  Bob   van   der  Berg ")).toBe("guest:Bob van der Berg");
+    // commas are the URL list separator — must not survive into a token
+    expect(lm.guestToken("Smith, Bob")).toBe("guest:Smith Bob");
+    expect(lm.guestToken("   ")).toBe("");
+    expect(lm.guestToken("")).toBe("");
+  });
+
+  test("token round-trips: guestName(guestToken(x)) === normalized x", () => {
+    expect(lm.guestName(lm.guestToken("Bob  Smith"))).toBe("Bob Smith");
   });
 });

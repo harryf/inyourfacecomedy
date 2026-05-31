@@ -171,11 +171,17 @@
   &__format-desc { color: var(--muted); font-size: var(--fs-sm); }
 
   // --- stage 3: pick ---------------------------------------------------------
+  // Search + the "add guest" (+) button sit on one row; the input grows, the button is fixed.
+  &__searchrow {
+    display: flex;
+    align-items: stretch;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
   &__search {
     width: 100%;
     min-height: var(--touch-min);
     padding: 0.7rem 1rem;
-    margin-bottom: var(--space-3);
     background-color: var(--surface);
     border: 2px solid var(--border-strong);
     border-radius: var(--radius-md);
@@ -183,6 +189,26 @@
     font-family: var(--font-body);
     font-size: var(--fs-md);
     &:focus-visible { outline: 3px solid var(--cta-focus-ring); outline-offset: 2px; }
+  }
+  &__searchrow &__search { flex: 1 1 auto; }
+  // The "+" affordance: appears only when the typed name isn't in the catalog (≥3 chars).
+  &__addguest {
+    flex: 0 0 auto;
+    min-width: var(--touch-min);
+    min-height: var(--touch-min);
+    padding: 0 0.9rem;
+    border: 2px solid var(--brand-red);
+    border-radius: var(--radius-md);
+    background-color: var(--brand-red);
+    color: var(--brand-cream);
+    font-family: var(--font-display);
+    font-size: var(--fs-xl);
+    line-height: 1;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color var(--t-fast) var(--ease-out);
+    &:hover { background-color: var(--brand-red-deep); border-color: var(--brand-red-deep); }
+    &[hidden] { display: none; }
   }
   &__tray { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3); }
   &__tray-label { color: var(--muted); font-size: var(--fs-sm); width: 100%; }
@@ -196,6 +222,20 @@
     border-radius: var(--radius-pill);
     font-size: var(--fs-sm);
     font-weight: 600;
+  }
+  // Guest (off-catalog) acts read as a distinct, lighter chip with a little "guest" tag.
+  &__chip--guest {
+    background-color: var(--surface-elev);
+    color: var(--ink-on-cream);
+    border: 2px dashed var(--brand-red);
+  }
+  &__chip-tag {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    color: var(--brand-red);
+    opacity: 0.9;
   }
   &__chip-x {
     display: inline-flex;
@@ -212,6 +252,8 @@
     font-size: 0.85em;
     line-height: 1;
   }
+  // On the lighter guest chip the dark remove button needs its own contrast.
+  &__chip--guest &__chip-x { background-color: var(--brand-red); }
   &__results { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
   &__result-btn {
     width: 100%;

@@ -22,6 +22,7 @@
   'use strict';
 
   var INTERVAL = '::interval::';
+  var GUEST_PREFIX = 'guest:';   // off-catalog "guest" acts ride in the URL as guest:Their Name
   var WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   var MO = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -38,7 +39,8 @@
     // silently breaks the unit tests. dayLabel/faceScale/flyerSpec are defined far below.
     module.exports = {
       norm: norm, splitTitle: splitTitle, showDate: showDate,
-      dayLabel: dayLabel, flyerDate: flyerDate, faceScale: faceScale, flyerSpec: flyerSpec
+      dayLabel: dayLabel, flyerDate: flyerDate, faceScale: faceScale, flyerSpec: flyerSpec,
+      isGuest: isGuest, guestName: guestName, guestToken: guestToken
     };
     return;
   }
@@ -58,6 +60,20 @@
   function norm(s) { return (s || '').toLowerCase().replace(/[^a-z0-9]+/g, ''); }
   var enc = encodeURIComponent;
 
+  // --- guest (off-catalog) acts ---------------------------------------------
+  // Organizers can add names that aren't in the comedian catalog. They ride in the URL
+  // as `guest:Their Name`, show up in the running order + the copied text, but are
+  // deliberately kept OFF the generated flyer (no photo, informal). The `guest:` prefix
+  // can't collide with a catalog slug (slugs are [a-z0-9.-], never a colon). Detection is
+  // on the literal prefix, NOT on norm() (which would strip the colon).
+  function isGuest(token) { return /^guest:/i.test(token || ''); }
+  function guestName(token) { return isGuest(token) ? String(token).slice(GUEST_PREFIX.length).trim() : ''; }
+  function guestToken(name) {
+    // commas are the URL list separator and whitespace runs break layout - collapse both.
+    var clean = String(name == null ? '' : name).replace(/[\s,]+/g, ' ').trim();
+    return clean ? GUEST_PREFIX + clean : '';
+  }
+
   var byShow = {};
   SHOWS.forEach(function (s) { byShow[norm(s.slug)] = s; });
   function findShow(slug) { return byShow[norm(slug)] || null; }
@@ -65,13 +81,28 @@
   var byComedian = {};
   COMEDIANS.forEach(function (c) { byComedian[norm(c.slug)] = c; });
   function findComedian(slug) { return byComedian[norm(slug)] || null; }
-  function nameOf(slug) { var c = findComedian(slug); return c ? c.name : slug; }
-  function urlOf(slug) { var c = findComedian(slug); return c ? c.url : null; }
-  function canonical(slug) { var c = findComedian(slug); return c ? c.slug : null; }
+  function nameOf(slug) { if (isGuest(slug)) return guestName(slug); var c = findComedian(slug); return c ? c.name : slug; }
+  function urlOf(slug) { var c = findComedian(slug); return c ? c.url : null; }   // guests have no profile (findComedian null)
+  function canonical(slug) { if (isGuest(slug)) return guestToken(guestName(slug)); var c = findComedian(slug); return c ? c.slug : null; }
   // resolve a slug list to CANONICAL catalog slugs, dropping anything not in the catalog
   function resolveSlugs(arr) {
     var out = [], seen = {};
     arr.forEach(function (s) { var c = findComedian(s); if (c && !seen[norm(c.slug)]) { seen[norm(c.slug)] = 1; out.push(c.slug); } });
+    return out;
+  }
+  // Like resolveSlugs, but PRESERVES guest tokens (off-catalog acts). Used everywhere the
+  // bill IS the running order; the flyer path stays on resolveSlugs so guests never render.
+  function resolveBill(arr) {
+    var out = [], seen = {};
+    arr.forEach(function (s) {
+      if (isGuest(s)) {
+        var g = guestName(s), gk = 'guest:' + norm(g);
+        if (g && !seen[gk]) { seen[gk] = 1; out.push(guestToken(g)); }
+        return;
+      }
+      var c = findComedian(s);
+      if (c && !seen[norm(c.slug)]) { seen[norm(c.slug)] = 1; out.push(c.slug); }
+    });
     return out;
   }
   // Slug-membership test that's tolerant of separator differences (harryf.cks == harryf-cks).
@@ -315,13 +346,22 @@
     var initial = state.type === 'split' ? state.first.concat(state.second) : state.lineup.slice();
     if (state.host && initial.indexOf(state.host) < 0) initial.unshift(state.host);
     state.headliner.forEach(function (h) { if (initial.indexOf(h) < 0) initial.unshift(h); });
-    var selected = resolveSlugs(initial);
+    var selected = resolveBill(initial);   // keeps guest:Name tokens alongside catalog slugs
 
+    // Search field + a "+" that appears (≥3 chars, no exact catalog match) to add an
+    // off-catalog GUEST act - for performers not yet in the comedian roster.
+    var searchRow = el('div', 'lineup-lab__searchrow');
     var search = el('input', 'lineup-lab__search');
     search.type = 'search';
     search.placeholder = 'Search comedians by name…';
     search.setAttribute('aria-label', 'Search comedians by name');
-    root.appendChild(search);
+    var addGuest = button('lineup-lab__addguest', '+');
+    addGuest.hidden = true;
+    addGuest.title = 'Add a name that isn’t in the list as a guest';
+    addGuest.setAttribute('aria-label', 'Add as guest');
+    searchRow.appendChild(search);
+    searchRow.appendChild(addGuest);
+    root.appendChild(searchRow);
 
     var tray = el('div', 'lineup-lab__tray');
     root.appendChild(tray);
@@ -334,7 +374,9 @@
       tray.appendChild(el('span', 'lineup-lab__tray-label',
         selected.length ? ('On the bill (' + selected.length + '):') : 'No one added yet.'));
       selected.forEach(function (slug) {
-        var chip = el('span', 'lineup-lab__chip', nameOf(slug));
+        var guest = isGuest(slug);
+        var chip = el('span', 'lineup-lab__chip' + (guest ? ' lineup-lab__chip--guest' : ''), nameOf(slug));
+        if (guest) chip.appendChild(el('span', 'lineup-lab__chip-tag', 'guest'));
         var x = button('lineup-lab__chip-x', '✕');
         x.setAttribute('aria-label', 'Remove ' + nameOf(slug));
         x.addEventListener('click', function () {
@@ -364,11 +406,43 @@
         li.appendChild(b);
         results.appendChild(li);
       });
-      if (!matches.length) results.appendChild(el('li', 'lineup-lab__empty', 'No comedians match that search.'));
+      if (!matches.length) {
+        var cand = guestCandidate();
+        results.appendChild(el('li', 'lineup-lab__empty',
+          cand ? ('No comedians match — tap + to add “' + cand + '” as a guest.') : 'No comedians match that search.'));
+      }
     }
-    search.addEventListener('input', renderResults);
+    // The typed text, if it's a valid NEW guest name: ≥3 chars, not an existing comedian,
+    // and not already on the bill. Empty string means "don't offer the + button".
+    function guestCandidate() {
+      var raw = (search.value || '').replace(/[\s,]+/g, ' ').trim();
+      if (raw.length < 3) return '';
+      var q = norm(raw);
+      for (var i = 0; i < COMEDIANS.length; i++) { if (norm(COMEDIANS[i].name) === q) return ''; }   // a real comedian - use the list
+      for (var j = 0; j < selected.length; j++) { if (norm(nameOf(selected[j])) === q) return ''; }   // already added
+      return raw;
+    }
+    function refreshAddGuest() {
+      var cand = guestCandidate();
+      addGuest.hidden = !cand;
+      addGuest.setAttribute('aria-label', cand ? ('Add “' + cand + '” as a guest') : 'Add as guest');
+    }
+    function addGuestNow() {
+      var cand = guestCandidate();
+      if (!cand) return;
+      selected.push(guestToken(cand));
+      search.value = '';
+      renderTray(); renderResults(); refreshAddGuest();
+      try { search.focus(); } catch (e) { /* jsdom */ }
+    }
+    addGuest.addEventListener('click', addGuestNow);
+    search.addEventListener('input', function () { renderResults(); refreshAddGuest(); });
+    search.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && guestCandidate()) { e.preventDefault(); addGuestNow(); }
+    });
     renderTray();
     renderResults();
+    refreshAddGuest();
 
     var actions = el('div', 'lineup-lab__actions lineup-lab__actions--sticky');
     actions.appendChild(backLink('format'));
@@ -383,7 +457,7 @@
         show: state.show,
         type: state.type === 'split' ? 'split' : 'flat',
         host: (ch && selected.indexOf(ch) >= 0) ? ch : '',
-        headliner: resolveSlugs(state.headliner).filter(function (s) { return selected.indexOf(s) >= 0; }),
+        headliner: resolveBill(state.headliner).filter(function (s) { return selected.indexOf(s) >= 0; }),
         lineup: [], first: [], second: []
       };
       if (st.type === 'split') st.first = selected.slice();
@@ -406,7 +480,7 @@
     var requested = (state.type === 'split' ? state.first.concat(state.second) : state.lineup.slice());
     if (state.host) requested.push(state.host);
     state.headliner.forEach(function (h) { if (requested.indexOf(h) < 0) requested.push(h); });
-    var dropped = requested.filter(function (s) { return !findComedian(s); }).length;
+    var dropped = requested.filter(function (s) { return !isGuest(s) && !findComedian(s); }).length;  // guests aren't "dropped"
     if (dropped > 0) {
       root.appendChild(el('p', 'lineup-lab__notice',
         '⚠️ ' + dropped + (dropped === 1 ? ' act in this link is' : ' acts in this link are') +
@@ -416,16 +490,16 @@
     // Build the working model from the URL.
     var order = [];
     if (state.type === 'split') {
-      resolveSlugs(state.first).forEach(function (s) { order.push(s); });
+      resolveBill(state.first).forEach(function (s) { order.push(s); });
       order.push(INTERVAL);
-      resolveSlugs(state.second).forEach(function (s) { order.push(s); });
+      resolveBill(state.second).forEach(function (s) { order.push(s); });
     } else {
-      resolveSlugs(state.lineup).forEach(function (s) { order.push(s); });
+      resolveBill(state.lineup).forEach(function (s) { order.push(s); });
     }
     var work = {
       type: state.type,
       host: canonical(state.host) || '',
-      headliner: resolveSlugs(state.headliner),   // 0+ headliners (co-headliners allowed)
+      headliner: resolveBill(state.headliner),   // 0+ headliners (co-headliners allowed)
       order: order
     };
     // The host lives in its own slot, never in the numbered order.

@@ -111,3 +111,80 @@ describe("lineup-maker-2000 • order stage", () => {
     expect(orderSlugs).toEqual(["aaa", "bbb"]); // ghost dropped, AAA de-duped to canonical aaa
   });
 });
+
+describe("lineup-maker-2000 • guest (off-catalog) acts", () => {
+  function type(input: HTMLInputElement, value: string) {
+    input.value = value;
+    input.dispatchEvent(new Event("input"));
+  }
+
+  test("stage 3: the + add-guest button gates on ≥3 chars and on no exact catalog match", () => {
+    buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+    setURL("?show=soonshow&type=flat&stage=pick", "/lineup/");
+    runScript(SRC);
+    const search = document.querySelector(".lineup-lab__search") as HTMLInputElement;
+    const add = document.querySelector(".lineup-lab__addguest") as HTMLButtonElement;
+    expect(search).not.toBeNull();
+    expect(add).not.toBeNull();
+    expect(add.hidden).toBe(true); // nothing typed yet
+    type(search, "Zo"); // < 3 chars
+    expect(add.hidden).toBe(true);
+    type(search, "Zoe Newcomer"); // ≥ 3 chars, not in the catalog
+    expect(add.hidden).toBe(false);
+    type(search, "Aaa Comedian"); // exact existing comedian — offer the list, not a guest
+    expect(add.hidden).toBe(true);
+  });
+
+  test("stage 3: clicking + adds a distinct guest chip and clears the search", () => {
+    buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+    setURL("?show=soonshow&type=flat&stage=pick", "/lineup/");
+    runScript(SRC);
+    const search = document.querySelector(".lineup-lab__search") as HTMLInputElement;
+    const add = document.querySelector(".lineup-lab__addguest") as HTMLButtonElement;
+    type(search, "Zoe Newcomer");
+    add.click();
+    const guestChip = document.querySelector(".lineup-lab__chip--guest");
+    expect(guestChip).not.toBeNull();
+    expect(guestChip!.textContent).toContain("Zoe Newcomer");
+    expect(guestChip!.querySelector(".lineup-lab__chip-tag")?.textContent).toBe("guest");
+    expect(search.value).toBe(""); // cleared after adding
+    expect(add.hidden).toBe(true); // no candidate now
+  });
+
+  test("order stage: a guest survives as a row, in the save link, and isn't counted as dropped", () => {
+    buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+    setURL("?show=soonshow&type=flat&lineup=aaa,guest%3AZoe%20Newcomer,bbb&stage=order", "/lineup/");
+    runScript(SRC);
+    const rows = Array.from(document.querySelectorAll(".lineup-lab__rows .lineup-lab__row[data-slug]"));
+    const slugs = rows.map((r) => r.getAttribute("data-slug"));
+    expect(slugs).toEqual(["aaa", "guest:Zoe Newcomer", "bbb"]); // guest kept, in place
+    const guestRow = rows.find((r) => r.getAttribute("data-slug") === "guest:Zoe Newcomer")!;
+    expect(guestRow.querySelector(".lineup-lab__name")?.textContent).toContain("Zoe Newcomer");
+    expect(guestRow.querySelector("a.lineup-lab__name")).toBeNull(); // guests have no profile link
+    expect(document.querySelector(".lineup-lab__notice")).toBeNull(); // not a dropped act
+    const previews = Array.from(document.querySelectorAll("a.lineup-lab__preview")).map(
+      (a) => a.getAttribute("href") || "",
+    );
+    expect(previews.some((h) => h.includes("guest%3AZoe%20Newcomer"))).toBe(true);
+  });
+
+  test("order stage: the copied running order text includes the guest by name", () => {
+    buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+    setURL("?show=soonshow&type=flat&lineup=aaa,guest%3AZoe%20Newcomer,bbb&stage=order", "/lineup/");
+    runScript(SRC);
+    let copied = "";
+    const spy = (t: string) => {
+      copied = t;
+      return Promise.resolve();
+    };
+    const clip = (navigator as unknown as { clipboard?: { writeText?: (t: string) => Promise<void> } }).clipboard;
+    if (clip) clip.writeText = spy;
+    else (navigator as unknown as { clipboard: { writeText: (t: string) => Promise<void> } }).clipboard = { writeText: spy };
+    const copyBtn = Array.from(document.querySelectorAll(".lineup-lab__copy--primary")).find((b) =>
+      /running order/i.test(b.textContent || ""),
+    ) as HTMLElement;
+    expect(copyBtn).not.toBeNull();
+    copyBtn.click();
+    expect(copied).toContain("Zoe Newcomer");
+  });
+});
