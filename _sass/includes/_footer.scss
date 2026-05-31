@@ -53,6 +53,20 @@
     }
   }
 
+  // Review block: stack the Google + Tripadvisor buttons vertically (btn-ghost is
+  // inline-flex by default, so without this they'd sit side by side). Mirror the
+  // .btn-ticket footer treatment — capped width, centred on mobile.
+  .footer-review .btn-ghost {
+    display: flex;
+    max-width: 280px;
+    margin: 0.5rem 0 0;
+
+    @media screen and (max-width: variables.$break) {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
   // .social-list block removed in design-system v1 — replaced by
   // .iyf-follow-chips (see _sass/components/_follow-buttons.scss).
 

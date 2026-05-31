@@ -101,3 +101,5 @@ plugins:
 
 # Google Business Profile review URL — single source of truth for /follow/ + footer.
 gbp_review_url: https://g.page/r/CeQdoyHYfl-8EBM/review
+# Tripadvisor "write a review" URL — footer review block (second button).
+tripadvisor_review_url: https://www.tripadvisor.com/UserReviewEdit-g188113-d24051458-IN_YOUR_FACE_Comedy-Zurich.html
