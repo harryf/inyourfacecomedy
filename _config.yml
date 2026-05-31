@@ -94,7 +94,6 @@ exclude: [".jekyll-cache", ".jekyll-metadata", ".idea", "vendor/*", "assets/node
 plugins:
   - jekyll-paginate
   - jekyll-seo-tag
-  - jekyll-gist
   - jemoji
   - jekyll-sitemap
   - jekyll-feed

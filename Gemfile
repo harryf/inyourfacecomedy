@@ -6,7 +6,6 @@ gem "jekyll", ">= 3.8", "< 5.0"
 
 group :jekyll_plugins do
     gem 'jekyll-seo-tag'
-    gem 'jekyll-gist'
     gem 'jekyll-sitemap'
     gem 'jemoji'
     gem "html-proofer"

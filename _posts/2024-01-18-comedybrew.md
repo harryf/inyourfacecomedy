@@ -83,7 +83,7 @@ html { overflow-y: scroll; }
 <div class="grid-sizer"></div>
 <div class="gutter-sizer"></div>
 {% for image in site.static_files %}
-    {% if image.path contains ""assets/img/gallery" and image.path contains 'comedybrew_' %}
+    {% if image.path contains "assets/img/gallery" and image.path contains 'comedybrew_' %}
     {% unless image.path contains '.md' %}
         <img src="{{ image.path | relative_url }}" alt="" class="grid-item" style="padding: 0;">
     {% endunless %}
