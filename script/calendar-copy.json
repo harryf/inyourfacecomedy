@@ -1,0 +1,268 @@
+{
+  "month_flavor": {
+    "pool": {
+      "05": [
+        "May the laughs be with you! Warmer weather, longer days, and comedians who've finally figured out their material."
+      ],
+      "06": [
+        "Summer is coming! Laugh your way into the season before you realize you haven't achieved your New Year's resolutions.",
+        "Zürich's June sun refuses to set before 9pm, giving you absolutely no excuse not to come out and laugh.",
+        "In a city famous for running on time, comedians remain the only ones cheerfully allowed to go off-script.",
+        "The lake is sparkling, the Alps are showing off, and somewhere indoors a comedian is about to absolutely destroy a room."
+      ],
+      "07": [
+        "The heat is on! Cool down with comedy that's hotter than the Swiss summer sun.",
+        "July in Zürich: the sun stays out until ten, the comedians stay on until eleven, and everyone pretends they have work tomorrow.",
+        "The city is warm, the beer gardens are full, and somewhere on a small stage someone is about to say the thing you were thinking.",
+        "Switzerland may have invented the cuckoo clock, but in July we prefer our comedians to run a little over time."
+      ],
+      "08": [
+        "The lake is warm, the evenings are long, and someone is about to say something deeply unwise into a microphone.",
+        "Before the Swiss summer packs its bags and the serious season returns, come let strangers make you laugh embarrassingly hard.",
+        "Zürich in August: too hot to think, too bright to sleep, and exactly the right temperature for a bad decision at a comedy show."
+      ],
+      "09": [
+        "The sweaters are out, the tourists are gone, and September in Zürich belongs entirely to people who laugh.",
+        "Precision watches, flawless trains, zero tolerance for bad cheese, and now a month of people determined to make you laugh.",
+        "September is the universe's polite warning that winter is coming, so you may as well spend it laughing."
+      ],
+      "10": [
+        "The leaves are falling, the fondue is bubbling, and someone in Zürich is about to make a room full of strangers laugh until it hurts.",
+        "October in Zürich: the clocks change, the temperature drops, and the only reliable warmth left is a punchline landing exactly on time.",
+        "When October turns Zürich grey and staying out feels brave, a good comedian is all the excuse you need to leave the house."
+      ],
+      "11": [
+        "November in Zürich: dark, damp, and absolutely ideal for laughing at strangers in a heated room.",
+        "The leaves are down, the fondue is bubbling, and somebody onstage is about to say something they cannot unsay.",
+        "When the fog rolls in off the lake and the days shrink to nothing, stand-up comedy starts to look like a very good idea."
+      ],
+      "12": [
+        "The nights are long, the glühwein is warm, and somebody has to make the whole city laugh before the year gives up.",
+        "Forget the Christmas markets for one evening and let someone professionally ruin the carol that has been stuck in your head since November.",
+        "December in Zürich is breathtaking, borderline unaffordable, and absolutely overflowing with material for anyone holding a microphone."
+      ]
+    },
+    "assigned": {
+      "2026-06": "Summer is coming! Laugh your way into the season before you realize you haven't achieved your New Year's resolutions.",
+      "2026-07": "The heat is on! Cool down with comedy that's hotter than the Swiss summer sun.",
+      "2026-08": "Before the Swiss summer packs its bags and the serious season returns, come let strangers make you laugh embarrassingly hard.",
+      "2026-09": "Precision watches, flawless trains, zero tolerance for bad cheese, and now a month of people determined to make you laugh.",
+      "2026-10": "October in Zürich: the clocks change, the temperature drops, and the only reliable warmth left is a punchline landing exactly on time.",
+      "2026-11": "The leaves are down, the fondue is bubbling, and somebody onstage is about to say something they cannot unsay.",
+      "2026-12": "Forget the Christmas markets for one evening and let someone professionally ruin the carol that has been stuck in your head since November."
+    }
+  },
+  "show_info": {
+    "brexiles": {
+      "pool": [
+        "Three Brits abroad roasting themselves so you don't have to 😂",
+        "Brexit made them expats. Comedy made it worth it 🎤",
+        "Tea addicts & chocolate converts doing stand-up tonight 🍫",
+        "The royal family, bad teeth & fondue — all fair game 👑",
+        "Three comedy exiles unpacking life one punchline at a time 🧳",
+        "Harryf.cks, Jack & Shawn spill the biscuits on British life 🍪",
+        "Post-Brexit, post-shame, 100% unfiltered British comedy 🫖",
+        "Are the royals lizards? Come find out from the experts 🦎",
+        "Wit so sharp it'll cut right through the fondue 🧀",
+        "Three blokes, one bad Brexit decision, loads of laughs 😅",
+        "Dark satire, British accents & absolutely no apologies 🎭",
+        "Fancy a laugh at Britain's expense? They'll go first 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+        "Punctuality meets chaos — the ultimate comedy show ⏱️",
+        "The UK's finest exports: wit, sarcasm & these three lads 🎟️",
+        "Ask them anything. They've got nothing left to lose 😏",
+        "Brexiles are back & the mother country is still a mess 🗞️"
+      ],
+      "assigned": {
+        "2026-06-17": "Three Brits abroad roasting themselves so you don't have to 😂"
+      }
+    },
+    "comedybrew": {
+      "pool": [
+        "Thursday nights just got a whole lot funnier 🍺",
+        "Harryf.cks and Martinadoescomedy want your Thursday 🎤",
+        "Skip the hike — Comedy Brew has you covered 😄",
+        "The open mic where awkward moments feel like home 🎭",
+        "Your Thursday just found its new best tradition 🍻",
+        "Strangers become friends one punchline at a time 🤝",
+        "English comedy brewed fresh every Thursday night 🎤",
+        "No trail boots needed — just your sense of humour 😂",
+        "Where newcomers step up and totally nail it 🌟",
+        "Meet your people the non-cult meetup way 😅",
+        "Harryf.cks and Martinadoescomedy are your hosts 🎉",
+        "Brave enough to grab the mic? Thursday awaits 👏",
+        "Cheaper than therapy and twice as funny 😂",
+        "New in town? This is your crowd right here 🫶",
+        "The only Thursday night plan worth keeping 🎊",
+        "Cult-free socialising powered by English comedy 😈"
+      ],
+      "assigned": {
+        "2026-06-04": "Thursday nights just got a whole lot funnier 🍺",
+        "2026-06-11": "Harryf.cks and Martinadoescomedy want your Thursday 🎤",
+        "2026-06-18": "Skip the hike — Comedy Brew has you covered 😄",
+        "2026-06-25": "The open mic where awkward moments feel like home 🎭",
+        "2026-07-02": "Your Thursday just found its new best tradition 🍻",
+        "2026-07-09": "Strangers become friends one punchline at a time 🤝",
+        "2026-07-16": "English comedy brewed fresh every Thursday night 🎤",
+        "2026-07-23": "No trail boots needed — just your sense of humour 😂",
+        "2026-07-30": "Where newcomers step up and totally nail it 🌟",
+        "2026-08-06": "Meet your people the non-cult meetup way 😅",
+        "2026-08-13": "Harryf.cks and Martinadoescomedy are your hosts 🎉",
+        "2026-08-20": "Brave enough to grab the mic? Thursday awaits 👏"
+      }
+    },
+    "downunder": {
+      "pool": [
+        "Chris Darwa brings the Aussie chaos every Tuesday 🦘",
+        "Your Tuesday just got a whole lot funnier 😂",
+        "Fresh jokes, bold punchlines, zero filter 🎤",
+        "Chris and friends turn Tuesdays into comedy gold 🏆",
+        "Warning: uncontrollable laughter guaranteed tonight 😅",
+        "Aussie wit meets your Tuesday with Chris Darwa 🌏",
+        "New material, old mates, and big Aussie energy 🎭",
+        "Let Chris Darwa fix your Tuesday the funny way 🤣",
+        "Comedy from down under that lands every time 🎯",
+        "Midweek blues? Chris Darwa has the cure 😆",
+        "Fresh faces, sharp punchlines, classic Chris energy 🔥",
+        "Tuesday nights belong to Chris Darwa and crew ✨",
+        "Expect the unexpected from this Aussie comedy crew 🎉",
+        "Local comics meet big Aussie energy every Tuesday 🌟",
+        "Chris and his hilarious mates are back at it 🤙",
+        "Laugh til you cry with Chris Darwa and friends 😹"
+      ],
+      "assigned": {
+        "2026-06-09": "Chris Darwa brings the Aussie chaos every Tuesday 🦘",
+        "2026-06-23": "Your Tuesday just got a whole lot funnier 😂"
+      }
+    },
+    "jackpotcomedy": {
+      "pool": [
+        "Jack Roberts rolls the dice on your funny bone 🎰",
+        "Fresh jokes, zero safety net — pure comedy gold 🃏",
+        "Some punchlines land, some crash. All worth it 🎲",
+        "Low expectations welcome. High laughs guaranteed 😂",
+        "Jack Roberts bets his dignity you'll love this 🤑",
+        "New material, real risk, maximum crowd energy ⚡",
+        "Tonight's jokes are untested. Bring your luck 🍀",
+        "Comedy roulette, hosted by the fearless Jack Roberts 🎰",
+        "Where brand-new jokes go to live or die laughing 😅",
+        "Pull the lever — Jack Roberts might just hit big 🎰",
+        "Raw, risky, ridiculous: Jackpot Comedy awaits 🎲",
+        "Your laughs fund Jack's long-term life choices 😄",
+        "Comedians risking it all so you don't have to 🃏",
+        "Half the set is untested. Double the thrill 🤩",
+        "Jack Roberts: professionally bad at safe decisions 😂",
+        "When anything can happen, comedy gets real good 🎉"
+      ],
+      "assigned": {
+        "2026-06-03": "Jack Roberts rolls the dice on your funny bone 🎰",
+        "2026-06-10": "Fresh jokes, zero safety net — pure comedy gold 🃏",
+        "2026-07-01": "Some punchlines land, some crash. All worth it 🎲"
+      }
+    },
+    "jokesjokesjokes": {
+      "pool": [
+        "Woocash's unpredictable comedy night is back 🎤",
+        "Jokes you didn't see coming, hosted by Woocash 😄",
+        "Non-obvious English stand-up, vibes included 🌀",
+        "Woocash and friends will surprise you tonight 😏",
+        "Jokes jokes jokes — and then a few more jokes 😂",
+        "Loose ideas meet polished punchlines tonight 🎭",
+        "Woocash curates the funniest friends he has 🤝",
+        "Your new favourite Tuesday ritual starts tonight ✨",
+        "The laughs come from places you least expect 😅",
+        "Woocash's comedy is off-beat and it's wonderful 💫",
+        "A fresh lineup every week, one brilliant host 🃏",
+        "Comics' favourite comedian opens his stage tonight 🎠",
+        "Polished bits and unexpected turns await you 🤣",
+        "Come for the jokes, stay for the Woocash vibe 🌟",
+        "No two editions alike — that's the Woocash way 🔀",
+        "All funny, zero obvious — English stand-up tonight 😆"
+      ],
+      "assigned": {
+        "2026-06-02": "Woocash's unpredictable comedy night is back 🎤",
+        "2026-06-16": "Jokes you didn't see coming, hosted by Woocash 😄",
+        "2026-06-30": "Non-obvious English stand-up, vibes included 🌀"
+      }
+    },
+    "latarima": {
+      "pool": [
+        "Tu experiencia migrante merece un aplauso 👏",
+        "Andrea Ramirez te espera con el mic caliente 🎤",
+        "Reírse de la migración: más barato que terapia 😂",
+        "Chistes con acento y sin pedir perdón 🔥",
+        "Donde el español no necesita traducción 🌶️",
+        "¿Visa estresante? Andrea tiene el remedio 😅",
+        "Sube al escenario o ríete desde tu silla 🎭",
+        "La tribu latina que se encuentra en las risas 🤝",
+        "Choques culturales convertidos en carcajadas 😄",
+        "Relaciones fallidas igual a material de comedia 🌟",
+        "No prometemos el amor de tu visa… pero sí risas 💕",
+        "El humor que une a los que llegaron de lejos 💫",
+        "Catarsis colectiva en tu idioma, sin subtítulos 🙌",
+        "Conoce gente nueva riendo de lo mismo que tú 🥰",
+        "Con acento, sin culpa y con mucho humor 😎",
+        "Andrea Ramirez y la mejor excusa para salir 🎶"
+      ],
+      "assigned": {
+        "2026-06-04": "Tu experiencia migrante merece un aplauso 👏",
+        "2026-06-05": "Andrea Ramirez te espera con el mic caliente 🎤",
+        "2026-07-04": "Reírse de la migración: más barato que terapia 😂",
+        "2026-09-11": "Chistes con acento y sin pedir perdón 🔥",
+        "2026-10-24": "Donde el español no necesita traducción 🌶️",
+        "2026-11-20": "¿Visa estresante? Andrea tiene el remedio 😅",
+        "2026-12-12": "Sube al escenario o ríete desde tu silla 🎭"
+      }
+    },
+    "pulpnonfiction": {
+      "pool": [
+        "Albert Louw and friends are spinning tales tonight 🎙️",
+        "True stories, stranger than fiction — come listen 👂",
+        "Your DNA is calling — storytelling night is on 🧬",
+        "Free entry, priceless stories — what's not to love 💛",
+        "Albert Louw hosts a night of laughs and tall tales 😂",
+        "Real stories, real people, real weird — perfect night 🌀",
+        "Got a story? Albert Louw's mic is waiting for you 🎤",
+        "Humans have told stories forever — join the fun 🔥",
+        "Strange tales, big laughs, zero boring evenings 🙌",
+        "Pulp Non-Fiction: where every true story shines ✨",
+        "Reserve your seat before the best stories are gone 📖",
+        "Comedy meets storytelling in the funkiest way 🕺",
+        "Albert Louw curates the tales you'll never forget 😄",
+        "Surreal, funny, true — storytelling night awaits 🌙",
+        "The ancient art of storytelling — now with laughs 😆",
+        "Donate if you love it, but just showing up counts 💫"
+      ],
+      "assigned": {
+        "2026-06-06": "Albert Louw and friends are spinning tales tonight 🎙️",
+        "2026-07-05": "True stories, stranger than fiction — come listen 👂",
+        "2026-08-02": "Your DNA is calling — storytelling night is on 🧬"
+      }
+    },
+    "randomfactsexchange": {
+      "pool": [
+        "Nerds with mics. Science was never this fun 🧪",
+        "Tonight someone proves their ex wrong with math 📐",
+        "Vasilis fell into Wikipedia and made it a show 🕳️",
+        "Real science, real obsessions, real funny humans 🔬",
+        "TED Talk energy meets 2am Wikipedia rabbit hole 🌀",
+        "Your favourite weird fact is about to get weirder 🤓",
+        "Ig Nobel level discoveries served with a smile 🏆",
+        "Come for the facts, stay for the beautiful chaos 🎲",
+        "What if science class had always been this fun 🎉",
+        "Vasilis hosts the nerdiest comedy night around 🎤",
+        "Someone will explain why your toaster has feelings 🍞",
+        "Obsessed with a random fact? You will fit right in 🧩",
+        "The geopolitics of pineapple. Live on stage 🍍",
+        "Science comedy where the rabbit holes never end 🐇",
+        "Expect laughs, facts and one very passionate nerd 🤩",
+        "Random Facts Exchange is back to rewire your brain ⚡"
+      ],
+      "assigned": {
+        "2026-06-01": "Nerds with mics. Science was never this fun 🧪",
+        "2026-09-17": "Tonight someone proves their ex wrong with math 📐",
+        "2026-10-12": "Vasilis fell into Wikipedia and made it a show 🕳️",
+        "2026-12-03": "Real science, real obsessions, real funny humans 🔬"
+      }
+    }
+  }
+}
