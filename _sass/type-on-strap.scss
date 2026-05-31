@@ -2,57 +2,57 @@
 
 /* Variables */
 // All the options to customize your theme in one file
-@import 'base/variables';
+@use 'base/variables';
 
 /* Design-system base — typography placeholders + motion tokens */
-@import 'base/typography';
-@import 'base/motion';
+@use 'base/typography';
+@use 'base/motion';
 
 /* External */
 // CSS from external sources
-@import 'external/reset';
-@import 'external/pacifico';
-@import 'external/katex';
+@use 'external/reset';
+@use 'external/pacifico';
+@use 'external/katex';
 // font-awesome + source-sans-pro now load from CDN / Google Fonts via head.liquid (design-system v1)
 
 /* Base */
 // For general CSS in the theme
-@import 'base/global';
-@import 'base/highlight';
-@import 'base/utility';
+@use 'base/global';
+@use 'base/highlight';
+@use 'base/utility';
 
 /* Design-system components */
-@import 'components/button';
-@import 'components/hero';
-@import 'components/event-card';
-@import 'components/calendar-table';
-@import 'components/follow-buttons';
-@import 'components/gallery';
-@import 'components/badge';
-@import 'components/show-override';
-@import 'components/comedian-card';
-@import 'components/comedian-profile';
-@import 'components/comedian-lineup';
-@import 'components/lineup-lab';
+@use 'components/button';
+@use 'components/hero';
+@use 'components/event-card';
+@use 'components/calendar-table';
+@use 'components/follow-buttons';
+@use 'components/gallery';
+@use 'components/badge';
+@use 'components/show-override';
+@use 'components/comedian-card';
+@use 'components/comedian-profile';
+@use 'components/comedian-lineup';
+@use 'components/lineup-lab';
 
 /* Includes */
 // Linked with the html in the _includes folder
-@import 'includes/post_nav';
-@import 'includes/footer';
-@import 'includes/follow';
-@import 'includes/navbar';
-@import 'includes/share_buttons';
-@import 'includes/blog_nav';
-@import 'includes/gallery';
-@import 'includes/portfolio';
+@use 'includes/post_nav';
+@use 'includes/footer';
+@use 'includes/follow';
+@use 'includes/navbar';
+@use 'includes/share_buttons';
+@use 'includes/blog_nav';
+@use 'includes/gallery' as gallery2;
+@use 'includes/portfolio';
 
 /* Posts */
 // Linked with the html in the _layouts folder
-@import 'layouts/posts';
-@import 'layouts/blog';
-@import 'layouts/page';
-@import 'layouts/tags';
-@import 'layouts/search';
+@use 'layouts/posts';
+@use 'layouts/blog';
+@use 'layouts/page';
+@use 'layouts/tags';
+@use 'layouts/search';
 
 /**
 

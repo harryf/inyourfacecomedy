@@ -1,3 +1,6 @@
+@use "base/variables";
+@use "base/utility";
+
 .site-footer {
   @extend %padding-post;
   clear: both; // article is `float: left`; without clear the footer's box overlaps the article and its border-top renders inside the page content
@@ -14,7 +17,7 @@
     text-align: left;
     align-items: start;
 
-    @media screen and (max-width: $break) {
+    @media screen and (max-width: variables.$break) {
       grid-template-columns: 1fr;
       gap: 1.5rem;
       text-align: center;
@@ -43,7 +46,7 @@
       max-width: 280px;
       margin: 0.5rem 0 0;
 
-      @media screen and (max-width: $break) {
+      @media screen and (max-width: variables.$break) {
         margin-left: auto;
         margin-right: auto;
       }

@@ -1,43 +1,45 @@
+@use "variables";
+
 // Mix-ins
 %padding-nav {
-  padding: $padding-small $padding-x-large;
-  @media (max-width: $xl-break) {
-    padding: $padding-small ($padding-large * 2);
+  padding: variables.$padding-small variables.$padding-x-large;
+  @media (max-width: variables.$xl-break) {
+    padding: variables.$padding-small (variables.$padding-large * 2);
   }
-  @media (max-width: $l-break) {
-    padding: $padding-small $padding-large;
+  @media (max-width: variables.$l-break) {
+    padding: variables.$padding-small variables.$padding-large;
   }
-  @media (max-width: $m-break) {
-    padding: $padding-small $padding-medium;
+  @media (max-width: variables.$m-break) {
+    padding: variables.$padding-small variables.$padding-medium;
   }
-  @media (max-width: $sm-break) {
-    padding: $padding-small $padding-x-small;
+  @media (max-width: variables.$sm-break) {
+    padding: variables.$padding-small variables.$padding-x-small;
   }
 }
 
 %padding-post {
-  padding: $padding-x-small $padding-x-large;
-  @media (max-width: $xl-break) {
-    padding: $padding-x-small ($padding-large * 2);
+  padding: variables.$padding-x-small variables.$padding-x-large;
+  @media (max-width: variables.$xl-break) {
+    padding: variables.$padding-x-small (variables.$padding-large * 2);
   }
-  @media (max-width: $l-break) {
-    padding: $padding-x-small $padding-large;
+  @media (max-width: variables.$l-break) {
+    padding: variables.$padding-x-small variables.$padding-large;
   }
-  @media (max-width: $m-break) {
-    padding: $padding-x-small $padding-medium;
+  @media (max-width: variables.$m-break) {
+    padding: variables.$padding-x-small variables.$padding-medium;
   }
-  @media (max-width: $sm-break) {
-    padding: $padding-x-small $padding-small;
+  @media (max-width: variables.$sm-break) {
+    padding: variables.$padding-x-small variables.$padding-small;
   }
 }
 
 %padding-header {
-  padding: $padding-medium $padding-large;
-  @media (min-width: $xl-break) {
-    padding: $padding-large $padding-large;
+  padding: variables.$padding-medium variables.$padding-large;
+  @media (min-width: variables.$xl-break) {
+    padding: variables.$padding-large variables.$padding-large;
   }
-  @media (max-width: $sm-break) {
-    padding: $padding-large;
+  @media (max-width: variables.$sm-break) {
+    padding: variables.$padding-large;
   }
 }
 

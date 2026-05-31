@@ -1,3 +1,5 @@
+@use "variables";
+
 // =============================================================================
 // Typography — design-system v1
 // =============================================================================
@@ -8,8 +10,8 @@
 // -----------------------------------------------------------------------------
 
 :root {
-  --font-display: #{$font-family-headings};
-  --font-body:    #{$font-family-main};
+  --font-display: #{variables.$font-family-headings};
+  --font-body:    #{variables.$font-family-main};
   --font-accent:  'Permanent Marker', 'Caveat', 'Brush Script MT', cursive;
   --font-mono:    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
