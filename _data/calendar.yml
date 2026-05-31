@@ -5,8 +5,8 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-05-31T12:48:52+00:00'
-event_count: 53
+generated_at: '2026-05-31T13:33:04+00:00'
+event_count: 54
 events:
 - show: randomfactsexchange
   name: Random Facts Exchange
@@ -529,6 +529,21 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831189212415058.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: double-shot
+  name: Double Shot
+  title: Double Shot • English Comedy with Harry and Martina • One Night at ROBIN's
+    Zürich
+  url: "/double-shot/"
+  date: '2026-10-02'
+  start: '2026-10-02T20:00:00+02:00'
+  end: '2026-10-02T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 20
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/double-shot-english-comedy-with-harry-and-martina-7461804081197142415.html
+  eventfrog_name: DOUBLE SHOT - English Comedy with Harry and Martina
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS

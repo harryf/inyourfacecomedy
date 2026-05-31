@@ -5,7 +5,7 @@ nav_title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
 description: "See English stand-up comedy in Zürich tonight, this week, and beyond. Full calendar with dates, venues, and ticket links. Updated weekly."
-last_modified_at: 2026-05-31T12:48:51+00:00
+last_modified_at: 2026-05-31T13:33:04+00:00
 permalink: /calendar/
 feature-img: "assets/img/pages/follow.png"
 image: "/assets/img/pages/follow.png"
@@ -105,6 +105,7 @@ Whether you are looking for open mics, featured shows or touring comedians, you 
 | Date | Day | Show | Info | Tickets |
 |------|-----|------|------|---------|
 | Oct 1 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Harryf.cks is hosting and chaos is guaranteed 🌀 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831189212415058.html) |
+| Oct 2 | Fri | [Double Shot](https://inyourfacecomedy.ch/double-shot/) | Your fave Comedy Brew hosts grabbed the mic for good 🎤 | [Get Tickets](https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/double-shot-english-comedy-with-harry-and-martina-7461804081197142415.html) |
 | Oct 8 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Comedy Brew: your Thursday just found its purpose 🎯 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831316161423428.html) |
 | Oct 12 | Mon | [Random Facts Exchange](https://inyourfacecomedy.ch/randomfactsexchange/) | Vasilis fell into Wikipedia and made it a show 🕳️ | [Get Tickets](https://eventfrog.ch/en/p/science-and-technology/random-facts-exchange-21th-edition-amboss-rampe-7434312734643117655.html) |
 | Oct 15 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | English open mic where the awkward becomes gold 😂 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831420029175587.html) |
