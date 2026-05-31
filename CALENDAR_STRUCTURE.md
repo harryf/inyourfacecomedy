@@ -1,6 +1,6 @@
 # Calendar Page Structure & Regeneration Guide
 
-**File governed:** `pages/2_calendar.md` (published at `/calendar/`)
+**File governed:** `pages/1_calendar.md` (published at `/calendar/`)
 **Audience:** any human or LLM regenerating the monthly show calendar.
 **Read this before you touch the calendar.** The redesign added CSS and JS that are tightly coupled to the *exact* markup below. The page looks like plain markdown, but it is a **contract**: column order, wrapper elements, heading markup, and the date strings are all read by code. Break the structure and you silently break the desktop table, the mobile card layout, and the "Jump to Next Show" button — the build still passes, so nobody notices until it's live.
 
@@ -263,7 +263,7 @@ Run through this every time before you commit:
 These are the machine-checkable invariants a Ruby validator enforces against the raw page. **Implemented** in `script/validate-calendar.rb` (stdlib-only, same idiom as `check-site.rb`):
 
 ```
-ruby script/validate-calendar.rb            # validate pages/2_calendar.md (exit 0 = ok, 1 = error)
+ruby script/validate-calendar.rb            # validate pages/1_calendar.md (exit 0 = ok, 1 = error)
 ruby script/validate-calendar.rb --quiet    # only show failures + summary
 ruby script/validate-calendar.rb FILE.md    # validate another file
 ```

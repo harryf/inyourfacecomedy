@@ -41,7 +41,7 @@ export function setURL(search: string, path = "/comedians/"): void {
 export const FUTURE_ISO = "2030-06-17T19:30:00+00:00";
 export const PAST_ISO = "2000-01-01T00:00:00+00:00";
 
-/** Serialize shows exactly as pages/7_comedians.md emits the #iyf-shows catalog. */
+/** Serialize shows exactly as pages/2_comedians.md emits the #iyf-shows catalog. */
 function showsCatalogJSON(shows: ShowCat[]): string {
   return JSON.stringify(
     shows.map((s) => ({

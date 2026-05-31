@@ -7,6 +7,7 @@ subtitle: "Start your own comedy show - a guide for open mics"
 description: "How to start and host a stand-up comedy night: equipment, room setup, audience management, and lessons from IN YOUR FACE Comedy in Zürich."
 last_modified_at: 2026-05-25T12:00:00+00:00
 permalink: /host/
+hide: true                                                # off the nav; still linked from /perform/ + in sitemap
 feature-img: "assets/img/pages/perform.png"
 thumbnail: "assets/img/pages/perform.png"
 ---
@@ -141,7 +142,7 @@ Your relationship with the bar is as important as the comedy.
 - The bar keeps all drink sales
 - Comedians may get one or two free drinks, agreed in advance
 
-You bring people in. The bar sells drinks _and_ attracts new customers. Everyone wins. Always tag the bar on Instagram and other platforms. You are promoting their venue, not just your show. Visibility matters.
+You bring people in. The bar sells drinks _and_ attracts new customers. Everyone wins. Always tag the bar on Instagram and other platforms. You are promoting their venue too, not only your show.
 
 ## Tickets, Pricing, and the Swiss Reality
 
@@ -189,4 +190,6 @@ You do not need permission to start a comedy night.
 - Consistency and patience
 
 Most comedy scenes start exactly like this. One person, one mic, one room, done regularly. If you build it with care, people come back. And that is how scenes grow...
+
+{% include hosts-to-talk-to.liquid %}
 

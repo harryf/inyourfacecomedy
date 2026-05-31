@@ -3,7 +3,7 @@ layout: page
 title: "Perform Stand-up in Zürich: Open Mic"
 nav_title: Perform
 title_override: Perform Stand-Up Comedy in Zurich
-subtitle: Got the comedy itch? Get Your First Spot and Tips – IN YOUR FACE Comedy
+subtitle: Got the comedy itch? Get your first spot and tips for stand-up at IN YOUR FACE Comedy
 description: "Get on stage at English open mics in Zürich. Sign up for IN YOUR FACE Comedy shows and find joke-writing and stage-craft tips."
 last_modified_at: 2026-05-25T12:00:00+00:00
 permalink: /perform/
@@ -119,13 +119,19 @@ For more information about performing in Switzerland see [this page](https://iny
 - [Let's Talk about Sets!](https://www.letstalkaboutsets.com) is a really great podcast about comedy - listen on Spotify [here](https://open.spotify.com/show/7C8pOy9YWcHOfUwROch7B3?si=c18572aaab0f43a1)
 - [Comedy Writing Secrets](https://www.amazon.com/Comedy-Writing-Secrets-Melvin-Helitzer/dp/1599639610) - A practical workbook-style guide with tons of joke-writing exercises.
 - [The Comedian’s Comedian Podcast](https://www.comedianscomedian.com/) - Stu Goldsmith interviews comedians about process, creativity, and the business of comedy. Great for hearing how pros think.
-- [Mastering Stand-Up by Stephen Rosenfield](https://www.amazon.com/Mastering-Stand-Up-Stephen-Rosenfield/dp/1613736924) — a complete guide to becoming a successful comedian; covers joke writing, performance technique, and stage craft.
-- [Truth in Comedy: The Manual of Improvisation by Charna Halpern, Del Close & Kim Johnson](https://www.amazon.com/Truth-Comedy-Improvisation-Charna-Halpern/dp/1566080037) — a foundational improv book; helps with spontaneity, crowd interaction and thinking on your feet.
+- [Mastering Stand-Up by Stephen Rosenfield](https://www.amazon.com/Mastering-Stand-Up-Stephen-Rosenfield/dp/1613736924) - a complete guide to becoming a successful comedian; covers joke writing, performance technique, and stage craft.
+- [Truth in Comedy: The Manual of Improvisation by Charna Halpern, Del Close & Kim Johnson](https://www.amazon.com/Truth-Comedy-Improvisation-Charna-Halpern/dp/1566080037) - a foundational improv book; helps with spontaneity, crowd interaction and thinking on your feet.
 - [Poking a Dead Frog: Conversations with Today’s Top Comedy Writers](https://www.amazon.com/Poking-Dead-Frog-Conversations-Writers/dp/0143123785) - Interviews with comedians and TV writers about how they work, full of practical wisdom.
 - [The Stand-Up Comedy Clinic Blog](https://www.standupcomedyclinic.com/blog/) - A blog full of free articles on joke structure, writing techniques, and performance tips.
 - [Good One Podcast](https://www.vulture.com/good-one/) - Each episode a comedian breaks down one of their own jokes, explaining the thought process and revisions behind it.
 
+### Going further
+
+Want the bigger picture of the scene here? Read our guide to [stand-up comedy in Switzerland](/switzerland/). And if you want to run your own room one day, here's [how to host a comedy show](/host/).
+
 Good luck!
+
+{% include hosts-to-talk-to.liquid %}
 
 
 

@@ -10,7 +10,7 @@ Encoding.default_external = Encoding::UTF_8
 
 # refresh-calendar-page.rb
 #
-# Regenerates the month blocks of pages/2_calendar.md from _data/calendar.yml so
+# Regenerates the month blocks of pages/1_calendar.md from _data/calendar.yml so
 # the public /calendar/ page is a pure projection of the EventFrog-derived data
 # instead of hand-maintained markdown. Run weekly from cron.
 #
@@ -78,7 +78,7 @@ require "yaml"
 
 ROOT        = File.expand_path("..", __dir__)
 SCRIPT_DIR  = __dir__
-PAGE        = File.join(ROOT, "pages", "2_calendar.md")
+PAGE        = File.join(ROOT, "pages", "1_calendar.md")
 CALENDAR    = File.join(ROOT, "_data", "calendar.yml")
 EXTRACTOR   = File.join(SCRIPT_DIR, "refresh-calendar-data.rb")
 VALIDATOR   = File.join(SCRIPT_DIR, "validate-calendar.rb")
@@ -487,7 +487,7 @@ def git_run(*args)
 end
 
 def commit_and_push!
-  out, ok = git_run("add", "--", "pages/2_calendar.md", "script/calendar-copy.json",
+  out, ok = git_run("add", "--", "pages/1_calendar.md", "script/calendar-copy.json",
                     "_data/calendar.yml", "_data/venues.yml")
   raise "git add failed: #{out}" unless ok
 

@@ -88,7 +88,7 @@ PHOTO_DIR     = File.join(REPO_ROOT, "assets/img/comedians")
 # freshness signal crawlers (Google, sitemap consumers) use to decide when to
 # reindex the listing. Bumped only when a real comedian-page change happened
 # this run (added, removed, content-modified); a no-op re-run leaves it alone.
-INDEX_PAGE    = File.join(REPO_ROOT, "pages/7_comedians.md")
+INDEX_PAGE    = File.join(REPO_ROOT, "pages/2_comedians.md")
 
 # -----------------------------------------------------------------------------
 # IndexNow — push-notify search engines (Bing, Yandex, Seznam, Naver; NOT Google,
@@ -746,7 +746,7 @@ end
 # bypasses hooks. ff-only pull before commit so a cron run during a manual
 # edit aborts cleanly instead of creating a merge.
 # -----------------------------------------------------------------------------
-GIT_PATHS = ["_comedians/", "assets/img/comedians/", "pages/7_comedians.md", "script/comedians-state.json"].freeze
+GIT_PATHS = ["_comedians/", "assets/img/comedians/", "pages/2_comedians.md", "script/comedians-state.json"].freeze
 
 def git_capture(*args)
   out, status = Open3.capture2e("git", "-C", REPO_ROOT, *args)

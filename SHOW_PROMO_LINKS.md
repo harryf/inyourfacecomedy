@@ -147,7 +147,7 @@ date, title. Two things switch:
 - **Editing the copy:** the lead-in text and button labels are plain strings near the top of
   `assets/js/comedian-lineup.js` (search for `Go give your favourites a follow`,
   `Follow us & drop a review`, `More Shows`). Change them there and rebuild.
-- **Where the data comes from:** the show catalog is generated in `pages/7_comedians.md` from
+- **Where the data comes from:** the show catalog is generated in `pages/2_comedians.md` from
   every post with a `ticket_url`; the feature image is each post's `feature-img`.
 
 ---

@@ -1,0 +1,46 @@
+{%- comment -%}
+  hosts-to-talk-to.liquid: for the Perform / Switzerland / Host pages (all aimed
+  at people who want to get into comedy here). Lists the regular hosts across ALL
+  shows, deduped from each show's stable `hosts:` slug mapping and resolved to a
+  comedian page, so an aspiring comic knows who to actually talk to. An unknown
+  slug resolves to nothing (never a broken link). Reuses the comedians-teaser
+  styling (.iyf-comedian-grid--teaser / .iyf-comedian-card / .iyf-section-head).
+{%- endcomment -%}
+{%- assign htt_slugs = '' | split: '' -%}
+{%- for show in site.posts -%}
+  {%- if show.hosts -%}
+    {%- for s in show.hosts -%}
+      {%- assign htt_slugs = htt_slugs | push: s -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign htt_slugs = htt_slugs | uniq -%}
+{%- assign htt_hosts = '' | split: '' -%}
+{%- for s in htt_slugs -%}
+  {%- assign m = site.comedians | where: "slug", s | first -%}
+  {%- if m -%}{%- assign htt_hosts = htt_hosts | push: m -%}{%- endif -%}
+{%- endfor -%}
+{%- if htt_hosts.size > 0 -%}
+<section class="iyf-comedians-teaser" aria-labelledby="hosts-to-talk-to-heading">
+  <div class="iyf-section-head">
+    <h2 id="hosts-to-talk-to-heading" class="iyf-section-head__title">Hosts You Can Talk To</h2>
+    <p class="iyf-section-head__subtitle">These are the comedians who host and run our shows. Come to a night, say hi, and tell them you'd like to try. They pick the line-ups and love meeting new comics.</p>
+  </div>
+  <ul class="iyf-comedian-grid iyf-comedian-grid--teaser" role="list">
+    {%- for c in htt_hosts -%}
+      <li class="iyf-comedian-grid__item" data-slug="{{ c.slug }}">
+        <a class="iyf-comedian-card" href="{{ c.url | relative_url }}">
+          {%- if c.photo -%}
+            <div class="iyf-comedian-card__media">
+              <img src="{{ c.photo | relative_url }}" alt="{{ c.title }}" loading="lazy" />
+            </div>
+          {%- else -%}
+            <div class="iyf-comedian-card__media iyf-comedian-card__media--placeholder" aria-hidden="true"></div>
+          {%- endif -%}
+          <span class="iyf-comedian-card__name">{{ c.title }}</span>
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+{%- endif -%}

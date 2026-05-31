@@ -5,7 +5,7 @@
 # posts hold non-ASCII bytes (Zürich, Español, "•", emoji). See repo CLAUDE.md.
 Encoding.default_external = Encoding::UTF_8
 
-# validate-calendar.rb — structural validator for pages/2_calendar.md
+# validate-calendar.rb — structural validator for pages/1_calendar.md
 #
 # The calendar page looks like plain markdown but is a CONTRACT: its CSS
 # (_sass/components/_calendar-table.scss) targets table columns by position, and
@@ -19,7 +19,7 @@ Encoding.default_external = Encoding::UTF_8
 # rule 12 is an advisory WARNING (visible/structured-data divergence).
 #
 # Usage:
-#   ruby script/validate-calendar.rb                 # validate pages/2_calendar.md
+#   ruby script/validate-calendar.rb                 # validate pages/1_calendar.md
 #   ruby script/validate-calendar.rb path/to/file.md # validate another file
 #   ruby script/validate-calendar.rb --no-color      # plain output (CI logs)
 #   ruby script/validate-calendar.rb --quiet         # only show failures + summary
@@ -33,7 +33,7 @@ require "date"
 
 ROOT     = File.expand_path("..", __dir__)
 POSTS    = File.join(ROOT, "_posts")
-DEFAULT  = File.join(ROOT, "pages", "2_calendar.md")
+DEFAULT  = File.join(ROOT, "pages", "1_calendar.md")
 
 # ── regexes mirrored verbatim from assets/js/jump-to-next-show.js ───────────
 # Heading must contain a month name + 4-digit year (HEADING_RE in the JS).
