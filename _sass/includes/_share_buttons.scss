@@ -1,6 +1,8 @@
+@use "base/variables";
+
 ul.share-buttons {
   list-style: none;
-  padding: $padding-x-small/2 0 $padding-x-small/4 0;
+  padding: variables.$padding-x-small*0.5 0 variables.$padding-x-small*0.25 0;
   margin: 0;
   text-align: center;
 

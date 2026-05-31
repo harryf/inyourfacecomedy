@@ -1,3 +1,6 @@
+@use "base/variables";
+@use "base/utility";
+
 // Legacy .call-out block removed in design-system v1.
 // Home hero is now .iyf-hero.iyf-hero--centered (see _sass/components/_hero.scss).
 
@@ -24,12 +27,12 @@
       border-radius: 10px;
       overflow: hidden;
 
-      @media (min-width: $break) {
+      @media (min-width: variables.$break) {
         height: 250px;
       }
 
       //Smaller screen
-      @media screen and (max-width: $break) {
+      @media screen and (max-width: variables.$break) {
         height: 150px;
       }
 

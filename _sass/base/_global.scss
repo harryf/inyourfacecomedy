@@ -1,3 +1,5 @@
+@use "variables";
+
 * {
   margin: 0;
   padding: 0;
@@ -23,8 +25,8 @@ html {
 
 body {
   color: var(--text);
-  font-family: $font-family-main;
-  font-size: $font-size;
+  font-family: variables.$font-family-main;
+  font-size: variables.$font-size;
   word-wrap: break-word;
 }
 
@@ -34,7 +36,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $font-family-headings;
+  font-family: variables.$font-family-headings;
   line-height: 1.3;
   margin: 0.67em 0;
 
@@ -85,7 +87,7 @@ summary {
 
 /* ---- Responsive ---- */
 
-@media screen and (max-width: $break) {
+@media screen and (max-width: variables.$break) {
   h1 {
     font-size: 2em;
   }
@@ -112,7 +114,7 @@ summary {
   }
 }
 
-@media screen and (max-width: $sm-break) {
+@media screen and (max-width: variables.$sm-break) {
   h1 {
     font-size: 1.5em;
   }

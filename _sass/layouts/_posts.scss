@@ -1,3 +1,8 @@
+@use "base/variables";
+@use "base/utility";
+
+@use "sass:math";
+
 .comments {
   @extend %padding-post;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -99,7 +104,7 @@ header {
   header {
     color: var(--header-text);
     margin-bottom: 0;
-    padding: $padding-large/2.5 $padding-large;
+    padding: math.div(variables.$padding-large, 2.5) variables.$padding-large;
 
     .meta {
       color: var(--header-text);
@@ -118,7 +123,7 @@ header {
   }
 
   .feature-image-padding {
-    padding: $feature-image-padding;
+    padding: variables.$feature-image-padding;
   }
 }
 

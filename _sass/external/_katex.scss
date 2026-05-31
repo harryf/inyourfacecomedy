@@ -1,7 +1,9 @@
+@use "base/variables";
+
 /* Custom */
 $katex-font-path: "../../assets/fonts/katex" !default;
 .katex-display {
-  @media screen and (max-width: $sm-break) {
+  @media screen and (max-width: variables.$sm-break) {
     overflow-x: auto;
   }
   padding-bottom: 3px;
