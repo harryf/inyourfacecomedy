@@ -1,5 +1,8 @@
 source "https://rubygems.org"
-gemspec
+
+# Jekyll core. The theme (layouts/includes/sass/assets) is vendored locally
+# in this repo — there is no theme gem. Plugins are declared in the group below.
+gem "jekyll", ">= 3.8", "< 5.0"
 
 group :jekyll_plugins do
     gem 'jekyll-seo-tag'
