@@ -102,6 +102,8 @@ nav {
 
 @media screen and (max-width: variables.$break) {
   .site-header {
+    position: relative;        // anchor for the vertically-centred hamburger
+
     img.avatar {
       margin-top: -7px
     }
@@ -110,6 +112,25 @@ nav {
       margin-top: 7px;
       font-size: 1.2em;
     }
+  }
+
+  // Vertically centre the hamburger on the branding's midline. It was pinned too
+  // high by a fixed `margin-top: 13px`; absolute + translateY(-50%) centres it
+  // against the header (driven by the logo/title row) and stays centred across
+  // the sm / x-sm breakpoints without per-size margin tweaks.
+  a#pull {
+    position: absolute;
+    top: 50%;
+    right: calc(2% + 10px);    // keep its prior horizontal spot (header padding + icon margin)
+    transform: translateY(-50%);
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+  }
+  nav a#pull i {
+    margin: 0;
+    float: none;
+    display: block;
   }
 
   nav {
