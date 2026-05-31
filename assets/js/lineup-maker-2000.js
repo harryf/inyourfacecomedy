@@ -1057,18 +1057,8 @@
       ctx.fillText(venue, mx, pillCy + 1);
     }
 
-    // 7. story-only: bottom link affordance inside the safe band
-    if (spec.format === 'story') {
-      var by = H - bottom + 96;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillStyle = '#FFF8EE';
-      ctx.font = '700 40px ' + FONT_BODY;
-      ctx.fillText('@inyourfacecomedy', cx, by);
-      ctx.fillStyle = '#FFD54F';
-      ctx.font = '500 34px ' + FONT_BODY;
-      ctx.fillText('🔗 tickets & info → link in bio', cx, by + 54);
-    }
+    // 7. story-only: the bottom safe band (below H - safeBottom) is intentionally left
+    // EMPTY — it's clear space for the user to drop their own Instagram link sticker.
   }
 
   // Resolve lineup state -> draw the flyer -> callback. done(err|null).
