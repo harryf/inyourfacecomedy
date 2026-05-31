@@ -50,7 +50,8 @@ natural-history-museum-of-the-university-of-zurich:
   postal_code: "8006"
   city: "Zürich"
   country: "CH"
-  # website + google_maps_url: add by hand (not in EventFrog data)
+  website: "https://www.uzh.ch/en/explore/museums/natural-history-museum.html"
+  google_maps_url: "https://maps.app.goo.gl/1hPjd1gaTUJ2FUXW6"
 
 piranha-zurich:
   name: "Piranha Zurich"
@@ -66,4 +67,5 @@ the-beast-basel-comedy-club:
   postal_code: "4001"
   city: "Basel"
   country: "CH"
-  # website + google_maps_url: add by hand (not in EventFrog data)
+  website: "https://www.thebeastbasel.com/"
+  google_maps_url: "https://maps.app.goo.gl/joakm79JUHJSS2gZ9"
