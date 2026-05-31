@@ -30,6 +30,7 @@ require "uri"
 require "time"
 require "date"
 require "yaml"
+require "json"
 require "open3"
 require "optparse"
 
@@ -37,6 +38,17 @@ POSTS_DIR = File.expand_path("../_posts", __dir__)
 PROJECT_ROOT = File.expand_path("..", __dir__)
 HOMEPAGE = File.expand_path("../index.html", __dir__)
 DEFAULT_DURATION_MIN = 150             # fallback show length when EventFrog omits endDate
+
+# IndexNow — push-notify Bing/Yandex/Seznam (NOT Google, which doesn't consume it)
+# when a show page's date changes, instead of waiting for the next sitemap crawl.
+# The key file is public at the site root and its content equals the key (that IS
+# IndexNow's ownership proof — no secret). Kept self-contained here on purpose:
+# these cron scripts each duplicate their small helpers (load_dotenv, git_run)
+# rather than share, so any one stays a single runnable file. Must match the key
+# in sync-comedians.rb and the file served at /<key>.txt.
+SITE_URL          = "https://inyourfacecomedy.ch"
+INDEXNOW_KEY      = "4b04fa2d03884c6794d4ece40fb41a29"
+INDEXNOW_ENDPOINT = URI("https://api.indexnow.org/indexnow")
 
 options = { dry_run: false, verbose: false }
 OptionParser.new do |opts|
@@ -111,6 +123,41 @@ def commit_and_push!
   end
 
   raise "git push failed: #{out}"
+end
+
+# ---------- IndexNow ----------
+
+# Best-effort push-index a batch of changed URLs. Never raises and never affects
+# the script's exit status — a failure just warns. Only indexable (200) URLs
+# should be passed in; we only ever pass show pages that actually rolled (+ the
+# homepage, whose lastmod we bump). Mirrors sync-comedians.rb's submit_indexnow.
+def submit_indexnow(urls)
+  urls = urls.compact.uniq
+  return if urls.empty?
+
+  payload = {
+    "host"        => URI(SITE_URL).host,
+    "key"         => INDEXNOW_KEY,
+    "keyLocation" => "#{SITE_URL}/#{INDEXNOW_KEY}.txt",
+    "urlList"     => urls
+  }
+
+  http = Net::HTTP.new(INDEXNOW_ENDPOINT.host, INDEXNOW_ENDPOINT.port)
+  http.use_ssl = true
+  http.read_timeout = 30
+  req = Net::HTTP::Post.new(INDEXNOW_ENDPOINT.request_uri)
+  req["Content-Type"] = "application/json; charset=utf-8"
+  req.body = JSON.generate(payload)
+
+  resp = http.request(req)
+  code = resp.code.to_i
+  if code == 200 || code == 202
+    puts "indexnow: submitted #{urls.size} url(s) → HTTP #{code}"
+  else
+    warn "  ! indexnow non-2xx (HTTP #{code}: #{resp.message}) — ignored (non-fatal)"
+  end
+rescue => e
+  warn "  ! indexnow ping failed (#{e.message}) — ignored (non-fatal)"
 end
 
 # ---------- Notifications ----------
@@ -244,7 +291,8 @@ def process_post(path, next_by_show, now, options)
 
   msg = "rolled to #{start_iso} @ #{ev["venue"]}"
   msg += " (CHF #{ev["price_chf"]})" if ev["price_chf"]
-  [:updated, msg]
+  # Third element: the live show URL, collected by main to ping IndexNow on push.
+  [:updated, msg, "#{SITE_URL}/#{slug}/"]
 end
 
 # Bump the homepage's `last_modified_at` so its sitemap <lastmod> reflects the
@@ -276,6 +324,7 @@ begin
   updated = 0
   errors = 0
   error_lines = []
+  rolled_urls = []   # live URLs of pages that changed this run — pushed to IndexNow
 
   # Regenerate _data/calendar.yml from EventFrog (the single extractor), then derive
   # each show's next event from it. In --dry-run we use the existing file untouched.
@@ -287,7 +336,7 @@ begin
   next_by_show = next_event_by_show
 
   Dir[File.join(POSTS_DIR, "*.md")].sort.each do |path|
-    status, reason = process_post(path, next_by_show, now, options)
+    status, reason, url = process_post(path, next_by_show, now, options)
     name = File.basename(path)
     tag = case status
           when :updated then "ROLLED"
@@ -296,7 +345,10 @@ begin
           end
     line = "[#{tag}] #{name} — #{reason}"
     puts line
-    updated += 1 if status == :updated
+    if status == :updated
+      updated += 1
+      rolled_urls << url if url
+    end
     if status == :error
       errors += 1
       error_lines << "#{name} — #{reason}"
@@ -311,7 +363,12 @@ begin
   # last_modified_at so the sitemap <lastmod> for "/" advances too.
   if updated > 0 && errors == 0
     modified_at = now.utc.strftime("%Y-%m-%dT%H:%M:%S+00:00")
-    puts "homepage: #{update_homepage_timestamp(modified_at, options) ? "bumped to #{modified_at}" : 'unchanged'}"
+    if update_homepage_timestamp(modified_at, options)
+      puts "homepage: bumped to #{modified_at}"
+      rolled_urls << "#{SITE_URL}/"   # homepage now shows the new dates — ping it too
+    else
+      puts "homepage: unchanged"
+    end
   end
 
   # Run git ONLY if file refresh was clean AND this is a real run. A parse error
@@ -324,6 +381,12 @@ begin
     begin
       git_result = commit_and_push!
       puts "git: #{git_result}"
+      # Push-index the changed show pages (+ homepage) so Bing/Yandex pick up the
+      # new dates fast instead of waiting for a sitemap re-crawl. Only after a real
+      # push (not :no_changes), and never fatal.
+      if [:pushed, :pushed_after_rebase].include?(git_result)
+        submit_indexnow(rolled_urls)
+      end
     rescue => e
       git_error = e.message
       puts "git: ERROR — #{git_error}"
