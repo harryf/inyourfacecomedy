@@ -946,12 +946,16 @@
     ctx.textBaseline = 'middle';
     ctx.font = '700 ' + Math.round(pillH * 0.5) + 'px ' + FONT_BODY;
     ctx.fillText('H O S T', cx, pillY + pillH / 2 + 1);
-    // name under
+    // name under the pill - smaller + snug so the lineup grid can sit right below it.
     var hostCap = firstName(name).toUpperCase();
     ctx.fillStyle = '#FFF8EE';
-    fitFont(ctx, hostCap, pillW * 1.6, 48, 22, '', FONT_ACCENT);
-    ctx.fillText(hostCap, cx, pillY + pillH + 36);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    var nameY = pillY + pillH + 28;
+    var nameSize = fitFont(ctx, hostCap, pillW * 1.7, 40, 20, '', FONT_ACCENT);
+    ctx.fillText(hostCap, cx, nameY);
     ctx.restore();
+    return nameY + nameSize * 0.5; // bottom edge of the whole host block (ring + pill + name)
   }
 
   // --- compositor ------------------------------------------------------------
@@ -1009,12 +1013,14 @@
     var facesBottom = nameTopY - 40;
     var bill = m.bill;            // EVERY performer on the bill - no cap
     var crowded = bill.length > 6;
-    var hostR = (spec.format === 'story' ? 165 : 150) - (crowded ? 28 : 0);
+    // Shrink the host ring to 80% when crowded (its TOP stays put), which - combined with
+    // starting the grid below the host name's real bottom edge - frees room for the name.
+    var hostR = Math.round((spec.format === 'story' ? 165 : 150) * (crowded ? 0.8 : 1));
     var rowTop;
     if (m.host && m.host.slug) {
-      var hostCy = facesTop + hostR + 10;
-      drawHost(ctx, m.host.img, cx, hostCy, hostR, m.host.name);
-      rowTop = hostCy + hostR + (crowded ? 64 : 92);
+      var hostCy = facesTop + hostR + 10;                 // ring top stays at facesTop + 10
+      var hostBottom = drawHost(ctx, m.host.img, cx, hostCy, hostR, m.host.name);
+      rowTop = hostBottom + (crowded ? 22 : 40);          // grid starts clear of the host name
     } else {
       rowTop = facesTop + 20;
     }
