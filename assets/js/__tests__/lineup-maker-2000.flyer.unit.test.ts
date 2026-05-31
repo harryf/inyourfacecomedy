@@ -6,6 +6,7 @@ import { describe, expect, test } from "bun:test";
 
 const lm = require("../lineup-maker-2000.js") as {
   dayLabel: (iso: string, nowMs?: number) => string;
+  flyerDate: (iso: string, format: string, nowMs?: number) => string;
   faceScale: (priority: string) => number;
   flyerSpec: (format: string) => { w: number; h: number; safeTop: number; safeBottom: number; format: string };
 };
@@ -71,5 +72,19 @@ describe("flyer • dayLabel (weekday code if ≤7 days out, else date)", () => 
   test("empty / unparseable input yields an empty label", () => {
     expect(lm.dayLabel("", NOW)).toBe("");
     expect(lm.dayLabel("not-a-date", NOW)).toBe("");
+  });
+});
+
+describe("flyer • flyerDate (format-aware: post = history, story = ephemeral)", () => {
+  // 2026-06-04 is a Thursday; use noon UTC so the weekday can't drift across timezones.
+  test("post shows the full date as history: 'WD D MON'", () => {
+    expect(lm.flyerDate("2026-06-04T12:00:00+00:00", "post", NOW)).toBe("THU 4 JUN");
+  });
+  test("story shows just the upcoming weekday", () => {
+    expect(lm.flyerDate("2026-06-04T12:00:00+00:00", "story", NOW)).toBe("THU");
+  });
+  test("empty / unparseable input yields an empty label in both formats", () => {
+    expect(lm.flyerDate("", "post", NOW)).toBe("");
+    expect(lm.flyerDate("nope", "story", NOW)).toBe("");
   });
 });

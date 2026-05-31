@@ -38,7 +38,7 @@
     // silently breaks the unit tests. dayLabel/faceScale/flyerSpec are defined far below.
     module.exports = {
       norm: norm, splitTitle: splitTitle, showDate: showDate,
-      dayLabel: dayLabel, faceScale: faceScale, flyerSpec: flyerSpec
+      dayLabel: dayLabel, flyerDate: flyerDate, faceScale: faceScale, flyerSpec: flyerSpec
     };
     return;
   }
@@ -716,6 +716,19 @@
     return d.getDate() + ' ' + MO[d.getMonth()].toUpperCase();
   }
 
+  // Date label shown on the flyer, by format:
+  //   post  -> permanent (archived), so the full date as history: "THU 4 JUN"
+  //   story -> ephemeral (vanishes in 24h), so just the upcoming day of week: "THU"
+  function flyerDate(iso, format, nowMs) {
+    if (!iso) return '';
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return '';
+    if (format === 'post') {
+      return WD[d.getDay()].toUpperCase() + ' ' + d.getDate() + ' ' + MO[d.getMonth()].toUpperCase();
+    }
+    return WD[d.getDay()].toUpperCase();
+  }
+
   // Polaroid size multiplier by comedian priority - all stay clearly visible.
   function faceScale(priority) {
     switch (norm(priority)) {
@@ -1061,7 +1074,7 @@
     ctx.shadowColor = 'transparent';
 
     // 6. meta line: date pill + venue
-    var dl = m.show ? dayLabel(m.show.next, m.nowMs) : '';
+    var dl = m.show ? flyerDate(m.show.next, spec.format, m.nowMs) : '';
     var venue = (m.show && m.show.venue) ? m.show.venue.toUpperCase() : '';
     ctx.textBaseline = 'middle';
     var pillFont = '700 40px ' + FONT_BODY;
