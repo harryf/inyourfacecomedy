@@ -65,21 +65,6 @@ layout: default
   {% include blog/post_nav.liquid %}
 {% endif %}
 
-<!--Utterances-->
-{% if site.comments.utterances.repo and site.comments.utterances.issue-term %}
-  {% include social/utterances.liquid %}
-{% endif %}
-
-<!-- Cusdis -->
-{% if site.comments.cusdis_app_id or site.cusdis_app_id %}
-  {% include social/cusdis.liquid %}
-{% endif %}
-
-<!-- Disqus -->
-{% if site.comments.disqus_shortname or site.theme_settings.disqus_shortname or site.disqus_shortname %}
-  {% include social/disqus.liquid %}
-{% endif %}
-
 {% if page.color %}
 <style>
   /* page.color tinting kept for posts that override link/share/footer accent. */
