@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2026-05-24T10:00:00+00:00
+last_modified_at: 2026-05-31T11:25:51+00:00
 layout: post
 editable: "true"
 title: Jackpot Comedy - downstairs @ OTRO
@@ -19,8 +19,8 @@ recurrence_day: Wednesday
 recurrence_time: "20:00"
 default_duration_minutes: 150
 next_event_date: 2026-06-03T20:00:00+02:00
-next_event_end_date: 2026-06-03T22:30:00+02:00
-price_chf: 10
+next_event_end_date: 2026-06-03T22:00:00+02:00
+price_chf: 0
 performers:
   - "Jack Roberts"
   - "Various local and visiting comedians"

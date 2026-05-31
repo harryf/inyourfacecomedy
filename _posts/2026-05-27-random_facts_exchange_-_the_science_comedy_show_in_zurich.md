@@ -16,8 +16,9 @@ ticket_url: https://eventfrog.ch/en/p/groups/random-facts-exchange-7434337254674
 event_type: series
 venue_slug: ambossrampe
 next_event_date: 2026-06-01T19:00:00+02:00
-next_event_end_date: 2026-06-01T21:30:00+02:00
-last_modified_at: 2026-05-27T18:05:58+00:00
+next_event_end_date: 2026-06-01T21:00:00+02:00
+last_modified_at: 2026-05-31T11:25:51+00:00
+price_chf: 10
 ---
 Random Facts Exchange is what happens when you give nerds a microphone instead of telling them to stop.
 
