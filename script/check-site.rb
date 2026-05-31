@@ -320,7 +320,7 @@ end
 
 # ── script + data health ──────────────────────────────────────────────────────
 section "Script + data health"
-%w[sync-comedians.rb refresh-next-event-dates.rb].each do |s|
+%w[sync-comedians.rb refresh-next-event-dates.rb validate-calendar.rb].each do |s|
   check("ruby -c clean: #{s}") do
     out, st = Open3.capture2e("ruby", "-c", File.join(ROOT, "script", s))
     [st.success?, out.strip]
@@ -343,6 +343,20 @@ check("no active show advertises a past next_event_date (cron health)") do
     (date && date < today) ? "#{File.basename(s[:file])} (#{date})" : nil
   end
   [stale.empty?, "stale: #{stale.join(", ")}"]
+end
+
+# ── calendar structure ──────────────────────────────────────────────────────
+# The /calendar/ page's CSS and "Jump to Next Show" JS are coupled to the exact
+# markdown structure of pages/2_calendar.md (column order, wrapper divs, heading
+# markup, date string format). validate-calendar.rb enforces that contract —
+# see CALENDAR_STRUCTURE.md. Source-level, so it runs even with --no-build.
+# Its rule 12 is advisory (warning, exit 0), so it won't fail this harness.
+section "Calendar structure"
+check("pages/2_calendar.md passes validate-calendar.rb") do
+  out, st = Open3.capture2e("ruby", File.join(ROOT, "script", "validate-calendar.rb"),
+                            "--no-color", "--quiet", chdir: ROOT)
+  detail = out.lines.grep(/(^\s*•)|FAIL/).first(6).join(" ").gsub(/\s+/, " ").strip
+  [st.success?, st.success? ? nil : (detail.empty? ? out.strip[0, 200] : detail)]
 end
 
 # ── html-proofer ──────────────────────────────────────────────────────────────
