@@ -8,7 +8,7 @@ feature-img: "assets/img/uploads/comedybrew_featured.png"
 image: "/assets/img/uploads/comedybrew_horizontal.png"
 thumbnail: "assets/img/thumbs/comedybrew.png"
 excerpt_separator: <!--more-->
-ticket_url: "https://eventfrog.ch/comedybrew"
+ticket_url: "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html"
 permalink: /comedybrew/
 event_type: series
 venue_slug: robins
