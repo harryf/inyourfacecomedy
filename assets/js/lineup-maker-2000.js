@@ -810,6 +810,19 @@
   var FONT_BODY = '"Inter", system-ui, sans-serif';
   var TILTS = [-4, 3, -3, 4, -2, 2];
 
+  // Reorder a priority-sorted array so arr[0] (highest) lands dead-centre and later
+  // (lower-priority) items fan out alternately to the edges: [E.. M.. C ..M ..E].
+  function centerOut(arr) {
+    var n = arr.length, res = new Array(n), center = Math.floor((n - 1) / 2);
+    var idx = center, sign = 1, dist = 1;
+    for (var i = 0; i < n; i++) {
+      res[idx] = arr[i];
+      idx = center + sign * dist;
+      if (sign > 0) sign = -1; else { sign = 1; dist++; }
+    }
+    return res;
+  }
+
   var _fontsP = null;
   function loadBrandFonts() {
     if (_fontsP) return _fontsP;
@@ -981,35 +994,57 @@
     // 4. faces zone (between header and the title block)
     var facesTop = headerBottom + 20;
     var facesBottom = nameTopY - 40;
-    var bill = m.bill.slice(0, 6);
-    var hostR = spec.format === 'story' ? 165 : 150;
+    var bill = m.bill;            // EVERY performer on the bill - no cap
+    var crowded = bill.length > 6;
+    var hostR = (spec.format === 'story' ? 165 : 150) - (crowded ? 28 : 0);
     var rowTop;
     if (m.host && m.host.slug) {
       var hostCy = facesTop + hostR + 10;
       drawHost(ctx, m.host.img, cx, hostCy, hostR, m.host.name);
-      rowTop = hostCy + hostR + 96;
+      rowTop = hostCy + hostR + (crowded ? 64 : 92);
     } else {
       rowTop = facesTop + 20;
     }
-    // priority-scaled polaroid row, centered, uniformly shrunk to fit width
+    // Priority-centred grid: highest priority sits central (upper rows, nearest the host),
+    // lower priority fans out to the edges. The grid scales to fit so ALL acts are shown.
     if (bill.length) {
-      var baseW = spec.format === 'story' ? 250 : 230;
-      var gap = 22;
-      var widths = bill.map(function (b) { return baseW * faceScale(b.priority); });
-      var totalW = widths.reduce(function (a, b) { return a + b; }, 0) + gap * (bill.length - 1);
-      var maxRowW = W - pad * 2;
-      var fit = Math.min(1, maxRowW / totalW);
-      // vertically center the (tallest) row in the available band
-      var tallW = Math.max.apply(null, widths) * fit;
-      var rowH = tallW * 1.28; // approx polaroid height
-      var bandMid = (rowTop + facesBottom) / 2;
-      var rowY = Math.max(rowTop, bandMid - rowH / 2);
-      var x = cx - (totalW * fit) / 2;
-      bill.forEach(function (b, i) {
-        var w = widths[i] * fit;
-        drawPolaroid(ctx, b.img, x + w / 2, rowY, w, TILTS[i % TILTS.length], b.name, b.headliner);
-        x += w + gap * fit;
+      var RANK = { high: 0, medium: 1, low: 2 };
+      var sorted = bill.slice().sort(function (a, b) {
+        var ra = RANK[norm(a.priority)]; if (ra == null) ra = 1;
+        var rb = RANK[norm(b.priority)]; if (rb == null) rb = 1;
+        return ra - rb;
       });
+      var n = sorted.length;
+      var bandW = W - pad * 2;
+      var bandH = facesBottom - rowTop;
+      var gap = 16;
+      var hardCap = spec.format === 'story' ? 230 : 205;
+      // Pick the column count that makes the polaroids as LARGE as possible while the whole
+      // grid still fits the band both ways - so every act shows at the biggest readable size.
+      var cols = 1, rows = n, baseW = 0;
+      for (var c = 1; c <= n; c++) {
+        var rws = Math.ceil(n / c);
+        var bw = (bandW - gap * (c - 1)) / c;                // width-limited size
+        var bh = (bandH - gap * (rws - 1)) / (rws * 1.30);   // height-limited size
+        var cand = Math.min(bw, bh, hardCap);
+        if (cand > baseW) { baseW = cand; cols = c; rows = rws; }
+      }
+      var rowH = baseW * 1.30;
+      var gridH = rows * rowH + (rows - 1) * gap;
+      var startY = rowTop + Math.max(0, (bandH - gridH) / 2);
+      for (var r = 0; r < rows; r++) {
+        var rowItems = centerOut(sorted.slice(r * cols, (r + 1) * cols));
+        var ws = rowItems.map(function (it) { return baseW * faceScale(it.priority); });
+        var rowW = ws.reduce(function (a, b) { return a + b; }, 0) + gap * (rowItems.length - 1);
+        var hfit = Math.min(1, bandW / rowW); // safety: never overflow the band width
+        var x = cx - (rowW * hfit) / 2;
+        var ry = startY + r * (rowH + gap);
+        for (var i = 0; i < rowItems.length; i++) {
+          var w = ws[i] * hfit;
+          drawPolaroid(ctx, rowItems[i].img, x + w / 2, ry, w, TILTS[(r * cols + i) % TILTS.length], rowItems[i].name, rowItems[i].headliner);
+          x += w + gap * hfit;
+        }
+      }
     }
 
     // 5. show name (display, uppercase, largest), drawn from nameTop down
@@ -1096,7 +1131,12 @@
   function downloadCanvas(canvas, st, format, onFail) {
     var s = findShow(st.show);
     var base = (s ? splitTitle(s.title) : 'flyer').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-    var fname = (base || 'flyer') + '-' + format + '.png';
+    // Filename carries the show name + its date (YYYY-MM-DD) - these get downloaded a lot.
+    var d = (s && s.next) ? new Date(s.next) : null;
+    var dateSlug = (d && !isNaN(d.getTime()))
+      ? d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2)
+      : '';
+    var fname = [(base || 'flyer'), dateSlug, format].filter(Boolean).join('-') + '.png';
     function fail(e) { if (onFail) onFail(e); }
     function trigger(url, revoke) {
       try {
