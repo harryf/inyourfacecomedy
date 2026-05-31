@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Milad"
-description: "Milad performs English stand-up comedy with IN YOUR FACE in Zürich, Switzerland."
-last_modified_at: "2026-05-31T16:08:03+00:00"
+description: "Doing comedy due to trauma, life and funny. Mixture between political, stupid and absurd."
+last_modified_at: "2026-05-31T20:41:58+00:00"
 slug: "milad"
 photo: "/assets/img/comedians/milad.jpg"
 instagram: "https://instagram.com/miladalrafu"
@@ -13,6 +13,7 @@ youtube_channel: ""
 website: ""
 priority: "Medium"
 image: "/assets/img/comedians/milad.jpg"
-bio: ""
+bio: |
+  Doing comedy due to trauma, life and funny. Mixture between political, stupid and absurd.
 ---
 
