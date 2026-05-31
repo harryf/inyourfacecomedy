@@ -1001,7 +1001,7 @@
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
     ctx.font = '34px ' + FONT_ACCENT;
-    ctx.fillText('live stand-up comedy', cx, logoY + logoH + 42);
+    ctx.fillText('English stand-up comedy', cx, logoY + logoH + 42);
     var headerBottom = logoY + logoH + 70;
 
     // 4. faces zone (between header and the title block)
