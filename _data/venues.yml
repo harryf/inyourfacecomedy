@@ -59,6 +59,7 @@ piranha-zurich:
   postal_code: "8004"
   city: "Zürich"
   country: "CH"
+  website: "https://www.instagram.com/piranha_zh/"
   # website + google_maps_url: add by hand (not in EventFrog data)
 
 the-beast-basel-comedy-club:
