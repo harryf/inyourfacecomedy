@@ -13,8 +13,8 @@ ticket_url: "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/double-sho
 permalink: /double-shot/
 hosts_label: "Starring"
 hosts:
-  - "harryf.cks"
   - "martinadoescomedy"
+  - "harryf.cks"
 event_type: single
 venue: "ROBIN's"
 venue_slug: robins
@@ -27,19 +27,17 @@ price_chf: 15
 price_chf_max: 20
 ---
 
-## Double Shot • English Comedy with Harry and Martina
+## Double Shot • English Comedy with Martina and Harry
 
-You know us. You've watched us host Comedy Brew, hand the mic to strangers, and pretend we had it all under control. This time there's no open-mic safety net. It's just the two of us, which means we're now legally a duo.
+You know us. You've watched us host Comedy Brew, talking to random strangers, and pretending we have it all under control. This time there's no open-mic safety net. It's just the two of us, which means we're now legally a duo.
 
 <!--more-->
 
-Think Batman and Robin. But Harry is Baldman, mostly because of the lack of hair and the brooding single-dad energy. Martina is Robin, because Robin is a bird, and Martina is an exotic Swiss bird who somehow ended up doing comedy in three languages and folding laundry between sets. The costumes were vetoed for budget reasons. Use your imagination.
+Think Batman and Robin. But Harry is Baldman, mostly because of the lack of hair and the brooding single-dad energy. Martina is Rubbing, because that's what you'll be doing after you've tasted some of her amazing cooking - _rubbing_ your stomach in joy. Sadly the Baldman and Rubbing costumes were vetoed for budget reasons. Use your imagination.
 
-The real headline here is Martina. She's been getting sharper every single month, and this is the first time she's putting together a proper two-person show and taking it on the road around Switzerland. The tour is called "Martina Has Friends," which is both the title and, frankly, a flex. Tonight, Harry is one of the friends. He's very honoured. He's also slightly worried she's about to be funnier than him on his own stage.
+The real headline here is **Martina**. She's been getting sharper every single month, and this is the first time she's putting together a proper two-person show and taking it on the road around Switzerland. The tour is called "Martina Has Friends," which is both the title and, frankly, a flex. Tonight, Harry is one of the friends. He's very honoured. He's also slightly worried she's about to be funnier than him on his own stage.
 
 Expect comedy that's quick, dark, and brew-tally honest. We can't promise emotional stability, but we can promise a lot of laughter. Grab a drink, bring your people, and come see what happens when two Comedy Brew hosts are left unsupervised.
-
-Comedy should be for everyone. If you'd like to come but money is tight, [drop us a message](/follow/) and we'll sort you out.
 
 ## When and Where
 
