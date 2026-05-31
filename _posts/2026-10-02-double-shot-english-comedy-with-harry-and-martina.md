@@ -1,9 +1,9 @@
 ---
 layout: post
 editable: true
-title: "Double Shot • English Comedy with Harry and Martina • One Night at ROBIN's Zürich"
+title: "Double Shot • English Comedy with Martina and Harry • One Night at ROBIN's Zürich"
 tagline: "One night, two Comedy Brew hosts, no open-mic safety net."
-description: "Two Comedy Brew hosts, no open-mic safety net. Harry and Martina bring a two-person English stand-up show to ROBIN's in Zürich for one night, Friday 2 October 2026."
+description: "Two Comedy Brew hosts, no open-mic safety net. Martina and Harry bring a two-person English stand-up show to ROBIN's in Zürich for one night, Friday 2 October 2026."
 last_modified_at: 2026-05-31T13:23:11+00:00
 feature-img: "assets/img/uploads/double-shot_featured.png"
 image: "/assets/img/uploads/double-shot_horizontal.png"
