@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+# Force UTF-8 reads — cron defaults Ruby to US-ASCII, and the calendar page +
+# posts hold non-ASCII bytes (Zürich, Español, "•", emoji). See repo CLAUDE.md.
+Encoding.default_external = Encoding::UTF_8
+
 # validate-calendar.rb — structural validator for pages/2_calendar.md
 #
 # The calendar page looks like plain markdown but is a CONTRACT: its CSS

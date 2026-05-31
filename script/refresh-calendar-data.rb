@@ -1,5 +1,10 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
+
+# Force UTF-8 reads — cron defaults Ruby to US-ASCII, and venues.yml / posts hold
+# non-ASCII bytes (Zürich, Español). See repo CLAUDE.md "Rules that bite".
+Encoding.default_external = Encoding::UTF_8
+
 #
 # refresh-calendar-data.rb
 #

@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+# Force UTF-8 reads — cron defaults Ruby to US-ASCII (this script already passes
+# encoding: "UTF-8" per-read; this is the belt to that suspenders). See CLAUDE.md.
+Encoding.default_external = Encoding::UTF_8
+
 # Sync the Comedians table from Grist into the Jekyll `_comedians/` collection.
 # Designed for a local cron job on Harry's Mac — uses macOS `sips` for photo
 # resize so it has no gem dependencies beyond Ruby stdlib.

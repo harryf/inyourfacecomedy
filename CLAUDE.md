@@ -21,6 +21,7 @@ Always run the health check after a change and before you say you are done. The 
 - **Sources of truth are derived from files.** A show is any `_posts` file with a `ticket_url`; a comedian is any file under `_comedians/`. The home page, calendar, sitemap, and health check all build themselves from this, so you rarely hardcode lists.
 - **Case matters on the live build.** macOS hides case, but Linux (CI and the live build) does not. An image path must match the file's case exactly, or it works on your Mac and 404s once live. html-proofer in the health check catches this.
 - **Markdown inside an `.html` include still gets processed,** because the page that pulls it in is a `.md` file and kramdown runs on the whole thing. So you can inline an include's body into a post and the output stays the same.
+- **Scripts in `script/` run under cron, which defaults to US-ASCII.** cron starts Ruby with `Encoding.default_external = US-ASCII` (no `LANG`/`LC_ALL`), so any `File.read`/`File.foreach` of a repo file that contains non-ASCII bytes — and most do: `Zürich`, `Español`, `—`, `•`, emoji in `_posts/`, `pages/2_calendar.md`, `_data/*.yml` — raises `Encoding::CompatibilityError` (or mangles the text) the moment you regex-match or YAML-parse it. Force UTF-8: put `Encoding.default_external = Encoding::UTF_8` near the top of the script (one line, covers every read), and/or pass `encoding: "UTF-8"` to each read. `script/sync-comedians.rb` is the reference. This bites silently — it works in your UTF-8 terminal and only fails at 3am under cron.
 
 ## Never commit
 

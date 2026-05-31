@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+# Force UTF-8 reads — cron/CI may default Ruby to US-ASCII, and the pages, posts,
+# and built HTML hold non-ASCII bytes (Zürich, Español, "•", emoji). See CLAUDE.md.
+Encoding.default_external = Encoding::UTF_8
+
 # check-site.rb — post-build health smoke test for inyourfacecomedy.ch
 #
 # One command to assert the invariants that keep the site working as its surface
