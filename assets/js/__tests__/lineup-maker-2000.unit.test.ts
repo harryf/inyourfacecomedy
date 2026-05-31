@@ -11,6 +11,7 @@ const lm = require("../lineup-maker-2000.js") as {
   isGuest: (token: string) => boolean;
   guestName: (token: string) => string;
   guestToken: (name: string) => string;
+  instaHandle: (url: string) => string;
 };
 
 describe("lineup-maker-2000 • norm", () => {
@@ -67,5 +68,37 @@ describe("lineup-maker-2000 • guest (off-catalog) act tokens", () => {
 
   test("token round-trips: guestName(guestToken(x)) === normalized x", () => {
     expect(lm.guestName(lm.guestToken("Bob  Smith"))).toBe("Bob Smith");
+  });
+});
+
+describe("lineup-maker-2000 • instaHandle (from the instagram URL, never the slug)", () => {
+  test("pulls the handle from a plain instagram URL", () => {
+    expect(lm.instaHandle("https://instagram.com/harryf.cks")).toBe("harryf.cks");
+  });
+
+  test("the handle comes from the URL value, not the website slug", () => {
+    // rudy's slug is 'rudy' but his instagram handle is 'elrudysanchez'
+    expect(lm.instaHandle("https://instagram.com/elrudysanchez")).toBe("elrudysanchez");
+    // ludovica → keepingupwiththecomedian
+    expect(lm.instaHandle("https://instagram.com/keepingupwiththecomedian")).toBe("keepingupwiththecomedian");
+  });
+
+  test("tolerates trailing slash, www., query/hash, and underscores", () => {
+    expect(lm.instaHandle("https://instagram.com/elrudysanchez/")).toBe("elrudysanchez");
+    expect(lm.instaHandle("https://www.instagram.com/foo?hl=en")).toBe("foo");
+    expect(lm.instaHandle("https://instagram.com/adoniscomedy_")).toBe("adoniscomedy_");
+    expect(lm.instaHandle("http://instagram.com/bar#x")).toBe("bar");
+  });
+
+  test("accepts a bare handle with or without @", () => {
+    expect(lm.instaHandle("@martinadoescomedy")).toBe("martinadoescomedy");
+    expect(lm.instaHandle("martinadoescomedy")).toBe("martinadoescomedy");
+  });
+
+  test("returns '' for empty, null, or a non-instagram URL", () => {
+    expect(lm.instaHandle("")).toBe("");
+    expect(lm.instaHandle(undefined as unknown as string)).toBe("");
+    expect(lm.instaHandle("https://tiktok.com/@someone")).toBe("");
+    expect(lm.instaHandle("https://x.com/someone")).toBe("");
   });
 });

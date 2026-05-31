@@ -40,7 +40,7 @@
     module.exports = {
       norm: norm, splitTitle: splitTitle, showDate: showDate,
       dayLabel: dayLabel, flyerDate: flyerDate, faceScale: faceScale, flyerSpec: flyerSpec,
-      isGuest: isGuest, guestName: guestName, guestToken: guestToken
+      isGuest: isGuest, guestName: guestName, guestToken: guestToken, instaHandle: instaHandle
     };
     return;
   }
@@ -72,6 +72,19 @@
     // commas are the URL list separator and whitespace runs break layout - collapse both.
     var clean = String(name == null ? '' : name).replace(/[\s,]+/g, ' ').trim();
     return clean ? GUEST_PREFIX + clean : '';
+  }
+
+  // Instagram @handle from a comedian's `instagram` value. The handle comes from the URL
+  // (e.g. .../elrudysanchez), NOT the website slug, which is often different. Keys on the
+  // instagram.com host so other socials (tiktok/x) never misparse; tolerates a trailing
+  // slash, query/hash tail, www., or a value that's already a bare "@handle"/"handle".
+  function instaHandle(url) {
+    if (!url) return '';
+    var s = String(url).trim();
+    var m = s.match(/instagram\.com\/+([^\/?#\s]+)/i);
+    if (m) return m[1].replace(/^@/, '');
+    if (/^https?:/i.test(s)) return '';            // some other URL - not an instagram handle
+    return s.replace(/^@/, '').replace(/[\/?#\s].*$/, '');  // bare handle fallback
   }
 
   var byShow = {};
@@ -1254,6 +1267,29 @@
     } catch (e) { fail(e); }
   }
 
+  // Instagram handles for everyone ON the flyer (host + catalog bill), resolved with the SAME
+  // resolveSlugs the flyer draws with - so the list always matches the faces shown and guests
+  // (off-catalog, no instagram) are excluded for free. De-dupes case-insensitively, drops blanks.
+  function flyerHandles(st) {
+    var out = [], seen = {};
+    function add(slug) {
+      var c = findComedian(slug); if (!c) return;
+      var h = instaHandle(c.instagram); if (!h) return;
+      var k = h.toLowerCase(); if (seen[k]) return;
+      seen[k] = 1; out.push(h);
+    }
+    var hostSlug = (st.host && findComedian(st.host)) ? canonical(st.host) : '';
+    if (hostSlug) add(hostSlug);
+    var raw = (st.type === 'split') ? st.first.concat(st.second) : st.lineup.slice();
+    resolveSlugs(raw).filter(function (x) { return norm(x) !== norm(hostSlug); }).forEach(add);
+    return out;
+  }
+  // Clipboard payload: one "@handle " per comedian, each on its own line (space + newline),
+  // ready to paste into an Instagram story/post to tag everyone.
+  function flyerHandlesText(st) {
+    return flyerHandles(st).map(function (h) { return '@' + h + ' \n'; }).join('');
+  }
+
   function ensureFlyerCss() {
     if (document.getElementById('iyf-flyer-css')) return;
     var st = document.createElement('style');
@@ -1262,7 +1298,10 @@
       '.lineup-lab__flyer{margin-top:1.5rem;padding:1.25rem;border-radius:14px;background:#1A1A1D;color:#FFF3E0}' +
       '.lineup-lab__flyer .lineup-lab__outputs-title{margin-top:0}' +
       '.lineup-lab__canvas{display:block;width:100%;max-width:420px;height:auto;margin:1rem auto;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.4)}' +
-      '.lineup-lab__flyer .btn-ticket{display:block;width:100%;max-width:420px;margin:0 auto}';
+      '.lineup-lab__flyer .btn-ticket{display:block;width:100%;max-width:420px;margin:0 auto}' +
+      '.lineup-lab__flyer-ig{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.6rem;max-width:420px;margin:.85rem auto 0}' +
+      '.lineup-lab__flyer-ig .lineup-lab__copy--quiet{flex:1 1 auto}' +
+      '.lineup-lab__flyer .lineup-lab__copy-hint{max-width:420px;margin:.35rem auto 0;text-align:center}';
     document.head.appendChild(st);
   }
 
@@ -1296,6 +1335,23 @@
     dl.type = 'button';
     dl.disabled = true;
     panel.appendChild(dl);
+
+    // Copy every on-flyer comedian's Instagram @handle (one per line) for tagging in a story/post.
+    var igRow = el('div', 'lineup-lab__flyer-ig');
+    var ig = el('button', 'lineup-lab__copy lineup-lab__copy--quiet', '＠ Copy Insta handles');
+    ig.type = 'button';
+    var igStatus = el('span', 'lineup-lab__copy-status', '');
+    ig.addEventListener('click', function () {
+      var text = flyerHandlesText(st);
+      if (!text) { igStatus.textContent = 'No Instagram handles on this lineup.'; return; }
+      igStatus.textContent = '…';
+      copy(text, igStatus);
+    });
+    igRow.appendChild(ig);
+    igRow.appendChild(igStatus);
+    panel.appendChild(igRow);
+    panel.appendChild(el('p', 'lineup-lab__copy-hint', 'Paste into your story to tag everyone on the bill.'));
+
     container.appendChild(panel);
 
     drawFlyer(canvas, st, fmt, function (err) {
@@ -1311,7 +1367,10 @@
   // Test/preview seam: expose the flyer entry points on window (browser-only, mirrors
   // __lineupMakerLastURL). Lets a harness render a flyer headlessly without walking the
   // wizard UI. No-op in read-only envs.
-  try { window.__iyfDrawFlyer = drawFlyer; window.__iyfOpenFlyer = openFlyer; } catch (e) { /* read-only env */ }
+  try {
+    window.__iyfDrawFlyer = drawFlyer; window.__iyfOpenFlyer = openFlyer;
+    window.__iyfFlyerHandles = flyerHandles; window.__iyfFlyerHandlesText = flyerHandlesText;
+  } catch (e) { /* read-only env */ }
 
   // --- route -----------------------------------------------------------------
   function render() {

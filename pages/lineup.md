@@ -32,7 +32,7 @@ description: "Power Tool for IN YOUR FACE show organizers to build and share a s
 </script>
 
 <script type="application/json" id="iyf-comedians">
-[{% for c in site.comedians %}{"slug":{{ c.slug | jsonify }},"name":{{ c.title | jsonify }},"url":{{ c.url | jsonify }},"photo":{{ c.photo | jsonify }},"priority":{{ c.priority | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+[{% for c in site.comedians %}{"slug":{{ c.slug | jsonify }},"name":{{ c.title | jsonify }},"url":{{ c.url | jsonify }},"photo":{{ c.photo | jsonify }},"priority":{{ c.priority | jsonify }},"instagram":{{ c.instagram | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
 </script>
 
 <script src="{{ '/assets/js/lineup-maker-2000.js' | relative_url }}" defer></script>
