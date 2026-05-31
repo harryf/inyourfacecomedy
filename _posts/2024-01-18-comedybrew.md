@@ -10,6 +10,10 @@ thumbnail: "assets/img/thumbs/comedybrew.png"
 excerpt_separator: <!--more-->
 ticket_url: "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html"
 permalink: /comedybrew/
+hosts_label: "Usually hosted by"
+hosts:
+  - "harryf.cks"
+  - "martinadoescomedy"
 event_type: series
 venue_slug: robins
 recurrence_day: Thursday

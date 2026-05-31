@@ -19,7 +19,16 @@ layout: default
              loading="lazy" />
       </div>
     {% endif %}
-    <h1 class="iyf-comedian-profile__name">{{ page.title }}</h1>
+    <div class="iyf-comedian-profile__heading">
+      <h1 class="iyf-comedian-profile__name">{{ page.title }}</h1>
+      {%- comment -%}
+        Crawlable relevance sub-line. Puts "Stand-Up Comedian" + "Zürich" in
+        visible body text next to the name, so a "<name> comedian" query has
+        on-page support beyond the JSON-LD. Not a keyword meta (dead signal) —
+        real text that reads naturally.
+      {%- endcomment -%}
+      <p class="iyf-comedian-profile__role">Stand-Up Comedian · IN YOUR FACE Comedy, Zürich</p>
+    </div>
   </header>
 
   {% if page.bio and page.bio != '' %}
@@ -74,6 +83,27 @@ layout: default
       {% endif %}
     </nav>
   {% endif %}
+
+  {%- comment -%}
+    Reverse link: shows this comedian is a regular/host at. Sourced from each
+    show post's `hosts:` slug-list (stable: hosts/residents, not per-night
+    lineups). This injects UNIQUE, substantive content into otherwise-thin
+    profiles — the strongest lever against "Crawled – currently not indexed" —
+    and completes the bidirectional show↔comedian internal-link graph. A
+    comedian who hosts nothing renders no section (no empty heading).
+  {%- endcomment -%}
+  {%- assign my_shows = site.posts | where_exp: "p", "p.ticket_url" | where_exp: "p", "p.hosts contains page.slug" -%}
+  {%- if my_shows.size > 0 -%}
+    <section class="iyf-comedian-profile__shows" aria-label="Shows {{ page.title }} performs at">
+      <h2 class="iyf-lineup-section__title">Catch {{ page.title | split: ' ' | first }} at</h2>
+      <div class="iyf-comedian-profile__show-links">
+        {%- for s in my_shows -%}
+          {%- assign show_title = s.title | replace: ' - ', ' • ' | split: '•' | first | strip -%}
+          <a class="btn-ghost" href="{{ s.url | relative_url }}">{{ show_title }}</a>
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
 
   <p class="iyf-comedian-profile__back">
     <a class="clear" href="{{ '/comedians/' | relative_url }}">&larr; All comedians</a>

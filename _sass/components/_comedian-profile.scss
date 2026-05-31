@@ -63,6 +63,17 @@
     }
   }
 
+  &__heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: center;
+
+    @media (min-width: 768px) {
+      align-items: flex-start;
+    }
+  }
+
   &__name {
     font-family: var(--font-display);
     font-size: var(--fs-3xl);
@@ -71,6 +82,30 @@
     color: var(--text);
     margin: 0;
     line-height: var(--lh-tight);
+  }
+
+  // Crawlable relevance sub-line under the name ("Stand-Up Comedian · …Zürich").
+  &__role {
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  // "Catch <name> at …" — ghost-button chips linking to the shows they host.
+  &__shows {
+    margin: var(--space-7) 0 0;
+    text-align: center;
+  }
+
+  &__show-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
   }
 
   &__bio {

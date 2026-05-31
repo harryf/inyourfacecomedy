@@ -9,6 +9,8 @@ image: /assets/img/uploads/ultra_mega_final_formato_1200_x_400_general_la_tarima
 thumbnail: /assets/img/uploads/last_one.png
 excerpt_separator: <!--more-->
 permalink: /latarima/
+hosts:
+  - "andrea-ramirez"
 ticket_url: https://eventfrog.ch/en/p/groups/la-tarima-comedia-en-espanol-7415721905318030787.html
 event_type: monthly
 venue_slug: monroe

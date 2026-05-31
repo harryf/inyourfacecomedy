@@ -9,6 +9,8 @@ image: /assets/img/uploads/down_under_comedy_wide_0.5x.png
 thumbnail: /assets/img/uploads/down_under_comedy_insta_post_0.5x.png
 excerpt_separator: <!--more-->
 permalink: /downunder/
+hosts:
+  - "chris-darwa"
 ticket_url: https://eventfrog.ch/downunder
 event_type: series
 venue_slug: robins

@@ -51,8 +51,47 @@ layout: default
     {% endif %}
     {{ content }}
     {% if page.ticket_url %}
-      <p><a href="{{ page.ticket_url }}" class="btn-ticket btn-ticket--xl" rel="noopener" target="_blank">Get Tickets</a></p>
+      <p class="iyf-show-cta"><a href="{{ page.ticket_url }}" class="btn-ticket btn-ticket--xl" rel="noopener" target="_blank">Get Tickets</a></p>
     {% endif %}
+
+    {%- comment -%}
+      Regular performers / hosts — placed at the BOTTOM, below the ticket CTA, so
+      the show (and getting people out) stays the focus. Sits INSIDE .post-content
+      so it inherits the show page's centred, padded column instead of spanning
+      full width. Sourced from the show's `hosts:` slug-list (stable hosts/
+      residents, NOT per-night lineups); each slug resolves against site.comedians
+      and an unknown slug renders nothing (never a broken link). `hosts_label`
+      overrides the default "Hosted by" (e.g. "Featuring" for the Brexiles
+      ensemble, "Usually hosted by" for Comedy Brew's two rotating hosts).
+    {%- endcomment -%}
+    {%- if page.hosts and page.hosts.size > 0 -%}
+      {%- assign host_pages = '' | split: '' -%}
+      {%- for slug in page.hosts -%}
+        {%- assign match = site.comedians | where: "slug", slug | first -%}
+        {%- if match -%}{%- assign host_pages = host_pages | push: match -%}{%- endif -%}
+      {%- endfor -%}
+      {%- if host_pages.size > 0 -%}
+        <section class="iyf-show-hosts" aria-label="Regular performers at this show">
+          <h2 class="iyf-show-hosts__title">{{ page.hosts_label | default: 'Hosted by' }}</h2>
+          <ul class="iyf-show-hosts__grid" role="list">
+            {%- for c in host_pages -%}
+              <li data-slug="{{ c.slug }}">
+                <a class="iyf-comedian-card" href="{{ c.url | relative_url }}">
+                  {%- if c.photo -%}
+                    <div class="iyf-comedian-card__media">
+                      <img src="{{ c.photo | relative_url }}" alt="{{ c.title }}" loading="lazy" />
+                    </div>
+                  {%- else -%}
+                    <div class="iyf-comedian-card__media iyf-comedian-card__media--placeholder" aria-hidden="true"></div>
+                  {%- endif -%}
+                  <span class="iyf-comedian-card__name">{{ c.title }}</span>
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </section>
+      {%- endif -%}
+    {%- endif -%}
     {% if page.bootstrap %}
       </div>
     {% endif %}

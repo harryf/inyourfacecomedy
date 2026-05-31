@@ -85,14 +85,34 @@
       "priceCurrency": "CHF"
     }
     {%- endif %}
-  }{%- if page.performers and page.performers.size > 0 %},
+  }
+  {%- comment -%}
+    performer[] = full Person objects for resolved `hosts:` (graph glue — Google
+    evaluates structured data per-page, so a bare cross-page @id ref is unreliable;
+    we emit name+url+@id so it both carries the link AND stands alone), followed by
+    any free-text `performers:` strings as PerformingGroup entries (e.g. "Various
+    local and visiting comedians"). An unknown host slug resolves to nothing.
+  {%- endcomment -%}
+  {%- assign host_people = '' | split: '' -%}
+  {%- if page.hosts -%}{%- for slug in page.hosts -%}{%- assign m = site.comedians | where: "slug", slug | first -%}{%- if m -%}{%- assign host_people = host_people | push: m -%}{%- endif -%}{%- endfor -%}{%- endif -%}
+  {%- assign perf_count = 0 -%}
+  {%- if page.performers and page.performers.size > 0 -%}{%- assign perf_count = page.performers.size -%}{%- endif -%}
+  {%- if host_people.size > 0 or perf_count > 0 %},
   "performer": [
-    {%- for performer in page.performers %}
+    {%- for c in host_people %}
+    {
+      "@type": "Person",
+      "@id": "{{ c.url | absolute_url }}#person",
+      "name": {{ c.title | jsonify }},
+      "url": {{ c.url | absolute_url | jsonify }}
+    }{%- unless forloop.last and perf_count == 0 %},{%- endunless %}
+    {%- endfor %}
+    {%- if perf_count > 0 %}{%- for performer in page.performers %}
     {
       "@type": "PerformingGroup",
       "name": {{ performer | jsonify }}
-    }{%- unless forloop.last %},{% endunless %}
-    {%- endfor %}
+    }{%- unless forloop.last %},{%- endunless %}
+    {%- endfor %}{%- endif %}
   ]{%- endif %}
 }
 </script>

@@ -10,6 +10,8 @@ image: /assets/img/uploads/random_facts_exchange.webp
 thumbnail: /assets/img/uploads/random_facts_exchange.webp
 excerpt_separator: <!--more-->
 permalink: /randomfactsexchange/
+hosts:
+  - "vasilis-theof"
 ticket_url: https://eventfrog.ch/en/p/groups/random-facts-exchange-7434337254674303477.html
 event_type: series
 venue_slug: ambossrampe

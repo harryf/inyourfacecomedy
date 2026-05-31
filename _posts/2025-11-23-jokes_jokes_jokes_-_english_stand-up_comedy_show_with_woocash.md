@@ -9,6 +9,8 @@ image: /assets/img/uploads/jokes_jokes_jokes_facebook_event.png
 thumbnail: /assets/img/uploads/jokes_jokes_jokes_insta_post.png
 excerpt_separator: <!--more-->
 permalink: /jokesjokesjokes/
+hosts:
+  - "woocash"
 ticket_url: https://eventfrog.ch/jokes-jokes-jokes
 event_type: series
 venue_slug: robins

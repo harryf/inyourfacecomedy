@@ -1,0 +1,62 @@
+{%- comment -%}
+  Person + ProfilePage JSON-LD partial for /comedians/<slug>/.
+
+  Consumed by: _includes/default/head.liquid — included only when
+  page.layout == 'comedian', so it never fires on shows, the index, or noindex
+  pages (e.g. /lineup/).
+
+  Why ProfilePage→mainEntity:Person — this is exactly Google's documented shape
+  for "a page that is about one person". The `sameAs` array is the machine-
+  readable router to the comedian's other online presences (Knowledge-Graph
+  entity reconciliation). The two @ids are DELIBERATELY distinct to avoid a
+  same-@id/different-@type collision:
+    ProfilePage @id = the page URL          (the page IS the profile page)
+    Person      @id = the page URL + #person (the entity the page is about)
+  memberOf points at the homepage Organization node (@id site.url/#organization,
+  set in jsonld-organization.html) so person↔club links up in the graph.
+
+  JSON-safety: every string value is piped through `| jsonify`, and sameAs is
+  built as a Liquid array — never hand-quoted — so apostrophes / quotes / unicode
+  in names and bios (e.g. "Harry Fücks") cannot break the JSON.
+{%- endcomment -%}
+{%- assign sames = '' | split: '' -%}
+{%- if page.instagram and page.instagram != '' %}{%- assign sames = sames | push: page.instagram -%}{%- endif -%}
+{%- if page.tiktok and page.tiktok != '' %}{%- assign sames = sames | push: page.tiktok -%}{%- endif -%}
+{%- if page.facebook_page and page.facebook_page != '' %}{%- assign sames = sames | push: page.facebook_page -%}{%- endif -%}
+{%- if page.x and page.x != '' %}{%- assign sames = sames | push: page.x -%}{%- endif -%}
+{%- if page.youtube_channel and page.youtube_channel != '' %}{%- assign sames = sames | push: page.youtube_channel -%}{%- endif -%}
+{%- if page.website and page.website != '' %}{%- assign sames = sames | push: page.website -%}{%- endif -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": {{ page.url | absolute_url | jsonify }},
+  "url": {{ page.url | absolute_url | jsonify }},
+  {%- if page.last_modified_at %}
+  "dateModified": "{{ page.last_modified_at | date_to_xmlschema }}",
+  {%- endif %}
+  "mainEntity": {
+    "@type": "Person",
+    "@id": {{ page.url | absolute_url | append: '#person' | jsonify }},
+    "name": {{ page.title | jsonify }},
+    "description": {{ page.description | jsonify }},
+    "url": {{ page.url | absolute_url | jsonify }},
+    "jobTitle": "Stand-Up Comedian",
+    {%- if page.photo and page.photo != '' %}
+    "image": {{ page.photo | absolute_url | jsonify }},
+    {%- endif %}
+    "memberOf": {
+      "@type": "Organization",
+      "additionalType": "ComedyClub",
+      "@id": "{{ site.url }}/#organization",
+      "name": "IN YOUR FACE Comedy",
+      "url": {{ site.url | jsonify }}
+    }{%- if sames.size > 0 %},
+    "sameAs": [
+      {%- for u in sames %}
+      {{ u | jsonify }}{%- unless forloop.last %},{%- endunless -%}
+      {%- endfor %}
+    ]{%- endif %}
+  }
+}
+</script>

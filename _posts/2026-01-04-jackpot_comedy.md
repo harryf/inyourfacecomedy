@@ -10,6 +10,8 @@ image: /assets/img/uploads/jackpot_comedy_website_wide.png
 thumbnail: /assets/img/uploads/jackpot_comedy_website_square.png
 excerpt_separator: <!--more-->
 permalink: /jackpotcomedy/
+hosts:
+  - "jack-roberts"
 ticket_url: https://eventfrog.ch/en/p/groups/jackpot-comedy-7413646370706339342.html
 event_type: series
 venue_slug: otro

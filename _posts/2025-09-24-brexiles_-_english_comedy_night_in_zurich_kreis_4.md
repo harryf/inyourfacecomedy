@@ -11,6 +11,11 @@ image: /assets/img/uploads/brexiles_horizontal.png
 thumbnail: /assets/img/uploads/brexiles_square.png
 excerpt_separator: <!--more-->
 permalink: /brexiles/
+hosts_label: "Featuring"
+hosts:
+  - "harryf.cks"
+  - "jack-roberts"
+  - "shawn-jay"
 redirect_from:
   - /2025/01/22/brexiles_-_english_comedy_night_in_zurich_kreis_4/
   - /2025/01/22/brexiles_-_english_comedy_night_in_zurich_kreis_4

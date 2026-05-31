@@ -9,6 +9,8 @@ image: /assets/img/uploads/pulpnonfiction_horizontal.png
 thumbnail: /assets/img/uploads/pulpnonfiction_square.png
 excerpt_separator: <!--more-->
 permalink: /pulpnonfiction/
+hosts:
+  - "albert-louw"
 ticket_url: https://eventfrog.ch/pulpnonfiction/
 event_type: monthly
 venue_slug: robins

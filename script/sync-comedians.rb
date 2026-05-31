@@ -86,6 +86,18 @@ PHOTO_DIR     = File.join(REPO_ROOT, "assets/img/comedians")
 # this run (added, removed, content-modified); a no-op re-run leaves it alone.
 INDEX_PAGE    = File.join(REPO_ROOT, "pages/7_comedians.md")
 
+# -----------------------------------------------------------------------------
+# IndexNow — push-notify search engines (Bing, Yandex, Seznam, Naver; NOT Google,
+# which doesn't consume IndexNow) the moment a comedian page is created/updated,
+# instead of waiting for the next crawl of sitemap.xml. The key file lives PUBLIC
+# at the site root and its content equals the key — that IS IndexNow's ownership
+# proof; no secret is involved. Submission is best-effort: any failure warns and
+# is swallowed, never aborting the sync or the deploy.
+# -----------------------------------------------------------------------------
+SITE_URL          = "https://inyourfacecomedy.ch"
+INDEXNOW_KEY      = "4b04fa2d03884c6794d4ece40fb41a29"
+INDEXNOW_ENDPOINT = URI("https://api.indexnow.org/indexnow")
+
 # Content-Type → file extension. Anything else falls back to jpg.
 CONTENT_TYPE_EXT = {
   "image/jpeg" => "jpg",
@@ -795,6 +807,39 @@ def commit_and_push(written:, removed:)
   puts "git: pushed to origin/#{branch}"
 end
 
+# Submit a batch of URLs to IndexNow. Best-effort: never raises, never aborts the
+# caller. `urls` must already be filtered to indexable (200) pages — we never push
+# removed/404 URLs (that erodes engine trust; the sitemap drop handles removals).
+def submit_indexnow(urls)
+  urls = urls.compact.uniq
+  return if urls.empty?
+
+  payload = {
+    "host"        => URI(SITE_URL).host,
+    "key"         => INDEXNOW_KEY,
+    "keyLocation" => "#{SITE_URL}/#{INDEXNOW_KEY}.txt",
+    "urlList"     => urls
+  }
+
+  http = Net::HTTP.new(INDEXNOW_ENDPOINT.host, INDEXNOW_ENDPOINT.port)
+  http.use_ssl = true
+  http.read_timeout = 30
+  req = Net::HTTP::Post.new(INDEXNOW_ENDPOINT.request_uri)
+  req["Content-Type"] = "application/json; charset=utf-8"
+  req.body = JSON.generate(payload)
+
+  resp = http.request(req)
+  code = resp.code.to_i
+  # IndexNow returns 200 (accepted) or 202 (accepted, key validation pending).
+  if code == 200 || code == 202
+    puts "indexnow: submitted #{urls.size} url(s) → HTTP #{code}"
+  else
+    warn "  ! indexnow non-2xx (HTTP #{code}: #{resp.message}) — ignored (non-fatal)"
+  end
+rescue => e
+  warn "  ! indexnow ping failed (#{e.message}) — ignored (non-fatal)"
+end
+
 # -----------------------------------------------------------------------------
 # Main
 # -----------------------------------------------------------------------------
@@ -890,6 +935,7 @@ def main
   written = 0
   skipped = 0              # unchanged comedians skipped without any work
   pages_changed = 0        # comedian pages actually created or modified this run
+  changed_slugs = []       # slugs created/updated this run — pushed to IndexNow
 
   records.each do |rec|
     fields = rec["fields"] || {}
@@ -994,6 +1040,7 @@ def main
 
     _, status = write_comedian_page(slug, public_fields, photo_web_path)
     pages_changed += 1 unless status == :unchanged
+    changed_slugs << slug unless status == :unchanged
     written += 1
     # Only record state when the on-disk photo is the CURRENT one. After a
     # failed download we keep serving the stale photo, so we leave this slug
@@ -1057,7 +1104,18 @@ def main
     log "index: #{pages_changed} page changes, #{removed} removals — #{File.basename(INDEX_PAGE)} last_modified_at unchanged"
   end
 
-  commit_and_push(written: written, removed: removed) unless NO_COMMIT
+  unless NO_COMMIT
+    commit_and_push(written: written, removed: removed)
+    # Push-index the changed comedian pages (+ the listing) so Bing/Yandex pick
+    # them up fast instead of waiting for a sitemap re-crawl. Only indexable URLs
+    # (created/updated profiles + the always-live index) — never removed 404s.
+    # Skipped on dry runs and when nothing actually changed.
+    if !DRY_RUN && (pages_changed > 0 || removed > 0)
+      urls = changed_slugs.uniq.map { |s| "#{SITE_URL}/comedians/#{s}/" }
+      urls << "#{SITE_URL}/comedians/"
+      submit_indexnow(urls)
+    end
+  end
 end
 
 # Guard so the file can be `require`d (e.g. for unit-testing the helpers)

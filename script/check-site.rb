@@ -209,10 +209,15 @@ check("homepage emits Organization JSON-LD with sameAs") do
                             .find { |o| o.is_a?(Hash) && o["@type"].to_s == "Organization" }
   [org && org.key?("sameAs"), org ? "no sameAs" : "no Organization block"]
 end
-check("both IndexNow key files land in _site") do
-  keys = %w[4b04fa2d03884c6794d4ece40fb41a29.txt 4428d17dabee4ceb92c215e99a3dec6e.txt]
-  missing = keys.reject { |k| File.exist?(File.join(SITE, k)) }
-  [missing.empty?, "missing: #{missing.join(", ")}"]
+check("IndexNow key file lands in _site (and the stale key is gone)") do
+  valid = "4b04fa2d03884c6794d4ece40fb41a29.txt"
+  stale = "4428d17dabee4ceb92c215e99a3dec6e.txt"
+  present = File.exist?(File.join(SITE, valid))
+  stale_gone = !File.exist?(File.join(SITE, stale))
+  msg = []
+  msg << "missing #{valid}" unless present
+  msg << "stale key #{stale} still present" unless stale_gone
+  [present && stale_gone, msg.join("; ")]
 end
 check("Anti: ski page carries noindex robots meta") do
   ski = read_site("ski-resort-comedy-tour.html")
@@ -320,7 +325,7 @@ end
 
 # ── script + data health ──────────────────────────────────────────────────────
 section "Script + data health"
-%w[sync-comedians.rb refresh-next-event-dates.rb validate-calendar.rb].each do |s|
+%w[sync-comedians.rb refresh-next-event-dates.rb validate-calendar.rb refresh-calendar-data.rb].each do |s|
   check("ruby -c clean: #{s}") do
     out, st = Open3.capture2e("ruby", "-c", File.join(ROOT, "script", s))
     [st.success?, out.strip]
@@ -343,6 +348,38 @@ check("no active show advertises a past next_event_date (cron health)") do
     (date && date < today) ? "#{File.basename(s[:file])} (#{date})" : nil
   end
   [stale.empty?, "stale: #{stale.join(", ")}"]
+end
+
+# _data/calendar.yml is the EventFrog-derived list of upcoming shows the /calendar/
+# page builds from (script/refresh-calendar-data.rb writes it). We validate the
+# COMMITTED artifact here — we do NOT fetch from EventFrog (network + side effects
+# don't belong in a health check; the cron that regenerates it does the fetching).
+CALENDAR_DATA = File.join(ROOT, "_data", "calendar.yml")
+cal = (YAML.safe_load(File.read(CALENDAR_DATA), permitted_classes: [Date, Time], aliases: true) rescue nil) if File.exist?(CALENDAR_DATA)
+cal_events = cal.is_a?(Hash) && cal["events"].is_a?(Array) ? cal["events"] : []
+
+check("_data/calendar.yml is valid YAML with upcoming events") do
+  [cal.is_a?(Hash) && !cal_events.empty?,
+   File.exist?(CALENDAR_DATA) ? "bad shape / no events — run script/refresh-calendar-data.rb" : "missing — run script/refresh-calendar-data.rb"]
+end
+check("_data/calendar.yml: event_count matches events length") do
+  [cal && cal["event_count"] == cal_events.length, "count=#{cal && cal["event_count"]} vs #{cal_events.length}"]
+end
+check("_data/calendar.yml: every event has an EventFrog individual (non-group) ticket link") do
+  bad = cal_events.reject do |e|
+    u = e["ticket_url"].to_s
+    u.include?("eventfrog") && u !~ %r{/p/(?:groups|gruppen|groupes)/}
+  end
+  [bad.empty?, bad.first(3).map { |e| "#{e["show"]} → #{e["ticket_url"]}" }.join(", ")]
+end
+check("_data/calendar.yml: events sorted ascending by start") do
+  starts = cal_events.map { |e| e["start"].to_s }
+  [starts == starts.sort, "out of order"]
+end
+check("_data/calendar.yml: no past-dated events (refresh cron health)") do
+  today = Date.today
+  past = cal_events.select { |e| (Date.parse(e["date"].to_s) < today rescue false) }
+  [past.empty?, "stale: #{past.first(3).map { |e| "#{e["show"]} #{e["date"]}" }.join(", ")} — re-run script/refresh-calendar-data.rb"]
 end
 
 # ── calendar structure ──────────────────────────────────────────────────────

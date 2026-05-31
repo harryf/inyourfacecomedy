@@ -73,6 +73,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <!-- Schema.org JSON-LD (Sprint-1 task 01) -->
   {% if page.next_event_date %}{% include jsonld-event.html %}{% endif %}
   {% if page.url == '/' %}{% include jsonld-organization.html %}{% endif %}
+  {% if page.layout == 'comedian' %}{% include jsonld-comedian.html %}{% endif %}
   {% if page.url != '/' %}{% include jsonld-breadcrumb.html %}{% endif %}
   {% if page.schema_type == 'ItemList' %}{% include jsonld-itemlist.html %}{% endif %}
 
