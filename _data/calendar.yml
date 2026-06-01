@@ -5,7 +5,7 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-05-31T13:33:04+00:00'
+generated_at: '2026-06-01T07:54:25+00:00'
 event_count: 54
 events:
 - show: randomfactsexchange
@@ -531,7 +531,7 @@ events:
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: double-shot
   name: Double Shot
-  title: Double Shot • English Comedy with Harry and Martina • One Night at ROBIN's
+  title: Double Shot • English Comedy with Martina and Harry • One Night at ROBIN's
     Zürich
   url: "/double-shot/"
   date: '2026-10-02'
