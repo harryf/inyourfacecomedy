@@ -417,6 +417,16 @@
           renderTray(); renderResults();
         });
         li.appendChild(b);
+        // The slug, in brackets, as a link to the comedian's page (new tab) - a SIBLING of the
+        // toggle button (a link nested in a button is invalid and would hijack the select tap).
+        if (c.url) {
+          var slugLink = el('a', 'lineup-lab__result-slug', '(' + c.slug + ')');
+          slugLink.href = c.url;
+          slugLink.target = '_blank';
+          slugLink.rel = 'noopener';
+          slugLink.setAttribute('aria-label', 'Open ' + c.name + ' profile (' + c.slug + ')');
+          li.appendChild(slugLink);
+        }
         results.appendChild(li);
       });
       if (!matches.length) {

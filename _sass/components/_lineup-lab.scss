@@ -255,6 +255,24 @@
   // On the lighter guest chip the dark remove button needs its own contrast.
   &__chip--guest &__chip-x { background-color: var(--brand-red); }
   &__results { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+  // A result is the name (a toggle button that grows) + the slug link, side by side.
+  &__result { display: flex; align-items: stretch; gap: var(--space-2); }
+  &__result &__result-btn { width: auto; flex: 1 1 auto; min-width: 0; }
+  &__result-slug {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 0.75rem;
+    border: 2px solid var(--border-soft);
+    border-radius: var(--radius-md);
+    font-family: var(--font-mono, monospace);
+    font-size: var(--fs-sm);
+    color: var(--link);
+    text-decoration: none;
+    white-space: nowrap;
+    &:hover { text-decoration: underline; border-color: var(--brand-red); }
+    &:focus-visible { outline: 3px solid var(--cta-focus-ring); outline-offset: 2px; }
+  }
   &__result-btn {
     width: 100%;
     min-height: var(--touch-min);

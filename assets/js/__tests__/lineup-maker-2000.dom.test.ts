@@ -168,6 +168,26 @@ describe("lineup-maker-2000 • guest (off-catalog) acts", () => {
     expect(previews.some((h) => h.includes("guest%3AZoe%20Newcomer"))).toBe(true);
   });
 
+  test("stage 3: each result shows the slug as a new-tab link to the comedian page", () => {
+    buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+    setURL("?show=soonshow&type=flat&stage=pick", "/lineup/");
+    runScript(SRC);
+    const firstResult = document.querySelector(".lineup-lab__result") as HTMLElement;
+    expect(firstResult).not.toBeNull();
+    const link = firstResult.querySelector("a.lineup-lab__result-slug") as HTMLAnchorElement;
+    expect(link).not.toBeNull();
+    // bracketed slug, linking to the comedian page, opening in a new tab
+    expect(link.textContent).toBe("(aaa)");
+    expect(link.getAttribute("href")).toBe("/comedians/aaa/");
+    expect(link.getAttribute("target")).toBe("_blank");
+    expect(link.getAttribute("rel")).toBe("noopener");
+    // it must be a SIBLING of the toggle button, never nested inside it
+    expect(firstResult.querySelector(".lineup-lab__result-btn a")).toBeNull();
+    // clicking the slug link must NOT select the comedian (separate hit target)
+    link.click();
+    expect(document.querySelector(".lineup-lab__chip")).toBeNull(); // nothing added to the tray
+  });
+
   test("order stage: the copied running order text includes the guest by name", () => {
     buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
     setURL("?show=soonshow&type=flat&lineup=aaa,guest%3AZoe%20Newcomer,bbb&stage=order", "/lineup/");
