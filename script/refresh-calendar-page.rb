@@ -72,6 +72,7 @@ Encoding.default_external = Encoding::UTF_8
 require "json"
 require "open3"
 require "optparse"
+require "rbconfig"
 require "time"
 require "timeout"
 require "yaml"
@@ -82,6 +83,11 @@ PAGE        = File.join(ROOT, "pages", "1_calendar.md")
 CALENDAR    = File.join(ROOT, "_data", "calendar.yml")
 EXTRACTOR   = File.join(SCRIPT_DIR, "refresh-calendar-data.rb")
 VALIDATOR   = File.join(SCRIPT_DIR, "validate-calendar.rb")
+# Spawn child ruby with the SAME interpreter running this script. A bare "ruby"
+# resolves to /usr/bin/ruby (macOS 2.6) under cron's minimal PATH, which can't
+# parse the 3.0+ endless `def foo = …` defs in refresh-calendar-data.rb and
+# validate-calendar.rb. cron launches us via the absolute rbenv 3.2.4 path.
+RUBY        = RbConfig.ruby
 CACHE_FILE  = File.join(SCRIPT_DIR, "calendar-copy.json")
 POSTS_DIR   = File.join(ROOT, "_posts")
 SITE_URL    = "https://inyourfacecomedy.ch"
@@ -141,7 +147,7 @@ def date_key(t)            = format("%04d-%02d-%02d", t.year, t.month, t.day)
 # ---------- step 1: refresh _data/calendar.yml ----------
 
 def regenerate_calendar_data!(options)
-  cmd = ["ruby", EXTRACTOR]
+  cmd = [RUBY, EXTRACTOR]
   cmd << "--quiet" unless options[:verbose]
   out, status = Open3.capture2e(*cmd, chdir: ROOT)
   puts out if options[:verbose]
@@ -590,7 +596,7 @@ end
 File.write(PAGE, new_body)
 say("Wrote #{PAGE}")
 
-vout, vok = Open3.capture2e("ruby", VALIDATOR, PAGE, "--no-color", chdir: ROOT)
+vout, vok = Open3.capture2e(RUBY, VALIDATOR, PAGE, "--no-color", chdir: ROOT)
 unless vok
   File.write(PAGE, original)
   warn "refresh-calendar-page: validate-calendar.rb FAILED — page reverted, nothing written.\n\n#{vout}"

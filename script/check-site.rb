@@ -30,8 +30,14 @@ require "yaml"
 require "date"
 require "rexml/document"
 require "open3"
+require "rbconfig"
 
 ROOT  = File.expand_path("..", __dir__)
+# Use the interpreter running this script for child ruby spawns, not a bare
+# "ruby" — so the `ruby -c` checks below validate the scripts under the same
+# (rbenv 3.2.4) interpreter cron runs them with, not whatever a minimal PATH
+# resolves to (macOS /usr/bin/ruby 2.6 can't parse their 3.0+ endless defs).
+RUBY  = RbConfig.ruby
 SITE  = File.join(ROOT, "_site")
 POSTS = File.join(ROOT, "_posts")
 COMS  = File.join(ROOT, "_comedians")
@@ -331,7 +337,7 @@ end
 section "Script + data health"
 %w[sync-comedians.rb refresh-next-event-dates.rb validate-calendar.rb refresh-calendar-data.rb].each do |s|
   check("ruby -c clean: #{s}") do
-    out, st = Open3.capture2e("ruby", "-c", File.join(ROOT, "script", s))
+    out, st = Open3.capture2e(RUBY, "-c", File.join(ROOT, "script", s))
     [st.success?, out.strip]
   end
 end
@@ -394,7 +400,7 @@ end
 # Its rule 12 is advisory (warning, exit 0), so it won't fail this harness.
 section "Calendar structure"
 check("pages/1_calendar.md passes validate-calendar.rb") do
-  out, st = Open3.capture2e("ruby", File.join(ROOT, "script", "validate-calendar.rb"),
+  out, st = Open3.capture2e(RUBY, File.join(ROOT, "script", "validate-calendar.rb"),
                             "--no-color", "--quiet", chdir: ROOT)
   detail = out.lines.grep(/(^\s*•)|FAIL/).first(6).join(" ").gsub(/\s+/, " ").strip
   [st.success?, st.success? ? nil : (detail.empty? ? out.strip[0, 200] : detail)]

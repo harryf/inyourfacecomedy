@@ -38,6 +38,7 @@ require "yaml"
 require "json"
 require "open3"
 require "optparse"
+require "rbconfig"
 
 POSTS_DIR = File.expand_path("../_posts", __dir__)
 PROJECT_ROOT = File.expand_path("..", __dir__)
@@ -198,11 +199,16 @@ end
 
 CALENDAR_DATA = File.expand_path("../_data/calendar.yml", __dir__)
 EXTRACTOR     = File.expand_path("refresh-calendar-data.rb", __dir__)
+# Spawn child ruby with the SAME interpreter running this script — never a bare
+# "ruby", which under cron's minimal PATH resolves to /usr/bin/ruby (macOS system
+# 2.6) and can't parse the extractor's 3.0+ endless `def foo = …` defs. cron
+# launches us via the absolute rbenv 3.2.4 path, so RbConfig.ruby is that 3.2.4.
+RUBY = RbConfig.ruby
 
 # Regenerate _data/calendar.yml (and append any new venues to _data/venues.yml).
 # Raises on failure so we never derive dates from a stale or partial file.
 def regenerate_calendar_data!(options)
-  cmd = ["ruby", EXTRACTOR]
+  cmd = [RUBY, EXTRACTOR]
   cmd << "--quiet" unless options[:verbose]
   out, status = Open3.capture2e(*cmd, chdir: PROJECT_ROOT)
   puts out if options[:verbose]
