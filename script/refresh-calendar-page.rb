@@ -553,6 +553,44 @@ def git_run(*args)
   [out.strip, status.success?]
 end
 
+# ---------- IndexNow ----------
+# Push-notify Bing/Yandex/Seznam when the /calendar/ page changes, instead of waiting
+# for the next sitemap crawl. Same key + endpoint as the sibling cron scripts
+# (refresh-next-event-dates.rb, sync-comedians.rb); the key file is public at the site
+# root and IS the ownership proof (not a secret). Best-effort: never raises, never
+# affects exit status — a failure just warns.
+INDEXNOW_KEY      = "4b04fa2d03884c6794d4ece40fb41a29"
+INDEXNOW_ENDPOINT = URI("https://api.indexnow.org/indexnow")
+
+def submit_indexnow(urls)
+  urls = urls.compact.uniq
+  return if urls.empty?
+
+  payload = {
+    "host"        => URI(SITE_URL).host,
+    "key"         => INDEXNOW_KEY,
+    "keyLocation" => "#{SITE_URL}/#{INDEXNOW_KEY}.txt",
+    "urlList"     => urls
+  }
+
+  http = Net::HTTP.new(INDEXNOW_ENDPOINT.host, INDEXNOW_ENDPOINT.port)
+  http.use_ssl = true
+  http.read_timeout = 30
+  req = Net::HTTP::Post.new(INDEXNOW_ENDPOINT.request_uri)
+  req["Content-Type"] = "application/json; charset=utf-8"
+  req.body = JSON.generate(payload)
+
+  resp = http.request(req)
+  code = resp.code.to_i
+  if code == 200 || code == 202
+    say("indexnow: submitted #{urls.size} url(s) → HTTP #{code}")
+  else
+    warn "  ! indexnow non-2xx (HTTP #{code}: #{resp.message}) — ignored (non-fatal)"
+  end
+rescue => e
+  warn "  ! indexnow ping failed (#{e.message}) — ignored (non-fatal)"
+end
+
 def commit_and_push!
   out, ok = git_run("add", "--", "pages/1_calendar.md", "script/calendar-copy.json",
                     "_data/calendar.yml", "_data/venues.yml")
@@ -672,7 +710,12 @@ say("Wrote #{CACHE_FILE}")
 if options[:no_push]
   say("git: skipped (--no-push)")
 else
-  say("git: #{commit_and_push!}")
+  git_result = commit_and_push!
+  say("git: #{git_result}")
+  # The /calendar/ page just changed and was pushed — push-index it so Bing/Yandex
+  # pick up the new shows fast instead of waiting for a sitemap re-crawl. Only after a
+  # real push (not :no_changes), best-effort, never fatal. Mirrors the sibling scripts.
+  submit_indexnow(["#{SITE_URL}/calendar/"]) if %i[pushed pushed_after_rebase].include?(git_result)
 end
 
 exit 0
