@@ -79,6 +79,14 @@ end
 load_dotenv
 
 HEALTHCHECKS_URL = ENV["HEALTHCHECKS_URL"]
+SCRIPT_NAME      = File.basename(__FILE__)
+
+# Frame every Healthchecks body so the FIRST and LAST lines name this script — the
+# Telegram alert then says which cron job broke without opening any log. All three
+# cron scripts share this exact shape so the bot messages read uniformly.
+def hc_body(label, detail)
+  "[#{SCRIPT_NAME}] #{label}\n\n#{detail.to_s.strip}\n\n— end of [#{SCRIPT_NAME}] report —"
+end
 
 # ---------- Git ----------
 
@@ -405,21 +413,21 @@ begin
   end
 
   if errors > 0 || git_error
-    body_lines = ["IYF refresh script failed"]
-    body_lines << "Parse errors: #{errors}" if errors > 0
-    body_lines.concat(error_lines.map { |l| "  - #{l}" })
-    body_lines << "Git: #{git_error}" if git_error
-    healthcheck_ping(:fail, body_lines.join("\n"))
+    detail_lines = []
+    detail_lines << "Parse errors: #{errors}" if errors > 0
+    detail_lines.concat(error_lines.map { |l| "  - #{l}" })
+    detail_lines << "Git: #{git_error}" if git_error
+    healthcheck_ping(:fail, hc_body("FAILED", detail_lines.join("\n")))
     exit 1
   else
-    healthcheck_ping(:success, "#{summary} git: #{git_result}")
+    healthcheck_ping(:success, hc_body("OK", "#{summary} git: #{git_result}"))
     exit 0
   end
 rescue => e
   # Catastrophic crash (ruby exception, missing file, etc.). Ping HC with the
   # trace before re-raising so cron stderr still gets the trace.
   begin
-    healthcheck_ping(:fail, "Crash: #{e.class}: #{e.message}\n#{e.backtrace.first(5).join("\n")}")
+    healthcheck_ping(:fail, hc_body("CRASHED", "#{e.class}: #{e.message}\n#{e.backtrace.first(5).join("\n")}"))
   rescue
     # If the HC ping itself fails, swallow — primary error propagates next.
   end

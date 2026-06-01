@@ -173,9 +173,57 @@ end
 
 load_dotenv(File.join(REPO_ROOT, ".env"))
 
+# ---------- Healthchecks.io reporting (shared single endpoint) ----------
+# Mirrors refresh-next-event-dates.rb. One shared HEALTHCHECKS_URL across all cron
+# scripts; the body is framed so its FIRST and LAST lines name THIS script, so the
+# Telegram alert says which job broke. Best-effort: a ping failure never changes
+# this script's exit status.
+HEALTHCHECKS_URL = ENV["HEALTHCHECKS_URL"]
+SCRIPT_NAME      = File.basename(__FILE__)
+$hc_detail       = nil   # optional richer message set at meaningful exit points
+
+def hc_body(label, detail)
+  "[#{SCRIPT_NAME}] #{label}\n\n#{detail.to_s.strip}\n\n— end of [#{SCRIPT_NAME}] report —"
+end
+
+def healthcheck_ping(status, body = nil)
+  return unless HEALTHCHECKS_URL && !HEALTHCHECKS_URL.empty?
+  suffix = case status
+           when :start   then "/start"
+           when :success then ""
+           when :fail    then "/fail"
+           end
+  uri = URI("#{HEALTHCHECKS_URL}#{suffix}")
+  Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https", open_timeout: 5, read_timeout: 10) do |http|
+    req = Net::HTTP::Post.new(uri.request_uri)
+    req.body = body if body
+    http.request(req)
+  end
+rescue => e
+  warn "healthcheck_ping(#{status}) failed: #{e.message}"
+end
+
+# Register BEFORE the API_KEY guard below so even a missing-key `exit 1` reports.
+# at_exit fires on every exit path — clean, error, or early config bail — so we get
+# exactly one terminal ping (:success or :fail) per run without threading pings
+# through every exit statement.
+healthcheck_ping(:start)
+at_exit do
+  e = $!
+  if e.nil? || (e.is_a?(SystemExit) && e.success?)
+    healthcheck_ping(:success, hc_body("OK", $hc_detail || "comedians sync completed"))
+  else
+    detail = $hc_detail ||
+             (e.is_a?(SystemExit) ? "exited with status #{e.status}"
+                                  : "#{e.class}: #{e.message}\n#{Array(e.backtrace).first(8).join("\n")}")
+    healthcheck_ping(:fail, hc_body("FAILED", detail))
+  end
+end
+
 API_KEY = ENV["GRIST_API_KEY"]
 if API_KEY.nil? || API_KEY.strip.empty?
-  warn "ERROR: GRIST_API_KEY is not set. Export it, or add it to #{File.join(REPO_ROOT, '.env')}."
+  $hc_detail = "GRIST_API_KEY is not set (export it, or add it to #{File.join(REPO_ROOT, '.env')})."
+  warn "ERROR: #{$hc_detail}"
   exit 1
 end
 
@@ -1129,6 +1177,9 @@ if __FILE__ == $PROGRAM_NAME
   begin
     main
   rescue => e
+    # Record the real cause for the at_exit Healthchecks :fail ping — by the time
+    # at_exit runs, $! is only the SystemExit from `exit 2`, not this exception.
+    $hc_detail = "#{e.class}: #{e.message}\n#{e.backtrace.first(8).join("\n")}"
     warn "FATAL: #{e.class}: #{e.message}"
     warn e.backtrace.first(8).join("\n") if VERBOSE
     exit 2

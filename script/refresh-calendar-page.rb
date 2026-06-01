@@ -70,11 +70,13 @@ Encoding.default_external = Encoding::UTF_8
 # Stdlib only, matching the rest of script/ — no bundler, no gems.
 
 require "json"
+require "net/http"
 require "open3"
 require "optparse"
 require "rbconfig"
 require "time"
 require "timeout"
+require "uri"
 require "yaml"
 
 ROOT        = File.expand_path("..", __dir__)
@@ -91,6 +93,65 @@ RUBY        = RbConfig.ruby
 CACHE_FILE  = File.join(SCRIPT_DIR, "calendar-copy.json")
 POSTS_DIR   = File.join(ROOT, "_posts")
 SITE_URL    = "https://inyourfacecomedy.ch"
+SCRIPT_NAME = File.basename(__FILE__)
+
+# ---------- .env + Healthchecks.io reporting (shared single endpoint) ----------
+# This script had no .env loader; it needs one to see HEALTHCHECKS_URL under cron
+# (cron's environment is minimal). UTF-8-safe read, same as the sibling scripts.
+def load_dotenv(path)
+  return unless File.exist?(path)
+  File.foreach(path, encoding: "UTF-8") do |raw|
+    line = raw.strip
+    next if line.empty? || line.start_with?("#")
+    key, _, value = line.partition("=")
+    key = key.strip
+    value = value.strip.sub(/\A(['"])(.*)\1\z/, '\2')
+    ENV[key] ||= value unless key.empty?
+  end
+end
+load_dotenv(File.join(ROOT, ".env"))
+
+HEALTHCHECKS_URL = ENV["HEALTHCHECKS_URL"]
+$hc_detail = nil   # optional richer message set at meaningful exit points
+
+# Frame every body so its FIRST and LAST lines name THIS script — the Telegram
+# alert then says which cron job broke. Shared shape across all cron scripts.
+def hc_body(label, detail)
+  "[#{SCRIPT_NAME}] #{label}\n\n#{detail.to_s.strip}\n\n— end of [#{SCRIPT_NAME}] report —"
+end
+
+# Best-effort — a ping failure never changes this script's exit status.
+def healthcheck_ping(status, body = nil)
+  return unless HEALTHCHECKS_URL && !HEALTHCHECKS_URL.empty?
+  suffix = case status
+           when :start   then "/start"
+           when :success then ""
+           when :fail    then "/fail"
+           end
+  uri = URI("#{HEALTHCHECKS_URL}#{suffix}")
+  Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https", open_timeout: 5, read_timeout: 10) do |http|
+    req = Net::HTTP::Post.new(uri.request_uri)
+    req.body = body if body
+    http.request(req)
+  end
+rescue => e
+  warn "healthcheck_ping(#{status}) failed: #{e.message}"
+end
+
+# at_exit covers every exit path (this script is procedural with several exits) —
+# exactly one terminal ping per run, with the cause carried in $hc_detail when set.
+healthcheck_ping(:start)
+at_exit do
+  e = $!
+  if e.nil? || (e.is_a?(SystemExit) && e.success?)
+    healthcheck_ping(:success, hc_body("OK", $hc_detail || "calendar page regenerated"))
+  else
+    detail = $hc_detail ||
+             (e.is_a?(SystemExit) ? "exited with status #{e.status}"
+                                  : "#{e.class}: #{e.message}\n#{Array(e.backtrace).first(8).join("\n")}")
+    healthcheck_ping(:fail, hc_body("FAILED", detail))
+  end
+end
 
 # Fixed English names — NEVER rely on strftime locale, which is C/ASCII under cron.
 MONTHS_FULL = %w[January February March April May June
@@ -599,7 +660,8 @@ say("Wrote #{PAGE}")
 vout, vok = Open3.capture2e(RUBY, VALIDATOR, PAGE, "--no-color", chdir: ROOT)
 unless vok
   File.write(PAGE, original)
-  warn "refresh-calendar-page: validate-calendar.rb FAILED — page reverted, nothing written.\n\n#{vout}"
+  $hc_detail = "validate-calendar.rb FAILED — page reverted, nothing written.\n\n#{vout}"
+  warn "refresh-calendar-page: #{$hc_detail}"
   exit 1
 end
 say("validate-calendar.rb: passed")
