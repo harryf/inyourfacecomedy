@@ -45,6 +45,41 @@ describe("lineup-maker-2000 • seam is invisible in production (ISC-9/ISC-10)",
   });
 });
 
+describe("lineup-maker-2000 • header (title + manual link)", () => {
+  // Regression guard. The "🎤 Lineup Maker 2000" header once vanished after the
+  // title was wrapped in a flex row: the theme's `.site-header` is a full-width
+  // `float: left` that is never cleared, so a flex first-child collapsed into the
+  // sliver beside the float and clipped the title to ~0 width. The pixel-level
+  // squeeze isn't observable in happy-dom (no float layout), so the fix lives in
+  // CSS (`.lineup-lab { clear: both }`). These tests instead pin the header
+  // CONTRACT: the title element renders with its exact text on every stage, and
+  // the Manual link is present with a safe new-tab target.
+  test("stage 1 header carries the title and a Manual link", () => {
+    buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+    setURL("", "/lineup/");
+    runScript(SRC);
+    const head = document.querySelector(".lineup-lab__head");
+    expect(head).not.toBeNull();
+    const title = head!.querySelector(".lineup-lab__title");
+    expect(title).not.toBeNull();
+    expect(title!.textContent).toBe("🎤 Lineup Maker 2000");
+    const manual = head!.querySelector("a.lineup-lab__manual") as HTMLAnchorElement;
+    expect(manual).not.toBeNull();
+    expect(manual.getAttribute("href")).toBe("/lineup-maker-2000-manual/");
+    expect(manual.getAttribute("target")).toBe("_blank");
+    expect(manual.getAttribute("rel")).toBe("noopener");
+    expect(manual.textContent).toContain("Manual");
+  });
+
+  test("the title and Manual link also render on the order stage", () => {
+    buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+    setURL("?show=soonshow&type=flat&lineup=aaa,bbb&stage=order", "/lineup/");
+    runScript(SRC);
+    expect(document.querySelector(".lineup-lab__title")?.textContent).toBe("🎤 Lineup Maker 2000");
+    expect(document.querySelector("a.lineup-lab__manual")).not.toBeNull();
+  });
+});
+
 describe("lineup-maker-2000 • show picker (stage 1)", () => {
   test("lists every catalog show, soonest first, under the Maker 2000 title", () => {
     buildLineupDOM({ shows: SHOWS, comedians: ROSTER });

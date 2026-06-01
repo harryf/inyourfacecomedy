@@ -273,7 +273,15 @@
 
   function header(sub) {
     var h = el('header', 'lineup-lab__head');
-    h.appendChild(el('h1', 'lineup-lab__title', '🎤 Lineup Maker 2000'));
+    var row = el('div', 'lineup-lab__titlerow');
+    row.appendChild(el('h1', 'lineup-lab__title', '🎤 Lineup Maker 2000'));
+    var manual = el('a', 'lineup-lab__manual', '📖 Manual');
+    manual.href = '/lineup-maker-2000-manual/';
+    manual.target = '_blank';
+    manual.rel = 'noopener';
+    manual.setAttribute('aria-label', 'Open the Lineup Maker 2000 manual in a new tab');
+    row.appendChild(manual);
+    h.appendChild(row);
     if (sub) h.appendChild(el('p', 'lineup-lab__sub', sub));
     return h;
   }

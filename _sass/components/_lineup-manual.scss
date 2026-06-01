@@ -1,0 +1,130 @@
+// =============================================================================
+// Lineup Maker 2000 — manual page
+// =============================================================================
+// Dry "software manual from the year 2000" look, built on design-system tokens.
+// Namespace: .lm. Theme-aware (reads --text / --muted / --surface-elev), no hex
+// literals — every colour is a brand or surface token.
+// -----------------------------------------------------------------------------
+
+.lm {
+  // Throwback box-shadow "bevel" without leaving the token palette.
+  --lm-bevel: 0 2px 0 0 rgba(0, 0, 0, 0.18);
+
+  &__tagline {
+    font-family: var(--font-accent);
+    color: var(--brand-yellow);
+    font-size: var(--fs-lg);
+    margin: 0 0 var(--space-5);
+    transform: rotate(-1.2deg);
+  }
+
+  // Retro "SYSTEM REQUIREMENTS" / disclaimer block — monospace, dashed frame.
+  &__sysreq {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: var(--fs-sm);
+    line-height: var(--lh-normal);
+    color: var(--text);
+    background: var(--surface-elev);
+    border: 2px dashed var(--brand-red);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    margin: var(--space-6) 0;
+
+    p { margin: 0 0 var(--space-2); }
+    p:last-child { margin-bottom: 0; }
+    b, strong { color: var(--brand-red); }
+  }
+
+  // Table of contents — numbered jump list.
+  &__toc {
+    background: var(--surface-elev);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-md);
+    padding: var(--space-5) var(--space-6);
+    margin: var(--space-6) 0 var(--space-8);
+    box-shadow: var(--lm-bevel);
+
+    h2 {
+      font-size: var(--fs-lg);
+      margin: 0 0 var(--space-3);
+    }
+    ol { margin: 0; padding-left: 1.4rem; }
+    li { margin: 0.3rem 0; line-height: var(--lh-snug); }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+  }
+
+  // Stage section heading with a red number chip.
+  &__stage {
+    scroll-margin-top: var(--space-7);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-9);
+
+    span {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: var(--radius-pill);
+      background: var(--brand-red);
+      color: var(--brand-cream);
+      font-family: var(--font-display);
+      font-size: var(--fs-base);
+    }
+  }
+
+  // Phone screenshots — capped width, centred, framed.
+  &__shot {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin: var(--space-5) auto;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--lm-bevel);
+
+    // Phone screenshots look tiny on a roomy desktop column — let them grow.
+    @media (min-width: 768px) { max-width: 440px; }
+  }
+
+  // Socratic question lead-in.
+  &__q {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--brand-yellow-hot);
+    font-size: var(--fs-lg);
+    margin: var(--space-7) 0 var(--space-2);
+  }
+
+  // Reward beat — yellow, warm.
+  &__reward {
+    background: var(--brand-yellow);
+    color: var(--brand-ink);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-5);
+    margin: var(--space-7) 0;
+    font-family: var(--font-body);
+    font-weight: 600;
+    box-shadow: var(--lm-bevel);
+
+    b, strong { color: var(--brand-red-deep); }
+  }
+
+  // Dry aside / mild abuse callout — red left border.
+  &__note {
+    border-left: 4px solid var(--brand-red);
+    background: var(--surface-elev);
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-5) 0;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    color: var(--text);
+
+    p { margin: 0; }
+  }
+}

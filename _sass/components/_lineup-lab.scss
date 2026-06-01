@@ -10,6 +10,12 @@
 // -----------------------------------------------------------------------------
 
 .lineup-lab {
+  // The theme's `.site-header` is `float: left; width: 100%` and is not cleared
+  // before `.content`. A plain block flows below it, but a flex first-child
+  // (our `__titlerow`) gets squeezed into the sliver beside the float and
+  // collapses to ~0 width, clipping the title. Clearing drops the whole tool
+  // below the navbar float so every flex child lays out at full width.
+  clear: both;
   max-width: var(--container-prose);
   margin: 0 auto;
   padding: var(--space-4) var(--space-3) var(--space-10);
@@ -33,6 +39,26 @@
     color: var(--ink-on-cream);
   }
   &__sub { margin: 0; color: var(--muted); font-size: var(--fs-base); }
+
+  &__titlerow {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+  &__manual {
+    flex: 0 0 auto;
+    font-family: var(--font-body);
+    font-size: var(--fs-base);
+    color: var(--link);
+    text-decoration: none;
+    border: 1px solid var(--muted);
+    border-radius: var(--radius-md);
+    padding: 0.2rem 0.7rem;
+    white-space: nowrap;
+    &:hover { color: var(--link-hover); background: var(--surface-elev); }
+  }
 
   &__steps {
     display: flex;
