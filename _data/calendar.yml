@@ -5,23 +5,9 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-06-01T07:54:25+00:00'
-event_count: 54
+generated_at: '2026-06-02T07:00:02+00:00'
+event_count: 53
 events:
-- show: randomfactsexchange
-  name: Random Facts Exchange
-  title: Random Facts Exchange - the Science Comedy Show in Zürich
-  url: "/randomfactsexchange/"
-  date: '2026-06-01'
-  start: '2026-06-01T19:00:00+02:00'
-  end: '2026-06-01T21:00:00+02:00'
-  venue: ambossrampe
-  venue_name: Amboss Rampe
-  location: Amboss Rampe
-  price_chf: 10
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/science-and-technology/random-facts-exchange-19th-edition-amboss-rampe-7434312389376370615.html
-  eventfrog_name: Random Facts Exchange 19th Edition - Amboss Rampe
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
