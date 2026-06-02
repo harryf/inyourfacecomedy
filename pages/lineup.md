@@ -6,6 +6,7 @@ permalink: /lineup/
 noindex: true
 sitemap: false
 hide: true
+image: /assets/img/lineup-manual/og-lineup-maker-2000.png
 description: "Power Tool for IN YOUR FACE show organizers to build and share a show lineup."
 ---
 
