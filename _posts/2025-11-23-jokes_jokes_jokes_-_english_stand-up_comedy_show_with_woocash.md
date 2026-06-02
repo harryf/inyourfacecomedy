@@ -15,7 +15,7 @@ ticket_url: https://eventfrog.ch/jokes-jokes-jokes
 event_type: series
 venue_slug: robins
 recurrence_day: Tuesday
-recurrence_time: "20:00"
+recurrence_time: "19:30"
 default_duration_minutes: 150
 next_event_date: 2026-06-02T19:30:00+02:00
 next_event_end_date: 2026-06-02T21:30:00+02:00
@@ -30,7 +30,11 @@ A non-obvious English stand-up night with comics from Zurich and beyond. Expect 
 
 Hosted by Swiss-based comedian Łukasz Segiet ( [@woocash.comedy](https://instagram.com/woocash.comedy) ), known for off-beat, unpredictable, vibe-driven comedy and a favourite among fellow comedians for his distinctive, non-obvious approach. He invites a lineup of friends and local comics to share the stage each edition.
 
-Tuesdays at [ROBIN's](https://maps.app.goo.gl/F6mSwUn5meKK1C8dA) - just 2 mins walk from Central tram station in Zürich
+## When and Where
 
-Doors Open: 19:30
-Show Beings: 20:00
+- **Doors:** 19:00 · **Show:** 19:30
+- **Where:** ROBIN's, Zähringerstrasse 33, 8001 Zürich
+
+## Getting there
+
+ROBIN's is on <a href="https://maps.app.goo.gl/aac8sjwkZjsTQaAT8">Zähringerstrasse 33</a>, two minutes from the Central tram stop and five from the main station. It's a café and bar by day that turns into a room for comedy and live music at night.
