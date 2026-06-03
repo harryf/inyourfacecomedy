@@ -1118,9 +1118,12 @@
     var facesBottom = nameTopY - 40;
     var bill = m.bill;            // EVERY performer on the bill - no cap
     var crowded = bill.length > 6;
-    // Shrink the host ring to 80% when crowded (its TOP stays put), which - combined with
-    // starting the grid below the host name's real bottom edge - frees room for the name.
-    var hostR = Math.round((spec.format === 'story' ? 165 : 150) * (crowded ? 0.8 : 1));
+    // When guests are on the bill, reserve a strip at the bottom of the faces band for the
+    // "… and friends" line so the grid lays out ABOVE it and the text can never overlap a photo.
+    var friendsH = m.hasGuests ? 78 : 0;
+    // Smaller host ring (frees vertical room for bigger polaroids + the friends line); shrink
+    // further when crowded. Its TOP stays put so the grid still starts below the host name.
+    var hostR = Math.round((spec.format === 'story' ? 138 : 124) * (crowded ? 0.82 : 1));
     var rowTop;
     if (m.host && m.host.slug) {
       var hostCy = facesTop + hostR + 10;                 // ring top stays at facesTop + 10
@@ -1131,6 +1134,7 @@
     }
     // Priority-centred grid: highest priority sits central (upper rows, nearest the host),
     // lower priority fans out to the edges. The grid scales to fit so ALL acts are shown.
+    var facesUsedBottom = rowTop;   // bottom edge of the drawn faces (for the "… and friends" line)
     if (bill.length) {
       var RANK = { high: 0, medium: 1, low: 2 };
       var sorted = bill.slice().sort(function (a, b) {
@@ -1140,9 +1144,9 @@
       });
       var n = sorted.length;
       var bandW = W - pad * 2;
-      var bandH = facesBottom - rowTop;
+      var bandH = facesBottom - rowTop - friendsH;   // leave the reserved friends strip clear
       var gap = 16;
-      var hardCap = spec.format === 'story' ? 230 : 205;
+      var hardCap = Math.round((spec.format === 'story' ? 230 : 205) * 1.2);  // ~1.2x bigger faces
       // Pick the column count that makes the polaroids as LARGE as possible while the whole
       // grid still fits the band both ways - so every act shows at the biggest readable size.
       var cols = 1, rows = n, baseW = 0;
@@ -1156,6 +1160,7 @@
       var rowH = baseW * 1.30;
       var gridH = rows * rowH + (rows - 1) * gap;
       var startY = rowTop + Math.max(0, (bandH - gridH) / 2);
+      facesUsedBottom = startY + gridH;
       for (var r = 0; r < rows; r++) {
         var rowItems = centerOut(sorted.slice(r * cols, (r + 1) * cols));
         var ws = rowItems.map(function (it) { return baseW * faceScale(it.priority); });
@@ -1169,6 +1174,24 @@
           x += w + gap * hfit;
         }
       }
+    }
+
+    // 4b. "… and friends" — when guests (off-catalog acts) are on the bill they aren't pictured,
+    // so this small handwritten line under the photos signals there's more to the lineup.
+    if (m.hasGuests) {
+      // Sits in the reserved strip just below the grid - guaranteed clear of the photos.
+      var fy = Math.min(facesUsedBottom + 42, facesBottom - 22);
+      ctx.fillStyle = '#FFF8EE';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = '48px ' + FONT_ACCENT;
+      ctx.shadowColor = 'rgba(0,0,0,0.6)';
+      ctx.shadowBlur = 8;
+      ctx.shadowOffsetY = 2;
+      ctx.fillText('… and friends', cx, fy);
+      ctx.shadowColor = 'transparent';
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetY = 0;
     }
 
     // 5. show name (display, uppercase, largest), drawn from nameTop down
@@ -1231,6 +1254,10 @@
     var raw = (st.type === 'split') ? st.first.concat(st.second) : st.lineup.slice();
     var billSlugs = resolveSlugs(raw).filter(function (x) { return norm(x) !== norm(hostSlug); });
     var hostC = hostSlug ? findComedian(hostSlug) : null;
+    // Guests ride in the URL as guest:Name and are deliberately NOT pictured on the flyer.
+    // If any are on the bill, the flyer shows fewer faces than the real lineup - flag it so
+    // paintFlyer can add an "… and friends" line under the photos.
+    var hasGuests = raw.some(function (t) { return isGuest(t); });
 
     var srcs = [assetURL(s && s.img), '/assets/img/inyourface.png', hostC ? assetURL(hostC.photo) : ''];
     billSlugs.forEach(function (sl) { var c = findComedian(sl); srcs.push(c ? assetURL(c.photo) : ''); });
@@ -1245,7 +1272,7 @@
         paintFlyer(ctx, spec, {
           show: s, st: st, bg: imgs[0], logo: imgs[1],
           host: hostSlug ? { slug: hostSlug, name: (hostC && hostC.name) || hostSlug, img: imgs[2] } : null,
-          bill: bill, nowMs: Date.now()
+          bill: bill, hasGuests: hasGuests, nowMs: Date.now()
         });
         if (done) done(null);
       })
