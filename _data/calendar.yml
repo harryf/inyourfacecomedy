@@ -5,38 +5,9 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-06-04T07:00:02+00:00'
-event_count: 51
+generated_at: '2026-06-05T07:00:01+00:00'
+event_count: 49
 events:
-- show: comedybrew
-  name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
-  url: "/comedybrew/"
-  date: '2026-06-04'
-  start: '2026-06-04T19:30:00+02:00'
-  end: '2026-06-04T22:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 10
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413532170046718629.html
-  eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-06-04'
-  start: '2026-06-04T20:00:00+02:00'
-  end: '2026-06-04T22:00:00+02:00'
-  venue: piranha-zurich
-  venue_name: Piranha Zurich
-  location: Piranha Zurich
-  price_chf: 13
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7430255786335451639.html
-  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: latarima
   name: La Tarima
   title: La Tarima - Comedia en Español
