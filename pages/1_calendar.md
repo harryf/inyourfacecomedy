@@ -5,7 +5,7 @@ nav_title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
 description: "See English stand-up comedy in Zürich tonight, this week, and beyond. Full calendar with dates, venues, and ticket links. Updated weekly."
-last_modified_at: 2026-05-31T13:33:04+00:00
+last_modified_at: 2026-06-06T09:00:01+00:00
 permalink: /calendar/
 feature-img: "assets/img/pages/follow.png"
 image: "/assets/img/pages/follow.png"
@@ -29,12 +29,6 @@ Whether you are looking for open mics, featured shows or touring comedians, you 
 
 | Date | Day | Show | Info | Tickets |
 |------|-----|------|------|---------|
-| Jun 1 | Mon | [Random Facts Exchange](https://inyourfacecomedy.ch/randomfactsexchange/) | Nerds with mics. Science was never this fun 🧪 | [Get Tickets](https://eventfrog.ch/en/p/science-and-technology/random-facts-exchange-19th-edition-amboss-rampe-7434312389376370615.html) |
-| Jun 2 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | Woocash's unpredictable comedy night is back 🎤 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7413564803870948910.html) |
-| Jun 3 | Wed | [Jackpot Comedy](https://inyourfacecomedy.ch/jackpotcomedy/) | Jack Roberts rolls the dice on your funny bone 🎰 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7443997178282926471.html) |
-| Jun 4 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Thursday nights just got a whole lot funnier 🍺 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413532170046718629.html) |
-| Jun 4 | Thu | [La Tarima](https://inyourfacecomedy.ch/latarima/) | Tu experiencia migrante merece un aplauso 👏 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7430255786335451639.html) |
-| Jun 5 | Fri | [La Tarima](https://inyourfacecomedy.ch/latarima/) | Andrea Ramirez te espera con el mic caliente 🎤 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/theatre/la-tarima-comedia-en-espanol-basel-7455572759856328969.html) |
 | Jun 6 | Sat | [Pulp Non-Fiction](https://inyourfacecomedy.ch/pulpnonfiction/) | Albert Louw and friends are spinning tales tonight 🎙️ | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-7447274382630625777.html) |
 | Jun 9 | Tue | [Down Under Comedy](https://inyourfacecomedy.ch/downunder/) | Chris Darwa brings the Aussie chaos every Tuesday 🦘 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/down-under-comedy-7411510652865391761.html) |
 | Jun 10 | Wed | [Jackpot Comedy](https://inyourfacecomedy.ch/jackpotcomedy/) | Fresh jokes, zero safety net — pure comedy gold 🃏 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7466394816881947154.html) |
