@@ -15,11 +15,11 @@ ticket_url: https://eventfrog.ch/downunder
 event_type: series
 venue_slug: robins
 recurrence_day: Tuesday
-recurrence_time: 19:30
+recurrence_time: "19:30"
 default_duration_minutes: 150
 next_event_date: 2026-06-09T19:30:00+02:00
 next_event_end_date: 2026-06-09T21:30:00+02:00
-price_chf: 5
+price_chf: 10
 performers:
   - Chris Darwa
   - Various local and visiting comedians

@@ -14,7 +14,7 @@ hosts:
 ticket_url: https://eventfrog.ch/pulpnonfiction/
 event_type: monthly
 venue_slug: robins
-recurrence_time: 19:30
+recurrence_time: "19:30"
 default_duration_minutes: 150
 next_event_date: 2026-06-06T20:00:00+02:00
 next_event_end_date: 2026-06-06T22:00:00+02:00

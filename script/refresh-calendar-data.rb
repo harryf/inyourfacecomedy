@@ -25,7 +25,7 @@ Encoding.default_external = Encoding::UTF_8
 #      INDIVIDUAL event page (/p/{category}/…-{id}.html with JSON-LD).
 #   3. From a group page, collect every individual event page link.
 #   4. Fetch each individual event page and parse its <script type=ld+json> Event
-#      block: startDate, endDate, eventStatus, location, and lowest CHF price.
+#      block: startDate, endDate, eventStatus, location, and first CHF price.
 #   5. Keep future, non-cancelled events; attach the local show identity (slug,
 #      title, on-site URL, venue) and write a sorted _data/calendar.yml.
 #
@@ -219,15 +219,20 @@ def event_jsonld(html)
   nil
 end
 
-# Lowest CHF price across schema.org offers (Offer | array | nil) → rounded int or nil.
-def lowest_chf_price(offers)
+# FIRST CHF price across schema.org offers (Offer | array | nil) → rounded int or nil.
+# EventFrog lists offers in display order — the first CHF offer is the headline
+# ticket type (e.g. "FREE SEATING"). We deliberately take the FIRST, not the
+# cheapest: a `.min` would pick concession tiers like "Students" (CHF 5) or a
+# "Flex" cancellation tier over the actual entry price (CHF 10). Order is
+# preserved through JSON.parse → filter_map, so `.first` is the page's first price.
+def first_chf_price(offers)
   list = offers.is_a?(Array) ? offers : [offers]
   prices = list.filter_map do |o|
     next unless o.is_a?(Hash) && o["priceCurrency"].to_s.upcase == "CHF"
     p = o["price"]
     Float(p) rescue nil
   end
-  prices.empty? ? nil : prices.min.round
+  prices.empty? ? nil : prices.first.round
 end
 
 # Parse an EventFrog Event JSON-LD into a normalized instance hash, or nil if it
@@ -251,7 +256,7 @@ def parse_event(ev, ticket_url)
       "postal_code" => addr["postalCode"].to_s,
       "country"     => addr["addressCountry"].to_s
     } : nil),
-    "price_chf" => lowest_chf_price(ev["offers"]),
+    "price_chf" => first_chf_price(ev["offers"]),
     "eventfrog_name" => ev["name"].to_s,
     "ticket_url"     => ticket_url
   }
