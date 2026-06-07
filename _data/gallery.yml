@@ -132,6 +132,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.434
+  comedian: adonis
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/primepunch_15.png"
@@ -143,6 +144,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.59
+  comedian: benjamin
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/primepunch_14.png"
@@ -154,6 +156,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.619
+  comedian: martinadoescomedy
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/primepunch_13.png"
@@ -165,6 +168,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.568
+  comedian: jack-roberts
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/primepunch_12.png"
@@ -176,6 +180,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.695
+  comedian: harryf.cks
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/primepunch_11.png"
@@ -259,6 +264,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.363
+  comedian: harryf.cks
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/primepunch_3.png"
@@ -353,6 +359,7 @@
   faces: 1
   humans: 0
   aesthetic: -0.099
+  comedian: benjamin
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/comedybrew_438A3470 Large.jpeg"
@@ -387,6 +394,7 @@
   faces: 2
   humans: 1
   aesthetic: 0.37
+  comedian: richard-cunha
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/comedybrew_438A3374.jpg"
@@ -398,6 +406,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.328
+  comedian: harryf.cks
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/comedybrew_438A3322.jpg"
@@ -505,6 +514,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.266
+  comedian: chris-darwa
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/comedybrew_IMG_2039 Large.jpeg"
@@ -611,6 +621,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.502
+  comedian: richard-cunha
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0690.jpeg"
@@ -646,6 +657,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.469
+  comedian: adonis
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0662.jpeg"
@@ -690,6 +702,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.409
+  comedian: sussmancomedy
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0619.jpeg"
@@ -713,6 +726,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.367
+  comedian: chris-darwa
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0650.jpeg"
@@ -1150,6 +1164,7 @@
   faces: 0
   humans: 0
   aesthetic: 0.261
+  comedian: harryf.cks
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/z_clinic_718D42D3-5AE3-4DBA-805A-981F50FF6997.jpg"
@@ -1161,6 +1176,7 @@
   faces: 0
   humans: 3
   aesthetic: 0.34
+  comedian: chris-darwa
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/z_clinic_5C6AFF82-F592-4A29-8BBC-337CC63C91E4.jpg"
@@ -1183,6 +1199,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.582
+  comedian: chris-darwa
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/kafi_PXXX3458.jpg"
@@ -1194,6 +1211,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.711
+  comedian: richard-cunha
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/kafi_PXXX3329.jpg"
@@ -1205,6 +1223,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.705
+  comedian: adonis
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/kafi_PXXX3234.jpg"
@@ -1274,6 +1293,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.735
+  comedian: harryf.cks
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/kafi_PXXX2748.jpg"
@@ -1419,6 +1439,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.721
+  comedian: chris-darwa
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/dalis_In_Your_Face_Nov_7_2021_close_20211107_3711.jpeg"
@@ -1452,6 +1473,7 @@
   faces: 1
   humans: 0
   aesthetic: 0.658
+  comedian: benjamin
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/dalis_IN_YOUR_FACE_Close_20211004_c_TimHughes_6G9A9197.jpeg"
@@ -1463,6 +1485,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.703
+  comedian: albert-louw
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/dalis_IN_YOUR_FACE_Audience_20211004_c_TimHughes_6G9A9208.jpeg"
