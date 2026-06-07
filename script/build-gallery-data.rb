@@ -275,10 +275,35 @@ rescue => e
   warn "  ! indexnow ping failed (#{e.message}) — ignored (non-fatal)"
 end
 
+# Stage the given paths, commit if anything changed, and push. Best-effort: a git
+# failure warns but never aborts. Stages ONLY the named paths (never `add -A`), so
+# unrelated working-tree changes are left alone. Mirrors sync-comedians.rb, which
+# commits its generated data + images straight to master.
+def git_commit_push(paths, message, push:)
+  system("git", "-C", REPO_ROOT, "add", "--", *paths)
+  if system("git", "-C", REPO_ROOT, "diff", "--cached", "--quiet", "--", *paths)
+    puts "git: nothing to commit"
+    return
+  end
+  # Commit ONLY these paths (pathspec) so any other staged change is left untouched.
+  unless system("git", "-C", REPO_ROOT, "commit", "--quiet", "-m", message, "--", *paths)
+    warn "  ! git commit failed — leaving changes staged"
+    return
+  end
+  puts "git: committed — #{message}"
+  return unless push
+
+  if system("git", "-C", REPO_ROOT, "push", "--quiet")
+    puts "git: pushed"
+  else
+    warn "  ! git push failed — committed locally, push manually"
+  end
+end
+
 # =============================================================================
-# build — incremental analyse + rewrite + ping
+# build — incremental analyse + rewrite + commit + ping
 # =============================================================================
-def cmd_build(rebuild:, ping:, quiet:)
+def cmd_build(rebuild:, ping:, git:, quiet:)
   today    = Date.today
   existing = load_entries.each_with_object({}) { |e, h| h[e["src"]] = e }
   files    = gallery_files
@@ -331,6 +356,18 @@ def cmd_build(rebuild:, ping:, quiet:)
   warn "  types: #{entries.group_by { |e| e['type'] }.transform_values(&:size)}" unless quiet
 
   changed = File.read(OUT_FILE) != before
+
+  # Commit the data + any new/removed gallery images together, so the committed
+  # YAML never references an image that isn't in git (which would 404 live).
+  if git
+    msg = if added.empty? && removed.empty?
+            "gallery: refresh _data/gallery.yml"
+          else
+            "gallery: +#{added.size}/-#{removed.size} image(s)"
+          end
+    git_commit_push(["_data/gallery.yml", "assets/img/gallery"], msg, push: true)
+  end
+
   if ping && changed
     # Comedian pages whose photo set changed = those tagged on removed images.
     affected = removed.map { |e| e["comedian"] }.compact.reject { |s| s.empty? || s == "none" }.uniq
@@ -343,7 +380,7 @@ end
 # =============================================================================
 # tag — interactive comedian-slug assignment for performer images
 # =============================================================================
-def cmd_tag(all:, open_preview:, ping:)
+def cmd_tag(all:, open_preview:, ping:, git:)
   entries = load_entries
   abort "No _data/gallery.yml yet — run `build` first." if entries.empty?
   slugs = known_slugs
@@ -400,11 +437,17 @@ def cmd_tag(all:, open_preview:, ping:)
   end
 
   write_entries(entries)
-  puts "\nSaved. Tagged #{touched.size} comedian(s): #{touched.to_a.sort.join(', ')}" unless touched.empty?
-
-  if ping && touched.any?
-    submit_indexnow(["#{SITE_URL}/moments/"] + touched.map { |s| comedian_url(s) })
+  if touched.empty?
+    puts "\nNo new tags."
+    return
   end
+  puts "\nSaved. Tagged #{touched.size} comedian(s): #{touched.to_a.sort.join(', ')}"
+
+  git_commit_push(["_data/gallery.yml"],
+                  "gallery: tag #{touched.size} comedian photo(s) — #{touched.to_a.sort.join(', ')}",
+                  push: true) if git
+
+  submit_indexnow(["#{SITE_URL}/moments/"] + touched.map { |s| comedian_url(s) }) if ping
 end
 
 # --- dispatch -----------------------------------------------------------------
@@ -418,27 +461,32 @@ USAGE = <<~TXT
   COMMANDS
     build         (default) Incrementally scan assets/img/gallery/: analyse NEW
                   images with Apple Vision (auge), drop deleted ones, reuse the rest
-                  (and any comedian slug), and rewrite _data/gallery.yml. Pings
-                  IndexNow for /moments/ (+ affected comedian pages) when data changes.
+                  (and any comedian slug), and rewrite _data/gallery.yml. Commits
+                  the data + new/removed images and pushes, then pings IndexNow for
+                  /moments/ (+ affected comedian pages) when data changes.
     tag           Walk performer images with no comedian slug, open each in Preview,
                   and prompt for the comedian's slug (validated against _comedians/).
-                  Saves it and pings IndexNow for /moments/ and the tagged pages.
+                  Saves it, commits + pushes _data/gallery.yml, and pings IndexNow
+                  for /moments/ and the tagged comedian pages.
 
   OPTIONS
     build:
       --rebuild   Re-analyse every image (ignore cached entries); slugs are kept.
+      --no-git    Don't commit/push; leave changes in the working tree.
       --no-ping   Don't submit to IndexNow.
       --quiet     Suppress per-image logging.
     tag:
       --all       Include performers that already have a slug (re-tag them).
       --no-open   Don't open Preview (scripted / headless tagging).
+      --no-git    Don't commit/push; leave changes in the working tree.
       --no-ping   Don't submit to IndexNow.
     -h, --help    Show this help.
 
   EXAMPLES
-    ./script/build-gallery-data.rb                  # incremental rebuild + ping
+    ./script/build-gallery-data.rb                  # rebuild, commit+push, ping
     ./script/build-gallery-data.rb build --rebuild  # full re-analysis
     ./script/build-gallery-data.rb tag              # attribute comedian photos
+    ./script/build-gallery-data.rb build --no-git   # update data only, no commit
 
   auge (Apple Vision) is macOS-only; the committed _data/gallery.yml is what
   CI/Netlify read. See CLAUDE.md § "The gallery is generated too".
@@ -452,12 +500,13 @@ end
 command = ARGV.first && !ARGV.first.start_with?("-") ? ARGV.shift : "build"
 quiet   = ARGV.include?("--quiet")
 ping    = !ARGV.include?("--no-ping")
+git     = !ARGV.include?("--no-git")
 
 case command
 when "build"
-  cmd_build(rebuild: ARGV.include?("--rebuild"), ping: ping, quiet: quiet)
+  cmd_build(rebuild: ARGV.include?("--rebuild"), ping: ping, git: git, quiet: quiet)
 when "tag"
-  cmd_tag(all: ARGV.include?("--all"), open_preview: !ARGV.include?("--no-open"), ping: ping)
+  cmd_tag(all: ARGV.include?("--all"), open_preview: !ARGV.include?("--no-open"), ping: ping, git: git)
 else
   warn "Unknown command '#{command}'.\n\n"
   abort USAGE
