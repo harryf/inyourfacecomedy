@@ -41,12 +41,4 @@ the suite pins the anti-spam/security invariants and the URL-scheme reshape beha
 
 ## Writing
 
-Visitor-facing copy — page text, intros, alt text, microcopy, anything a human reads on the site — avoids the usual AI tells:
-
-- **No em dashes (—).** Use a comma, colon, or parenthesis. This is the one that slips through most.
-- **Drop filler and inflated words:** crucial / vital / pivotal, showcase / boast, delve, tapestry / landscape, testament, vibrant / profound, meticulous, "it is worth noting", "not just X, but Y". Say the plain thing instead.
-- **No significance inflation.** Cut any sentence whose only job is to say that something matters.
-- **Sentence case for headings,** not Title Case On Every Word.
-- **Specifics over generic praise** ("first sold in 14 countries", not "rapidly expanded").
-
-Self-check before committing copy: would a sentence vanish without losing meaning? Cut it.
+Visitor-facing copy (page text, intros, alt text, microcopy, anything a human reads on the site) follows the house style guide vendored at `WRITING_GUIDE.md`. Read it before writing copy a visitor will see. It catches the usual AI tells: filler words, significance inflation, Title Case headings, generic praise over specifics. The rule that slips through most is em dashes. Use a comma, colon, or parenthesis instead.
