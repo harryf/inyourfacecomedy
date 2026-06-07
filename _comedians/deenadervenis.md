@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Deena Dervenis"
-description: "Deena Dervenis performs English stand-up comedy with IN YOUR FACE in Zürich, Switzerland."
-last_modified_at: "2026-06-04T15:48:45+00:00"
+description: "Comedy screenwriter from Los Angeles/stand-up/comedy storytelling"
+last_modified_at: "2026-06-07T08:05:04+00:00"
 slug: "deenadervenis"
 photo: "/assets/img/comedians/deenadervenis.jpg"
 instagram: "https://instagram.com/Deenadervenis"
@@ -12,6 +12,7 @@ x: ""
 youtube_channel: ""
 website: ""
 image: "/assets/img/comedians/deenadervenis.jpg"
-bio: ""
+bio: |
+  Comedy screenwriter from Los Angeles/stand-up/comedy storytelling
 ---
 
