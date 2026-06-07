@@ -444,11 +444,27 @@ rescue => e
   warn "  ! indexnow ping failed (#{e.message}) — ignored (non-fatal)"
 end
 
+# True when HEAD points at a branch (not detached). `symbolic-ref -q HEAD` exits
+# non-zero on a detached HEAD; we silence its stdout (the ref name) either way.
+def on_a_branch?
+  system("git", "-C", REPO_ROOT, "symbolic-ref", "-q", "HEAD",
+         out: File::NULL, err: File::NULL)
+end
+
 # Stage the given paths, commit if anything changed, and push. Best-effort: a git
 # failure warns but never aborts. Stages ONLY the named paths (never `add -A`), so
 # unrelated working-tree changes are left alone. Mirrors sync-comedians.rb, which
 # commits its generated data + images straight to master.
 def git_commit_push(paths, message, push:)
+  # Detached HEAD guard: a commit here would strand on no branch and can't be pushed
+  # (the raw git error is cryptic). Bail before committing — the generated data is
+  # already saved in the working tree, so reattaching and re-running loses nothing.
+  unless on_a_branch?
+    warn "  ! git: HEAD is detached (not on a branch) — skipping commit + push."
+    warn "    Your changes are saved in the working tree. Reattach, then re-run:"
+    warn "      git -C #{REPO_ROOT} checkout master"
+    return
+  end
   system("git", "-C", REPO_ROOT, "add", "--", *paths)
   if system("git", "-C", REPO_ROOT, "diff", "--cached", "--quiet", "--", *paths)
     puts "git: nothing to commit"
