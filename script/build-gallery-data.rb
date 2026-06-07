@@ -49,6 +49,7 @@ require "time"
 require "set"
 require "net/http"
 require "uri"
+require "readline" # tab-completion for comedian slugs in `tag`
 
 REPO_ROOT     = File.expand_path("..", __dir__)
 GALLERY_DIR   = File.join(REPO_ROOT, "assets", "img", "gallery")
@@ -356,8 +357,17 @@ def cmd_tag(all:, open_preview:, ping:)
     return
   end
 
+  # Tab-completion over the known comedian slugs: prefix matches first, then a
+  # substring fallback so you can type any memorable part of the slug.
+  slug_list = slugs.to_a.sort
+  Readline.completion_append_character = " "
+  Readline.completion_proc = proc do |s|
+    pre = slug_list.grep(/^#{Regexp.escape(s)}/i)
+    pre.empty? ? slug_list.grep(/#{Regexp.escape(s)}/i) : pre
+  end
+
   puts "#{queue.size} performer image(s) to tag (of #{total_perf}). For each, type the"
-  puts "comedian's slug, or:  [enter]=skip   n=not a comedian   l=list slugs   q=save & quit"
+  puts "comedian's slug (Tab to autocomplete), or:  [enter]=skip   n=not a comedian   l=list   q=save & quit"
   touched = Set.new
   quit = false
 
@@ -367,9 +377,9 @@ def cmd_tag(all:, open_preview:, ping:)
     system("open", abs) if open_preview # preview in Preview.app (non-blocking)
 
     loop do
-      print "\n[#{i + 1}/#{queue.size}] #{File.basename(e['src'])} (#{e['date']})  slug> "
-      input = $stdin.gets
-      if input.nil? then quit = true; break end # EOF
+      prompt = "\n[#{i + 1}/#{queue.size}] #{File.basename(e['src'])} (#{e['date']})  slug> "
+      input = Readline.readline(prompt, true) # nil on Ctrl-D
+      if input.nil? then quit = true; break end
       input = input.strip
       case input
       when ""  then break                                   # skip, ask again next run
