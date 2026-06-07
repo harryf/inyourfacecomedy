@@ -1243,8 +1243,522 @@
     // EMPTY — it's clear space for the user to drop their own Instagram link sticker.
   }
 
+  // ===========================================================================
+  // Alternate flyer styles - each is a paintFlyer(ctx, spec, m) drop-in that
+  // honours the same contract as the classic painter (FLYER_DESIGN.md §6):
+  // native IG dims + safe insets, untainted canvas, brand palette + 3 fonts,
+  // EVERY booked act shown, priority drives prominence. They share the helpers
+  // below so the look changes but the rules never do.
+  // ===========================================================================
+
+  // Shared: logo + tagline header. Returns the Y just below the header block.
+  function flyerHeader(ctx, spec, m, opts) {
+    opts = opts || {};
+    var cx = spec.w / 2;
+    var logoH = spec.format === 'story' ? 150 : 132;
+    var logoY = spec.safeTop + (spec.format === 'story' ? 14 : 30);
+    if (m.logo) {
+      var lw = logoH * (m.logo.width / m.logo.height);
+      ctx.drawImage(m.logo, cx - lw / 2, logoY, lw, logoH);
+    }
+    ctx.fillStyle = opts.taglineColor || '#FFD54F';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+    ctx.font = '34px ' + FONT_ACCENT;
+    ctx.fillText('English stand-up comedy', cx, logoY + logoH + 42);
+    return logoY + logoH + 70;
+  }
+
+  // Shared: date pill + venue, centred on metaBaseY. Colours are per-style.
+  function drawMeta(ctx, spec, m, metaBaseY, pillBg, pillText, venueColor) {
+    var cx = spec.w / 2;
+    var dl = m.show ? flyerDate(m.show.next, spec.format, m.nowMs) : '';
+    var venue = (m.show && m.show.venue) ? String(m.show.venue).toUpperCase() : '';
+    ctx.textBaseline = 'middle';
+    var pillFont = '700 40px ' + FONT_BODY;
+    ctx.font = pillFont;
+    var pillTxtW = dl ? ctx.measureText(dl).width : 0;
+    var pillPad = 26, pillH = 64;
+    var pillW = pillTxtW + pillPad * 2;
+    ctx.font = '600 38px ' + FONT_BODY;
+    var venTxtW = venue ? ctx.measureText('  ' + venue).width : 0;
+    var gap2 = dl && venue ? 22 : 0;
+    var metaW = (dl ? pillW : 0) + gap2 + venTxtW;
+    var mx = cx - metaW / 2;
+    var pillCy = metaBaseY - pillH / 2;
+    if (dl) {
+      roundRect(ctx, mx, pillCy - pillH / 2, pillW, pillH, pillH / 2);
+      ctx.fillStyle = pillBg; ctx.fill();
+      ctx.fillStyle = pillText; ctx.font = pillFont; ctx.textAlign = 'center';
+      ctx.fillText(dl, mx + pillW / 2, pillCy + 1);
+      mx += pillW + gap2;
+    }
+    if (venue) {
+      ctx.fillStyle = venueColor; ctx.font = '600 38px ' + FONT_BODY; ctx.textAlign = 'left';
+      ctx.fillText(venue, mx, pillCy + 1);
+    }
+  }
+
+  // Shared: show title (Anton, uppercase) ending at baselineY. Returns block top Y.
+  function drawShowTitle(ctx, spec, m, baselineY, color, startPx, maxLines, shadow) {
+    var cx = spec.w / 2, pad = 64, nameMaxW = spec.w - pad * 2;
+    var text = (m.show ? splitTitle(m.show.title) : 'IN YOUR FACE').toUpperCase();
+    var ttl = fitTitle(ctx, text, nameMaxW, startPx, 56, maxLines, FONT_DISPLAY);
+    var lineH = ttl.px * 1.02;
+    var topY = baselineY - ttl.lines.length * lineH;
+    ctx.fillStyle = color; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    ctx.font = '400 ' + ttl.px + 'px ' + FONT_DISPLAY;
+    if (shadow) { ctx.shadowColor = 'rgba(0,0,0,0.55)'; ctx.shadowBlur = 12; ctx.shadowOffsetY = 4; }
+    ttl.lines.forEach(function (ln, i) {
+      ctx.fillText(ln, cx, topY + (i + 1) * lineH - lineH * 0.22);
+    });
+    ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
+    return topY;
+  }
+
+  // Shared: priority-centred grid that scales so ALL acts fit. cellRatio = card
+  // height / width. Calls cell(ctx, item, cx, topY, cellW, idx) per act. Mirrors
+  // the classic painter's fitting loop so no act is ever dropped.
+  function faceGrid(ctx, spec, bill, x0, rowTop, bandW, bandH, cellRatio, hardCap, cell) {
+    if (!bill.length || bandH <= 0) return;
+    var RANK = { high: 0, medium: 1, low: 2 };
+    var sorted = bill.slice().sort(function (a, b) {
+      var ra = RANK[norm(a.priority)]; if (ra == null) ra = 1;
+      var rb = RANK[norm(b.priority)]; if (rb == null) rb = 1;
+      return ra - rb;
+    });
+    var n = sorted.length, gap = 16, cols = 1, rows = n, baseW = 0;
+    for (var c = 1; c <= n; c++) {
+      var rws = Math.ceil(n / c);
+      var bw = (bandW - gap * (c - 1)) / c;
+      var bh = (bandH - gap * (rws - 1)) / (rws * cellRatio);
+      var cand = Math.min(bw, bh, hardCap);
+      if (cand > baseW) { baseW = cand; cols = c; rows = rws; }
+    }
+    if (baseW <= 0) return;
+    var rowH = baseW * cellRatio;
+    var gridH = rows * rowH + (rows - 1) * gap;
+    var cx = x0 + bandW / 2;
+    var startY = rowTop + Math.max(0, (bandH - gridH) / 2);
+    for (var r = 0; r < rows; r++) {
+      var rowItems = centerOut(sorted.slice(r * cols, (r + 1) * cols));
+      var ws = rowItems.map(function (it) { return baseW * faceScale(it.priority); });
+      var rowW = ws.reduce(function (a, b) { return a + b; }, 0) + gap * (rowItems.length - 1);
+      var hfit = Math.min(1, bandW / rowW);
+      var xx = cx - (rowW * hfit) / 2;
+      var ry = startY + r * (rowH + gap);
+      for (var i = 0; i < rowItems.length; i++) {
+        var w = ws[i] * hfit;
+        cell(ctx, rowItems[i], xx + w / 2, ry, w, r * cols + i);
+        xx += w + gap * hfit;
+      }
+    }
+  }
+
+  function dashedLine(ctx, x1, y1, x2, y2, color) {
+    ctx.save();
+    ctx.strokeStyle = color; ctx.lineWidth = 3;
+    if (ctx.setLineDash) ctx.setLineDash([12, 10]);
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+    ctx.restore();
+  }
+
+  // Red-on-cream duotone: grayscale image multiplied onto a cream base, then a
+  // translucent red wash. Fills its own cream base so it works inside a clip too.
+  function drawDuotone(ctx, img, x, y, w, h) {
+    ctx.save();
+    ctx.fillStyle = '#FFF3E0'; ctx.fillRect(x, y, w, h);
+    if ('filter' in ctx) ctx.filter = 'grayscale(1) contrast(1.2)';
+    ctx.globalCompositeOperation = 'multiply';
+    if (img) drawCover(ctx, img, x, y, w, h);
+    if ('filter' in ctx) ctx.filter = 'none';
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = 0.42;
+    ctx.fillStyle = '#E53935'; ctx.fillRect(x, y, w, h);
+    ctx.restore();
+  }
+
+  function halftoneOverlay(ctx, x, y, w, h, color, alpha) {
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
+    var step = 14, r = 2.2;
+    for (var yy = y + step / 2; yy < y + h; yy += step) {
+      for (var xx = x + step / 2; xx < x + w; xx += step) {
+        ctx.beginPath(); ctx.arc(xx, yy, r, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    ctx.restore();
+  }
+
+  // --- STYLE 1: Ticket Stub --------------------------------------------------
+  function drawStubCard(ctx, img, cx, topY, w, name, star) {
+    var frame = Math.round(w * 0.06);
+    var photo = w - frame * 2;
+    var capH = Math.round(w * 0.26);
+    var h = frame + photo + capH;
+    var x = cx - w / 2, y = topY;
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,0.18)'; ctx.shadowBlur = 14; ctx.shadowOffsetY = 6;
+    ctx.fillStyle = '#FFFFFF';
+    roundRect(ctx, x, y, w, h, 10); ctx.fill();
+    ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
+    ctx.lineWidth = 3; ctx.strokeStyle = '#0F0F10';
+    roundRect(ctx, x, y, w, h, 10); ctx.stroke();
+    var px = x + frame, py = y + frame;
+    if (img) {
+      ctx.save(); roundRect(ctx, px, py, photo, photo, 6); ctx.clip();
+      drawCover(ctx, img, px, py, photo, photo); ctx.restore();
+    } else {
+      ctx.fillStyle = '#0F0F10'; ctx.fillRect(px, py, photo, photo);
+      ctx.fillStyle = '#FFD54F'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(photo * 0.5) + 'px ' + FONT_DISPLAY;
+      ctx.fillText((name || '?').charAt(0).toUpperCase(), px + photo / 2, py + photo / 2 + 4);
+    }
+    if (star) {
+      ctx.fillStyle = '#E53935'; ctx.beginPath();
+      ctx.arc(px + photo - 4, py + 4, Math.max(16, photo * 0.12), 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#FFD54F'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(photo * 0.14) + 'px ' + FONT_DISPLAY;
+      ctx.fillText('★', px + photo - 4, py + 4 + 1);
+    }
+    // perforation notches punched out of the card sides
+    ctx.fillStyle = '#FFF8EE';
+    ctx.beginPath(); ctx.arc(x, y + h * 0.62, 7, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(x + w, y + h * 0.62, 7, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#0F0F10'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    var cap = firstName(name).toUpperCase();
+    fitFont(ctx, cap, photo, Math.round(capH * 0.5), 16, '700', FONT_BODY);
+    ctx.fillText(cap, cx, y + frame + photo + capH / 2);
+    ctx.restore();
+  }
+
+  function drawTicketHost(ctx, cx, topY, host) {
+    var w = 300;
+    var tabW = 160, tabH = 48, tabY = topY;
+    roundRect(ctx, cx - tabW / 2, tabY, tabW, tabH, tabH / 2);
+    ctx.fillStyle = '#E53935'; ctx.fill();
+    ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = '700 27px ' + FONT_BODY;
+    ctx.fillText('H O S T', cx, tabY + tabH / 2 + 1);
+    var cardTop = tabY + tabH - 8;
+    drawStubCard(ctx, host.img, cx, cardTop, w, host.name, false);
+    var frame = Math.round(w * 0.06);
+    var photo = w - frame * 2;
+    var cardH = frame + photo + Math.round(w * 0.26);
+    return cardTop + cardH;
+  }
+
+  function paintTicketStub(ctx, spec, m) {
+    var W = spec.w, H = spec.h, top = spec.safeTop, bottom = spec.safeBottom, pad = 64, cx = W / 2;
+    ctx.fillStyle = '#FFF8EE'; ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = '#0F0F10'; ctx.lineWidth = 6;
+    ctx.strokeRect(pad * 0.5, top + 6, W - pad, H - top - bottom - 12);
+    var headerBottom = flyerHeader(ctx, spec, m, { taglineColor: '#0F0F10' });
+    ctx.fillStyle = '#E53935'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    ctx.font = '700 30px ' + FONT_BODY;
+    ctx.fillText('A D M I T   O N E', cx, headerBottom + 8);
+    dashedLine(ctx, pad, headerBottom + 28, W - pad, headerBottom + 28, '#0F0F10');
+    var facesTop = headerBottom + 52;
+    var metaBaseY = H - bottom - 40;
+    var titleTop = drawShowTitle(ctx, spec, m, metaBaseY - 78, '#0F0F10', spec.format === 'story' ? 130 : 120, 3, false);
+    drawMeta(ctx, spec, m, metaBaseY, '#E53935', '#FFF3E0', '#B71C1C');
+    var rowTop = facesTop;
+    if (m.host && m.host.slug) { rowTop = drawTicketHost(ctx, cx, facesTop, m.host) + 24; }
+    faceGrid(ctx, spec, m.bill, pad, rowTop, W - pad * 2, (titleTop - 40) - rowTop, 1.32,
+      spec.format === 'story' ? 230 : 205, function (ctx, it, ccx, ty, w) {
+        drawStubCard(ctx, it.img, ccx, ty, w, it.name, it.headliner);
+      });
+  }
+
+  // --- STYLE 2: Risograph Halftone -------------------------------------------
+  function drawRisoFace(ctx, img, cx, topY, w, name, star) {
+    var photo = w, capH = Math.round(w * 0.20);
+    var x = cx - w / 2, y = topY;
+    ctx.save();
+    if (img) {
+      ctx.save(); roundRect(ctx, x, y, photo, photo, 6); ctx.clip();
+      drawDuotone(ctx, img, x, y, photo, photo);
+      halftoneOverlay(ctx, x, y, photo, photo, '#B71C1C', 0.12);
+      ctx.restore();
+    } else {
+      ctx.fillStyle = '#E53935'; roundRect(ctx, x, y, photo, photo, 6); ctx.fill();
+      ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(photo * 0.5) + 'px ' + FONT_DISPLAY;
+      ctx.fillText((name || '?').charAt(0).toUpperCase(), x + photo / 2, y + photo / 2 + 4);
+    }
+    ctx.lineWidth = 4; ctx.strokeStyle = '#0F0F10';
+    roundRect(ctx, x, y, photo, photo, 6); ctx.stroke();
+    if (star) {
+      ctx.fillStyle = '#E53935'; ctx.beginPath();
+      ctx.arc(x + photo - 4, y + 4, Math.max(16, photo * 0.12), 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#FFD54F'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(photo * 0.14) + 'px ' + FONT_DISPLAY;
+      ctx.fillText('★', x + photo - 4, y + 4 + 1);
+    }
+    ctx.fillStyle = '#0F0F10'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    var cap = firstName(name).toUpperCase();
+    fitFont(ctx, cap, photo, Math.round(capH * 0.8), 16, '700', FONT_BODY);
+    ctx.fillText(cap, cx, y + photo + capH * 0.55);
+    ctx.restore();
+  }
+
+  function drawRisoHost(ctx, cx, topY, host) {
+    var r = 118, cy = topY + r;
+    ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.clip();
+    if (host.img) {
+      drawDuotone(ctx, host.img, cx - r, cy - r, 2 * r, 2 * r);
+      halftoneOverlay(ctx, cx - r, cy - r, 2 * r, 2 * r, '#B71C1C', 0.12);
+    } else {
+      ctx.fillStyle = '#E53935'; ctx.fillRect(cx - r, cy - r, 2 * r, 2 * r);
+      ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(r) + 'px ' + FONT_DISPLAY;
+      ctx.fillText((host.name || '?').charAt(0).toUpperCase(), cx, cy + 4);
+    }
+    ctx.restore();
+    ctx.lineWidth = 6; ctx.strokeStyle = '#0F0F10';
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
+    var pillH = 46, pillW = 150, pillY = cy + r - pillH * 0.4;
+    roundRect(ctx, cx - pillW / 2, pillY, pillW, pillH, pillH / 2);
+    ctx.fillStyle = '#E53935'; ctx.fill();
+    ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = '700 26px ' + FONT_BODY; ctx.fillText('H O S T', cx, pillY + pillH / 2 + 1);
+    var nameY = pillY + pillH + 30;
+    ctx.fillStyle = '#0F0F10'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    fitFont(ctx, firstName(host.name).toUpperCase(), 320, 40, 20, '', FONT_ACCENT);
+    ctx.fillText(firstName(host.name).toUpperCase(), cx, nameY);
+    return nameY + 26;
+  }
+
+  function drawRisoTitle(ctx, spec, m, baselineY) {
+    var cx = spec.w / 2, pad = 64, nameMaxW = spec.w - pad * 2;
+    var text = (m.show ? splitTitle(m.show.title) : 'IN YOUR FACE').toUpperCase();
+    var ttl = fitTitle(ctx, text, nameMaxW, spec.format === 'story' ? 140 : 128, 56, 3, FONT_DISPLAY);
+    var lineH = ttl.px * 1.04;
+    var blockH = ttl.lines.length * lineH;
+    var topY = baselineY - blockH;
+    ctx.fillStyle = '#E53935'; ctx.fillRect(0, topY - 18, spec.w, blockH + 30);
+    ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    ctx.font = '400 ' + ttl.px + 'px ' + FONT_DISPLAY;
+    ttl.lines.forEach(function (ln, i) { ctx.fillText(ln, cx, topY + (i + 1) * lineH - lineH * 0.24); });
+    return topY - 18;
+  }
+
+  function paintRiso(ctx, spec, m) {
+    var W = spec.w, H = spec.h, top = spec.safeTop, bottom = spec.safeBottom, pad = 64, cx = W / 2;
+    ctx.fillStyle = '#FFF3E0'; ctx.fillRect(0, 0, W, H);
+    if (m.bg) drawDuotone(ctx, m.bg, 0, 0, W, H);
+    halftoneOverlay(ctx, 0, 0, W, H, '#B71C1C', 0.10);
+    var headerBottom = flyerHeader(ctx, spec, m, { taglineColor: '#0F0F10' });
+    var facesTop = headerBottom + 28;
+    var metaBaseY = H - bottom - 40;
+    var titleTop = drawRisoTitle(ctx, spec, m, metaBaseY - 86);
+    drawMeta(ctx, spec, m, metaBaseY, '#0F0F10', '#FFF3E0', '#0F0F10');
+    var rowTop = facesTop;
+    if (m.host && m.host.slug) { rowTop = drawRisoHost(ctx, cx, facesTop, m.host) + 22; }
+    faceGrid(ctx, spec, m.bill, pad, rowTop, W - pad * 2, (titleTop - 36) - rowTop, 1.20,
+      spec.format === 'story' ? 220 : 200, function (ctx, it, ccx, ty, w) {
+        drawRisoFace(ctx, it.img, ccx, ty, w, it.name, it.headliner);
+      });
+  }
+
+  // --- STYLE 3: Neon Marquee -------------------------------------------------
+  function marqueeBulbs(ctx, cx, y, totalW) {
+    var n = 9, gap = totalW / (n - 1), x0 = cx - totalW / 2;
+    ctx.save();
+    ctx.shadowColor = '#FFD54F'; ctx.shadowBlur = 18; ctx.fillStyle = '#FFD54F';
+    for (var i = 0; i < n; i++) {
+      ctx.beginPath(); ctx.arc(x0 + i * gap, y, 6, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawNeonFace(ctx, img, cx, topY, w, name, star) {
+    var r = w / 2, cy = topY + r;
+    var ring = star ? '#FFD54F' : '#FF5252';
+    ctx.save();
+    ctx.shadowColor = ring; ctx.shadowBlur = 26;
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.lineWidth = 6; ctx.strokeStyle = ring; ctx.stroke();
+    ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0;
+    ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, r - 4, 0, Math.PI * 2); ctx.clip();
+    if (img) drawCover(ctx, img, cx - r, cy - r, 2 * r, 2 * r);
+    else {
+      ctx.fillStyle = '#1A1A1D'; ctx.fillRect(cx - r, cy - r, 2 * r, 2 * r);
+      ctx.fillStyle = ring; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(r) + 'px ' + FONT_DISPLAY;
+      ctx.fillText((name || '?').charAt(0).toUpperCase(), cx, cy + 4);
+    }
+    ctx.restore();
+    if (star) {
+      ctx.fillStyle = '#E53935'; ctx.shadowColor = '#FF5252'; ctx.shadowBlur = 12;
+      ctx.beginPath(); ctx.arc(cx + r * 0.7, cy - r * 0.7, Math.max(15, r * 0.22), 0, Math.PI * 2); ctx.fill();
+      ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0;
+      ctx.fillStyle = '#FFD54F'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(r * 0.28) + 'px ' + FONT_DISPLAY;
+      ctx.fillText('★', cx + r * 0.7, cy - r * 0.7 + 1);
+    }
+    ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    var cap = firstName(name).toUpperCase();
+    fitFont(ctx, cap, w * 1.2, Math.round(w * 0.2), 16, '', FONT_ACCENT);
+    ctx.fillText(cap, cx, cy + r + Math.round(w * 0.14));
+    ctx.restore();
+  }
+
+  function drawNeonTitle(ctx, spec, m, baselineY) {
+    var cx = spec.w / 2, pad = 64, nameMaxW = spec.w - pad * 2;
+    var text = (m.show ? splitTitle(m.show.title) : 'IN YOUR FACE').toUpperCase();
+    var ttl = fitTitle(ctx, text, nameMaxW, spec.format === 'story' ? 140 : 128, 56, 3, FONT_DISPLAY);
+    var lineH = ttl.px * 1.02, topY = baselineY - ttl.lines.length * lineH;
+    ctx.save(); ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    ctx.font = '400 ' + ttl.px + 'px ' + FONT_DISPLAY;
+    ttl.lines.forEach(function (ln, i) {
+      var yy = topY + (i + 1) * lineH - lineH * 0.22;
+      ctx.shadowColor = '#FF5252'; ctx.shadowBlur = 30; ctx.fillStyle = '#FFF3E0'; ctx.fillText(ln, cx, yy);
+      ctx.shadowBlur = 16; ctx.fillText(ln, cx, yy);
+      ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.fillStyle = '#FFF3E0'; ctx.fillText(ln, cx, yy);
+    });
+    ctx.restore();
+    return topY;
+  }
+
+  function paintNeon(ctx, spec, m) {
+    var W = spec.w, H = spec.h, top = spec.safeTop, bottom = spec.safeBottom, pad = 64, cx = W / 2;
+    ctx.fillStyle = '#0F0F10'; ctx.fillRect(0, 0, W, H);
+    if (m.bg) { ctx.save(); ctx.globalAlpha = 0.45; drawCover(ctx, m.bg, 0, 0, W, H); ctx.restore(); }
+    var g = ctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, 'rgba(15,15,16,0.78)');
+    g.addColorStop(0.5, 'rgba(15,15,16,0.55)');
+    g.addColorStop(1, 'rgba(15,15,16,0.92)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    var headerBottom = flyerHeader(ctx, spec, m, { taglineColor: '#FFD54F' });
+    marqueeBulbs(ctx, cx, headerBottom + 4, Math.min(W - pad * 2, 560));
+    var facesTop = headerBottom + 44;
+    var metaBaseY = H - bottom - 40;
+    var titleTop = drawNeonTitle(ctx, spec, m, metaBaseY - 84);
+    drawMeta(ctx, spec, m, metaBaseY, '#E53935', '#FFF3E0', '#FFD54F');
+    var rowTop = facesTop;
+    if (m.host && m.host.slug) {
+      var hr = 140;
+      rowTop = drawHost(ctx, m.host.img, cx, facesTop + hr + 10, hr, m.host.name) + 22;
+    }
+    faceGrid(ctx, spec, m.bill, pad, rowTop, W - pad * 2, (titleTop - 36) - rowTop, 1.26,
+      spec.format === 'story' ? 210 : 195, function (ctx, it, ccx, ty, w) {
+        drawNeonFace(ctx, it.img, ccx, ty, w, it.name, it.headliner);
+      });
+  }
+
+  // --- STYLE 4: Bold Type Stack ----------------------------------------------
+  function drawMiniAvatar(ctx, it, cx, cy, r, withName) {
+    var ring = it.host ? '#FFD54F' : (it.headliner ? '#FF5252' : '#FFF3E0');
+    ctx.save();
+    ctx.beginPath(); ctx.arc(cx, cy, r + 3, 0, Math.PI * 2); ctx.fillStyle = ring; ctx.fill();
+    ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.clip();
+    if (it.img) drawCover(ctx, it.img, cx - r, cy - r, 2 * r, 2 * r);
+    else {
+      ctx.fillStyle = '#2A2A2D'; ctx.fillRect(cx - r, cy - r, 2 * r, 2 * r);
+      ctx.fillStyle = '#FFD54F'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(r) + 'px ' + FONT_DISPLAY;
+      ctx.fillText((it.name || '?').charAt(0).toUpperCase(), cx, cy + 2);
+    }
+    ctx.restore();
+    ctx.restore();
+    if (withName) {
+      ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      var cap = firstName(it.name).toUpperCase();
+      fitFont(ctx, cap, r * 2.6, 22, 12, '500', FONT_BODY);
+      ctx.fillText(cap, cx, cy + r + 20);
+    }
+  }
+
+  function drawAvatarStrip(ctx, spec, m, x0, topY, bandW) {
+    var acts = [];
+    if (m.host && m.host.slug) acts.push({ img: m.host.img, name: m.host.name, host: true });
+    m.bill.forEach(function (b) { acts.push({ img: b.img, name: b.name, headliner: b.headliner }); });
+    if (!acts.length) return topY;
+    var n = acts.length, gap = 14;
+    var d = Math.min(120, (bandW - gap * (n - 1)) / n);
+    var rows = 1, perRow = n;
+    if (d < 66) { rows = 2; perRow = Math.ceil(n / 2); d = Math.min(120, (bandW - gap * (perRow - 1)) / perRow); }
+    var withName = d >= 78;
+    var rowH = d + (withName ? 40 : 18);
+    var cx = x0 + bandW / 2;
+    for (var r = 0; r < rows; r++) {
+      var items = acts.slice(r * perRow, (r + 1) * perRow);
+      var rowW = items.length * d + gap * (items.length - 1);
+      var xx = cx - rowW / 2;
+      var cyc = topY + r * rowH + d / 2;
+      for (var i = 0; i < items.length; i++) {
+        drawMiniAvatar(ctx, items[i], xx + d / 2, cyc, d / 2, withName);
+        xx += d + gap;
+      }
+    }
+    return topY + rows * rowH;
+  }
+
+  function drawGiantTitle(ctx, spec, m, topAvail, baseline) {
+    var cx = spec.w / 2, pad = 48, maxW = spec.w - pad * 2;
+    var text = (m.show ? splitTitle(m.show.title) : 'IN YOUR FACE').toUpperCase();
+    var avail = baseline - topAvail;
+    var ttl = fitTitle(ctx, text, maxW, spec.format === 'story' ? 220 : 190, 60, 5, FONT_DISPLAY);
+    var lineH = ttl.px * 1.0, blockH = ttl.lines.length * lineH;
+    while (blockH > avail && ttl.px > 60) {
+      ttl.px -= 4; lineH = ttl.px * 1.0; blockH = ttl.lines.length * lineH;
+    }
+    var startY = topAvail + Math.max(0, (avail - blockH) / 2);
+    ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    ctx.font = '400 ' + ttl.px + 'px ' + FONT_DISPLAY;
+    ttl.lines.forEach(function (ln, i) { ctx.fillText(ln, cx, startY + (i + 1) * lineH - lineH * 0.2); });
+  }
+
+  function drawTypeMetaBar(ctx, spec, m, metaBaseY) {
+    var W = spec.w, pad = 64;
+    var dl = m.show ? flyerDate(m.show.next, spec.format, m.nowMs) : '';
+    var venue = (m.show && m.show.venue) ? String(m.show.venue).toUpperCase() : '';
+    var barH = 80, barY = metaBaseY - barH / 2 - 10;
+    ctx.fillStyle = '#E53935'; ctx.fillRect(0, barY, W, barH);
+    ctx.fillStyle = '#FFF3E0'; ctx.textBaseline = 'middle';
+    ctx.textAlign = 'left'; ctx.font = '700 40px ' + FONT_BODY;
+    if (dl) ctx.fillText(dl, pad, barY + barH / 2 + 1);
+    ctx.textAlign = 'right'; ctx.font = '600 36px ' + FONT_BODY;
+    if (venue) ctx.fillText(venue, W - pad, barY + barH / 2 + 1);
+  }
+
+  function paintTypeStack(ctx, spec, m) {
+    var W = spec.w, H = spec.h, top = spec.safeTop, bottom = spec.safeBottom, pad = 64, cx = W / 2;
+    ctx.fillStyle = '#0F0F10'; ctx.fillRect(0, 0, W, H);
+    var headerBottom = flyerHeader(ctx, spec, m, { taglineColor: '#FFD54F' });
+    var bandH = spec.format === 'story' ? 360 : 300;
+    var bandY = headerBottom + 10;
+    if (m.bg) {
+      ctx.save(); roundRect(ctx, pad, bandY, W - pad * 2, bandH, 12); ctx.clip();
+      drawCover(ctx, m.bg, pad, bandY, W - pad * 2, bandH);
+      var gg = ctx.createLinearGradient(0, bandY, 0, bandY + bandH);
+      gg.addColorStop(0, 'rgba(15,15,16,0.1)'); gg.addColorStop(1, 'rgba(15,15,16,0.55)');
+      ctx.fillStyle = gg; ctx.fillRect(pad, bandY, W - pad * 2, bandH);
+      ctx.restore();
+    }
+    var avTop = bandY + bandH - 40;
+    var avBottom = drawAvatarStrip(ctx, spec, m, pad, avTop, W - pad * 2);
+    ctx.fillStyle = '#E53935'; ctx.fillRect(pad, avBottom + 16, W - pad * 2, 8);
+    var metaBaseY = H - bottom - 40;
+    drawGiantTitle(ctx, spec, m, avBottom + 44, metaBaseY - 90);
+    drawTypeMetaBar(ctx, spec, m, metaBaseY);
+  }
+
+  // Style registry - keys map to painters; unknown/empty falls back to classic.
+  var FLYER_STYLES = {
+    classic: paintFlyer,
+    ticket: paintTicketStub,
+    riso: paintRiso,
+    neon: paintNeon,
+    type: paintTypeStack
+  };
+
   // Resolve lineup state -> draw the flyer -> callback. done(err|null).
-  function drawFlyer(canvas, st, format, done) {
+  function drawFlyer(canvas, st, format, style, done) {
+    if (typeof style === 'function') { done = style; style = null; }
+    var paint = FLYER_STYLES[style] || paintFlyer;
     var spec = flyerSpec(format);
     canvas.width = spec.w;
     canvas.height = spec.h;
@@ -1269,7 +1783,7 @@
           var c = findComedian(sl) || {};
           return { slug: sl, name: c.name || sl, priority: c.priority, img: imgs[3 + i], headliner: hasNorm(st.headliner, sl) };
         });
-        paintFlyer(ctx, spec, {
+        paint(ctx, spec, {
           show: s, st: st, bg: imgs[0], logo: imgs[1],
           host: hostSlug ? { slug: hostSlug, name: (hostC && hostC.name) || hostSlug, img: imgs[2] } : null,
           bill: bill, hasGuests: hasGuests, nowMs: Date.now()
@@ -1346,7 +1860,9 @@
       '.lineup-lab__flyer .btn-ticket{display:block;width:100%;max-width:420px;margin:0 auto}' +
       '.lineup-lab__flyer-ig{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.6rem;max-width:420px;margin:.85rem auto 0}' +
       '.lineup-lab__flyer-ig .lineup-lab__copy--quiet{flex:1 1 auto}' +
-      '.lineup-lab__flyer .lineup-lab__copy-hint{max-width:420px;margin:.35rem auto 0;text-align:center}';
+      '.lineup-lab__flyer .lineup-lab__copy-hint{max-width:420px;margin:.35rem auto 0;text-align:center}' +
+      '.lineup-lab__style-toggle{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem;border:0;overflow:visible;max-width:440px;margin:0 auto .6rem}' +
+      '.lineup-lab__style-toggle .lineup-lab__fmt-btn{border:2px solid var(--border-strong,rgba(255,243,224,.4));border-radius:8px;font-size:.82rem;padding:.4rem .6rem}';
     document.head.appendChild(st);
   }
 
@@ -1354,11 +1870,22 @@
   function openFlyer(container, st) {
     ensureFlyerCss();
     var fmt = container.__iyfFmt || 'story';
+    var sty = container.__iyfStyle || 'classic';
     container.textContent = '';
     var panel = el('div', 'lineup-lab__flyer');
     panel.appendChild(el('h2', 'lineup-lab__outputs-title', '🎨 Share image'));
     panel.appendChild(el('p', 'lineup-lab__copy-hint',
-      'A ready-to-post flyer built from this lineup. Pick a format and download.'));
+      'A ready-to-post flyer built from this lineup. Pick a style + format and download.'));
+
+    // Style toggle - five looks, same lineup. Persists on the host like the format does.
+    var styleToggle = el('div', 'lineup-lab__fmt-toggle lineup-lab__style-toggle');
+    [['classic', '🎞️ Polaroid'], ['ticket', '🎟️ Ticket'], ['riso', '🖨️ Risograph'], ['neon', '🌃 Neon'], ['type', '🔠 Bold Type']].forEach(function (p) {
+      var b = button('lineup-lab__fmt-btn' + (sty === p[0] ? ' is-on' : ''), p[1]);
+      b.setAttribute('aria-pressed', sty === p[0] ? 'true' : 'false');
+      b.addEventListener('click', function () { container.__iyfStyle = p[0]; openFlyer(container, st); });
+      styleToggle.appendChild(b);
+    });
+    panel.appendChild(styleToggle);
 
     var toggle = el('div', 'lineup-lab__fmt-toggle');
     [['story', '📱 Story 9:16'], ['post', '🖼️ Post 4:5']].forEach(function (p) {
@@ -1399,7 +1926,7 @@
 
     container.appendChild(panel);
 
-    drawFlyer(canvas, st, fmt, function (err) {
+    drawFlyer(canvas, st, fmt, sty, function (err) {
       if (err) { status.textContent = 'Could not render the image — try again.'; return; }
       status.textContent = 'Looks good? Download and post it. 🎤';
       dl.disabled = false;
