@@ -44,24 +44,24 @@
   year: 2026
   era: recent
   era_label: Recent
-  type: audience
+  type: performer
   faces: 1
   humans: 2
   aesthetic: 0.309
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: don
+  alt: IN YOUR FACE Comedy, Don Murphy performing stand-up in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.31 (2).jpeg"
   date: '2026-04-02'
   year: 2026
   era: recent
   era_label: Recent
-  type: audience
+  type: performer
   faces: 1
   humans: 3
   aesthetic: 0.315
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: harryf.cks
+  alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/IMG_3270 2_20260120.jpg"
   date: '2026-01-20'
@@ -80,12 +80,12 @@
   year: 2026
   era: recent
   era_label: Recent
-  type: audience
+  type: performer
   faces: 0
   humans: 1
   aesthetic: 0.325
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: ahmet-bilge
+  alt: IN YOUR FACE Comedy, Ahmet Bilge performing stand-up in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/nicholas_de_santo_IMG_1098.jpeg"
   date: '2026-05-15'
@@ -104,12 +104,12 @@
   year: 2026
   era: recent
   era_label: Recent
-  type: audience
+  type: performer
   faces: 1
   humans: 1
   aesthetic: 0.381
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: irene-carbo
+  alt: IN YOUR FACE Comedy, Irene Carbo performing stand-up in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.55.03 (3).jpeg"
   date: '2026-05-26'
@@ -140,24 +140,24 @@
   year: 2026
   era: recent
   era_label: Recent
-  type: audience
+  type: performer
   faces: 1
   humans: 1
   aesthetic: 0.471
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: ben.fcks
+  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.32 (9).jpeg"
   date: '2026-01-02'
   year: 2026
   era: recent
   era_label: Recent
-  type: audience
+  type: performer
   faces: 1
   humans: 4
   aesthetic: 0.338
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: emir-tonbul
+  alt: IN YOUR FACE Comedy, Emir Tonbul performing stand-up in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/IMG_4057_20260514.jpg"
   date: '2026-05-14'
@@ -307,12 +307,12 @@
   year: 2026
   era: recent
   era_label: Recent
-  type: audience
+  type: performer
   faces: 1
   humans: 2
   aesthetic: 0.254
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: laugh_at_domenico
+  alt: IN YOUR FACE Comedy, Domenico performing stand-up in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.55.03.jpeg"
   date: '2026-01-02'
@@ -330,24 +330,24 @@
   year: 2026
   era: recent
   era_label: Recent
-  type: audience
+  type: performer
   faces: 1
   humans: 1
   aesthetic: 0.382
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: alejandra
+  alt: IN YOUR FACE Comedy, Alejandra performing stand-up in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.11 (6).jpeg"
   date: '2026-02-10'
   year: 2026
   era: recent
   era_label: Recent
-  type: audience
+  type: performer
   faces: 1
   humans: 2
   aesthetic: 0.357
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: pavel-zborik
+  alt: IN YOUR FACE Comedy, Pavel Zborik performing stand-up in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.55.04 (5).jpeg"
   date: '2026-03-01'
@@ -402,12 +402,12 @@
   year: 2026
   era: recent
   era_label: Recent
-  type: audience
+  type: performer
   faces: 0
   humans: 1
   aesthetic: 0.329
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: chris-darwa
+  alt: IN YOUR FACE Comedy, Chris Darwa performing stand-up in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.31 (4).jpeg"
   date: '2026-05-14'
@@ -426,24 +426,24 @@
   year: 2026
   era: recent
   era_label: Recent
-  type: audience
+  type: performer
   faces: 0
   humans: 3
   aesthetic: 0.352
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: flyingkiko22
+  alt: IN YOUR FACE Comedy, Qiqi aka Rachel performing stand-up in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.11 (4).jpeg"
   date: '2026-01-31'
   year: 2026
   era: recent
   era_label: Recent
-  type: audience
+  type: performer
   faces: 1
   humans: 1
   aesthetic: 0.413
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: irene-carbo
+  alt: IN YOUR FACE Comedy, Irene Carbo performing stand-up in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/nicholas_de_santo_IMG_1045.jpeg"
   date: '2026-05-15'
@@ -474,12 +474,12 @@
   year: 2026
   era: recent
   era_label: Recent
-  type: audience
+  type: performer
   faces: 1
   humans: 1
   aesthetic: 0.279
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: andrea-ramirez
+  alt: IN YOUR FACE Comedy, Andrea Ramírez performing stand-up in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/nicholas_de_santo_IMG_1194.jpeg"
   date: '2026-05-15'
@@ -510,25 +510,25 @@
   year: 2026
   era: recent
   era_label: Recent
-  type: audience
+  type: performer
   faces: 1
   humans: 1
   aesthetic: 0.36
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: alejandra
+  alt: IN YOUR FACE Comedy, Alejandra performing stand-up in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.13 (7).jpeg"
   date: '2026-02-14'
   year: 2026
   era: recent
   era_label: Recent
-  type: moment
+  type: performer
   faces: 0
   humans: 0
   aesthetic: 0.43
   utility: true
-  alt: IN YOUR FACE Comedy, a moment from an English stand-up comedy night in Zürich
-    (2026)
+  comedian: andrea-ramirez
+  alt: IN YOUR FACE Comedy, Andrea Ramírez performing stand-up in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/IMG_3268_20260120.jpg"
   date: '2026-01-20'
@@ -559,12 +559,12 @@
   year: 2026
   era: recent
   era_label: Recent
-  type: audience
+  type: performer
   faces: 1
   humans: 0
   aesthetic: 0.299
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: andrea-ramirez
+  alt: IN YOUR FACE Comedy, Andrea Ramírez performing stand-up in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/nicholas_de_santo_IMG_1100.jpeg"
   date: '2026-05-15'
@@ -619,12 +619,12 @@
   year: 2026
   era: recent
   era_label: Recent
-  type: audience
+  type: performer
   faces: 0
   humans: 1
   aesthetic: 0.314
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: miguel
+  alt: IN YOUR FACE Comedy, Miguel performing stand-up in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/IMG_2953_20251218.jpg"
   date: '2025-12-18'
@@ -678,12 +678,12 @@
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 2
   humans: 1
   aesthetic: 0.271
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2025)
+  comedian: martinadoescomedy
+  alt: IN YOUR FACE Comedy, Martina performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_2925_20251217.jpg"
   date: '2025-12-17'
@@ -738,12 +738,12 @@
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 3
   humans: 2
   aesthetic: 0.384
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2025)
+  comedian: jack-roberts
+  alt: IN YOUR FACE Comedy, Jack Roberts performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_2823_20251210.jpg"
   date: '2025-12-10'
@@ -762,12 +762,12 @@
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 1
   humans: 2
   aesthetic: 0.386
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2025)
+  comedian: shawn-jay
+  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.12 (3).jpeg"
   date: '2025-12-08'
@@ -786,48 +786,48 @@
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 1
   humans: 1
   aesthetic: 0.422
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: mateo-gudenrath
+  alt: IN YOUR FACE Comedy, Mateo Gudenrath performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.33.jpeg"
   date: '2025-11-28'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 1
   humans: 3
   aesthetic: 0.345
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: mateo-gudenrath
+  alt: IN YOUR FACE Comedy, Mateo Gudenrath performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.55.02 (2).jpeg"
   date: '2025-10-22'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 0
   humans: 0
   aesthetic: 0.356
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: coopernik
+  alt: IN YOUR FACE Comedy, Nik performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.12 (5).jpeg"
   date: '2025-10-15'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 1
   humans: 1
   aesthetic: 0.336
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: miguel
+  alt: IN YOUR FACE Comedy, Miguel performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.33 (4).jpeg"
   date: '2025-09-17'
@@ -846,144 +846,144 @@
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 0
   humans: 0
   aesthetic: 0.282
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: emir-tonbul
+  alt: IN YOUR FACE Comedy, Emir Tonbul performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.12 (8).jpeg"
   date: '2025-09-05'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 1
   humans: 1
   aesthetic: 0.386
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: ludovica
+  alt: IN YOUR FACE Comedy, Ludovica performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.32 (7).jpeg"
   date: '2025-08-22'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 2
   humans: 2
   aesthetic: 0.434
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: prak-the-comedian
+  alt: IN YOUR FACE Comedy, Prak The Comedian performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.32.jpeg"
   date: '2025-08-10'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 1
   humans: 2
   aesthetic: 0.313
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: harryf.cks
+  alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.33 (2).jpeg"
   date: '2025-07-22'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 1
   humans: 2
   aesthetic: 0.374
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: mateo-gudenrath
+  alt: IN YOUR FACE Comedy, Mateo Gudenrath performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.55.04 (4).jpeg"
   date: '2025-07-15'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 2
   humans: 1
   aesthetic: 0.209
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: don
+  alt: IN YOUR FACE Comedy, Don Murphy performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.31 (3).jpeg"
   date: '2025-07-01'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 1
   humans: 3
   aesthetic: 0.335
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: harryf.cks
+  alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.55.02 (4).jpeg"
   date: '2025-06-23'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 0
   humans: 0
   aesthetic: 0.303
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: coopernik
+  alt: IN YOUR FACE Comedy, Nik performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.14 (2).jpeg"
   date: '2025-06-21'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 1
   humans: 1
   aesthetic: 0.348
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: zeina
+  alt: IN YOUR FACE Comedy, Zeina performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.13 (4).jpeg"
   date: '2025-06-12'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: moment
+  type: performer
   faces: 0
   humans: 0
   aesthetic: 0.388
-  alt: IN YOUR FACE Comedy, a moment from an English stand-up comedy night in Zürich
-    (2026)
+  comedian: andrea-ramirez
+  alt: IN YOUR FACE Comedy, Andrea Ramírez performing stand-up in Zürich (2025)
   featured: true
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.13 (1).jpeg"
   date: '2025-06-11'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 1
   humans: 3
   aesthetic: 0.389
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: ludovica
+  alt: IN YOUR FACE Comedy, Ludovica performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.55.03 (2).jpeg"
   date: '2025-06-05'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 1
   humans: 1
   aesthetic: 0.286
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: don
+  alt: IN YOUR FACE Comedy, Don Murphy performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.32 (6).jpeg"
   date: '2025-05-20'
@@ -1002,24 +1002,24 @@
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 2
   humans: 2
   aesthetic: 0.357
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: zeina
+  alt: IN YOUR FACE Comedy, Zeina performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.14 (1).jpeg"
   date: '2025-05-07'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 1
   humans: 1
   aesthetic: 0.406
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: andrea-ramirez
+  alt: IN YOUR FACE Comedy, Andrea Ramírez performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.11 (1).jpeg"
   date: '2025-04-28'
@@ -1038,36 +1038,36 @@
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 0
   humans: 1
   aesthetic: 0.366
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: woocash
+  alt: IN YOUR FACE Comedy, Woocash performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.13.jpeg"
   date: '2025-04-14'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 1
   humans: 1
   aesthetic: 0.336
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: miguel
+  alt: IN YOUR FACE Comedy, Miguel performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.55.02 (3).jpeg"
   date: '2025-04-12'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 1
   humans: 0
   aesthetic: 0.339
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: coopernik
+  alt: IN YOUR FACE Comedy, Nik performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.55.04 (2).jpeg"
   date: '2025-04-05'
@@ -1097,24 +1097,24 @@
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 1
   humans: 1
   aesthetic: 0.247
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: laugh_at_domenico
+  alt: IN YOUR FACE Comedy, Domenico performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.14.jpeg"
   date: '2025-03-26'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 1
   humans: 2
   aesthetic: 0.405
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: andrea-ramirez
+  alt: IN YOUR FACE Comedy, Andrea Ramírez performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.11 (2).jpeg"
   date: '2025-03-22'
@@ -1133,24 +1133,24 @@
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 0
   humans: 0
   aesthetic: 0.321
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: emir-tonbul
+  alt: IN YOUR FACE Comedy, Emir Tonbul performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.55.03 (7).jpeg"
   date: '2025-01-19'
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 2
   humans: 1
   aesthetic: 0.288
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: don
+  alt: IN YOUR FACE Comedy, Don Murphy performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.11 (5).jpeg"
   date: '2025-01-11'
@@ -1169,12 +1169,12 @@
   year: 2025
   era: '2025'
   era_label: '2025'
-  type: audience
+  type: performer
   faces: 0
   humans: 0
   aesthetic: 0.4
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  comedian: harryf.cks
+  alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/primepunch_9.png"
   date: '2024-04-24'
