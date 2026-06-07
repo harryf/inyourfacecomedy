@@ -35,10 +35,30 @@ HEADLINE_L2 = "FEED"
 SUBTITLE    = "Moments from IN YOUR FACE comedy nights in Zürich"
 
 # --- Grid + selection ------------------------------------------------------
+# This is a MOOD card: it should read as a packed, current, appealing comedy scene that
+# makes someone want to click in. So we lead with the best-looking shots, skew performers
+# and moments recent (2024+), let audience photos come from any night as long as the shot
+# is strong, keep only a few (best) moments, and drop the genuinely bad frames.
 GRID        = 5                 # 5x5
 CELLS       = GRID * GRID       # 25
-TARGETS     = { "performer" => 13, "audience" => 9, "moment" => 3 }
+RECENT_YEAR = 2024              # performers + moments skew to this year or newer
+AES_FLOOR   = 0.35             # drop weak frames (some score negative); pin is exempt
+TARGETS     = { "performer" => 13, "audience" => 10, "moment" => 2 }
+AUDIENCE_PER_DATE = 2           # avoid same-night clustering so it reads as many nights
 PLACE_SEED  = 0x1FACE           # deterministic placement so the mosaic is a stable type-mix
+
+# Pinned by owner request: this exact shot is force-included into a top/side cell,
+# regardless of era, aesthetic score, or the floor below.
+PIN_SRC     = "/assets/img/gallery/robins3.jpeg"
+PIN_CELL    = 0                 # top-left corner: both top row AND side column, stays light under the scrim
+
+# Never use these, matched by EXACT basename (so the good primepunch_12..16.png survive).
+BLOCKLIST   = %w[
+  canape_0855.jpeg
+  primepunch_8.png
+  canape_0837.jpeg
+  primepunch_1.png
+].freeze
 
 CHROME_CANDIDATES = [
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
@@ -52,6 +72,11 @@ def tagged?(row)
   !c.empty? && c != "none"
 end
 
+def basename(row) = File.basename(row["src"].to_s)
+def blocked?(row) = BLOCKLIST.include?(basename(row))
+def pinned?(row)  = row["src"] == PIN_SRC
+def recent?(row)  = (row["year"] || 0) >= RECENT_YEAR
+
 # file:// URL with each path segment percent-encoded, so names with spaces / parens
 # (the WhatsApp photos) resolve. ERB::Util.url_encode escapes spaces -> %20, ( -> %28.
 def file_url(abs)
@@ -63,16 +88,22 @@ def src_to_abs(src)
   File.join(REPO_ROOT, src.sub(%r{\A/}, ""))
 end
 
-# Pick up to n performers, one photo per comedian (face variety), tagged + featured +
-# high-aesthetic first. Falls back to untagged performers to fill the count.
+# The candidate pool: everything except the blocklisted files, the pinned shot (added
+# back separately), and frames below the aesthetic floor. Mood-first.
+def usable(rows)
+  rows.reject { |r| blocked?(r) || pinned?(r) }
+      .select  { |r| aes(r) >= AES_FLOOR }
+end
+
+# Pick up to n performers, one photo per comedian (face variety), restricted to recent
+# (2024+) nights, best-looking first. Tagged + featured break ties.
 def pick_performers(rows, n)
-  sorted = rows.select { |r| r["type"] == "performer" }
-               .sort_by { |r| [tagged?(r) ? 0 : 1, feat(r), -aes(r)] }
+  sorted = rows.select { |r| r["type"] == "performer" && recent?(r) }
+               .sort_by { |r| [-aes(r), feat(r), tagged?(r) ? 0 : 1] }
   seen = {}
   out  = []
   sorted.each do |r|
-    c = r["comedian"].to_s
-    key = tagged?(r) ? c : "anon-#{out.size}"
+    key = tagged?(r) ? r["comedian"].to_s : "anon-#{out.size}"
     next if seen[key]
 
     seen[key] = true
@@ -82,32 +113,56 @@ def pick_performers(rows, n)
   out
 end
 
-def pick_simple(rows, type, n)
-  rows.select { |r| r["type"] == type }
-      .sort_by { |r| [feat(r), -aes(r)] }
+# Audience photos from ANY era, best-looking first, but capped per date so the mosaic
+# reads as many different nights rather than one room.
+def pick_audience(rows, n)
+  per_date = Hash.new(0)
+  rows.select { |r| r["type"] == "audience" }
+      .sort_by { |r| [-aes(r), feat(r)] }
+      .each_with_object([]) do |r, out|
+        d = r["date"].to_s
+        next if per_date[d] >= AUDIENCE_PER_DATE
+
+        per_date[d] += 1
+        out << r
+        break out if out.size >= n
+      end
+end
+
+# Only a few moments, the best ones, preferring recent (2024+) shots.
+def pick_moments(rows, n)
+  rows.select { |r| r["type"] == "moment" }
+      .sort_by { |r| [recent?(r) ? 0 : 1, -aes(r)] }
       .first(n)
 end
 
 def select_photos(rows)
+  pool = usable(rows)
+  pin  = rows.find { |r| pinned?(r) }   # force-included regardless of floor/era/blocklist
+  slots = CELLS - (pin ? 1 : 0)         # the pin takes one cell
+
   picks = {
-    "performer" => pick_performers(rows, TARGETS["performer"]),
-    "audience"  => pick_simple(rows, "audience", TARGETS["audience"]),
-    "moment"    => pick_simple(rows, "moment", TARGETS["moment"]),
+    "performer" => pick_performers(pool, TARGETS["performer"]),
+    "audience"  => pick_audience(pool, TARGETS["audience"]),
+    "moment"    => pick_moments(pool, TARGETS["moment"] - (pin ? 1 : 0)),
   }
 
   chosen = picks.values.flatten
-  # Backfill any deficit (e.g. too few moments) from the richest remaining pools,
-  # so we always land exactly CELLS photos without duplicates.
-  if chosen.size < CELLS
+  # Backfill any deficit from the richest remaining usable shots (mood-first, any type),
+  # so we always land exactly the right count without duplicates.
+  if chosen.size < slots
     used = chosen.map { |r| r["src"] }.to_set
-    extra = rows.reject { |r| used.include?(r["src"]) }
-                .sort_by { |r| [feat(r), -aes(r)] }
-    chosen.concat(extra.first(CELLS - chosen.size))
+    extra = pool.reject { |r| used.include?(r["src"]) }
+                .sort_by { |r| [-aes(r), feat(r)] }
+    chosen.concat(extra.first(slots - chosen.size))
   end
-  chosen = chosen.first(CELLS)
+  chosen = chosen.first(slots)
 
-  # Deterministic placement so the mosaic is a stable mix, not blocks by type.
-  chosen.shuffle(random: Random.new(PLACE_SEED))
+  # Deterministic placement so the mosaic is a stable mix, then force the pin into its
+  # top/side cell.
+  placed = chosen.shuffle(random: Random.new(PLACE_SEED))
+  placed.insert([PIN_CELL, placed.size].min, pin) if pin
+  placed.first(CELLS)
 end
 
 def build_html(photos)
