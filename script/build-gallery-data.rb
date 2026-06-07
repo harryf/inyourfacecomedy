@@ -738,6 +738,37 @@ def cmd_reclassify(open_preview:, ping:, git:)
   submit_indexnow(["#{SITE_URL}/moments/"] + touched.map { |s| comedian_url(s) }) if ping
 end
 
+# =============================================================================
+# delete — remove specific images and their gallery metadata
+# =============================================================================
+# Delete one or more images by filename, then re-run the build so their entries
+# drop out of _data/gallery.yml and the change is committed/pushed/pinged. Accepts
+# a bare filename or a path; only the basename inside assets/img/gallery/ matters.
+# A name that is already off disk but still in the YAML is reconciled away too.
+def cmd_delete(names, ping:, git:, quiet:)
+  abort "Usage: delete <image> [<image> …]" if names.empty?
+  known = load_entries.map { |e| File.basename(e["src"]) }.to_set
+  acted = false
+  names.each do |name|
+    base = File.basename(name)
+    abs  = File.join(GALLERY_DIR, base)
+    if File.exist?(abs)
+      File.delete(abs)
+      warn "  deleted #{base}" unless quiet
+      acted = true
+    elsif known.include?(base)
+      warn "  #{base} already off disk — dropping its stale gallery entry" unless quiet
+      acted = true # the rebuild will reconcile the orphan entry out of the YAML
+    else
+      warn "  ! not found (no file, no gallery entry): #{base}"
+    end
+  end
+  abort "Nothing to delete." unless acted
+  # Rewrite the data (drops the now-missing entries), commit, push, and ping the
+  # affected comedian pages + /moments/ — exactly the build removal path.
+  cmd_build(rebuild: false, ping: ping, git: git, quiet: quiet)
+end
+
 # --- dispatch -----------------------------------------------------------------
 USAGE = <<~TXT
   build-gallery-data.rb — manage the /moments/ gallery and its metadata.
@@ -746,6 +777,7 @@ USAGE = <<~TXT
     ./script/build-gallery-data.rb [build] [options]
     ./script/build-gallery-data.rb tag [options]
     ./script/build-gallery-data.rb reclassify [options]
+    ./script/build-gallery-data.rb delete <image> [<image> …] [options]
 
   COMMANDS
     build         (default) Incrementally scan assets/img/gallery/: analyse NEW
@@ -762,6 +794,10 @@ USAGE = <<~TXT
                   to a performer tagged to that comedian. The build treats the comedian
                   tag as authoritative, so the fix survives a --rebuild. Commits +
                   pushes and pings the same as tag.
+    delete        Delete one or more images by filename and drop their metadata from
+                  _data/gallery.yml (then commit + push + ping, like build). Accepts a
+                  bare name or a path; an entry already off disk is reconciled away.
+                  e.g. delete "IMG_2588_20251120.jpg" "IMG_2386.PNG"
 
   OPTIONS
     build:
@@ -778,6 +814,10 @@ USAGE = <<~TXT
       --no-open   Don't open Preview (scripted / headless review).
       --no-git    Don't commit/push; leave changes in the working tree.
       --no-ping   Don't submit to IndexNow.
+    delete:
+      --no-git    Don't commit/push; leave changes in the working tree.
+      --no-ping   Don't submit to IndexNow.
+      --quiet     Suppress per-image logging.
     -h, --help    Show this help.
 
   EXAMPLES
@@ -811,6 +851,8 @@ if __FILE__ == $PROGRAM_NAME
     cmd_tag(all: ARGV.include?("--all"), open_preview: !ARGV.include?("--no-open"), ping: ping, git: git)
   when "reclassify"
     cmd_reclassify(open_preview: !ARGV.include?("--no-open"), ping: ping, git: git)
+  when "delete"
+    cmd_delete(ARGV.reject { |a| a.start_with?("-") }, ping: ping, git: git, quiet: quiet)
   else
     warn "Unknown command '#{command}'.\n\n"
     abort USAGE
