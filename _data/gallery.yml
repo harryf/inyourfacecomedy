@@ -2014,7 +2014,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.466
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  comedian: pouya
+  alt: IN YOUR FACE Comedy, Pouya performing stand-up in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_5483_20240509.jpg"
   date: '2024-05-09'
@@ -2072,7 +2073,8 @@
   faces: 1
   humans: 2
   aesthetic: 0.212
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  comedian: jack-roberts
+  alt: IN YOUR FACE Comedy, Jack Roberts performing stand-up in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/785c39b1-7fd2-42f5-b296-5ac7d82ed889.jpg"
   date: '2024-04-29'
@@ -2214,7 +2216,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.787
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  comedian: martinadoescomedy
+  alt: IN YOUR FACE Comedy, Martina performing stand-up in Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/PP 13.PNG"
   date: '2024-04-24'
@@ -2225,7 +2228,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.681
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  comedian: adonis
+  alt: IN YOUR FACE Comedy, Adonis performing stand-up in Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/PP 10.PNG"
   date: '2024-04-24'
@@ -2248,7 +2252,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.672
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  comedian: harryf.cks
+  alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up in Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/IMG_5169.jpg"
   date: '2024-04-21'
@@ -2259,7 +2264,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.625
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  comedian: harryf.cks
+  alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up in Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/IMG_5166.jpg"
   date: '2024-04-21'
@@ -2438,7 +2444,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.487
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  comedian: ben.fcks
+  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_0846_20240218.jpg"
   date: '2024-02-18'
@@ -2449,7 +2456,8 @@
   faces: 1
   humans: 2
   aesthetic: 0.307
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  comedian: shawn-jay
+  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_4347_20240212.jpg"
   date: '2024-02-12'
@@ -2579,7 +2587,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.427
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
+  comedian: woocash
+  alt: IN YOUR FACE Comedy, Woocash performing stand-up in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/IMG_BDE6455E-3646-460A-A681-CB59DA96B388.JPG"
   date: '2023-10-31'
