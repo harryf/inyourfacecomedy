@@ -526,6 +526,14 @@ def cmd_build(rebuild:, ping:, git:, quiet:)
       warn format("  + analysed %-34s %s  %-9s faces=%d", name, date, type, faces) unless quiet
     end
 
+    # A human comedian tag is authoritative: that frame is a performer, even if auge
+    # filed it as audience/moment — and this survives a --rebuild re-analysis. Set via
+    # the `reclassify` command. Recompute the headline score for the corrected type.
+    if comedian.to_s.strip != "" && comedian.to_s.strip != "none" && type != "performer"
+      type  = "performer"
+      score = util ? -999.0 : score_from(type, faces, aes)
+    end
+
     era = era_for(date, today)
     { "src" => src, "date" => date.iso8601, "year" => date.year,
       "era" => era, "era_label" => era_label(era), "type" => type,
@@ -649,6 +657,87 @@ def cmd_tag(all:, open_preview:, ping:, git:)
   submit_indexnow(["#{SITE_URL}/moments/"] + touched.map { |s| comedian_url(s) }) if ping
 end
 
+# =============================================================================
+# reclassify — rescue comedian frames that auge filed as audience/moment
+# =============================================================================
+# auge sometimes reads a comedian shot as audience or moment (a lone figure taken
+# for a face in a crowd, a wide stage read as a venue moment). Walk those frames
+# NEWEST FIRST, preview each, and on a slug the frame becomes a performer tagged to
+# that comedian. The build then treats the comedian tag as authoritative, so the
+# correction sticks even through a --rebuild.
+def cmd_reclassify(open_preview:, ping:, git:)
+  entries = load_entries
+  abort "No _data/gallery.yml yet — run `build` first." if entries.empty?
+  slugs = known_slugs
+
+  queue = entries.select { |e| %w[audience moment].include?(e["type"]) }
+                 .sort_by { |e| [e["date"], e["src"]] }.reverse # newest first
+  if queue.empty?
+    puts "Nothing to review — no audience/moment frames."
+    return
+  end
+
+  # Same tab-completion as `tag`: prefix matches first, then a substring fallback.
+  slug_list = slugs.to_a.sort
+  Readline.completion_append_character = " "
+  Readline.completion_proc = proc do |s|
+    pre = slug_list.grep(/^#{Regexp.escape(s)}/i)
+    pre.empty? ? slug_list.grep(/#{Regexp.escape(s)}/i) : pre
+  end
+
+  puts "#{queue.size} audience/moment frame(s) to review, newest first. If a frame is"
+  puts "really a comedian on stage, type their slug (Tab to autocomplete) to reclassify it"
+  puts "as a performer. Otherwise:  [enter]=leave as-is   l=list   q=save & quit"
+  touched = Set.new
+  count   = 0
+  quit    = false
+
+  queue.each_with_index do |e, i|
+    break if quit
+    abs = File.join(REPO_ROOT, e["src"].sub(%r{^/}, ""))
+    system("open", abs) if open_preview # preview in Preview.app (non-blocking)
+
+    loop do
+      prompt = "\n[#{i + 1}/#{queue.size}] #{File.basename(e['src'])} (#{e['date']}, now #{e['type']})  comedian slug> "
+      input = Readline.readline(prompt, true) # nil on Ctrl-D
+      if input.nil? then quit = true; break end
+      input = input.strip
+      case input
+      when ""  then break                                   # leave as audience/moment
+      when "q" then quit = true; break
+      when "l" then puts "  " + slug_list.join(", "); next
+      else
+        assign = lambda do |slug|
+          e["type"] = "performer"; e["comedian"] = slug
+          touched << slug; count += 1
+        end
+        if slugs.include?(input)
+          assign.call(input); break
+        else
+          print "  '#{input}' isn't a known comedian slug. Use it anyway? [y/N] "
+          ans = $stdin.gets&.strip&.downcase
+          if ans == "y" then assign.call(input); break end
+          # otherwise re-prompt
+        end
+      end
+    end
+  end
+
+  apply_comedian_alt!(entries, comedian_names) # name the reclassified comedians in alt
+  write_entries(entries)
+  if count.zero?
+    puts "\nNo reclassifications."
+    return
+  end
+  puts "\nSaved. Reclassified #{count} frame(s) to comedian(s): #{touched.to_a.sort.join(', ')}"
+
+  git_commit_push(["_data/gallery.yml"],
+                  "gallery: reclassify #{count} photo(s) to comedians — #{touched.to_a.sort.join(', ')}",
+                  push: true) if git
+
+  submit_indexnow(["#{SITE_URL}/moments/"] + touched.map { |s| comedian_url(s) }) if ping
+end
+
 # --- dispatch -----------------------------------------------------------------
 USAGE = <<~TXT
   build-gallery-data.rb — manage the /moments/ gallery and its metadata.
@@ -656,6 +745,7 @@ USAGE = <<~TXT
   USAGE
     ./script/build-gallery-data.rb [build] [options]
     ./script/build-gallery-data.rb tag [options]
+    ./script/build-gallery-data.rb reclassify [options]
 
   COMMANDS
     build         (default) Incrementally scan assets/img/gallery/: analyse NEW
@@ -667,6 +757,11 @@ USAGE = <<~TXT
                   and prompt for the comedian's slug (validated against _comedians/).
                   Saves it, commits + pushes _data/gallery.yml, and pings IndexNow
                   for /moments/ and the tagged comedian pages.
+    reclassify    Walk audience/moment frames NEWEST FIRST, open each in Preview, and
+                  for any that are really a comedian on stage, type the slug to flip it
+                  to a performer tagged to that comedian. The build treats the comedian
+                  tag as authoritative, so the fix survives a --rebuild. Commits +
+                  pushes and pings the same as tag.
 
   OPTIONS
     build:
@@ -679,12 +774,17 @@ USAGE = <<~TXT
       --no-open   Don't open Preview (scripted / headless tagging).
       --no-git    Don't commit/push; leave changes in the working tree.
       --no-ping   Don't submit to IndexNow.
+    reclassify:
+      --no-open   Don't open Preview (scripted / headless review).
+      --no-git    Don't commit/push; leave changes in the working tree.
+      --no-ping   Don't submit to IndexNow.
     -h, --help    Show this help.
 
   EXAMPLES
     ./script/build-gallery-data.rb                  # rebuild, commit+push, ping
     ./script/build-gallery-data.rb build --rebuild  # full re-analysis
     ./script/build-gallery-data.rb tag              # attribute comedian photos
+    ./script/build-gallery-data.rb reclassify       # rescue misclassified comedian shots
     ./script/build-gallery-data.rb build --no-git   # update data only, no commit
 
   auge (Apple Vision) is macOS-only; the committed _data/gallery.yml is what
@@ -709,6 +809,8 @@ if __FILE__ == $PROGRAM_NAME
     cmd_build(rebuild: ARGV.include?("--rebuild"), ping: ping, git: git, quiet: quiet)
   when "tag"
     cmd_tag(all: ARGV.include?("--all"), open_preview: !ARGV.include?("--no-open"), ping: ping, git: git)
+  when "reclassify"
+    cmd_reclassify(open_preview: !ARGV.include?("--no-open"), ping: ping, git: git)
   else
     warn "Unknown command '#{command}'.\n\n"
     abort USAGE
