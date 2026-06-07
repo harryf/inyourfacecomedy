@@ -37,10 +37,11 @@
   faces: 1
   humans: 1
   aesthetic: 0.503
+  comedian: pouya
   seo:
     mic: true
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
-    in Zürich (2026)
+  alt: IN YOUR FACE Comedy, Pouya performing stand-up with a microphone on stage in
+    Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/nicholas_de_santo_IMG_1040.jpeg"
   date: '2026-05-15'
@@ -213,9 +214,10 @@
   faces: 2
   humans: 1
   aesthetic: 0.723
+  comedian: toto-nguyen
   seo:
     gesturing: true
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up mid-bit on stage in Zürich
+  alt: IN YOUR FACE Comedy, Toto Nguyen performing stand-up mid-bit on stage in Zürich
     (2026)
   featured: true
 - src: "/assets/img/gallery/nicholas_de_santo_IMG_1098.jpeg"
@@ -440,7 +442,9 @@
   faces: 1
   humans: 1
   aesthetic: 0.52
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2026)
+  comedian: mateo-gudenrath
+  alt: IN YOUR FACE Comedy, Mateo Gudenrath performing stand-up on stage in Zürich
+    (2026)
   featured: false
 - src: "/assets/img/gallery/IMG_3581.jpg"
   date: '2026-05-24'
@@ -572,9 +576,10 @@
   faces: 1
   humans: 1
   aesthetic: 0.47
+  comedian: adonis
   seo:
     mic: true
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+  alt: IN YOUR FACE Comedy, Adonis performing stand-up with a microphone on stage
     in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.31 (5).jpeg"
@@ -648,7 +653,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.508
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2026)
+  comedian: pavel-zborik
+  alt: IN YOUR FACE Comedy, Pavel Zborik performing stand-up on stage in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/nicholas_de_santo_IMG_1039.jpeg"
   date: '2026-05-15'
@@ -796,7 +802,8 @@
   faces: 1
   humans: 2
   aesthetic: 0.6
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2026)
+  comedian: coopernik
+  alt: IN YOUR FACE Comedy, Nik performing stand-up on stage in Zürich (2026)
   featured: true
 - src: "/assets/img/gallery/05_vertical_1face_26m21.8s_s18.2.jpg"
   date: '2026-06-07'
@@ -878,7 +885,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.371
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2026)
+  comedian: woocash
+  alt: IN YOUR FACE Comedy, Woocash performing stand-up on stage in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/IMG_2953_20251218.jpg"
   date: '2025-12-18'
