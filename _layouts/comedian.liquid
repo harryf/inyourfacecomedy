@@ -117,9 +117,15 @@ layout: default
     <section class="iyf-comedian-profile__photos" aria-label="Photos of {{ page.title }} on stage at IN YOUR FACE Comedy">
       <h2 class="iyf-lineup-section__title">{{ page.title | split: ' ' | first }} on stage</h2>
       <div class="iyf-moments__grid">
+        {%- comment -%}
+          Deep-link each photo to its exact frame on the Moments timeline. The
+          fragment MUST match the figure id minted in _includes/gallery.html:
+          `m-` + the slugified filename (whole basename, no split on ".").
+        {%- endcomment -%}
         {%- for img in my_photos -%}
+          {%- assign moment_anchor = img.src | split: '/' | last | slugify -%}
           <figure class="iyf-moment">
-            <a href="{{ '/moments/' | relative_url }}">
+            <a href="{{ '/moments/' | relative_url }}#m-{{ moment_anchor }}">
               <img src="{{ img.src | relative_url }}"
                    alt="{{ page.title }} performing stand-up at IN YOUR FACE Comedy in Zürich"
                    loading="lazy" decoding="async">

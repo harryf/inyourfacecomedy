@@ -20,7 +20,14 @@
       <h2 class="iyf-moments__heading"><span>{{ img.era_label }}</span></h2>
       <div class="iyf-moments__grid">
   {%- endif -%}
-        <figure class="iyf-moment{% if img.featured %} iyf-moment--featured{% endif %}" data-type="{{ img.type }}">
+        {%- comment -%}
+          Per-photo bookmark. The id is `m-` + the slugified filename, so a comedian
+          profile can deep-link straight to this frame (#m-…). The SAME expression
+          must be used in _layouts/comedian.liquid — slugify the whole basename
+          (never split on ".", since WhatsApp names carry dots in the time).
+        {%- endcomment -%}
+        <figure id="m-{{ img.src | split: '/' | last | slugify }}"
+                class="iyf-moment{% if img.featured %} iyf-moment--featured{% endif %}" data-type="{{ img.type }}">
           <img src="{{ img.src | relative_url }}" alt="{{ img.alt }}" loading="lazy" decoding="async">
         </figure>
   {%- if forloop.last -%}
