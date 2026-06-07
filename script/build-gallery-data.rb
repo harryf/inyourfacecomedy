@@ -785,13 +785,28 @@ end
 # NEWEST FIRST, preview each, and on a slug the frame becomes a performer tagged to
 # that comedian. The build then treats the comedian tag as authoritative, so the
 # correction sticks even through a --rebuild.
-def cmd_reclassify(open_preview:, ping:, git:)
+#
+# Targeted mode: pass one or more image names (`only`) and ONLY those frames are
+# reviewed, in the order given — for when you already know which frames are mistyped
+# (no auto-detection is reliable; auge's confident signals miss exactly these). Named
+# frames are reviewed whatever their current type, so it also re-tags a wrong performer.
+def cmd_reclassify(open_preview:, ping:, git:, only: nil)
   entries = load_entries
   abort "No _data/gallery.yml yet — run `build` first." if entries.empty?
   slugs = known_slugs
 
-  queue = entries.select { |e| %w[audience moment].include?(e["type"]) }
-                 .sort_by { |e| [e["date"], e["src"]] }.reverse # newest first
+  if only && !only.empty?
+    wanted = only.map { |n| File.basename(n) }
+    by_base = entries.group_by { |e| File.basename(e["src"]) }
+    missing = wanted.reject { |b| by_base.key?(b) }
+    warn "  ! not in the gallery (skipped): #{missing.join(', ')}" unless missing.empty?
+    # Keep the user's order; a name maps to its (single) entry.
+    queue = wanted.filter_map { |b| by_base[b]&.first }
+    abort "None of the named images are in the gallery." if queue.empty?
+  else
+    queue = entries.select { |e| %w[audience moment].include?(e["type"]) }
+                   .sort_by { |e| [e["date"], e["src"]] }.reverse # newest first
+  end
   if queue.empty?
     puts "Nothing to review — no audience/moment frames."
     return
@@ -805,9 +820,10 @@ def cmd_reclassify(open_preview:, ping:, git:)
     pre.empty? ? slug_list.grep(/#{Regexp.escape(s)}/i) : pre
   end
 
-  puts "#{queue.size} audience/moment frame(s) to review, newest first. If a frame is"
-  puts "really a comedian on stage, type their slug (Tab to autocomplete) to reclassify it"
-  puts "as a performer. Otherwise:  [enter]=leave as-is   l=list   q=save & quit"
+  scope = only && !only.empty? ? "named" : "audience/moment, newest first"
+  puts "#{queue.size} frame(s) to review (#{scope}). If a frame is really a comedian on"
+  puts "stage, type their slug (Tab to autocomplete) to reclassify it as a performer."
+  puts "Otherwise:  [enter]=leave as-is   l=list   q=save & quit"
   touched = Set.new
   count   = 0
   quit    = false
@@ -829,6 +845,10 @@ def cmd_reclassify(open_preview:, ping:, git:)
       else
         assign = lambda do |slug|
           e["type"] = "performer"; e["comedian"] = slug
+          # Refresh signals for the new type: drops stale audience flags (laughing/
+          # packed) and picks up performer ones (mic/gesturing), so recompose_all!
+          # writes a correct enriched alt immediately, no separate enrich pass needed.
+          e["seo"] = prune_seo("performer", extract_seo(abs))
           touched << slug; count += 1
         end
         if slugs.include?(input)
@@ -951,7 +971,7 @@ USAGE = <<~TXT
   USAGE
     ./script/build-gallery-data.rb [build] [options]
     ./script/build-gallery-data.rb tag [options]
-    ./script/build-gallery-data.rb reclassify [options]
+    ./script/build-gallery-data.rb reclassify [<image> …] [options]
     ./script/build-gallery-data.rb delete <image> [<image> …] [options]
     ./script/build-gallery-data.rb enrich [--limit N] [options]
 
@@ -969,7 +989,11 @@ USAGE = <<~TXT
                   for any that are really a comedian on stage, type the slug to flip it
                   to a performer tagged to that comedian. The build treats the comedian
                   tag as authoritative, so the fix survives a --rebuild. Commits +
-                  pushes and pings the same as tag.
+                  pushes and pings the same as tag. Pass one or more image names to
+                  review ONLY those frames (any type), in the order given — for when you
+                  already know which frames are mistyped. Flipping a frame also refreshes
+                  its alt-text signals, so the enriched alt is correct right away.
+                  e.g. reclassify IMG_4086.jpg "WhatsApp Image ….jpeg"
     delete        Delete one or more images by filename and drop their metadata from
                   _data/gallery.yml (then commit + push + ping, like build). Accepts a
                   bare name or a path; an entry already off disk is reconciled away.
@@ -1037,7 +1061,8 @@ if __FILE__ == $PROGRAM_NAME
   when "tag"
     cmd_tag(all: ARGV.include?("--all"), open_preview: !ARGV.include?("--no-open"), ping: ping, git: git)
   when "reclassify"
-    cmd_reclassify(open_preview: !ARGV.include?("--no-open"), ping: ping, git: git)
+    cmd_reclassify(open_preview: !ARGV.include?("--no-open"), ping: ping, git: git,
+                   only: ARGV.reject { |a| a.start_with?("-") })
   when "delete"
     cmd_delete(ARGV.reject { |a| a.start_with?("-") }, ping: ping, git: git, quiet: quiet)
   when "enrich"
