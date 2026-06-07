@@ -336,6 +336,7 @@
   faces: 0
   humans: 1
   aesthetic: 0.295
+  comedian: none
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/robins1.jpeg"
@@ -587,6 +588,7 @@
   faces: 1
   humans: 1
   aesthetic: 0.438
+  comedian: none
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0723.jpeg"
@@ -598,6 +600,7 @@
   faces: 0
   humans: 1
   aesthetic: 0.46
+  comedian: none
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0713.jpeg"
@@ -834,6 +837,7 @@
   faces: 2
   humans: 1
   aesthetic: 0.641
+  comedian: none
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_PXXX8284.jpg"
