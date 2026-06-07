@@ -65,7 +65,7 @@ OUT_FILE      = File.join(REPO_ROOT, "_data", "gallery.yml")
 # over EXIF/filename/git-add. Hand-maintained; survives rebuilds; preserves tags.
 OVERRIDE_FILE = File.join(REPO_ROOT, "_data", "gallery_date_overrides.yml")
 IMAGE_EXTS    = %w[.jpg .jpeg .png .webp .gif].freeze
-RECENT_DAYS   = 120 # "the last few months" — the rolling "Recent" era
+HEIC_EXTS     = %w[.heic .heif].freeze # iPhone formats: converted to JPEG on import
 
 # IndexNow — push-notify Bing/Yandex/Seznam/Naver (not Google) when a page
 # changes. Mirrors sync-comedians.rb; the key file lives at the site root.
@@ -147,6 +147,52 @@ def capture_or_git_date(abs_path, name, overrides = {})
   cap = filename_date(name) || exif_capture_date(abs_path)
   return git_date unless cap && cap >= SITE_EPOCH && cap <= Date.today && cap < git_date
   cap
+end
+
+# --- HEIC import: iPhone photos -> web JPEG, dated, originals removed -----------
+# iPhone HEICs carry an accurate EXIF capture date, but mdls reports it in BOTH the
+# content and FS fields, so the content!=FS discriminator (used to spot a stripped
+# JPEG's resize date) would miss it. For HEIC we trust the content date directly,
+# falling back to a dated filename, then mtime.
+def heic_capture_date(abs_path, name)
+  out, st = Open3.capture2("mdls", "-name", "kMDItemContentCreationDate", abs_path)
+  iso = out[/(\d{4}-\d{2}-\d{2})/, 1] if st.success?
+  cap = (Date.iso8601(iso) rescue nil) if iso
+  cap = nil unless cap && cap >= SITE_EPOCH && cap <= Date.today
+  cap || filename_date(name) || File.mtime(abs_path).to_date
+end
+
+def unique_jpg(base)
+  return "#{base}.jpg" unless File.exist?(File.join(GALLERY_DIR, "#{base}.jpg"))
+  i = 2
+  i += 1 while File.exist?(File.join(GALLERY_DIR, "#{base}_#{i}.jpg"))
+  "#{base}_#{i}.jpg"
+end
+
+# Convert every HEIC dropped into the gallery to a web JPEG before the scan: resize to
+# a sane max (HEICs are ~4000px / 1MB+), keep the EXIF, and stamp the capture date into
+# the filename so dating stays correct even if sips drops metadata; then delete the
+# HEIC. macOS-only (sips), same as auge. Returns the new JPEG names.
+def convert_heics!(quiet:)
+  heics = Dir.children(GALLERY_DIR).select { |f| HEIC_EXTS.include?(File.extname(f).downcase) }.sort
+  return [] if heics.empty?
+  warn "Converting #{heics.size} HEIC file(s) to JPEG…" unless quiet
+  heics.filter_map do |name|
+    abs  = File.join(GALLERY_DIR, name)
+    date = heic_capture_date(abs, name)
+    jpg  = unique_jpg("#{File.basename(name, File.extname(name))}_#{date.strftime('%Y%m%d')}")
+    out  = File.join(GALLERY_DIR, jpg)
+    ok = system("sips", "-s", "format", "jpeg", "-s", "formatOptions", "82",
+                "-Z", "1600", abs, "--out", out, out: File::NULL, err: File::NULL)
+    if ok && File.exist?(out)
+      File.delete(abs)
+      warn format("  ⤳ %-24s → %s  (%s)", name, jpg, date) unless quiet
+      jpg
+    else
+      warn "  ! sips could not convert #{name} — left in place"
+      nil
+    end
+  end
 end
 
 # --- Apple Vision via auge ----------------------------------------------------
@@ -294,12 +340,34 @@ def apply_comedian_alt!(entries, names)
 end
 
 # --- era bucketing (timeline sections) ----------------------------------------
+# "Recent" is the whole current calendar year; every earlier year gets its own
+# section. (Was a rolling 120-day window, which split the current year into a
+# "Recent" block plus a redundant current-year heading.)
 def era_for(date, today)
-  ((today - date).to_i <= RECENT_DAYS) ? "recent" : date.year.to_s
+  (date.year == today.year) ? "recent" : date.year.to_s
 end
 
 def era_label(era)
   era == "recent" ? "Recent" : era
+end
+
+# Within "Recent" we trade strict chronology for a lively type-mix: moments, audience
+# and comedian frames are interleaved instead of arriving in same-type blocks. A
+# largest-remaining draw (jittered) spreads the dominant type evenly; a fixed seed keeps
+# the order stable across rebuilds so the build stays idempotent. Older year sections
+# stay in date order — only Recent is shuffled.
+RECENT_SHUFFLE_SEED = 0x1FACE
+
+def interleave_recent(list)
+  rng = Random.new(RECENT_SHUFFLE_SEED)
+  buckets = list.group_by { |e| e["type"] }
+  buckets.each_value { |v| v.sort_by! { |e| e["src"] }; v.shuffle!(random: rng) }
+  out = []
+  until buckets.values.all?(&:empty?)
+    type, = buckets.reject { |_, v| v.empty? }.max_by { |_, v| v.size + rng.rand }
+    out << buckets[type].shift
+  end
+  out
 end
 
 # --- gallery files + persisted data -------------------------------------------
@@ -405,6 +473,7 @@ end
 # =============================================================================
 def cmd_build(rebuild:, ping:, git:, quiet:)
   today     = Date.today
+  convert_heics!(quiet: quiet) # iPhone HEIC -> dated web JPEG, originals removed, pre-scan
   overrides = load_date_overrides
   existing  = load_entries.each_with_object({}) { |e, h| h[e["src"]] = e }
   files     = gallery_files
@@ -448,7 +517,13 @@ def cmd_build(rebuild:, ping:, git:, quiet:)
   apply_comedian_alt!(entries, comedian_names) # name the comedian in tagged alt text
   assign_featured!(entries)
   entries.each { |e| e.delete("_score") }
-  entries.sort_by! { |e| [e["date"], e["src"]] }.reverse!
+
+  # Recent (current year) first as a type-mixed block; older years newest-first and
+  # chronological within each section.
+  recent = entries.select { |e| e["era"] == "recent" }
+  older  = entries.reject { |e| e["era"] == "recent" }
+  older.sort_by! { |e| [e["date"], e["src"]] }.reverse!
+  entries.replace(interleave_recent(recent) + older)
   write_entries(entries)
 
   feat = entries.count { |e| e["featured"] }
