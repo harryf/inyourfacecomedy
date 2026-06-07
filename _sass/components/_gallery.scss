@@ -231,3 +231,122 @@
   0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand-red) 70%, transparent); }
   100% { box-shadow: 0 0 0 18px color-mix(in srgb, var(--brand-red) 0%, transparent); }
 }
+
+// =============================================================================
+// Comedian frames — tap to open the lightbox; everything else is non-interactive
+// =============================================================================
+.iyf-moment--comedian {
+  cursor: zoom-in;
+
+  .iyf-moment__link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  // Small affordance that this frame expands — visible on touch (no hover), and
+  // lifts on hover/focus. Bottom-right so it doesn't fight the image subject.
+  .iyf-moment__zoom {
+    position: absolute;
+    right: var(--space-2);
+    bottom: var(--space-2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: var(--radius-md);
+    background: color-mix(in oklab, var(--brand-ink) 70%, transparent);
+    color: var(--brand-cream);
+    font-size: var(--fs-sm);
+    backdrop-filter: blur(2px);
+    opacity: 0.85;
+    transition: opacity var(--t-base) var(--ease-out), transform var(--t-base) var(--ease-out);
+  }
+
+  .iyf-moment__link:hover .iyf-moment__zoom,
+  .iyf-moment__link:focus-visible .iyf-moment__zoom {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+// =============================================================================
+// Lightbox — bigger view of a comedian frame (moments-lightbox.js)
+// =============================================================================
+// Locks the page behind a scrim while open. The image scales up to the viewport;
+// the comedian's name sits under it as a link to their profile.
+html.iyf-lightbox-open { overflow: hidden; }
+
+.iyf-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  background: var(--scrim-bottom);
+
+  &[hidden] { display: none; }
+
+  &__frame {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    max-width: min(94vw, 920px);
+  }
+
+  &__img {
+    display: block;
+    max-width: 100%;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.7);
+  }
+
+  &__caption { text-align: center; }
+
+  // Comedian name → profile. Display type, clearly a link (brand-red underline grow).
+  &__name {
+    font-family: var(--font-display);
+    font-size: var(--fs-xl);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--brand-cream);
+    text-decoration: none;
+    border-bottom: 2px solid color-mix(in srgb, var(--brand-red) 0%, transparent);
+    transition: border-color var(--t-base) var(--ease-out);
+
+    &:hover,
+    &:focus-visible { border-bottom-color: var(--brand-red); }
+  }
+
+  &__close {
+    position: fixed;
+    top: var(--space-4);
+    right: var(--space-5);
+    width: var(--touch-min, 44px);
+    height: var(--touch-min, 44px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: var(--radius-md);
+    background: color-mix(in oklab, var(--brand-ink) 60%, transparent);
+    color: var(--brand-cream);
+    font-size: var(--fs-2xl);
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color var(--t-fast) var(--ease-out);
+
+    &:hover,
+    &:focus-visible { background: var(--brand-red); color: #fff; }
+  }
+}
