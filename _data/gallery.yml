@@ -635,7 +635,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.366
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: ben.fcks
+  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_2953_20251218.jpg"
   date: '2025-12-18'
@@ -658,7 +659,8 @@
   faces: 1
   humans: 2
   aesthetic: 0.361
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: ben.fcks
+  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_2948_20251218.jpg"
   date: '2025-12-18'
@@ -739,7 +741,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.225
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: laugh_at_domenico
+  alt: IN YOUR FACE Comedy, Domenico performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_2925_20251217.jpg"
   date: '2025-12-17'
@@ -762,7 +765,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.45
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: woocash
+  alt: IN YOUR FACE Comedy, Woocash performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_2920_20251216.jpg"
   date: '2025-12-16'
@@ -785,7 +789,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.349
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: woocash
+  alt: IN YOUR FACE Comedy, Woocash performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_2919_20251216.jpg"
   date: '2025-12-16'
@@ -856,7 +861,8 @@
   faces: 4
   humans: 1
   aesthetic: 0.265
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: shawn-jay
+  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_2823_20251210.jpg"
   date: '2025-12-10'
@@ -1026,7 +1032,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.386
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: pouya
+  alt: IN YOUR FACE Comedy, Pouya performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_2238_20251009.jpg"
   date: '2025-10-09'
@@ -1061,7 +1068,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.382
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: shawn-jay
+  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_2100_20250924.jpg"
   date: '2025-09-24'
@@ -1072,7 +1080,8 @@
   faces: 2
   humans: 1
   aesthetic: 0.177
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: shawn-jay
+  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.33 (4).jpeg"
   date: '2025-09-17'
@@ -1166,7 +1175,8 @@
   faces: 3
   humans: 1
   aesthetic: 0.38
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: martinadoescomedy
+  alt: IN YOUR FACE Comedy, Martina performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_1875_20250828.jpg"
   date: '2025-08-28'
@@ -1261,7 +1271,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.352
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: chris-darwa
+  alt: IN YOUR FACE Comedy, Chris Darwa performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/39.JPEG"
   date: '2025-08-08'
@@ -1284,7 +1295,8 @@
   faces: 1
   humans: 3
   aesthetic: 0.331
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: ben.fcks
+  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/23.JPEG"
   date: '2025-08-08'
@@ -1295,7 +1307,8 @@
   faces: 1
   humans: 2
   aesthetic: 0.396
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: laugh_at_domenico
+  alt: IN YOUR FACE Comedy, Domenico performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/19.JPEG"
   date: '2025-08-08'
@@ -1306,7 +1319,8 @@
   faces: 8
   humans: 3
   aesthetic: 0.371
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: laugh_at_domenico
+  alt: IN YOUR FACE Comedy, Domenico performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/10.JPEG"
   date: '2025-08-08'
@@ -1341,7 +1355,8 @@
   faces: 1
   humans: 1
   aesthetic: -0.203
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: andrea-ramirez
+  alt: IN YOUR FACE Comedy, Andrea Ramírez performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.55.04 (4).jpeg"
   date: '2025-07-15'
@@ -1460,7 +1475,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.356
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: benjamin
+  alt: IN YOUR FACE Comedy, BENJAMIN performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_6476_20250603.jpg"
   date: '2025-06-03'
@@ -1471,7 +1487,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.41
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: chris-darwa
+  alt: IN YOUR FACE Comedy, Chris Darwa performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_6474_20250603.jpg"
   date: '2025-06-03'
@@ -1565,7 +1582,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.373
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: ben.fcks
+  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_0819_20250521.jpg"
   date: '2025-05-21'
@@ -1576,7 +1594,8 @@
   faces: 3
   humans: 1
   aesthetic: 0.287
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: jack-roberts
+  alt: IN YOUR FACE Comedy, Jack Roberts performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.32 (6).jpeg"
   date: '2025-05-20'
@@ -1611,7 +1630,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.345
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: ben.fcks
+  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_0453_20250508.jpg"
   date: '2025-05-08'
@@ -1622,7 +1642,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.64
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: shawn-jay
+  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up in Zürich (2025)
   featured: true
 - src: "/assets/img/gallery/IMG_0451_20250508.jpg"
   date: '2025-05-08'
@@ -1657,7 +1678,8 @@
   faces: 3
   humans: 1
   aesthetic: 0.282
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: ben.fcks
+  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/f70347b8-6fbb-4f73-819e-488950e05b45.jpg"
   date: '2025-05-01'
@@ -1668,7 +1690,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.41
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: ben.fcks
+  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/aacaa9db-3f36-403a-b25a-a9958284bddc.jpg"
   date: '2025-05-01'
@@ -1679,7 +1702,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.645
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: chris-darwa
+  alt: IN YOUR FACE Comedy, Chris Darwa performing stand-up in Zürich (2025)
   featured: true
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.11 (1).jpeg"
   date: '2025-04-28'
@@ -1761,7 +1785,8 @@
   faces: 1
   humans: 0
   aesthetic: 0.421
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: martinadoescomedy
+  alt: IN YOUR FACE Comedy, Martina performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_0170_20250403.jpg"
   date: '2025-04-03'
@@ -1819,7 +1844,8 @@
   faces: 2
   humans: 1
   aesthetic: 0.335
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  comedian: fairis-osman
+  alt: IN YOUR FACE Comedy, Fairis Osman performing stand-up in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_0036_20250326.jpg"
   date: '2025-03-26'
@@ -1969,7 +1995,8 @@
   faces: 2
   humans: 2
   aesthetic: 0.296
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  comedian: woocash
+  alt: IN YOUR FACE Comedy, Woocash performing stand-up in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_7270_20241024.jpg"
   date: '2024-10-24'
@@ -2027,7 +2054,8 @@
   faces: 1
   humans: 2
   aesthetic: 0.409
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  comedian: shawn-jay
+  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_1041.JPG"
   date: '2024-06-30'
@@ -2050,7 +2078,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.346
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  comedian: martinadoescomedy
+  alt: IN YOUR FACE Comedy, Martina performing stand-up in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/6b049bc0-ed05-4123-ba7b-4d549226c401.JPG"
   date: '2024-06-30'
@@ -2072,7 +2101,8 @@
   faces: 1
   humans: 2
   aesthetic: 0.436
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  comedian: jack-roberts
+  alt: IN YOUR FACE Comedy, Jack Roberts performing stand-up in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_5731_20240530.jpg"
   date: '2024-05-30'
@@ -2083,7 +2113,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.276
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  comedian: adonis
+  alt: IN YOUR FACE Comedy, Adonis performing stand-up in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_5727_20240530.jpg"
   date: '2024-05-30'
@@ -2106,7 +2137,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.624
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  comedian: shawn-jay
+  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up in Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/IMG_5569_20240516.jpg"
   date: '2024-05-16'
@@ -2117,7 +2149,8 @@
   faces: 0
   humans: 1
   aesthetic: -0.944
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  comedian: pouya
+  alt: IN YOUR FACE Comedy, Pouya performing stand-up in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_0819.JPG"
   date: '2024-05-10'
