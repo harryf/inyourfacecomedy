@@ -19,6 +19,8 @@ require "erb"
 require "fileutils"
 require "tmpdir"
 require "set"
+require "open3"
+require "json"
 
 REPO_ROOT  = File.expand_path("..", __dir__)
 GALLERY_YML = File.join(REPO_ROOT, "_data", "gallery.yml")
@@ -43,7 +45,7 @@ GRID        = 5                 # 5x5
 CELLS       = GRID * GRID       # 25
 RECENT_YEAR = 2024              # performers + moments skew to this year or newer
 AES_FLOOR   = 0.35             # drop weak frames (some score negative); pin is exempt
-TARGETS     = { "performer" => 13, "audience" => 10, "moment" => 2 }
+TARGETS     = { "performer" => 12, "audience" => 9, "moment" => 4 }
 AUDIENCE_PER_DATE = 2           # avoid same-night clustering so it reads as many nights
 PLACE_SEED  = 0x1FACE           # deterministic placement so the mosaic is a stable type-mix
 
@@ -141,10 +143,15 @@ def select_photos(rows)
   pin  = rows.find { |r| pinned?(r) }   # force-included regardless of floor/era/blocklist
   slots = CELLS - (pin ? 1 : 0)         # the pin takes one cell
 
+  # The pin occupies one cell of its OWN type, so take one fewer of that type. Clamp at
+  # zero so editing a TARGETS count down to 0 can never ask for a negative slice.
+  targets = TARGETS.transform_values { |v| [v, 0].max }
+  targets[pin["type"]] = [targets.fetch(pin["type"], 0) - 1, 0].max if pin
+
   picks = {
-    "performer" => pick_performers(pool, TARGETS["performer"]),
-    "audience"  => pick_audience(pool, TARGETS["audience"]),
-    "moment"    => pick_moments(pool, TARGETS["moment"] - (pin ? 1 : 0)),
+    "performer" => pick_performers(pool, targets.fetch("performer", 0)),
+    "audience"  => pick_audience(pool, targets.fetch("audience", 0)),
+    "moment"    => pick_moments(pool, targets.fetch("moment", 0)),
   }
 
   chosen = picks.values.flatten
@@ -165,9 +172,47 @@ def select_photos(rows)
   placed.first(CELLS)
 end
 
+# Apple Vision (auge) attention saliency -> a CSS object-position focal point per image,
+# so each square cell crops to the most INTERESTING spot instead of dead centre. Vision
+# returns a normalised bbox with a bottom-left origin; CSS object-position measures from
+# the top-left, so the vertical axis is flipped. One batched --ndjson call (Vision spins
+# up once for all 25). If auge is missing, every cell falls back to a centre crop.
+CENTRE_FOCAL = "50% 50%"
+
+def focal_positions(photos)
+  abs_paths = photos.map { |r| src_to_abs(r["src"]) }
+  return {} if abs_paths.empty?
+
+  out, _err, _st = Open3.capture3("auge", "--saliency-attention", *abs_paths, "--ndjson")
+  focal = {}
+  out.each_line do |line|
+    line.strip!
+    next if line.empty?
+
+    data = JSON.parse(line) rescue next
+    file = data["file"]
+    regions = data.dig("results", "regions") || []
+    next if file.nil? || regions.empty?
+
+    r  = regions.max_by { |reg| (reg["confidence"] || 0).to_f }   # most salient region
+    cx = r["x"].to_f + r["width"].to_f  / 2.0                      # centre, from left
+    cy = r["y"].to_f + r["height"].to_f / 2.0                      # centre, from bottom
+    fx = (cx * 100.0).clamp(0.0, 100.0).round(1)
+    fy = ((1.0 - cy) * 100.0).clamp(0.0, 100.0).round(1)          # flip to top-down
+    focal[file] = "#{fx}% #{fy}%"
+  end
+  focal
+rescue Errno::ENOENT
+  warn "auge not found on PATH; using centre crops (install auge for smart cropping)."
+  {}
+end
+
 def build_html(photos)
+  focal = focal_positions(photos)
   cells = photos.map do |r|
-    %(<img src="#{file_url(src_to_abs(r["src"]))}" alt="">)
+    abs = src_to_abs(r["src"])
+    pos = focal[abs] || CENTRE_FOCAL
+    %(<img src="#{file_url(abs)}" style="object-position: #{pos}" alt="">)
   end.join("\n      ")
 
   logo_url = file_url(LOGO)
@@ -196,7 +241,10 @@ def build_html(photos)
         grid-template-columns: repeat(#{GRID}, 1fr);
         grid-template-rows: repeat(#{GRID}, 1fr);
       }
-      .grid img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      /* Every cell is a square (1080/5 = 216px); cover crops without distortion, and the
+         per-image object-position (set inline from auge saliency) centres that square crop
+         on the most interesting part of each photo. */
+      .grid img { width: 100%; height: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 50%; display: block; }
 
       /* Darken for headline legibility: heavier in the centre + a vignette at the edges,
          while the corners stay light enough to read as photos. */
