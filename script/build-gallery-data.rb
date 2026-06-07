@@ -485,6 +485,35 @@ def interleave_recent(list)
   }.sort_by { |pos, _| pos }.map { |_, e| e }
 end
 
+# The Recent section opens with a deliberate one-two: a strong comedian frame, then a
+# strong audience reaction. The page leads with a face on stage and the room loving it
+# before the mosaic mixes. We pick the BEST of each (featured first, then the quality
+# signals we already store), pin them to slots 1 and 2, and interleave everything else.
+# (_score is gone by reorder time, so we rank on the persisted fields.)
+def best_performer(list)
+  list.select { |e| e["type"] == "performer" }
+      .min_by { |e| [e["featured"] ? 0 : 1, -e["aesthetic"].to_f, e["src"]] }
+end
+
+# "A good one": prefer a featured audience shot, then a laughing room, then more faces
+# (a fuller crowd), then aesthetics — the same things headline_score rewards.
+def best_audience(list)
+  list.select { |e| e["type"] == "audience" }
+      .min_by do |e|
+        [e["featured"] ? 0 : 1,
+         e.dig("seo", "laughing") ? 0 : 1,
+         -(e["faces"] || 0).to_i,
+         -e["aesthetic"].to_f,
+         e["src"]]
+      end
+end
+
+def order_recent(list)
+  leads = [best_performer(list), best_audience(list)].compact
+  rest  = list.reject { |e| leads.include?(e) }
+  leads + interleave_recent(rest)
+end
+
 # --- gallery files + persisted data -------------------------------------------
 def gallery_files
   Dir.children(GALLERY_DIR)
@@ -667,12 +696,12 @@ def cmd_build(rebuild:, ping:, git:, quiet:)
   assign_featured!(entries)
   entries.each { |e| e.delete("_score") }
 
-  # Recent (current year) first as a type-mixed block; older years newest-first and
-  # chronological within each section.
+  # Recent (current year) first: a comedian then a good audience shot to open, then a
+  # type-mixed block. Older years stay newest-first and chronological within each section.
   recent = entries.select { |e| e["era"] == "recent" }
   older  = entries.reject { |e| e["era"] == "recent" }
   older.sort_by! { |e| [e["date"], e["src"]] }.reverse!
-  entries.replace(interleave_recent(recent) + older)
+  entries.replace(order_recent(recent) + older)
   write_entries(entries)
 
   feat = entries.count { |e| e["featured"] }
