@@ -15,4 +15,4 @@ Every night someone's got a camera out. This is the room: comedians mid-bit, the
 
 {% include gallery.html gallery_path=page.gallery_path %}
 
-Photography thanks to [Tim Hughes](https://www.instagram.com/timhughesphotos/), [Joël Daniel](https://www.instagram.com/theurb4ncaveman/), [Carlota](https://instagram.com/marmota_carlota) and [Denis Cobarrubias](https://instagram.com/dennis.cobarrubias)
+Photography thanks to [Tim Hughes](https://www.instagram.com/timhughesphotos/), [Joël Daniel](https://www.instagram.com/theurb4ncaveman/), [Carlota](https://instagram.com/marmota_carlota), [Denis Cobarrubias](https://instagram.com/dennis.cobarrubias) and [Berry](https://www.instagram.com/photograberry_/)
