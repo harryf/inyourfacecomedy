@@ -638,17 +638,6 @@
   comedian: ben.fcks
   alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up in Zürich (2025)
   featured: false
-- src: "/assets/img/gallery/IMG_2953 2_20251218.jpg"
-  date: '2025-12-18'
-  year: 2025
-  era: '2025'
-  era_label: '2025'
-  type: performer
-  faces: 1
-  humans: 1
-  aesthetic: 0.366
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
-  featured: false
 - src: "/assets/img/gallery/IMG_2948_20251218.jpg"
   date: '2025-12-18'
   year: 2025
@@ -660,17 +649,6 @@
   aesthetic: 0.361
   comedian: ben.fcks
   alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up in Zürich (2025)
-  featured: false
-- src: "/assets/img/gallery/IMG_2948 2_20251218.jpg"
-  date: '2025-12-18'
-  year: 2025
-  era: '2025'
-  era_label: '2025'
-  type: performer
-  faces: 1
-  humans: 2
-  aesthetic: 0.361
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.31 (1).jpeg"
   date: '2025-12-17'
@@ -742,17 +720,6 @@
   aesthetic: 0.349
   comedian: woocash
   alt: IN YOUR FACE Comedy, Woocash performing stand-up in Zürich (2025)
-  featured: false
-- src: "/assets/img/gallery/IMG_2919 Large.jpeg"
-  date: '2025-12-16'
-  year: 2025
-  era: '2025'
-  era_label: '2025'
-  type: performer
-  faces: 1
-  humans: 1
-  aesthetic: 0.364
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_2854_20251210.jpg"
   date: '2025-12-10'
