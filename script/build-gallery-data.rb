@@ -1,33 +1,43 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# build-gallery-data.rb — generate _data/gallery.yml for the /moments/ timeline.
+# build-gallery-data.rb — manage the /moments/ gallery and its metadata.
 #
-# For every image in assets/img/gallery/ this computes, once, the metadata the
-# gallery template needs to feel like a timeline rather than a random wall:
+# Two commands:
 #
-#   * date     — when the image first entered git history (the "moment" it
-#                appeared). Falls back to file mtime for anything not yet
-#                committed. EXIF on these files is just the resize date, so git
-#                is the honest signal — see CLAUDE.md, "look in Git history".
-#   * faces /
-#     humans   — Apple Vision counts (via `auge`). Many faces => the audience
-#                reacting; one or two => a performer on stage. Harry's heuristic:
-#                "more than three faces, probably the audience reacting" — those
-#                are the photos that sell the experience, so we surface them.
-#   * type     — audience | performers | performer | moment
-#   * featured — the shots worth showing large (audience reactions + strong
-#                single-performer frames). Drives the 2x2 mosaic tiles.
-#   * alt      — SEO alt text, always anchored on "IN YOUR FACE Comedy" + Zürich
-#                + the year, so every image carries a distinct, honest caption.
+#   build            Incrementally scan assets/img/gallery/, analyse any NEW images
+#                    with Apple Vision (auge), drop entries whose files are gone,
+#                    and rewrite _data/gallery.yml (newest-first timeline). Already
+#                    analysed images are reused as-is (auge is not re-run), and any
+#                    comedian slug you've tagged is preserved. Pings IndexNow for
+#                    /moments/ (and affected comedian pages) when the data changes.
 #
-# auge is Apple Vision: macOS only. So this runs locally and commits the YAML.
-# The Jekyll build (Linux CI / Netlify) only ever reads the committed _data file.
-# Same division of labour as sync-comedians.rb.
+#   tag              Walk the performer images that don't yet have a comedian slug,
+#                    open each in Preview, and prompt for the comedian's slug
+#                    (validated against _comedians/). The slug is saved to
+#                    _data/gallery.yml; the comedian's profile page then shows that
+#                    photo (see _layouts/comedian.liquid). Pings IndexNow for
+#                    /moments/ and each tagged comedian's page.
+#
+# Per-image metadata:
+#   date     — first git-add of the file (the honest "when it appeared" signal;
+#              EXIF on these is just the resize date). See CLAUDE.md.
+#   type     — performer | audience | moment. Led by what someone is *doing*:
+#              a microphone / performance / singer label or a standing body-pose
+#              => performer; people without a performer cue => audience; nobody
+#              => moment. Face count alone misreads seated pairs as "performers".
+#   featured — the ~22% shown large (2x2) in the mosaic: audience reactions plus
+#              the strongest comedian frames.
+#   alt      — SEO alt text, anchored on IN YOUR FACE Comedy + Zürich + the year.
+#   comedian — (optional) a comedian slug, set by `tag`.
+#
+# auge is Apple Vision: macOS only. This runs locally and commits the YAML; the
+# Jekyll build (Linux CI / Netlify) only ever reads it. Same split as
+# sync-comedians.rb, whose IndexNow helper this mirrors.
 #
 # Usage:
-#   ruby script/build-gallery-data.rb           # rebuild _data/gallery.yml
-#   ruby script/build-gallery-data.rb --quiet    # no per-file logging
+#   ruby script/build-gallery-data.rb [build] [--rebuild] [--no-ping] [--quiet]
+#   ruby script/build-gallery-data.rb tag [--all] [--no-open] [--no-ping]
 
 Encoding.default_external = Encoding::UTF_8 # cron/US-ASCII guard (Zürich, ü)
 
@@ -37,26 +47,30 @@ require "date"
 require "open3"
 require "time"
 require "set"
+require "net/http"
+require "uri"
 
-REPO_ROOT    = File.expand_path("..", __dir__)
-GALLERY_DIR  = File.join(REPO_ROOT, "assets", "img", "gallery")
-WEB_PREFIX   = "/assets/img/gallery"
-OUT_FILE     = File.join(REPO_ROOT, "_data", "gallery.yml")
-IMAGE_EXTS   = %w[.jpg .jpeg .png .webp .gif].freeze
-RECENT_DAYS  = 120 # "the last few months" — the rolling "Recent" era
+REPO_ROOT     = File.expand_path("..", __dir__)
+GALLERY_DIR   = File.join(REPO_ROOT, "assets", "img", "gallery")
+COMEDIANS_DIR = File.join(REPO_ROOT, "_comedians")
+WEB_PREFIX    = "/assets/img/gallery"
+OUT_FILE      = File.join(REPO_ROOT, "_data", "gallery.yml")
+IMAGE_EXTS    = %w[.jpg .jpeg .png .webp .gif].freeze
+RECENT_DAYS   = 120 # "the last few months" — the rolling "Recent" era
 
-QUIET = ARGV.include?("--quiet")
-def log(msg) = QUIET ? nil : warn(msg)
+# IndexNow — push-notify Bing/Yandex/Seznam/Naver (not Google) when a page
+# changes. Mirrors sync-comedians.rb; the key file lives at the site root.
+SITE_URL          = "https://inyourfacecomedy.ch"
+INDEXNOW_KEY      = "4b04fa2d03884c6794d4ece40fb41a29"
+INDEXNOW_ENDPOINT = URI("https://api.indexnow.org/indexnow")
 
 # --- date: when did this image first appear in git history? -------------------
 def git_added_date(abs_path)
   rel = abs_path.sub("#{REPO_ROOT}/", "")
-  # Oldest "Added" commit touching the file = the moment it entered the repo.
   out, _ = Open3.capture2("git", "-C", REPO_ROOT, "log", "--diff-filter=A",
                           "--format=%aI", "--", rel)
   iso = out.lines.map(&:strip).reject(&:empty?).last
-  # Fallback: any commit touching it (renamed/odd-history files).
-  if iso.nil?
+  if iso.nil? # renamed / odd-history files
     out, _ = Open3.capture2("git", "-C", REPO_ROOT, "log", "--format=%aI", "--", rel)
     iso = out.lines.map(&:strip).reject(&:empty?).last
   end
@@ -133,30 +147,30 @@ def classify_type(m)
   end
 end
 
-# Within its category, how much this frame deserves to headline. Audience shots
-# rank by the number of laughing faces (Harry's metric), tie-broken on aesthetics;
-# performer and "moment" frames rank on the Vision aesthetics score. Utility frames
-# (screenshots, flyers) are floored out entirely.
+# How much a frame deserves to headline. Audience shots rank by laughing faces,
+# tie-broken on aesthetics; performer/moment frames rank on the Vision aesthetics
+# score. Utility frames (screenshots, flyers) are floored out. The reused-entry
+# path (build, no re-analysis) recreates this from stored fields — utility images
+# never survive in a curated gallery, so the missing utility flag is moot.
 def headline_score(type, m)
   return -999.0 if m[:utility]
   type == "audience" ? (m[:faces] + m[:aesthetic] * 0.1) : m[:aesthetic]
 end
 
-# Featured tiles render large (2x2) in the mosaic. We want a *mix* — the audience
-# reactions that sell the room AND the best comedian frames — so we feature each
-# pool separately rather than letting one type dominate one global ranking. The
-# split is biased toward reactions but keeps comedians well represented, and the
-# whole featured set stays near FEATURED_FRACTION of the wall.
+def score_from(type, faces, aesthetic)
+  type == "audience" ? (faces + aesthetic * 0.1) : aesthetic
+end
+
+# Featured tiles render large (2x2). We want a mix — the audience reactions that
+# sell the room AND the best comedian frames — so we feature each pool separately
+# rather than letting one type dominate one global ranking.
 def assign_featured!(entries)
   live = entries.reject { |e| e["_score"] <= -900 }
   target = (entries.size * FEATURED_FRACTION).round
 
-  reactions = live.select { |e| e["type"] == "audience" }
-                  .sort_by { |e| -e["_score"] }
-  performers = live.select { |e| e["type"] == "performer" }
-                   .sort_by { |e| -e["_score"] }
-  moments = live.select { |e| e["type"] == "moment" }
-                .sort_by { |e| -e["_score"] }
+  reactions  = live.select { |e| e["type"] == "audience" }.sort_by { |e| -e["_score"] }
+  performers = live.select { |e| e["type"] == "performer" }.sort_by { |e| -e["_score"] }
+  moments    = live.select { |e| e["type"] == "moment" }.sort_by { |e| -e["_score"] }
 
   featured = (reactions.first((target * 0.55).round) +
               performers.first((target * 0.40).round) +
@@ -187,59 +201,212 @@ def era_label(era)
   era == "recent" ? "Recent" : era
 end
 
-# --- main ---------------------------------------------------------------------
-today = Date.today
-files = Dir.children(GALLERY_DIR)
-           .reject { |f| f.start_with?(".") }
-           .select { |f| IMAGE_EXTS.include?(File.extname(f).downcase) }
-           .sort
-
-log "Scanning #{files.size} gallery images with auge…"
-
-entries = files.map.with_index do |name, i|
-  abs  = File.join(GALLERY_DIR, name)
-  date = git_added_date(abs)
-  m    = analyze(abs)
-  type = classify_type(m)
-  era  = era_for(date, today)
-  log format("  [%3d/%d] %-32s %s  %-10s faces=%d hum=%d aes=%.2f",
-             i + 1, files.size, name, date, type, m[:faces], m[:humans],
-             m[:aesthetic]) unless QUIET
-
-  {
-    "src"      => "#{WEB_PREFIX}/#{name}",
-    "date"     => date.iso8601,
-    "year"     => date.year,
-    "era"      => era,
-    "era_label" => era_label(era),
-    "type"     => type,
-    "faces"    => m[:faces],
-    "humans"   => m[:humans],
-    "aesthetic" => m[:aesthetic].round(3),
-    "alt"      => alt_text(type, date.year, m),
-    "_score"   => headline_score(type, m)
-  }
+# --- gallery files + persisted data -------------------------------------------
+def gallery_files
+  Dir.children(GALLERY_DIR)
+     .reject { |f| f.start_with?(".") }
+     .select { |f| IMAGE_EXTS.include?(File.extname(f).downcase) }
+     .sort
 end
 
-assign_featured!(entries)
-entries.each { |e| e.delete("_score") }
+def load_entries
+  return [] unless File.exist?(OUT_FILE)
+  YAML.load_file(OUT_FILE) || []
+rescue StandardError
+  []
+end
 
-# Newest first; stable tiebreak so the file (and the page) is deterministic.
-entries.sort_by! { |e| [e["date"], e["src"]] }
-entries.reverse!
+# Known comedian slugs, from the Grist-generated _comedians/*.md front matter.
+def known_slugs
+  Dir.glob(File.join(COMEDIANS_DIR, "*.md")).filter_map do |f|
+    File.foreach(f, encoding: "UTF-8") { |line| break Regexp.last_match(1) if line =~ /^slug:\s*"?([^"\n]+)"?/ }
+  end.to_set
+end
 
-header = <<~YAML
+# Canonical key order + the rule that a blank comedian slug is simply omitted.
+def canon(e)
+  h = {}
+  %w[src date year era era_label type faces humans aesthetic].each { |k| h[k] = e[k] }
+  h["utility"] = true if e["utility"] == true # only persisted when a screenshot/flyer
+  c = e["comedian"].to_s.strip
+  h["comedian"] = c unless c.empty?
+  h["alt"]      = e["alt"]
+  h["featured"] = e["featured"]
+  h
+end
+
+HEADER = <<~YAML
   # _data/gallery.yml — GENERATED by script/build-gallery-data.rb. Do not hand-edit.
-  # Drives the /moments/ timeline gallery (newest first). Regenerate on macOS after
-  # adding photos to assets/img/gallery/:  ruby script/build-gallery-data.rb
+  # Drives the /moments/ timeline gallery (newest first). On macOS, after adding or
+  # removing photos in assets/img/gallery/:  ruby script/build-gallery-data.rb
+  # Tag comedians into their photos:          ruby script/build-gallery-data.rb tag
   # auge (Apple Vision) is macOS-only; CI/Netlify only read this committed file.
 YAML
 
-File.write(OUT_FILE, header + entries.to_yaml.sub(/\A---\n/, ""))
+def write_entries(entries)
+  body = entries.map { |e| canon(e) }.to_yaml.sub(/\A---\n/, "")
+  File.write(OUT_FILE, HEADER + body)
+end
 
-feat = entries.count { |e| e["featured"] }
-byt  = entries.group_by { |e| e["type"] }.transform_values(&:size)
-log ""
-log "Wrote #{entries.size} entries → #{OUT_FILE.sub("#{REPO_ROOT}/", '')}"
-log "Featured: #{feat}/#{entries.size}   Types: #{byt}"
-log "Eras: #{entries.group_by { |e| e['era'] }.transform_values(&:size)}"
+def comedian_url(slug) = "#{SITE_URL}/comedians/#{slug}/"
+
+# Submit URLs to IndexNow. Best-effort: never raises, never aborts the caller.
+def submit_indexnow(urls)
+  urls = urls.compact.uniq
+  return if urls.empty?
+  payload = {
+    "host" => URI(SITE_URL).host, "key" => INDEXNOW_KEY,
+    "keyLocation" => "#{SITE_URL}/#{INDEXNOW_KEY}.txt", "urlList" => urls
+  }
+  http = Net::HTTP.new(INDEXNOW_ENDPOINT.host, INDEXNOW_ENDPOINT.port)
+  http.use_ssl = true
+  http.read_timeout = 30
+  req = Net::HTTP::Post.new(INDEXNOW_ENDPOINT.request_uri)
+  req["Content-Type"] = "application/json; charset=utf-8"
+  req.body = JSON.generate(payload)
+  code = http.request(req).code.to_i
+  if [200, 202].include?(code)
+    puts "indexnow: submitted #{urls.size} url(s) → HTTP #{code}"
+  else
+    warn "  ! indexnow non-2xx (HTTP #{code}) — ignored (non-fatal)"
+  end
+rescue => e
+  warn "  ! indexnow ping failed (#{e.message}) — ignored (non-fatal)"
+end
+
+# =============================================================================
+# build — incremental analyse + rewrite + ping
+# =============================================================================
+def cmd_build(rebuild:, ping:, quiet:)
+  today    = Date.today
+  existing = load_entries.each_with_object({}) { |e, h| h[e["src"]] = e }
+  files    = gallery_files
+  present  = files.map { |n| "#{WEB_PREFIX}/#{n}" }
+  before   = File.exist?(OUT_FILE) ? File.read(OUT_FILE) : ""
+
+  warn "Scanning #{files.size} gallery images (#{existing.size} already known)…" unless quiet
+  added = []
+  entries = files.map do |name|
+    src  = "#{WEB_PREFIX}/#{name}"
+    abs  = File.join(GALLERY_DIR, name)
+    date = git_added_date(abs)
+    prev = existing[src]
+
+    if prev && !rebuild
+      type, faces, humans = prev["type"], prev["faces"], prev["humans"]
+      aes, alt, comedian  = prev["aesthetic"], prev["alt"], prev["comedian"]
+      util  = prev["utility"] == true
+      score = util ? -999.0 : score_from(type, faces, aes)
+    else
+      m = analyze(abs)
+      type, faces, humans = classify_type(m), m[:faces], m[:humans]
+      aes  = m[:aesthetic].round(3)
+      util = m[:utility]
+      alt  = alt_text(type, date.year, m)
+      comedian = prev && prev["comedian"] # keep any slug even on a forced rebuild
+      score = headline_score(type, m)
+      added << src unless prev
+      warn format("  + analysed %-34s %s  %-9s faces=%d", name, date, type, faces) unless quiet
+    end
+
+    era = era_for(date, today)
+    { "src" => src, "date" => date.iso8601, "year" => date.year,
+      "era" => era, "era_label" => era_label(era), "type" => type,
+      "faces" => faces, "humans" => humans, "aesthetic" => aes,
+      "utility" => util, "comedian" => comedian, "alt" => alt, "_score" => score }
+  end
+
+  removed = existing.values.reject { |e| present.include?(e["src"]) }
+
+  assign_featured!(entries)
+  entries.each { |e| e.delete("_score") }
+  entries.sort_by! { |e| [e["date"], e["src"]] }.reverse!
+  write_entries(entries)
+
+  feat = entries.count { |e| e["featured"] }
+  warn "" unless quiet
+  warn "Wrote #{entries.size} entries → _data/gallery.yml" unless quiet
+  warn "  +#{added.size} new, -#{removed.size} removed, #{feat} featured" unless quiet
+  warn "  types: #{entries.group_by { |e| e['type'] }.transform_values(&:size)}" unless quiet
+
+  changed = File.read(OUT_FILE) != before
+  if ping && changed
+    # Comedian pages whose photo set changed = those tagged on removed images.
+    affected = removed.map { |e| e["comedian"] }.compact.reject { |s| s.empty? || s == "none" }.uniq
+    submit_indexnow(["#{SITE_URL}/moments/"] + affected.map { |s| comedian_url(s) })
+  elsif ping
+    puts "indexnow: no change, nothing to submit"
+  end
+end
+
+# =============================================================================
+# tag — interactive comedian-slug assignment for performer images
+# =============================================================================
+def cmd_tag(all:, open_preview:, ping:)
+  entries = load_entries
+  abort "No _data/gallery.yml yet — run `build` first." if entries.empty?
+  slugs = known_slugs
+
+  queue = entries.select do |e|
+    e["type"] == "performer" && (all || e["comedian"].to_s.strip.empty?)
+  end
+  total_perf = entries.count { |e| e["type"] == "performer" }
+  if queue.empty?
+    puts "Nothing to tag — every performer image already has a slug (#{total_perf} performers)."
+    return
+  end
+
+  puts "#{queue.size} performer image(s) to tag (of #{total_perf}). For each, type the"
+  puts "comedian's slug, or:  [enter]=skip   n=not a comedian   l=list slugs   q=save & quit"
+  touched = Set.new
+  quit = false
+
+  queue.each_with_index do |e, i|
+    break if quit
+    abs = File.join(REPO_ROOT, e["src"].sub(%r{^/}, ""))
+    system("open", abs) if open_preview # preview in Preview.app (non-blocking)
+
+    loop do
+      print "\n[#{i + 1}/#{queue.size}] #{File.basename(e['src'])} (#{e['date']})  slug> "
+      input = $stdin.gets
+      if input.nil? then quit = true; break end # EOF
+      input = input.strip
+      case input
+      when ""  then break                                   # skip, ask again next run
+      when "q" then quit = true; break
+      when "n" then e["comedian"] = "none"; break           # mark, stop asking
+      when "l" then puts "  " + slugs.to_a.sort.join(", "); next
+      else
+        if slugs.include?(input)
+          e["comedian"] = input; touched << input; break
+        else
+          print "  '#{input}' isn't a known comedian slug. Use it anyway? [y/N] "
+          ans = $stdin.gets&.strip&.downcase
+          if ans == "y" then e["comedian"] = input; touched << input; break end
+          # otherwise re-prompt
+        end
+      end
+    end
+  end
+
+  write_entries(entries)
+  puts "\nSaved. Tagged #{touched.size} comedian(s): #{touched.to_a.sort.join(', ')}" unless touched.empty?
+
+  if ping && touched.any?
+    submit_indexnow(["#{SITE_URL}/moments/"] + touched.map { |s| comedian_url(s) })
+  end
+end
+
+# --- dispatch -----------------------------------------------------------------
+command = ARGV.first && !ARGV.first.start_with?("-") ? ARGV.shift : "build"
+quiet   = ARGV.include?("--quiet")
+ping    = !ARGV.include?("--no-ping")
+
+case command
+when "build"
+  cmd_build(rebuild: ARGV.include?("--rebuild"), ping: ping, quiet: quiet)
+when "tag"
+  cmd_tag(all: ARGV.include?("--all"), open_preview: !ARGV.include?("--no-open"), ping: ping)
+else
+  abort "Unknown command '#{command}'. Use: build [--rebuild] [--no-ping] | tag [--all] [--no-open] [--no-ping]"
+end
