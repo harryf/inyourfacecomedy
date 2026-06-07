@@ -11,7 +11,7 @@ feature-img: "assets/img/pages/gallery.png"
 thumbnail: "assets/img/thumbs/inyourface_thumb.png"
 ---
 
-Every night someone's got a camera out. This is the room — the comedians mid-bit, the audience losing it, the small chaos between sets — newest shows first, scrolling back to where it all started in September 2021.
+Every night someone's got a camera out. This is the room: comedians mid-bit, the audience losing it, the small chaos between sets. Newest shows first, scrolling back to where it all started in September 2021.
 
 {% include gallery.html gallery_path=page.gallery_path %}
 

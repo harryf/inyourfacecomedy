@@ -150,7 +150,7 @@ SCENE = {
 def alt_text(type, year, m)
   scene = SCENE.fetch(type)
   scene = "a live music and comedy moment" if type == "moment" && (m[:labels] & %w[music concert]).any?
-  "IN YOUR FACE Comedy — #{scene} in Zürich (#{year})"
+  "IN YOUR FACE Comedy, #{scene} in Zürich (#{year})"
 end
 
 # --- era bucketing (timeline sections) ----------------------------------------
