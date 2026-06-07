@@ -362,12 +362,13 @@ def interleave_recent(list)
   rng = Random.new(RECENT_SHUFFLE_SEED)
   buckets = list.group_by { |e| e["type"] }
   buckets.each_value { |v| v.sort_by! { |e| e["src"] }; v.shuffle!(random: rng) }
-  out = []
-  until buckets.values.all?(&:empty?)
-    type, = buckets.reject { |_, v| v.empty? }.max_by { |_, v| v.size + rng.rand }
-    out << buckets[type].shift
-  end
-  out
+  # Give each frame a position in [0,1) spread evenly *within its type*, then order the
+  # whole set by that position. Even per-type spacing makes the dominant type land at
+  # regular intervals (no opening block); small jitter avoids a rigid A-B-C pattern.
+  buckets.flat_map { |_type, items|
+    n = items.size
+    items.each_with_index.map { |e, i| [(i + 0.5) / n + (rng.rand - 0.5) / (2.0 * n), e] }
+  }.sort_by { |pos, _| pos }.map { |_, e| e }
 end
 
 # --- gallery files + persisted data -------------------------------------------
@@ -485,15 +486,19 @@ def cmd_build(rebuild:, ping:, git:, quiet:)
   entries = files.map do |name|
     src  = "#{WEB_PREFIX}/#{name}"
     abs  = File.join(GALLERY_DIR, name)
-    date = capture_or_git_date(abs, name, overrides)
     prev = existing[src]
 
     if prev && !rebuild
+      # Keep the stored date so rebuilds are idempotent (git-add date drifts once a file
+      # is committed; recomputing it would re-date the wall every run). A manual override
+      # still wins, so dates can be corrected without a full --rebuild.
+      date = overrides[name] || (Date.iso8601(prev["date"]) rescue capture_or_git_date(abs, name, overrides))
       type, faces, humans = prev["type"], prev["faces"], prev["humans"]
       aes, alt, comedian  = prev["aesthetic"], prev["alt"], prev["comedian"]
       util  = prev["utility"] == true
       score = util ? -999.0 : score_from(type, faces, aes)
     else
+      date = capture_or_git_date(abs, name, overrides)
       m = analyze(abs)
       type, faces, humans = classify_type(m), m[:faces], m[:humans]
       aes  = m[:aesthetic].round(3)
