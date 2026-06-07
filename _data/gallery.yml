@@ -805,19 +805,6 @@
   comedian: mateo-gudenrath
   alt: IN YOUR FACE Comedy, Mateo Gudenrath performing stand-up in Zürich (2025)
   featured: false
-- src: "/assets/img/gallery/IMG_2588_20251120.jpg"
-  date: '2025-11-20'
-  year: 2025
-  era: '2025'
-  era_label: '2025'
-  type: moment
-  faces: 0
-  humans: 0
-  aesthetic: 0.231
-  utility: true
-  alt: IN YOUR FACE Comedy, a moment from an English stand-up comedy night in Zürich
-    (2025)
-  featured: false
 - src: "/assets/img/gallery/IMG_2414_20251031.jpg"
   date: '2025-10-31'
   year: 2025
@@ -841,19 +828,6 @@
   aesthetic: 0.304
   alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
     Zürich (2025)
-  featured: false
-- src: "/assets/img/gallery/IMG_2386.PNG"
-  date: '2025-10-28'
-  year: 2025
-  era: '2025'
-  era_label: '2025'
-  type: moment
-  faces: 0
-  humans: 0
-  aesthetic: 0.0
-  utility: true
-  alt: IN YOUR FACE Comedy, a moment from an English stand-up comedy night in Zürich
-    (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.55.02 (2).jpeg"
   date: '2025-10-22'
