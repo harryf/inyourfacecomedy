@@ -89,7 +89,9 @@ collections:
 # BUILD SETTINGS
 sass:
   style: compressed
-exclude: [".jekyll-cache", ".jekyll-metadata", ".idea", "vendor/*", "assets/node_modules/*", "script/*", "node_modules", "package.json", "bunfig.toml", "bun.lock", "bun.lockb", "assets/js/__tests__"]
+exclude: [".jekyll-cache", ".jekyll-metadata", ".idea", "vendor/*", "assets/node_modules/*", "script/*", "node_modules", "package.json", "bunfig.toml", "bun.lock", "bun.lockb", "assets/js/__tests__",
+  # Internal dev docs — keep them out of the published site (CNAME stays; it sets the domain).
+  "README.md", "CLAUDE.md", "COMEDIAN_SEO.md", "SHOW_PROMO_LINKS.md", "CALENDAR_STRUCTURE.md", "WRITING_GUIDE.md", "FLYER_DESIGN.md"]
 
 plugins:
   - jekyll-paginate
