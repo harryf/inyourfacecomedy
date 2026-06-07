@@ -60,6 +60,10 @@ GALLERY_DIR   = File.join(REPO_ROOT, "assets", "img", "gallery")
 COMEDIANS_DIR = File.join(REPO_ROOT, "_comedians")
 WEB_PREFIX    = "/assets/img/gallery"
 OUT_FILE      = File.join(REPO_ROOT, "_data", "gallery.yml")
+# Manual date overrides: basename => "YYYY-MM-DD". For photos whose metadata lies —
+# WhatsApp shots carry only the receive day, EXIF stripped — a hand-set date here wins
+# over EXIF/filename/git-add. Hand-maintained; survives rebuilds; preserves tags.
+OVERRIDE_FILE = File.join(REPO_ROOT, "_data", "gallery_date_overrides.yml")
 IMAGE_EXTS    = %w[.jpg .jpeg .png .webp .gif].freeze
 RECENT_DAYS   = 120 # "the last few months" — the rolling "Recent" era
 
@@ -118,12 +122,27 @@ rescue StandardError
   nil
 end
 
-# The date we file an image under. Prefer a real capture date (filename stamp, then
-# embedded EXIF) but ONLY when it is sane (>= site epoch, not in the future) AND
-# earlier than the git-add date. That last guard is the whole game: a true capture
-# precedes the commit, while a resize date lands at or after it — so the existing
-# wall (no embedded date, no dated names) falls straight through to git-add.
-def capture_or_git_date(abs_path, name)
+# A hand-maintained basename => Date map for photos whose automatic date is wrong.
+def load_date_overrides
+  return {} unless File.exist?(OVERRIDE_FILE)
+  (YAML.load_file(OVERRIDE_FILE) || {}).each_with_object({}) do |(k, v), h|
+    h[k] = (v.is_a?(Date) ? v : Date.iso8601(v.to_s))
+  rescue ArgumentError
+    next # skip a malformed entry rather than abort the build
+  end
+rescue StandardError
+  {}
+end
+
+# The date we file an image under. A manual override wins outright (human authority).
+# Otherwise prefer a real capture date (filename stamp, then embedded EXIF) but ONLY
+# when it is sane (>= site epoch, not in the future) AND earlier than the git-add date.
+# That last guard is the whole game: a true capture precedes the commit, while a resize
+# date lands at or after it — so the existing wall (no embedded date, no dated names)
+# falls straight through to git-add.
+def capture_or_git_date(abs_path, name, overrides = {})
+  ov = overrides[name]
+  return ov if ov && ov <= Date.today # never file a photo in the future
   git_date = git_added_date(abs_path)
   cap = filename_date(name) || exif_capture_date(abs_path)
   return git_date unless cap && cap >= SITE_EPOCH && cap <= Date.today && cap < git_date
@@ -385,9 +404,10 @@ end
 # build — incremental analyse + rewrite + commit + ping
 # =============================================================================
 def cmd_build(rebuild:, ping:, git:, quiet:)
-  today    = Date.today
-  existing = load_entries.each_with_object({}) { |e, h| h[e["src"]] = e }
-  files    = gallery_files
+  today     = Date.today
+  overrides = load_date_overrides
+  existing  = load_entries.each_with_object({}) { |e, h| h[e["src"]] = e }
+  files     = gallery_files
   present  = files.map { |n| "#{WEB_PREFIX}/#{n}" }
   before   = File.exist?(OUT_FILE) ? File.read(OUT_FILE) : ""
 
@@ -396,7 +416,7 @@ def cmd_build(rebuild:, ping:, git:, quiet:)
   entries = files.map do |name|
     src  = "#{WEB_PREFIX}/#{name}"
     abs  = File.join(GALLERY_DIR, name)
-    date = capture_or_git_date(abs, name)
+    date = capture_or_git_date(abs, name, overrides)
     prev = existing[src]
 
     if prev && !rebuild
