@@ -398,6 +398,47 @@ def cmd_tag(all:, open_preview:, ping:)
 end
 
 # --- dispatch -----------------------------------------------------------------
+USAGE = <<~TXT
+  build-gallery-data.rb — manage the /moments/ gallery and its metadata.
+
+  USAGE
+    ./script/build-gallery-data.rb [build] [options]
+    ./script/build-gallery-data.rb tag [options]
+
+  COMMANDS
+    build         (default) Incrementally scan assets/img/gallery/: analyse NEW
+                  images with Apple Vision (auge), drop deleted ones, reuse the rest
+                  (and any comedian slug), and rewrite _data/gallery.yml. Pings
+                  IndexNow for /moments/ (+ affected comedian pages) when data changes.
+    tag           Walk performer images with no comedian slug, open each in Preview,
+                  and prompt for the comedian's slug (validated against _comedians/).
+                  Saves it and pings IndexNow for /moments/ and the tagged pages.
+
+  OPTIONS
+    build:
+      --rebuild   Re-analyse every image (ignore cached entries); slugs are kept.
+      --no-ping   Don't submit to IndexNow.
+      --quiet     Suppress per-image logging.
+    tag:
+      --all       Include performers that already have a slug (re-tag them).
+      --no-open   Don't open Preview (scripted / headless tagging).
+      --no-ping   Don't submit to IndexNow.
+    -h, --help    Show this help.
+
+  EXAMPLES
+    ./script/build-gallery-data.rb                  # incremental rebuild + ping
+    ./script/build-gallery-data.rb build --rebuild  # full re-analysis
+    ./script/build-gallery-data.rb tag              # attribute comedian photos
+
+  auge (Apple Vision) is macOS-only; the committed _data/gallery.yml is what
+  CI/Netlify read. See CLAUDE.md § "The gallery is generated too".
+TXT
+
+if ARGV.include?("-h") || ARGV.include?("--help") || ARGV.first == "help"
+  puts USAGE
+  exit 0
+end
+
 command = ARGV.first && !ARGV.first.start_with?("-") ? ARGV.shift : "build"
 quiet   = ARGV.include?("--quiet")
 ping    = !ARGV.include?("--no-ping")
@@ -408,5 +449,6 @@ when "build"
 when "tag"
   cmd_tag(all: ARGV.include?("--all"), open_preview: !ARGV.include?("--no-open"), ping: ping)
 else
-  abort "Unknown command '#{command}'. Use: build [--rebuild] [--no-ping] | tag [--all] [--no-open] [--no-ping]"
+  warn "Unknown command '#{command}'.\n\n"
+  abort USAGE
 end
