@@ -105,6 +105,31 @@ layout: default
     </section>
   {%- endif -%}
 
+  {%- comment -%}
+    Photos of this comedian on stage, pulled from the /moments/ gallery. The link
+    lives in _data/gallery.yml (each image's `comedian:` slug, set by
+    `script/build-gallery-data.rb tag`), never in the Grist-generated
+    _comedians/*.md. Unique, on-topic imagery + alt text for an otherwise thin
+    profile, and another internal link into the gallery.
+  {%- endcomment -%}
+  {%- assign my_photos = site.data.gallery | where: "comedian", page.slug -%}
+  {%- if my_photos.size > 0 -%}
+    <section class="iyf-comedian-profile__photos" aria-label="Photos of {{ page.title }} on stage at IN YOUR FACE Comedy">
+      <h2 class="iyf-lineup-section__title">{{ page.title | split: ' ' | first }} on stage</h2>
+      <div class="iyf-moments__grid">
+        {%- for img in my_photos -%}
+          <figure class="iyf-moment">
+            <a href="{{ '/moments/' | relative_url }}">
+              <img src="{{ img.src | relative_url }}"
+                   alt="{{ page.title }} performing stand-up at IN YOUR FACE Comedy in Zürich"
+                   loading="lazy" decoding="async">
+            </a>
+          </figure>
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+
   <p class="iyf-comedian-profile__back">
     <a class="clear" href="{{ '/comedians/' | relative_url }}">&larr; All comedians</a>
   </p>
