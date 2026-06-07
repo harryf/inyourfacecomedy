@@ -5,23 +5,9 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-06-06T08:58:49+00:00'
-event_count: 48
+generated_at: '2026-06-07T05:59:54+00:00'
+event_count: 47
 events:
-- show: pulpnonfiction
-  name: Pulp Non-Fiction
-  title: Pulp Non-Fiction - Storytelling Open Mic Zürich
-  url: "/pulpnonfiction/"
-  date: '2026-06-06'
-  start: '2026-06-06T20:00:00+02:00'
-  end: '2026-06-06T22:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 0
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-7447274382630625777.html
-  eventfrog_name: Pulp Non-Fiction Storytelling Open Mic Zurich
 - show: downunder
   name: Down Under Comedy
   title: Down Under Comedy - English stand-up comedy with Chris Darwa and Friends
