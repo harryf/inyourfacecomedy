@@ -38,3 +38,7 @@ All but the spreadsheet are already in `.gitignore`. Stage files by name when yo
 Both keep their whole state in the link and run in the browser, no server. The `/comedians/` show-promo links and the `/lineup/` Lineup Maker share one query-string scheme (see `SHOW_PROMO_LINKS.md`; the scripts are `assets/js/comedian-lineup.js` and `assets/js/lineup-maker-2000.js`). Both are
 covered by `bun test` (happy-dom, in `assets/js/__tests__/`) — run `bun test` after touching them;
 the suite pins the anti-spam/security invariants and the URL-scheme reshape behavior. `/lineup/` is held out of search and the nav on purpose (`noindex`, `sitemap: false`).
+
+## Writing
+
+Visitor-facing copy (page text, intros, alt text, microcopy, anything a human reads on the site) follows the house style guide vendored at `WRITING_GUIDE.md`. Read it before writing copy a visitor will see. It catches the usual AI tells: filler words, significance inflation, Title Case headings, generic praise over specifics. The rule that slips through most is em dashes. Use a comma, colon, or parenthesis instead.
