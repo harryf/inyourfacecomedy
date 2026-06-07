@@ -23,32 +23,33 @@
   faces: 4
   humans: 1
   aesthetic: 0.668
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2026)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/nicholas_de_santo_IMG_1127.jpeg"
   date: '2026-05-25'
   year: 2026
   era: recent
   era_label: Recent
-  type: performer
+  type: audience
   faces: 1
   humans: 0
   aesthetic: -0.761
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2026)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/nicholas_de_santo_IMG_1100.jpeg"
   date: '2026-05-25'
   year: 2026
   era: recent
   era_label: Recent
-  type: performers
+  type: audience
   faces: 2
   humans: 0
   aesthetic: 0.7
-  alt: IN YOUR FACE Comedy, comedians on stage during a live English stand-up comedy
-    show in Zürich (2026)
-  featured: true
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2026)
+  featured: false
 - src: "/assets/img/gallery/nicholas_de_santo_IMG_1098.jpeg"
   date: '2026-05-25'
   year: 2026
@@ -70,8 +71,8 @@
   faces: 5
   humans: 1
   aesthetic: 0.457
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2026)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/nicholas_de_santo_IMG_1041.jpeg"
   date: '2026-05-25'
@@ -82,8 +83,8 @@
   faces: 3
   humans: 1
   aesthetic: 0.489
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2026)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/nicholas_de_santo_IMG_1040.jpeg"
   date: '2026-05-25'
@@ -94,8 +95,8 @@
   faces: 4
   humans: 2
   aesthetic: 0.448
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2026)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/nicholas_de_santo_IMG_1039.jpeg"
   date: '2026-05-25'
@@ -106,8 +107,8 @@
   faces: 3
   humans: 1
   aesthetic: 0.644
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2026)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/primepunch_9.png"
   date: '2024-04-24'
@@ -118,8 +119,8 @@
   faces: 8
   humans: 3
   aesthetic: 0.319
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2024)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/primepunch_16.png"
   date: '2024-04-24'
@@ -185,20 +186,20 @@
   faces: 6
   humans: 0
   aesthetic: 0.229
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2024)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/primepunch_10.png"
   date: '2024-04-24'
   year: 2024
   era: '2024'
   era_label: '2024'
-  type: moment
+  type: audience
   faces: 0
   humans: 1
   aesthetic: 0.286
-  alt: IN YOUR FACE Comedy, a moment from an English stand-up comedy night in Zürich
-    (2024)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/primepunch_8.png"
   date: '2024-03-12'
@@ -217,22 +218,24 @@
   year: 2024
   era: '2024'
   era_label: '2024'
-  type: performer
+  type: audience
   faces: 1
   humans: 1
   aesthetic: -0.27
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/primepunch_6.png"
   date: '2024-03-12'
   year: 2024
   era: '2024'
   era_label: '2024'
-  type: performer
+  type: audience
   faces: 1
   humans: 0
   aesthetic: -0.46
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/primepunch_5.png"
   date: '2024-03-12'
@@ -243,8 +246,8 @@
   faces: 3
   humans: 0
   aesthetic: -0.534
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2024)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/primepunch_4.png"
   date: '2024-03-12'
@@ -262,23 +265,24 @@
   year: 2024
   era: '2024'
   era_label: '2024'
-  type: performer
+  type: audience
   faces: 1
   humans: 0
   aesthetic: 0.577
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/primepunch_2.png"
   date: '2024-03-12'
   year: 2024
   era: '2024'
   era_label: '2024'
-  type: performers
+  type: audience
   faces: 2
   humans: 2
   aesthetic: 0.31
-  alt: IN YOUR FACE Comedy, comedians on stage during a live English stand-up comedy
-    show in Zürich (2024)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/primepunch_1.png"
   date: '2024-03-12'
@@ -297,11 +301,12 @@
   year: 2023
   era: '2023'
   era_label: '2023'
-  type: performer
+  type: audience
   faces: 1
   humans: 1
   aesthetic: -0.117
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/robins3.jpeg"
   date: '2023-10-25'
@@ -320,24 +325,23 @@
   year: 2023
   era: '2023'
   era_label: '2023'
-  type: moment
+  type: performer
   faces: 0
   humans: 1
   aesthetic: 0.295
-  alt: IN YOUR FACE Comedy, a moment from an English stand-up comedy night in Zürich
-    (2023)
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/robins1.jpeg"
   date: '2023-10-25'
   year: 2023
   era: '2023'
   era_label: '2023'
-  type: moment
+  type: audience
   faces: 0
   humans: 1
   aesthetic: 0.281
-  alt: IN YOUR FACE Comedy, a moment from an English stand-up comedy night in Zürich
-    (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/comedybrew_Negative0-25-25 Large.jpeg"
   date: '2023-09-14'
@@ -359,8 +363,8 @@
   faces: 7
   humans: 1
   aesthetic: 0.354
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/comedybrew_438A3437 Large.jpeg"
   date: '2023-09-14'
@@ -378,12 +382,11 @@
   year: 2023
   era: '2023'
   era_label: '2023'
-  type: performers
+  type: performer
   faces: 2
   humans: 1
   aesthetic: 0.37
-  alt: IN YOUR FACE Comedy, comedians on stage during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/comedybrew_438A3374.jpg"
   date: '2023-09-14'
@@ -405,8 +408,8 @@
   faces: 9
   humans: 4
   aesthetic: 0.376
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/comedybrew_438A3307.jpg"
   date: '2023-09-14'
@@ -417,8 +420,8 @@
   faces: 6
   humans: 2
   aesthetic: 0.348
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/comedybrew_438A3298.jpg"
   date: '2023-09-14'
@@ -429,43 +432,44 @@
   faces: 4
   humans: 0
   aesthetic: 0.427
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/comedybrew_438A3157 Large.jpeg"
   date: '2023-09-14'
   year: 2023
   era: '2023'
   era_label: '2023'
-  type: performers
+  type: audience
   faces: 2
   humans: 2
   aesthetic: 0.391
-  alt: IN YOUR FACE Comedy, comedians on stage during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/comedybrew_438A3060 Large.jpeg"
   date: '2023-09-14'
   year: 2023
   era: '2023'
   era_label: '2023'
-  type: performer
+  type: audience
   faces: 1
   humans: 0
   aesthetic: 0.351
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/comedybrew_IMG_2073 Large.jpeg"
   date: '2023-08-30'
   year: 2023
   era: '2023'
   era_label: '2023'
-  type: performers
+  type: audience
   faces: 2
   humans: 1
   aesthetic: 0.266
-  alt: IN YOUR FACE Comedy, comedians on stage during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/comedybrew_IMG_2070 Large.jpeg"
   date: '2023-08-30'
@@ -476,20 +480,20 @@
   faces: 4
   humans: 4
   aesthetic: 0.401
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/comedybrew_IMG_2048 Large.jpeg"
   date: '2023-08-30'
   year: 2023
   era: '2023'
   era_label: '2023'
-  type: moment
+  type: audience
   faces: 0
   humans: 0
   aesthetic: 0.139
-  alt: IN YOUR FACE Comedy, a moment from an English stand-up comedy night in Zürich
-    (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/comedybrew_IMG_2046 Large.jpeg"
   date: '2023-08-30'
@@ -511,8 +515,8 @@
   faces: 4
   humans: 3
   aesthetic: 0.272
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/comedybrew_435B9A72-1167-410B-ABFB-E9E7978D2081.JPG"
   date: '2023-08-30'
@@ -524,7 +528,7 @@
   humans: 0
   aesthetic: 0.658
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
-  featured: false
+  featured: true
 - src: "/assets/img/gallery/canape_0855.jpeg"
   date: '2023-05-27'
   year: 2023
@@ -536,7 +540,7 @@
   aesthetic: 0.407
   alt: IN YOUR FACE Comedy, a moment from an English stand-up comedy night in Zürich
     (2023)
-  featured: false
+  featured: true
 - src: "/assets/img/gallery/canape_0837.jpeg"
   date: '2023-05-27'
   year: 2023
@@ -577,13 +581,12 @@
   year: 2023
   era: '2023'
   era_label: '2023'
-  type: moment
+  type: performer
   faces: 0
   humans: 1
   aesthetic: 0.46
-  alt: IN YOUR FACE Comedy, a moment from an English stand-up comedy night in Zürich
-    (2023)
-  featured: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
+  featured: false
 - src: "/assets/img/gallery/canape_0713.jpeg"
   date: '2023-05-27'
   year: 2023
@@ -593,8 +596,8 @@
   faces: 4
   humans: 3
   aesthetic: 0.43
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0701.jpeg"
   date: '2023-05-27'
@@ -616,8 +619,8 @@
   faces: 3
   humans: 1
   aesthetic: 0.472
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0684.jpeg"
   date: '2023-05-27'
@@ -628,8 +631,8 @@
   faces: 4
   humans: 1
   aesthetic: 0.333
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0682.jpeg"
   date: '2023-05-27'
@@ -695,8 +698,8 @@
   faces: 4
   humans: 0
   aesthetic: 0.23
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0610.jpeg"
   date: '2023-05-27'
@@ -718,8 +721,8 @@
   faces: 7
   humans: 4
   aesthetic: 0.389
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/canape_0638.jpeg"
   date: '2023-05-15'
@@ -730,8 +733,8 @@
   faces: 5
   humans: 2
   aesthetic: 0.387
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0633.jpeg"
   date: '2023-05-15'
@@ -742,8 +745,8 @@
   faces: 7
   humans: 2
   aesthetic: 0.459
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/canape_0613.jpeg"
   date: '2023-05-15'
@@ -754,8 +757,8 @@
   faces: 5
   humans: 0
   aesthetic: 0.349
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_PXXX8895.jpg"
   date: '2023-05-03'
@@ -766,8 +769,8 @@
   faces: 7
   humans: 3
   aesthetic: 0.548
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/canape_PXXX8747.jpg"
   date: '2023-05-03'
@@ -778,8 +781,8 @@
   faces: 3
   humans: 0
   aesthetic: 0.533
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_PXXX8455.jpg"
   date: '2023-05-03'
@@ -790,8 +793,8 @@
   faces: 3
   humans: 1
   aesthetic: 0.662
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_PXXX8414.jpg"
   date: '2023-05-03'
@@ -802,32 +805,31 @@
   faces: 3
   humans: 2
   aesthetic: 0.579
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_PXXX8404.jpg"
   date: '2023-05-03'
   year: 2023
   era: '2023'
   era_label: '2023'
-  type: performers
+  type: performer
   faces: 2
   humans: 1
   aesthetic: 0.641
-  alt: IN YOUR FACE Comedy, comedians on stage during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_PXXX8284.jpg"
   date: '2023-05-03'
   year: 2023
   era: '2023'
   era_label: '2023'
-  type: performers
+  type: audience
   faces: 2
   humans: 2
   aesthetic: 0.64
-  alt: IN YOUR FACE Comedy, comedians on stage during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_PXXX8236.jpg"
   date: '2023-05-03'
@@ -838,8 +840,8 @@
   faces: 7
   humans: 0
   aesthetic: 0.762
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/canape_PXXX8030.jpg"
   date: '2023-05-03'
@@ -850,20 +852,20 @@
   faces: 7
   humans: 3
   aesthetic: 0.557
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/l200_c6016872-a392-491b-b985-05872dcfee13.jpg"
   date: '2023-02-05'
   year: 2023
   era: '2023'
   era_label: '2023'
-  type: moment
+  type: audience
   faces: 0
   humans: 2
   aesthetic: 0.292
-  alt: IN YOUR FACE Comedy, a moment from an English stand-up comedy night in Zürich
-    (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/l200_IMG_9314.jpg"
   date: '2023-02-05'
@@ -874,8 +876,8 @@
   faces: 3
   humans: 0
   aesthetic: 0.214
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/l200_IMG_9304.jpg"
   date: '2023-02-05'
@@ -886,8 +888,8 @@
   faces: 9
   humans: 1
   aesthetic: 0.164
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/l200_IMG_9298.jpg"
   date: '2023-02-05'
@@ -898,31 +900,32 @@
   faces: 5
   humans: 2
   aesthetic: 0.239
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/l200_IMG_9289.jpg"
   date: '2023-02-05'
   year: 2023
   era: '2023'
   era_label: '2023'
-  type: moment
+  type: audience
   faces: 0
   humans: 3
   aesthetic: 0.335
-  alt: IN YOUR FACE Comedy, a moment from an English stand-up comedy night in Zürich
-    (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/l200_IMG_9284.jpg"
   date: '2023-02-05'
   year: 2023
   era: '2023'
   era_label: '2023'
-  type: performer
+  type: audience
   faces: 1
   humans: 4
   aesthetic: 0.327
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/l200_IMG_9282.jpg"
   date: '2023-02-05'
@@ -933,8 +936,8 @@
   faces: 11
   humans: 1
   aesthetic: 0.287
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/l200_IMG_9269.jpg"
   date: '2023-02-05'
@@ -945,42 +948,44 @@
   faces: 8
   humans: 1
   aesthetic: 0.274
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/l200_329013140_1784707855238807_3414876085994146118_n.jpg"
   date: '2023-02-05'
   year: 2023
   era: '2023'
   era_label: '2023'
-  type: performers
+  type: audience
   faces: 2
   humans: 1
   aesthetic: 0.318
-  alt: IN YOUR FACE Comedy, comedians on stage during a live English stand-up comedy
-    show in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/l200_328571008_591380459000951_2053632924699766806_n.jpg"
   date: '2023-02-05'
   year: 2023
   era: '2023'
   era_label: '2023'
-  type: performer
+  type: audience
   faces: 1
   humans: 2
   aesthetic: 0.324
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/l200_327399798_585263299694320_2059125818965366671_n.jpg"
   date: '2023-02-05'
   year: 2023
   era: '2023'
   era_label: '2023'
-  type: performer
+  type: audience
   faces: 1
   humans: 3
   aesthetic: 0.283
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/kafi_IMG_8585.jpg"
   date: '2022-11-04'
@@ -991,8 +996,8 @@
   faces: 14
   humans: 3
   aesthetic: 0.363
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/kafi_IMG_8579.jpg"
   date: '2022-11-04'
@@ -1003,54 +1008,55 @@
   faces: 5
   humans: 2
   aesthetic: 0.344
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/kafi_314459368_3309497995987672_4408119441773258468_n.jpg"
   date: '2022-11-04'
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performer
+  type: audience
   faces: 1
   humans: 0
   aesthetic: 0.206
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/kafi_314397274_438714451716407_5450104052406631972_n.jpg"
   date: '2022-11-04'
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performers
+  type: performer
   faces: 2
   humans: 2
   aesthetic: 0.388
-  alt: IN YOUR FACE Comedy, comedians on stage during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/kafi_314391895_666304488428581_2213896584681269428_n.jpg"
   date: '2022-11-04'
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performer
+  type: audience
   faces: 1
   humans: 0
   aesthetic: 0.228
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/kafi_314381383_691793758730650_7275406289293091608_n.jpg"
   date: '2022-11-04'
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performers
+  type: audience
   faces: 2
   humans: 0
   aesthetic: 0.291
-  alt: IN YOUR FACE Comedy, comedians on stage during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/kafi_314086913_836277157815815_1578191949697893270_n.jpg"
   date: '2022-11-04'
@@ -1068,24 +1074,23 @@
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performers
+  type: performer
   faces: 2
   humans: 2
   aesthetic: 0.428
-  alt: IN YOUR FACE Comedy, comedians on stage during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/z_clinic_IMG_6854.jpg"
   date: '2022-10-10'
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: moment
+  type: audience
   faces: 0
   humans: 1
   aesthetic: 0.438
-  alt: IN YOUR FACE Comedy, a moment from an English stand-up comedy night in Zürich
-    (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/z_clinic_IMG_6852.jpg"
   date: '2022-10-10'
@@ -1103,23 +1108,24 @@
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: moment
+  type: audience
   faces: 0
   humans: 0
   aesthetic: 0.346
-  alt: IN YOUR FACE Comedy, a moment from an English stand-up comedy night in Zürich
-    (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/z_clinic_IMG_6836.jpg"
   date: '2022-10-10'
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performer
+  type: audience
   faces: 1
   humans: 2
   aesthetic: -0.094
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/z_clinic_IMG_6828.jpg"
   date: '2022-10-10'
@@ -1137,24 +1143,22 @@
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: moment
+  type: performer
   faces: 0
   humans: 0
   aesthetic: 0.261
-  alt: IN YOUR FACE Comedy, a moment from an English stand-up comedy night in Zürich
-    (2022)
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/z_clinic_718D42D3-5AE3-4DBA-805A-981F50FF6997.jpg"
   date: '2022-10-10'
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: moment
+  type: performer
   faces: 0
   humans: 3
   aesthetic: 0.34
-  alt: IN YOUR FACE Comedy, a moment from an English stand-up comedy night in Zürich
-    (2022)
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/z_clinic_5C6AFF82-F592-4A29-8BBC-337CC63C91E4.jpg"
   date: '2022-10-10'
@@ -1220,8 +1224,8 @@
   faces: 6
   humans: 3
   aesthetic: 0.511
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/kafi_PXXX2922.jpg"
   date: '2022-10-10'
@@ -1233,7 +1237,7 @@
   humans: 1
   aesthetic: 0.657
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
-  featured: false
+  featured: true
 - src: "/assets/img/gallery/kafi_PXXX2878.2.jpg"
   date: '2022-10-10'
   year: 2022
@@ -1243,8 +1247,8 @@
   faces: 14
   humans: 2
   aesthetic: 0.342
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/kafi_PXXX2828.jpg"
   date: '2022-10-10'
@@ -1255,8 +1259,8 @@
   faces: 3
   humans: 3
   aesthetic: 0.457
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/kafi_PXXX2816.2.jpg"
   date: '2022-10-10'
@@ -1286,11 +1290,12 @@
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performer
+  type: audience
   faces: 1
   humans: 1
   aesthetic: 0.568
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/dalis_sign.jpeg"
   date: '2022-10-10'
@@ -1309,24 +1314,25 @@
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performers
+  type: audience
   faces: 2
   humans: 3
   aesthetic: 0.385
-  alt: IN YOUR FACE Comedy, comedians on stage during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/dalis_caro.jpeg"
   date: '2022-10-10'
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performer
+  type: audience
   faces: 1
   humans: 1
   aesthetic: 0.696
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
-  featured: true
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
+  featured: false
 - src: "/assets/img/gallery/dalis_In_Your_Face_Nov_7__2021_Photos.jpg"
   date: '2022-10-10'
   year: 2022
@@ -1336,8 +1342,8 @@
   faces: 5
   humans: 1
   aesthetic: 0.461
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/dalis_In_Your_Face_Nov_7__2021_Photos-Crowd-2.jpg"
   date: '2022-10-10'
@@ -1348,8 +1354,8 @@
   faces: 5
   humans: 3
   aesthetic: 0.458
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/dalis_In_Your_Face_Nov_7_2021_wide_20211107_2713.jpeg"
   date: '2022-10-10'
@@ -1360,8 +1366,8 @@
   faces: 8
   humans: 5
   aesthetic: 0.547
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/dalis_In_Your_Face_Nov_7_2021_wide_20211107_2611.jpeg"
   date: '2022-10-10'
@@ -1372,8 +1378,8 @@
   faces: 8
   humans: 3
   aesthetic: 0.478
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/dalis_In_Your_Face_Nov_7_2021_wide_20211107_2373.jpeg"
   date: '2022-10-10'
@@ -1384,19 +1390,20 @@
   faces: 8
   humans: 4
   aesthetic: 0.545
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/dalis_In_Your_Face_Nov_7_2021_close_20211107_4387.jpeg"
   date: '2022-10-10'
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performer
+  type: audience
   faces: 1
   humans: 1
   aesthetic: 0.646
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/dalis_In_Your_Face_Nov_7_2021_close_20211107_3844.jpeg"
   date: '2022-10-10'
@@ -1414,12 +1421,11 @@
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performers
+  type: performer
   faces: 2
   humans: 1
   aesthetic: 0.587
-  alt: IN YOUR FACE Comedy, comedians on stage during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/dalis_In_Your_Face_Nov_7_2021_close_20211107_3673.jpeg"
   date: '2022-10-10'
@@ -1442,7 +1448,7 @@
   humans: 0
   aesthetic: 0.658
   alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
-  featured: false
+  featured: true
 - src: "/assets/img/gallery/dalis_IN_YOUR_FACE_Close_20211004_c_TimHughes_6G9A9197.jpeg"
   date: '2022-10-10'
   year: 2022
@@ -1463,20 +1469,21 @@
   faces: 3
   humans: 3
   aesthetic: -0.034
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/dalis_IN_YOUR_FACE_Audience_20211004_c_TimHughes_6G9A9181.jpeg"
   date: '2022-10-10'
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performer
+  type: audience
   faces: 1
   humans: 1
   aesthetic: 0.66
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
-  featured: true
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
+  featured: false
 - src: "/assets/img/gallery/dalis_IN_YOUR_FACE_Audience_20211004_c_TimHughes_011A9099.jpeg"
   date: '2022-10-10'
   year: 2022
@@ -1486,55 +1493,56 @@
   faces: 7
   humans: 3
   aesthetic: 0.446
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/dalis_20210919_5724.jpeg"
   date: '2022-10-10'
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performer
+  type: audience
   faces: 1
   humans: 2
   aesthetic: 0.477
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/dalis_20210919_4789.jpeg"
   date: '2022-10-10'
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performers
+  type: audience
   faces: 2
   humans: 2
   aesthetic: 0.377
-  alt: IN YOUR FACE Comedy, comedians on stage during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/dalis_20210919_4645.jpeg"
   date: '2022-10-10'
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performers
+  type: audience
   faces: 2
   humans: 0
   aesthetic: 0.374
-  alt: IN YOUR FACE Comedy, comedians on stage during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/dalis_20210919_4637.jpeg"
   date: '2022-10-10'
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performers
+  type: audience
   faces: 2
   humans: 0
   aesthetic: 0.468
-  alt: IN YOUR FACE Comedy, comedians on stage during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/dalis_20210919_2630.jpeg"
   date: '2022-10-10'
@@ -1567,43 +1575,44 @@
   faces: 3
   humans: 4
   aesthetic: 0.5
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/dalis_20210919_2033.jpeg"
   date: '2022-10-10'
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performers
+  type: audience
   faces: 2
   humans: 3
   aesthetic: 0.55
-  alt: IN YOUR FACE Comedy, comedians on stage during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/dalis_20210919_2028.jpeg"
   date: '2022-10-10'
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performer
+  type: audience
   faces: 1
   humans: 0
   aesthetic: 0.638
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/dalis_20210919_1849.jpeg"
   date: '2022-10-10'
   year: 2022
   era: '2022'
   era_label: '2022'
-  type: performers
+  type: audience
   faces: 2
   humans: 1
   aesthetic: 0.412
-  alt: IN YOUR FACE Comedy, comedians on stage during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/dalis_011A0435.jpeg"
   date: '2022-10-10'
@@ -1614,8 +1623,8 @@
   faces: 5
   humans: 3
   aesthetic: 0.609
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/dalis_011A0427.jpeg"
   date: '2022-10-10'
@@ -1626,6 +1635,6 @@
   faces: 10
   humans: 1
   aesthetic: 0.403
-  alt: IN YOUR FACE Comedy, the audience laughing during a live English stand-up comedy
-    show in Zürich (2022)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2022)
   featured: true

@@ -75,35 +75,61 @@ rescue StandardError
   {}
 end
 
+# What marks a comedian's frame vs the audience. Face count alone misleads: two
+# people seated in the audience look like "two performers", and plenty of
+# audience frames hold a single person. So we lead with what someone is *doing*.
+# Apple Vision reliably tags a comedian's frame with microphone / performance /
+# entertainer / singer (28+ of our images carry a "microphone" label), and a
+# comedian is standing on stage while the audience is seated (body-pose resolves
+# leg/foot joints for the standing figure, none for seated rows).
+PERFORMER_LABELS = %w[microphone performance entertainer singer karaoke
+                      musician singing stage concert].freeze
+CROWD_LABELS     = %w[crowd audience].freeze
+PERF_CONF        = 0.25 # min confidence for a performer label to count
+MIC_CONF         = 0.20 # a detected microphone is a strong solo signal on its own
+LEG_JOINTS       = %w[left_leg_joint right_leg_joint left_foot_joint right_foot_joint].freeze
+
+FEATURED_FRACTION = 0.22 # share of the wall that renders as large 2x2 mosaic tiles
+
 def analyze(abs_path)
   faces  = auge("faces",  abs_path)["count"].to_i
   humans = auge("humans", abs_path)["count"].to_i
   aest   = auge("aesthetics", abs_path)["aesthetics"] || {}
-  labels = (auge("classify", abs_path)["classifications"] || [])
-           .select { |c| c["confidence"].to_f >= 0.5 }
-           .map { |c| c["label"] }
+
+  conf = {} # Vision classifier: label => confidence
+  (auge("classify", abs_path)["classifications"] || []).each do |c|
+    conf[c["label"]] = c["confidence"].to_f
+  end
+
+  # Standing? Seated audience shots resolve no leg/foot joints; a comedian does.
+  standing = (auge("body-pose", abs_path)["bodies"] || []).any? do |b|
+    (b["joints"] || []).any? { |j| LEG_JOINTS.include?(j["name"]) && j["confidence"].to_f >= 0.30 }
+  end
+
   {
-    faces: faces, humans: humans, labels: labels,
+    faces: faces, humans: humans, standing: standing,
     aesthetic: (aest["overall"] || 0).to_f,
-    utility:   aest["isUtility"] == true
+    utility:   aest["isUtility"] == true,
+    labels:    conf.select { |_, v| v >= 0.30 }.keys,      # alt-text scene words
+    perf:      PERFORMER_LABELS.map { |l| conf[l] || 0 }.max,
+    mic:       conf["microphone"] || 0,
+    crowd:     CROWD_LABELS.map { |l| conf[l] || 0 }.max
   }
 end
 
-# --- interpretation: what is this a picture of, and is it a keeper? -----------
-STAGE_LABELS = %w[performance stage music musical_instrument microphone concert
-                  entertainment singing dance].freeze
-
-FEATURED_FRACTION = 0.22 # share of the wall that renders as large 2x2 mosaic tiles
+# --- interpretation: what is this a picture of? ------------------------------
+def performer?(m)
+  m[:perf] >= PERF_CONF || m[:mic] >= MIC_CONF ||
+    (m[:standing] && m[:faces] <= 1 && m[:crowd] < 0.30) # lone standing figure, no mic label
+end
 
 def classify_type(m)
-  if m[:faces] >= 3 || m[:humans] >= 5
-    "audience"        # the room reacting — Harry's "more than three faces"
-  elsif m[:faces] == 2
-    "performers"      # a duo / two on stage
-  elsif m[:faces] == 1 || (m[:labels] & STAGE_LABELS).any?
-    "performer"       # one comedian, mic in hand
+  if performer?(m)
+    "performer"                                 # comedian on stage, mic in hand
+  elsif m[:crowd] >= 0.30 || m[:faces] >= 1 || m[:humans] >= 1
+    "audience"                                  # people watching the show
   else
-    "moment"          # venue, details, in-between
+    "moment"                                    # venue, details, in-between
   end
 end
 
@@ -127,7 +153,7 @@ def assign_featured!(entries)
 
   reactions = live.select { |e| e["type"] == "audience" }
                   .sort_by { |e| -e["_score"] }
-  performers = live.select { |e| %w[performer performers].include?(e["type"]) }
+  performers = live.select { |e| e["type"] == "performer" }
                    .sort_by { |e| -e["_score"] }
   moments = live.select { |e| e["type"] == "moment" }
                 .sort_by { |e| -e["_score"] }
@@ -141,10 +167,9 @@ end
 
 # --- SEO alt text: honest, distinct, brand- + place- + year-anchored ----------
 SCENE = {
-  "audience"   => "the audience laughing during a live English stand-up comedy show",
-  "performers" => "comedians on stage during a live English stand-up comedy show",
-  "performer"  => "a comedian performing stand-up on stage",
-  "moment"     => "a moment from an English stand-up comedy night"
+  "audience"  => "the audience at a live English stand-up comedy show",
+  "performer" => "a comedian performing stand-up on stage",
+  "moment"    => "a moment from an English stand-up comedy night"
 }.freeze
 
 def alt_text(type, year, m)
