@@ -23,10 +23,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.477
-  seo:
-    laughing: true
-  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
-    show in Zürich (2026)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/IMG_4060.jpg"
   date: '2026-05-24'
@@ -52,8 +50,10 @@
   faces: 4
   humans: 2
   aesthetic: 0.448
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2026)
   featured: true
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.12 (6).jpeg"
   date: '2026-02-07'
@@ -125,8 +125,10 @@
   humans: 0
   aesthetic: 0.299
   comedian: andrea-ramirez
-  alt: IN YOUR FACE Comedy, Andrea Ramírez performing stand-up on stage in Zürich
-    (2026)
+  seo:
+    gesturing: true
+  alt: IN YOUR FACE Comedy, Andrea Ramírez performing stand-up mid-bit on stage in
+    Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/IMG_3578.jpg"
   date: '2026-05-24'
@@ -137,10 +139,8 @@
   faces: 2
   humans: 2
   aesthetic: 0.444
-  seo:
-    laughing: true
-  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
-    show in Zürich (2026)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.11 (4).jpeg"
   date: '2026-01-31'
@@ -241,8 +241,10 @@
   faces: 3
   humans: 2
   aesthetic: 0.264
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/IMG_3357.JPG"
   date: '2026-01-29'
@@ -254,7 +256,10 @@
   humans: 1
   aesthetic: 0.411
   comedian: ben.fcks
-  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up on stage in Zürich (2026)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up with a microphone on stage
+    in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.13 (2).jpeg"
   date: '2026-04-22'
@@ -301,10 +306,8 @@
   faces: 2
   humans: 1
   aesthetic: 0.413
-  seo:
-    laughing: true
-  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
-    show in Zürich (2026)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/IMG_3270 2_20260120.jpg"
   date: '2026-01-20'
@@ -316,7 +319,10 @@
   humans: 1
   aesthetic: 0.327
   comedian: chris-darwa
-  alt: IN YOUR FACE Comedy, Chris Darwa performing stand-up on stage in Zürich (2026)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Chris Darwa performing stand-up with a microphone on stage
+    in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/IMG_4290.jpg"
   date: '2026-05-24'
@@ -352,8 +358,10 @@
   faces: 2
   humans: 1
   aesthetic: -0.351
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.31 (7).jpeg"
   date: '2026-05-31'
@@ -414,10 +422,8 @@
   faces: 2
   humans: 1
   aesthetic: 0.688
-  seo:
-    laughing: true
-  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
-    show in Zürich (2026)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/IMG_1174.jpg"
   date: '2026-05-15'
@@ -627,10 +633,8 @@
   faces: 1
   humans: 2
   aesthetic: 0.437
-  seo:
-    laughing: true
-  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
-    show in Zürich (2026)
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.55.04 (3).jpeg"
   date: '2026-02-20'
@@ -665,8 +669,10 @@
   faces: 3
   humans: 1
   aesthetic: 0.644
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.55.02.jpeg"
   date: '2026-02-24'
@@ -790,8 +796,10 @@
   faces: 3
   humans: 1
   aesthetic: 0.489
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/IMG_3955.jpg"
   date: '2026-05-24'
@@ -827,7 +835,10 @@
   humans: 1
   aesthetic: 0.431
   comedian: harryf.cks
-  alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up on stage in Zürich (2026)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up with a microphone on stage
+    in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.32 (9).jpeg"
   date: '2026-01-02'
@@ -850,8 +861,10 @@
   faces: 4
   humans: 1
   aesthetic: 0.668
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2026)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2026)
   featured: true
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.55.03.jpeg"
   date: '2026-01-02'
@@ -898,7 +911,10 @@
   humans: 1
   aesthetic: 0.366
   comedian: ben.fcks
-  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up with a microphone on stage
+    in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_2948_20251218.jpg"
   date: '2025-12-18'
@@ -910,7 +926,10 @@
   humans: 2
   aesthetic: 0.361
   comedian: ben.fcks
-  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up with a microphone on stage
+    in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.31 (1).jpeg"
   date: '2025-12-17'
@@ -933,7 +952,10 @@
   faces: 2
   humans: 1
   aesthetic: 0.127
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_2929_20251217.jpg"
   date: '2025-12-17'
@@ -957,7 +979,10 @@
   humans: 1
   aesthetic: 0.225
   comedian: laugh_at_domenico
-  alt: IN YOUR FACE Comedy, Domenico performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Domenico performing stand-up with a microphone on stage
+    in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_2920_20251216.jpg"
   date: '2025-12-16'
@@ -981,7 +1006,10 @@
   humans: 1
   aesthetic: 0.349
   comedian: woocash
-  alt: IN YOUR FACE Comedy, Woocash performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Woocash performing stand-up with a microphone on stage
+    in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_2854_20251210.jpg"
   date: '2025-12-10'
@@ -1029,7 +1057,10 @@
   humans: 2
   aesthetic: 0.386
   comedian: shawn-jay
-  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up on stage in Zürich (2025)
+  seo:
+    gesturing: true
+  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up mid-bit on stage in Zürich
+    (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.12 (3).jpeg"
   date: '2025-12-08'
@@ -1127,7 +1158,10 @@
   humans: 1
   aesthetic: 0.386
   comedian: pouya
-  alt: IN YOUR FACE Comedy, Pouya performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Pouya performing stand-up with a microphone on stage in
+    Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_2238_20251009.jpg"
   date: '2025-10-09'
@@ -1138,8 +1172,11 @@
   faces: 11
   humans: 2
   aesthetic: 0.485
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2025)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2025)
   featured: true
 - src: "/assets/img/gallery/IMG_2235_20251009.jpg"
   date: '2025-10-09'
@@ -1150,8 +1187,10 @@
   faces: 2
   humans: 0
   aesthetic: 0.409
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2025)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_2106_20250924.jpg"
   date: '2025-09-24'
@@ -1163,7 +1202,10 @@
   humans: 1
   aesthetic: 0.382
   comedian: shawn-jay
-  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up with a microphone on stage
+    in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_2100_20250924.jpg"
   date: '2025-09-24'
@@ -1175,7 +1217,10 @@
   humans: 1
   aesthetic: 0.177
   comedian: shawn-jay
-  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up with a microphone on stage
+    in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.33 (4).jpeg"
   date: '2025-09-17'
@@ -1245,8 +1290,10 @@
   faces: 3
   humans: 3
   aesthetic: -0.301
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2025)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_1885_20250828.jpg"
   date: '2025-08-28'
@@ -1281,8 +1328,11 @@
   faces: 7
   humans: 3
   aesthetic: 0.362
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2025)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2025)
   featured: true
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.32 (7).jpeg"
   date: '2025-08-22'
@@ -1306,8 +1356,10 @@
   faces: 2
   humans: 1
   aesthetic: 0.391
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2025)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_1765_20250814.jpg"
   date: '2025-08-14'
@@ -1318,8 +1370,11 @@
   faces: 7
   humans: 1
   aesthetic: 0.403
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2025)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2025)
   featured: true
 - src: "/assets/img/gallery/IMG_1764_20250814.jpg"
   date: '2025-08-14'
@@ -1330,8 +1385,11 @@
   faces: 7
   humans: 0
   aesthetic: 0.501
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2025)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2025)
   featured: true
 - src: "/assets/img/gallery/IMG_1762_20250814.jpg"
   date: '2025-08-14'
@@ -1367,7 +1425,10 @@
   humans: 1
   aesthetic: 0.352
   comedian: chris-darwa
-  alt: IN YOUR FACE Comedy, Chris Darwa performing stand-up on stage in Zürich (2025)
+  seo:
+    gesturing: true
+  alt: IN YOUR FACE Comedy, Chris Darwa performing stand-up mid-bit on stage in Zürich
+    (2025)
   featured: false
 - src: "/assets/img/gallery/39.JPEG"
   date: '2025-08-08'
@@ -1452,8 +1513,10 @@
   humans: 1
   aesthetic: -0.203
   comedian: andrea-ramirez
-  alt: IN YOUR FACE Comedy, Andrea Ramírez performing stand-up on stage in Zürich
-    (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Andrea Ramírez performing stand-up with a microphone on
+    stage in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.55.04 (4).jpeg"
   date: '2025-07-15'
@@ -1537,8 +1600,10 @@
   faces: 2
   humans: 1
   aesthetic: 0.337
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2025)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.13 (1).jpeg"
   date: '2025-06-11'
@@ -1574,7 +1639,10 @@
   humans: 1
   aesthetic: 0.356
   comedian: benjamin
-  alt: IN YOUR FACE Comedy, BENJAMIN performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, BENJAMIN performing stand-up with a microphone on stage
+    in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_6476_20250603.jpg"
   date: '2025-06-03'
@@ -1633,8 +1701,10 @@
   faces: 0
   humans: 3
   aesthetic: 0.516
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2025)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_0979_20250603.jpg"
   date: '2025-06-03'
@@ -1645,8 +1715,11 @@
   faces: 9
   humans: 1
   aesthetic: 0.424
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2025)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2025)
   featured: true
 - src: "/assets/img/gallery/IMG_0978_20250603.jpg"
   date: '2025-06-03'
@@ -1657,8 +1730,10 @@
   faces: 5
   humans: 1
   aesthetic: 0.491
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2025)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2025)
   featured: true
 - src: "/assets/img/gallery/IMG_0893_20250529.jpg"
   date: '2025-05-29'
@@ -1669,7 +1744,10 @@
   faces: 1
   humans: 1
   aesthetic: 0.285
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_0879_20250529.jpg"
   date: '2025-05-29'
@@ -1681,7 +1759,10 @@
   humans: 1
   aesthetic: 0.373
   comedian: ben.fcks
-  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up with a microphone on stage
+    in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_0819_20250521.jpg"
   date: '2025-05-21'
@@ -1693,7 +1774,10 @@
   humans: 1
   aesthetic: 0.287
   comedian: jack-roberts
-  alt: IN YOUR FACE Comedy, Jack Roberts performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Jack Roberts performing stand-up with a microphone on
+    stage in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.54.32 (6).jpeg"
   date: '2025-05-20'
@@ -1729,7 +1813,10 @@
   humans: 1
   aesthetic: 0.345
   comedian: ben.fcks
-  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up with a microphone on stage
+    in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_0453_20250508.jpg"
   date: '2025-05-08'
@@ -1741,7 +1828,10 @@
   humans: 1
   aesthetic: 0.64
   comedian: shawn-jay
-  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up on stage in Zürich (2025)
+  seo:
+    gesturing: true
+  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up mid-bit on stage in Zürich
+    (2025)
   featured: true
 - src: "/assets/img/gallery/IMG_0451_20250508.jpg"
   date: '2025-05-08'
@@ -1778,7 +1868,10 @@
   humans: 1
   aesthetic: 0.282
   comedian: ben.fcks
-  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up on stage in Zürich (2025)
+  seo:
+    gesturing: true
+  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up mid-bit on stage in Zürich
+    (2025)
   featured: false
 - src: "/assets/img/gallery/f70347b8-6fbb-4f73-819e-488950e05b45.jpg"
   date: '2025-05-01'
@@ -1790,7 +1883,10 @@
   humans: 1
   aesthetic: 0.41
   comedian: ben.fcks
-  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up with a microphone on stage
+    in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/aacaa9db-3f36-403a-b25a-a9958284bddc.jpg"
   date: '2025-05-01'
@@ -1802,7 +1898,10 @@
   humans: 1
   aesthetic: 0.645
   comedian: chris-darwa
-  alt: IN YOUR FACE Comedy, Chris Darwa performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Chris Darwa performing stand-up with a microphone on stage
+    in Zürich (2025)
   featured: true
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.11 (1).jpeg"
   date: '2025-04-28'
@@ -1826,7 +1925,10 @@
   humans: 1
   aesthetic: 0.366
   comedian: woocash
-  alt: IN YOUR FACE Comedy, Woocash performing stand-up on stage in Zürich (2025)
+  seo:
+    gesturing: true
+  alt: IN YOUR FACE Comedy, Woocash performing stand-up mid-bit on stage in Zürich
+    (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.13.jpeg"
   date: '2025-04-14'
@@ -1885,7 +1987,10 @@
   humans: 0
   aesthetic: 0.421
   comedian: martinadoescomedy
-  alt: IN YOUR FACE Comedy, Martina performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Martina performing stand-up with a microphone on stage
+    in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_0170_20250403.jpg"
   date: '2025-04-03'
@@ -1932,8 +2037,10 @@
   faces: 3
   humans: 1
   aesthetic: 0.318
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2025)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_0038_20250326.jpg"
   date: '2025-03-26'
@@ -1945,7 +2052,10 @@
   humans: 1
   aesthetic: 0.335
   comedian: fairis-osman
-  alt: IN YOUR FACE Comedy, Fairis Osman performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Fairis Osman performing stand-up with a microphone on
+    stage in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/IMG_0036_20250326.jpg"
   date: '2025-03-26'
@@ -2004,7 +2114,10 @@
   faces: 1
   humans: 1
   aesthetic: 0.375
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.55.03 (7).jpeg"
   date: '2025-01-19'
@@ -2027,7 +2140,10 @@
   faces: 1
   humans: 1
   aesthetic: 0.335
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2025)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2025)
   featured: false
 - src: "/assets/img/gallery/WhatsApp Image 2026-06-07 at 15.56.11 (5).jpeg"
   date: '2025-01-11'
@@ -2062,7 +2178,10 @@
   faces: 1
   humans: 1
   aesthetic: 0.318
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  seo:
+    gesturing: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up mid-bit on stage in Zürich
+    (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_1278.JPG"
   date: '2024-11-23'
@@ -2096,7 +2215,10 @@
   humans: 2
   aesthetic: 0.296
   comedian: woocash
-  alt: IN YOUR FACE Comedy, Woocash performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Woocash performing stand-up with a microphone on stage
+    in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_7270_20241024.jpg"
   date: '2024-10-24'
@@ -2107,8 +2229,10 @@
   faces: 2
   humans: 0
   aesthetic: 0.356
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2024)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_7252_20241023.jpg"
   date: '2024-10-23'
@@ -2119,8 +2243,10 @@
   faces: 3
   humans: 0
   aesthetic: 0.631
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2024)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_6604_20240822.jpg"
   date: '2024-08-22'
@@ -2131,7 +2257,10 @@
   faces: 2
   humans: 1
   aesthetic: 0.328
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_6542_20240815.jpg"
   date: '2024-08-15'
@@ -2166,8 +2295,10 @@
   faces: 5
   humans: 1
   aesthetic: 0.477
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2024)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/IMG_1039.JPG"
   date: '2024-06-30'
@@ -2190,7 +2321,10 @@
   faces: 1
   humans: 1
   aesthetic: 0.43
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_5902_20240622.jpg"
   date: '2024-06-22'
@@ -2214,7 +2348,10 @@
   humans: 1
   aesthetic: 0.276
   comedian: adonis
-  alt: IN YOUR FACE Comedy, Adonis performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Adonis performing stand-up with a microphone on stage
+    in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_5727_20240530.jpg"
   date: '2024-05-30'
@@ -2225,8 +2362,10 @@
   faces: 2
   humans: 2
   aesthetic: 0.306
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2024)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_5722_20240530.jpg"
   date: '2024-05-30'
@@ -2238,7 +2377,10 @@
   humans: 1
   aesthetic: 0.624
   comedian: shawn-jay
-  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up with a microphone on stage
+    in Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/IMG_5569_20240516.jpg"
   date: '2024-05-16'
@@ -2250,7 +2392,10 @@
   humans: 1
   aesthetic: -0.944
   comedian: pouya
-  alt: IN YOUR FACE Comedy, Pouya performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Pouya performing stand-up with a microphone on stage in
+    Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_0819.JPG"
   date: '2024-05-10'
@@ -2320,7 +2465,10 @@
   faces: 1
   humans: 1
   aesthetic: 0.318
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_5269_20240429.jpg"
   date: '2024-04-29'
@@ -2344,7 +2492,10 @@
   humans: 2
   aesthetic: 0.212
   comedian: jack-roberts
-  alt: IN YOUR FACE Comedy, Jack Roberts performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Jack Roberts performing stand-up with a microphone on
+    stage in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/785c39b1-7fd2-42f5-b296-5ac7d82ed889.jpg"
   date: '2024-04-29'
@@ -2367,8 +2518,11 @@
   faces: 6
   humans: 5
   aesthetic: 0.497
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2024)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/IMG_5215.PNG"
   date: '2024-04-25'
@@ -2379,7 +2533,10 @@
   faces: 1
   humans: 1
   aesthetic: 0.32
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/primepunch_9.png"
   date: '2024-04-24'
@@ -2390,8 +2547,11 @@
   faces: 8
   humans: 3
   aesthetic: 0.319
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2024)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/primepunch_16.png"
   date: '2024-04-24'
@@ -2415,7 +2575,10 @@
   humans: 1
   aesthetic: 0.59
   comedian: benjamin
-  alt: IN YOUR FACE Comedy, BENJAMIN performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, BENJAMIN performing stand-up with a microphone on stage
+    in Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/primepunch_14.png"
   date: '2024-04-24'
@@ -2439,7 +2602,10 @@
   humans: 1
   aesthetic: 0.568
   comedian: jack-roberts
-  alt: IN YOUR FACE Comedy, Jack Roberts performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Jack Roberts performing stand-up with a microphone on
+    stage in Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/primepunch_12.png"
   date: '2024-04-24'
@@ -2451,7 +2617,10 @@
   humans: 1
   aesthetic: 0.695
   comedian: harryf.cks
-  alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up with a microphone on stage
+    in Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/primepunch_11.png"
   date: '2024-04-24'
@@ -2462,8 +2631,11 @@
   faces: 6
   humans: 0
   aesthetic: 0.229
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2024)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/primepunch_10.png"
   date: '2024-04-24'
@@ -2487,7 +2659,10 @@
   humans: 1
   aesthetic: 0.787
   comedian: martinadoescomedy
-  alt: IN YOUR FACE Comedy, Martina performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Martina performing stand-up with a microphone on stage
+    in Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/PP 13.PNG"
   date: '2024-04-24'
@@ -2499,7 +2674,10 @@
   humans: 1
   aesthetic: 0.681
   comedian: adonis
-  alt: IN YOUR FACE Comedy, Adonis performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Adonis performing stand-up with a microphone on stage
+    in Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/PP 10.PNG"
   date: '2024-04-24'
@@ -2523,7 +2701,10 @@
   humans: 1
   aesthetic: 0.672
   comedian: harryf.cks
-  alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up with a microphone on stage
+    in Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/IMG_5169.jpg"
   date: '2024-04-21'
@@ -2535,7 +2716,10 @@
   humans: 1
   aesthetic: 0.625
   comedian: harryf.cks
-  alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up with a microphone on stage
+    in Zürich (2024)
   featured: true
 - src: "/assets/img/gallery/IMG_5166.jpg"
   date: '2024-04-21'
@@ -2642,8 +2826,10 @@
   faces: 3
   humans: 0
   aesthetic: -0.534
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2024)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/primepunch_4.png"
   date: '2024-03-12'
@@ -2655,7 +2841,10 @@
   humans: 1
   aesthetic: 0.363
   comedian: harryf.cks
-  alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up with a microphone on stage
+    in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/primepunch_3.png"
   date: '2024-03-12'
@@ -2715,7 +2904,10 @@
   humans: 1
   aesthetic: 0.487
   comedian: ben.fcks
-  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Ben Fücks performing stand-up with a microphone on stage
+    in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_0846_20240218.jpg"
   date: '2024-02-18'
@@ -2727,7 +2919,10 @@
   humans: 2
   aesthetic: 0.307
   comedian: shawn-jay
-  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up on stage in Zürich (2024)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Shawn Jay performing stand-up with a microphone on stage
+    in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_4347_20240212.jpg"
   date: '2024-02-12'
@@ -2773,8 +2968,10 @@
   faces: 3
   humans: 1
   aesthetic: 0.44
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2024)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2024)
   featured: false
 - src: "/assets/img/gallery/IMG_3706_20231215.jpg"
   date: '2023-12-15'
@@ -2821,8 +3018,10 @@
   faces: 4
   humans: 0
   aesthetic: 0.377
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/IMG_3507_20231123.jpg"
   date: '2023-11-23'
@@ -2858,7 +3057,10 @@
   humans: 1
   aesthetic: 0.427
   comedian: woocash
-  alt: IN YOUR FACE Comedy, Woocash performing stand-up on stage in Zürich (2023)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Woocash performing stand-up with a microphone on stage
+    in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/IMG_BDE6455E-3646-460A-A681-CB59DA96B388.JPG"
   date: '2023-10-31'
@@ -2882,8 +3084,11 @@
   faces: 7
   humans: 3
   aesthetic: -0.46
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/IMG_3156_20231028.jpg"
   date: '2023-10-28'
@@ -2894,8 +3099,10 @@
   faces: 5
   humans: 3
   aesthetic: 0.209
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/IMG_3127_20231028.jpg"
   date: '2023-10-28'
@@ -2943,7 +3150,10 @@
   humans: 0
   aesthetic: -0.099
   comedian: benjamin
-  alt: IN YOUR FACE Comedy, BENJAMIN performing stand-up on stage in Zürich (2023)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, BENJAMIN performing stand-up with a microphone on stage
+    in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/comedybrew_438A3470 Large.jpeg"
   date: '2023-09-06'
@@ -2954,8 +3164,11 @@
   faces: 7
   humans: 1
   aesthetic: 0.354
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/comedybrew_438A3437 Large.jpeg"
   date: '2023-09-06'
@@ -2966,7 +3179,10 @@
   faces: 1
   humans: 1
   aesthetic: 0.602
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/comedybrew_438A3420.jpg"
   date: '2023-09-06'
@@ -2978,7 +3194,11 @@
   humans: 1
   aesthetic: 0.37
   comedian: richard-cunha
-  alt: IN YOUR FACE Comedy, Richard Cunha performing stand-up on stage in Zürich (2023)
+  seo:
+    mic: true
+    gesturing: true
+  alt: IN YOUR FACE Comedy, Richard Cunha performing stand-up with a microphone on
+    stage in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/comedybrew_438A3374.jpg"
   date: '2023-09-06'
@@ -3001,8 +3221,11 @@
   faces: 9
   humans: 4
   aesthetic: 0.376
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/comedybrew_438A3307.jpg"
   date: '2023-09-06'
@@ -3013,8 +3236,11 @@
   faces: 6
   humans: 2
   aesthetic: 0.348
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/comedybrew_438A3298.jpg"
   date: '2023-09-06'
@@ -3133,7 +3359,10 @@
   humans: 1
   aesthetic: 0.266
   comedian: chris-darwa
-  alt: IN YOUR FACE Comedy, Chris Darwa performing stand-up on stage in Zürich (2023)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Chris Darwa performing stand-up with a microphone on stage
+    in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/comedybrew_IMG_2039 Large.jpeg"
   date: '2023-08-24'
@@ -3180,8 +3409,10 @@
   faces: 4
   humans: 3
   aesthetic: 0.43
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0701.jpeg"
   date: '2023-05-27'
@@ -3193,7 +3424,10 @@
   humans: 1
   aesthetic: 0.502
   comedian: richard-cunha
-  alt: IN YOUR FACE Comedy, Richard Cunha performing stand-up on stage in Zürich (2023)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Richard Cunha performing stand-up with a microphone on
+    stage in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0690.jpeg"
   date: '2023-05-27'
@@ -3204,8 +3438,10 @@
   faces: 3
   humans: 1
   aesthetic: 0.472
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0684.jpeg"
   date: '2023-05-27'
@@ -3216,8 +3452,10 @@
   faces: 4
   humans: 1
   aesthetic: 0.333
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0682.jpeg"
   date: '2023-05-27'
@@ -3229,7 +3467,10 @@
   humans: 1
   aesthetic: 0.469
   comedian: adonis
-  alt: IN YOUR FACE Comedy, Adonis performing stand-up on stage in Zürich (2023)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Adonis performing stand-up with a microphone on stage
+    in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0662.jpeg"
   date: '2023-05-27'
@@ -3251,7 +3492,10 @@
   faces: 1
   humans: 1
   aesthetic: 0.407
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0649.jpeg"
   date: '2023-05-27'
@@ -3274,8 +3518,10 @@
   humans: 1
   aesthetic: 0.409
   comedian: sussmancomedy
-  alt: IN YOUR FACE Comedy, Joshua Sussman performing stand-up on stage in Zürich
-    (2023)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Joshua Sussman performing stand-up with a microphone on
+    stage in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0619.jpeg"
   date: '2023-05-27'
@@ -3299,7 +3545,10 @@
   humans: 1
   aesthetic: 0.367
   comedian: chris-darwa
-  alt: IN YOUR FACE Comedy, Chris Darwa performing stand-up on stage in Zürich (2023)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Chris Darwa performing stand-up with a microphone on stage
+    in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_0855.jpeg"
   date: '2023-05-26'
@@ -3348,8 +3597,11 @@
   faces: 7
   humans: 4
   aesthetic: 0.389
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/canape_0638.jpeg"
   date: '2023-05-11'
@@ -3360,8 +3612,10 @@
   faces: 5
   humans: 2
   aesthetic: 0.387
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/canape_0633.jpeg"
   date: '2023-05-11'
@@ -3372,8 +3626,11 @@
   faces: 7
   humans: 2
   aesthetic: 0.459
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/canape_0613.jpeg"
   date: '2023-05-11'
@@ -3384,8 +3641,10 @@
   faces: 5
   humans: 0
   aesthetic: 0.349
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/canape_PXXX8895.jpg"
   date: '2023-04-27'
@@ -3396,8 +3655,11 @@
   faces: 7
   humans: 3
   aesthetic: 0.548
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/canape_PXXX8747.jpg"
   date: '2023-04-27'
@@ -3420,8 +3682,10 @@
   faces: 3
   humans: 1
   aesthetic: 0.662
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_PXXX8414.jpg"
   date: '2023-04-27'
@@ -3432,8 +3696,10 @@
   faces: 3
   humans: 2
   aesthetic: 0.579
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/canape_PXXX8404.jpg"
   date: '2023-04-27'
@@ -3445,7 +3711,10 @@
   humans: 1
   aesthetic: 0.641
   comedian: none
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2023)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/canape_PXXX8284.jpg"
   date: '2023-04-27'
@@ -3468,8 +3737,11 @@
   faces: 7
   humans: 0
   aesthetic: 0.762
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/canape_PXXX8030.jpg"
   date: '2023-04-27'
@@ -3480,8 +3752,11 @@
   faces: 7
   humans: 3
   aesthetic: 0.557
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/l200_c6016872-a392-491b-b985-05872dcfee13.jpg"
   date: '2023-02-05'
@@ -3540,8 +3815,10 @@
   faces: 3
   humans: 0
   aesthetic: 0.214
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2023)
   featured: false
 - src: "/assets/img/gallery/l200_IMG_9304.jpg"
   date: '2023-02-02'
@@ -3552,8 +3829,11 @@
   faces: 9
   humans: 1
   aesthetic: 0.164
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/l200_IMG_9298.jpg"
   date: '2023-02-02'
@@ -3564,8 +3844,10 @@
   faces: 5
   humans: 2
   aesthetic: 0.239
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/l200_IMG_9289.jpg"
   date: '2023-02-02'
@@ -3600,8 +3882,11 @@
   faces: 11
   humans: 1
   aesthetic: 0.287
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/l200_IMG_9269.jpg"
   date: '2023-02-02'
@@ -3612,8 +3897,11 @@
   faces: 8
   humans: 1
   aesthetic: 0.274
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2023)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2023)
   featured: true
 - src: "/assets/img/gallery/kafi_314459368_3309497995987672_4408119441773258468_n.jpg"
   date: '2022-11-04'
@@ -3636,7 +3924,11 @@
   faces: 2
   humans: 2
   aesthetic: 0.388
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
+  seo:
+    mic: true
+    gesturing: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/kafi_314391895_666304488428581_2213896584681269428_n.jpg"
   date: '2022-11-04'
@@ -3671,7 +3963,10 @@
   faces: 1
   humans: 1
   aesthetic: 0.374
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/kafi_312988372_1721136018257789_6893262938536960531_n.jpg"
   date: '2022-11-04'
@@ -3682,7 +3977,10 @@
   faces: 2
   humans: 2
   aesthetic: 0.428
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/kafi_IMG_8585.jpg"
   date: '2022-11-03'
@@ -3693,8 +3991,11 @@
   faces: 14
   humans: 3
   aesthetic: 0.363
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2022)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/kafi_IMG_8579.jpg"
   date: '2022-11-03'
@@ -3705,8 +4006,10 @@
   faces: 5
   humans: 2
   aesthetic: 0.344
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2022)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/dalis_sign.jpeg"
   date: '2022-10-10'
@@ -3730,8 +4033,10 @@
   faces: 2
   humans: 3
   aesthetic: 0.385
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2022)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/dalis_caro.jpeg"
   date: '2022-10-10'
@@ -3754,8 +4059,10 @@
   faces: 5
   humans: 1
   aesthetic: 0.461
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2022)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/dalis_In_Your_Face_Nov_7__2021_Photos-Crowd-2.jpg"
   date: '2022-10-10'
@@ -3766,8 +4073,10 @@
   faces: 5
   humans: 3
   aesthetic: 0.458
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2022)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/dalis_011A0435.jpeg"
   date: '2022-10-10'
@@ -3778,8 +4087,10 @@
   faces: 5
   humans: 3
   aesthetic: 0.609
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2022)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/dalis_011A0427.jpeg"
   date: '2022-10-10'
@@ -3790,8 +4101,11 @@
   faces: 10
   humans: 1
   aesthetic: 0.403
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2022)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/kafi_PXXX3660.jpg"
   date: '2022-10-06'
@@ -3803,7 +4117,10 @@
   humans: 1
   aesthetic: 0.582
   comedian: chris-darwa
-  alt: IN YOUR FACE Comedy, Chris Darwa performing stand-up on stage in Zürich (2022)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Chris Darwa performing stand-up with a microphone on stage
+    in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/kafi_PXXX3458.jpg"
   date: '2022-10-06'
@@ -3815,7 +4132,10 @@
   humans: 1
   aesthetic: 0.711
   comedian: richard-cunha
-  alt: IN YOUR FACE Comedy, Richard Cunha performing stand-up on stage in Zürich (2022)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Richard Cunha performing stand-up with a microphone on
+    stage in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/kafi_PXXX3329.jpg"
   date: '2022-10-06'
@@ -3827,7 +4147,10 @@
   humans: 1
   aesthetic: 0.705
   comedian: adonis
-  alt: IN YOUR FACE Comedy, Adonis performing stand-up on stage in Zürich (2022)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Adonis performing stand-up with a microphone on stage
+    in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/kafi_PXXX3234.jpg"
   date: '2022-10-06'
@@ -3838,7 +4161,10 @@
   faces: 1
   humans: 1
   aesthetic: 0.776
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/kafi_PXXX3089.jpg"
   date: '2022-10-06'
@@ -3849,8 +4175,11 @@
   faces: 6
   humans: 3
   aesthetic: 0.511
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2022)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/kafi_PXXX2922.jpg"
   date: '2022-10-06'
@@ -3861,7 +4190,10 @@
   faces: 1
   humans: 1
   aesthetic: 0.657
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2022)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/kafi_PXXX2878.2.jpg"
   date: '2022-10-06'
@@ -3872,8 +4204,11 @@
   faces: 14
   humans: 2
   aesthetic: 0.342
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2022)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/kafi_PXXX2828.jpg"
   date: '2022-10-06'
@@ -3884,8 +4219,10 @@
   faces: 3
   humans: 3
   aesthetic: 0.457
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2022)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2022)
   featured: false
 - src: "/assets/img/gallery/kafi_PXXX2816.2.jpg"
   date: '2022-10-06'
@@ -3897,7 +4234,10 @@
   humans: 1
   aesthetic: 0.735
   comedian: harryf.cks
-  alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up on stage in Zürich (2022)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up with a microphone on stage
+    in Zürich (2022)
   featured: true
 - src: "/assets/img/gallery/kafi_PXXX2748.jpg"
   date: '2022-10-06'
@@ -4026,8 +4366,11 @@
   faces: 8
   humans: 5
   aesthetic: 0.547
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2021)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2021)
   featured: true
 - src: "/assets/img/gallery/dalis_In_Your_Face_Nov_7_2021_wide_20211107_2611.jpeg"
   date: '2021-11-07'
@@ -4038,8 +4381,11 @@
   faces: 8
   humans: 3
   aesthetic: 0.478
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2021)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2021)
   featured: true
 - src: "/assets/img/gallery/dalis_In_Your_Face_Nov_7_2021_wide_20211107_2373.jpeg"
   date: '2021-11-07'
@@ -4050,8 +4396,11 @@
   faces: 8
   humans: 4
   aesthetic: 0.545
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2021)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2021)
   featured: true
 - src: "/assets/img/gallery/dalis_In_Your_Face_Nov_7_2021_close_20211107_4387.jpeg"
   date: '2021-11-07'
@@ -4075,7 +4424,10 @@
   humans: 1
   aesthetic: 0.721
   comedian: chris-darwa
-  alt: IN YOUR FACE Comedy, Chris Darwa performing stand-up on stage in Zürich (2021)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, Chris Darwa performing stand-up with a microphone on stage
+    in Zürich (2021)
   featured: true
 - src: "/assets/img/gallery/dalis_In_Your_Face_Nov_7_2021_close_20211107_3711.jpeg"
   date: '2021-11-07'
@@ -4086,7 +4438,10 @@
   faces: 2
   humans: 1
   aesthetic: 0.587
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2021)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2021)
   featured: true
 - src: "/assets/img/gallery/dalis_In_Your_Face_Nov_7_2021_close_20211107_3673.jpeg"
   date: '2021-11-07'
@@ -4097,7 +4452,10 @@
   faces: 1
   humans: 1
   aesthetic: 0.568
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2021)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2021)
   featured: true
 - src: "/assets/img/gallery/dalis_IN_YOUR_FACE_Close_20211004_c_TimHughes_6G9A9227.jpeg"
   date: '2021-10-04'
@@ -4109,7 +4467,10 @@
   humans: 0
   aesthetic: 0.658
   comedian: benjamin
-  alt: IN YOUR FACE Comedy, BENJAMIN performing stand-up on stage in Zürich (2021)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, BENJAMIN performing stand-up with a microphone on stage
+    in Zürich (2021)
   featured: true
 - src: "/assets/img/gallery/dalis_IN_YOUR_FACE_Close_20211004_c_TimHughes_6G9A9197.jpeg"
   date: '2021-10-04'
@@ -4121,7 +4482,11 @@
   humans: 1
   aesthetic: 0.703
   comedian: albert-louw
-  alt: IN YOUR FACE Comedy, Albert Louw performing stand-up on stage in Zürich (2021)
+  seo:
+    mic: true
+    gesturing: true
+  alt: IN YOUR FACE Comedy, Albert Louw performing stand-up with a microphone on stage
+    in Zürich (2021)
   featured: true
 - src: "/assets/img/gallery/dalis_IN_YOUR_FACE_Audience_20211004_c_TimHughes_6G9A9208.jpeg"
   date: '2021-10-04'
@@ -4132,8 +4497,10 @@
   faces: 3
   humans: 3
   aesthetic: -0.034
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2021)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2021)
   featured: false
 - src: "/assets/img/gallery/dalis_IN_YOUR_FACE_Audience_20211004_c_TimHughes_6G9A9181.jpeg"
   date: '2021-10-04'
@@ -4156,8 +4523,11 @@
   faces: 7
   humans: 3
   aesthetic: 0.446
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2021)
+  seo:
+    laughing: true
+    packed: true
+  alt: IN YOUR FACE Comedy, a packed audience laughing at a live English stand-up
+    comedy show in Zürich (2021)
   featured: true
 - src: "/assets/img/gallery/dalis_20210919_5724.jpeg"
   date: '2021-09-19'
@@ -4180,8 +4550,10 @@
   faces: 2
   humans: 2
   aesthetic: 0.377
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2021)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2021)
   featured: false
 - src: "/assets/img/gallery/dalis_20210919_4645.jpeg"
   date: '2021-09-19'
@@ -4192,8 +4564,10 @@
   faces: 2
   humans: 0
   aesthetic: 0.374
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2021)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2021)
   featured: false
 - src: "/assets/img/gallery/dalis_20210919_4637.jpeg"
   date: '2021-09-19'
@@ -4204,8 +4578,10 @@
   faces: 2
   humans: 0
   aesthetic: 0.468
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2021)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2021)
   featured: false
 - src: "/assets/img/gallery/dalis_20210919_2630.jpeg"
   date: '2021-09-19'
@@ -4216,7 +4592,10 @@
   faces: 1
   humans: 1
   aesthetic: 0.772
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2021)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2021)
   featured: true
 - src: "/assets/img/gallery/dalis_20210919_2452.jpeg"
   date: '2021-09-19'
@@ -4227,7 +4606,10 @@
   faces: 1
   humans: 1
   aesthetic: 0.69
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2021)
+  seo:
+    mic: true
+  alt: IN YOUR FACE Comedy, a comedian performing stand-up with a microphone on stage
+    in Zürich (2021)
   featured: true
 - src: "/assets/img/gallery/dalis_20210919_2047.jpeg"
   date: '2021-09-19'
@@ -4250,8 +4632,10 @@
   faces: 2
   humans: 3
   aesthetic: 0.55
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2021)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2021)
   featured: false
 - src: "/assets/img/gallery/dalis_20210919_2028.jpeg"
   date: '2021-09-19'
@@ -4274,6 +4658,8 @@
   faces: 2
   humans: 1
   aesthetic: 0.412
-  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
-    Zürich (2021)
+  seo:
+    laughing: true
+  alt: IN YOUR FACE Comedy, the audience laughing at a live English stand-up comedy
+    show in Zürich (2021)
   featured: false
