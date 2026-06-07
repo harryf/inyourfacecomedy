@@ -8,7 +8,8 @@ last_modified_at: 2026-05-25T12:00:00+00:00
 permalink: /moments/
 gallery_path: "assets/img/gallery"
 feature-img: "assets/img/pages/gallery.png"
-thumbnail: "assets/img/thumbs/inyourface_thumb.png"
+image: "/assets/img/thumbs/gallery_card.png"
+thumbnail: "assets/img/thumbs/gallery_card.png"
 ---
 
 Every night someone's got a camera out. This is the room: comedians mid-bit, the audience losing it, the small chaos between sets. Newest shows first, scrolling back to where it all started in September 2021.
