@@ -159,7 +159,7 @@ def era_for(date, today)
 end
 
 def era_label(era)
-  era == "recent" ? "Right now" : era
+  era == "recent" ? "Recent" : era
 end
 
 # --- main ---------------------------------------------------------------------
