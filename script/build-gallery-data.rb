@@ -20,8 +20,12 @@
 #                    /moments/ and each tagged comedian's page.
 #
 # Per-image metadata:
-#   date     — first git-add of the file (the honest "when it appeared" signal;
-#              EXIF on these is just the resize date). See CLAUDE.md.
+#   date     — the original capture date when we can trust one (EXIF embedded in the
+#              file, or a date stamped in the filename by WhatsApp / most cameras),
+#              otherwise the first git-add of the file. A capture date is used only
+#              when it predates the git-add (a real capture always precedes the
+#              commit; a resize date sits at or after it), which keeps the existing
+#              resized wall — those carry no embedded date — on its git-add dates.
 #   type     — performer | audience | moment. Led by what someone is *doing*:
 #              a microphone / performance / singer label or a standing body-pose
 #              => performer; people without a performer cue => audience; nobody
@@ -79,6 +83,51 @@ def git_added_date(abs_path)
   File.mtime(abs_path).to_date # untracked: best we have
 rescue ArgumentError
   File.mtime(abs_path).to_date
+end
+
+# Reject bogus clocks (1970 epoch, a camera stuck at 2001) — nothing here predates
+# the venue. Comfortably before the oldest real frame (2022) yet above the junk.
+SITE_EPOCH = Date.new(2018, 1, 1)
+
+# A date stamped into the filename. WhatsApp ("IMG-20250615-WA0001",
+# "WhatsApp Image 2025-06-15 at …"), and most phones/cameras ("20250615_143022",
+# "PXL_20250615_…", "IMG_20250615") all write the capture day into the name. This
+# is immune to a later resize, so it is the most reliable signal we have for a
+# forwarded photo. Returns nil when there's no plausible YYYY-MM-DD in the name.
+def filename_date(name)
+  return nil unless name =~ /(20\d{2})[-_. ]?(\d{2})[-_. ]?(\d{2})/
+  y, m, d = Regexp.last_match.captures.map(&:to_i)
+  Date.new(y, m, d) if (1..12).cover?(m) && (1..31).cover?(d)
+rescue ArgumentError
+  nil # e.g. 2025-02-31
+end
+
+# The EXIF capture date, via macOS Spotlight. kMDItemContentCreationDate is the
+# embedded capture date when the file carries one — but on a stripped/resized file
+# it just mirrors the filesystem date. So we trust it only when it differs from
+# kMDItemFSCreationDate; equal means there is no real embedded date.
+def exif_capture_date(abs_path)
+  out, status = Open3.capture2("mdls", "-name", "kMDItemContentCreationDate",
+                               "-name", "kMDItemFSCreationDate", abs_path)
+  return nil unless status.success?
+  content = out[/kMDItemContentCreationDate\s*=\s*(\d{4}-\d{2}-\d{2})/, 1]
+  fs      = out[/kMDItemFSCreationDate\s*=\s*(\d{4}-\d{2}-\d{2})/, 1]
+  return nil if content.nil? || content == fs
+  Date.iso8601(content)
+rescue StandardError
+  nil
+end
+
+# The date we file an image under. Prefer a real capture date (filename stamp, then
+# embedded EXIF) but ONLY when it is sane (>= site epoch, not in the future) AND
+# earlier than the git-add date. That last guard is the whole game: a true capture
+# precedes the commit, while a resize date lands at or after it — so the existing
+# wall (no embedded date, no dated names) falls straight through to git-add.
+def capture_or_git_date(abs_path, name)
+  git_date = git_added_date(abs_path)
+  cap = filename_date(name) || exif_capture_date(abs_path)
+  return git_date unless cap && cap >= SITE_EPOCH && cap <= Date.today && cap < git_date
+  cap
 end
 
 # --- Apple Vision via auge ----------------------------------------------------
@@ -187,10 +236,42 @@ SCENE = {
   "moment"    => "a moment from an English stand-up comedy night"
 }.freeze
 
-def alt_text(type, year, m)
+def alt_text(type, year, m, name = nil)
+  if type == "performer" && name && !name.empty?
+    return "IN YOUR FACE Comedy, #{name} performing stand-up in Zürich (#{year})"
+  end
   scene = SCENE.fetch(type)
   scene = "a live music and comedy moment" if type == "moment" && (m[:labels] & %w[music concert]).any?
   "IN YOUR FACE Comedy, #{scene} in Zürich (#{year})"
+end
+
+# slug => display name, read from the Grist-generated _comedians/*.md `title:`.
+# Read-only: we never write those files. Used to name a comedian in their alt text.
+def comedian_names
+  Dir.glob(File.join(COMEDIANS_DIR, "*.md")).each_with_object({}) do |f, h|
+    slug = name = nil
+    File.foreach(f, encoding: "UTF-8") do |line|
+      slug ||= Regexp.last_match(1) if line =~ /^slug:\s*"?([^"\n]+?)"?\s*$/
+      name ||= Regexp.last_match(1) if line =~ /^title:\s*"?([^"\n]+?)"?\s*$/
+      break if slug && name
+    end
+    h[slug] = name if slug && name
+  end
+end
+
+# Once a performer frame is tagged with a comedian, name them in the alt text
+# ("…, Jane Doe performing stand-up in Zürich (2025)"). Run after entries are
+# assembled (build) and after tagging, so both paths agree and it stays idempotent
+# — re-deriving the same alt from the slug each time. Untagged / "none" frames and
+# unknown slugs keep the generic alt.
+def apply_comedian_alt!(entries, names)
+  entries.each do |e|
+    next unless e["type"] == "performer"
+    slug = e["comedian"].to_s.strip
+    next if slug.empty? || slug == "none"
+    nm = names[slug]
+    e["alt"] = "IN YOUR FACE Comedy, #{nm} performing stand-up in Zürich (#{e['year']})" if nm
+  end
 end
 
 # --- era bucketing (timeline sections) ----------------------------------------
@@ -315,7 +396,7 @@ def cmd_build(rebuild:, ping:, git:, quiet:)
   entries = files.map do |name|
     src  = "#{WEB_PREFIX}/#{name}"
     abs  = File.join(GALLERY_DIR, name)
-    date = git_added_date(abs)
+    date = capture_or_git_date(abs, name)
     prev = existing[src]
 
     if prev && !rebuild
@@ -344,6 +425,7 @@ def cmd_build(rebuild:, ping:, git:, quiet:)
 
   removed = existing.values.reject { |e| present.include?(e["src"]) }
 
+  apply_comedian_alt!(entries, comedian_names) # name the comedian in tagged alt text
   assign_featured!(entries)
   entries.each { |e| e.delete("_score") }
   entries.sort_by! { |e| [e["date"], e["src"]] }.reverse!
@@ -436,6 +518,7 @@ def cmd_tag(all:, open_preview:, ping:, git:)
     end
   end
 
+  apply_comedian_alt!(entries, comedian_names) # name freshly-tagged comedians in alt
   write_entries(entries)
   if touched.empty?
     puts "\nNo new tags."
@@ -492,22 +575,26 @@ USAGE = <<~TXT
   CI/Netlify read. See CLAUDE.md § "The gallery is generated too".
 TXT
 
-if ARGV.include?("-h") || ARGV.include?("--help") || ARGV.first == "help"
-  puts USAGE
-  exit 0
-end
+# Only dispatch when run directly. Required so tests can `require` this file to
+# exercise the pure helpers (filename_date, capture_or_git_date, …) without a build.
+if __FILE__ == $PROGRAM_NAME
+  if ARGV.include?("-h") || ARGV.include?("--help") || ARGV.first == "help"
+    puts USAGE
+    exit 0
+  end
 
-command = ARGV.first && !ARGV.first.start_with?("-") ? ARGV.shift : "build"
-quiet   = ARGV.include?("--quiet")
-ping    = !ARGV.include?("--no-ping")
-git     = !ARGV.include?("--no-git")
+  command = ARGV.first && !ARGV.first.start_with?("-") ? ARGV.shift : "build"
+  quiet   = ARGV.include?("--quiet")
+  ping    = !ARGV.include?("--no-ping")
+  git     = !ARGV.include?("--no-git")
 
-case command
-when "build"
-  cmd_build(rebuild: ARGV.include?("--rebuild"), ping: ping, git: git, quiet: quiet)
-when "tag"
-  cmd_tag(all: ARGV.include?("--all"), open_preview: !ARGV.include?("--no-open"), ping: ping, git: git)
-else
-  warn "Unknown command '#{command}'.\n\n"
-  abort USAGE
+  case command
+  when "build"
+    cmd_build(rebuild: ARGV.include?("--rebuild"), ping: ping, git: git, quiet: quiet)
+  when "tag"
+    cmd_tag(all: ARGV.include?("--all"), open_preview: !ARGV.include?("--no-open"), ping: ping, git: git)
+  else
+    warn "Unknown command '#{command}'.\n\n"
+    abort USAGE
+  end
 end
