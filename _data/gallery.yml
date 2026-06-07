@@ -781,6 +781,78 @@
   comedian: harryf.cks
   alt: IN YOUR FACE Comedy, Harry Fücks performing stand-up in Zürich (2026)
   featured: false
+- src: "/assets/img/gallery/17_vertical_1face_30m15.5s_s3.8.jpg"
+  date: '2026-06-07'
+  year: 2026
+  era: recent
+  era_label: Recent
+  type: audience
+  faces: 2
+  humans: 0
+  aesthetic: -0.437
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2026)
+  featured: false
+- src: "/assets/img/gallery/16_horizontal_2face_24m16.1s_s5.6.jpg"
+  date: '2026-06-07'
+  year: 2026
+  era: recent
+  era_label: Recent
+  type: audience
+  faces: 3
+  humans: 2
+  aesthetic: 0.264
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2026)
+  featured: false
+- src: "/assets/img/gallery/07_horizontal_3face_34m19.5s_s12.6.jpg"
+  date: '2026-06-07'
+  year: 2026
+  era: recent
+  era_label: Recent
+  type: audience
+  faces: 5
+  humans: 1
+  aesthetic: 0.248
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2026)
+  featured: false
+- src: "/assets/img/gallery/05_vertical_1face_26m21.8s_s18.2.jpg"
+  date: '2026-06-07'
+  year: 2026
+  era: recent
+  era_label: Recent
+  type: audience
+  faces: 1
+  humans: 1
+  aesthetic: -0.238
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2026)
+  featured: false
+- src: "/assets/img/gallery/04_vertical_1face_34m22.5s_s18.8.jpg"
+  date: '2026-06-07'
+  year: 2026
+  era: recent
+  era_label: Recent
+  type: audience
+  faces: 2
+  humans: 1
+  aesthetic: -0.351
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2026)
+  featured: false
+- src: "/assets/img/gallery/03_vertical_1face_34m19.8s_s19.5.jpg"
+  date: '2026-06-07'
+  year: 2026
+  era: recent
+  era_label: Recent
+  type: audience
+  faces: 1
+  humans: 0
+  aesthetic: 0.259
+  alt: IN YOUR FACE Comedy, the audience at a live English stand-up comedy show in
+    Zürich (2026)
+  featured: false
 - src: "/assets/img/gallery/nicholas_de_santo_IMG_1336.jpeg"
   date: '2026-05-15'
   year: 2026
