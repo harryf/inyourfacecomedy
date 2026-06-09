@@ -17,13 +17,13 @@ venue_slug: robins
 recurrence_day: Tuesday
 recurrence_time: "19:30"
 default_duration_minutes: 150
-next_event_date: 2026-06-09T19:30:00+02:00
-next_event_end_date: 2026-06-09T21:30:00+02:00
+next_event_date: 2026-06-23T19:30:00+02:00
+next_event_end_date: 2026-06-23T21:30:00+02:00
 price_chf: 10
 performers:
   - Chris Darwa
   - Various local and visiting comedians
-last_modified_at: 2026-05-31T11:25:51+00:00
+last_modified_at: 2026-06-09T20:09:23+00:00
 ---
 **Chris Darwa** brings his brand of unstoppable Australian comedy to the stage, along with a mix of hilarious friends from the Swiss Comedy scene, some experimenting with new material, others honing their act, either way, your Tuesday is sure to end pissing yourself with laughs.
 
