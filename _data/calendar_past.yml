@@ -3,9 +3,23 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-06-09T20:09:23+00:00'
-past_count: 2
+generated_at: '2026-06-11T06:08:50+00:00'
+past_count: 3
 events:
+- show: jackpotcomedy
+  name: Jackpot Comedy
+  title: Jackpot Comedy - downstairs @ OTRO
+  url: "/jackpotcomedy/"
+  date: '2026-06-10'
+  start: '2026-06-10T20:00:00+02:00'
+  end: '2026-06-10T22:00:00+02:00'
+  venue: otro
+  venue_name: Bar OTRO
+  location: OTRO - Cocktailbar Zürich
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7466394816881947154.html
+  eventfrog_name: Jackpot Comedy
 - show: downunder
   name: Down Under Comedy
   title: Down Under Comedy - English stand-up comedy with Chris Darwa and Friends
