@@ -222,7 +222,8 @@
   faces: 1
   humans: 2
   aesthetic: 0.309
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2026)
+  comedian: frauke
+  alt: IN YOUR FACE Comedy, Frauke performing stand-up on stage in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/IMG_4468 Large.jpeg"
   date: '2026-06-11'
@@ -816,7 +817,8 @@
   faces: 1
   humans: 1
   aesthetic: 0.488
-  alt: IN YOUR FACE Comedy, a comedian performing stand-up on stage in Zürich (2026)
+  comedian: martinadoescomedy
+  alt: IN YOUR FACE Comedy, Martina performing stand-up on stage in Zürich (2026)
   featured: false
 - src: "/assets/img/gallery/IMG_3421.jpg"
   date: '2026-05-24'
