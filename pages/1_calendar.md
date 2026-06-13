@@ -5,7 +5,7 @@ nav_title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
 description: "See English stand-up comedy in Zürich tonight, this week, and beyond. Full calendar with dates, venues, and ticket links. Updated weekly."
-last_modified_at: 2026-06-07T09:00:01+00:00
+last_modified_at: 2026-06-13T09:00:01+00:00
 permalink: /calendar/
 feature-img: "assets/img/pages/follow.png"
 image: "/assets/img/pages/follow.png"
@@ -29,14 +29,12 @@ Whether you are looking for open mics, featured shows or touring comedians, you 
 
 | Date | Day | Show | Info | Tickets |
 |------|-----|------|------|---------|
-| Jun 9 | Tue | [Down Under Comedy](https://inyourfacecomedy.ch/downunder/) | Chris Darwa brings the Aussie chaos every Tuesday 🦘 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/down-under-comedy-7411510652865391761.html) |
-| Jun 10 | Wed | [Jackpot Comedy](https://inyourfacecomedy.ch/jackpotcomedy/) | Fresh jokes, zero safety net — pure comedy gold 🃏 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7466394816881947154.html) |
-| Jun 11 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Harryf.cks and Martinadoescomedy want your Thursday 🎤 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413532490189566185.html) |
 | Jun 16 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | Jokes you didn't see coming, hosted by Woocash 😄 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7413564804130995775.html) |
 | Jun 17 | Wed | [Brexiles](https://inyourfacecomedy.ch/brexiles/) | Three Brits abroad roasting themselves so you don't have to 😂 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/brexiles-english-comedy-night-in-zurich-kreis-4-7413661553898047623.html) |
 | Jun 18 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Skip the hike — Comedy Brew has you covered 😄 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413532603020540940.html) |
 | Jun 23 | Tue | [Down Under Comedy](https://inyourfacecomedy.ch/downunder/) | Your Tuesday just got a whole lot funnier 😂 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/down-under-comedy-7411510652987026579.html) |
 | Jun 25 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | The open mic where awkward moments feel like home 🎭 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413532715268450504.html) |
+| Jun 25 | Thu | [La Tarima](https://inyourfacecomedy.ch/latarima/) | Tu experiencia migrante merece un aplauso 👏 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7470803098795015596.html) |
 | Jun 30 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | Non-obvious English stand-up, vibes included 🌀 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7413564804391042731.html) |
 
 </div>
