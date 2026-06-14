@@ -5,8 +5,8 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-06-12T04:37:47+00:00'
-event_count: 45
+generated_at: '2026-06-14T13:54:16+00:00'
+event_count: 49
 events:
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
@@ -165,6 +165,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-7447274382815175440.html
   eventfrog_name: Pulp Non-Fiction Storytelling Open Mic Zurich
+- show: offsidecomedy
+  name: Offside Comedy
+  title: Offside Comedy - Comedy for people that hate balls
+  url: "/offsidecomedy/"
+  date: '2026-07-07'
+  start: '2026-07-07T19:30:00+02:00'
+  end: '2026-07-07T21:30:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/offside-comedy-comedy-for-people-who-hate-balls-7471915627952760195.html
+  eventfrog_name: Offside Comedy - Comedy for people who hate balls
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -180,6 +194,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413533016285273713.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: offsidecomedy
+  name: Offside Comedy
+  title: Offside Comedy - Comedy for people that hate balls
+  url: "/offsidecomedy/"
+  date: '2026-07-14'
+  start: '2026-07-14T19:30:00+02:00'
+  end: '2026-07-14T21:30:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/offside-comedy-comedy-for-people-who-hate-balls-7471915777429372406.html
+  eventfrog_name: Offside Comedy - Comedy for people who hate balls
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -195,6 +223,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413533116034214227.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: offsidecomedy
+  name: Offside Comedy
+  title: Offside Comedy - Comedy for people that hate balls
+  url: "/offsidecomedy/"
+  date: '2026-07-21'
+  start: '2026-07-21T19:30:00+02:00'
+  end: '2026-07-21T21:30:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/offside-comedy-comedy-for-people-who-hate-balls-7471915777475510275.html
+  eventfrog_name: Offside Comedy - Comedy for people who hate balls
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -210,6 +252,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413533231490825074.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: offsidecomedy
+  name: Offside Comedy
+  title: Offside Comedy - Comedy for people that hate balls
+  url: "/offsidecomedy/"
+  date: '2026-07-28'
+  start: '2026-07-28T19:30:00+02:00'
+  end: '2026-07-28T21:30:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/offside-comedy-comedy-for-people-who-hate-balls-7471915777517453316.html
+  eventfrog_name: Offside Comedy - Comedy for people who hate balls
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS

@@ -5,7 +5,7 @@ nav_title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
 description: "See English stand-up comedy in Zürich tonight, this week, and beyond. Full calendar with dates, venues, and ticket links. Updated weekly."
-last_modified_at: 2026-06-14T09:00:00+00:00
+last_modified_at: 2026-06-14T13:54:16+00:00
 permalink: /calendar/
 feature-img: "assets/img/pages/follow.png"
 image: "/assets/img/pages/follow.png"
@@ -50,9 +50,13 @@ Whether you are looking for open mics, featured shows or touring comedians, you 
 | Jul 2 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Your Thursday just found its new best tradition 🍻 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413532890292569427.html) |
 | Jul 4 | Sat | [La Tarima](https://inyourfacecomedy.ch/latarima/) | Reírse de la migración: más barato que terapia 😂 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/theatre/la-tarima-comedia-en-espanol-basel-7455573878481416422.html) |
 | Jul 5 | Sun | [Pulp Non-Fiction](https://inyourfacecomedy.ch/pulpnonfiction/) | True stories, stranger than fiction — come listen 👂 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-7447274382815175440.html) |
+| Jul 7 | Tue | [Offside Comedy](https://inyourfacecomedy.ch/offsidecomedy/) | English stand-up comedy you won't want to miss 🎤 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/offside-comedy-comedy-for-people-who-hate-balls-7471915627952760195.html) |
 | Jul 9 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Strangers become friends one punchline at a time 🤝 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413533016285273713.html) |
+| Jul 14 | Tue | [Offside Comedy](https://inyourfacecomedy.ch/offsidecomedy/) | English stand-up comedy you won't want to miss 🎤 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/offside-comedy-comedy-for-people-who-hate-balls-7471915777429372406.html) |
 | Jul 16 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | English comedy brewed fresh every Thursday night 🎤 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413533116034214227.html) |
+| Jul 21 | Tue | [Offside Comedy](https://inyourfacecomedy.ch/offsidecomedy/) | English stand-up comedy you won't want to miss 🎤 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/offside-comedy-comedy-for-people-who-hate-balls-7471915777475510275.html) |
 | Jul 23 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | No trail boots needed — just your sense of humour 😂 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413533231490825074.html) |
+| Jul 28 | Tue | [Offside Comedy](https://inyourfacecomedy.ch/offsidecomedy/) | English stand-up comedy you won't want to miss 🎤 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/offside-comedy-comedy-for-people-who-hate-balls-7471915777517453316.html) |
 | Jul 30 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Where newcomers step up and totally nail it 🌟 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413533348730017041.html) |
 
 </div>
