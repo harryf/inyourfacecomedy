@@ -15,7 +15,7 @@ event_type: series
 venue_slug: robins
 hosts_label: "Starring"
 hosts:
-  - "chrisdarwa"
+  - "chris-darwa"
   - "harryf.cks"
 ---
 While the rest of the planet loses its mind over the World Cup 2026, ROBIN's becomes the one venue in Zürich with a microphone in the middle instead of a trophy.
@@ -34,7 +34,7 @@ Doors open 7:15pm. The only own goal is staying home.
 
 ## When and Where
 
-- **Date:** Friday, 2 October 2026
+- **Date:** every Tuesday in July
 - **Doors:** 19:15 · **Show:** 19:30 to 21:30
 - **Where:** ROBIN's, Zähringerstrasse 33, 8001 Zürich
 - **Tickets:** CHF 10, or CHF 5 for students
