@@ -13,9 +13,11 @@ permalink: /offsidecomedy/
 ticket_url: https://eventfrog.ch/offsidecomedy
 event_type: series
 venue_slug: robins
+hosts_label: "Starring"
+hosts:
+  - "chrisdarwa"
+  - "harryf.cks"
 ---
-## Offside Comedy • Comedy for people who hate balls
-
 While the rest of the planet loses its mind over the World Cup 2026, ROBIN's becomes the one venue in Zürich with a microphone in the middle instead of a trophy.
 
 <!--more-->
