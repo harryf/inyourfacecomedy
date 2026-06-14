@@ -441,6 +441,8 @@ def info_pool_prompt(n, meta, hint = nil)
     - If the show is clearly performed in another language (e.g. Spanish, evident above),
       write the lines in that language to match its voice.
     - Keep it punchy: aim for 35-60 characters of text, then ONE single trailing emoji.
+    - HOUSE STYLE (WRITING_GUIDE.md): NEVER use an em dash (—) or en dash (–). Join clauses
+      with a comma, a colon, or parentheses instead. This is a hard rule, no exceptions.
     - Plain text only: no quotation marks, no markdown, and it must NOT contain "|".
     Output EXACTLY #{n} lines, one per row, nothing else (no numbering, no preamble).
   PROMPT
@@ -454,6 +456,8 @@ def month_pool_prompt(k, month_name, month_num)
     of year and to comedy — warm and funny, not corny.
     Rules for EACH line: a single sentence, max ~140 characters, plain text, no emoji,
     no quotation marks, no markdown, and do NOT name a venue or specific address.
+    HOUSE STYLE (WRITING_GUIDE.md): NEVER use an em dash (—) or en dash (–); join clauses
+    with a comma, colon, or parenthesis instead. Hard rule, no exceptions.
     Output EXACTLY #{k} lines, one per row, nothing else.
   PROMPT
 end
