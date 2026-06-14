@@ -5,7 +5,7 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-06-14T13:54:16+00:00'
+generated_at: '2026-06-14T13:54:53+00:00'
 event_count: 49
 events:
 - show: jokesjokesjokes
