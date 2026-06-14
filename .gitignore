@@ -47,3 +47,9 @@ script/sync-comedians.log
 ga-mcp-oauth-client.json
 client_secret_*.json
 
+
+# OAuth refresh token for Google Business Profile poster — never commit
+gbp-token.json
+
+# GBP poster generated state (account id + post ids) — descriptions in gbp/*.txt ARE tracked
+gbp/gbp-state.json
