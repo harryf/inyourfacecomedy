@@ -45,3 +45,5 @@ script/sync-comedians.log
 
 # OAuth credentials — never commit
 ga-mcp-oauth-client.json
+client_secret_*.json
+
