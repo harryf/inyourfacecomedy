@@ -166,6 +166,19 @@ ROW_DATE_RE = /\A(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+(\d{1
 FALLBACK_INFO = "English stand-up comedy you won't want to miss 🎤"
 def fallback_flavor(month_name, year) = "Live English stand-up comedy in Zürich — #{month_name} #{year}."
 
+# Per-show steering for the --init Info prompt, keyed by permalink slug. Lets one show
+# lean into its own running joke / iconography without polluting the generic prompt.
+# Use it to name the emoji palette and to ban anything off-limits for that show.
+# Add a line here, then re-fill that show's pool with:
+#   ruby script/refresh-calendar-page.rb --init --only <slug> --no-push
+SHOW_HINTS = {
+  "offsidecomedy" => "This is a football-themed comedy night for people who'd rather laugh " \
+    "than watch the match. Lean into football/soccer wordplay (offside, nil-nil, VAR, red " \
+    "card, own goal, penalty, kickoff, the beautiful game, extra time). Favour football " \
+    "emojis: ⚽ 🥅 🟥 🟨 🏆 🙌. HARD BAN: never mention the World Cup, any tournament name, " \
+    "or any country's team.",
+}.freeze
+
 options = { init: false, dry_run: false, no_push: false, no_refresh: false, verbose: false,
             only: nil,
             pool_size: (ENV["CALENDAR_POOL_SIZE"] || 30).to_i,
@@ -400,27 +413,36 @@ SEASONS = {
   9 => "early autumn", 10 => "autumn", 11 => "late autumn"
 }.freeze
 
-def info_pool_prompt(n, meta)
+def info_pool_prompt(n, meta, hint = nil)
   host = meta["host"].to_s.empty? ? "" : "Host(s): #{meta["host"]}. "
   src  = [meta["title"], meta["description"], meta["about"]].reject { |s| s.to_s.empty? }.join(" — ")
+  hint_block = hint.to_s.empty? ? "" : "\nSHOW-SPECIFIC STEER (follow this closely):\n#{hint}\n"
   <<~PROMPT
-    Below is one recurring stand-up comedy show. Write #{n} DISTINCT one-line TEASERS for
-    the "Info" column of a calendar — cute, playful hooks that make someone want to come,
-    each a different angle so the calendar stays fresh when this same show repeats week
-    after week. Ground them in the show's own theme, vibe and host(s):
+    You write the tiny "Info" teaser that sits next to one show in a what's-on calendar.
+    This is ONE recurring English stand-up comedy show. Write #{n} DISTINCT teasers — each a
+    genuinely different angle (a different joke, image, or hook), because this same show
+    repeats week after week and the calendar must never feel copy-pasted.
 
+    THE SHOW:
     #{host}#{one_line(src)[0, 900]}
+    #{hint_block}
+    WHAT MAKES A GOOD LINE:
+    - A specific, witty hook drawn from THIS show's own theme, running jokes or host(s) —
+      not a generic line that could describe any comedy night. If a line would fit every
+      show on the calendar, rewrite it.
+    - Inviting and playful, like a friend daring you to come, not a dry description.
+    - Vary the emoji across the set (don't end every line with 🎤/😂); pick one that lands
+      the specific joke in that line.
 
-    STRICT RULES for EVERY line:
-    - Do NOT mention any location, city, venue, country, neighbourhood or address (no
-      "Zürich", "Basel", bar names, etc.). The venue changes between dates, so naming it
-      would be wrong. Tease the SHOW and its host(s), never the place.
-    - Make it a cute, inviting teaser — playful, not a dry description.
-    - If the show is clearly performed in a language other than English (evident from the
-      text above — e.g. Spanish), write the lines in that language to match its voice.
-    - Max ~60 characters before a SINGLE trailing emoji that fits the line; plain text;
-      no quotation marks; no markdown; it must NOT contain the "|" character.
-    Output EXACTLY #{n} lines, one per row, nothing else (no numbering).
+    HARD RULES for EVERY line:
+    - No location, city, venue, country, neighbourhood or address (no "Zürich", "Basel",
+      bar names). The venue changes between dates, so naming it would be wrong. Tease the
+      SHOW and its host(s), never the place.
+    - If the show is clearly performed in another language (e.g. Spanish, evident above),
+      write the lines in that language to match its voice.
+    - Keep it punchy: aim for 35-60 characters of text, then ONE single trailing emoji.
+    - Plain text only: no quotation marks, no markdown, and it must NOT contain "|".
+    Output EXACTLY #{n} lines, one per row, nothing else (no numbering, no preamble).
   PROMPT
 end
 
@@ -452,7 +474,7 @@ def init_pools!(cache, events, options)
       say("  [skip] #{slug} — no _posts page to describe")
       next
     end
-    out = claude_say(info_pool_prompt(options[:pool_size], meta), options[:model])
+    out = claude_say(info_pool_prompt(options[:pool_size], meta, SHOW_HINTS[slug]), options[:model])
     lines = parse_lines(out, options[:pool_size])
     if lines.empty?
       say("  [warn] #{slug} — claude returned no usable lines")
@@ -496,10 +518,13 @@ def assign_show_info(cache, events)
     used   = []
 
     dates.each do |d|                                   # keep existing (stable / manual)
-      if prev[d] && !prev[d].to_s.empty?
-        result[d] = prev[d]
-        used << prev[d]
-      end
+      next unless prev[d] && !prev[d].to_s.empty?
+      # A prior FALLBACK assignment was a placeholder written when the pool was still
+      # empty — NOT a deliberate choice. Once the pool has real lines, let it be
+      # re-resolved below instead of sticking forever (the offsidecomedy bug).
+      next if prev[d] == FALLBACK_INFO && !pool.empty?
+      result[d] = prev[d]
+      used << prev[d]
     end
     dates.each do |d|                                   # assign new dates a distinct line
       next if result[d]
@@ -553,6 +578,18 @@ def git_run(*args)
   [out.strip, status.success?]
 end
 
+# Discard a generated data file whose ONLY diff is its `generated_at:` timestamp, so a
+# run that changed nothing real doesn't leave the tree dirty (or push a no-op rebuild).
+# The extractor re-stamps generated_at in calendar.yml + calendar_past.yml every run;
+# without this, calendar_past.yml (which this script regenerates but rarely changes)
+# is left modified-but-uncommitted. Mirrors refresh-next-event-dates.rb.
+def discard_if_only_timestamp(rel)
+  diff, _ = git_run("diff", "--unified=0", "--", rel)
+  return if diff.empty?
+  body = diff.lines.select { |l| l =~ /\A[+-]/ && l !~ /\A(\+\+\+|---)/ }
+  git_run("checkout", "--", rel) if body.any? && body.all? { |l| l =~ /\A[+-]generated_at:/ }
+end
+
 # ---------- IndexNow ----------
 # Push-notify Bing/Yandex/Seznam when the /calendar/ page changes, instead of waiting
 # for the next sitemap crawl. Same key + endpoint as the sibling cron scripts
@@ -592,8 +629,13 @@ rescue => e
 end
 
 def commit_and_push!
+  # The extractor re-stamps generated_at on the data files; drop a timestamp-only
+  # change so it neither churns a commit nor lingers as a dirty working tree.
+  discard_if_only_timestamp("_data/calendar.yml")
+  discard_if_only_timestamp("_data/calendar_past.yml")
+
   out, ok = git_run("add", "--", "pages/1_calendar.md", "script/calendar-copy.json",
-                    "_data/calendar.yml", "_data/venues.yml")
+                    "_data/calendar.yml", "_data/calendar_past.yml", "_data/venues.yml")
   raise "git add failed: #{out}" unless ok
 
   _, no_staged = git_run("diff", "--quiet", "--staged")
