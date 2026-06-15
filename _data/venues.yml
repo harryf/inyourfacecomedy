@@ -70,3 +70,11 @@ the-beast-basel-comedy-club:
   country: "CH"
   website: "https://www.thebeastbasel.com/"
   google_maps_url: "https://maps.app.goo.gl/joakm79JUHJSS2gZ9"
+
+goldfisch-club:
+  name: "Goldfisch Club"
+  street: "Langstrasse 83"
+  postal_code: "8004"
+  city: "Zürich"
+  country: "CH"
+  # website + google_maps_url: add by hand (not in EventFrog data)
