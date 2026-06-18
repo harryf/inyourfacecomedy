@@ -3,9 +3,23 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-06-17T07:00:01+00:00'
-past_count: 5
+generated_at: '2026-06-18T07:00:01+00:00'
+past_count: 6
 events:
+- show: brexiles
+  name: Brexiles
+  title: Brexiles - English Comedy Night in Zurich Kreis 4
+  url: "/brexiles/"
+  date: '2026-06-17'
+  start: '2026-06-17T20:00:00+02:00'
+  end: '2026-06-17T22:00:00+02:00'
+  venue: otro
+  venue_name: Bar OTRO
+  location: OTRO
+  price_chf: 17
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/brexiles-english-comedy-night-in-zurich-kreis-4-7413661553898047623.html
+  eventfrog_name: Brexiles - English Comedy Night in Zurich Kreis 4
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
