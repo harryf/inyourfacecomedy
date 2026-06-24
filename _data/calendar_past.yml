@@ -3,9 +3,23 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-06-19T09:39:02+00:00'
-past_count: 7
+generated_at: '2026-06-24T07:00:01+00:00'
+past_count: 8
 events:
+- show: downunder
+  name: Down Under Comedy
+  title: Down Under Comedy - English stand-up comedy with Chris Darwa and Friends
+  url: "/downunder/"
+  date: '2026-06-23'
+  start: '2026-06-23T19:30:00+02:00'
+  end: '2026-06-23T21:30:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/down-under-comedy-7411510652987026579.html
+  eventfrog_name: Down Under Comedy
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
