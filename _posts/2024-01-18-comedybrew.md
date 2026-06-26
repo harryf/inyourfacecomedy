@@ -3,7 +3,7 @@ layout: post
 editable: false
 title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS in Niederdorf Zürich
 description: "Wondering where to meet people in Zürich? Tired of hiking and meetup groups? Join local English-speaking comedians and new-comers for a Thursday night of comedy • English Stand-Up Comedy in Switzerland"
-last_modified_at: 2026-06-19T09:39:01+00:00
+last_modified_at: 2026-06-26T07:00:00+00:00
 feature-img: "assets/img/uploads/comedybrew_featured.png"
 image: "/assets/img/uploads/comedybrew_horizontal.png"
 thumbnail: "assets/img/thumbs/comedybrew.png"
@@ -19,8 +19,8 @@ venue_slug: robins
 recurrence_day: Thursday
 recurrence_time: "19:30"
 default_duration_minutes: 150
-next_event_date: 2026-06-25T19:30:00+02:00
-next_event_end_date: 2026-06-25T22:00:00+02:00
+next_event_date: 2026-07-02T19:30:00+02:00
+next_event_end_date: 2026-07-02T22:00:00+02:00
 price_chf: 10
 performers:
   - "Various local and visiting comedians"
