@@ -3,9 +3,37 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-06-29T07:00:01+00:00'
-past_count: 10
+generated_at: '2026-07-02T12:08:30+00:00'
+past_count: 12
 events:
+- show: jackpotcomedy
+  name: Jackpot Comedy
+  title: Jackpot Comedy - downstairs @ OTRO
+  url: "/jackpotcomedy/"
+  date: '2026-07-01'
+  start: '2026-07-01T20:00:00+02:00'
+  end: '2026-07-01T22:00:00+02:00'
+  venue: otro
+  venue_name: Bar OTRO
+  location: OTRO - Cocktailbar Zürich
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7466395122575358298.html
+  eventfrog_name: Jackpot Comedy
+- show: jokesjokesjokes
+  name: Jokes, Jokes, Jokes
+  title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
+  url: "/jokesjokesjokes/"
+  date: '2026-06-30'
+  start: '2026-06-30T19:30:00+02:00'
+  end: '2026-06-30T21:30:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN'S bar & coffee
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7413564804391042731.html
+  eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: latarima
   name: La Tarima
   title: La Tarima - Comedia en Español
