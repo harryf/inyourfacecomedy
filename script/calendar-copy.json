@@ -113,7 +113,6 @@
       ]
     },
     "assigned": {
-      "2026-06": "Summer is coming! Laugh your way into the season before you realize you haven't achieved your New Year's resolutions.",
       "2026-07": "The heat is on! Cool down with comedy that's hotter than the Swiss summer sun.",
       "2026-08": "Before the Swiss summer packs its bags and the serious season returns, come let strangers make you laugh embarrassingly hard.",
       "2026-09": "Precision watches, flawless trains, zero tolerance for bad cheese, and now a month of people determined to make you laugh.",
@@ -306,7 +305,6 @@
         "Your social life called, it wants you at open mic 📞"
       ],
       "assigned": {
-        "2026-07-02": "Your Thursday just found its new best tradition 🍻",
         "2026-07-09": "Strangers become friends one punchline at a time 🤝",
         "2026-07-16": "English comedy brewed fresh every Thursday night 🎤",
         "2026-07-23": "No trail boots needed, just your sense of humour 😂",
@@ -532,7 +530,9 @@
         "Wednesday's most thrilling gamble, no poker face required 🃏"
       ],
       "assigned": {
-        "2026-07-01": "Some punchlines land, some crash. All worth it 🎲"
+        "2026-07-08": "Jack Roberts rolls the dice on your funny bone 🎰",
+        "2026-09-02": "Fresh jokes, zero safety net: pure comedy gold 🃏",
+        "2026-09-09": "Some punchlines land, some crash. All worth it 🎲"
       }
     },
     "jokesjokesjokes": {
@@ -865,8 +865,7 @@
         "The story circle Albert Louw was born to host 🌺"
       ],
       "assigned": {
-        "2026-07-05": "True stories, stranger than fiction: come listen 👂",
-        "2026-08-02": "Your DNA is calling, storytelling night is on 🧬"
+        "2026-07-05": "True stories, stranger than fiction: come listen 👂"
       }
     },
     "randomfactsexchange": {
