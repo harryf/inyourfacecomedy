@@ -5,7 +5,7 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-07-03T07:00:01+00:00'
+generated_at: '2026-07-04T07:00:01+00:00'
 event_count: 52
 events:
 - show: latarima
@@ -765,14 +765,13 @@ unresolved:
   ticket_url: https://eventfrog.ch/brexiles/
   reason: HTTP 404 at https://eventfrog.ch/brexiles/ (vanity slug dead? update ticket_url
     to the canonical /p/groups/ URL)
+- show: downunder
+  ticket_url: https://eventfrog.ch/downunder
+  reason: HTTP 404 at https://eventfrog.ch/downunder (vanity slug dead? update ticket_url
+    to the canonical /p/groups/ URL)
 no_upcoming:
 - show: jokesjokesjokes
   ticket_url: https://eventfrog.ch/jokes-jokes-jokes
   resolved_to: https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7413564801610218198.html
-  reason: resolved but 0 future events — ticket_url may point at one past event instead
-    of the series
-- show: downunder
-  ticket_url: https://eventfrog.ch/downunder
-  resolved_to: https://eventfrog.ch/en/p/groups/down-under-comedy-7411510651711957320.html
   reason: resolved but 0 future events — ticket_url may point at one past event instead
     of the series
