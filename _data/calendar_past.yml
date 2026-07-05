@@ -3,9 +3,23 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-07-03T07:00:01+00:00'
-past_count: 13
+generated_at: '2026-07-05T08:09:59+00:00'
+past_count: 14
 events:
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-07-04'
+  start: '2026-07-04T20:30:00+02:00'
+  end: '2026-07-04T22:30:00+02:00'
+  venue: the-beast-basel-comedy-club
+  venue_name: The Beast Basel Comedy Club
+  location: The Beast Basel Comedy Club
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/theatre/la-tarima-comedia-en-espanol-basel-7455573878481416422.html
+  eventfrog_name: La Tarima - Comedia en Español - BASEL
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS

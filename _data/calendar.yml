@@ -5,23 +5,9 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-07-04T07:00:01+00:00'
-event_count: 52
+generated_at: '2026-07-05T08:09:59+00:00'
+event_count: 51
 events:
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-07-04'
-  start: '2026-07-04T20:30:00+02:00'
-  end: '2026-07-04T22:30:00+02:00'
-  venue: the-beast-basel-comedy-club
-  venue_name: The Beast Basel Comedy Club
-  location: The Beast Basel Comedy Club
-  price_chf: 10
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/theatre/la-tarima-comedia-en-espanol-basel-7455573878481416422.html
-  eventfrog_name: La Tarima - Comedia en Español - BASEL
 - show: pulpnonfiction
   name: Pulp Non-Fiction
   title: Pulp Non-Fiction - Storytelling Open Mic Zürich
@@ -367,20 +353,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/science-and-technology/random-facts-exchange-20-museum-edition-7434315326727157500.html
   eventfrog_name: Random Facts Exchange 20 Museum Edition
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-09-17'
-  start: '2026-09-17T19:30:00+02:00'
-  end: '2026-09-17T21:30:00+02:00'
-  venue: goldfisch-club
-  venue_name: Goldfisch Club
-  location: Goldfisch Club
-  price_chf: 13
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472017526089645125.html
-  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -396,6 +368,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466830849213728090.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-09-17'
+  start: '2026-09-17T19:30:00+02:00'
+  end: '2026-09-17T21:30:00+02:00'
+  venue: goldfisch-club
+  venue_name: Goldfisch Club
+  location: Goldfisch Club
+  price_chf: 13
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472017526089645125.html
+  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -528,6 +514,21 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/theatre/la-tarima-comedia-en-espanol-basel-7455584161312579924.html
   eventfrog_name: La Tarima - Comedia en Español - BASEL
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
+    in Niederdorf Zürich
+  url: "/comedybrew/"
+  date: '2026-10-29'
+  start: '2026-10-29T20:30:00+02:00'
+  end: '2026-10-29T23:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831682483568140.html
+  eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: latarima
   name: La Tarima
   title: La Tarima - Comedia en Español
@@ -547,21 +548,6 @@ events:
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
     in Niederdorf Zürich
   url: "/comedybrew/"
-  date: '2026-10-29'
-  start: '2026-10-29T20:30:00+02:00'
-  end: '2026-10-29T23:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 10
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831682483568140.html
-  eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
-- show: comedybrew
-  name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
-  url: "/comedybrew/"
   date: '2026-11-05'
   start: '2026-11-05T20:30:00+02:00'
   end: '2026-11-05T23:00:00+02:00'
@@ -571,21 +557,6 @@ events:
   price_chf: 10
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831792680472322.html
-  eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
-- show: comedybrew
-  name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
-  url: "/comedybrew/"
-  date: '2026-11-12'
-  start: '2026-11-12T20:30:00+02:00'
-  end: '2026-11-12T23:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 10
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831890344846441.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: latarima
   name: La Tarima
@@ -601,6 +572,21 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472021157165665385.html
   eventfrog_name: La Tarima - Comedia en Español - ZURICH
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
+    in Niederdorf Zürich
+  url: "/comedybrew/"
+  date: '2026-11-12'
+  start: '2026-11-12T20:30:00+02:00'
+  end: '2026-11-12T23:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831890344846441.html
+  eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
