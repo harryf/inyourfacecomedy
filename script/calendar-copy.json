@@ -34,7 +34,11 @@
         "July in Zürich means the sun stays up late and so do the comedians, grab a cold drink and a seat before both run out.",
         "The evenings are long, the lake is warm, and the only thing cooler than a swim right now is the punchline you never saw coming.",
         "Zürich summers draw visitors from everywhere, so come prepared: the locals laugh in multiple languages and always precisely on time.",
-        "When July turns Zürich into one giant terrace party, it turns out the funniest table is always indoors."
+        "When July turns Zürich into one giant terrace party, it turns out the funniest table is always indoors.",
+        "Zürich in July is gorgeous, the lake is full, and somewhere between the sunscreen and the fondue, a laugh feels just right.",
+        "The Swiss are famously precise, which means every punchline this July lands exactly on time.",
+        "July daylight in Zürich stretches past nine, so there is plenty of sun left to justify spending the evening indoors laughing.",
+        "Summer here is warm, brief, and slightly smug about both, which makes it the perfect season for comedy."
       ],
       "08": [
         "The lake is warm, the evenings are long, and someone is about to say something deeply unwise into a microphone.",
@@ -49,7 +53,11 @@
         "August in Zürich: too hot to be polite, too humid to be Swiss, and just right for laughing at it all.",
         "The lake is warm, the rosé is cold, and someone up there has forty-five minutes of material about both.",
         "Summer is technically still happening, comedians are definitely still happening, and together you will survive August.",
-        "Before the first fondue of autumn shows up, let a stranger make you laugh until your sunburn hurts."
+        "Before the first fondue of autumn shows up, let a stranger make you laugh until your sunburn hurts.",
+        "August in Zürich is gorgeous and fleeting, so come laugh while the good weather still feels like it might last.",
+        "Swiss trains run to the second, stand-up comedy does not, and somehow that contrast is exactly what makes August in Zürich so charming.",
+        "The lake will still be there tomorrow, but a room full of people laughing on a warm August night has its own particular magic.",
+        "September is four weeks away, so consider August your standing permission to stay out late and laugh too loud."
       ],
       "09": [
         "The sweaters are out, the tourists are gone, and September in Zürich belongs entirely to people who laugh.",
@@ -64,7 +72,11 @@
         "The summer tan fades, the fondue season begins, and Zürich's comedians are ready to fill the gap in between.",
         "September: the month Zürich puts away its sunscreen, pulls out its scarves, and finally has something worth complaining about on stage.",
         "As the leaves start falling and the lake goes grey, nothing warms a room quite like someone else's bad life choices.",
-        "Back from holidays, slightly rounder, and full of stories you'd only share with strangers in the dark: welcome to September."
+        "Back from holidays, slightly rounder, and full of stories you'd only share with strangers in the dark: welcome to September.",
+        "September in Zürich smells of rain, fresh chestnuts, and the quiet relief of comedians who finally have something new to complain about.",
+        "Summer packed up and left without saying goodbye, so we figured the least we could do is fill its absence with laughter.",
+        "The tourists are gone, the lake is yours, and Zürich in September belongs to the kind of people who stay for the punchline.",
+        "As autumn settles over the city, find a warm seat and let someone remind you that most things are funnier when it is cold outside."
       ],
       "10": [
         "The leaves are falling, the fondue is bubbling, and someone in Zürich is about to make a room full of strangers laugh until it hurts.",
@@ -79,7 +91,11 @@
         "The leaves are falling, the laughs are rising: October in Zürich is the perfect time to let a comedian do the talking.",
         "October brings shorter days and longer punchlines, come inside, the fog can wait.",
         "Zürich in October: the chestnuts are roasting, the scarves are out, and the only thing sharper than the autumn air is the comedy.",
-        "When the lake turns grey and the clocks go back, the only sensible response is to sit in a dark room and laugh your head off."
+        "When the lake turns grey and the clocks go back, the only sensible response is to sit in a dark room and laugh your head off.",
+        "The nights are getting longer, the laughs are getting louder, and this is genuinely the best use of a coat you will ever find.",
+        "Zürich in October means fog, fondue, and fortunately, comedians who know exactly what to do with all three.",
+        "October is officially the month when ghosts roam the streets, which is still less unsettling than a crowd that does not laugh.",
+        "Swap the hiking boots for a bar stool, because October is prime season for warmth, laughter, and extremely honest takes on Swiss life."
       ],
       "11": [
         "November in Zürich: dark, damp, and absolutely ideal for laughing at strangers in a heated room.",
@@ -94,7 +110,11 @@
         "November in Zürich means shorter days, longer coats, and the urgent need to sit somewhere warm and laugh at things.",
         "Swiss engineering can handle anything except a grey Tuesday in November, which is where comedians come in.",
         "The lake turns steel, the leaves give up, and the funniest people in the city take it as a personal challenge.",
-        "There is no better cure for late autumn than a room full of strangers all deciding, at once, that this is actually funny."
+        "There is no better cure for late autumn than a room full of strangers all deciding, at once, that this is actually funny.",
+        "November turns Zürich cold and grey, so come inside, sit down, and let someone else deal with the existential weight for once.",
+        "The fondue is bubbling, the fog is rolling in, and a good comedy show is exactly the kind of warmth Zürich deserves in November.",
+        "Swiss trains run on time and so do the punchlines, making November the most efficient month to laugh your way through the fog.",
+        "The days are short, the nights are long, and comedy is the most civilised reason to leave your blanket and brave the cold."
       ],
       "12": [
         "The nights are long, the glühwein is warm, and somebody has to make the whole city laugh before the year gives up.",
@@ -109,7 +129,11 @@
         "Nothing cuts through a Zürich December like shared laughter, warmer than fondue and significantly cheaper than Swiss chocolate.",
         "This festive season, the best gift you can give yourself is an evening spent laughing until your Glühwein goes cold.",
         "December in Zürich means snow on the rooftops, lights on the bridges, and comedians who refuse to let winter have the last word.",
-        "The nights are long, the cheese is melted, and the comedians are ready: Zürich's December stand-up scene is officially open for business."
+        "The nights are long, the cheese is melted, and the comedians are ready: Zürich's December stand-up scene is officially open for business.",
+        "December in Zürich is dark and cold, but the laughs inside are bright, loud, and completely free of advent calendar calories.",
+        "Skip the Christmas markets for one evening, pull up a chair, and let someone else do the suffering, on stage, for your amusement.",
+        "The cheese is melting, the Glühwein is flowing, and live comedy is here to warm whatever December has quietly frozen inside you.",
+        "The year is nearly done, the decorations are up, and there is truly no better time to sit back and laugh at absolutely all of it."
       ]
     },
     "assigned": {
@@ -735,9 +759,40 @@
       }
     },
     "nerdycomedyshow": {
-      "pool": [],
+      "pool": [
+        "Your Steam backlog is a cry for help, we get it 🎮",
+        "Stand-up for multiverse explainers, uninvited 🦸",
+        "Strong D&D edition opinions? This is your room 🎲",
+        "Pavel and Sussman roast your card game addiction 🃏",
+        "Laugh about anime filler arcs you survived 😤",
+        "Min-maxed your build, now max your laughs 🗡️",
+        "Where alignment charts spark actual arguments 📊",
+        "Is Magic a hobby or a financial mistake? Yes 💸",
+        "Stand-up sharper than your Nat 20 roll 🐉",
+        "Pavel brings the laughs, you bring the lore 📚",
+        "Comedy for people who've argued about power creep 🌀",
+        "Your anime hot takes deserve a live audience 🍜",
+        "Sussmancomedy knows your Steam shame intimately 💾",
+        "Laugh at the nerd in the mirror, we dare you 🪞",
+        "Which D&D edition peaked? Fight us, laugh first ⚔️",
+        "Pavel Zborik: nerd, comedian, probably chaotic neutral 😈",
+        "Stand-up for people whose hobbies need spreadsheets 🧮",
+        "No system mastery needed, just bring your opinions 🎭",
+        "Your board game shelf called, this is the afterparty 🎪",
+        "Nerdy Comedy: sharper material than your deck build 🧙",
+        "Live laughs for people who've rage-quit a raid 💥",
+        "Sussmancomedy and Pavel bring the nerd heat live 🔥",
+        "Comedy about the stuff that actually matters: anime 🌸",
+        "Your character sheet won't save you from these punchlines 📜",
+        "Stand-up for lawful good nerds and chaotic evil ones ⚖️",
+        "Sussmancomedy: your filler arc had a point, kind of 🍥",
+        "Nerdy Comedy, where every joke crits ⚡",
+        "You've argued about card games, now laugh about them 🎴",
+        "Live stand-up for people with unfinished campaign notes 📝",
+        "Pavel Zborik asks: is your backlog a hobby or denial? 🕹️"
+      ],
       "assigned": {
-        "2026-08-29": "English stand-up comedy you won't want to miss 🎤"
+        "2026-08-29": "Your Steam backlog is a cry for help, we get it 🎮"
       }
     },
     "offsidecomedy": {
@@ -867,7 +922,37 @@
         "Real humans, wild tales: surprisingly hilarious 😆",
         "Truth is funnier than fiction, Pulp Non-Fiction proves it 🎯",
         "Every storyteller tonight has a tale you need to hear 👂",
-        "The story circle Albert Louw was born to host 🌺"
+        "The story circle Albert Louw was born to host 🌺",
+        "True stories, stranger than any fiction 🎭",
+        "Albert Louw hosts the night you'll retell 🔁",
+        "No scripts, just gloriously true chaos 🌀",
+        "Your weirdest story has a home here 🏠",
+        "Free entry because good stories are priceless 💸",
+        "As old as campfires, as funky as tonight 🔥",
+        "Albert and friends confess their real lives 😬",
+        "Come for laughs, stay lost in the surreal 🌙",
+        "The ancient art of oversharing, perfected 📖",
+        "Real people, real blunders, zero fiction 🫢",
+        "Pulp Non-Fiction: proof truth is funnier 😄",
+        "Grab a seat before the wild tales begin 🪑",
+        "Albert Louw curates chaos, one story at a time 🗂️",
+        "Storytelling is in our DNA, prove yours 🧬",
+        "Come free of charge, leave full of stories 💫",
+        "Where comedians gleefully tell on themselves 😅",
+        "Strange, surreal and stubbornly true stories 🎠",
+        "Reserve your spot before Albert fills the room 🎪",
+        "Donate what you like, just bring your ears 🎩",
+        "Open mic night where truth outshocks fiction 🫣",
+        "Comedy plus confession, Albert holds court 🕵️",
+        "The funniest truths you never knew existed 🧠",
+        "Laughter and the surreal on the same night 🍋",
+        "Each storyteller arrives from a different planet 🌍",
+        "No two Pulp Non-Fiction evenings ever match 🎲",
+        "Albert turns real-life disasters into gold ✨",
+        "Prepare your ears for a genuine adventure 👂",
+        "True tales laced with comedy at every turn 🦴",
+        "Where truth consistently outwits invention 🃏",
+        "Show up, listen in, maybe even spill your own 🎤"
       ],
       "assigned": {
         "2026-07-05": "True stories, stranger than fiction: come listen 👂"
