@@ -9,6 +9,9 @@ image: /assets/img/uploads/nerdy-comedy-show-wide.jpeg
 thumbnail: /assets/img/uploads/nerdy-comedy-show-insta-post.jpeg
 excerpt_separator: <!--more-->
 permalink: /nerdycomedyshow/
+hosts:
+  - "pavel-zborik"
+  - "sussmancomedy"
 ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7460775757695997180.html
 event_type: one-off
 venue_slug: robins
