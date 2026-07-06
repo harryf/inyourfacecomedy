@@ -15,6 +15,10 @@ hosts:
 ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7460775757695997180.html
 event_type: one-off
 venue_slug: robins
+next_event_date: 2026-08-29T19:00:00+02:00
+next_event_end_date: 2026-08-29T22:00:00+02:00
+price_chf: 15
+last_modified_at: 2026-07-06T07:00:01+00:00
 ---
 **STAND-UP FOR PEOPLE WHO'VE ARGUED ABOUT ALIGNMENT CHARTS**
 

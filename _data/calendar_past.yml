@@ -3,9 +3,23 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-07-05T08:09:59+00:00'
-past_count: 14
+generated_at: '2026-07-06T07:00:01+00:00'
+past_count: 15
 events:
+- show: pulpnonfiction
+  name: Pulp Non-Fiction
+  title: Pulp Non-Fiction - Storytelling Open Mic Zürich
+  url: "/pulpnonfiction/"
+  date: '2026-07-05'
+  start: '2026-07-05T19:00:00+02:00'
+  end: '2026-07-05T21:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-7447274382815175440.html
+  eventfrog_name: Pulp Non-Fiction Storytelling Open Mic Zurich
 - show: latarima
   name: La Tarima
   title: La Tarima - Comedia en Español
