@@ -37,8 +37,7 @@ test/*
 /type-on-strap*/*
 
 # Cron output from script/refresh-next-event-dates.rb
-script/refresh.log
-script/sync-comedians.log
+script/*.log
 
 # Local secrets for script/refresh-next-event-dates.rb
 .env
