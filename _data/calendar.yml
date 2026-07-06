@@ -5,7 +5,7 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-07-06T07:00:01+00:00'
+generated_at: '2026-07-06T08:21:43+00:00'
 event_count: 51
 events:
 - show: offsidecomedy
@@ -746,21 +746,8 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466832589996740615.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
-unresolved:
-- show: brexiles
-  ticket_url: https://eventfrog.ch/brexiles/
-  reason: HTTP 404 at https://eventfrog.ch/brexiles/ (vanity slug dead? update ticket_url
-    to the canonical /p/groups/ URL)
-- show: downunder
-  ticket_url: https://eventfrog.ch/downunder
-  reason: HTTP 404 at https://eventfrog.ch/downunder (vanity slug dead? update ticket_url
-    to the canonical /p/groups/ URL)
+unresolved: []
 no_upcoming:
-- show: jokesjokesjokes
-  ticket_url: https://eventfrog.ch/jokes-jokes-jokes
-  resolved_to: https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7413564801610218198.html
-  reason: resolved but 0 future events — ticket_url may point at one past event instead
-    of the series
 - show: pulpnonfiction
   ticket_url: https://eventfrog.ch/pulpnonfiction/
   resolved_to: https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html
