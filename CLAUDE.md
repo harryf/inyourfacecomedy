@@ -25,10 +25,22 @@ Always run the health check after a change and before you say you are done. The 
 - **Scripts in `script/` run under cron, which defaults to US-ASCII.** cron starts Ruby with `Encoding.default_external = US-ASCII` (no `LANG`/`LC_ALL`), so any `File.read`/`File.foreach` of a repo file that contains non-ASCII bytes — and most do: `Zürich`, `Español`, `—`, `•`, emoji in `_posts/`, `pages/1_calendar.md`, `_data/*.yml` — raises `Encoding::CompatibilityError` (or mangles the text) the moment you regex-match or YAML-parse it. Force UTF-8: put `Encoding.default_external = Encoding::UTF_8` near the top of the script (one line, covers every read), and/or pass `encoding: "UTF-8"` to each read. `script/sync-comedians.rb` is the reference. This bites silently — it works in your UTF-8 terminal and only fails at 3am under cron.
 - **When a `script/` job shells out to another ruby, spawn it with `RbConfig.ruby`, never a bare `"ruby"`.** cron's PATH is minimal (`/usr/bin:/bin`), so a bare `Open3.capture2e("ruby", …)` resolves to `/usr/bin/ruby` = macOS system **2.6**, even though crontab launches the parent with the rbenv 3.2.4 absolute path. 2.6 can't parse our 3.0+ syntax (endless `def foo = expr` in `refresh-calendar-data.rb`, `validate-calendar.rb`) and the child dies with `syntax error, unexpected '='`. Fix: `require "rbconfig"`, `RUBY = RbConfig.ruby`, then `[RUBY, EXTRACTOR]` — the child inherits the parent's exact interpreter. Also silent: passes in your terminal (PATH has the rbenv shim), only fails under cron.
 
+## Google Business Profile (GBP) event posts
+
+`script/post-events-to-google.rb` (cron, daily) syncs one EVENT post per upcoming ROBIN's show to the Google Maps listing. Full API/OAuth background: `gbp/google-business-profile-api-setup.md`. `script/probe-gbp-v4.rb` is a read-only "is the API working?" check. Things that will bite you:
+
+- **The listing is a stack, not a set.** Google displays event posts newest-POSTED first (confirmed by observation 2026-07-05), so the script posts the furthest-future show first and the next show last, putting the soonest on top. It no-ops when the listing is already correct and otherwise rebuilds the whole stack (create-first, then retire old posts). Do not "optimize" it back to patching posts in place — a single out-of-order write scrambles the user-facing order.
+- **Google rejects posts with NO reason given.** The v4 API returns only `state: REJECTED` ("content policy violation"). Observed triggers, most likely first: a street address in the body (documented auto-reject — say "in the Niederdorf" instead), surnames ("Fücks" reads as profanity to the classifier — first names only), trademarked events ("World Cup" — say "the football"). Rejection lands within minutes of posting.
+- **Rejected posts are quarantined, deliberately.** The script alerts once via Healthchecks, then never re-submits that content until its `gbp/<slug>.txt` changes (repeat violations risk profile-level restrictions on the whole listing). To re-submit: edit the txt, the next run does the rest. Never bypass the quarantine.
+- **Descriptions live in `gbp/<slug>.txt`** (optional first line `TITLE: ...`), hand-editable any time; the next run re-publishes. Hard limits: summary ≤1500 chars, title ≤58. New ROBIN's shows get a description auto-drafted by the `claude` CLI — the prompt embeds the moderation rules above plus a date rule: **no relative day words** ("tonight", "this Saturday" — the text is read on arbitrary days), weekday names only for genuine recurring patterns ("every Thursday"). Keep hand edits to the same rules.
+- **Deletion safety boundary:** the script only ever deletes posts that are topicType EVENT **and** CTA-link to inyourfacecomedy.ch **and** match a managed show slug. Hand-made offers/announcements on the profile are never touched.
+- **`--dry-run` is read-only end to end** (lists the real posts, prints intended actions, blocks all writes including Healthchecks pings). Run it before trusting any change to this script. `gbp/gbp-state.json` is runtime state (gitignored), not source — never hand-edit it.
+
 ## Never commit
 
 - `.env` (holds the Healthchecks ping URL)
 - `ga-mcp-oauth-client.json` (Google credentials)
+- `client_secret_*.json` and `gbp-token.json` (GBP OAuth client + refresh token — the token acts as the listing owner)
 - the `GRIST_API_KEY` (give it at run time, never write it in a file)
 - the campaigns `.xlsx` at the repo root (it holds people's data, PII)
 
