@@ -3,9 +3,23 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-07-06T07:00:01+00:00'
-past_count: 15
+generated_at: '2026-07-08T07:00:01+00:00'
+past_count: 16
 events:
+- show: offsidecomedy
+  name: Offside Comedy
+  title: Offside Comedy - Comedy for people that hate balls
+  url: "/offsidecomedy/"
+  date: '2026-07-07'
+  start: '2026-07-07T19:30:00+02:00'
+  end: '2026-07-07T21:30:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/offside-comedy-comedy-for-people-who-hate-balls-7471915627952760195.html
+  eventfrog_name: Offside Comedy - Comedy for people who hate balls
 - show: pulpnonfiction
   name: Pulp Non-Fiction
   title: Pulp Non-Fiction - Storytelling Open Mic Zürich

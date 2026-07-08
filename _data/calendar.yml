@@ -5,23 +5,9 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-07-06T08:21:43+00:00'
-event_count: 51
+generated_at: '2026-07-08T07:00:01+00:00'
+event_count: 54
 events:
-- show: offsidecomedy
-  name: Offside Comedy
-  title: Offside Comedy - Comedy for people that hate balls
-  url: "/offsidecomedy/"
-  date: '2026-07-07'
-  start: '2026-07-07T19:30:00+02:00'
-  end: '2026-07-07T21:30:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's
-  price_chf: 10
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/offside-comedy-comedy-for-people-who-hate-balls-7471915627952760195.html
-  eventfrog_name: Offside Comedy - Comedy for people who hate balls
 - show: jackpotcomedy
   name: Jackpot Comedy
   title: Jackpot Comedy - downstairs @ OTRO
@@ -297,6 +283,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466829814667678855.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: pulpnonfiction
+  name: Pulp Non-Fiction
+  title: Pulp Non-Fiction - Storytelling Open Mic Zürich
+  url: "/pulpnonfiction/"
+  date: '2026-09-06'
+  start: '2026-09-06T19:00:00+02:00'
+  end: '2026-09-06T21:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-7480252862582278747.html
+  eventfrog_name: Pulp Non-Fiction Storytelling Open Mic Zurich
 - show: jackpotcomedy
   name: Jackpot Comedy
   title: Jackpot Comedy - downstairs @ OTRO
@@ -353,6 +353,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/science-and-technology/random-facts-exchange-20-museum-edition-7434315326727157500.html
   eventfrog_name: Random Facts Exchange 20 Museum Edition
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-09-17'
+  start: '2026-09-17T19:30:00+02:00'
+  end: '2026-09-17T21:30:00+02:00'
+  venue: goldfisch-club
+  venue_name: Goldfisch Club
+  location: Goldfisch Club
+  price_chf: 13
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472017526089645125.html
+  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -368,20 +382,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466830849213728090.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-09-17'
-  start: '2026-09-17T19:30:00+02:00'
-  end: '2026-09-17T21:30:00+02:00'
-  venue: goldfisch-club
-  venue_name: Goldfisch Club
-  location: Goldfisch Club
-  price_chf: 13
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472017526089645125.html
-  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -441,6 +441,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/double-shot-english-comedy-with-harry-and-martina-7461804081197142415.html
   eventfrog_name: DOUBLE SHOT - English Comedy with Harry and Martina
+- show: pulpnonfiction
+  name: Pulp Non-Fiction
+  title: Pulp Non-Fiction - Storytelling Open Mic Zürich
+  url: "/pulpnonfiction/"
+  date: '2026-10-04'
+  start: '2026-10-04T19:00:00+02:00'
+  end: '2026-10-04T21:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-7480253083173315976.html
+  eventfrog_name: Pulp Non-Fiction Storytelling Open Mic Zurich
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -514,21 +528,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/theatre/la-tarima-comedia-en-espanol-basel-7455584161312579924.html
   eventfrog_name: La Tarima - Comedia en Español - BASEL
-- show: comedybrew
-  name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
-  url: "/comedybrew/"
-  date: '2026-10-29'
-  start: '2026-10-29T20:30:00+02:00'
-  end: '2026-10-29T23:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 10
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831682483568140.html
-  eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: latarima
   name: La Tarima
   title: La Tarima - Comedia en Español
@@ -548,6 +547,35 @@ events:
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
     in Niederdorf Zürich
   url: "/comedybrew/"
+  date: '2026-10-29'
+  start: '2026-10-29T20:30:00+02:00'
+  end: '2026-10-29T23:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831682483568140.html
+  eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: pulpnonfiction
+  name: Pulp Non-Fiction
+  title: Pulp Non-Fiction - Storytelling Open Mic Zürich
+  url: "/pulpnonfiction/"
+  date: '2026-11-01'
+  start: '2026-11-01T20:00:00+02:00'
+  end: '2026-11-01T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-7480253293014302537.html
+  eventfrog_name: Pulp Non-Fiction Storytelling Open Mic Zurich
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
+    in Niederdorf Zürich
+  url: "/comedybrew/"
   date: '2026-11-05'
   start: '2026-11-05T20:30:00+02:00'
   end: '2026-11-05T23:00:00+02:00'
@@ -557,21 +585,6 @@ events:
   price_chf: 10
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831792680472322.html
-  eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
-- show: comedybrew
-  name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
-  url: "/comedybrew/"
-  date: '2026-11-12'
-  start: '2026-11-12T20:30:00+02:00'
-  end: '2026-11-12T23:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 10
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831890344846441.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: latarima
   name: La Tarima
@@ -587,6 +600,21 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472021157165665385.html
   eventfrog_name: La Tarima - Comedia en Español - ZURICH
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
+    in Niederdorf Zürich
+  url: "/comedybrew/"
+  date: '2026-11-12'
+  start: '2026-11-12T20:30:00+02:00'
+  end: '2026-11-12T23:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831890344846441.html
+  eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -673,6 +701,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466832257447133527.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: pulpnonfiction
+  name: Pulp Non-Fiction
+  title: Pulp Non-Fiction - Storytelling Open Mic Zürich
+  url: "/pulpnonfiction/"
+  date: '2026-12-06'
+  start: '2026-12-06T20:00:00+02:00'
+  end: '2026-12-06T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-7480253427534024794.html
+  eventfrog_name: Pulp Non-Fiction Storytelling Open Mic Zurich
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -747,9 +789,4 @@ events:
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466832589996740615.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 unresolved: []
-no_upcoming:
-- show: pulpnonfiction
-  ticket_url: https://eventfrog.ch/pulpnonfiction/
-  resolved_to: https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html
-  reason: resolved but 0 future events — ticket_url may point at one past event instead
-    of the series
+no_upcoming: []
