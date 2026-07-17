@@ -3,23 +3,38 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-07-14T07:00:02+00:00'
-past_count: 18
+generated_at: '2026-07-17T07:00:01+00:00'
+past_count: 17
 events:
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-07-09'
-  start: '2026-07-09T19:30:00+02:00'
-  end: '2026-07-09T21:30:00+02:00'
-  venue: goldfisch-club
-  venue_name: Goldfisch Club
-  location: Goldfisch Club
-  price_chf: 13
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
+    in Niederdorf Zürich
+  url: "/comedybrew/"
+  date: '2026-07-16'
+  start: '2026-07-16T19:30:00+02:00'
+  end: '2026-07-16T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7470803098795015596.html
-  eventfrog_name: La Tarima - Comedia en Español - ZURICH
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413533116034214227.html
+  eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: offsidecomedy
+  name: Offside Comedy
+  title: Offside Comedy - Comedy for people that hate balls
+  url: "/offsidecomedy/"
+  date: '2026-07-14'
+  start: '2026-07-14T19:30:00+02:00'
+  end: '2026-07-14T21:30:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/offside-comedy-comedy-for-people-who-hate-balls-7471915777429372406.html
+  eventfrog_name: Offside Comedy - Comedy for people who hate balls
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -35,6 +50,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413533016285273713.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-07-09'
+  start: '2026-07-09T19:30:00+02:00'
+  end: '2026-07-09T21:30:00+02:00'
+  venue: goldfisch-club
+  venue_name: Goldfisch Club
+  location: Goldfisch Club
+  price_chf: 13
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7470803098795015596.html
+  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: jackpotcomedy
   name: Jackpot Comedy
   title: Jackpot Comedy - downstairs @ OTRO
@@ -134,6 +163,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7413564804391042731.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-06-25'
+  start: '2026-06-25T19:30:00+02:00'
+  end: '2026-06-25T21:30:00+02:00'
+  venue: goldfisch-club
+  venue_name: Goldfisch Club
+  location: Goldfisch Club
+  price_chf: 13
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7470806180044005391.html
+  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -149,20 +192,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413532715268450504.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-06-25'
-  start: '2026-06-25T19:30:00+02:00'
-  end: '2026-06-25T21:30:00+02:00'
-  venue: goldfisch-club
-  venue_name: Goldfisch Club
-  location: Goldfisch Club
-  price_chf: 13
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7470806180044005391.html
-  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: downunder
   name: Down Under Comedy
   title: Down Under Comedy - English stand-up comedy with Chris Darwa and Friends
@@ -220,46 +249,3 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7413564804130995775.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
-- show: comedybrew
-  name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
-  url: "/comedybrew/"
-  date: '2026-06-11'
-  start: '2026-06-11T19:30:00+02:00'
-  end: '2026-06-11T22:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 10
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413532490189566185.html
-  eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
-- show: jackpotcomedy
-  name: Jackpot Comedy
-  title: Jackpot Comedy - downstairs @ OTRO
-  url: "/jackpotcomedy/"
-  date: '2026-06-10'
-  start: '2026-06-10T20:00:00+02:00'
-  end: '2026-06-10T22:00:00+02:00'
-  venue: otro
-  venue_name: Bar OTRO
-  location: OTRO - Cocktailbar Zürich
-  price_chf: 0
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7466394816881947154.html
-  eventfrog_name: Jackpot Comedy
-- show: downunder
-  name: Down Under Comedy
-  title: Down Under Comedy - English stand-up comedy with Chris Darwa and Friends
-  url: "/downunder/"
-  date: '2026-06-09'
-  start: '2026-06-09T19:30:00+02:00'
-  end: '2026-06-09T21:30:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 10
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/down-under-comedy-7411510652865391761.html
-  eventfrog_name: Down Under Comedy
