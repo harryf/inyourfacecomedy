@@ -17,10 +17,10 @@ hosts_label: "Starring"
 hosts:
   - "chris-darwa"
   - "harryf.cks"
-next_event_date: 2026-07-21T19:30:00+02:00
-next_event_end_date: 2026-07-21T21:30:00+02:00
+next_event_date: 2026-07-28T19:30:00+02:00
+next_event_end_date: 2026-07-28T21:30:00+02:00
 price_chf: 10
-last_modified_at: 2026-07-17T07:00:01+00:00
+last_modified_at: 2026-07-23T07:00:01+00:00
 ---
 While the rest of the planet loses its mind over the World Cup 2026, ROBIN's becomes the one venue in Zürich with a microphone in the middle instead of a trophy.
 
