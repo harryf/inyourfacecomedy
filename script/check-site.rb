@@ -335,7 +335,7 @@ end
 
 # ── script + data health ──────────────────────────────────────────────────────
 section "Script + data health"
-%w[sync-comedians.rb refresh-next-event-dates.rb validate-calendar.rb refresh-calendar-data.rb].each do |s|
+%w[sync-comedians.rb refresh-next-event-dates.rb validate-calendar.rb refresh-calendar-data.rb add-event.rb].each do |s|
   check("ruby -c clean: #{s}") do
     out, st = Open3.capture2e(RUBY, "-c", File.join(ROOT, "script", s))
     [st.success?, out.strip]

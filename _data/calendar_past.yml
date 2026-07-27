@@ -3,7 +3,7 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-07-24T07:00:01+00:00'
+generated_at: '2026-07-27T16:09:29+00:00'
 past_count: 17
 events:
 - show: comedybrew
