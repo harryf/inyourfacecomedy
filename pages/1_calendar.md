@@ -5,7 +5,7 @@ nav_title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
 description: "See English stand-up comedy in Zürich tonight, this week, and beyond. Full calendar with dates, venues, and ticket links. Updated weekly."
-last_modified_at: 2026-07-27T16:09:44+00:00
+last_modified_at: 2026-07-27T16:42:59+00:00
 permalink: /calendar/
 feature-img: "assets/img/pages/follow.png"
 image: "/assets/img/pages/follow.png"
@@ -64,7 +64,7 @@ Whether you are looking for open mics, featured shows or touring comedians, you 
 | Sep 9 | Wed | [Jackpot Comedy](https://inyourfacecomedy.ch/jackpotcomedy/) | Some punchlines land, some crash. All worth it 🎲 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7477788269645678041.html) |
 | Sep 10 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | The only Thursday night plan worth keeping 🎊 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466829949606850703.html) |
 | Sep 11 | Fri | [La Tarima](https://inyourfacecomedy.ch/latarima/) | Chistes con acento y sin pedir perdón 🔥 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/theatre/la-tarima-comedia-en-espanol-basel-7455575845001788740.html) |
-| Sep 16 | Wed | [PROMESSI SPASSI](https://inyourfacecomedy.ch/promessi-spassi/) | English stand-up comedy you won't want to miss 🎤 | [Get Tickets](https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478863182670358596.html) |
+| Sep 16 | Wed | [PROMESSI SPASSI](https://inyourfacecomedy.ch/promessi-spassi/) | Finalmente una serata di risate in italiano 🇮🇹 | [Get Tickets](https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478863182670358596.html) |
 | Sep 17 | Thu | [Random Facts Exchange](https://inyourfacecomedy.ch/randomfactsexchange/) | Tonight someone proves their ex wrong with math 📐 | [Get Tickets](https://eventfrog.ch/en/p/science-and-technology/random-facts-exchange-20-museum-edition-7434315326727157500.html) |
 | Sep 17 | Thu | [La Tarima](https://inyourfacecomedy.ch/latarima/) | No prometemos el amor de tu visa… pero sí risas 💕 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472017526089645125.html) |
 | Sep 17 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Cult-free socialising powered by English comedy 😈 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466830849213728090.html) |

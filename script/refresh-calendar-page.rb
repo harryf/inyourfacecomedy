@@ -177,6 +177,18 @@ SHOW_HINTS = {
     "card, own goal, penalty, kickoff, the beautiful game, extra time). Favour football " \
     "emojis: ⚽ 🥅 🟥 🟨 🏆 🙌. HARD BAN: never mention the World Cup, any tournament name, " \
     "or any country's team.",
+  # This show is performed in ITALIAN. Without this steer an empty pool falls back to
+  # FALLBACK_INFO, which is English, and an English teaser on an Italian show is simply
+  # wrong (that is exactly what happened on 2026-07-27). The generic prompt already says
+  # "write in the show's language"; this pins the emoji palette and the running jokes too.
+  "promessi-spassi" => "This show is performed entirely in ITALIAN. Write EVERY line in " \
+    "Italian, never English. It is an open mic: established comics test new material and " \
+    "first-timers take their five minutes, hosted by Miguel and Nik (you may name them). " \
+    "Lean into Italian culture and the experience of speaking Italian abroad: gesturing, " \
+    "food, coffee, nonna, the congiuntivo, saying boh. Favour Italian emojis: 🇮🇹 🍕 🍝 " \
+    "🤌 👌 ☕ 🍷 😂 🙌 🎤 🎭. HARD BAN: never name a country, city, region or venue (not " \
+    "even Italia or Ticino) since the venue moves between dates. Elision apostrophes " \
+    "(l'unico, un'ora) are fine; double quotes are not.",
 }.freeze
 
 options = { init: false, dry_run: false, no_push: false, no_refresh: false, verbose: false,
