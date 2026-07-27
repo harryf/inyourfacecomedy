@@ -406,6 +406,52 @@ check("pages/1_calendar.md passes validate-calendar.rb") do
   [st.success?, st.success? ? nil : (detail.empty? ? out.strip[0, 200] : detail)]
 end
 
+# Calendar Info copy must name comedians by their REAL name, never by their slug.
+# Slugs are Instagram-style handles (harryf.cks, martinadoescomedy, sussmancomedy),
+# and the Info lines are LLM-generated, so a regenerated pool can silently reintroduce
+# a handle. refresh-calendar-page.rb resolves hosts via _comedians/ `title:` and its
+# prompt bans handles, but a prompt is guidance, not enforcement — this is the
+# enforcement. Also catches accent-stripping ("Andrea Ramirez" for Andrea Ramírez),
+# which LLMs do routinely regardless of instruction.
+check("calendar Info copy uses real comedian names, not slugs") do
+  page = File.read(File.join(ROOT, "pages", "1_calendar.md"), encoding: "UTF-8")
+  info_cells = page.lines.filter_map do |l|
+    next unless l.start_with?("|")
+    cells = l.split("|").map(&:strip)
+    cells[4] if cells.size >= 6      # leading empty cell + 5 columns
+  end
+  haystack = info_cells.join("\n")
+
+  bad = []
+  Dir[File.join(COMS, "*.md")].each do |f|
+    fm = front_matter(f)
+    slug = fm["slug"].to_s
+    slug = File.basename(f, ".md") if slug.empty?
+    name = fm["title"].to_s
+    next if name.empty?
+
+    # The label the old slug-title-casing bug produced. Only flag it when it is
+    # UNAMBIGUOUSLY a handle: it carries a dot/underscore/digit, or it is a long
+    # run-on with no space. A bare common word cannot be told apart from prose —
+    # slug "free" (Free Chamizo) legitimately appears in "Free entry, priceless
+    # stories", and slug "don" in "don't". Flagging those is worse than missing them.
+    derived = slug.split("-").map(&:capitalize).join(" ")
+    handle_shaped = derived =~ /[._0-9]/ || (derived.length >= 12 && !derived.include?(" "))
+    if derived != name && handle_shaped && haystack =~ /\b#{Regexp.escape(derived)}\b/
+      bad << "#{derived.inspect} (should be #{name.inspect})"
+    end
+
+    # an @-prefixed handle
+    bad << "@#{slug}" if haystack =~ /@#{Regexp.escape(slug)}\b/i
+
+    # accent-stripped form of a name that genuinely carries diacritics
+    folded = name.unicode_normalize(:nfd).gsub(/\p{Mn}/, "")
+    bad << "#{folded.inspect} (should be #{name.inspect})" if folded != name && haystack.include?(folded)
+  end
+
+  [bad.empty?, bad.uniq.first(4).join(", ")]
+end
+
 # ── html-proofer ──────────────────────────────────────────────────────────────
 section "Link + image integrity (html-proofer)"
 if NO_PROOFER

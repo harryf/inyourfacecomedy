@@ -257,6 +257,24 @@ def load_events
   end.select { |e| e[:start] && !e[:show].empty? }.sort_by { |e| e[:start] }
 end
 
+# comedian slug => display name, read from _comedians/*.md. A comedian is any file
+# in that directory (the repo's own definition) and its `slug:` front matter is the
+# key that _posts `hosts:` entries are matched against. Falls back to the filename
+# when `slug:` is absent, exactly as the rest of the repo does.
+def comedian_names
+  @comedian_names ||= Dir[File.join(ROOT, "_comedians", "*.md")].each_with_object({}) do |path, h|
+    raw = File.read(path, encoding: "UTF-8")
+    next unless raw.start_with?("---")
+    fm = (YAML.safe_load(raw.split(/^---\s*$/, 3)[1].to_s,
+                         permitted_classes: [Date, Time], aliases: true) rescue nil)
+    next unless fm.is_a?(Hash)
+    slug = fm["slug"].to_s
+    slug = File.basename(path, ".md") if slug.empty?
+    name = fm["title"].to_s
+    h[slug] = name unless name.empty?
+  end
+end
+
 # slug => {title, description, about} for the Info prompt, built from the show's
 # _posts page. A "show" is any post with a ticket_url (the repo's own definition).
 def show_descriptions
@@ -274,7 +292,14 @@ def show_descriptions
                   .gsub(/\[(.*?)\]\(.*?\)/, '\1')   # links → text
                   .gsub(/[#*_>`]/, " ")             # markdown punctuation
                   .gsub(/\s+/, " ").strip
-    hosts = Array(front["hosts"]).map { |s| s.to_s.split("-").map(&:capitalize).join(" ") }
+    # Resolve host slugs to REAL names via _comedians/, never by title-casing the
+    # slug. The slug is an Instagram-style handle ("harryf.cks", "martinadoescomedy",
+    # "sussmancomedy"), so the old `slug.split("-").map(&:capitalize)` produced
+    # "Harryf.cks" / "Martinadoescomedy" and fed those into the Info prompt, which
+    # duly wrote them into visitor-facing calendar copy. It also dropped accents
+    # ("Andrea Ramirez" for Andrea Ramírez). This mirrors what every Liquid template
+    # already does: site.comedians | where: "slug", slug | first, then .title.
+    hosts = Array(front["hosts"]).filter_map { |s| comedian_names[s.to_s] }
     h[slug] = { "title" => front["title"].to_s, "description" => front["description"].to_s,
                 "host" => hosts.join(", "), "about" => body[0, 800] }
   end
@@ -447,6 +472,12 @@ def info_pool_prompt(n, meta, hint = nil)
       the specific joke in that line.
 
     HARD RULES for EVERY line:
+    - Use a host's REAL NAME exactly as given above, never a username, handle or slug.
+      The names above are already the correct display names. Never invent a handle-style
+      form (no "Harryf.cks", no "Martinadoescomedy", no "Sussmancomedy"), never strip an
+      accent (it is "Andrea Ramírez", not "Andrea Ramirez"), and never prefix a name with
+      "@". If a name looks like a social-media handle to you, it is still the name: write
+      it as given or leave the person out of that line entirely.
     - No location, city, venue, country, neighbourhood or address (no "Zürich", "Basel",
       bar names). The venue changes between dates, so naming it would be wrong. Tease the
       SHOW and its host(s), never the place.
