@@ -307,6 +307,39 @@ shows.select { |s| s[:dir] }.each do |s|
   end
 end
 
+# ── Comedian ProfilePage JSON-LD ──────────────────────────────────────────────
+# Guards the fix for the Search Console error "Invalid object type for field
+# '<parent_node>'", which hit every comedian page until 2026-07-28.
+#
+# Google requires ProfilePage to be a ROOT type and merges JSON-LD nodes by @id.
+# jekyll-seo-tag emits, for any page it types BlogPosting, a stub
+# `"mainEntityOfPage": {"@type":"WebPage","@id": <page url>}` — the same @id our
+# ProfilePage uses — so the two merged and our ProfilePage became a CHILD of a
+# BlogPosting. Comedian pages are collection documents, so Jekyll gives them a
+# `date`, so seo-tag typed them BlogPosting. `_config.yml` now sets
+# `seo.type: WebPage` for the comedians collection, which suppresses the stub.
+#
+# Both halves are asserted: the stub must be absent AND the ProfilePage present.
+# Either one alone can regress silently on a theme bump or gem upgrade.
+section "Comedian ProfilePage JSON-LD (rich results)"
+comedian_pages = Dir[File.join(SITE, "comedians", "*", "index.html")].sort
+check("comedian profile pages were built") do
+  [!comedian_pages.empty?, "no _site/comedians/*/index.html found"]
+end
+check("no comedian page emits mainEntityOfPage (@id collision guard)") do
+  bad = comedian_pages.select { |f| File.read(f, encoding: "UTF-8").include?("mainEntityOfPage") }
+       .map { |f| File.basename(File.dirname(f)) }
+  [bad.empty?, "seo.type override lost for: #{bad.join(", ")}"]
+end
+check("every comedian page emits a root ProfilePage with a Person mainEntity") do
+  bad = comedian_pages.reject do |f|
+    blocks = ld_json_blocks(File.read(f, encoding: "UTF-8"))
+    pp = blocks.find { |b| b.is_a?(Hash) && b["@type"] == "ProfilePage" }
+    pp && pp.dig("mainEntity", "@type") == "Person" && !pp.dig("mainEntity", "name").to_s.empty?
+  end.map { |f| File.basename(File.dirname(f)) }
+  [bad.empty?, "no ProfilePage/Person on: #{bad.join(", ")}"]
+end
+
 # ── /comedians/ show-promo feature ────────────────────────────────────────────
 section "Show-promo feature (/comedians/)"
 com_html = read_site("comedians/index.html")
