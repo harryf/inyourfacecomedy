@@ -15,6 +15,16 @@
   memberOf points at the homepage Organization node (@id site.url/#organization,
   set in jsonld-organization.html) so person↔club links up in the graph.
 
+  ProfilePage MUST be a ROOT node — Google's spec says so, and it is the thing this
+  file exists to deliver. It nearly wasn't: jekyll-seo-tag emits, for any page it
+  types BlogPosting, a stub `"mainEntityOfPage": {"@type":"WebPage","@id": <page url>}`
+  whose @id is exactly the @id below. Google merges by @id, so our ProfilePage got
+  absorbed as a CHILD of that BlogPosting and Search Console reported "Invalid object
+  type for field '<parent_node>'" on every comedian page. The stub is switched off in
+  _config.yml (`defaults` → `type: comedians` → `seo.type: WebPage`) — do not remove
+  that entry, and do not "simplify" the @id here to a fragment to route around it.
+  script/check-site.rb asserts both halves.
+
   JSON-safety: every string value is piped through `| jsonify`, and sameAs is
   built as a Liquid array — never hand-quoted — so apostrophes / quotes / unicode
   in names and bios (e.g. "Harry Fücks") cannot break the JSON.
@@ -47,7 +57,7 @@
     {%- endif %}
     "memberOf": {
       "@type": "Organization",
-      "additionalType": "ComedyClub",
+      "additionalType": "https://schema.org/ComedyClub",
       "@id": "{{ site.url }}/#organization",
       "name": "IN YOUR FACE Comedy",
       "url": {{ site.url | jsonify }}

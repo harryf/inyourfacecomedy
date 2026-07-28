@@ -14,6 +14,25 @@ defaults:
     values:
       image: /assets/img/thumbs/inyourface_thumb.png
 
+  # Comedian profiles are NOT blog posts. Without this, jekyll-seo-tag types them
+  # `BlogPosting` (drop.rb: any page with a `date` becomes one, and Jekyll gives every
+  # *collection document* a date), and a BlogPosting makes it emit a stub
+  # `"mainEntityOfPage": {"@type":"WebPage","@id": <page url>}` (json_ld_drop.rb).
+  # That @id is byte-identical to the @id of our ProfilePage in
+  # _includes/jsonld-comedian.html. Google merges JSON-LD nodes by @id, so the two
+  # collapsed into ONE node sitting *inside* the BlogPosting — and Google requires
+  # ProfilePage to be a root-level type. Result: "Invalid object type for field
+  # '<parent_node>'" in Search Console, and no rich results, on every comedian page.
+  # `seo.type` short-circuits the date branch, and `WebPage` is outside seo-tag's
+  # VALID_ENTITY_TYPES (BlogPosting, CreativeWork), so the colliding stub is never
+  # emitted at all. Verified with validator.schema.org: ProfilePage is a root node again.
+  - scope:
+      path: ""
+      type: comedians
+    values:
+      seo:
+        type: WebPage
+
 # Default author for all pages (consumed by jekyll-seo-tag → BlogPosting JSON-LD).
 # Per-post `author:` front-matter overrides this when present.
 # The `type: Organization` field requires jekyll-seo-tag >= 2.8.0 (see type-on-strap.gemspec).
