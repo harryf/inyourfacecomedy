@@ -137,7 +137,6 @@
       ]
     },
     "assigned": {
-      "2026-07": "The heat is on! Cool down with comedy that's hotter than the Swiss summer sun.",
       "2026-08": "Before the Swiss summer packs its bags and the serious season returns, come let strangers make you laugh embarrassingly hard.",
       "2026-09": "Precision watches, flawless trains, zero tolerance for bad cheese, and now a month of people determined to make you laugh.",
       "2026-10": "October in Zürich: the clocks change, the temperature drops, and the only reliable warmth left is a punchline landing exactly on time.",
@@ -236,7 +235,6 @@
         "Your social life called, it wants you at open mic 📞"
       ],
       "assigned": {
-        "2026-07-30": "Where newcomers step up and totally nail it 🌟",
         "2026-08-06": "Meet your people the non-cult meetup way 😅",
         "2026-08-13": "Harry Fücks and Martina are your hosts 🎉",
         "2026-08-20": "Brave enough to grab the mic? Thursday awaits 👏",
@@ -508,43 +506,6 @@
       ],
       "assigned": {
         "2026-08-29": "Your Steam backlog is a cry for help, we get it 🎮"
-      }
-    },
-    "offsidecomedy": {
-      "pool": [
-        "The only scoreboard tonight involves punchlines 🎤",
-        "Chris & Harry pick the comics so you skip the match ⚽",
-        "Zero nil-nil draws, just actual laughs guaranteed 🥅",
-        "Finally a summer night with no offside trap 🚩",
-        "Harry Fücks and Chris Darwa: your Tuesday night saviours 🙌",
-        "Two comedians walk in. No balls involved, promise 🎭",
-        "Red card to boredom, kickoff to pure comedy ⚽",
-        "No VAR, no extra time, just standup that delivers 🟥",
-        "Ball-haters of the world, your night is here 🌍",
-        "Audience picks the winner, no referee needed 👏",
-        "The only offside rule: don't leave before laughing 😆",
-        "Harry & Chris bring two fresh acts every Tuesday 🌟",
-        "Trade vuvuzelas for punchlines this Tuesday night 😂",
-        "Skip the penalty shootout, we only do punchlines 🥅",
-        "Four acts, one champion, zero penalty shootouts 🥇",
-        "Comedy for the football-allergic, you belong here 😅",
-        "No nets, no kits, no commentary: pure laughs only 🥅",
-        "Chris Darwa and Harry Fücks: better than any pundit 📺",
-        "Millions watch the ball. Legends watch standup 👑",
-        "The only match where the crowd decides everything 🎉",
-        "The summer show where punchlines beat corner kicks ⚽",
-        "No shin guards, no half-time ads: just comedy 🙌",
-        "Leave the ball outside. Bring your sense of humour 😆",
-        "Harry Fücks already funnier than any 0-0 draw 😏",
-        "Two comics go head to head. You hold the trophy 🏆",
-        "No tunnel walk, no trophy lift: just killer lines 🎤",
-        "Your Tuesday just levelled up beyond football 😄",
-        "Call it the Beautiful Game's funnier little cousin 😂",
-        "Chris and Harry referee the laughs, you keep score 🟥",
-        "Offside Comedy, where everyone scores a laugh 🥅"
-      ],
-      "assigned": {
-        "2026-07-28": "Finally a summer night with no offside trap 🚩"
       }
     },
     "promessi-spassi": {
