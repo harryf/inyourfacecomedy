@@ -5,7 +5,7 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-08-01T07:00:02+00:00'
+generated_at: '2026-08-03T07:00:01+00:00'
 event_count: 33
 events:
 - show: comedybrew
@@ -78,7 +78,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 15
+  price_chf: 8
   status: EventScheduled
   ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7460775757695997180.html
   eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
