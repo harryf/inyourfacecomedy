@@ -24,7 +24,8 @@ thumbnail: "assets/img/thumbs/comedians_card.png"
 {% assign high = site.comedians | where: "priority", "High" %}
 {% assign medium = site.comedians | where: "priority", "Medium" %}
 {% assign low = site.comedians | where: "priority", "Low" %}
-{% assign rest = site.comedians | where_exp: "c", "c.priority != 'High' and c.priority != 'Medium' and c.priority != 'Low'" %}
+{% comment %} Chained where_exp, not `and`: the GitHub Pages build runs Jekyll 3, which cannot parse and/or inside a where_exp condition. {% endcomment %}
+{% assign rest = site.comedians | where_exp: "c", "c.priority != 'High'" | where_exp: "c", "c.priority != 'Medium'" | where_exp: "c", "c.priority != 'Low'" %}
 {% if high.size > 1 %}{% assign high = high | sample: high.size %}{% endif %}
 {% if medium.size > 1 %}{% assign medium = medium | sample: medium.size %}{% endif %}
 {% if low.size > 1 %}{% assign low = low | sample: low.size %}{% endif %}
