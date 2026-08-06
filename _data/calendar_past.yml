@@ -3,8 +3,8 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-08-05T07:00:02+00:00'
-past_count: 15
+generated_at: '2026-08-06T07:00:02+00:00'
+past_count: 14
 events:
 - show: comedybrew
   name: Comedy Brew
@@ -107,20 +107,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/offside-comedy-comedy-for-people-who-hate-balls-7471915777429372406.html
   eventfrog_name: Offside Comedy - Comedy for people who hate balls
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-07-09'
-  start: '2026-07-09T19:30:00+02:00'
-  end: '2026-07-09T21:30:00+02:00'
-  venue: goldfisch-club
-  venue_name: Goldfisch Club
-  location: Goldfisch Club
-  price_chf: 13
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7470803098795015596.html
-  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -136,6 +122,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413533016285273713.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-07-09'
+  start: '2026-07-09T19:30:00+02:00'
+  end: '2026-07-09T21:30:00+02:00'
+  venue: goldfisch-club
+  venue_name: Goldfisch Club
+  location: Goldfisch Club
+  price_chf: 13
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7470803098795015596.html
+  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: jackpotcomedy
   name: Jackpot Comedy
   title: Jackpot Comedy - downstairs @ OTRO
@@ -207,17 +207,3 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413532890292569427.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
-- show: jackpotcomedy
-  name: Jackpot Comedy
-  title: Jackpot Comedy - downstairs @ OTRO
-  url: "/jackpotcomedy/"
-  date: '2026-07-01'
-  start: '2026-07-01T20:00:00+02:00'
-  end: '2026-07-01T22:00:00+02:00'
-  venue: otro
-  venue_name: Bar OTRO
-  location: OTRO - Cocktailbar Zürich
-  price_chf: 0
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7466395122575358298.html
-  eventfrog_name: Jackpot Comedy
