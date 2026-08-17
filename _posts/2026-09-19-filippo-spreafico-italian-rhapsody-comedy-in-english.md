@@ -25,6 +25,8 @@ price_chf: 20
 
 One night only: Filippo Spreafico brings his solo show Italian Rhapsody to ROBIN's. An hour of stand-up in English from the Italian wild card of comedy: sharp observations, absurd storytelling, live music, and a healthy dose of chaos.
 
+![Filippo Spreafico in a bright blue suit and orange shirt, lunging over a keyboard on the Italian Rhapsody poster: Zurich, ROBIN's Coffee, Saturday 19 September, doors 19:30, show 20:00](/assets/img/uploads/filippo-spreafico_card.png "Filippo Spreafico • Italian Rhapsody at ROBIN's, Saturday 19 September 2026")
+
 <!--more-->
 
 Filippo has performed on Comedy Central Italy and RAI, and tours across Europe and the UK in both English and Italian. Corriere della Sera called him "surreal... effective... his peak of power". Expect stories about failed relationships, life abroad, and pigeons. Come for the laughs, leave humming the rhapsody.
