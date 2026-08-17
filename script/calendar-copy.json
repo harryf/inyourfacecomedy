@@ -235,7 +235,6 @@
         "Your social life called, it wants you at open mic 📞"
       ],
       "assigned": {
-        "2026-08-13": "Harry Fücks and Martina are your hosts 🎉",
         "2026-08-20": "Brave enough to grab the mic? Thursday awaits 👏",
         "2026-08-27": "Cheaper than therapy and twice as funny 😂",
         "2026-09-03": "New in town? This is your crowd right here 🫶",
@@ -270,6 +269,18 @@
       ],
       "assigned": {
         "2026-10-02": "Your fave Comedy Brew hosts grabbed the mic for good 🎤"
+      }
+    },
+    "filippo-spreafico": {
+      "pool": [
+        "Filippo Spreafico, one night only at ROBIN's 🇮🇹",
+        "Italian Rhapsody: stand-up, live music, chaos 🎹",
+        "As seen on Comedy Central, one Zürich night only 🎤",
+        "Filippo Spreafico brings the chaos, and a keyboard 🎹",
+        "Sharp, surreal, and Italian: one hour, one night 🍝"
+      ],
+      "assigned": {
+        "2026-09-19": "Filippo Spreafico, one night only at ROBIN's 🇮🇹"
       }
     },
     "jackpotcomedy": {

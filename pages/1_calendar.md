@@ -5,7 +5,7 @@ nav_title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
 description: "See English stand-up comedy in Zürich tonight, this week, and beyond. Full calendar with dates, venues, and ticket links. Updated weekly."
-last_modified_at: 2026-08-15T09:00:01+00:00
+last_modified_at: 2026-08-17T21:22:24+00:00
 permalink: /calendar/
 feature-img: "assets/img/pages/follow.png"
 image: "/assets/img/pages/follow.png"
@@ -29,7 +29,6 @@ Whether you are looking for open mics, featured shows or touring comedians, you 
 
 | Date | Day | Show | Info | Tickets |
 |------|-----|------|------|---------|
-| Aug 13 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Harry Fücks and Martina are your hosts 🎉 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466783548525049566.html) |
 | Aug 20 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Brave enough to grab the mic? Thursday awaits 👏 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466784243466683157.html) |
 | Aug 27 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Cheaper than therapy and twice as funny 😂 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466829678864547501.html) |
 | Aug 29 | Sat | [The NERDY COMEDY Show](https://inyourfacecomedy.ch/nerdycomedyshow/) | Your Steam backlog is a cry for help, we get it 🎮 | [Get Tickets](https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7460775757695997180.html) |
@@ -51,6 +50,7 @@ Whether you are looking for open mics, featured shows or touring comedians, you 
 | Sep 16 | Wed | [PROMESSI SPASSI](https://inyourfacecomedy.ch/promessi-spassi/) | Finalmente una serata di risate in italiano 🇮🇹 | [Get Tickets](https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478863182670358596.html) |
 | Sep 17 | Thu | [Random Facts Exchange](https://inyourfacecomedy.ch/randomfactsexchange/) | Tonight someone proves their ex wrong with math 📐 | [Get Tickets](https://eventfrog.ch/en/p/science-and-technology/random-facts-exchange-20-museum-edition-7434315326727157500.html) |
 | Sep 17 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Cult-free socialising powered by English comedy 😈 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466830849213728090.html) |
+| Sep 19 | Sat | [Filippo Spreafico](https://inyourfacecomedy.ch/filippo-spreafico/) | Filippo Spreafico, one night only at ROBIN's 🇮🇹 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/filippo-spreafico-italian-rhapsody-comedy-in-english-7487867600443024331.html) |
 | Sep 24 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Hiking the social scene? Wrong trail, try comedy 🥾 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831017073974511.html) |
 
 </div>

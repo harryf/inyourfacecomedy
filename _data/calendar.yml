@@ -5,8 +5,8 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-08-16T07:00:01+00:00'
-event_count: 31
+generated_at: '2026-08-17T21:19:05+00:00'
+event_count: 32
 events:
 - show: comedybrew
   name: Comedy Brew
@@ -166,6 +166,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466830849213728090.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: filippo-spreafico
+  name: Filippo Spreafico
+  title: Filippo Spreafico • Italian Rhapsody • Comedy in English
+  url: "/filippo-spreafico/"
+  date: '2026-09-19'
+  start: '2026-09-19T20:00:00+02:00'
+  end: '2026-09-19T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 20
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/filippo-spreafico-italian-rhapsody-comedy-in-english-7487867600443024331.html
+  eventfrog_name: Filippo Spreafico • Italian Rhapsody • Comedy in English
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
