@@ -33,6 +33,16 @@ Encoding.default_external = Encoding::UTF_8
 # Ticket URLs that no longer resolve (dead vanity slugs) are recorded under
 # `unresolved:` so they are visible, not silently dropped.
 #
+# Per-show city filter (opt-in):
+#   A post may set `event_city_filter: Zürich` in its front matter. When present,
+#   only events whose schema.org Place address city matches that value survive.
+#   La Tarima's group mixes Zürich and Basel dates, and the calendar (plus
+#   refresh-next-event-dates.rb, which rolls next_event_date / venue_slug /
+#   price_chf back into the post) must only ever see the Zürich ones. Matching is
+#   case AND diacritic insensitive, so Zürich, Zurich and zürich are one city.
+#   Filtering runs before venue resolution, so a venue in an excluded city is
+#   never minted into venues.yml. Posts without the key are untouched.
+#
 # Usage:
 #   ruby script/refresh-calendar-data.rb              # fetch + write _data/calendar.yml
 #   ruby script/refresh-calendar-data.rb --dry-run    # fetch + print, write nothing
@@ -125,6 +135,18 @@ def new_venues = (@new_venues ||= {})
 
 def alnum(s) = s.to_s.downcase.gsub(/[^a-z0-9]/, "")
 
+# Case- and diacritic-insensitive comparison key. `alnum` alone cannot do this: it
+# deletes every non a-z0-9 character outright, so "Zürich" collapses to "zrich"
+# and would never equal "Zurich". NFD decomposes "ü" into "u" plus a combining
+# diaeresis; dropping the combining marks (\p{Mn}) leaves plain ASCII for `alnum`
+# to finish. The encode pass keeps this total: a stray invalid byte becomes U+FFFD
+# instead of raising and taking a whole show down. UTF-8 is forced at the top of
+# this file, so this behaves identically under cron's US-ASCII default.
+def fold(s)
+  utf8 = s.to_s.encode(Encoding::UTF_8, invalid: :replace, undef: :replace)
+  alnum(utf8.unicode_normalize(:nfd).gsub(/\p{Mn}/, ""))
+end
+
 CH_NAMES = %w[switzerland schweiz suisse svizzera ch].freeze
 def normalize_country(c)
   CH_NAMES.include?(c.to_s.downcase.strip) ? "CH" : c.to_s.strip
@@ -200,6 +222,7 @@ def shows
       name: short_name(fm["title"].to_s),
       url: permalink.empty? ? "/#{slug}/" : permalink,
       venue: fm["venue_slug"],
+      city_filter: fm["event_city_filter"],   # optional; see "Per-show city filter" above
       ticket_url: url
     }
   end
@@ -292,6 +315,37 @@ def event_urls_from(final_url, html)
   kids.empty? ? [final_url] : kids.map { |l| URI.join(final_url, l).to_s }
 end
 
+# ---------- City filter ----------
+
+# Keep only the events matching a show's `event_city_filter`. Returns
+# [kept_events, dropped_count]. An absent or blank filter is a no-op, so every
+# show without the key keeps its previous behaviour exactly.
+#
+# An event whose Place carries no city is DROPPED, not kept: the point of the
+# filter is that downstream (calendar.yml, no_upcoming, venue minting) never sees
+# another city, and "unknown" is not a match. Verbose mode names each dropped
+# event so a wrong drop is diagnosable without re-running the scrape.
+def apply_city_filter(events, show, options)
+  city = show[:city_filter]
+  return [events, 0] if city.to_s.strip.empty?
+
+  want = fold(city)
+  if want.empty?
+    # e.g. `event_city_filter: "-"`. Filtering on nothing would silently drop the
+    # entire show, so refuse the filter loudly and keep every event instead.
+    say("  [filter]     #{show[:slug]}: event_city_filter #{city.inspect} has no comparable characters, ignoring", options)
+    return [events, 0]
+  end
+
+  kept = events.select do |inst|
+    got = inst.dig("address", "city")
+    next true if fold(got) == want
+    vsay("      - dropped #{inst["eventfrog_name"].to_s.strip} (city #{got.to_s.strip.empty? ? "missing" : got.strip.inspect})", options)
+    false
+  end
+  [kept, events.size - kept.size]
+end
+
 # ---------- Per-show extraction ----------
 
 # Returns [events_array, error_string_or_nil, final_url]. events may be empty (no
@@ -323,6 +377,14 @@ def extract_show(show, now, options)
     events << inst
   rescue => e
     vsay("      ! #{ev_url} — #{e.class}: #{e.message}", options)
+  end
+
+  # Applied here, before the caller records anything, so excluded events reach
+  # neither calendar.yml nor the venue-minting path in to_record.
+  total = events.size
+  events, dropped = apply_city_filter(events, show, options)
+  if dropped.positive?
+    say("  [filter]     #{show[:slug]}: city filter '#{show[:city_filter]}' dropped #{dropped} of #{total} events", options)
   end
 
   [events, nil, final_url]
