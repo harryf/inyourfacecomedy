@@ -177,6 +177,13 @@ SHOW_HINTS = {
     "card, own goal, penalty, kickoff, the beautiful game, extra time). Favour football " \
     "emojis: ⚽ 🥅 🟥 🟨 🏆 🙌. HARD BAN: never mention the World Cup, any tournament name, " \
     "or any country's team.",
+  # Bi-weekly Tuesday night at ROBIN's hosted by Woocash, whose whole brand is the
+  # non-obvious angle, so the teasers should feel a little sideways too.
+  "jokesjokesjokes" => "Hosted by Woocash (you may name him), a comedian known for " \
+    "off-beat, unpredictable, non-obvious humour. Lean into surprise: jokes from " \
+    "unexpected angles, punchlines nobody saw coming, comedians trying playful " \
+    "ideas. Favour playful emojis: 🎲 🙃 🎯 🌀 😂 🎤 🎭. Always call the host " \
+    "Woocash (his stage name), never a slug or handle.",
   # This show is performed in ITALIAN. Without this steer an empty pool falls back to
   # FALLBACK_INFO, which is English, and an English teaser on an Italian show is simply
   # wrong (that is exactly what happened on 2026-07-27). The generic prompt already says

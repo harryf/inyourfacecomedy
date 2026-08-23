@@ -235,7 +235,6 @@
         "Your social life called, it wants you at open mic 📞"
       ],
       "assigned": {
-        "2026-08-20": "Brave enough to grab the mic? Thursday awaits 👏",
         "2026-08-27": "Cheaper than therapy and twice as funny 😂",
         "2026-09-03": "New in town? This is your crowd right here 🫶",
         "2026-09-10": "The only Thursday night plan worth keeping 🎊",
@@ -374,7 +373,44 @@
       ],
       "assigned": {
         "2026-09-02": "Fresh jokes, zero safety net: pure comedy gold 🃏",
-        "2026-09-09": "Some punchlines land, some crash. All worth it 🎲"
+        "2026-09-09": "Some punchlines land, some crash. All worth it 🎲",
+        "2026-09-16": "Jack Roberts rolls the dice on your funny bone 🎰",
+        "2026-09-23": "Low expectations welcome. High laughs guaranteed 😂"
+      }
+    },
+    "jokesjokesjokes": {
+      "pool": [
+        "Jokes from angles you did not see coming 🎯",
+        "Woocash and friends, gloriously unpredictable 🎲",
+        "Polished bits meet loose ideas after dark 🌙",
+        "The punchline lands where you least expect 🎪",
+        "Comedy that zigs where every other night zags 😏",
+        "Woocash invites his funniest friends onstage 🎤",
+        "Expect the unexpected, then laugh at it anyway 😆",
+        "Non obvious jokes, very obvious laughter 🙃",
+        "A vibe driven night of brand new punchlines 🚀",
+        "Tuesday plans: jokes, jokes and more jokes 🔁",
+        "Three jokes in the name, hundreds on stage 🎭",
+        "Comedians love this night, now find out why 👀",
+        "Loose ideas tonight, legendary bits tomorrow 🌱",
+        "Laughter from places you did not expect 🕵️",
+        "The comedy night your algorithm cannot predict 🤖",
+        "Fresh faces, visiting comics, one playful host 🎩",
+        "Doors at seven, delightful nonsense at half past 🚪",
+        "Local comics and friends from beyond the border 🌍",
+        "Punchlines tested on comedians first, you second 🧪",
+        "Every edition a new lineup, same happy chaos 🌀"
+      ],
+      "assigned": {
+        "2026-09-01": "Jokes from angles you did not see coming 🎯",
+        "2026-09-15": "Woocash and friends, gloriously unpredictable 🎲",
+        "2026-09-29": "Polished bits meet loose ideas after dark 🌙",
+        "2026-10-13": "The punchline lands where you least expect 🎪",
+        "2026-10-27": "Comedy that zigs where every other night zags 😏",
+        "2026-11-10": "Woocash invites his funniest friends onstage 🎤",
+        "2026-11-24": "Expect the unexpected, then laugh at it anyway 😆",
+        "2026-12-08": "Non obvious jokes, very obvious laughter 🙃",
+        "2026-12-22": "A vibe driven night of brand new punchlines 🚀"
       }
     },
     "latarima": {
