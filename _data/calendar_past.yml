@@ -3,7 +3,7 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-08-23T19:19:16+00:00'
+generated_at: '2026-08-24T07:00:01+00:00'
 past_count: 8
 events:
 - show: comedybrew
@@ -80,20 +80,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/offside-comedy-comedy-for-people-who-hate-balls-7471915777517453316.html
   eventfrog_name: Offside Comedy - Comedy for people who hate balls
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-07-23'
-  start: '2026-07-23T19:30:00+02:00'
-  end: '2026-07-23T21:30:00+02:00'
-  venue: goldfisch-club
-  venue_name: Goldfisch Club
-  location: Goldfisch Club
-  price_chf: 13
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472015122631757332.html
-  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -109,6 +95,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7413533231490825074.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-07-23'
+  start: '2026-07-23T19:30:00+02:00'
+  end: '2026-07-23T21:30:00+02:00'
+  venue: goldfisch-club
+  venue_name: Goldfisch Club
+  location: Goldfisch Club
+  price_chf: 13
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472015122631757332.html
+  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: offsidecomedy
   name: Offside Comedy
   title: Offside Comedy - Comedy for people that hate balls
