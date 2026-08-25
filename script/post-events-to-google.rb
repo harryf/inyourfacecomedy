@@ -572,8 +572,11 @@ def generate_description(show)
 
   out = nil
   Timeout.timeout(180) do
-    stdout, status = Open3.capture2e(CLAUDE_BIN, "-p", prompt)
-    raise "claude exited #{status.exitstatus}: #{stdout.lines.last(5).join}" unless status.success?
+    # capture3, NOT capture2e: the claude CLI writes warnings (e.g. permission-rule
+    # notices) to stderr, and merging them into stdout corrupts the saved description.
+    stdout, stderr, status = Open3.capture3(CLAUDE_BIN, "-p", prompt)
+    raise "claude exited #{status.exitstatus}: #{(stderr + stdout).lines.last(5).join}" unless status.success?
+    $stderr.puts stderr unless stderr.strip.empty?   # surface warnings, keep them out of the draft
     out = stdout
   end
 
@@ -585,8 +588,18 @@ def generate_description(show)
   end
   raise "claude output had no usable body" if text.empty?
 
-  File.write(desc_path(show.slug),
-             "TITLE: #{title || event_title(show, nil)}\n\n#{text}\n")
+  # Validate BEFORE persisting. A bad saved file blocks every later run until a human
+  # fixes it by hand (how the 3424-char nerdycomedyshow.txt happened): create_show
+  # refuses over-limit files but never redrafts while the file exists.
+  final_title = title || event_title(show, nil)
+  problems = []
+  problems << "title #{final_title.length} > #{TITLE_MAX} chars" if final_title.length > TITLE_MAX
+  problems << "summary #{text.length} > #{SUMMARY_MAX} chars" if text.length > SUMMARY_MAX
+  problems << "stray TITLE: line in body" if text.include?("TITLE:")
+  problems << "CLI noise in body" if text.match?(/Permission allow rule|<system-reminder>|^Error:/i)
+  raise "drafted description rejected, not saved: #{problems.join("; ")}" unless problems.empty?
+
+  File.write(desc_path(show.slug), "TITLE: #{final_title}\n\n#{text}\n")
   [title, text]
 end
 
