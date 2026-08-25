@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Jesse"
-description: "Jesse performs English stand-up comedy with IN YOUR FACE in Zürich, Switzerland."
-last_modified_at: "2026-08-24T17:11:41+00:00"
+description: "Former engineer hailing from Los Angeles, California"
+last_modified_at: "2026-08-25T08:05:06+00:00"
 slug: "jesse"
 photo: "/assets/img/comedians/jesse.jpg"
 instagram: ""
@@ -13,6 +13,7 @@ youtube_channel: ""
 website: ""
 priority: "Low"
 image: "/assets/img/comedians/jesse.jpg"
-bio: ""
+bio: |
+  Former engineer hailing from Los Angeles, California
 ---
 
