@@ -137,11 +137,42 @@
   // gtag()-equivalent: push an Arguments object onto the shared dataLayer.
   function gaPush() { (window.dataLayer = window.dataLayer || []).push(arguments); }
 
+  // debug=1: measure, don't navigate. The GA event still sends; the redirect is
+  // replaced by an on-page timing readout (#go-debug), so real-world delay can be
+  // sampled in a browser. Never used in campaign links; harmless if a human finds it.
+  var debug = params.get('debug') === '1';
+  var trigger = null;
+
   var gone = false;
   function go() {
     if (gone) return;
     gone = true;
+    if (debug) { debugReport(); return; }
     window.location.replace(target);
+  }
+
+  function debugReport() {
+    var nav = (performance.getEntriesByType && performance.getEntriesByType('navigation')[0]) || null;
+    var lines = [
+      'debug=1 (no redirect)',
+      'target:   ' + target,
+      'trigger:  ' + trigger,
+      'redirect would fire at ' + Math.round(performance.now()) + 'ms after navigation start',
+      nav ? 'ttfb ' + Math.round(nav.responseStart) + 'ms, response end ' + Math.round(nav.responseEnd) + 'ms' : ''
+    ];
+    if (status) status.textContent = 'Debug mode: staying put.';
+    var pre = document.createElement('pre');
+    pre.id = 'go-debug';
+    pre.textContent = lines.join('\n');
+    (document.getElementById('go-redirect') || document.body).appendChild(pre);
+  }
+
+  // Ad-blocked GA never sends anything, so waiting for it is pure loss: if the
+  // gtag.js script tag errors out (blocked or unreachable), leave immediately
+  // instead of sitting out the full REDIRECT_DELAY_MS.
+  var gtagScript = document.querySelector('script[src*="googletagmanager.com/gtag/js"]');
+  if (gtagScript) {
+    gtagScript.addEventListener('error', function () { trigger = trigger || 'gtag_blocked'; go(); });
   }
 
   gaPush('event', 'ticket_redirect', {
@@ -149,8 +180,8 @@
     date: isValidDate(dateParam) ? dateParam : '(series)',
     destination: target,
     resolution: res.kind,
-    event_callback: go,
+    event_callback: function () { trigger = trigger || 'event_callback'; go(); },
     event_timeout: EVENT_TIMEOUT_MS
   });
-  setTimeout(go, REDIRECT_DELAY_MS);
+  setTimeout(function () { trigger = trigger || 'timeout(' + REDIRECT_DELAY_MS + 'ms)'; go(); }, REDIRECT_DELAY_MS);
 })();
