@@ -1,0 +1,226 @@
+// =============================================================================
+// Campaign Link Builder (/linkbuilder/ — assets/js/link-builder.js) and the
+// /go/ redirector's tiny interstitial. See CAMPAIGN_LINKS.md.
+// -----------------------------------------------------------------------------
+// Mobile-first on purpose: the primary use is one-handed on an iPhone while
+// posting an Instagram story — big tap targets, one column, and the built link
+// pinned in a sticky bottom bar so the flow is tap-tap-copy. The same column,
+// centred with a max width, is the laptop layout; nothing is hover-dependent.
+// Tokens only — no hex literals (see base/_variables.scss precedence rules).
+// Interactive targets respect the --touch-min (48px) WCAG floor.
+// =============================================================================
+
+.link-builder {
+  // Same float-clearing rationale as .lineup-lab: the theme's .site-header floats.
+  clear: both;
+  max-width: var(--container-prose);
+  margin: 0 auto;
+  // Extra bottom padding so the sticky bar never covers the last section.
+  padding: var(--space-4) var(--space-3) calc(var(--space-10) * 2);
+  color: var(--ink-on-cream);
+  font-family: var(--font-body);
+
+  * { box-sizing: border-box; }
+
+  &__noscript { color: var(--muted); }
+
+  &__head { margin-bottom: var(--space-4); }
+  &__title {
+    margin: 0 0 var(--space-1);
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-size: var(--fs-2xl);
+    line-height: var(--lh-tight);
+  }
+  &__sub { margin: 0; color: var(--muted); font-size: var(--fs-base); }
+
+  &__section { margin-bottom: var(--space-5); }
+  &__label {
+    margin: 0 0 var(--space-2);
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: var(--fs-sm);
+    color: var(--muted);
+  }
+
+  // --- show cards -------------------------------------------------------------
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--space-2);
+  }
+  &__card {
+    min-height: var(--touch-min);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15em;
+    padding: var(--space-2) var(--space-3);
+    border: 2px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    background-color: var(--surface);
+    color: var(--ink-on-cream);
+    text-align: left;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color var(--t-fast) var(--ease-out), background-color var(--t-fast) var(--ease-out);
+
+    &:hover { border-color: var(--brand-red); }
+    &.is-on {
+      border-color: var(--brand-red);
+      background-color: var(--brand-red);
+      color: var(--brand-cream);
+      .link-builder__card-next { color: var(--brand-cream); }
+    }
+  }
+  &__card-name { font-weight: 700; font-size: var(--fs-base); }
+  &__card-next { font-size: var(--fs-xs); color: var(--muted); }
+
+  // --- chips (dates + sources) ------------------------------------------------
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  &__chip {
+    min-height: var(--touch-min);
+    padding: 0.4rem 0.9rem;
+    border: 2px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    background-color: var(--surface);
+    color: var(--ink-on-cream);
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color var(--t-fast) var(--ease-out), background-color var(--t-fast) var(--ease-out);
+
+    &:hover { border-color: var(--brand-red); }
+    &.is-on {
+      background-color: var(--brand-red);
+      border-color: var(--brand-red);
+      color: var(--brand-cream);
+    }
+  }
+
+  // --- inputs -----------------------------------------------------------------
+  &__field {
+    display: block;
+    margin-bottom: var(--space-2);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+  }
+  &__opt { color: var(--muted); font-weight: 400; }
+  &__input {
+    display: block;
+    width: 100%;
+    min-height: var(--touch-min);
+    margin-top: 0.25rem;
+    padding: 0.5rem 0.75rem;
+    border: 2px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    background-color: var(--surface);
+    color: var(--ink-on-cream);
+    font-family: var(--font-body);
+    font-size: var(--fs-base);
+
+    &:focus { outline: none; border-color: var(--brand-red); }
+  }
+  #lb-source-free { margin-top: var(--space-2); }
+
+  &__note {
+    margin: var(--space-2) 0 0;
+    padding: var(--space-2) var(--space-3);
+    border: 2px dashed var(--border-strong);
+    border-radius: var(--radius-md);
+    color: var(--muted);
+    font-size: var(--fs-sm);
+  }
+
+  // --- the sticky output bar ---------------------------------------------------
+  &__bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: var(--z-sticky);
+    padding: var(--space-2) var(--space-3) calc(var(--space-2) + env(safe-area-inset-bottom, 0px));
+    background-color: var(--surface);
+    border-top: 3px solid var(--brand-red);
+  }
+  &__bar-url {
+    font-family: monospace;
+    font-size: var(--fs-xs);
+    color: var(--link);
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    max-height: 3.6em;
+    overflow-y: auto;
+    margin-bottom: var(--space-1);
+  }
+  &__bar-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  &__preview {
+    flex: 1 1 auto;
+    min-width: 0;
+    color: var(--muted);
+    font-size: var(--fs-xs);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &__copy {
+    flex: 0 0 auto;
+    min-height: var(--touch-min);
+    padding: 0.5rem 1.2rem;
+    background-color: var(--brand-red);
+    color: var(--brand-cream);
+    border: 2px solid var(--brand-red);
+    border-radius: var(--radius-md);
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: var(--fs-sm);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+
+    &:hover { background-color: var(--brand-red-deep); border-color: var(--brand-red-deep); }
+    &:disabled { opacity: 0.5; cursor: default; }
+  }
+
+  // --- laptop: centre the bar with the column ---------------------------------
+  @media (min-width: 768px) {
+    padding-top: var(--space-7);
+    &__bar {
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      width: min(100%, var(--container-prose));
+      border: 3px solid var(--brand-red);
+      border-bottom: none;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+  }
+}
+
+// --- /go/ interstitial: a calm, near-empty page seen for under half a second ---
+.go-redirect {
+  clear: both;
+  max-width: var(--container-prose);
+  margin: 0 auto;
+  padding: var(--space-10) var(--space-3);
+  text-align: center;
+  font-family: var(--font-body);
+  color: var(--ink-on-cream);
+
+  &__status { font-size: var(--fs-lg); margin: 0 0 var(--space-4); }
+  &__manual { margin: 0; }
+  &__noscript { color: var(--muted); }
+}

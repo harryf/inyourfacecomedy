@@ -1,0 +1,17 @@
+{% comment %}
+  Build-time catalogs for the campaign-link layer (/go/ + /linkbuilder/).
+  Same anti-abuse invariant as the /comedians/ promo links: destinations can ONLY
+  come from this curated site data, never from the query string. See CAMPAIGN_LINKS.md.
+
+  #iyf-go-shows  — every post with a ticket_url: slug, display title, on-site page,
+                   series-level ticket link, event_type, next date.
+  #iyf-go-events — every upcoming instance from _data/calendar.yml (EventFrog-derived,
+                   cron-refreshed): show slug, date, that date's own ticket link.
+{% endcomment %}
+{% assign iyf_go_shows = site.posts | where_exp: "p", "p.ticket_url" %}
+<script type="application/json" id="iyf-go-shows">
+[{% for s in iyf_go_shows %}{"slug":{{ s.url | remove: "/" | jsonify }},"title":{{ s.title | jsonify }},"url":{{ s.url | jsonify }},"tickets":{{ s.ticket_url | jsonify }},"type":{{ s.event_type | default: "one-off" | jsonify }},"next":{% if s.next_event_date %}{{ s.next_event_date | date_to_xmlschema | jsonify }}{% else %}""{% endif %}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+</script>
+<script type="application/json" id="iyf-go-events">
+[{% for e in site.data.calendar.events %}{"show":{{ e.show | jsonify }},"date":{{ e.date | jsonify }},"tickets":{{ e.ticket_url | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+</script>
