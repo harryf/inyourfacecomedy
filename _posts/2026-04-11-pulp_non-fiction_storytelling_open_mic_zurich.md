@@ -12,6 +12,7 @@ permalink: /pulpnonfiction/
 hosts:
   - "albert-louw"
 ticket_url: https://eventfrog.ch/pulpnonfiction/
+ticket_url_resolved: https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html
 event_type: monthly
 venue_slug: robins
 recurrence_time: "19:30"

@@ -45,7 +45,13 @@ The page embeds two small JSON catalogs at build time, exactly the pattern
 `pages/2_comedians.md` and `pages/lineup.md` already use (see `SHOW_PROMO_LINKS.md`):
 
 1. **Shows**: every post with a `ticket_url` (slug, name, series `ticket_url`, on-site page URL,
-   `event_type`).
+   `event_type`). Some posts use an EventFrog vanity slug as their `ticket_url`
+   (`eventfrog.ch/pulpnonfiction/`): nice on show pages, but one extra redirect hop for
+   `/go/`. `script/refresh-calendar-data.rb` already follows those redirects daily, so it
+   mirrors the landing URL into hidden front matter `ticket_url_resolved`, which this
+   catalog prefers (`| default: ticket_url`). Only the campaign-link layer reads the
+   hidden field; show pages keep the short vanity link, and the field is auto-removed
+   if a vanity slug and its resolution ever converge.
 2. **Dates**: `site.data.calendar.events` (show slug, date, that date's individual `ticket_url`).
 
 No fetches at runtime, no server, nothing to deploy beyond the static build.

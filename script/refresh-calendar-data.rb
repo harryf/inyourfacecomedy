@@ -122,6 +122,62 @@ def venues
   @venues ||= (YAML.safe_load(File.read(VENUES)) || {} rescue {})
 end
 
+# ---------- Resolved ticket URL write-back ----------
+# Some posts use an EventFrog vanity slug as their ticket_url (eventfrog.ch/pulpnonfiction/).
+# That is what we WANT on the show pages (short, brandable), but the campaign-link layer
+# (/go/ + /linkbuilder/ — see CAMPAIGN_LINKS.md) prefers the real destination so the
+# redirect skips EventFrog's extra vanity hop. Since extract_show already follows the
+# redirects, we capture the landing URL here and mirror it into hidden front matter:
+#
+#   ticket_url_resolved: <final_url>    # only when it differs from ticket_url
+#
+# Nothing on the site renders this field except _includes/go-catalogs.liquid
+# (`ticket_url_resolved | default: ticket_url`). Rules:
+#   - written only when the resolved URL differs from ticket_url AND is on eventfrog.ch
+#   - updated in place when the vanity slug starts landing somewhere new
+#   - removed when ticket_url and its resolution converge (no stale hidden state)
+#   - the edit is line surgery inside the front matter block; posts are hand-written
+#     files and are never YAML-re-dumped (formatting and comments survive)
+# The daily refresh-next-event-dates.rb run commits _posts wholesale afterwards, so
+# these writes ride the existing "chore: refresh calendar data" commit.
+def sync_resolved_ticket_url(show, final_url, options)
+  return if final_url.to_s.empty?
+  begin
+    return unless URI(final_url).host.to_s.include?("eventfrog")
+  rescue URI::Error
+    return
+  end
+
+  desired = final_url == show[:ticket_url] ? nil : final_url
+  path = File.join(POSTS_DIR, show[:file])
+  raw = File.read(path, encoding: "UTF-8")
+  m = raw.match(/\A---\n(.*?\n)---\n/m)
+  return unless m
+  fm = m[1]
+
+  current = fm[/^ticket_url_resolved:\s*(\S+)\s*$/, 1]
+  return if current == desired || (current.nil? && desired.nil?)
+
+  new_fm =
+    if desired && current
+      fm.sub(/^ticket_url_resolved:.*$/, "ticket_url_resolved: #{desired}")
+    elsif desired
+      # Insert directly under ticket_url so the pairing is obvious to a human.
+      fm.sub(/^(ticket_url:.*\n)/, "\\1ticket_url_resolved: #{desired}\n")
+    else
+      fm.sub(/^ticket_url_resolved:.*\n/, "")
+    end
+  return if new_fm == fm   # e.g. no ticket_url line matched — leave the post alone
+
+  action = desired ? (current ? "updated" : "added") : "removed"
+  if options[:dry_run]
+    say("  [resolved]   #{show[:slug]} — would have #{action} ticket_url_resolved#{desired ? ": #{desired}" : ""}", options)
+    return
+  end
+  File.write(path, raw.sub(m[1]) { new_fm })   # block form: no \1-interpretation in the replacement
+  say("  [resolved]   #{show[:slug]} — #{action} ticket_url_resolved#{desired ? ": #{desired}" : ""}", options)
+end
+
 # ---------- Venue resolution (per-event, from EventFrog JSON-LD location) ----------
 # Shows like La Tarima and Random Facts Exchange move venue per event, so the venue
 # can't come from the post's static venue_slug — it's read from each event's
@@ -488,6 +544,9 @@ say("Fetching upcoming shows from EventFrog…\n", options)
 
 shows.each do |show|
   events, err, final_url = extract_show(show, now, options)
+  # Mirror the redirect-resolved destination into the post (vanity-slug shows only);
+  # skip unresolved (HTTP error) so a flaky fetch never rewrites good state.
+  sync_resolved_ticket_url(show, final_url, options) unless err&.start_with?("unresolved", "skipped")
   if err && err.start_with?("unresolved")
     unresolved << { "show" => show[:slug], "ticket_url" => show[:ticket_url], "reason" => err.sub("unresolved — ", "") }
     say("  [UNRESOLVED] #{show[:slug]} — #{err}", options)

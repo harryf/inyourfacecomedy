@@ -12,6 +12,7 @@ permalink: /jokesjokesjokes/
 hosts:
   - "woocash"
 ticket_url: https://eventfrog.ch/jokes-jokes-jokes
+ticket_url_resolved: https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726681983598.html
 event_type: series
 venue_slug: robins
 recurrence_day: Tuesday
