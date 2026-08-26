@@ -293,6 +293,23 @@ for secondary actions, the chip pattern from `.iyf-follow-chips`, form styling a
 4. After the first campaign cycle: check Reports > Acquisition > Traffic acquisition filtered
    to the `/go/` landing page, and the `ticket_redirect` event by `show`.
 
+### On-site Get Tickets clicks (not via /go/)
+
+The site's own ticket buttons (show pages, home cards, calendar rows) still link straight to
+Eventfrog. Routing them through `/go/` would add a page load on the highest-intent click for
+every organic visitor, for data GA can collect at click time instead. So
+`assets/js/ticket-click.js` (loaded on every theme page) fires one event and lets the
+navigation proceed untouched:
+
+    ticket_click { show, page, destination, transport_type: 'beacon' }
+
+`show` comes from a `data-show` attribute the templates put on `.btn-ticket` links, or for
+the plain calendar-row links, from the show-page link in the same table row. Beacon
+transport survives the navigation, so there is no delay and no timeout. Together with
+`ticket_redirect` (campaign clicks via `/go/`) this gives one "ticket clicks by show" view in
+GA across on-site and campaign traffic; register `show` as an event-scoped dimension once
+and it serves both events.
+
 ### Considered and rejected
 
 - **Netlify `_redirects` rules** instead of a JS page: no GA capture at all (the visitor never

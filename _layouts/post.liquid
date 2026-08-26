@@ -39,7 +39,7 @@ layout: default
       {% endif %}
       {% if page.ticket_url %}
         <div class="iyf-hero__actions">
-          <a class="btn-ticket btn-ticket--xl" href="{{ page.ticket_url }}" rel="noopener" target="_blank">Get Tickets</a>
+          <a class="btn-ticket btn-ticket--xl" href="{{ page.ticket_url }}" data-show="{{ page.url | remove: "/" }}" rel="noopener" target="_blank">Get Tickets</a>
         </div>
       {% endif %}
     {% endunless %}
@@ -51,7 +51,7 @@ layout: default
     {% endif %}
     {{ content }}
     {% if page.ticket_url %}
-      <p class="iyf-show-cta"><a href="{{ page.ticket_url }}" class="btn-ticket btn-ticket--xl" rel="noopener" target="_blank">Get Tickets</a></p>
+      <p class="iyf-show-cta"><a href="{{ page.ticket_url }}" class="btn-ticket btn-ticket--xl" data-show="{{ page.url | remove: "/" }}" rel="noopener" target="_blank">Get Tickets</a></p>
     {% endif %}
 
     {%- comment -%}
