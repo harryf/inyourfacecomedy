@@ -27,7 +27,7 @@ description: "Passing you to the ticket page for an IN YOUR FACE Comedy show."
   </noscript>
 </div>
 
-{% include go-catalogs.liquid %}
+{% include go-catalogs.liquid skip_pages=true %}
 <script>
 {% include go-redirect.js %}
 </script>

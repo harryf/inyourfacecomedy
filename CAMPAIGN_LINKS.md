@@ -201,6 +201,24 @@ drives the layout:
    where it will redirect ("-> Eventfrog: Jackpot Comedy, Sep 16"), resolved from the same
    catalog so what you see is what the visitor gets.
 
+### Direct site-page links (no /go/)
+
+The builder also makes UTM-tagged links to our own pages, because "where did this visit come
+from" matters for more than ticket clicks (an Instagram bio pointing at /calendar/, a Reddit
+comment pointing at /perform/). These do not route through /go/: our GA already sees visits
+to our own pages, so the UTM tags on the page URL are enough, and skipping the hop is free
+speed. Two ways in, both without extra UI weight:
+
+- **"Or a page on the site"**: a chip row under the show cards listing the promotable pages
+  (home, calendar, comedians, perform, gallery, follow, switzerland, host: curated by
+  exclusion in `_includes/go-catalogs.liquid`, tool pages never appear). Picking one skips
+  the Link-to step; the campaign defaults to the page slug (`calendar`).
+- **"Show page"** as a Link-to choice on any show: same show selection as a ticket campaign,
+  but the output is the show's page on our site (`/comedybrew/?utm_...`), not Eventfrog. The
+  campaign defaults to the show slug.
+
+Example: `https://inyourfacecomedy.ch/calendar/?utm_source=instagram&utm_medium=social&utm_campaign=calendar`
+
 ### Default utm_medium per source
 
 | Source | Default medium |

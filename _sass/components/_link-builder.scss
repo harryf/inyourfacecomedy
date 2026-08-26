@@ -45,6 +45,8 @@
     font-size: var(--fs-sm);
     color: var(--muted);
   }
+  // Second label inside a section (the "Or a page on the site" row).
+  &__label--sub { margin-top: var(--space-3); font-size: var(--fs-xs); }
 
   // --- show cards -------------------------------------------------------------
   &__grid {

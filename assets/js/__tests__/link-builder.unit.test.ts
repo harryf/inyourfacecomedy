@@ -101,6 +101,29 @@ describe("link-builder • buildLink", () => {
     expect(new URL(without.url).searchParams.get("utm_content")).toBeNull();
   });
 
+  test("dest 'page': the site page itself with UTM tags, no /go/, no show param", () => {
+    const built = lb.buildLink(ORIGIN, { slug: "calendar", url: "/calendar/" }, {
+      dest: "page", source: "instagram", medium: "social", campaign: "calendar",
+    } as never);
+    expect(built.kind).toBe("page");
+    const u = new URL(built.url);
+    expect(u.pathname).toBe("/calendar/");
+    expect(u.searchParams.get("utm_source")).toBe("instagram");
+    expect(u.searchParams.get("utm_medium")).toBe("social");
+    expect(u.searchParams.get("utm_campaign")).toBe("calendar");
+    expect(u.searchParams.get("show")).toBeNull();
+    expect(built.url.includes("/go/")).toBe(false);
+  });
+
+  test("dest 'page' on a show: the show's own page with UTMs, not Eventfrog", () => {
+    const built = lb.buildLink(ORIGIN, SHOW, {
+      dest: "page", source: "instagram", medium: "social", campaign: "jackpotcomedy",
+    } as never);
+    expect(built.kind).toBe("page");
+    expect(new URL(built.url).pathname).toBe("/jackpotcomedy/");
+    expect(new URL(built.url).searchParams.get("utm_campaign")).toBe("jackpotcomedy");
+  });
+
   test("google-ads: direct show-page URL with NO utm params (gclid auto-tagging)", () => {
     const built = lb.buildLink(ORIGIN, SHOW, { source: "Google-Ads", medium: "cpc", campaign: "x" });
     expect(built.kind).toBe("direct");

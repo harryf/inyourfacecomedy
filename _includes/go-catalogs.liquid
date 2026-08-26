@@ -18,3 +18,15 @@
 <script type="application/json" id="iyf-go-events">
 [{% for e in site.data.calendar.events %}{"show":{{ e.show | jsonify }},"date":{{ e.date | jsonify }},"tickets":{{ e.ticket_url | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
 </script>
+{% unless include.skip_pages %}
+{% comment %}
+  #iyf-go-pages — promotable site pages for the builder's direct-link mode (UTM tags
+  straight on the page URL, no /go/ hop: our own GA sees these visits anyway).
+  Curated by exclusion: tool pages (noindex), non-sitemap pages, and .html one-offs
+  stay out; hide:true content pages (Switzerland, Host) stay in — off the nav is not
+  the same as not promotable. /go/ passes skip_pages=true (it never needs these).
+{% endcomment %}
+<script type="application/json" id="iyf-go-pages">
+[{"slug":"home","title":"Home","url":"/"}{% for p in site.pages %}{% if p.title and p.url != "/" and p.noindex != true and p.sitemap != false %}{% unless p.url contains ".html" or p.url contains ".txt" or p.url contains ".xml" %},{"slug":{{ p.url | remove: "/" | jsonify }},"title":{{ p.nav_title | default: p.title | jsonify }},"url":{{ p.url | jsonify }}}{% endunless %}{% endif %}{% endfor %}]
+</script>
+{% endunless %}
