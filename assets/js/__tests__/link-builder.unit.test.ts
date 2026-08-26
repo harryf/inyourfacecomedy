@@ -7,7 +7,7 @@ const lb = require("../link-builder.js") as {
   SOURCES: Array<{ id: string; label: string; medium: string }>;
   slugify: (s: string) => string;
   mediumFor: (source: string) => string;
-  campaignDefault: (slug: string, date: string, now?: Date) => string;
+  campaignDefault: (slug: string, date: string) => string;
   buildLink: (
     origin: string,
     show: { slug: string; url: string },
@@ -61,11 +61,11 @@ describe("link-builder • slugify (GA4 never normalizes case — we do)", () =>
   });
 });
 
-describe("link-builder • campaignDefault", () => {
-  test("evergreen: {show}-{yyyymm}", () => {
-    expect(lb.campaignDefault("comedybrew", "", new Date(2026, 8, 1))).toBe("comedybrew-202609");
+describe("link-builder • campaignDefault follows the series-vs-occurrence choice", () => {
+  test("whole series: one evergreen campaign, just the slug", () => {
+    expect(lb.campaignDefault("comedybrew", "")).toBe("comedybrew");
   });
-  test("date link: {show}-{yyyymmdd}", () => {
+  test("specific occurrence: {show}-{yyyymmdd}", () => {
     expect(lb.campaignDefault("jackpotcomedy", "2026-09-16")).toBe("jackpotcomedy-20260916");
   });
 });

@@ -22,7 +22,7 @@ page. One extra hop, ~300ms, full attribution.
 ### URL contract
 
 ```
-https://inyourfacecomedy.ch/go/?show=comedybrew&utm_source=meta&utm_medium=paid_social&utm_campaign=comedybrew-202609
+https://inyourfacecomedy.ch/go/?show=comedybrew&utm_source=meta&utm_medium=paid_social&utm_campaign=comedybrew
 https://inyourfacecomedy.ch/go/?show=jackpotcomedy&date=2026-09-16&utm_source=mailchimp&utm_medium=email&utm_campaign=jackpot-sep
 ```
 
@@ -178,8 +178,12 @@ drives the layout:
    Google Ads is deliberately not offered as a chip (see Part 1); typing `google ads` into
    the free-text field still triggers the direct-link carve-out rather than a `/go/` link.
 4. **Medium and campaign.** `utm_medium` is pre-filled from the source (table below), editable.
-   `utm_campaign` is pre-filled with `{show}-{yyyymm}` (or `{show}-{yyyymmdd}` for date links),
-   editable. An optional `utm_content` field for ad-variant labelling.
+   `utm_campaign` follows the series-vs-occurrence choice in step 2 with no extra UI: a
+   whole-series link defaults to just the show slug (`comedybrew`, one evergreen campaign
+   that accumulates in GA), a date link defaults to `{show}-{yyyymmdd}`
+   (`jackpotcomedy-20260916`, one campaign per occurrence). Editable either way, so a
+   month-scoped push like `comedybrew-202609` is one edit. An optional `utm_content` field
+   for ad-variant labelling.
 5. **Copy.** The built link in a read-only box with a copy button, plus a one-line preview of
    where it will redirect ("-> Eventfrog: Jackpot Comedy, Sep 16"), resolved from the same
    catalog so what you see is what the visitor gets.

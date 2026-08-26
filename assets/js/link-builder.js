@@ -60,11 +60,11 @@
     return 'social';
   }
 
-  // jackpotcomedy-202609 for evergreen links, jackpotcomedy-20260916 for date links.
-  function campaignDefault(slug, date, now) {
-    if (date) return slug + '-' + date.replace(/-/g, '');
-    var d = now || new Date();
-    return slug + '-' + d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0');
+  // One campaign per intent: 'comedybrew' promotes the whole series (evergreen,
+  // one row in GA forever), 'jackpotcomedy-20260916' promotes a single occurrence.
+  // Which one you get follows the "Link to" choice — no extra UI. Editable anyway.
+  function campaignDefault(slug, date) {
+    return date ? slug + '-' + date.replace(/-/g, '') : slug;
   }
 
   function primaryTitle(t) {
