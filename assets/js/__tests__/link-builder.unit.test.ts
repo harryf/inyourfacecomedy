@@ -18,13 +18,17 @@ const lb = require("../link-builder.js") as {
 const ORIGIN = "https://inyourfacecomedy.ch";
 const SHOW = { slug: "jackpotcomedy", url: "/jackpotcomedy/" };
 
-describe("link-builder • the ten sources", () => {
-  test("all ten channels are on offer, in builder ids", () => {
+describe("link-builder • the nine offered sources", () => {
+  test("all nine channels are on offer, in builder ids", () => {
     const ids = lb.SOURCES.map((s) => s.id);
-    for (const want of ["meta", "google-ads", "instagram", "facebook", "guidle", "meetup", "reddit", "mailchimp", "tiktok", "telegram"]) {
+    for (const want of ["meta", "instagram", "facebook", "guidle", "meetup", "reddit", "mailchimp", "tiktok", "telegram"]) {
       expect(ids).toContain(want);
     }
-    expect(ids.length).toBe(10);
+    expect(ids.length).toBe(9);
+  });
+
+  test("google-ads is deliberately NOT a chip (direct links + gclid instead)", () => {
+    expect(lb.SOURCES.map((s) => s.id)).not.toContain("google-ads");
   });
 });
 

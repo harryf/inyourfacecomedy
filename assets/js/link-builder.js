@@ -17,9 +17,11 @@
   'use strict';
 
   // Sources on offer. medium is the GA4 default-channel-group token for the source.
+  // google-ads is deliberately NOT offered: Google Ads campaigns use direct show-page
+  // URLs with gclid auto-tagging (see CAMPAIGN_LINKS.md). If someone types it into the
+  // free-text field anyway, buildLink() still applies the direct-link carve-out.
   var SOURCES = [
     { id: 'meta', label: 'Meta ads', medium: 'paid_social' },
-    { id: 'google-ads', label: 'Google Ads', medium: '' },
     { id: 'instagram', label: 'Instagram', medium: 'social' },
     { id: 'facebook', label: 'Facebook', medium: 'social' },
     { id: 'tiktok', label: 'TikTok', medium: 'social' },

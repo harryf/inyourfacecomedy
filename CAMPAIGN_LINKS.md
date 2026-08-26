@@ -134,7 +134,9 @@ have no such police. Recommendation:
 - **Google Ads**: point ads at the show's own page on our site with **no manual UTMs at all**:
   the Ads/GA4 link auto-tags via gclid, and hand-written `utm_source=google&utm_medium=cpc`
   would override and degrade that auto-tagging. The visitor clicks Get Tickets there.
-  The link builder should say this when someone picks Google Ads as the source.
+  The link builder does not offer Google Ads as a source at all for this reason; if the
+  name is typed into the free-text field it still builds a direct show-page link, never
+  a `/go/` one.
 
 **Related, for organic social**: pasting a `/go/` link into an Instagram, Facebook or Telegram
 post gets its link preview scraped from `/go/` itself, so every show would get the same generic
@@ -170,11 +172,11 @@ drives the layout:
    (evergreen link, right for always-on campaigns) or **a specific date** from the upcoming
    dates in `calendar.yml` (right for a single-show push; the builder warns that date links
    go stale after the show and fall back to the series page). One-off shows skip this step.
-3. **Pick the source.** Tappable chips for the ten current channels: `meta`, `google-ads`,
-   `instagram`, `facebook`, `guidle`, `meetup`, `reddit`, `mailchimp`, `tiktok`, `telegram`,
-   plus a free-text field for anything new. Values are normalized to lowercase.
-   Picking `google-ads` shows the note from Part 1 and builds a direct show-page link
-   (with UTMs) instead of a `/go/` link.
+3. **Pick the source.** Tappable chips for the nine organic/paid channels that use `/go/`:
+   `meta`, `instagram`, `facebook`, `guidle`, `meetup`, `reddit`, `mailchimp`, `tiktok`,
+   `telegram`, plus a free-text field for anything new. Values are normalized to lowercase.
+   Google Ads is deliberately not offered as a chip (see Part 1); typing `google ads` into
+   the free-text field still triggers the direct-link carve-out rather than a `/go/` link.
 4. **Medium and campaign.** `utm_medium` is pre-filled from the source (table below), editable.
    `utm_campaign` is pre-filled with `{show}-{yyyymm}` (or `{show}-{yyyymmdd}` for date links),
    editable. An optional `utm_content` field for ad-variant labelling.
@@ -187,7 +189,6 @@ drives the layout:
 | Source | Default medium |
 |--------|----------------|
 | meta | paid_social |
-| google-ads | (none: direct show-page link, gclid auto-tagging) |
 | instagram, facebook, tiktok, telegram, reddit | social |
 | mailchimp | email |
 | guidle, meetup | referral |
