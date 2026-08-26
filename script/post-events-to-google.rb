@@ -384,7 +384,7 @@ def build_post(show, summary, title)
         "endTime"   => { "hours" => e.hour, "minutes" => e.min }
       }
     },
-    "callToAction" => { "actionType" => "BOOK", "url" => "#{SITE_URL}/#{show.slug}/" }
+    "callToAction" => { "actionType" => "BOOK", "url" => cta_url(show.slug) }
   }
   if (img = image_url(show))
     post["media"] = [{ "mediaFormat" => "PHOTO", "sourceUrl" => img }]
@@ -418,16 +418,30 @@ def list_local_posts(token, account)
   posts
 end
 
+# The BOOK button's URL: the campaign-link redirector (/go/, see CAMPAIGN_LINKS.md)
+# with UTM tags, so GA attributes ticket clicks from the Maps listing to the
+# "google-business" source and the show's evergreen campaign. /go/ resolves the slug
+# against the site's own catalog and passes the visitor to Eventfrog.
+def cta_url(slug)
+  "#{SITE_URL}/go/?" + URI.encode_www_form(
+    "show" => slug, "utm_source" => "google-business", "utm_medium" => "referral", "utm_campaign" => slug
+  )
+end
+
 # Slug of OUR event post, or nil if the post is not ours to touch. Ours means:
 # topicType EVENT and a callToAction URL whose parsed host is our domain (exact or
 # subdomain — no substring matching, which would pass evil hosts like
-# "inyourfacecomedy.ch.evil.com").
+# "inyourfacecomedy.ch.evil.com"). Two URL shapes are ours: the current
+# /go/?show=<slug> redirector link, and the older /<slug>/ show-page link (still live
+# on the listing until the next rebuild retires it — both must be recognised, or the
+# old posts would be orphaned instead of superseded).
 def our_post_slug(post)
   return nil unless post["topicType"] == "EVENT"
   uri = (URI.parse(post.dig("callToAction", "url").to_s) rescue nil)
   host = uri&.host&.downcase
   return nil unless host == SITE_HOST || host&.end_with?(".#{SITE_HOST}")
-  slug = uri.path.to_s.gsub(%r{^/|/$}, "")
+  path = uri.path.to_s.gsub(%r{^/|/$}, "")
+  slug = path == "go" ? (URI.decode_www_form(uri.query.to_s).to_h["show"] rescue nil).to_s : path
   slug.empty? ? nil : slug
 end
 

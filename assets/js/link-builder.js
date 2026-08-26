@@ -29,7 +29,10 @@
     { id: 'reddit', label: 'Reddit', medium: 'social' },
     { id: 'mailchimp', label: 'Mailchimp', medium: 'email' },
     { id: 'guidle', label: 'Guidle', medium: 'referral' },
-    { id: 'meetup', label: 'Meetup', medium: 'referral' }
+    { id: 'meetup', label: 'Meetup', medium: 'referral' },
+    // Same source/medium script/post-events-to-google.rb stamps on the Maps listing's
+    // BOOK button, so hand-built GBP links (offers, updates) land in the same GA rows.
+    { id: 'google-business', label: 'Google Business', medium: 'referral' }
   ];
 
   // --- test seam (same pattern as comedian-lineup.js) -------------------------

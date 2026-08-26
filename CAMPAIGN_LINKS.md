@@ -185,9 +185,12 @@ drives the layout:
    (evergreen link, right for always-on campaigns) or **a specific date** from the upcoming
    dates in `calendar.yml` (right for a single-show push; the builder warns that date links
    go stale after the show and fall back to the series page). One-off shows skip this step.
-3. **Pick the source.** Tappable chips for the nine organic/paid channels that use `/go/`:
+3. **Pick the source.** Tappable chips for the ten organic/paid channels that use `/go/`:
    `meta`, `instagram`, `facebook`, `guidle`, `meetup`, `reddit`, `mailchimp`, `tiktok`,
-   `telegram`, plus a free-text field for anything new. Values are normalized to lowercase.
+   `telegram`, `google-business`, plus a free-text field for anything new. The
+   `google-business` chip exists so hand-made Maps posts (offers, updates) land in the same
+   GA rows as the automated event posts: `script/post-events-to-google.rb` stamps the BOOK
+   button on every managed event post with `/go/?show=<slug>&utm_source=google-business&utm_medium=referral&utm_campaign=<slug>`. Values are normalized to lowercase.
    Google Ads is deliberately not offered as a chip (see Part 1); typing `google ads` into
    the free-text field still triggers the direct-link carve-out rather than a `/go/` link.
 4. **Medium and campaign.** `utm_medium` is pre-filled from the source (table below), editable.
@@ -226,7 +229,7 @@ Example: `https://inyourfacecomedy.ch/calendar/?utm_source=instagram&utm_medium=
 | meta | paid_social |
 | instagram, facebook, tiktok, telegram, reddit | social |
 | mailchimp | email |
-| guidle, meetup | referral |
+| guidle, meetup, google-business | referral |
 | free text | social (editable) |
 
 The medium values are GA4's own recognized tokens (`paid_social`, `social`, `email`,
