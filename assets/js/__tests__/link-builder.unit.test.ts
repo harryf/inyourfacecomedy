@@ -1,0 +1,107 @@
+// Pure-logic unit tests for assets/js/link-builder.js — the /linkbuilder/ tool.
+// Pins the UTM taxonomy (GA4 channel-group tokens, lowercase-forever) and the
+// google-ads carve-out (direct show-page URL, NO utm params at all).
+import { describe, expect, test } from "bun:test";
+
+const lb = require("../link-builder.js") as {
+  SOURCES: Array<{ id: string; label: string; medium: string }>;
+  slugify: (s: string) => string;
+  mediumFor: (source: string) => string;
+  campaignDefault: (slug: string, date: string, now?: Date) => string;
+  buildLink: (
+    origin: string,
+    show: { slug: string; url: string },
+    opts: { date?: string; source: string; medium?: string; campaign?: string; content?: string }
+  ) => { url: string; kind: string };
+};
+
+const ORIGIN = "https://inyourfacecomedy.ch";
+const SHOW = { slug: "jackpotcomedy", url: "/jackpotcomedy/" };
+
+describe("link-builder • the ten sources", () => {
+  test("all ten channels are on offer, in builder ids", () => {
+    const ids = lb.SOURCES.map((s) => s.id);
+    for (const want of ["meta", "google-ads", "instagram", "facebook", "guidle", "meetup", "reddit", "mailchimp", "tiktok", "telegram"]) {
+      expect(ids).toContain(want);
+    }
+    expect(ids.length).toBe(10);
+  });
+});
+
+describe("link-builder • medium defaults are GA4 channel-group tokens", () => {
+  test.each([
+    ["meta", "paid_social"],
+    ["instagram", "social"],
+    ["facebook", "social"],
+    ["tiktok", "social"],
+    ["telegram", "social"],
+    ["reddit", "social"],
+    ["mailchimp", "email"],
+    ["guidle", "referral"],
+    ["meetup", "referral"],
+  ])("%s → %s", (source, medium) => {
+    expect(lb.mediumFor(source)).toBe(medium);
+  });
+
+  test("a free-text source defaults to social", () => {
+    expect(lb.mediumFor("whatsapp")).toBe("social");
+    expect(lb.mediumFor("WhatsApp!")).toBe("social");
+  });
+});
+
+describe("link-builder • slugify (GA4 never normalizes case — we do)", () => {
+  test("lowercases, trims, and hyphenates", () => {
+    expect(lb.slugify("Meta")).toBe("meta");
+    expect(lb.slugify("  WhatsApp Status ")).toBe("whatsapp-status");
+    expect(lb.slugify("Story/Swipe-Up!")).toBe("story-swipe-up");
+  });
+});
+
+describe("link-builder • campaignDefault", () => {
+  test("evergreen: {show}-{yyyymm}", () => {
+    expect(lb.campaignDefault("comedybrew", "", new Date(2026, 8, 1))).toBe("comedybrew-202609");
+  });
+  test("date link: {show}-{yyyymmdd}", () => {
+    expect(lb.campaignDefault("jackpotcomedy", "2026-09-16")).toBe("jackpotcomedy-20260916");
+  });
+});
+
+describe("link-builder • buildLink", () => {
+  test("series link routes through /go/ with slugified utm params", () => {
+    const built = lb.buildLink(ORIGIN, SHOW, {
+      source: "Meta", medium: "Paid_Social", campaign: "Jackpot Sept",
+    });
+    expect(built.kind).toBe("series");
+    const u = new URL(built.url);
+    expect(u.origin).toBe(ORIGIN);
+    expect(u.pathname).toBe("/go/");
+    expect(u.searchParams.get("show")).toBe("jackpotcomedy");
+    expect(u.searchParams.get("date")).toBeNull();
+    expect(u.searchParams.get("utm_source")).toBe("meta");
+    expect(u.searchParams.get("utm_medium")).toBe("paid_social");
+    expect(u.searchParams.get("utm_campaign")).toBe("jackpot-sept");
+  });
+
+  test("date link carries the date and kind 'event'", () => {
+    const built = lb.buildLink(ORIGIN, SHOW, {
+      date: "2026-09-16", source: "mailchimp", medium: "email", campaign: "x",
+    });
+    expect(built.kind).toBe("event");
+    expect(new URL(built.url).searchParams.get("date")).toBe("2026-09-16");
+  });
+
+  test("utm_content is included only when set", () => {
+    const withip = lb.buildLink(ORIGIN, SHOW, { source: "meta", medium: "paid_social", campaign: "x", content: "Variant B" });
+    expect(new URL(withip.url).searchParams.get("utm_content")).toBe("variant-b");
+    const without = lb.buildLink(ORIGIN, SHOW, { source: "meta", medium: "paid_social", campaign: "x" });
+    expect(new URL(without.url).searchParams.get("utm_content")).toBeNull();
+  });
+
+  test("google-ads: direct show-page URL with NO utm params (gclid auto-tagging)", () => {
+    const built = lb.buildLink(ORIGIN, SHOW, { source: "Google-Ads", medium: "cpc", campaign: "x" });
+    expect(built.kind).toBe("direct");
+    expect(built.url).toBe("https://inyourfacecomedy.ch/jackpotcomedy/");
+    expect(built.url.includes("utm_")).toBe(false);
+    expect(built.url.includes("/go/")).toBe(false);
+  });
+});
