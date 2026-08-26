@@ -57,28 +57,20 @@ This change reuses `.btn-ghost`, the standard secondary CTA, so the design syste
    of the file. That is the only CSS change.
 
 4. `_includes/default/footer.liquid`: a third `.btn-ghost` in the `.footer-review` block, between the
-   Google review and Tripadvisor buttons, with its one-line note directly beneath it. The stacking rule in `_sass/includes/_footer.scss`
-   (`.footer-review .btn-ghost`) applies to any number of buttons, so the button itself needs no CSS:
+   Google review and Tripadvisor buttons. The stacking rule in `_sass/includes/_footer.scss`
+   (`.footer-review .btn-ghost`) applies to any number of buttons, so no CSS change:
 
        <a class="btn-ghost" href="{{ site.google_preferred_source_url }}" rel="noopener" target="_blank">Get our shows on Google &rarr;</a>
-       <p class="footer-review-note">Sets us as a preferred source: Google then shows you our new dates first.</p>
 
-5. `_sass/includes/_footer.scss`: style the note to sit with the buttons (tokens only, no hex; mirror
-   the buttons' mobile centring under the same breakpoint):
-
-       .footer-review .footer-review-note {
-         font-size: 0.85rem;
-         color: var(--muted);
-         max-width: 280px;
-         margin: 0.35rem 0 0;
-       }
+   A one-line explainer note under the button shipped initially and was removed the same day as
+   clutter; the full pitch lives on /follow/ and Google's landing page explains the rest.
 
 ### Button wording
 
 Most visitors have never heard of preferred sources, so the button sells the outcome and skips the
 jargon: "Get our shows on Google &rarr;". Button labels stay within the length of the two existing
 review buttons (24 characters before the arrow; this one is 23), so the stacked ghosts read as a set.
-The note underneath names the mechanism once, so the term
+The /follow/ section names the mechanism ("preferred source") once, so the term
 is learnable, and Google's landing page does the rest (it shows our site with an add button). Do not
 label the button "Add us as a preferred source": to someone who does not know the feature that reads as
 us asking a favour, where the benefit-first label offers them something. The "Like the show? 🫶🥰"
@@ -92,7 +84,7 @@ place a ghost button next to a ticket CTA.
 
 Work on a branch and open a PR: push to master goes live, and Netlify builds a draft of the PR.
 
-1. Branch; make the five changes above.
+1. Branch; make the four changes above.
 2. `bundle exec jekyll build --future`, then `ruby script/check-site.rb --no-build` (must exit 0).
 3. Visual check with a real browser: the footer at 320/768/1440px on any page, and the /follow/ block.
 4. Merge; on the live site, click both new links once and confirm the Google page offers the site.
