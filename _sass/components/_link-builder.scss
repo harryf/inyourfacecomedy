@@ -210,17 +210,5 @@
   }
 }
 
-// --- /go/ interstitial: a calm, near-empty page seen for under half a second ---
-.go-redirect {
-  clear: both;
-  max-width: var(--container-prose);
-  margin: 0 auto;
-  padding: var(--space-10) var(--space-3);
-  text-align: center;
-  font-family: var(--font-body);
-  color: var(--ink-on-cream);
-
-  &__status { font-size: var(--fs-lg); margin: 0 0 var(--space-4); }
-  &__manual { margin: 0; }
-  &__noscript { color: var(--muted); }
-}
+// (The /go/ interstitial styles live inline in _layouts/go.html — that page
+// deliberately skips the CSS bundle for speed. See CAMPAIGN_LINKS.md.)

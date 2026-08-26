@@ -15,11 +15,14 @@
  *    unknown show slug      → /404.html?from=go&show=<slug>&utm_… — deliberately
  *                             loud, so GA can alert on broken campaign links
  *
- *  GA: window.gtag is NOT global on this site (the config call lives inside the
- *  compiled main.min.js), so we push onto window.dataLayer with an arguments
- *  helper, exactly like gtag() itself does. The redirect races the event's
- *  event_callback against REDIRECT_DELAY_MS so a blocked/absent GA never strands
- *  the visitor. That constant is the one tuning knob (speed budget: CAMPAIGN_LINKS.md).
+ *  GA: this file is INLINED into the page by pages/go.md (it lives in _includes/,
+ *  not assets/, so there is no separate fetch on the redirect hot path), and
+ *  _layouts/go.html carries its own inline gtag config, so the GA pipeline starts
+ *  at HTML parse instead of after the theme's deferred main.min.js. We still push
+ *  onto window.dataLayer with an arguments helper so the script has no load-order
+ *  dependency. The redirect races the event's event_callback against
+ *  REDIRECT_DELAY_MS so a blocked/absent GA never strands the visitor. That
+ *  constant is the one tuning knob (speed budget: CAMPAIGN_LINKS.md).
  */
 (function () {
   'use strict';

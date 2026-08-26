@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: go
 title: "Tickets"
 permalink: /go/
 # Campaign-link redirector — a tracking hop, never a destination. Out of search + nav.
@@ -28,4 +28,6 @@ description: "Passing you to the ticket page for an IN YOUR FACE Comedy show."
 </div>
 
 {% include go-catalogs.liquid %}
-<script src="{{ '/assets/js/go-redirect.js' | relative_url }}" defer></script>
+<script>
+{% include go-redirect.js %}
+</script>

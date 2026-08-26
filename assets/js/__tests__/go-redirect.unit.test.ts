@@ -4,7 +4,9 @@
 // same-site path. There is no code path from query input to an arbitrary URL.
 import { describe, expect, test } from "bun:test";
 
-const go = require("../go-redirect.js") as {
+// The script lives in _includes/ because _layouts/go.html inlines it into the
+// page (no separate asset fetch on the redirect hot path).
+const go = require("../../../_includes/go-redirect.js") as {
   norm: (s: string) => string;
   isValidDate: (s: string) => boolean;
   localISODate: (d: Date) => string;

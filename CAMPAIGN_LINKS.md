@@ -95,10 +95,17 @@ still leaves a clickable way through), and a `<noscript>` block linking to `/cal
 **The speed budget, explicitly.** Two clocks are racing: GA needs the hit out before we
 navigate away, and the visitor came for tickets, not for our interstitial. The plan:
 
-- `/go/` is a near-empty page (no feature image, no fonts beyond system fallback, catalog JSON
-  inline), so first paint is effectively instant; the cost is one HTML round trip.
-- The gtag library is already async in `<head>` and typically cached; the redirect script runs
-  immediately (inline or `defer` at end of body), it does not wait for `window.load`.
+- `/go/` uses its own bare layout (`_layouts/go.html`): no theme CSS bundle (110KB,
+  render-blocking on normal pages), no navbar/footer, no GTM, no Clarity, no `main.min.js`.
+  First paint is effectively instant; the cost is one small HTML round trip.
+- The layout carries its own inline gtag config. This matters: on theme pages the
+  `gtag('config')` call lives inside deferred `main.min.js`, so GA cannot start until the
+  whole theme has parsed; on `/go/` the pipeline starts at HTML parse.
+- The redirect script is inlined into the page (`_includes/go-redirect.js`, included by
+  `pages/go.md`), so there is no separate fetch and no defer-chain wait on the hot path.
+- `<link rel="preconnect">` to `eventfrog.ch` and `googletagmanager.com` runs the TLS
+  handshakes during the interstitial, shaving time off both the GA fetch and the page the
+  visitor lands on next.
 - The `page_view` and `ticket_redirect` hits are dispatched right away; gtag uses
   `navigator.sendBeacon` where available, which survives navigation, so the redirect does not
   actually need to wait for the network. In the normal (cached gtag) case `event_callback`
