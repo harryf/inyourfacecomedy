@@ -110,7 +110,7 @@ sass:
   style: compressed
 exclude: [".jekyll-cache", ".jekyll-metadata", ".idea", "vendor/*", "assets/node_modules/*", "script/*", "node_modules", "package.json", "bunfig.toml", "bun.lock", "bun.lockb", "assets/js/__tests__",
   # Internal dev docs — keep them out of the published site (CNAME stays; it sets the domain).
-  "README.md", "CLAUDE.md", "COMEDIAN_SEO.md", "SHOW_PROMO_LINKS.md", "CALENDAR_STRUCTURE.md", "WRITING_GUIDE.md", "FLYER_DESIGN.md", "EMAILS.md",
+  "README.md", "CLAUDE.md", "COMEDIAN_SEO.md", "SHOW_PROMO_LINKS.md", "CALENDAR_STRUCTURE.md", "WRITING_GUIDE.md", "FLYER_DESIGN.md", "EMAILS.md", "GOOGLE_PREFERRED_SOURCE.md",
   # Google Business Profile poster: descriptions, state, setup doc — used by script/post-events-to-google.rb, never published.
   "gbp"]
 
@@ -126,3 +126,6 @@ plugins:
 gbp_review_url: https://g.page/r/CeQdoyHYfl-8EBM/review
 # Tripadvisor "write a review" URL — footer review block (second button).
 tripadvisor_review_url: https://www.tripadvisor.com/UserReviewEdit-g188113-d24051458-IN_YOUR_FACE_Comedy-Zurich.html
+# Google "add preferred source" deeplink — single source of truth for /follow/ + footer.
+# Background: GOOGLE_PREFERRED_SOURCE.md
+google_preferred_source_url: https://www.google.com/preferences/source?q=inyourfacecomedy.ch

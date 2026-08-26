@@ -74,6 +74,12 @@ thumbnail: "assets/img/thumbs/inyourface_thumb.png"
   <a class="btn-ghost" href="{{ site.gbp_review_url }}" rel="noopener" target="_blank">Leave a Google review &rarr;</a>
 </section>
 
+<section class="hub-google-follow" markdown="0">
+  <h2>See our shows in your Google</h2>
+  <p>Add us as a preferred source and Google puts our new show dates in front of you first. Takes one tap, needs a Google sign-in.</p>
+  <a class="btn-ghost" href="{{ site.google_preferred_source_url }}" rel="noopener" target="_blank">Get our shows on Google &rarr;</a>
+</section>
+
 <section class="hub-channels" markdown="0">
   <h2>Other places we are</h2>
   <ul class="hub-channel-list">

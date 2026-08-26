@@ -67,6 +67,20 @@
     }
   }
 
+  // One-line explainer under the preferred-source button — matches the buttons'
+  // capped width and mobile centring. Background: GOOGLE_PREFERRED_SOURCE.md.
+  .footer-review .footer-review-note {
+    font-size: 0.85rem;
+    color: var(--muted);
+    max-width: 280px;
+    margin: 0.35rem 0 0;
+
+    @media screen and (max-width: variables.$break) {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
   // .social-list block removed in design-system v1 — replaced by
   // .iyf-follow-chips (see _sass/components/_follow-buttons.scss).
 
