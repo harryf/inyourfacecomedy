@@ -1,3 +1,11 @@
 datetime,event,source,medium,campaign,content,page
 2026-08-27 13:01,ticket_redirect,(direct),(none),,,Ticket Redirect
 2026-08-27 13:30,ticket_redirect,(direct),(none),,,Ticket Redirect
+2026-08-27 15:36,ticket_redirect,(direct),(none),,,Ticket Redirect
+2026-08-27 15:36,ticket_redirect,facebook,social,promessi-spassi,,Ticket Redirect
+2026-08-27 15:38,ticket_redirect,meta,untagged,,,Ticket Redirect
+2026-08-27 15:38,ticket_redirect,meta,untagged,,,Ticket Redirect
+2026-08-27 15:38,ticket_redirect,instagram,social,promessi-spassi,,Ticket Redirect
+2026-08-27 15:51,ticket_redirect,instagram,social,promessi-spassi,,Ticket Redirect
+2026-08-27 16:14,ticket_redirect,meta,untagged,,,Ticket Redirect
+2026-08-27 16:14,ticket_redirect,meta,untagged,,,Ticket Redirect

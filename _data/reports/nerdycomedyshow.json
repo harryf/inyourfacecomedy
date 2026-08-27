@@ -3,34 +3,26 @@
  "title": "The NERDY COMEDY Show",
  "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7460775757695997180.html",
  "event_type": "one-off",
- "generated_at": "2026-08-27T13:24:40.181Z",
+ "generated_at": "2026-08-27T22:45:33.234Z",
  "since": "2026-08-26",
- "pages_since": "2026-07-29",
- "through": "2026-08-27",
- "complete_through": "2026-08-25",
+ "pages_since": "2026-07-30",
+ "through": "2026-08-28",
+ "complete_through": "2026-08-26",
  "totals": {
-  "clicks": 2,
-  "redirect": 1,
+  "clicks": 3,
+  "redirect": 2,
   "click": 1,
-  "clicks_30d": 2,
-  "redirect_30d": 1,
+  "clicks_30d": 3,
+  "redirect_30d": 2,
   "click_30d": 1,
   "views": 31,
   "views_30d": 31,
-  "sessions": 32,
-  "sessions_30d": 32,
+  "sessions": 30,
+  "sessions_30d": 30,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-07-29",
-   "redirect": 0,
-   "click": 0,
-   "views": 1,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-07-30",
    "redirect": 0,
@@ -251,12 +243,20 @@
    "date": "2026-08-26",
    "redirect": 1,
    "click": 1,
-   "views": 6,
-   "provisional": true,
+   "views": 7,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-08-27",
+   "redirect": 1,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-28",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -266,11 +266,18 @@
  ],
  "by_source": [
   {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 1,
+   "views": 5,
+   "sessions": 6
+  },
+  {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
    "clicks": 1,
-   "views": 4,
-   "sessions": 3
+   "views": 6,
+   "sessions": 5
   },
   {
    "source": "meta",
@@ -278,13 +285,6 @@
    "clicks": 1,
    "views": 0,
    "sessions": 0
-  },
-  {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 0,
-   "views": 9,
-   "sessions": 11
   },
   {
    "source": "google",
@@ -304,8 +304,15 @@
    "source": "microsite.guidle.com",
    "medium": "referral",
    "clicks": 0,
-   "views": 2,
+   "views": 3,
    "sessions": 2
+  },
+  {
+   "source": "duckduckgo",
+   "medium": "organic",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
   },
   {
    "source": "old.reddit.com",

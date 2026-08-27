@@ -3,18 +3,18 @@
  "title": "Pulp Non-Fiction",
  "ticket_url": "https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html",
  "event_type": "monthly",
- "generated_at": "2026-08-27T13:24:40.181Z",
+ "generated_at": "2026-08-27T22:45:33.234Z",
  "since": "2026-08-26",
- "pages_since": "2026-07-29",
- "through": "2026-08-27",
- "complete_through": "2026-08-25",
+ "pages_since": "2026-07-30",
+ "through": "2026-08-28",
+ "complete_through": "2026-08-26",
  "totals": {
-  "clicks": 1,
-  "redirect": 1,
-  "click": 0,
-  "clicks_30d": 1,
-  "redirect_30d": 1,
-  "click_30d": 0,
+  "clicks": 4,
+  "redirect": 2,
+  "click": 2,
+  "clicks_30d": 4,
+  "redirect_30d": 2,
+  "click_30d": 2,
   "views": 20,
   "views_30d": 20,
   "sessions": 20,
@@ -23,14 +23,6 @@
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-07-29",
-   "redirect": 0,
-   "click": 0,
-   "views": 1,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-07-30",
    "redirect": 0,
@@ -252,14 +244,22 @@
    "redirect": 1,
    "click": 0,
    "views": 3,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-08-27",
+   "redirect": 1,
+   "click": 2,
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-28",
    "redirect": 0,
    "click": 0,
-   "views": 1,
+   "views": 0,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -268,9 +268,16 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 1,
+   "clicks": 3,
    "views": 7,
    "sessions": 7
+  },
+  {
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
   },
   {
    "source": "VA LBHE ABDF Dbzfel",
@@ -308,6 +315,16 @@
    "sessions": 1
   }
  ],
- "by_campaign": [],
+ "by_campaign": [
+  {
+   "campaign": "pulpnonfiction",
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 1,
+   "first": "2026-08-27",
+   "last": "2026-08-27",
+   "content": []
+  }
+ ],
  "csv": "/assets/reports/pulpnonfiction.csv"
 }

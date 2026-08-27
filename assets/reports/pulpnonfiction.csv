@@ -1,2 +1,5 @@
 datetime,event,source,medium,campaign,content,page
 2026-08-26 14:13,ticket_redirect,(direct),(none),,,Ticket Redirect
+2026-08-27 15:40,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
+2026-08-27 15:41,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
+2026-08-27 16:04,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
