@@ -3,29 +3,29 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-08-27T09:24:47.895Z",
+ "generated_at": "2026-08-27T09:53:44.664Z",
  "since": "2026-08-26",
  "through": "2026-08-27",
  "complete_through": "2026-08-25",
  "totals": {
-  "clicks": 19,
-  "redirect": 18,
-  "click": 1,
-  "clicks_30d": 19,
-  "redirect_30d": 18,
-  "click_30d": 1,
+  "clicks": 25,
+  "redirect": 22,
+  "click": 3,
+  "clicks_30d": 25,
+  "redirect_30d": 22,
+  "click_30d": 3,
   "views": 14,
   "views_30d": 14,
-  "sessions": 16,
-  "sessions_30d": 16,
+  "sessions": 17,
+  "sessions_30d": 17,
   "broken_links": 0,
-  "untagged": 11
+  "untagged": 1
  },
  "by_day": [
   {
    "date": "2026-08-26",
-   "redirect": 16,
-   "click": 1,
+   "redirect": 20,
+   "click": 3,
    "views": 14,
    "provisional": true
   },
@@ -40,22 +40,29 @@
  "by_source": [
   {
    "source": "meta",
-   "medium": "untagged",
-   "clicks": 11,
+   "medium": "paid_social",
+   "clicks": 15,
    "views": 0,
    "sessions": 0
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 6,
+   "clicks": 8,
    "views": 8,
    "sessions": 11
   },
   {
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 1,
+   "views": 2,
+   "sessions": 2
+  },
+  {
    "source": "meta",
-   "medium": "paid_social",
-   "clicks": 2,
+   "medium": "untagged",
+   "clicks": 1,
    "views": 0,
    "sessions": 0
   },
@@ -67,11 +74,11 @@
    "sessions": 3
   },
   {
-   "source": "instagram",
-   "medium": "social",
+   "source": "meetup",
+   "medium": "referral",
    "clicks": 0,
-   "views": 2,
-   "sessions": 2
+   "views": 0,
+   "sessions": 1
   }
  ],
  "by_campaign": [
@@ -79,15 +86,24 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 2,
+   "clicks": 13,
    "first": "2026-08-26",
    "last": "2026-08-27",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 1
+     "clicks": 5
     }
    ]
+  },
+  {
+   "campaign": "nerdycomedyshow",
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 2,
+   "first": "2026-08-26",
+   "last": "2026-08-26",
+   "content": []
   }
  ],
  "csv": "/assets/reports/comedybrew.csv"

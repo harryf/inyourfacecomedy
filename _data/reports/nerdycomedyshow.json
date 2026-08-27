@@ -3,7 +3,7 @@
  "title": "The NERDY COMEDY Show",
  "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7460775757695997180.html",
  "event_type": "one-off",
- "generated_at": "2026-08-27T09:24:47.895Z",
+ "generated_at": "2026-08-27T09:53:44.664Z",
  "since": "2026-08-26",
  "through": "2026-08-27",
  "complete_through": "2026-08-25",
@@ -39,22 +39,29 @@
  ],
  "by_source": [
   {
+   "source": "IN YOUR FACE Comedy",
+   "medium": "email",
+   "clicks": 1,
+   "views": 1,
+   "sessions": 1
+  },
+  {
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
+  },
+  {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 2,
+   "clicks": 0,
    "views": 4,
    "sessions": 5
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 0,
-   "views": 1,
-   "sessions": 1
-  },
-  {
-   "source": "IN YOUR FACE Comedy",
-   "medium": "email",
    "clicks": 0,
    "views": 1,
    "sessions": 1
@@ -67,6 +74,16 @@
    "sessions": 1
   }
  ],
- "by_campaign": [],
+ "by_campaign": [
+  {
+   "campaign": "nerdycomedyshow",
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 1,
+   "first": "2026-08-26",
+   "last": "2026-08-26",
+   "content": []
+  }
+ ],
  "csv": "/assets/reports/nerdycomedyshow.csv"
 }
