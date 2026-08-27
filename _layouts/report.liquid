@@ -53,7 +53,7 @@ layout: page
       (Meta ads, Instagram, newsletters, Google Maps). Site buttons are the Get Tickets buttons
       on the show page, home page and calendar. Both count a person leaving for the ticket page;
       neither can see what happens after that.
-      {% if t.untagged > 0 %}{{ t.untagged }} click{% if t.untagged > 1 %}s{% endif %} came from an ad whose link had no tracking tags (listed as "untagged" below); the ad still counts, but swap its link for one from the link builder to see which campaign it was.{% endif %}
+      {% if t.untagged > 0 %}{{ t.untagged }} click{% if t.untagged > 1 %}s{% endif %} came from an ad whose link had no campaign tags; they count as ticket clicks and appear as "untagged" under Where the traffic came from, explained there.{% endif %}
       {% if t.broken_links > 0 %}<strong>{{ t.broken_links }} click{% if t.broken_links > 1 %}s{% endif %} hit a broken campaign link for this show; check the links in running ads.</strong>{% endif %}
     </p>
   </section>
@@ -128,6 +128,9 @@ layout: page
     </table>
     </div>
     <p class="iyf-report__note">"(direct) / (none)" is people typing the address, using a bookmark, or arriving from an app that hides where they came from (most chat apps do).</p>
+    {% if t.untagged > 0 %}
+    <p class="iyf-report__note"><strong>About "untagged":</strong> these {{ t.untagged }} clicks came from an ad on that network, but the link in the ad had no campaign tags, so Google Analytics could not record which campaign or ad it was. We can still tell the network because Meta, TikTok and Google add their own click id to the link. To get the full breakdown (campaign, ad, day) for future clicks, replace the ad's website link with one from the <a href="/linkbuilder/">link builder</a>; the clicks already counted here stay as they are.</p>
+    {% endif %}
   </section>
 
   <section class="iyf-report__section iyf-report__section--download">
