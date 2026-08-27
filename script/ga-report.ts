@@ -23,7 +23,7 @@ import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { createSign } from "node:crypto";
 import {
-  aggregate, frontMatterOf, gaDate, gaDateTime, parseShow, reportPage, toCsv,
+  addDays, aggregate, frontMatterOf, gaDate, gaDateTime, parseShow, reportPage, toCsv,
   type ClickRow, type PageRow, type Show,
 } from "./lib/ga-report-lib";
 
@@ -140,9 +140,12 @@ async function fetchClicks(token: string, slug: string): Promise<ClickRow[]> {
   });
 }
 
-async function fetchPages(token: string, slug: string): Promise<PageRow[]> {
+// Show-page visits reach back further than the click events: GA has always had
+// page_view for the show page, so the runner gets a 30-day baseline of interest
+// in the show even though ticket clicks only exist from LAUNCH_DATE.
+async function fetchPages(token: string, slug: string, startDate: string): Promise<PageRow[]> {
   const rows = await runReport(token, {
-    dateRanges: [range],
+    dateRanges: [{ startDate, endDate: "today" }],
     dimensions: ["date", "sessionSource", "sessionMedium", "sessionCampaignName"].map((name) => ({ name })),
     metrics: [{ name: "sessions" }, { name: "screenPageViews" }],
     dimensionFilter: eq("pagePath", `/${slug}/`),
@@ -241,11 +244,12 @@ async function main(): Promise<void> {
   const brokenTotal = await fetchBrokenAll(token);
   const newBroken = ONLY ? 0 : brokenTotal - Number(prevMeta.broken_total ?? 0);
 
+  const pagesSince = [addDays(today, -29), LAUNCH_DATE].sort()[0];   // whichever is earlier
   const lines: string[] = [];
   for (const show of shows) {
-    const [clicks, pages, broken] = await Promise.all([fetchClicks(token, show.slug), fetchPages(token, show.slug), fetchBroken(token, show.slug)]);
+    const [clicks, pages, broken] = await Promise.all([fetchClicks(token, show.slug), fetchPages(token, show.slug, pagesSince), fetchBroken(token, show.slug)]);
     const csvPath = `/assets/reports/${show.slug}.csv`;
-    const report = aggregate({ show, clicks, pages, brokenLinks: broken, since: LAUNCH_DATE, today, generatedAt, csvPath });
+    const report = aggregate({ show, clicks, pages, brokenLinks: broken, since: LAUNCH_DATE, pagesSince, today, generatedAt, csvPath });
     lines.push(`${show.slug.padEnd(24)} clicks ${String(report.totals.clicks).padStart(5)} (go ${report.totals.redirect}, site ${report.totals.click})  sessions ${report.totals.sessions}  campaigns ${report.by_campaign.length}  broken ${broken}`);
     if (DRY) continue;
     mkdirSync(DATA_DIR, { recursive: true }); mkdirSync(CSV_DIR, { recursive: true }); mkdirSync(PAGE_DIR, { recursive: true });

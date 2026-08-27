@@ -335,6 +335,10 @@ Per show the report counts `ticket_redirect` (campaign links via `/go/`) and `ti
 `utm_content` (Meta fills in the ad id) underneath, plus show-page sessions by source and the
 number of broken-link 404s carrying the show's slug. Things worth knowing:
 
+- **Page visits reach back 30 days, clicks do not.** `page_view` on the show page has always
+  existed, so the visits column and the by-day table start at the earlier of 30 days ago and
+  launch day; ticket clicks only exist from 2026-08-26 and earlier rows show a dot for them.
+  Source attribution on those older visits is whatever GA had at the time.
 - **Attribution has two layers.** The `show` custom dimension only exists from 2026-08-27, so
   the query also matches what the URLs guarantee: `/go/?…show=<slug>` for redirects and the
   show page path for on-site clicks. Home and calendar button clicks from before the dimension

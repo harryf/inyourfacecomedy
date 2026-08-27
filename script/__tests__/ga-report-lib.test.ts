@@ -86,9 +86,21 @@ describe("ga-report • aggregate", () => {
   });
   test("by_day covers every day since launch and flags provisional days", () => {
     expect(r.by_day.map((d) => d.date)).toEqual(["2026-08-26", "2026-08-27", "2026-08-28"]);
-    expect(r.by_day[0]).toMatchObject({ redirect: 11, click: 3, views: 12, provisional: false });
+    expect(r.by_day[0]).toMatchObject({ redirect: 11, click: 3, views: 12, provisional: false, clicks_tracked: true });
     expect(r.by_day[1]).toMatchObject({ redirect: 2, provisional: true });
     expect(r.complete_through).toBe("2026-08-26");
+    expect(r.pages_since).toBe("2026-08-26");
+  });
+  test("page visits backfill before launch: days present, marked as not click-tracked", () => {
+    const early = aggregate({
+      show, clicks, brokenLinks: 0, since: "2026-08-26", pagesSince: "2026-08-23", today: "2026-08-28", generatedAt: "x", csvPath: "/x.csv",
+      pages: [...pages, { date: "2026-08-24", source: "google", medium: "organic", campaign: "(organic)", sessions: 7, views: 9 }],
+    });
+    expect(early.pages_since).toBe("2026-08-23");
+    expect(early.by_day.map((d) => d.date)[0]).toBe("2026-08-23");
+    expect(early.by_day.find((d) => d.date === "2026-08-24")).toMatchObject({ views: 9, redirect: 0, click: 0, clicks_tracked: false });
+    expect(early.totals.sessions).toBe(17);
+    expect(early.totals.clicks).toBe(16);   // clicks unchanged by the wider page window
   });
   test("campaigns are keyed by campaign+source with ad content underneath", () => {
     expect(r.by_campaign.map((c) => [c.campaign, c.source, c.clicks])).toEqual([["comedybrew", "meta", 6], ["comedybrew", "instagram", 2]]);

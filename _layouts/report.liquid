@@ -13,7 +13,7 @@ layout: page
 <div class="iyf-report">
   <p class="iyf-report__lede">
     People who clicked through to <a href="{{ r.ticket_url }}" rel="nofollow">the ticket page</a> and visits to
-    <a href="/{{ r.slug }}/">inyourfacecomedy.ch/{{ r.slug }}/</a>, counted since {{ r.since | date: "%-d %B %Y" }}.
+    <a href="/{{ r.slug }}/">inyourfacecomedy.ch/{{ r.slug }}/</a>. Ticket clicks counted since {{ r.since | date: "%-d %B %Y" }}{% if r.pages_since < r.since %}, page visits since {{ r.pages_since | date: "%-d %B" }}{% endif %}.
   </p>
   <p class="iyf-report__updated">
     <span class="iyf-badge iyf-badge--muted">Updated daily</span>
@@ -60,20 +60,27 @@ layout: page
 
   <section class="iyf-report__section">
     <h2>By day</h2>
+    {% comment %} Bar = page visits (exists for every day); clicks stay numeric. {% endcomment %}
     {% assign maxday = 1 %}
-    {% for d in r.by_day %}{% assign tot = d.redirect | plus: d.click %}{% if tot > maxday %}{% assign maxday = tot %}{% endif %}{% endfor %}
+    {% for d in r.by_day %}{% if d.views > maxday %}{% assign maxday = d.views %}{% endif %}{% endfor %}
     <div class="iyf-report__table-wrap">
     <table class="iyf-report__table iyf-report__table--days">
-      <thead><tr><th>Date</th><th class="iyf-report__num">Clicks</th><th class="iyf-report__num">Campaign</th><th class="iyf-report__num">Site</th><th class="iyf-report__num">Visits</th><th class="iyf-report__barcell"><span class="iyf-report__sr">Share of busiest day</span></th></tr></thead>
+      <thead><tr><th>Date</th><th class="iyf-report__num">Clicks</th><th class="iyf-report__num">Campaign</th><th class="iyf-report__num">Site</th><th class="iyf-report__num">Visits</th><th class="iyf-report__barcell"><span class="iyf-report__sr">Visits as a share of the busiest day</span></th></tr></thead>
       <tbody>
       {% for d in r.by_day reversed %}
         {% assign tot = d.redirect | plus: d.click %}
-        {% assign pct = tot | times: 100.0 | divided_by: maxday | round %}
+        {% assign pct = d.views | times: 100.0 | divided_by: maxday | round %}
         <tr{% if d.provisional %} class="iyf-report__row--provisional" title="Still being counted by Google Analytics"{% endif %}>
           <td>{{ d.date | date: "%a %-d %b" }}{% if d.provisional %}<span class="iyf-report__prov">*</span>{% endif %}</td>
+          {% if d.clicks_tracked %}
           <td class="iyf-report__num">{{ tot }}</td>
           <td class="iyf-report__num">{{ d.redirect }}</td>
           <td class="iyf-report__num">{{ d.click }}</td>
+          {% else %}
+          <td class="iyf-report__num iyf-report__na" title="Ticket clicks were not tracked yet">·</td>
+          <td class="iyf-report__num iyf-report__na">·</td>
+          <td class="iyf-report__num iyf-report__na">·</td>
+          {% endif %}
           <td class="iyf-report__num">{{ d.views }}</td>
           <td class="iyf-report__barcell"><span class="iyf-report__bar" style="width: {{ pct }}%"></span></td>
         </tr>
@@ -81,7 +88,7 @@ layout: page
       </tbody>
     </table>
     </div>
-    <p class="iyf-report__note">* still counting: Google Analytics takes up to 48 hours to finish a day. Visits are to the show page.</p>
+    <p class="iyf-report__note">* still counting: Google Analytics takes up to 48 hours to finish a day. Visits are to the show page{% if r.pages_since < r.since %} and go back to {{ r.pages_since | date: "%-d %b" }}; ticket clicks have only been tracked since {{ r.since | date: "%-d %b" }} (shown as · before that){% endif %}.</p>
   </section>
 
   <section class="iyf-report__section">

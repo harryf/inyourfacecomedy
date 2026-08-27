@@ -111,6 +111,7 @@
   &__row--sub td { border-bottom-style: dashed; color: var(--muted); }
   &__sub { padding-left: var(--space-5) !important; }
   &__row--provisional td { color: var(--muted); }
+  &__na { color: var(--muted); opacity: 0.6; }
   &__prov { color: var(--warn); margin-left: 2px; }
 
   // Bar for the by-day table: decorative, hidden on narrow phones.

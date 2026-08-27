@@ -3,47 +3,288 @@
  "title": "PROMESSI SPASSI",
  "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478863182670358596.html",
  "event_type": "one-off",
- "generated_at": "2026-08-27T11:01:59.280Z",
+ "generated_at": "2026-08-27T13:24:40.181Z",
  "since": "2026-08-26",
+ "pages_since": "2026-07-29",
  "through": "2026-08-27",
  "complete_through": "2026-08-25",
  "totals": {
-  "clicks": 0,
-  "redirect": 0,
+  "clicks": 2,
+  "redirect": 2,
   "click": 0,
-  "clicks_30d": 0,
-  "redirect_30d": 0,
+  "clicks_30d": 2,
+  "redirect_30d": 2,
   "click_30d": 0,
-  "views": 4,
-  "views_30d": 4,
-  "sessions": 4,
-  "sessions_30d": 4,
+  "views": 31,
+  "views_30d": 31,
+  "sessions": 31,
+  "sessions_30d": 31,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
   {
+   "date": "2026-07-29",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-07-30",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-07-31",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-01",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-02",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-03",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-04",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-05",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-06",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-07",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-08",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-09",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-10",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-11",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-12",
+   "redirect": 0,
+   "click": 0,
+   "views": 2,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-13",
+   "redirect": 0,
+   "click": 0,
+   "views": 2,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-14",
+   "redirect": 0,
+   "click": 0,
+   "views": 2,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-15",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-16",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-17",
+   "redirect": 0,
+   "click": 0,
+   "views": 2,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-18",
+   "redirect": 0,
+   "click": 0,
+   "views": 4,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-19",
+   "redirect": 0,
+   "click": 0,
+   "views": 2,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-20",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-21",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-22",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-23",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-24",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-25",
+   "redirect": 0,
+   "click": 0,
+   "views": 7,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
    "date": "2026-08-26",
    "redirect": 0,
    "click": 0,
    "views": 4,
-   "provisional": true
+   "provisional": true,
+   "clicks_tracked": true
   },
   {
    "date": "2026-08-27",
-   "redirect": 0,
+   "redirect": 2,
    "click": 0,
-   "views": 0,
-   "provisional": true
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
   }
  ],
  "by_source": [
   {
    "source": "(direct)",
    "medium": "(none)",
+   "clicks": 2,
+   "views": 10,
+   "sessions": 10
+  },
+  {
+   "source": "IN YOUR FACE Comedy",
+   "medium": "email",
    "clicks": 0,
-   "views": 1,
-   "sessions": 1
+   "views": 8,
+   "sessions": 9
+  },
+  {
+   "source": "google",
+   "medium": "organic",
+   "clicks": 0,
+   "views": 9,
+   "sessions": 8
   },
   {
    "source": "facebook.com",
@@ -61,6 +302,13 @@
   },
   {
    "source": "m.facebook.com",
+   "medium": "referral",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
+  },
+  {
+   "source": "old.reddit.com",
    "medium": "referral",
    "clicks": 0,
    "views": 1,
