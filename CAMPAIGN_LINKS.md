@@ -133,8 +133,11 @@ below: a GA4 custom insight that emails you when 404 views with `from=go` exceed
 typo'd link in a running ad gets caught in days, not at the post-campaign review.
 
 In GA this yields: sessions on `/go/` sliced by campaign/source/medium, plus the
-`ticket_redirect` event with a `show` parameter. Manual step for later: register `show` as a
-custom dimension and optionally mark `ticket_redirect` as a key event in the GA4 admin UI.
+`ticket_redirect` event with a `show` parameter. `show` is registered as an event-scoped custom
+dimension on the property (created 2026-08-27 via the Admin API, `customDimensions/15510399947`),
+so reports can slice `ticket_redirect` and `ticket_click` by show from that date on; earlier
+events carry the parameter but GA never backfills dimensions. Optional manual step: mark
+`ticket_redirect` as a key event in the GA4 admin UI.
 
 ### One real gotcha: Google Ads does not like this page
 
@@ -283,11 +286,11 @@ for secondary actions, the chip pattern from `.iyf-follow-chips`, form styling a
 2. After it ships: build one real link per active channel and swap it into the running
    campaigns (Meta ad final URLs, Instagram bio/stories, Mailchimp templates, Guidle and
    Meetup listings, Telegram pins).
-3. In GA4 admin: register `show` (and optionally `destination`) as event-scoped custom
-   dimensions; optionally mark `ticket_redirect` as a key event. Do this early: registration
-   is not retroactive, only data from that point forward gets the breakdown, and it takes a
-   day or two to populate. Verify events with DebugView (needs `debug_mode`) rather than
-   waiting on reports. Then create a custom insight (Reports > Insights) with the condition
+3. Done 2026-08-27: `show` is registered as an event-scoped custom dimension (via the Admin
+   API). Only data from that point forward gets the breakdown, and it takes a day or two to
+   populate. Optionally mark `ticket_redirect` as a key event. Verify events with DebugView
+   (needs `debug_mode`) rather than waiting on reports. Still to do: create a custom insight
+   (Reports > Insights) with the condition
    "page_view where page location contains `from=go`" and email alerting on, so a broken
    campaign link notifies you instead of waiting to be noticed.
 4. After the first campaign cycle: check Reports > Acquisition > Traffic acquisition filtered
