@@ -176,7 +176,8 @@
     '<header class="link-builder__head">' +
       '<h1 class="link-builder__title">Campaign Link Builder</h1>' +
       '<p class="link-builder__sub">Tap a show or a page, then a source; copy from the bar below. ' +
-      'Ticket links route through /go/; site-page links carry the UTM tags directly.</p>' +
+      'Ticket links route through /go/; site-page links carry the UTM tags directly. ' +
+      'See how the links perform in the <a href="/reports/">show traffic reports</a>.</p>' +
     '</header>' +
     '<section class="link-builder__section" id="lb-shows"><h2 class="link-builder__label">Show</h2><div class="link-builder__grid" id="lb-show-grid"></div>' +
       '<h2 class="link-builder__label link-builder__label--sub">Or a page on the site</h2><div class="link-builder__chips" id="lb-page-chips"></div></section>' +
