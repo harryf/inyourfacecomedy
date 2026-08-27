@@ -289,10 +289,11 @@ for secondary actions, the chip pattern from `.iyf-follow-chips`, form styling a
 3. Done 2026-08-27: `show` is registered as an event-scoped custom dimension (via the Admin
    API). Only data from that point forward gets the breakdown, and it takes a day or two to
    populate. Optionally mark `ticket_redirect` as a key event. Verify events with DebugView
-   (needs `debug_mode`) rather than waiting on reports. Still to do: create a custom insight
-   (Reports > Insights) with the condition
-   "page_view where page location contains `from=go`" and email alerting on, so a broken
-   campaign link notifies you instead of waiting to be noticed.
+   (needs `debug_mode`) rather than waiting on reports. The planned GA custom insight on
+   "page location contains `from=go`" turned out to be impossible: custom-insight segments
+   only take user-scoped dimensions (demographics, geography, device, first-user source;
+   checked in the UI 2026-08-27). The alert lives in `script/ga-report.ts` instead, see
+   "Show reports"; set `GA_REPORTS_HEALTHCHECKS_URL` in `.env` so it has somewhere to go.
 4. After the first campaign cycle: check Reports > Acquisition > Traffic acquisition filtered
    to the `/go/` landing page, and the `ticket_redirect` event by `show`.
 
@@ -347,6 +348,11 @@ number of broken-link 404s carrying the show's slug. Things worth knowing:
   never reach a runner's table (`NOISE_SOURCE_RE`).
 - **Days are provisional for 48 hours.** GA finishes counting a day up to two days later; the
   by-day table marks those rows and the header says which date is complete.
+- **Broken-link alert.** Each run counts every `/404.html?from=go…` view since launch
+  (any slug, so typos count too) and stores the total in `_data/reports/_meta.json`. If the
+  total grew since the previous run, the Healthchecks ping goes to `/fail` with the count and
+  the per-show summary, which Healthchecks routes to Telegram like the other jobs; the next
+  clean run pings success and clears it. GA itself cannot do this (see manual steps).
 - **Unlisted, not private.** `noindex`, `sitemap: false`, `hide: true`, `robots.txt`
   disallow, no links from anywhere; but the repo is public and so are the generated files.
   Click counts only, nothing personal.

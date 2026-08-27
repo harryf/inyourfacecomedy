@@ -163,6 +163,19 @@ async function fetchBroken(token: string, slug: string): Promise<number> {
   return rows.reduce((n, r) => n + Number(r.metricValues[0].value), 0);
 }
 
+// Every 404 view carrying from=go, whatever the slug (a typo'd slug never matches
+// a show, so the per-show count alone would miss exactly the links most likely to
+// be broken). Compared against the previous run in _data/reports/_meta.json.
+async function fetchBrokenAll(token: string): Promise<number> {
+  const rows = await runReport(token, {
+    dateRanges: [range],
+    dimensions: [{ name: "pagePathPlusQueryString" }],
+    metrics: [{ name: "screenPageViews" }],
+    dimensionFilter: { filter: { fieldName: "pagePathPlusQueryString", stringFilter: { matchType: "CONTAINS", value: "from=go" } } },
+  });
+  return rows.reduce((n, r) => n + Number(r.metricValues[0].value), 0);
+}
+
 async function propertyToday(token: string): Promise<string> {
   // The property's timezone decides what "today" means for GA dates.
   const r = await fetch(`https://analyticsadmin.googleapis.com/v1beta/${PROPERTY}`, { headers: { Authorization: `Bearer ${token}` } });
@@ -218,6 +231,16 @@ async function main(): Promise<void> {
   const shows = loadShows().filter((s) => !ONLY || s.slug === ONLY);
   if (!shows.length) throw new Error(ONLY ? `no show with slug ${ONLY}` : "no shows found in _posts");
 
+  // Broken-link alert. GA4 custom insights cannot filter on page location or event
+  // name (segments there are user-scoped only: demographics, device, first-user
+  // source; checked 2026-08-27), so the alert lives here: any increase in from=go
+  // 404 views since the last run fails the Healthchecks ping, which routes to
+  // Telegram like the other cron jobs. The run itself still completes.
+  const metaPath = join(DATA_DIR, "_meta.json");
+  const prevMeta = existsSync(metaPath) ? JSON.parse(readFileSync(metaPath, "utf8")) : { broken_total: 0 };
+  const brokenTotal = await fetchBrokenAll(token);
+  const newBroken = ONLY ? 0 : brokenTotal - Number(prevMeta.broken_total ?? 0);
+
   const lines: string[] = [];
   for (const show of shows) {
     const [clicks, pages, broken] = await Promise.all([fetchClicks(token, show.slug), fetchPages(token, show.slug), fetchBroken(token, show.slug)]);
@@ -232,10 +255,14 @@ async function main(): Promise<void> {
   }
   console.log(`GA reports ${DRY ? "(dry run) " : ""}for ${shows.length} show(s), property day ${today}:`);
   for (const l of lines) console.log("  " + l);
+  const brokenMsg = `broken campaign links: ${brokenTotal} from=go 404 views since ${LAUNCH_DATE} (${newBroken > 0 ? "+" + newBroken + " NEW since last run" : "no new ones"})`;
+  console.log("  " + brokenMsg);
   if (DRY) { console.log("dry run: nothing written"); return; }
+  if (!ONLY) writeFileSync(metaPath, JSON.stringify({ broken_total: brokenTotal, generated_at: generatedAt }, null, 1) + "\n");
   if (NO_PUSH) { console.log("files written, --no-push: skipping git"); return; }
   console.log("git: " + commitAndPush());
-  await ping("", lines.join("\n"));
+  if (newBroken > 0) await ping("/fail", `ALERT ${brokenMsg}\nCheck GA: page_view on /404.html with from=go for the slug + campaign.\n\n${lines.join("\n")}`);
+  else await ping("", `${brokenMsg}\n${lines.join("\n")}`);
 }
 
 main().catch(async (err) => {
