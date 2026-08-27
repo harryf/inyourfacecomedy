@@ -354,9 +354,10 @@ number of broken-link 404s carrying the show's slug. Things worth knowing:
   `ga-reports-sa.json`) whose email is a Viewer on the GA4 property; the job falls back to
   gcloud Application Default Credentials, which is fine by hand but expires under cron while
   the OAuth client stays in Testing mode. `GA_REPORTS_HEALTHCHECKS_URL` is a separate
-  Healthchecks check. Cron, after GA has caught up with the previous day:
+  Healthchecks check. Cron runs at 10:20, once the laptop is normally awake and after the
+  09:00 calendar refresh and 10:05 comedian sync have finished their own commits:
 
-      15 7 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/ga-report.ts >> script/ga-report.log 2>&1
+      20 10 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/ga-report.ts >> script/ga-report.log 2>&1
 
 ### Considered and rejected
 
