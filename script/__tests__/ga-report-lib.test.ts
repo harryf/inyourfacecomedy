@@ -103,17 +103,20 @@ describe("ga-report • aggregate", () => {
 });
 
 describe("ga-report • csv + page stub", () => {
-  test("csv is oldest first, quoted where needed, noise dropped", () => {
+  test("csv is one row per click, oldest first, quoted where needed, noise dropped", () => {
     const csv = toCsv([
       click({ datetime: "2026-08-27 08:00", date: "2026-08-27", content: "a,b" }),
       click({ source: "localhost:4000" }),
-      click({ campaign: "(not set)", source: "(direct)", medium: "(none)" }),
-    ]);
+      click({ campaign: "(not set)", source: "(direct)", medium: "(none)", count: 2 }),
+      click({ event: "ticket_click", source: "google", medium: "organic", campaign: "(organic)", page: "/comedybrew/", datetime: "2026-08-26 20:00" }),
+    ], "https://inyourfacecomedy.ch");
     const lines = csv.trim().split("\n");
-    expect(lines[0]).toBe("datetime,event,source,medium,campaign,content,page,clicks");
-    expect(lines[1]).toBe("2026-08-26 19:05,ticket_redirect,(direct),(none),,,/go/,1");
-    expect(lines[2]).toBe('2026-08-27 08:00,ticket_redirect,meta,paid_social,comedybrew,"a,b",/go/,1');
-    expect(lines.length).toBe(3);
+    expect(lines[0]).toBe("datetime,event,source,medium,campaign,content,page");
+    expect(lines[1]).toBe("2026-08-26 19:05,ticket_redirect,(direct),(none),,,Ticket Redirect");
+    expect(lines[2]).toBe(lines[1]);                                          // bucket of 2 → two rows
+    expect(lines[3]).toBe("2026-08-26 20:00,ticket_click,google,organic,,,https://inyourfacecomedy.ch/comedybrew/");
+    expect(lines[4]).toBe('2026-08-27 08:00,ticket_redirect,meta,paid_social,comedybrew,"a,b",Ticket Redirect');
+    expect(lines.length).toBe(5);
   });
   test("page stub is unlisted and points at the report layout", () => {
     const p = reportPage(show);

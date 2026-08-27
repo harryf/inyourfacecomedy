@@ -1,56 +1,41 @@
 // =============================================================================
-// Show traffic reports (/reports/ and /reports/<slug>/ — _layouts/report.liquid).
-// Rendered from _data/reports/*.json written by script/ga-report.ts.
-// Phone-first: show runners open these from a chat link. Tables scroll inside
-// their own wrapper on narrow screens; the page never scrolls sideways.
-// Tokens only — no hex literals (see base/_variables.scss precedence rules).
+// IYF Design System — Show traffic reports (/reports/, /reports/<slug>/)
+// Rendered by _layouts/report.liquid from _data/reports/*.json (script/ga-report.ts).
+// -----------------------------------------------------------------------------
+// Lives inside the theme's `page` layout (.iyf-hero--compact + .post-content),
+// so the centred column and hero come for free. This partial only styles what
+// is inside: stat tiles, tables in the .iyf-calendar idiom (no vertical rules,
+// red rule under the header, theme-aware text), and one CSS bar per day.
+// Mobile-first at 375px: tiles two-up, tables scroll inside their own wrapper
+// (never the page), the decorative bar column hides below 576px so the numbers
+// keep their room. Tokens only — no hex literals. Text uses --text / --muted so
+// dark mode stays readable (design-system dark mode contract).
 // =============================================================================
 
-.report {
-  clear: both;
-  max-width: var(--container-prose);
-  margin: 0 auto;
-  padding: var(--space-4) var(--space-3) var(--space-10);
-  color: var(--ink-on-cream);
+.iyf-report {
+  color: var(--text);
   font-family: var(--font-body);
 
   * { box-sizing: border-box; }
 
-  &__head { margin-bottom: var(--space-5); }
-  &__kicker {
-    margin: 0;
-    font-family: var(--font-display);
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    font-size: var(--fs-sm);
+  &__lede { margin: 0 0 var(--space-3); font-size: var(--fs-base); }
+  &__updated {
+    margin: 0 0 var(--space-6);
     color: var(--muted);
+    font-size: var(--fs-sm);
+    .iyf-badge { vertical-align: middle; margin-right: var(--space-2); }
   }
-  &__title {
-    margin: 0 0 var(--space-2);
-    font-family: var(--font-display);
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    font-size: var(--fs-2xl);
-    line-height: var(--lh-tight);
-  }
-  &__meta { margin: 0; color: var(--muted); font-size: var(--fs-base); }
-
-  &__section { margin-bottom: var(--space-7); }
-  &__h2 {
-    margin: 0 0 var(--space-3);
-    font-family: var(--font-display);
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    font-size: var(--fs-lg);
-  }
+  &__section { margin: 0 0 var(--space-8); }
   &__note { color: var(--muted); font-size: var(--fs-sm); margin: var(--space-3) 0 0; }
+  &__sr {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap;
+  }
 
-  // --- headline numbers --------------------------------------------------------
+  // --- stat tiles ---------------------------------------------------------------
   &__stats {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-2);
   }
   &__stat {
@@ -61,45 +46,66 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
+    min-width: 0;
   }
   &__stat--hero {
     grid-column: 1 / -1;
     background: var(--surface-dark);
     color: var(--ink-on-dark);
     border-color: transparent;
-    .report__stat-l { color: var(--ink-on-dark); opacity: 0.8; }
+    .iyf-report__stat-l { color: var(--ink-on-dark); opacity: 0.8; }
+    .iyf-report__stat-n { color: var(--brand-yellow); }
   }
   &__stat-n {
     font-family: var(--font-display);
     font-size: var(--fs-2xl);
     line-height: 1;
+    color: var(--text);
   }
   &__stat-l { font-size: var(--fs-sm); color: var(--muted); }
 
-  // --- tables ------------------------------------------------------------------
-  &__table {
-    display: block;
-    overflow-x: auto;
+  // --- tables (the .iyf-calendar idiom) -----------------------------------------
+  &__table-wrap {
     width: 100%;
-    border-collapse: collapse;
-    font-size: var(--fs-sm);
+    overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    margin: 0;
+  }
+  &__table {
+    // Reset Type-on-Strap's `display: inline-block; table-layout: fixed` on tables.
+    display: table;
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+    table-layout: auto;
 
-    th, td {
-      padding: var(--space-2) var(--space-2);
-      border-bottom: 1px solid var(--border-soft);
+    thead th {
       text-align: left;
-      vertical-align: top;
-    }
-    th {
-      font-family: var(--font-display);
-      font-weight: 400;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      color: var(--muted);
+      padding: var(--space-2) var(--space-2);
+      font-family: var(--font-body);
       font-size: var(--fs-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      border: 0;
+      border-bottom: 2px solid var(--brand-red);
+      background: transparent;
+      white-space: nowrap;
     }
+    tbody td {
+      padding: var(--space-2) var(--space-2);
+      border: 0;
+      border-bottom: 1px solid var(--border-soft);
+      vertical-align: top;
+      font-size: var(--fs-sm);
+      color: var(--text);
+    }
+    tbody tr:hover { background: var(--surface-elev); }
+    // Dates and show names stay on one line; the wrapper scrolls instead.
+    &--days tbody td:first-child { white-space: nowrap; }
     code { font-size: 0.9em; }
+    a { color: var(--link); }
   }
   &__num { text-align: right !important; font-variant-numeric: tabular-nums; white-space: nowrap; }
   &__row--sub td { border-bottom-style: dashed; color: var(--muted); }
@@ -107,12 +113,11 @@
   &__row--provisional td { color: var(--muted); }
   &__prov { color: var(--warn); margin-left: 2px; }
 
-  // Inline bar for the by-day table: one cell, width from a percentage of the max day.
-  &__barcell { width: 40%; min-width: 6rem; padding-right: 0 !important; }
+  // Bar for the by-day table: decorative, hidden on narrow phones.
+  &__barcell { display: none; width: 34%; min-width: 5rem; }
   &__bar {
     display: block;
     height: 0.9rem;
-    min-width: 0;
     background: var(--cta);
     border-radius: var(--radius-sm);
   }
@@ -120,18 +125,19 @@
 
   &__section--download .btn-ticket { margin-top: var(--space-2); }
   &__foot {
-    margin-top: var(--space-8);
+    margin: var(--space-8) 0 0;
     padding-top: var(--space-3);
     border-top: 1px solid var(--border-soft);
     color: var(--muted);
     font-size: var(--fs-sm);
   }
 
+  @media (min-width: 576px) {
+    &__barcell { display: table-cell; }
+    &__table thead th, &__table tbody td { padding: var(--space-2) var(--space-3); }
+  }
   @media (min-width: 768px) {
-    padding-left: var(--space-4);
-    padding-right: var(--space-4);
-    &__stats { grid-template-columns: repeat(3, 1fr); }
-    &__stat--hero { grid-column: 1 / -1; }
-    &__table { display: table; table-layout: auto; }
+    &__stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    &__table tbody td { font-size: var(--fs-base); }
   }
 }

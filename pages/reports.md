@@ -1,6 +1,7 @@
 ---
-layout: default
+layout: page
 title: "Show traffic reports"
+subtitle: "Ticket clicks per show, updated daily"
 permalink: /reports/
 # Unlisted organiser page (the /linkbuilder/ treatment): out of search, sitemap and nav.
 noindex: true
@@ -15,29 +16,32 @@ description: "Daily Google Analytics traffic reports per show, for show runners.
   (layout: report). Design: CAMPAIGN_LINKS.md, "Show reports".
 {% endcomment %}
 
-<article class="report report--index">
-  <header class="report__head">
-    <p class="report__kicker">For show runners</p>
-    <h1 class="report__title">Show traffic reports</h1>
-    <p class="report__meta">How many people inyourfacecomedy.ch and your campaigns sent to the ticket page, updated once a day from Google Analytics. Build tracked links with the <a href="/linkbuilder/">link builder</a>.</p>
-  </header>
-
+<div class="iyf-report iyf-report--index">
   {% assign reports = site.data.reports | sort %}
+  {% assign newest = "" %}
+  {% for pair in reports %}{% if pair[1].generated_at > newest %}{% assign newest = pair[1].generated_at %}{% endif %}{% endfor %}
+  <p class="iyf-report__lede">How many people inyourfacecomedy.ch and your campaigns sent to the ticket page, per show. Build tracked links with the <a href="/linkbuilder/">link builder</a>.</p>
+  <p class="iyf-report__updated">
+    <span class="iyf-badge iyf-badge--muted">Updated daily</span>
+    <span>Reports refresh every morning from Google Analytics.{% if newest != "" %} Last update {{ newest | date: "%-d %b %Y, %H:%M" }} UTC.{% endif %}</span>
+  </p>
+
   {% if reports.size > 0 %}
-  <table class="report__table">
-    <thead><tr><th>Show</th><th class="report__num">Clicks, 30 days</th><th class="report__num">All time</th><th>Updated</th></tr></thead>
+  <div class="iyf-report__table-wrap">
+  <table class="iyf-report__table">
+    <thead><tr><th>Show</th><th class="iyf-report__num">Clicks, 30 days</th><th class="iyf-report__num">All time</th></tr></thead>
     <tbody>
     {% for pair in reports %}{% assign r = pair[1] %}
       <tr>
         <td><a href="/reports/{{ r.slug }}/">{{ r.title }}</a></td>
-        <td class="report__num">{{ r.totals.clicks_30d }}</td>
-        <td class="report__num">{{ r.totals.clicks }}</td>
-        <td>{{ r.generated_at | date: "%-d %b" }}</td>
+        <td class="iyf-report__num">{{ r.totals.clicks_30d }}</td>
+        <td class="iyf-report__num">{{ r.totals.clicks }}</td>
       </tr>
     {% endfor %}
     </tbody>
   </table>
+  </div>
   {% else %}
-  <p class="report__note">No reports yet. They appear after the first run of <code>script/ga-report.ts</code>.</p>
+  <p class="iyf-report__note">No reports yet. They appear after the first run of <code>script/ga-report.ts</code>.</p>
   {% endif %}
-</article>
+</div>

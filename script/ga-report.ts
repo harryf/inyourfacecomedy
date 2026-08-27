@@ -33,6 +33,8 @@ const LAUNCH_DATE = "2026-08-26";   // day the /go/ links and ticket_click went 
 const DATA_DIR = join(ROOT, "_data", "reports");
 const CSV_DIR = join(ROOT, "assets", "reports");
 const PAGE_DIR = join(ROOT, "pages", "reports");
+// Site origin for full page URLs in the CSV, from _config.yml `url:`.
+const SITE_URL = (readFileSync(join(ROOT, "_config.yml"), "utf8").match(/^url:\s*"?([^"\n]+)"?/m)?.[1] ?? "https://inyourfacecomedy.ch").trim();
 
 const args = process.argv.slice(2);
 const DRY = args.includes("--dry-run");
@@ -225,7 +227,7 @@ async function main(): Promise<void> {
     if (DRY) continue;
     mkdirSync(DATA_DIR, { recursive: true }); mkdirSync(CSV_DIR, { recursive: true }); mkdirSync(PAGE_DIR, { recursive: true });
     writeFileSync(join(DATA_DIR, `${show.slug}.json`), JSON.stringify(report, null, 1) + "\n");
-    writeFileSync(join(CSV_DIR, `${show.slug}.csv`), toCsv(clicks));
+    writeFileSync(join(CSV_DIR, `${show.slug}.csv`), toCsv(clicks, SITE_URL));
     writeFileSync(join(PAGE_DIR, `${show.slug}.md`), reportPage(show));
   }
   console.log(`GA reports ${DRY ? "(dry run) " : ""}for ${shows.length} show(s), property day ${today}:`);

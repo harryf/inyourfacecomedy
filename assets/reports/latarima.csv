@@ -1,2 +1,2 @@
-datetime,event,source,medium,campaign,content,page,clicks
-2026-08-26 14:12,ticket_redirect,(direct),(none),,,/go/,1
+datetime,event,source,medium,campaign,content,page
+2026-08-26 14:12,ticket_redirect,(direct),(none),,,Ticket Redirect
