@@ -313,6 +313,51 @@ transport survives the navigation, so there is no delay and no timeout. Together
 GA across on-site and campaign traffic; register `show` as an event-scoped dimension once
 and it serves both events.
 
+### Show reports (/reports/ and /reports/<slug>/)
+
+Show runners want one number: how many people did the site and the campaigns send to the
+ticket page. `script/ga-report.ts` (bun, TypeScript) pulls that from the GA4 Data API once a
+day and publishes it as unlisted pages, updated by the same commit-and-push route the calendar
+refresh uses:
+
+| File | What |
+|------|------|
+| `script/ga-report.ts` | The job: auth, three GA queries per show, aggregate, write, `git add` by name, commit, push. `--dry-run` (read-only, prints totals), `--no-push`, `--show <slug>` |
+| `script/lib/ga-report-lib.ts` | Pure helpers: show discovery from `_posts` front matter, noise filter, aggregation, CSV, page stub. Covered by `script/__tests__/ga-report-lib.test.ts` |
+| `_data/reports/<slug>.json` | Generated aggregates the layout renders |
+| `assets/reports/<slug>.csv` | Generated: one row per minute per source/campaign/ad, for lining up against the Eventfrog sales report |
+| `pages/reports/<slug>.md` | Generated stub (`layout: report`), one per show |
+| `pages/reports.md`, `_layouts/report.liquid`, `_sass/components/_report.scss` | Index page, report layout, styles. Static tables and CSS bars, no JavaScript |
+
+Per show the report counts `ticket_redirect` (campaign links via `/go/`) and `ticket_click`
+(the site's own buttons) since 2026-08-26, split by day, by source/medium, and by campaign with
+`utm_content` (Meta fills in the ad id) underneath, plus show-page sessions by source and the
+number of broken-link 404s carrying the show's slug. Things worth knowing:
+
+- **Attribution has two layers.** The `show` custom dimension only exists from 2026-08-27, so
+  the query also matches what the URLs guarantee: `/go/?…show=<slug>` for redirects and the
+  show page path for on-site clicks. Home and calendar button clicks from before the dimension
+  existed are the one thing that cannot be recovered.
+- **Untagged ad clicks are labelled, not lost.** Meta appends `fbclid` to whatever link the ad
+  carries; if that link has no UTM tags GA files the visit as direct. The report infers the
+  network from the click id (`fbclid` = meta, `ttclid` = tiktok, `gclid` = google), shows those
+  clicks as `meta / untagged`, and prints a hint to swap the ad link for a tagged one. Found on
+  day one: the running Comedy Brew ad used the bare `/go/?show=comedybrew`.
+- **Dev noise is filtered at the source**: `localhost`, `127.0.0.1`, `*.pages.dev` referrers
+  never reach a runner's table (`NOISE_SOURCE_RE`).
+- **Days are provisional for 48 hours.** GA finishes counting a day up to two days later; the
+  by-day table marks those rows and the header says which date is complete.
+- **Unlisted, not private.** `noindex`, `sitemap: false`, `hide: true`, `robots.txt`
+  disallow, no links from anywhere; but the repo is public and so are the generated files.
+  Click counts only, nothing personal.
+- **Auth.** `GA_REPORTS_CREDENTIALS` in `.env` points at a service-account key (gitignored as
+  `ga-reports-sa.json`) whose email is a Viewer on the GA4 property; the job falls back to
+  gcloud Application Default Credentials, which is fine by hand but expires under cron while
+  the OAuth client stays in Testing mode. `GA_REPORTS_HEALTHCHECKS_URL` is a separate
+  Healthchecks check. Cron, after GA has caught up with the previous day:
+
+      15 7 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/ga-report.ts >> script/ga-report.log 2>&1
+
 ### Considered and rejected
 
 - **Netlify `_redirects` rules** instead of a JS page: no GA capture at all (the visitor never

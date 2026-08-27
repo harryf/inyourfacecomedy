@@ -8,6 +8,7 @@ User-agent: *
 Disallow: /lineup/
 Disallow: /go/
 Disallow: /linkbuilder/
+Disallow: /reports/
 Disallow: /ski-resort-comedy-tour.html
 
 Sitemap: {{ site.url }}/sitemap.xml

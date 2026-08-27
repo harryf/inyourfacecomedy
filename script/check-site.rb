@@ -202,6 +202,16 @@ check("sitemap lists every comedian page") do
 end
 check("Anti: sitemap does NOT list /lineup/") { [!sitemap_text.include?("/lineup/"), "leaked into sitemap"] }
 check("Anti: sitemap does NOT list ski-resort-comedy-tour") { [!sitemap_text.include?("ski-resort"), "leaked into sitemap"] }
+check("Anti: sitemap does NOT list /reports/ (show traffic reports are unlisted)") { [!sitemap_text.include?("/reports/"), "leaked into sitemap"] }
+check("Anti: sitemap does NOT list /go/ or /linkbuilder/ (campaign tools are unlisted)") do
+  leaked = %w[/go/ /linkbuilder/].select { |p| sitemap_text.include?("#{p}</loc>") || sitemap_text.include?("#{p}<") }
+  [leaked.empty?, "leaked into sitemap: #{leaked.join(", ")}"]
+end
+check("robots.txt disallows /reports/") { [read_site("robots.txt").include?("Disallow: /reports/"), "missing Disallow"] }
+check("/reports/ index carries noindex") do
+  f = File.join(SITE, "reports", "index.html")
+  [File.exist?(f) && File.read(f) =~ /name=["']robots["'][^>]*noindex/i ? true : false, "no noindex meta"]
+end
 
 # ── SEO / analytics / robots ─────────────────────────────────────────────────
 section "SEO / analytics / robots"

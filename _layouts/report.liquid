@@ -1,0 +1,136 @@
+---
+layout: default
+---
+{% comment %}
+  Per-show traffic report (/reports/<slug>/). Renders _data/reports/<slug>.json,
+  written daily by script/ga-report.ts from Google Analytics. Unlisted page: no
+  index, no sitemap, no nav link. Static tables + CSS bars, no JavaScript.
+  Design: CAMPAIGN_LINKS.md, "Show reports".
+{% endcomment %}
+{% assign r = site.data.reports[page.report] %}
+{% assign t = r.totals %}
+<article class="report">
+  <header class="report__head">
+    <p class="report__kicker">Traffic report</p>
+    <h1 class="report__title">{{ r.title }}</h1>
+    <p class="report__meta">
+      Clicks to <a href="{{ r.ticket_url }}" rel="nofollow">the ticket page</a> and visits to
+      <a href="/{{ r.slug }}/">inyourfacecomedy.ch/{{ r.slug }}/</a>, from {{ r.since | date: "%-d %b %Y" }}.
+      Updated {{ r.generated_at | date: "%-d %b %Y, %H:%M UTC" }}; Google Analytics has fully
+      processed data through {{ r.complete_through | date: "%-d %b" }}, later days still fill in.
+    </p>
+  </header>
+
+  <section class="report__section">
+    <div class="report__stats">
+      <div class="report__stat report__stat--hero">
+        <span class="report__stat-n">{{ t.clicks }}</span>
+        <span class="report__stat-l">ticket clicks, all time</span>
+      </div>
+      <div class="report__stat">
+        <span class="report__stat-n">{{ t.clicks_30d }}</span>
+        <span class="report__stat-l">ticket clicks, last 30 days</span>
+      </div>
+      <div class="report__stat">
+        <span class="report__stat-n">{{ t.redirect }}</span>
+        <span class="report__stat-l">from campaign links</span>
+      </div>
+      <div class="report__stat">
+        <span class="report__stat-n">{{ t.click }}</span>
+        <span class="report__stat-l">from the website's own buttons</span>
+      </div>
+      <div class="report__stat">
+        <span class="report__stat-n">{{ t.sessions }}</span>
+        <span class="report__stat-l">visits to the show page</span>
+      </div>
+      <div class="report__stat">
+        <span class="report__stat-n">{{ t.sessions_30d }}</span>
+        <span class="report__stat-l">show page visits, last 30 days</span>
+      </div>
+    </div>
+    <p class="report__note">
+      "Campaign links" are the tracked links built with the <a href="/linkbuilder/">link builder</a>
+      (Meta ads, Instagram, newsletters, Google Maps). "Website buttons" are the Get Tickets buttons
+      on the show page, home page and calendar. Both count a person leaving for the ticket page;
+      neither can see what happens after that.
+      {% if t.untagged > 0 %}{{ t.untagged }} click{% if t.untagged > 1 %}s{% endif %} came from an ad whose link had no tracking tags (listed as "untagged" below); the ad still counts, but swap its link for one from the link builder to see which campaign it was.{% endif %}
+      {% if t.broken_links > 0 %}<strong>{{ t.broken_links }} click{% if t.broken_links > 1 %}s{% endif %} hit a broken campaign link for this show; check the links in running ads.</strong>{% endif %}
+    </p>
+  </section>
+
+  <section class="report__section">
+    <h2 class="report__h2">By day</h2>
+    {% assign maxday = 1 %}
+    {% for d in r.by_day %}{% assign tot = d.redirect | plus: d.click %}{% if tot > maxday %}{% assign maxday = tot %}{% endif %}{% endfor %}
+    <table class="report__table report__table--days">
+      <thead><tr><th>Date</th><th class="report__num">Clicks</th><th class="report__num">Campaign</th><th class="report__num">Site</th><th class="report__num">Page visits</th><th class="report__barcell">&nbsp;</th></tr></thead>
+      <tbody>
+      {% for d in r.by_day reversed %}
+        {% assign tot = d.redirect | plus: d.click %}
+        {% assign pct = tot | times: 100.0 | divided_by: maxday | round %}
+        <tr{% if d.provisional %} class="report__row--provisional" title="Still being processed by Google Analytics"{% endif %}>
+          <td>{{ d.date | date: "%a %-d %b" }}{% if d.provisional %}<span class="report__prov">*</span>{% endif %}</td>
+          <td class="report__num">{{ tot }}</td>
+          <td class="report__num">{{ d.redirect }}</td>
+          <td class="report__num">{{ d.click }}</td>
+          <td class="report__num">{{ d.views }}</td>
+          <td class="report__barcell"><span class="report__bar" style="width: {{ pct }}%"></span></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <p class="report__note">* provisional: Google Analytics takes up to 48 hours to finish counting a day.</p>
+  </section>
+
+  <section class="report__section">
+    <h2 class="report__h2">Campaigns</h2>
+    {% if r.by_campaign.size > 0 %}
+    <table class="report__table">
+      <thead><tr><th>Campaign</th><th>Source</th><th class="report__num">Clicks</th><th>Active</th></tr></thead>
+      <tbody>
+      {% for c in r.by_campaign %}
+        <tr>
+          <td><code>{{ c.campaign }}</code></td>
+          <td>{{ c.source }} / {{ c.medium }}</td>
+          <td class="report__num">{{ c.clicks }}</td>
+          <td>{{ c.first | date: "%-d %b" }}{% if c.last != c.first %} to {{ c.last | date: "%-d %b" }}{% endif %}</td>
+        </tr>
+        {% for cc in c.content %}
+        <tr class="report__row--sub">
+          <td class="report__sub">ad / content <code>{{ cc.content }}</code></td>
+          <td></td>
+          <td class="report__num">{{ cc.clicks }}</td>
+          <td></td>
+        </tr>
+        {% endfor %}
+      {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="report__note">No campaign links have been clicked for this show yet. Build one with the <a href="/linkbuilder/">link builder</a>.</p>
+    {% endif %}
+  </section>
+
+  <section class="report__section">
+    <h2 class="report__h2">Where the traffic came from</h2>
+    <table class="report__table">
+      <thead><tr><th>Source / medium</th><th class="report__num">Ticket clicks</th><th class="report__num">Page visits</th></tr></thead>
+      <tbody>
+      {% for s in r.by_source %}
+        <tr><td>{{ s.source }} / {{ s.medium }}</td><td class="report__num">{{ s.clicks }}</td><td class="report__num">{{ s.sessions }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <p class="report__note">"(direct) / (none)" is people typing the address, using a bookmark, or arriving from an app that hides where they came from (most chat apps do).</p>
+  </section>
+
+  <section class="report__section report__section--download">
+    <h2 class="report__h2">All clicks</h2>
+    <p>Every ticket click since {{ r.since | date: "%-d %b %Y" }}, one row per minute, with its source, campaign and ad, for lining up against the Eventfrog sales report.</p>
+    <a class="btn-ticket" href="{{ r.csv | relative_url }}" download>Download CSV</a>
+  </section>
+
+  <footer class="report__foot">
+    <a href="/reports/">All show reports</a> · <a href="/linkbuilder/">Link builder</a>
+  </footer>
+</article>

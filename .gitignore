@@ -52,3 +52,6 @@ gbp-token.json
 
 # GBP poster generated state (account id + post ids) — descriptions in gbp/*.txt ARE tracked
 gbp/gbp-state.json
+
+# Google Analytics service-account key for script/ga-report.ts — never commit
+ga-reports-sa.json

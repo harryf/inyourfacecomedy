@@ -1,0 +1,43 @@
+{
+ "slug": "jokesjokesjokes",
+ "title": "Jokes, Jokes, Jokes",
+ "ticket_url": "https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726681983598.html",
+ "event_type": "series",
+ "generated_at": "2026-08-27T08:50:18.529Z",
+ "since": "2026-08-26",
+ "through": "2026-08-27",
+ "complete_through": "2026-08-25",
+ "totals": {
+  "clicks": 0,
+  "redirect": 0,
+  "click": 0,
+  "clicks_30d": 0,
+  "redirect_30d": 0,
+  "click_30d": 0,
+  "views": 0,
+  "views_30d": 0,
+  "sessions": 0,
+  "sessions_30d": 0,
+  "broken_links": 0,
+  "untagged": 0
+ },
+ "by_day": [
+  {
+   "date": "2026-08-26",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true
+  },
+  {
+   "date": "2026-08-27",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true
+  }
+ ],
+ "by_source": [],
+ "by_campaign": [],
+ "csv": "/assets/reports/jokesjokesjokes.csv"
+}

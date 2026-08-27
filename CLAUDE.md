@@ -37,9 +37,14 @@ Always run the health check after a change and before you say you are done. The 
 - **Deletion safety boundary:** the script only ever deletes posts that are topicType EVENT **and** CTA-link to inyourfacecomedy.ch **and** match a managed show slug. Hand-made offers/announcements on the profile are never touched. The BOOK CTA is the `/go/?show=<slug>&utm_…` campaign redirector (see `CAMPAIGN_LINKS.md`); `our_post_slug` reads the slug from that `show` param and still accepts the older `/<slug>/` show-page shape, so posts from before the switch are superseded, not orphaned. If the CTA shape ever changes again, teach `our_post_slug` the new form BEFORE running the script, and confirm with `--dry-run` that "live managed posts" still counts every existing post.
 - **`--dry-run` is read-only end to end** (lists the real posts, prints intended actions, blocks all writes including Healthchecks pings). Run it before trusting any change to this script. `gbp/gbp-state.json` is runtime state (gitignored), not source — never hand-edit it.
 
+## Show traffic reports
+
+`script/ga-report.ts` (bun, daily cron) writes `_data/reports/*.json`, `assets/reports/*.csv` and `pages/reports/*.md` from Google Analytics, then commits and pushes exactly those paths. All three are generated: never hand-edit them, change `script/lib/ga-report-lib.ts` or `_layouts/report.liquid` instead and re-run. `/reports/` is unlisted (noindex, no sitemap, robots disallow, no nav link); `check-site.rb` asserts that, along with `/go/` and `/linkbuilder/`. `--dry-run` is read-only. Full picture in `CAMPAIGN_LINKS.md`, "Show reports".
+
 ## Never commit
 
 - `.env` (holds the Healthchecks ping URL)
+- `ga-reports-sa.json` (Google Analytics service-account key for the reports job)
 - `ga-mcp-oauth-client.json` (Google credentials)
 - `client_secret_*.json` and `gbp-token.json` (GBP OAuth client + refresh token — the token acts as the listing owner)
 - the `GRIST_API_KEY` (give it at run time, never write it in a file)

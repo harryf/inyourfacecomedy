@@ -1,0 +1,19 @@
+datetime,event,source,medium,campaign,content,page,clicks
+2026-08-26 13:31,ticket_redirect,(direct),(none),,,/go/,1
+2026-08-26 14:07,ticket_redirect,(direct),(none),,,/go/,1
+2026-08-26 14:12,ticket_redirect,(direct),(none),,,/go/,1
+2026-08-26 15:28,ticket_redirect,meta,untagged,,,/go/,2
+2026-08-26 15:28,ticket_redirect,(direct),(none),,,/go/,1
+2026-08-26 15:28,ticket_redirect,meta,paid_social,comedybrew,,/go/,1
+2026-08-26 15:31,ticket_redirect,meta,untagged,,,/go/,1
+2026-08-26 15:31,ticket_redirect,meta,untagged,,,/go/,1
+2026-08-26 15:31,ticket_redirect,meta,untagged,,,/go/,1
+2026-08-26 15:42,ticket_redirect,meta,untagged,,,/go/,1
+2026-08-26 15:49,ticket_redirect,(direct),(none),,,/go/,1
+2026-08-26 16:41,ticket_redirect,meta,untagged,,,/go/,1
+2026-08-26 18:56,ticket_redirect,meta,untagged,,,/go/,1
+2026-08-26 19:29,ticket_redirect,meta,untagged,,,/go/,1
+2026-08-26 20:20,ticket_redirect,meta,untagged,,,/go/,1
+2026-08-26 23:34,ticket_click,(direct),(none),,,/comedybrew/,1
+2026-08-27 04:03,ticket_redirect,meta,untagged,,,/go/,1
+2026-08-27 05:55,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,/go/,1

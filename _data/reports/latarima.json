@@ -1,0 +1,51 @@
+{
+ "slug": "latarima",
+ "title": "La Tarima",
+ "ticket_url": "https://eventfrog.ch/en/p/groups/la-tarima-open-mic-7487916867123691072.html",
+ "event_type": "monthly",
+ "generated_at": "2026-08-27T08:50:18.529Z",
+ "since": "2026-08-26",
+ "through": "2026-08-27",
+ "complete_through": "2026-08-25",
+ "totals": {
+  "clicks": 1,
+  "redirect": 1,
+  "click": 0,
+  "clicks_30d": 1,
+  "redirect_30d": 1,
+  "click_30d": 0,
+  "views": 1,
+  "views_30d": 1,
+  "sessions": 1,
+  "sessions_30d": 1,
+  "broken_links": 0,
+  "untagged": 0
+ },
+ "by_day": [
+  {
+   "date": "2026-08-26",
+   "redirect": 1,
+   "click": 0,
+   "views": 0,
+   "provisional": true
+  },
+  {
+   "date": "2026-08-27",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
+   "provisional": true
+  }
+ ],
+ "by_source": [
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 1,
+   "views": 1,
+   "sessions": 1
+  }
+ ],
+ "by_campaign": [],
+ "csv": "/assets/reports/latarima.csv"
+}
