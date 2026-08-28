@@ -3,7 +3,7 @@
  "title": "PROMESSI SPASSI",
  "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478863182670358596.html",
  "event_type": "one-off",
- "generated_at": "2026-08-27T22:45:33.234Z",
+ "generated_at": "2026-08-28T08:20:02.415Z",
  "since": "2026-08-26",
  "pages_since": "2026-07-30",
  "through": "2026-08-28",
@@ -15,10 +15,10 @@
   "clicks_30d": 10,
   "redirect_30d": 10,
   "click_30d": 0,
-  "views": 32,
-  "views_30d": 32,
-  "sessions": 32,
-  "sessions_30d": 32,
+  "views": 33,
+  "views_30d": 33,
+  "sessions": 33,
+  "sessions_30d": 33,
   "broken_links": 0,
   "untagged": 4
  },
@@ -251,7 +251,7 @@
    "date": "2026-08-27",
    "redirect": 10,
    "click": 0,
-   "views": 3,
+   "views": 4,
    "provisional": true,
    "clicks_tracked": true
   },
@@ -276,8 +276,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 3,
-   "views": 9,
-   "sessions": 9
+   "views": 10,
+   "sessions": 10
   },
   {
    "source": "instagram",

@@ -3,22 +3,22 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-08-27T22:45:33.234Z",
+ "generated_at": "2026-08-28T08:20:02.415Z",
  "since": "2026-08-26",
  "pages_since": "2026-07-30",
  "through": "2026-08-28",
  "complete_through": "2026-08-26",
  "totals": {
-  "clicks": 49,
-  "redirect": 37,
+  "clicks": 51,
+  "redirect": 39,
   "click": 12,
-  "clicks_30d": 49,
-  "redirect_30d": 37,
+  "clicks_30d": 51,
+  "redirect_30d": 39,
   "click_30d": 12,
-  "views": 239,
-  "views_30d": 239,
-  "sessions": 244,
-  "sessions_30d": 244,
+  "views": 241,
+  "views_30d": 241,
+  "sessions": 248,
+  "sessions_30d": 248,
   "broken_links": 0,
   "untagged": 7
  },
@@ -257,9 +257,9 @@
   },
   {
    "date": "2026-08-28",
-   "redirect": 0,
+   "redirect": 2,
    "click": 0,
-   "views": 0,
+   "views": 2,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -268,7 +268,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 22,
+   "clicks": 24,
    "views": 1,
    "sessions": 1
   },
@@ -276,8 +276,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 13,
-   "views": 79,
-   "sessions": 82
+   "views": 80,
+   "sessions": 84
   },
   {
    "source": "meta",
@@ -297,8 +297,8 @@
    "source": "instagram",
    "medium": "social",
    "clicks": 1,
-   "views": 4,
-   "sessions": 4
+   "views": 5,
+   "sessions": 5
   },
   {
    "source": "hellozurich.ch",
@@ -312,7 +312,7 @@
    "medium": "referral",
    "clicks": 1,
    "views": 2,
-   "sessions": 2
+   "sessions": 3
   },
   {
    "source": "ecosia.org",
@@ -383,13 +383,13 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 20,
+   "clicks": 22,
    "first": "2026-08-26",
-   "last": "2026-08-27",
+   "last": "2026-08-28",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 10
+     "clicks": 12
     }
    ]
   },
