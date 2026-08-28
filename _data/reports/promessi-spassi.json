@@ -3,24 +3,24 @@
  "title": "PROMESSI SPASSI",
  "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478863182670358596.html",
  "event_type": "one-off",
- "generated_at": "2026-08-28T08:20:02.415Z",
+ "generated_at": "2026-08-28T12:48:42.354Z",
  "since": "2026-08-26",
  "pages_since": "2026-07-30",
  "through": "2026-08-28",
  "complete_through": "2026-08-26",
  "totals": {
-  "clicks": 10,
-  "redirect": 10,
+  "clicks": 14,
+  "redirect": 14,
   "click": 0,
-  "clicks_30d": 10,
-  "redirect_30d": 10,
+  "clicks_30d": 14,
+  "redirect_30d": 14,
   "click_30d": 0,
   "views": 33,
   "views_30d": 33,
   "sessions": 33,
   "sessions_30d": 33,
   "broken_links": 0,
-  "untagged": 4
+  "untagged": 1
  },
  "by_day": [
   {
@@ -249,7 +249,7 @@
   },
   {
    "date": "2026-08-27",
-   "redirect": 10,
+   "redirect": 13,
    "click": 0,
    "views": 4,
    "provisional": true,
@@ -257,7 +257,7 @@
   },
   {
    "date": "2026-08-28",
-   "redirect": 0,
+   "redirect": 1,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -266,29 +266,36 @@
  ],
  "by_source": [
   {
-   "source": "meta",
-   "medium": "untagged",
-   "clicks": 4,
-   "views": 0,
-   "sessions": 0
-  },
-  {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 3,
-   "views": 10,
-   "sessions": 10
-  },
-  {
    "source": "instagram",
    "medium": "social",
-   "clicks": 2,
+   "clicks": 7,
    "views": 0,
    "sessions": 0
   },
   {
    "source": "facebook",
    "medium": "social",
+   "clicks": 3,
+   "views": 0,
+   "sessions": 0
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 2,
+   "views": 10,
+   "sessions": 10
+  },
+  {
+   "source": "instagram",
+   "medium": "bio",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
+  },
+  {
+   "source": "meta",
+   "medium": "untagged",
    "clicks": 1,
    "views": 0,
    "sessions": 0
@@ -348,16 +355,21 @@
    "campaign": "promessi-spassi",
    "source": "instagram",
    "medium": "social",
-   "clicks": 2,
+   "clicks": 7,
    "first": "2026-08-27",
    "last": "2026-08-27",
-   "content": []
+   "content": [
+    {
+     "content": "link_in_bio",
+     "clicks": 4
+    }
+   ]
   },
   {
    "campaign": "promessi-spassi",
    "source": "facebook",
    "medium": "social",
-   "clicks": 1,
+   "clicks": 3,
    "first": "2026-08-27",
    "last": "2026-08-27",
    "content": []

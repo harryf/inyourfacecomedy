@@ -3,18 +3,18 @@
  "title": "The NERDY COMEDY Show",
  "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7460775757695997180.html",
  "event_type": "one-off",
- "generated_at": "2026-08-28T08:20:02.415Z",
+ "generated_at": "2026-08-28T12:48:42.354Z",
  "since": "2026-08-26",
  "pages_since": "2026-07-30",
  "through": "2026-08-28",
  "complete_through": "2026-08-26",
  "totals": {
-  "clicks": 3,
-  "redirect": 2,
-  "click": 1,
-  "clicks_30d": 3,
-  "redirect_30d": 2,
-  "click_30d": 1,
+  "clicks": 5,
+  "redirect": 3,
+  "click": 2,
+  "clicks_30d": 5,
+  "redirect_30d": 3,
+  "click_30d": 2,
   "views": 35,
   "views_30d": 35,
   "sessions": 36,
@@ -249,8 +249,8 @@
   },
   {
    "date": "2026-08-27",
-   "redirect": 1,
-   "click": 0,
+   "redirect": 2,
+   "click": 1,
    "views": 1,
    "provisional": true,
    "clicks_tracked": true
@@ -278,6 +278,20 @@
    "clicks": 1,
    "views": 6,
    "sessions": 5
+  },
+  {
+   "source": "google-business",
+   "medium": "referral",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
+  },
+  {
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
   },
   {
    "source": "meta",
@@ -330,6 +344,15 @@
    "clicks": 1,
    "first": "2026-08-26",
    "last": "2026-08-26",
+   "content": []
+  },
+  {
+   "campaign": "nerdycomedyshow",
+   "source": "google-business",
+   "medium": "referral",
+   "clicks": 1,
+   "first": "2026-08-27",
+   "last": "2026-08-27",
    "content": []
   }
  ],
