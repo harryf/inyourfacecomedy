@@ -3,11 +3,11 @@
  "title": "Pulp Non-Fiction",
  "ticket_url": "https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html",
  "event_type": "monthly",
- "generated_at": "2026-08-28T12:48:42.354Z",
+ "generated_at": "2026-08-29T08:20:01.939Z",
  "since": "2026-08-26",
- "pages_since": "2026-07-30",
- "through": "2026-08-28",
- "complete_through": "2026-08-26",
+ "pages_since": "2026-07-31",
+ "through": "2026-08-29",
+ "complete_through": "2026-08-27",
  "totals": {
   "clicks": 4,
   "redirect": 2,
@@ -23,14 +23,6 @@
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-07-30",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-07-31",
    "redirect": 0,
@@ -252,7 +244,7 @@
    "redirect": 1,
    "click": 2,
    "views": 2,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
@@ -262,6 +254,14 @@
    "views": 1,
    "provisional": true,
    "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-29",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
   }
  ],
  "by_source": [
@@ -269,15 +269,15 @@
    "source": "meetup",
    "medium": "referral",
    "clicks": 3,
-   "views": 0,
-   "sessions": 0
+   "views": 1,
+   "sessions": 1
   },
   {
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 1,
-   "views": 8,
-   "sessions": 8
+   "views": 7,
+   "sessions": 7
   },
   {
    "source": "VA LBHE ABDF Dbzfel",

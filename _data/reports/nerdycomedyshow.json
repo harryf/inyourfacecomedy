@@ -3,18 +3,18 @@
  "title": "The NERDY COMEDY Show",
  "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7460775757695997180.html",
  "event_type": "one-off",
- "generated_at": "2026-08-28T12:48:42.354Z",
+ "generated_at": "2026-08-29T08:20:01.939Z",
  "since": "2026-08-26",
- "pages_since": "2026-07-30",
- "through": "2026-08-28",
- "complete_through": "2026-08-26",
+ "pages_since": "2026-07-31",
+ "through": "2026-08-29",
+ "complete_through": "2026-08-27",
  "totals": {
-  "clicks": 5,
-  "redirect": 3,
-  "click": 2,
-  "clicks_30d": 5,
-  "redirect_30d": 3,
-  "click_30d": 2,
+  "clicks": 10,
+  "redirect": 7,
+  "click": 3,
+  "clicks_30d": 10,
+  "redirect_30d": 7,
+  "click_30d": 3,
   "views": 35,
   "views_30d": 35,
   "sessions": 36,
@@ -23,14 +23,6 @@
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-07-30",
-   "redirect": 0,
-   "click": 0,
-   "views": 2,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-07-31",
    "redirect": 0,
@@ -251,26 +243,48 @@
    "date": "2026-08-27",
    "redirect": 2,
    "click": 1,
-   "views": 1,
-   "provisional": true,
+   "views": 2,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-08-28",
-   "redirect": 0,
+   "redirect": 3,
+   "click": 1,
+   "views": 4,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-29",
+   "redirect": 1,
    "click": 0,
-   "views": 3,
+   "views": 0,
    "provisional": true,
    "clicks_tracked": true
   }
  ],
  "by_source": [
   {
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 4,
+   "views": 0,
+   "sessions": 0
+  },
+  {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 1,
+   "clicks": 2,
    "views": 7,
-   "sessions": 10
+   "sessions": 9
+  },
+  {
+   "source": "google",
+   "medium": "organic",
+   "clicks": 1,
+   "views": 14,
+   "sessions": 14
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -287,25 +301,11 @@
    "sessions": 0
   },
   {
-   "source": "instagram",
-   "medium": "social",
-   "clicks": 1,
-   "views": 0,
-   "sessions": 0
-  },
-  {
    "source": "meta",
    "medium": "paid_social",
    "clicks": 1,
    "views": 0,
    "sessions": 0
-  },
-  {
-   "source": "google",
-   "medium": "organic",
-   "clicks": 0,
-   "views": 12,
-   "sessions": 12
   },
   {
    "source": "VA LBHE ABDF Dbzfel",
@@ -315,15 +315,15 @@
    "sessions": 5
   },
   {
-   "source": "microsite.guidle.com",
-   "medium": "referral",
-   "clicks": 0,
-   "views": 3,
-   "sessions": 2
-  },
-  {
    "source": "duckduckgo",
    "medium": "organic",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
+  },
+  {
+   "source": "microsite.guidle.com",
+   "medium": "referral",
    "clicks": 0,
    "views": 1,
    "sessions": 1
@@ -337,6 +337,20 @@
   }
  ],
  "by_campaign": [
+  {
+   "campaign": "nerdycomedyshow",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 3,
+   "first": "2026-08-28",
+   "last": "2026-08-28",
+   "content": [
+    {
+     "content": "inyourface-story",
+     "clicks": 3
+    }
+   ]
+  },
   {
    "campaign": "nerdycomedyshow",
    "source": "meta",

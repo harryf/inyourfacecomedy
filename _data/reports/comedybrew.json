@@ -3,34 +3,26 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-08-28T12:48:42.354Z",
+ "generated_at": "2026-08-29T08:20:01.939Z",
  "since": "2026-08-26",
- "pages_since": "2026-07-30",
- "through": "2026-08-28",
- "complete_through": "2026-08-26",
+ "pages_since": "2026-07-31",
+ "through": "2026-08-29",
+ "complete_through": "2026-08-27",
  "totals": {
-  "clicks": 56,
-  "redirect": 41,
-  "click": 15,
-  "clicks_30d": 56,
-  "redirect_30d": 41,
-  "click_30d": 15,
-  "views": 243,
-  "views_30d": 243,
-  "sessions": 250,
-  "sessions_30d": 250,
+  "clicks": 61,
+  "redirect": 44,
+  "click": 17,
+  "clicks_30d": 61,
+  "redirect_30d": 44,
+  "click_30d": 17,
+  "views": 244,
+  "views_30d": 244,
+  "sessions": 245,
+  "sessions_30d": 245,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-07-30",
-   "redirect": 0,
-   "click": 0,
-   "views": 6,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-07-31",
    "redirect": 0,
@@ -251,15 +243,23 @@
    "date": "2026-08-27",
    "redirect": 18,
    "click": 12,
-   "views": 9,
-   "provisional": true,
+   "views": 12,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-08-28",
-   "redirect": 3,
+   "redirect": 6,
+   "click": 2,
+   "views": 7,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-29",
+   "redirect": 0,
    "click": 0,
-   "views": 4,
+   "views": 1,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -268,36 +268,36 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 33,
+   "clicks": 36,
    "views": 1,
    "sessions": 1
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 8,
-   "views": 115,
-   "sessions": 121
+   "clicks": 9,
+   "views": 116,
+   "sessions": 119
   },
   {
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 8,
    "views": 81,
-   "sessions": 85
+   "sessions": 82
+  },
+  {
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 3,
+   "views": 2,
+   "sessions": 3
   },
   {
    "source": "hellozurich.ch",
    "medium": "referral",
    "clicks": 2,
    "views": 3,
-   "sessions": 3
-  },
-  {
-   "source": "meetup",
-   "medium": "referral",
-   "clicks": 2,
-   "views": 2,
    "sessions": 3
   },
   {
@@ -318,8 +318,8 @@
    "source": "guidle",
    "medium": "referral",
    "clicks": 1,
-   "views": 0,
-   "sessions": 0
+   "views": 1,
+   "sessions": 1
   },
   {
    "source": "ecosia.org",
@@ -329,18 +329,18 @@
    "sessions": 7
   },
   {
+   "source": "duckduckgo",
+   "medium": "organic",
+   "clicks": 0,
+   "views": 6,
+   "sessions": 5
+  },
+  {
    "source": "VA LBHE ABDF Dbzfel",
    "medium": "email",
    "clicks": 0,
    "views": 5,
    "sessions": 5
-  },
-  {
-   "source": "duckduckgo",
-   "medium": "organic",
-   "clicks": 0,
-   "views": 5,
-   "sessions": 4
   },
   {
    "source": "eventfrog.ch",
@@ -350,13 +350,6 @@
    "sessions": 4
   },
   {
-   "source": "microsite.guidle.com",
-   "medium": "referral",
-   "clicks": 0,
-   "views": 2,
-   "sessions": 2
-  },
-  {
    "source": "reddit.com",
    "medium": "referral",
    "clicks": 0,
@@ -364,7 +357,7 @@
    "sessions": 2
   },
   {
-   "source": "github.com",
+   "source": "microsite.guidle.com",
    "medium": "referral",
    "clicks": 0,
    "views": 1,
@@ -383,13 +376,13 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 31,
+   "clicks": 34,
    "first": "2026-08-26",
    "last": "2026-08-28",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 20
+     "clicks": 23
     }
    ]
   },
