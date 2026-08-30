@@ -3,9 +3,23 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-08-28T07:00:02+00:00'
-past_count: 6
+generated_at: '2026-08-30T08:49:07+00:00'
+past_count: 7
 events:
+- show: nerdycomedyshow
+  name: The NERDY COMEDY Show
+  title: The NERDY COMEDY Show - English Standup Comedy in ZURICH
+  url: "/nerdycomedyshow/"
+  date: '2026-08-29'
+  start: '2026-08-29T19:00:00+02:00'
+  end: '2026-08-29T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 8
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7460775757695997180.html
+  eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
