@@ -16,6 +16,7 @@ const go = require("../../../_includes/go-redirect.js") as {
     showParam: string, dateParam: string, today: string
   ) => { kind: string; url?: string; show?: { slug: string } };
   build404: (search: string, showParam: string) => string;
+  linkTag: (p: URLSearchParams) => string;
 };
 
 const SHOWS = [
@@ -141,5 +142,14 @@ describe("go-redirect • small helpers", () => {
 
   test("localISODate formats local dates as YYYY-MM-DD", () => {
     expect(go.localISODate(new Date(2026, 8, 3))).toBe("2026-09-03");
+  });
+
+  test("linkTag packs the clicked link's own utm tags for the GA `link` dimension", () => {
+    expect(go.linkTag(new URLSearchParams("show=comedybrew&utm_source=meta&utm_medium=paid_social&utm_campaign=comedybrew&utm_content=120203748201470314")))
+      .toBe("meta|paid_social|comedybrew|120203748201470314");
+    expect(go.linkTag(new URLSearchParams("show=comedybrew&utm_campaign=newsletter"))).toBe("||newsletter|");
+    expect(go.linkTag(new URLSearchParams("show=comedybrew&fbclid=abc"))).toBe("");     // untagged: nothing to say
+    expect(go.linkTag(new URLSearchParams("utm_source=a|b"))).toBe("a/b|||");           // separator never leaks in
+    expect(go.linkTag(new URLSearchParams("utm_content=" + "x".repeat(200))).length).toBe(100);
   });
 });

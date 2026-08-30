@@ -2,7 +2,7 @@
 // aggregation, CSV. No network; the GA calls live in script/ga-report.ts.
 import { describe, expect, test } from "bun:test";
 import {
-  aggregate, frontMatterOf, gaDate, gaDateTime, addDays, inferSource, isNoiseSource, parseShow, reportPage, toCsv,
+  aggregate, attribute, frontMatterOf, gaDate, gaDateTime, addDays, isNoiseSource, parseShow, reportPage, toCsv,
   type ClickRow, type PageRow, type Show,
 } from "../lib/ga-report-lib";
 
@@ -19,24 +19,49 @@ Body text
 
 const show: Show = { slug: "comedybrew", title: "Comedy Brew", ticketUrl: "https://eventfrog.ch/x", eventType: "series" };
 
+const META_Q = "show=comedybrew&utm_source=meta&utm_medium=paid_social&utm_campaign=comedybrew";
 const click = (o: Partial<ClickRow>): ClickRow => ({
   datetime: "2026-08-26 19:05", date: "2026-08-26", event: "ticket_redirect",
-  source: "meta", medium: "paid_social", campaign: "comedybrew", content: "", page: "/go/", query: "show=comedybrew&utm_source=meta", count: 1, ...o,
+  source: "meta", medium: "paid_social", campaign: "comedybrew", content: "", page: "/go/", query: META_Q, link: "", count: 1, ...o,
 });
+const none = { source: "(direct)", medium: "(none)", campaign: "", content: "" };
+// A session GA opened from a Nerdy ad link; what was clicked varies per test.
+const nerdySession = { source: "meta", medium: "paid_social", campaign: "nerdycomedyshow", content: "" };
 
-describe("ga-report • inferSource", () => {
-  test("tagged rows pass through", () => {
-    expect(inferSource({ source: "meta", medium: "paid_social", query: "" })).toEqual({ source: "meta", medium: "paid_social" });
+describe("ga-report • attribute (by the clicked link, not the session)", () => {
+  test("the link dimension sent by /go/ wins over GA session campaign", () => {
+    expect(attribute({ event: "ticket_redirect", date: "2026-08-30", ...nerdySession, query: "show=comedybrew", link: "meta|paid_social|comedybrew|120203748201470314" }))
+      .toEqual({ source: "meta", medium: "paid_social", campaign: "comedybrew", content: "120203748201470314" });
+    expect(attribute({ event: "ticket_redirect", date: "2026-08-30", ...nerdySession, query: "show=comedybrew", link: "||newsletter|" }))
+      .toEqual({ source: "(direct)", medium: "(none)", campaign: "newsletter", content: "" });
   });
-  test("untagged rows with an ad click id are labelled by network", () => {
-    expect(inferSource({ source: "(not set)", medium: "(not set)", query: "show=comedybrew&fbclid=IwAR123" })).toEqual({ source: "meta", medium: "untagged" });
-    expect(inferSource({ source: "(direct)", medium: "(none)", query: "show=x&ttclid=abc" })).toEqual({ source: "tiktok", medium: "untagged" });
+  test("utm tags left in the query also win (GA normally strips them)", () => {
+    expect(attribute({ event: "ticket_redirect", date: "2026-08-30", ...nerdySession, query: META_Q + "&utm_content=120203748201470314", link: "(not set)" }))
+      .toEqual({ source: "meta", medium: "paid_social", campaign: "comedybrew", content: "120203748201470314" });
   });
-  test("no tags, no click id: direct", () => {
-    expect(inferSource({ source: "(direct)", medium: "(none)", query: "show=comedybrew" })).toEqual({ source: "(direct)", medium: "(none)" });
+  test("a bare /go/ redirect from the dimension start date never inherits the session campaign", () => {
+    expect(attribute({ event: "ticket_redirect", date: "2026-08-30", ...nerdySession, query: "show=comedybrew", link: "(not set)" })).toEqual(none);
+  });
+  test("redirects older than the dimension keep the session attribution (nothing better exists)", () => {
+    expect(attribute({ event: "ticket_redirect", date: "2026-08-29", ...nerdySession, query: "show=comedybrew", link: "(not set)" }))
+      .toEqual({ source: "meta", medium: "paid_social", campaign: "nerdycomedyshow", content: "" });
+  });
+  test("untagged rows with an ad click id are labelled by network, even mid-session once the link dimension exists", () => {
+    expect(attribute({ event: "ticket_redirect", date: "2026-08-30", source: "google", medium: "organic", campaign: "(organic)", content: "", query: "show=comedybrew&fbclid=IwAR123", link: "" }))
+      .toEqual({ source: "meta", medium: "untagged", campaign: "", content: "" });
+    expect(attribute({ event: "ticket_redirect", date: "2026-08-26", source: "(direct)", medium: "(none)", campaign: "", content: "", query: "show=x&ttclid=abc", link: "" }))
+      .toEqual({ source: "tiktok", medium: "untagged", campaign: "", content: "" });
+  });
+  test("before the link dimension, a click id plus an attributed session is a tagged ad click (GA stripped the tags)", () => {
+    expect(attribute({ event: "ticket_redirect", date: "2026-08-27", source: "meta", medium: "paid_social", campaign: "comedybrew", content: "120203748201470314", query: "show=comedybrew&fbclid=IwAR123", link: "(not set)" }))
+      .toEqual({ source: "meta", medium: "paid_social", campaign: "comedybrew", content: "120203748201470314" });
+  });
+  test("site buttons carry no tags, so they keep the session attribution", () => {
+    expect(attribute({ event: "ticket_click", date: "2026-08-30", source: "google", medium: "organic", campaign: "(organic)", content: "(not set)", query: "", link: "(not set)" }))
+      .toEqual({ source: "google", medium: "organic", campaign: "", content: "" });
+    expect(attribute({ event: "ticket_click", date: "2026-08-30", source: "(direct)", medium: "(none)", campaign: "(not set)", content: "", query: "", link: "" })).toEqual(none);
   });
 });
-
 describe("ga-report • show discovery", () => {
   test("parses a show post, preferring the resolved ticket url", () => {
     const s = parseShow(frontMatterOf(POST));
@@ -65,10 +90,11 @@ describe("ga-report • noise + dates", () => {
 describe("ga-report • aggregate", () => {
   const clicks: ClickRow[] = [
     click({ count: 4 }),
-    click({ content: "120203748201470314", datetime: "2026-08-27 08:00", date: "2026-08-27", count: 2 }),
-    click({ event: "ticket_click", source: "google", medium: "organic", campaign: "(organic)", page: "/comedybrew/", count: 3 }),
+    click({ content: "120203748201470314", query: `${META_Q}&utm_content=120203748201470314`, datetime: "2026-08-27 08:00", date: "2026-08-27", count: 2 }),
+    click({ event: "ticket_click", source: "google", medium: "organic", campaign: "(organic)", page: "/comedybrew/", query: "", count: 3 }),
     click({ source: "localhost:4000", medium: "referral", campaign: "(referral)", count: 9 }),   // filtered
-    click({ source: "instagram", medium: "social", campaign: "comedybrew", content: "inyourface_profile", count: 2 }),
+    click({ source: "instagram", medium: "social", campaign: "comedybrew", content: "inyourface_profile",
+      query: "show=comedybrew&utm_source=instagram&utm_medium=social&utm_campaign=comedybrew&utm_content=inyourface_profile", count: 2 }),
     click({ source: "(not set)", medium: "(not set)", campaign: "(not set)", query: "show=comedybrew&fbclid=IwZZ", count: 5 }),  // bare Meta ad link
   ];
   const pages: PageRow[] = [
@@ -117,17 +143,18 @@ describe("ga-report • aggregate", () => {
 describe("ga-report • csv + page stub", () => {
   test("csv is one row per click, oldest first, quoted where needed, noise dropped", () => {
     const csv = toCsv([
-      click({ datetime: "2026-08-27 08:00", date: "2026-08-27", content: "a,b" }),
+      click({ datetime: "2026-08-27 08:00", date: "2026-08-27", content: "a,b", query: `${META_Q}&utm_content=a%2Cb` }),
       click({ source: "localhost:4000" }),
-      click({ campaign: "(not set)", source: "(direct)", medium: "(none)", count: 2 }),
-      click({ event: "ticket_click", source: "google", medium: "organic", campaign: "(organic)", page: "/comedybrew/", datetime: "2026-08-26 20:00" }),
+      // bare link in a Nerdy session, after the link dimension exists: direct, no campaign
+      click({ campaign: "nerdycomedyshow", query: "show=comedybrew", link: "(not set)", datetime: "2026-08-30 09:00", date: "2026-08-30", count: 2 }),
+      click({ event: "ticket_click", source: "google", medium: "organic", campaign: "(organic)", page: "/comedybrew/", query: "", datetime: "2026-08-26 20:00" }),
     ], "https://inyourfacecomedy.ch");
     const lines = csv.trim().split("\n");
     expect(lines[0]).toBe("datetime,event,source,medium,campaign,content,page");
-    expect(lines[1]).toBe("2026-08-26 19:05,ticket_redirect,(direct),(none),,,Ticket Redirect");
-    expect(lines[2]).toBe(lines[1]);                                          // bucket of 2 → two rows
-    expect(lines[3]).toBe("2026-08-26 20:00,ticket_click,google,organic,,,https://inyourfacecomedy.ch/comedybrew/");
-    expect(lines[4]).toBe('2026-08-27 08:00,ticket_redirect,meta,paid_social,comedybrew,"a,b",Ticket Redirect');
+    expect(lines[1]).toBe("2026-08-26 20:00,ticket_click,google,organic,,,https://inyourfacecomedy.ch/comedybrew/");
+    expect(lines[2]).toBe('2026-08-27 08:00,ticket_redirect,meta,paid_social,comedybrew,"a,b",Ticket Redirect');
+    expect(lines[3]).toBe("2026-08-30 09:00,ticket_redirect,(direct),(none),,,Ticket Redirect");
+    expect(lines[4]).toBe(lines[3]);                                          // bucket of 2 → two rows
     expect(lines.length).toBe(5);
   });
   test("page stub is unlisted and points at the report layout", () => {

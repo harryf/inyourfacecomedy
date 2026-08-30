@@ -42,9 +42,24 @@
       localISODate: localISODate,
       primaryTitle: primaryTitle,
       resolveTarget: resolveTarget,
-      build404: build404
+      build404: build404,
+      linkTag: linkTag
     };
     return;
+  }
+
+  // The clicked link's own UTM tags as ONE event parameter, "source|medium|campaign|content",
+  // registered in GA as the event-scoped custom dimension `link` (2026-08-30). GA's
+  // session-scoped source/campaign stamp whatever opened the session onto every later event,
+  // and GA strips utm_* from its page-URL dimensions, so this is the only way a report can say
+  // which link was actually clicked. Empty string when the link carries no tags. GA caps
+  // event parameter values at 100 characters; longer tags are cut, never dropped.
+  function linkTag(p) {
+    var parts = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].map(function (k) {
+      return (p.get(k) || '').trim().replace(/\|/g, '/');
+    });
+    if (!parts.some(Boolean)) return '';
+    return parts.join('|').slice(0, 100);
   }
 
   function norm(s) {
@@ -177,6 +192,7 @@
 
   gaPush('event', 'ticket_redirect', {
     show: res.show ? res.show.slug : '(unknown)',
+    link: linkTag(params),
     date: isValidDate(dateParam) ? dateParam : '(series)',
     destination: target,
     resolution: res.kind,

@@ -108,7 +108,10 @@ const eq = (fieldName: string, value: string) => ({ filter: { fieldName, stringF
 async function fetchClicks(token: string, slug: string): Promise<ClickRow[]> {
   const rows = await runReport(token, {
     dateRanges: [range],
-    dimensions: ["dateHourMinute", "eventName", "sessionSource", "sessionMedium", "sessionCampaignName", "sessionManualAdContent", "pagePathPlusQueryString"].map((name) => ({ name })),
+    // `customEvent:link` is the clicked link's own utm tags ("source|medium|campaign|content"),
+    // sent by /go/ and registered 2026-08-30; "(not set)" before that. The session* dimensions
+    // are the fallback for site buttons and for redirects older than that (see attribute()).
+    dimensions: ["dateHourMinute", "eventName", "sessionSource", "sessionMedium", "sessionCampaignName", "sessionManualAdContent", "pagePathPlusQueryString", "customEvent:link"].map((name) => ({ name })),
     metrics: [{ name: "eventCount" }],
     // The `show` custom dimension only exists from 2026-08-27; before that (and for
     // any event that arrives without it) fall back to what the URLs guarantee:
@@ -127,14 +130,19 @@ async function fetchClicks(token: string, slug: string): Promise<ClickRow[]> {
         // `(^|[?&])` group inside a PARTIAL_REGEXP (probed 2026-08-27).
         { filter: { fieldName: "pagePathPlusQueryString", stringFilter: { matchType: "FULL_REGEXP", value: `/go/\\?(.*&)?show=${slug}(&.*)?` } } },
       ] } },
-      { andGroup: { expressions: [ eq("eventName", "ticket_click"), eq("pagePath", `/${slug}/`) ] } },
+      // Filter on pagePathPlusQueryString rather than pagePath: GA counts every distinct
+      // dimension in filters toward the 9-per-request cap, and adding `link` used the last slot.
+      { andGroup: { expressions: [
+        eq("eventName", "ticket_click"),
+        { filter: { fieldName: "pagePathPlusQueryString", stringFilter: { matchType: "FULL_REGEXP", value: `/${slug}/(\\?.*)?` } } },
+      ] } },
     ] } },
   });
   return rows.map((r) => {
-    const [dhm, event, source, medium, campaign, content, pageQ] = r.dimensionValues.map((v) => v.value);
+    const [dhm, event, source, medium, campaign, content, pageQ, link] = r.dimensionValues.map((v) => v.value);
     const q = pageQ.indexOf("?");
     return {
-      datetime: gaDateTime(dhm), date: gaDate(dhm), event: event as ClickRow["event"], source, medium, campaign, content,
+      datetime: gaDateTime(dhm), date: gaDate(dhm), event: event as ClickRow["event"], source, medium, campaign, content, link,
       page: q >= 0 ? pageQ.slice(0, q) : pageQ, query: q >= 0 ? pageQ.slice(q + 1) : "", count: Number(r.metricValues[0].value),
     };
   });

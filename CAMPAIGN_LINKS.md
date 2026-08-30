@@ -343,6 +343,18 @@ number of broken-link 404s carrying the show's slug. Things worth knowing:
   the query also matches what the URLs guarantee: `/go/?…show=<slug>` for redirects and the
   show page path for on-site clicks. Home and calendar button clicks from before the dimension
   existed are the one thing that cannot be recovered.
+- **Source, medium, campaign and ad come from the clicked link, not the GA session.** GA's
+  `session*` dimensions stamp whatever opened the session onto every later event in it, which
+  put a `nerdycomedyshow` campaign line on the Comedy Brew report (a bare `/go/?show=comedybrew`
+  opened in a session that began from a Nerdy ad link, 2026-08-26). GA also strips `utm_*`
+  from its page-URL dimensions, so the tags cannot be read back from the query. `/go/` therefore
+  sends them itself: `ticket_redirect` carries `link = "source|medium|campaign|content"`,
+  registered 2026-08-30 as the event-scoped custom dimension `link`
+  (`customDimensions/15526435746`, not retroactive, like `show`). `attribute()` in
+  `script/lib/ga-report-lib.ts` uses `link` first, then any `utm_*` still in the query, then a
+  network click id; a redirect from 2026-08-30 on with none of those is `(direct) / (none)`
+  with no campaign. Site buttons (`ticket_click`, whose URL carries no tags) and redirects
+  older than the dimension keep the session values, the best that exists for them.
 - **Untagged ad clicks are labelled, not lost.** Meta appends `fbclid` to whatever link the ad
   carries; if that link has no UTM tags GA files the visit as direct. The report infers the
   network from the click id (`fbclid` = meta, `ttclid` = tiktok, `gclid` = google), shows those
