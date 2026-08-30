@@ -3,34 +3,26 @@
  "title": "Jokes, Jokes, Jokes",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726681983598.html",
  "event_type": "series",
- "generated_at": "2026-08-29T08:21:00.856Z",
+ "generated_at": "2026-08-30T08:20:02.023Z",
  "since": "2026-08-26",
- "pages_since": "2026-07-31",
- "through": "2026-08-29",
- "complete_through": "2026-08-27",
+ "pages_since": "2026-08-01",
+ "through": "2026-08-30",
+ "complete_through": "2026-08-28",
  "totals": {
-  "clicks": 2,
+  "clicks": 3,
   "redirect": 2,
-  "click": 0,
-  "clicks_30d": 2,
+  "click": 1,
+  "clicks_30d": 3,
   "redirect_30d": 2,
-  "click_30d": 0,
-  "views": 16,
-  "views_30d": 16,
-  "sessions": 14,
-  "sessions_30d": 14,
+  "click_30d": 1,
+  "views": 17,
+  "views_30d": 17,
+  "sessions": 16,
+  "sessions_30d": 16,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-07-31",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-01",
    "redirect": 0,
@@ -252,14 +244,22 @@
    "redirect": 0,
    "click": 0,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-08-29",
    "redirect": 0,
+   "click": 1,
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-30",
+   "redirect": 0,
    "click": 0,
-   "views": 1,
+   "views": 0,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -270,7 +270,14 @@
    "medium": "(none)",
    "clicks": 2,
    "views": 7,
-   "sessions": 6
+   "sessions": 7
+  },
+  {
+   "source": "guidle",
+   "medium": "referral",
+   "clicks": 1,
+   "views": 1,
+   "sessions": 1
   },
   {
    "source": "VA LBHE ABDF Dbzfel",

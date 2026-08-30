@@ -3,34 +3,26 @@
  "title": "The NERDY COMEDY Show",
  "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7460775757695997180.html",
  "event_type": "one-off",
- "generated_at": "2026-08-29T08:21:00.856Z",
+ "generated_at": "2026-08-30T08:20:02.023Z",
  "since": "2026-08-26",
- "pages_since": "2026-07-31",
- "through": "2026-08-29",
- "complete_through": "2026-08-27",
+ "pages_since": "2026-08-01",
+ "through": "2026-08-30",
+ "complete_through": "2026-08-28",
  "totals": {
-  "clicks": 10,
+  "clicks": 15,
   "redirect": 7,
-  "click": 3,
-  "clicks_30d": 10,
+  "click": 8,
+  "clicks_30d": 15,
   "redirect_30d": 7,
-  "click_30d": 3,
-  "views": 35,
-  "views_30d": 35,
-  "sessions": 36,
-  "sessions_30d": 36,
+  "click_30d": 8,
+  "views": 40,
+  "views_30d": 40,
+  "sessions": 40,
+  "sessions_30d": 40,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-07-31",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-01",
    "redirect": 0,
@@ -251,13 +243,21 @@
    "date": "2026-08-28",
    "redirect": 3,
    "click": 1,
-   "views": 4,
-   "provisional": true,
+   "views": 5,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-08-29",
    "redirect": 1,
+   "click": 5,
+   "views": 4,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-30",
+   "redirect": 0,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -273,18 +273,18 @@
    "sessions": 0
   },
   {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 2,
-   "views": 7,
-   "sessions": 9
-  },
-  {
    "source": "google",
    "medium": "organic",
-   "clicks": 1,
-   "views": 14,
-   "sessions": 14
+   "clicks": 3,
+   "views": 16,
+   "sessions": 16
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 3,
+   "views": 9,
+   "sessions": 10
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -294,7 +294,21 @@
    "sessions": 5
   },
   {
+   "source": "chatgpt.com",
+   "medium": "ai-assistant",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
+  },
+  {
    "source": "google-business",
+   "medium": "referral",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
+  },
+  {
+   "source": "meetup",
    "medium": "referral",
    "clicks": 1,
    "views": 0,
@@ -317,6 +331,13 @@
   {
    "source": "duckduckgo",
    "medium": "organic",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
+  },
+  {
+   "source": "guidle",
+   "medium": "referral",
    "clicks": 0,
    "views": 1,
    "sessions": 1
@@ -367,6 +388,15 @@
    "clicks": 1,
    "first": "2026-08-27",
    "last": "2026-08-27",
+   "content": []
+  },
+  {
+   "campaign": "nerdycomedyshow",
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 1,
+   "first": "2026-08-29",
+   "last": "2026-08-29",
    "content": []
   }
  ],
