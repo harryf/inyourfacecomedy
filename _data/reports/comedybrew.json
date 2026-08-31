@@ -3,34 +3,26 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-08-30T11:01:39.958Z",
+ "generated_at": "2026-08-31T08:20:02.871Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-01",
- "through": "2026-08-30",
- "complete_through": "2026-08-28",
+ "pages_since": "2026-08-02",
+ "through": "2026-08-31",
+ "complete_through": "2026-08-29",
  "totals": {
-  "clicks": 65,
-  "redirect": 46,
-  "click": 19,
-  "clicks_30d": 65,
-  "redirect_30d": 46,
-  "click_30d": 19,
-  "views": 243,
-  "views_30d": 243,
-  "sessions": 241,
-  "sessions_30d": 241,
+  "clicks": 75,
+  "redirect": 53,
+  "click": 22,
+  "clicks_30d": 75,
+  "redirect_30d": 53,
+  "click_30d": 22,
+  "views": 248,
+  "views_30d": 248,
+  "sessions": 244,
+  "sessions_30d": 244,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-01",
-   "redirect": 0,
-   "click": 0,
-   "views": 2,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-02",
    "redirect": 0,
@@ -251,12 +243,20 @@
    "date": "2026-08-29",
    "redirect": 2,
    "click": 2,
-   "views": 3,
-   "provisional": true,
+   "views": 5,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-08-30",
+   "redirect": 7,
+   "click": 3,
+   "views": 5,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-31",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -268,23 +268,23 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 38,
+   "clicks": 43,
    "views": 1,
    "sessions": 1
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 11,
-   "views": 117,
-   "sessions": 119
+   "clicks": 12,
+   "views": 120,
+   "sessions": 120
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 8,
-   "views": 78,
-   "sessions": 78
+   "clicks": 10,
+   "views": 79,
+   "sessions": 79
   },
   {
    "source": "meetup",
@@ -299,6 +299,13 @@
    "clicks": 2,
    "views": 3,
    "sessions": 3
+  },
+  {
+   "source": "test",
+   "medium": "verify",
+   "clicks": 2,
+   "views": 1,
+   "sessions": 1
   },
   {
    "source": "chatgpt.com",
@@ -376,13 +383,27 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 36,
+   "clicks": 41,
    "first": "2026-08-26",
-   "last": "2026-08-29",
+   "last": "2026-08-30",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 25
+     "clicks": 27
+    }
+   ]
+  },
+  {
+   "campaign": "linktest",
+   "source": "test",
+   "medium": "verify",
+   "clicks": 2,
+   "first": "2026-08-30",
+   "last": "2026-08-30",
+   "content": [
+    {
+     "content": "go-link-dim",
+     "clicks": 2
     }
    ]
   },
