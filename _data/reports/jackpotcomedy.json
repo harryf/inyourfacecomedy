@@ -3,34 +3,26 @@
  "title": "Jackpot Comedy",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jackpot-comedy-7413646370706339342.html",
  "event_type": "series",
- "generated_at": "2026-08-31T08:20:02.871Z",
+ "generated_at": "2026-09-01T08:18:03.189Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-02",
- "through": "2026-08-31",
- "complete_through": "2026-08-29",
+ "pages_since": "2026-08-03",
+ "through": "2026-09-01",
+ "complete_through": "2026-08-30",
  "totals": {
-  "clicks": 40,
-  "redirect": 40,
-  "click": 0,
-  "clicks_30d": 40,
-  "redirect_30d": 40,
-  "click_30d": 0,
-  "views": 30,
-  "views_30d": 30,
-  "sessions": 29,
-  "sessions_30d": 29,
+  "clicks": 49,
+  "redirect": 48,
+  "click": 1,
+  "clicks_30d": 49,
+  "redirect_30d": 48,
+  "click_30d": 1,
+  "views": 34,
+  "views_30d": 34,
+  "sessions": 36,
+  "sessions_30d": 36,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-02",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-03",
    "redirect": 0,
@@ -252,12 +244,20 @@
    "redirect": 30,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-08-31",
-   "redirect": 6,
+   "redirect": 11,
+   "click": 1,
+   "views": 4,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-01",
+   "redirect": 3,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -268,7 +268,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 25,
+   "clicks": 33,
    "views": 0,
    "sessions": 0
   },
@@ -282,9 +282,9 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 3,
+   "clicks": 4,
    "views": 13,
-   "sessions": 13
+   "sessions": 16
   },
   {
    "source": "instagram",
@@ -297,8 +297,8 @@
    "source": "google",
    "medium": "organic",
    "clicks": 0,
-   "views": 7,
-   "sessions": 6
+   "views": 8,
+   "sessions": 7
   },
   {
    "source": "VA LBHE ABDF Dbzfel",
@@ -308,22 +308,22 @@
    "sessions": 6
   },
   {
+   "source": "guidle",
+   "medium": "referral",
+   "clicks": 0,
+   "views": 3,
+   "sessions": 3
+  },
+  {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
    "clicks": 0,
-   "views": 2,
-   "sessions": 2
+   "views": 3,
+   "sessions": 3
   },
   {
    "source": "duckduckgo",
    "medium": "organic",
-   "clicks": 0,
-   "views": 1,
-   "sessions": 1
-  },
-  {
-   "source": "guidle",
-   "medium": "referral",
    "clicks": 0,
    "views": 1,
    "sessions": 1
@@ -334,13 +334,13 @@
    "campaign": "jackpotcomedy",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 25,
+   "clicks": 33,
    "first": "2026-08-30",
-   "last": "2026-08-31",
+   "last": "2026-09-01",
    "content": [
     {
      "content": "6964168949947",
-     "clicks": 20
+     "clicks": 28
     }
    ]
   },

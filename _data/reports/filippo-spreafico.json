@@ -3,34 +3,26 @@
  "title": "Filippo Spreafico",
  "ticket_url": "https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/filippo-spreafico-italian-rhapsody-comedy-in-english-7487867600443024331.html",
  "event_type": "one-off",
- "generated_at": "2026-08-31T08:20:02.871Z",
+ "generated_at": "2026-09-01T08:18:03.189Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-02",
- "through": "2026-08-31",
- "complete_through": "2026-08-29",
+ "pages_since": "2026-08-03",
+ "through": "2026-09-01",
+ "complete_through": "2026-08-30",
  "totals": {
-  "clicks": 0,
+  "clicks": 1,
   "redirect": 0,
-  "click": 0,
-  "clicks_30d": 0,
+  "click": 1,
+  "clicks_30d": 1,
   "redirect_30d": 0,
-  "click_30d": 0,
-  "views": 19,
-  "views_30d": 19,
-  "sessions": 18,
-  "sessions_30d": 18,
+  "click_30d": 1,
+  "views": 22,
+  "views_30d": 22,
+  "sessions": 21,
+  "sessions_30d": 21,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-02",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-03",
    "redirect": 0,
@@ -252,11 +244,19 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-08-31",
+   "redirect": 0,
+   "click": 1,
+   "views": 3,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-01",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -265,6 +265,13 @@
   }
  ],
  "by_source": [
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 1,
+   "views": 1,
+   "sessions": 1
+  },
   {
    "source": "l.instagram.com",
    "medium": "referral",
@@ -276,8 +283,8 @@
    "source": "google",
    "medium": "organic",
    "clicks": 0,
-   "views": 6,
-   "sessions": 5
+   "views": 7,
+   "sessions": 6
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -289,6 +296,13 @@
   {
    "source": "instagram",
    "medium": "bio",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
+  },
+  {
+   "source": "instagram",
+   "medium": "social",
    "clicks": 0,
    "views": 1,
    "sessions": 1
