@@ -3,7 +3,7 @@ layout: post
 editable: "true"
 title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
 description: A crazy-fun English stand-up night with experienced comics from Zurich and beyond.
-last_modified_at: 2026-08-23T18:27:19+00:00
+last_modified_at: 2026-09-02T07:00:01+00:00
 feature-img: /assets/img/uploads/jokes_jokes_jokes_facebook_event.png
 image: /assets/img/uploads/jokes_jokes_jokes_facebook_event.png
 thumbnail: /assets/img/uploads/jokes_jokes_jokes_insta_post.png
@@ -18,8 +18,8 @@ venue_slug: robins
 recurrence_day: Tuesday
 recurrence_time: "19:30"
 default_duration_minutes: 150
-next_event_date: 2026-09-01T19:30:00+02:00
-next_event_end_date: 2026-09-01T21:30:00+02:00
+next_event_date: 2026-09-15T19:30:00+02:00
+next_event_end_date: 2026-09-15T21:30:00+02:00
 price_chf: 10
 performers:
   - "Łukasz Segiet"
