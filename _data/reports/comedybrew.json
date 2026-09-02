@@ -3,34 +3,26 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-09-01T08:20:01.857Z",
+ "generated_at": "2026-09-02T08:20:02.780Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-03",
- "through": "2026-09-01",
- "complete_through": "2026-08-30",
+ "pages_since": "2026-08-04",
+ "through": "2026-09-02",
+ "complete_through": "2026-08-31",
  "totals": {
-  "clicks": 79,
-  "redirect": 57,
-  "click": 22,
-  "clicks_30d": 79,
-  "redirect_30d": 57,
-  "click_30d": 22,
-  "views": 241,
-  "views_30d": 241,
-  "sessions": 236,
-  "sessions_30d": 236,
+  "clicks": 101,
+  "redirect": 77,
+  "click": 24,
+  "clicks_30d": 101,
+  "redirect_30d": 77,
+  "click_30d": 24,
+  "views": 237,
+  "views_30d": 237,
+  "sessions": 233,
+  "sessions_30d": 233,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-03",
-   "redirect": 0,
-   "click": 0,
-   "views": 7,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-04",
    "redirect": 0,
@@ -252,14 +244,22 @@
    "redirect": 2,
    "click": 0,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-01",
-   "redirect": 2,
+   "redirect": 18,
+   "click": 2,
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-02",
+   "redirect": 4,
    "click": 0,
-   "views": 0,
+   "views": 1,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -268,7 +268,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 46,
+   "clicks": 66,
    "views": 1,
    "sessions": 1
   },
@@ -276,14 +276,14 @@
    "source": "google",
    "medium": "organic",
    "clicks": 12,
-   "views": 114,
-   "sessions": 113
+   "views": 112,
+   "sessions": 110
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 10,
-   "views": 78,
+   "clicks": 12,
+   "views": 76,
    "sessions": 78
   },
   {
@@ -383,13 +383,13 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 44,
+   "clicks": 64,
    "first": "2026-08-26",
-   "last": "2026-09-01",
+   "last": "2026-09-02",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 28
+     "clicks": 46
     }
    ]
   },

@@ -3,11 +3,11 @@
  "title": "Double Shot",
  "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/double-shot-english-comedy-with-harry-and-martina-7461804081197142415.html",
  "event_type": "single",
- "generated_at": "2026-09-01T08:20:01.857Z",
+ "generated_at": "2026-09-02T08:20:02.780Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-03",
- "through": "2026-09-01",
- "complete_through": "2026-08-30",
+ "pages_since": "2026-08-04",
+ "through": "2026-09-02",
+ "complete_through": "2026-08-31",
  "totals": {
   "clicks": 4,
   "redirect": 0,
@@ -23,14 +23,6 @@
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-03",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-04",
    "redirect": 0,
@@ -252,11 +244,19 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-01",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-02",
    "redirect": 0,
    "click": 0,
    "views": 0,

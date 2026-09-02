@@ -33,18 +33,43 @@ datetime,event,source,medium,campaign,content,page
 2026-08-30 22:50,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-08-30 23:07,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-08-30 23:58,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-08-31 00:47,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-08-31 03:10,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-08-31 06:47,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-08-31 06:48,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-08-31 07:33,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-08-31 07:54,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-08-31 08:27,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
-2026-08-31 12:49,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/jackpotcomedy/
+2026-08-31 10:06,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-08-31 12:49,ticket_click,google,organic,,,https://inyourfacecomedy.ch/jackpotcomedy/
 2026-08-31 14:43,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-08-31 17:52,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-08-31 19:27,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-08-31 20:30,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-08-31 21:18,ticket_click,guidle,referral,jackpotcomedy,,https://inyourfacecomedy.ch/jackpotcomedy/
 2026-08-31 21:19,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-08-31 21:39,ticket_redirect,guidle,referral,jackpotcomedy,,Ticket Redirect
 2026-08-31 22:45,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-01 00:42,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-01 05:56,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-01 08:09,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-01 09:01,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-01 09:43,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-01 09:53,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-01 10:10,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-01 10:23,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
+2026-09-01 11:51,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-01 11:52,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-01 16:41,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-01 16:42,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-01 16:43,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-01 19:58,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/jackpotcomedy/
+2026-09-01 20:07,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-01 20:39,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-01 20:51,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-01 21:05,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-02 00:07,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-02 00:09,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-02 06:37,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-02 07:30,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-02 07:48,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect

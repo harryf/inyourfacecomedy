@@ -3,11 +3,11 @@
  "title": "Filippo Spreafico",
  "ticket_url": "https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/filippo-spreafico-italian-rhapsody-comedy-in-english-7487867600443024331.html",
  "event_type": "one-off",
- "generated_at": "2026-09-01T08:20:01.857Z",
+ "generated_at": "2026-09-02T08:20:02.780Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-03",
- "through": "2026-09-01",
- "complete_through": "2026-08-30",
+ "pages_since": "2026-08-04",
+ "through": "2026-09-02",
+ "complete_through": "2026-08-31",
  "totals": {
   "clicks": 1,
   "redirect": 0,
@@ -15,22 +15,14 @@
   "clicks_30d": 1,
   "redirect_30d": 0,
   "click_30d": 1,
-  "views": 22,
-  "views_30d": 22,
-  "sessions": 21,
-  "sessions_30d": 21,
+  "views": 24,
+  "views_30d": 24,
+  "sessions": 22,
+  "sessions_30d": 22,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-03",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-04",
    "redirect": 0,
@@ -251,12 +243,20 @@
    "date": "2026-08-31",
    "redirect": 0,
    "click": 1,
-   "views": 3,
-   "provisional": true,
+   "views": 4,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-01",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-02",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -266,11 +266,11 @@
  ],
  "by_source": [
   {
-   "source": "(direct)",
-   "medium": "(none)",
+   "source": "google",
+   "medium": "organic",
    "clicks": 1,
-   "views": 1,
-   "sessions": 1
+   "views": 9,
+   "sessions": 7
   },
   {
    "source": "l.instagram.com",
@@ -278,13 +278,6 @@
    "clicks": 0,
    "views": 9,
    "sessions": 9
-  },
-  {
-   "source": "google",
-   "medium": "organic",
-   "clicks": 0,
-   "views": 7,
-   "sessions": 6
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -295,14 +288,14 @@
   },
   {
    "source": "instagram",
-   "medium": "bio",
+   "medium": "social",
    "clicks": 0,
-   "views": 1,
-   "sessions": 1
+   "views": 2,
+   "sessions": 2
   },
   {
    "source": "instagram",
-   "medium": "social",
+   "medium": "bio",
    "clicks": 0,
    "views": 1,
    "sessions": 1
