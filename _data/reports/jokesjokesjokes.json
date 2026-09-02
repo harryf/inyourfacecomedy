@@ -3,34 +3,26 @@
  "title": "Jokes, Jokes, Jokes",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726681983598.html",
  "event_type": "series",
- "generated_at": "2026-09-02T08:20:02.780Z",
+ "generated_at": "2026-09-02T23:09:14.499Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-04",
- "through": "2026-09-02",
- "complete_through": "2026-08-31",
+ "pages_since": "2026-08-05",
+ "through": "2026-09-03",
+ "complete_through": "2026-09-01",
  "totals": {
-  "clicks": 12,
+  "clicks": 13,
   "redirect": 5,
-  "click": 7,
-  "clicks_30d": 12,
+  "click": 8,
+  "clicks_30d": 13,
   "redirect_30d": 5,
-  "click_30d": 7,
-  "views": 26,
-  "views_30d": 26,
-  "sessions": 28,
-  "sessions_30d": 28,
+  "click_30d": 8,
+  "views": 33,
+  "views_30d": 33,
+  "sessions": 29,
+  "sessions_30d": 29,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-04",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-05",
    "redirect": 0,
@@ -250,13 +242,21 @@
   {
    "date": "2026-09-01",
    "redirect": 2,
-   "click": 4,
-   "views": 6,
-   "provisional": true,
+   "click": 5,
+   "views": 13,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-02",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-03",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -268,9 +268,16 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 5,
-   "views": 10,
-   "sessions": 13
+   "clicks": 3,
+   "views": 8,
+   "sessions": 7
+  },
+  {
+   "source": "guidle",
+   "medium": "referral",
+   "clicks": 3,
+   "views": 6,
+   "sessions": 5
   },
   {
    "source": "instagram",
@@ -280,18 +287,18 @@
    "sessions": 2
   },
   {
-   "source": "guidle",
-   "medium": "referral",
-   "clicks": 2,
-   "views": 3,
-   "sessions": 3
-  },
-  {
    "source": "chatgpt.com",
    "medium": "ai-assistant",
+   "clicks": 2,
+   "views": 2,
+   "sessions": 1
+  },
+  {
+   "source": "test",
+   "medium": "verify",
    "clicks": 1,
-   "views": 0,
-   "sessions": 0
+   "views": 2,
+   "sessions": 2
   },
   {
    "source": "meetup",
@@ -308,18 +315,18 @@
    "sessions": 5
   },
   {
+   "source": "google",
+   "medium": "organic",
+   "clicks": 0,
+   "views": 4,
+   "sessions": 4
+  },
+  {
    "source": "myswitzerland.com",
    "medium": "referral",
    "clicks": 0,
    "views": 3,
    "sessions": 3
-  },
-  {
-   "source": "google",
-   "medium": "organic",
-   "clicks": 0,
-   "views": 2,
-   "sessions": 2
   }
  ],
  "by_campaign": [
