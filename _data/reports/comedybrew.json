@@ -3,22 +3,22 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-09-02T23:09:14.499Z",
+ "generated_at": "2026-09-03T08:20:02.046Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-05",
  "through": "2026-09-03",
  "complete_through": "2026-09-01",
  "totals": {
-  "clicks": 162,
-  "redirect": 123,
-  "click": 39,
-  "clicks_30d": 162,
-  "redirect_30d": 123,
-  "click_30d": 39,
-  "views": 244,
-  "views_30d": 244,
-  "sessions": 240,
-  "sessions_30d": 240,
+  "clicks": 185,
+  "redirect": 139,
+  "click": 46,
+  "clicks_30d": 185,
+  "redirect_30d": 139,
+  "click_30d": 46,
+  "views": 246,
+  "views_30d": 246,
+  "sessions": 243,
+  "sessions_30d": 243,
   "broken_links": 0,
   "untagged": 0
  },
@@ -249,15 +249,15 @@
   },
   {
    "date": "2026-09-02",
-   "redirect": 42,
-   "click": 15,
-   "views": 8,
+   "redirect": 53,
+   "click": 22,
+   "views": 10,
    "provisional": true,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-03",
-   "redirect": 0,
+   "redirect": 5,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -268,23 +268,30 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 111,
+   "clicks": 125,
    "views": 1,
    "sessions": 1
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 21,
-   "views": 80,
-   "sessions": 83
+   "clicks": 23,
+   "views": 82,
+   "sessions": 86
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 16,
+   "clicks": 21,
    "views": 115,
    "sessions": 112
+  },
+  {
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 4,
+   "views": 5,
+   "sessions": 5
   },
   {
    "source": "meetup",
@@ -306,13 +313,6 @@
    "clicks": 3,
    "views": 1,
    "sessions": 1
-  },
-  {
-   "source": "instagram",
-   "medium": "social",
-   "clicks": 2,
-   "views": 5,
-   "sessions": 5
   },
   {
    "source": "hellozurich.ch",
@@ -383,15 +383,24 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 109,
+   "clicks": 123,
    "first": "2026-08-26",
-   "last": "2026-09-02",
+   "last": "2026-09-03",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 90
+     "clicks": 104
     }
    ]
+  },
+  {
+   "campaign": "comedybrew-20260903",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 3,
+   "first": "2026-09-02",
+   "last": "2026-09-03",
+   "content": []
   },
   {
    "campaign": "comedybrew",
@@ -432,15 +441,6 @@
    "clicks": 1,
    "first": "2026-08-27",
    "last": "2026-08-27",
-   "content": []
-  },
-  {
-   "campaign": "comedybrew-20260903",
-   "source": "instagram",
-   "medium": "social",
-   "clicks": 1,
-   "first": "2026-09-02",
-   "last": "2026-09-02",
    "content": []
   }
  ],
