@@ -80,10 +80,12 @@ datetime,event,source,medium,campaign,content,page
 2026-09-02 12:23,ticket_redirect,guidle,referral,jackpotcomedy,,Ticket Redirect
 2026-09-02 14:44,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-02 15:45,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
-2026-09-02 18:44,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/jackpotcomedy/
+2026-09-02 18:37,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-02 18:44,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/jackpotcomedy/
 2026-09-02 19:18,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-02 21:16,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-02 22:32,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-02 23:30,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-02 23:56,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-03 01:03,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-03 13:39,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
