@@ -3,34 +3,26 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-09-04T08:20:03.055Z",
+ "generated_at": "2026-09-04T23:05:47.023Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-06",
- "through": "2026-09-04",
- "complete_through": "2026-09-02",
+ "pages_since": "2026-08-07",
+ "through": "2026-09-05",
+ "complete_through": "2026-09-03",
  "totals": {
-  "clicks": 174,
-  "redirect": 144,
-  "click": 30,
-  "clicks_30d": 174,
-  "redirect_30d": 144,
-  "click_30d": 30,
-  "views": 232,
-  "views_30d": 232,
-  "sessions": 235,
-  "sessions_30d": 235,
+  "clicks": 196,
+  "redirect": 162,
+  "click": 34,
+  "clicks_30d": 196,
+  "redirect_30d": 162,
+  "click_30d": 34,
+  "views": 218,
+  "views_30d": 218,
+  "sessions": 217,
+  "sessions_30d": 217,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-06",
-   "redirect": 0,
-   "click": 0,
-   "views": 35,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-07",
    "redirect": 0,
@@ -249,14 +241,22 @@
   },
   {
    "date": "2026-09-03",
-   "redirect": 27,
-   "click": 2,
-   "views": 11,
-   "provisional": true,
+   "redirect": 40,
+   "click": 6,
+   "views": 31,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-04",
+   "redirect": 5,
+   "click": 0,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-05",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -268,23 +268,23 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 127,
+   "clicks": 145,
    "views": 1,
    "sessions": 1
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 14,
-   "views": 101,
-   "sessions": 102
+   "clicks": 19,
+   "views": 100,
+   "sessions": 97
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 14,
-   "views": 80,
-   "sessions": 86
+   "clicks": 13,
+   "views": 74,
+   "sessions": 77
   },
   {
    "source": "instagram",
@@ -304,29 +304,29 @@
    "source": "test",
    "medium": "verify",
    "clicks": 3,
-   "views": 2,
-   "sessions": 2
+   "views": 3,
+   "sessions": 3
   },
   {
    "source": "guidle",
    "medium": "referral",
    "clicks": 3,
-   "views": 1,
-   "sessions": 1
+   "views": 2,
+   "sessions": 2
   },
   {
    "source": "hellozurich.ch",
    "medium": "referral",
    "clicks": 2,
-   "views": 3,
-   "sessions": 3
+   "views": 2,
+   "sessions": 2
   },
   {
    "source": "chatgpt.com",
    "medium": "ai-assistant",
    "clicks": 1,
-   "views": 6,
-   "sessions": 5
+   "views": 5,
+   "sessions": 4
   },
   {
    "source": "ecosia.org",
@@ -336,20 +336,6 @@
    "sessions": 7
   },
   {
-   "source": "eventfrog.ch",
-   "medium": "referral",
-   "clicks": 0,
-   "views": 7,
-   "sessions": 6
-  },
-  {
-   "source": "duckduckgo",
-   "medium": "organic",
-   "clicks": 0,
-   "views": 6,
-   "sessions": 5
-  },
-  {
    "source": "VA LBHE ABDF Dbzfel",
    "medium": "email",
    "clicks": 0,
@@ -357,18 +343,25 @@
    "sessions": 5
   },
   {
+   "source": "eventfrog.ch",
+   "medium": "referral",
+   "clicks": 0,
+   "views": 4,
+   "sessions": 4
+  },
+  {
+   "source": "duckduckgo",
+   "medium": "organic",
+   "clicks": 0,
+   "views": 3,
+   "sessions": 3
+  },
+  {
    "source": "reddit.com",
    "medium": "referral",
    "clicks": 0,
    "views": 2,
-   "sessions": 2
-  },
-  {
-   "source": "microsite.guidle.com",
-   "medium": "referral",
-   "clicks": 0,
-   "views": 1,
-   "sessions": 1
+   "sessions": 3
   },
   {
    "source": "old.reddit.com",
@@ -383,13 +376,13 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 125,
+   "clicks": 143,
    "first": "2026-08-26",
-   "last": "2026-09-03",
+   "last": "2026-09-04",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 98
+     "clicks": 107
     }
    ]
   },

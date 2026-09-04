@@ -3,18 +3,18 @@
  "title": "La Tarima",
  "ticket_url": "https://eventfrog.ch/en/p/groups/la-tarima-open-mic-7487916867123691072.html",
  "event_type": "monthly",
- "generated_at": "2026-09-04T08:20:03.055Z",
+ "generated_at": "2026-09-04T23:05:47.023Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-06",
- "through": "2026-09-04",
- "complete_through": "2026-09-02",
+ "pages_since": "2026-08-07",
+ "through": "2026-09-05",
+ "complete_through": "2026-09-03",
  "totals": {
-  "clicks": 6,
+  "clicks": 7,
   "redirect": 1,
-  "click": 5,
-  "clicks_30d": 6,
+  "click": 6,
+  "clicks_30d": 7,
   "redirect_30d": 1,
-  "click_30d": 5,
+  "click_30d": 6,
   "views": 19,
   "views_30d": 19,
   "sessions": 19,
@@ -23,14 +23,6 @@
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-06",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-07",
    "redirect": 0,
@@ -250,13 +242,21 @@
   {
    "date": "2026-09-03",
    "redirect": 0,
-   "click": 1,
+   "click": 2,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-04",
+   "redirect": 0,
+   "click": 0,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
   },
   {
-   "date": "2026-09-04",
+   "date": "2026-09-05",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -273,9 +273,16 @@
    "sessions": 1
   },
   {
+   "source": "google",
+   "medium": "organic",
+   "clicks": 2,
+   "views": 3,
+   "sessions": 4
+  },
+  {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 2,
+   "clicks": 1,
    "views": 7,
    "sessions": 7
   },
@@ -285,13 +292,6 @@
    "clicks": 0,
    "views": 6,
    "sessions": 5
-  },
-  {
-   "source": "google",
-   "medium": "organic",
-   "clicks": 0,
-   "views": 3,
-   "sessions": 4
   },
   {
    "source": "chatgpt.com",

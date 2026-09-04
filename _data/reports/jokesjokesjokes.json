@@ -3,11 +3,11 @@
  "title": "Jokes, Jokes, Jokes",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726681983598.html",
  "event_type": "series",
- "generated_at": "2026-09-04T08:20:03.055Z",
+ "generated_at": "2026-09-04T23:05:47.023Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-06",
- "through": "2026-09-04",
- "complete_through": "2026-09-02",
+ "pages_since": "2026-08-07",
+ "through": "2026-09-05",
+ "complete_through": "2026-09-03",
  "totals": {
   "clicks": 13,
   "redirect": 5,
@@ -23,14 +23,6 @@
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-06",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-07",
    "redirect": 0,
@@ -252,11 +244,19 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-04",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-05",
    "redirect": 0,
    "click": 0,
    "views": 0,

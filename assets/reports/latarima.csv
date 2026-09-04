@@ -4,4 +4,5 @@ datetime,event,source,medium,campaign,content,page
 2026-08-27 13:29,ticket_click,IN YOUR FACE Comedy,email,7ea6a7d246-XMas_2025_COPY_01,,https://inyourfacecomedy.ch/latarima/
 2026-08-27 13:30,ticket_click,IN YOUR FACE Comedy,email,7ea6a7d246-XMas_2025_COPY_01,,https://inyourfacecomedy.ch/latarima/
 2026-08-27 13:31,ticket_click,IN YOUR FACE Comedy,email,7ea6a7d246-XMas_2025_COPY_01,,https://inyourfacecomedy.ch/latarima/
-2026-09-03 14:58,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-09-03 14:58,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
+2026-09-03 15:52,ticket_click,google,organic,,,https://inyourfacecomedy.ch/

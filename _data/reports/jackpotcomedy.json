@@ -3,34 +3,26 @@
  "title": "Jackpot Comedy",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jackpot-comedy-7413646370706339342.html",
  "event_type": "series",
- "generated_at": "2026-09-04T08:20:03.055Z",
+ "generated_at": "2026-09-04T23:05:47.023Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-06",
- "through": "2026-09-04",
- "complete_through": "2026-09-02",
+ "pages_since": "2026-08-07",
+ "through": "2026-09-05",
+ "complete_through": "2026-09-03",
  "totals": {
-  "clicks": 90,
-  "redirect": 85,
+  "clicks": 97,
+  "redirect": 92,
   "click": 5,
-  "clicks_30d": 90,
-  "redirect_30d": 85,
+  "clicks_30d": 97,
+  "redirect_30d": 92,
   "click_30d": 5,
-  "views": 49,
-  "views_30d": 49,
-  "sessions": 47,
-  "sessions_30d": 47,
+  "views": 50,
+  "views_30d": 50,
+  "sessions": 48,
+  "sessions_30d": 48,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-06",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-07",
    "redirect": 0,
@@ -249,14 +241,22 @@
   },
   {
    "date": "2026-09-03",
-   "redirect": 2,
+   "redirect": 6,
    "click": 0,
-   "views": 1,
-   "provisional": true,
+   "views": 2,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-04",
+   "redirect": 3,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-05",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -268,7 +268,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 68,
+   "clicks": 75,
    "views": 0,
    "sessions": 0
   },
@@ -283,8 +283,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 3,
-   "views": 18,
-   "sessions": 18
+   "views": 19,
+   "sessions": 19
   },
   {
    "source": "guidle",
@@ -355,13 +355,13 @@
    "campaign": "jackpotcomedy",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 68,
+   "clicks": 75,
    "first": "2026-08-30",
-   "last": "2026-09-03",
+   "last": "2026-09-04",
    "content": [
     {
      "content": "6964168949947",
-     "clicks": 63
+     "clicks": 70
     }
    ]
   },
