@@ -20,6 +20,29 @@ layout: page
     <span>This report refreshes every morning. Last update {{ r.generated_at | date: "%-d %b %Y, %H:%M" }} UTC. Google Analytics has finished counting
     through {{ r.complete_through | date: "%-d %b" }}; later days still fill in.</span>
   </p>
+{% comment %}
+  Eventfrog cockpit link for the show's next date. calendar.yml (Eventfrog-derived, cron
+  refreshed, ascending by date) carries each date's own event page; the numeric id at the
+  end of that URL is the cockpit event id. Eventfrog links only (the cockpit is theirs);
+  no upcoming Eventfrog date, no button. The cockpit needs the organiser's Eventfrog login.
+{% endcomment %}
+{% assign cockpit_id = "" %}
+{% for e in site.data.calendar.events %}
+  {% if cockpit_id == "" and e.show == r.slug and e.ticket_url contains "eventfrog.ch/" %}
+    {% assign candidate = e.ticket_url | split: "-" | last | remove: ".html" | strip %}
+    {% assign as_number = candidate | plus: 0 | append: "" %}
+    {% if candidate == as_number and candidate.size > 10 %}
+      {% assign cockpit_id = candidate %}
+      {% assign cockpit_date = e.date %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% if cockpit_id != "" %}
+  <p class="iyf-report__cockpit">
+    <a class="btn-ticket btn-ticket--sm" href="https://eventfrog.ch/de/cockpitv3/events/{{ cockpit_id }}/orders" target="_blank" rel="noopener">View Sales on Latest Show</a>
+    <span class="iyf-report__note">Eventfrog cockpit for the {{ cockpit_date | date: "%-d %B" }} date; needs the organiser login.</span>
+  </p>
+{% endif %}
 
   <section class="iyf-report__section">
     <div class="iyf-report__stats">

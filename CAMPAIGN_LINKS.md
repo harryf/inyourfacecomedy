@@ -380,6 +380,11 @@ number of broken-link 404s carrying the show's slug. Things worth knowing:
 - **Unlisted, not private.** `noindex`, `sitemap: false`, `hide: true`, `robots.txt`
   disallow, no links from anywhere; but the repo is public and so are the generated files.
   Click counts only, nothing personal.
+- **"View Sales on Latest Show".** The report layout links to the Eventfrog cockpit
+  (`eventfrog.ch/de/cockpitv3/events/<id>/orders`) for the show's next date, taking the
+  numeric id from that date's `ticket_url` in `calendar.yml`. Eventfrog links only; a show
+  with no upcoming Eventfrog date gets no button. The cockpit needs the organiser login, so
+  the link is useless to anyone else who finds the page.
 - **Auth.** `GA_REPORTS_CREDENTIALS` in `.env` points at a service-account key (gitignored as
   `ga-reports-sa.json`) whose email is a Viewer on the GA4 property; the job falls back to
   gcloud Application Default Credentials, which is fine by hand but expires under cron while
