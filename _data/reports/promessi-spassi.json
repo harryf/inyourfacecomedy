@@ -3,17 +3,17 @@
  "title": "PROMESSI SPASSI",
  "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478863182670358596.html",
  "event_type": "one-off",
- "generated_at": "2026-09-04T23:05:47.023Z",
+ "generated_at": "2026-09-05T08:20:02.019Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-07",
  "through": "2026-09-05",
  "complete_through": "2026-09-03",
  "totals": {
-  "clicks": 403,
-  "redirect": 400,
+  "clicks": 459,
+  "redirect": 456,
   "click": 3,
-  "clicks_30d": 403,
-  "redirect_30d": 400,
+  "clicks_30d": 459,
+  "redirect_30d": 456,
   "click_30d": 3,
   "views": 37,
   "views_30d": 37,
@@ -249,7 +249,7 @@
   },
   {
    "date": "2026-09-04",
-   "redirect": 42,
+   "redirect": 88,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -257,7 +257,7 @@
   },
   {
    "date": "2026-09-05",
-   "redirect": 0,
+   "redirect": 10,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -268,7 +268,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 383,
+   "clicks": 439,
    "views": 1,
    "sessions": 1
   },
@@ -362,13 +362,13 @@
    "campaign": "promessi-spassi",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 383,
+   "clicks": 439,
    "first": "2026-08-30",
-   "last": "2026-09-04",
+   "last": "2026-09-05",
    "content": [
     {
      "content": "52672614093400",
-     "clicks": 321
+     "clicks": 377
     },
     {
      "content": "52672431580800",

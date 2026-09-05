@@ -3,22 +3,22 @@
  "title": "La Tarima",
  "ticket_url": "https://eventfrog.ch/en/p/groups/la-tarima-open-mic-7487916867123691072.html",
  "event_type": "monthly",
- "generated_at": "2026-09-04T23:05:47.023Z",
+ "generated_at": "2026-09-05T08:20:02.019Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-07",
  "through": "2026-09-05",
  "complete_through": "2026-09-03",
  "totals": {
-  "clicks": 7,
+  "clicks": 8,
   "redirect": 1,
-  "click": 6,
-  "clicks_30d": 7,
+  "click": 7,
+  "clicks_30d": 8,
   "redirect_30d": 1,
-  "click_30d": 6,
-  "views": 19,
-  "views_30d": 19,
-  "sessions": 19,
-  "sessions_30d": 19,
+  "click_30d": 7,
+  "views": 20,
+  "views_30d": 20,
+  "sessions": 21,
+  "sessions_30d": 21,
   "broken_links": 0,
   "untagged": 0
  },
@@ -258,8 +258,8 @@
   {
    "date": "2026-09-05",
    "redirect": 0,
-   "click": 0,
-   "views": 0,
+   "click": 1,
+   "views": 1,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -273,18 +273,18 @@
    "sessions": 1
   },
   {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 2,
+   "views": 8,
+   "sessions": 8
+  },
+  {
    "source": "google",
    "medium": "organic",
    "clicks": 2,
    "views": 3,
-   "sessions": 4
-  },
-  {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 1,
-   "views": 7,
-   "sessions": 7
+   "sessions": 5
   },
   {
    "source": "VA LBHE ABDF Dbzfel",
