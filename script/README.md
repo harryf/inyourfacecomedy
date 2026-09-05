@@ -261,6 +261,27 @@ Cron triggers are simpler than event-driven triggers. Most days the script is a 
 
 Matches the Jekyll runtime. No language switch when this graduates to a GitHub Action or a `jekyll build` hook. Bundler-managed gems are already available (`net/http`, `time`, `uri` are stdlib — no extra `Gemfile` entry needed).
 
+## `ga-setup.ts` and `ga-annotations.ts`
+
+Google Analytics configuration as code (full picture: `ANALYTICS.md`). Both read the
+service-account key from `GA_REPORTS_CREDENTIALS` in `.env`, like `ga-report.ts`, but they
+write, so the service account needs the **Editor** role on the GA property (Admin > Property
+access management), where `ga-report.ts` only needs Viewer.
+
+- `bun script/ga-setup.ts [--dry-run]` makes the property match the desired state declared
+  in the file: 14-month event retention, `ticket_click` and `ticket_redirect` as key events,
+  the custom dimensions `show`, `link`, `venue`, `show_date`, `days_to_show`, the custom
+  metric `price_chf`, and the custom channel group "IN YOUR FACE channels". Idempotent;
+  creates and patches, never deletes or archives. Run it after editing the desired state.
+- `bun script/ga-annotations.ts [--dry-run]` turns every upcoming show date in
+  `_data/calendar.yml` into a GA report annotation ("Comedy Brew @ ROBIN's" on that date),
+  so every chart in GA marks show nights. Idempotent on title + date; past annotations are
+  left alone. Proposed cron line, after the 09:00 calendar refresh has landed:
+
+      25 10 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/ga-annotations.ts >> script/ga-annotations.log 2>&1
+
+Neither script touches git.
+
 ### Future: GitHub Action
 
 When this matures, move from the laptop's cron to a scheduled workflow:

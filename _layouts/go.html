@@ -25,7 +25,18 @@
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
-      gtag('config', '{{ site.google_analytics }}');
+      // Same page context the theme pages set (_includes/ga-page-context.liquid): the
+      // page_view on /go/ is grouped as "go" and carries the show slug from the query, so
+      // campaign landings never mix with real show-page attention in Pages reports.
+      gtag('set', {
+        content_group: 'go',
+        show: (new URLSearchParams(location.search).get('show') || '(unknown)').toLowerCase().slice(0, 64)
+      });
+      // Live host only, like head.liquid: previews and local builds stay out of GA, and so
+      // does a browser that once opened a page with ?notrack=1 (ANALYTICS.md).
+      var iyfTrack = true;
+      try { iyfTrack = localStorage.getItem('iyf-notrack') !== '1'; } catch (e) {}
+      if (iyfTrack && /(^|\.)inyourfacecomedy\.ch$/.test(location.hostname)) gtag('config', '{{ site.google_analytics }}');
     </script>
     {% endif %}
     <style>

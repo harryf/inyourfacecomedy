@@ -17,17 +17,19 @@ const go = require("../../../_includes/go-redirect.js") as {
   ) => { kind: string; url?: string; show?: { slug: string } };
   build404: (search: string, showParam: string) => string;
   linkTag: (p: URLSearchParams) => string;
+  daysToShow: (showDate: string, today: string) => string;
+  showParams: (res: unknown, today: string) => Record<string, unknown>;
 };
 
 const SHOWS = [
-  { slug: "comedybrew", title: "Comedy Brew • English Stand-Up Comedy Open Mic", url: "/comedybrew/", tickets: "https://eventfrog.ch/en/p/groups/brew-group.html", type: "series" },
-  { slug: "jackpotcomedy", title: "Jackpot Comedy - downstairs @ OTRO", url: "/jackpotcomedy/", tickets: "https://eventfrog.ch/en/p/groups/jackpot-group.html", type: "series" },
+  { slug: "comedybrew", title: "Comedy Brew • English Stand-Up Comedy Open Mic", url: "/comedybrew/", tickets: "https://eventfrog.ch/en/p/groups/brew-group.html", type: "series", next: "2026-09-10T19:30:00+02:00", venue: "robins", price: 10 },
+  { slug: "jackpotcomedy", title: "Jackpot Comedy - downstairs @ OTRO", url: "/jackpotcomedy/", tickets: "https://eventfrog.ch/en/p/groups/jackpot-group.html", type: "series", next: "2026-09-16T20:00:00+02:00", venue: "otro", price: 0 },
   { slug: "noticketseries", title: "Ticketless", url: "/noticketseries/", tickets: "", type: "series" },
 ];
 
 const EVENTS = [
-  { show: "comedybrew", date: "2026-09-03", tickets: "https://eventfrog.ch/en/p/theatre-stage/brew-0903.html" },
-  { show: "jackpotcomedy", date: "2026-09-16", tickets: "https://eventfrog.ch/en/p/theatre-stage/jackpot-0916.html" },
+  { show: "comedybrew", date: "2026-09-03", tickets: "https://eventfrog.ch/en/p/theatre-stage/brew-0903.html", venue: "robins", price: 10 },
+  { show: "jackpotcomedy", date: "2026-09-16", tickets: "https://eventfrog.ch/en/p/theatre-stage/jackpot-0916.html", venue: "otro", price: 0 },
 ];
 
 const TODAY = "2026-08-26";
@@ -151,5 +153,47 @@ describe("go-redirect • small helpers", () => {
     expect(go.linkTag(new URLSearchParams("show=comedybrew&fbclid=abc"))).toBe("");     // untagged: nothing to say
     expect(go.linkTag(new URLSearchParams("utm_source=a|b"))).toBe("a/b|||");           // separator never leaks in
     expect(go.linkTag(new URLSearchParams("utm_content=" + "x".repeat(200))).length).toBe(100);
+  });
+});
+
+describe("go-redirect • show context for GA (ANALYTICS.md)", () => {
+  test("daysToShow buckets like the Eventfrog sales export", () => {
+    const cases: [string, string][] = [
+      ["2026-08-26", "00"], ["2026-08-27", "01"], ["2026-08-28", "02-03"], ["2026-08-29", "02-03"],
+      ["2026-08-30", "04-07"], ["2026-09-02", "04-07"], ["2026-09-03", "08-14"], ["2026-09-09", "08-14"],
+      ["2026-09-10", "15-30"], ["2026-09-25", "15-30"], ["2026-09-26", "31+"], ["2027-01-01", "31+"],
+      ["2026-08-25", "past"], ["", "(unknown)"], ["nope", "(unknown)"],
+    ];
+    for (const [date, bucket] of cases) expect(go.daysToShow(date, TODAY)).toBe(bucket);
+    expect(go.daysToShow("2026-09-01", "")).toBe("(unknown)");
+    // GA sorts dimension values as strings; zero padding keeps the buckets in order.
+    const labels = ["00", "01", "02-03", "04-07", "08-14", "15-30", "31+"];
+    expect([...labels].sort()).toEqual(labels);
+  });
+
+  test("a date link carries that date's venue, price and days-to-show", () => {
+    const r = go.resolveTarget(SHOWS, EVENTS, "comedybrew", "2026-09-03", TODAY);
+    expect(go.showParams(r, TODAY)).toEqual({
+      venue: "robins", show_date: "2026-09-03", days_to_show: "08-14", price_chf: 10, value: 10, currency: "CHF",
+    });
+  });
+
+  test("a series link falls back to the show's next date and its own venue/price", () => {
+    const r = go.resolveTarget(SHOWS, EVENTS, "jackpotcomedy", "", TODAY);
+    expect(go.showParams(r, TODAY)).toEqual({
+      venue: "otro", show_date: "2026-09-16", days_to_show: "15-30", price_chf: 0, value: 0, currency: "CHF",
+    });
+  });
+
+  test("a show with no catalog context reports (unknown), never undefined", () => {
+    const r = go.resolveTarget(SHOWS, EVENTS, "noticketseries", "", TODAY);
+    expect(go.showParams(r, TODAY)).toEqual({
+      venue: "(unknown)", show_date: "(unknown)", days_to_show: "(unknown)", price_chf: 0, value: 0, currency: "CHF",
+    });
+  });
+
+  test("an unknown show adds nothing to the event", () => {
+    expect(go.showParams(go.resolveTarget(SHOWS, EVENTS, "nope", "", TODAY), TODAY)).toEqual({});
+    expect(go.showParams(null, TODAY)).toEqual({});
   });
 });

@@ -43,7 +43,9 @@
       primaryTitle: primaryTitle,
       resolveTarget: resolveTarget,
       build404: build404,
-      linkTag: linkTag
+      linkTag: linkTag,
+      daysToShow: daysToShow,
+      showParams: showParams
     };
     return;
   }
@@ -99,12 +101,48 @@
       for (var j = 0; j < events.length; j++) {
         var e = events[j];
         if (norm(e.show) === norm(show.slug) && e.date === dateParam && e.tickets) {
-          return { kind: 'event', url: e.tickets, show: show };
+          return { kind: 'event', url: e.tickets, show: show, event: e };
         }
       }
     }
     if (show.tickets) return { kind: 'series', url: show.tickets, show: show };
     return { kind: 'showpage', url: show.url || '/calendar/', show: show };
+  }
+
+  // Days until the show, bucketed like the Eventfrog sales export ("Purchase Days
+  // Before") so GA's click curve can be laid over the purchase curve. Pure: both
+  // arguments are YYYY-MM-DD strings. Same buckets in _includes/ga-page-context.liquid
+  // and assets/js/ticket-click.js. Labels are zero-padded so GA's alphabetical sort
+  // keeps them in order; dimension values are permanent history, never rename them.
+  function daysToShow(showDate, today) {
+    if (!isValidDate(showDate) || !isValidDate(today)) return '(unknown)';
+    var d = Math.round((Date.parse(showDate + 'T00:00:00Z') - Date.parse(today + 'T00:00:00Z')) / 86400000);
+    if (d < 0) return 'past';
+    if (d <= 1) return '0' + d;
+    if (d <= 3) return '02-03';
+    if (d <= 7) return '04-07';
+    if (d <= 14) return '08-14';
+    if (d <= 30) return '15-30';
+    return '31+';
+  }
+
+  /** Show context for the ticket_redirect event (ANALYTICS.md): venue, the date the
+   *  click is for (the picked date, else the show's next date), days to that date,
+   *  and the ticket price as both a custom metric and GA's own value/currency pair.
+   *  Pure; {} when the show is unknown. */
+  function showParams(res, today) {
+    if (!res || !res.show) return {};
+    var ev = res.kind === 'event' ? res.event : null;
+    var date = ev ? ev.date : (res.show.next || '').slice(0, 10);
+    var price = Number(ev && ev.price != null ? ev.price : res.show.price) || 0;
+    return {
+      venue: (ev && ev.venue) || res.show.venue || '(unknown)',
+      show_date: isValidDate(date) ? date : '(unknown)',
+      days_to_show: daysToShow(date, today),
+      price_chf: price,
+      value: price,
+      currency: 'CHF'
+    };
   }
 
   /** Broken-link landing: our own 404 with the evidence, UTMs preserved so GA
@@ -130,11 +168,12 @@
   var params = new URLSearchParams(window.location.search);
   var showParam = (params.get('show') || '').trim();
   var dateParam = (params.get('date') || '').trim();
+  var today = localISODate(new Date());
 
   var res = resolveTarget(
     readCatalog('iyf-go-shows'),
     readCatalog('iyf-go-events'),
-    showParam, dateParam, localISODate(new Date())
+    showParam, dateParam, today
   );
 
   var target = res.kind === 'notfound' ? build404(window.location.search, showParam) : res.url;
@@ -190,7 +229,7 @@
     gtagScript.addEventListener('error', function () { trigger = trigger || 'gtag_blocked'; go(); });
   }
 
-  gaPush('event', 'ticket_redirect', {
+  var payload = {
     show: res.show ? res.show.slug : '(unknown)',
     link: linkTag(params),
     date: isValidDate(dateParam) ? dateParam : '(series)',
@@ -198,6 +237,9 @@
     resolution: res.kind,
     event_callback: function () { trigger = trigger || 'event_callback'; go(); },
     event_timeout: EVENT_TIMEOUT_MS
-  });
+  };
+  var extra = showParams(res, today);
+  for (var k in extra) { if (Object.prototype.hasOwnProperty.call(extra, k)) payload[k] = extra[k]; }
+  gaPush('event', 'ticket_redirect', payload);
   setTimeout(function () { trigger = trigger || 'timeout(' + REDIRECT_DELAY_MS + 'ms)'; go(); }, REDIRECT_DELAY_MS);
 })();

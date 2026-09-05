@@ -1,0 +1,44 @@
+{%- comment -%}
+  Page context for Google Analytics (ANALYTICS.md). Included INSIDE the inline
+  <script> in _includes/default/head.liquid, before the deferred main.min.js runs
+  gtag('config'), so the page_view and every later event on this page carry:
+    content_group  home | show | post | comedian | tool | page  (built-in GA dimension)
+    show, venue, show_date, days_to_show, price_chf  (show pages only; registered as
+    custom dimensions/metric by script/ga-setup.ts). GA's own value/currency pair is
+    deliberately NOT set here: a global set would stamp a value on every scroll and
+    engagement event too. The ticket events send value/currency themselves.
+  Pushing an Arguments object onto dataLayer is exactly what gtag() does, so there is
+  no load-order dependency on gtag.js.
+{%- endcomment -%}
+{%- assign ga_group = 'page' -%}
+{%- if page.url == '/' -%}{%- assign ga_group = 'home' -%}
+{%- elsif page.layout == 'post' and page.ticket_url -%}{%- assign ga_group = 'show' -%}
+{%- elsif page.layout == 'post' -%}{%- assign ga_group = 'post' -%}
+{%- elsif page.layout == 'comedian' -%}{%- assign ga_group = 'comedian' -%}
+{%- elsif page.layout == 'report' or page.noindex -%}{%- assign ga_group = 'tool' -%}
+{%- endif -%}
+    // Days until the show, bucketed like the Eventfrog sales export so GA's curve can be
+    // laid over it. Same function in _includes/go-redirect.js and assets/js/ticket-click.js.
+    // Labels are zero-padded so GA's alphabetical sort keeps them in order; dimension
+    // values are permanent history, so never rename them.
+    function iyfDaysToShow(iso) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(iso || '')) return '(unknown)';
+      var n = new Date();
+      var today = n.getFullYear() + '-' + String(n.getMonth() + 1).padStart(2, '0') + '-' + String(n.getDate()).padStart(2, '0');
+      var d = Math.round((Date.parse(iso + 'T00:00:00Z') - Date.parse(today + 'T00:00:00Z')) / 86400000);
+      if (d < 0) return 'past';
+      if (d <= 1) return '0' + d;
+      if (d <= 3) return '02-03';
+      if (d <= 7) return '04-07';
+      if (d <= 14) return '08-14';
+      if (d <= 30) return '15-30';
+      return '31+';
+    }
+    (window.dataLayer = window.dataLayer || []).push((function () { return arguments; })('set', {
+      content_group: '{{ ga_group }}'{% if ga_group == 'show' %},
+      show: {{ page.url | remove: "/" | jsonify }},
+      venue: {{ page.venue_slug | default: "" | jsonify }},
+      show_date: {{ page.next_event_date | date: "%Y-%m-%d" | jsonify }},
+      days_to_show: iyfDaysToShow({{ page.next_event_date | date: "%Y-%m-%d" | jsonify }}),
+      price_chf: {{ page.price_chf | default: 0 }}{% endif %}
+    }));

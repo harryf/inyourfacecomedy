@@ -43,8 +43,20 @@
   <script>
     const cookieName = 'cookie-notice-dismissed-          {{ site.url }}';
     const isCookieConsent = '{{ site.cookie_consent }}';
-    const analyticsName = '{{ site.google_analytics }}';
+    // GA only on the live host. `jekyll serve`, Netlify deploy previews and the GitHub
+    // Pages shadow build otherwise land in GA as localhost / *.pages.dev / *.netlify.app
+    // sessions (ANALYTICS.md). main.min.js skips gtag('config') when analyticsName is empty.
+    // Your own devices: open any page once with ?notrack=1 and that browser stays out of
+    // GA (localStorage flag); ?notrack=0 switches it back on. Beats an IP filter for a
+    // promoter who refreshes his own show pages from a phone all day.
+    try {
+      var iyfNt = new URLSearchParams(location.search).get('notrack');
+      if (iyfNt === '1') localStorage.setItem('iyf-notrack', '1');
+      if (iyfNt === '0') localStorage.removeItem('iyf-notrack');
+    } catch (e) {}
+    const analyticsName = (/(^|\.)inyourfacecomedy\.ch$/.test(location.hostname) && (function () { try { return localStorage.getItem('iyf-notrack') !== '1'; } catch (e) { return true; } })()) ? '{{ site.google_analytics }}' : '';
     const analyticsNameGA4 = '{{ site.google_analytics_ga4 }}';
+{% include ga-page-context.liquid %}
   </script>
 
   {% if site.google_tagmanager %}

@@ -65,6 +65,7 @@ All unlisted: `noindex`, `sitemap: false`, `hide: true`, `robots.txt` disallow, 
 | `/go/?show=<slug>[&date=YYYY-MM-DD]&utm_*` | The click tracker. GA records the tagged visit, then redirects to the show's Eventfrog page. Destinations resolve only against the build-time catalogs in `_includes/go-catalogs.liquid`; unknown slugs land on `/404.html?from=go&show=…` so broken links show up in GA | `CAMPAIGN_LINKS.md` |
 | `/linkbuilder/` | Phone-first UTM link builder for `/go/` and site pages. Google Ads is deliberately not a source (destination-mismatch policy) | `CAMPAIGN_LINKS.md` |
 | `/reports/` | Daily per-show ticket-click reports; `ticket_click` (on-site buttons, `assets/js/ticket-click.js`) plus `ticket_redirect` (via `/go/`) | `CAMPAIGN_LINKS.md`, "Show reports" |
+| Google Analytics (property 336856557) | Every page sets `content_group` plus, on show pages, `show`, `venue`, `show_date`, `days_to_show`, `price_chf` via `_includes/ga-page-context.liquid`; ticket events carry the same. Property config is code: `script/ga-setup.ts`; show-date annotations: `script/ga-annotations.ts`. GA is off on any host but `inyourfacecomedy.ch` | `ANALYTICS.md` |
 | `/lineup/` | Lineup Maker 2000, builds and shares a show bill | `SHOW_PROMO_LINKS.md` |
 | `/comedians/?show=…&host=…&lineup=…` | Show promo, lineup recap and thank-you links | `SHOW_PROMO_LINKS.md` |
 | `/admin/` | Decap CMS over git-gateway, edits `_posts` with `editable: "true"` | `admin/config.yml` |
@@ -98,6 +99,7 @@ Visitor-facing copy follows `WRITING_GUIDE.md`: specifics over praise, no Title 
 | `README.md` | Overview, build, how it goes live |
 | `script/README.md` | Each script, cron install, Healthchecks setup |
 | `CAMPAIGN_LINKS.md` | `/go/`, `/linkbuilder/`, `/reports/`, GA events and dimensions |
+| `ANALYTICS.md` | The GA4 property: what is configured and why, the page context, the report collection, data-quality caveats, the GTM second ID |
 | `SHOW_PROMO_LINKS.md` | `/comedians/` promo links and Lineup Maker 2000 |
 | `CALENDAR_STRUCTURE.md` | The `/calendar/` markup contract and `validate-calendar.rb` |
 | `COMEDIAN_SEO.md` | Comedian JSON-LD, `hosts:` mapping, IndexNow, search consoles |

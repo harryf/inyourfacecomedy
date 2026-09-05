@@ -87,6 +87,8 @@ before leaving, so reports can slice clicks by show:
 ```js
 gtag('event', 'ticket_redirect', {
   show: slug, date: date || '(series)', destination: target,
+  // plus link (see "Show reports") and the show context fields venue, show_date,
+  // days_to_show, price_chf, value, currency (see "On-site Get Tickets clicks" and ANALYTICS.md)
   event_callback: go, event_timeout: 400
 });
 setTimeout(go, 450);            // ad blocker / gtag-missing fallback, whichever fires first
@@ -305,14 +307,20 @@ every organic visitor, for data GA can collect at click time instead. So
 `assets/js/ticket-click.js` (loaded on every theme page) fires one event and lets the
 navigation proceed untouched:
 
-    ticket_click { show, page, destination, transport_type: 'beacon' }
+    ticket_click { show, page, destination, transport_type: 'beacon',
+                   venue, show_date, days_to_show, price_chf, value, currency }
 
 `show` comes from a `data-show` attribute the templates put on `.btn-ticket` links, or for
-the plain calendar-row links, from the show-page link in the same table row. Beacon
-transport survives the navigation, so there is no delay and no timeout. Together with
-`ticket_redirect` (campaign clicks via `/go/`) this gives one "ticket clicks by show" view in
-GA across on-site and campaign traffic; register `show` as an event-scoped dimension once
-and it serves both events.
+the plain calendar-row links, from the show-page link in the same table row. `venue`,
+`show_date` and `price_chf` come from `data-venue`, `data-date`, `data-price` on the same
+buttons (calendar-row links carry none and omit the fields); `days_to_show` is bucketed at
+click time and `value`/`currency` repeat the price in GA's own event-value fields. The
+`ticket_redirect` event on `/go/` carries the same six fields from the catalogs (the picked
+date's venue and price, else the show's). Beacon transport survives the navigation, so there
+is no delay and no timeout. Together with `ticket_redirect` (campaign clicks via `/go/`)
+this gives one "ticket clicks by show" view in GA across on-site and campaign traffic. The
+dimensions and the metric are registered by `script/ga-setup.ts`; the full GA setup, what
+each field is for and the reports built on them are in `ANALYTICS.md`.
 
 ### Show reports (/reports/ and /reports/<slug>/)
 

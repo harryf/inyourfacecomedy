@@ -44,23 +44,67 @@
     return seg.length === 1 ? seg[0] : '(unknown)';
   }
 
+  // Days until the show, bucketed like the Eventfrog sales export ("Purchase Days
+  // Before"). Same function and buckets as _includes/go-redirect.js. Both arguments
+  // are YYYY-MM-DD strings.
+  function daysToShow(showDate, today) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(showDate || '') || !/^\d{4}-\d{2}-\d{2}$/.test(today || '')) return '(unknown)';
+    var d = Math.round((Date.parse(showDate + 'T00:00:00Z') - Date.parse(today + 'T00:00:00Z')) / 86400000);
+    if (d < 0) return 'past';
+    if (d <= 1) return '0' + d;   // zero-padded: GA sorts dimension values alphabetically
+    if (d <= 3) return '02-03';
+    if (d <= 7) return '04-07';
+    if (d <= 14) return '08-14';
+    if (d <= 30) return '15-30';
+    return '31+';
+  }
+
+  // Show context from the button's data attributes (set by the Liquid templates next to
+  // data-show): venue slug, the show's next date, ticket price. The three dimension
+  // fields are ALWAYS sent, with "(unknown)" when a link carries no attribute (calendar
+  // rows): gtag('set') values are sticky for the page, so omitting a field would let a
+  // ticket event inherit another show's venue or date. Price is only sent when known.
+  // Pure; `today` is YYYY-MM-DD.
+  function showParams(link, today) {
+    var out = {};
+    var venue = link.getAttribute('data-venue');
+    var date = link.getAttribute('data-date');
+    var price = link.getAttribute('data-price');
+    out.venue = venue || '(unknown)';
+    out.show_date = date || '(unknown)';
+    out.days_to_show = date ? daysToShow(date, today) : '(unknown)';
+    if (price !== null && price !== '' && !isNaN(Number(price))) {
+      out.price_chf = Number(price);
+      out.value = Number(price);
+      out.currency = 'CHF';
+    }
+    return out;
+  }
+
   // Test seam (comedian-lineup.js pattern): expose the pure helpers under bun test.
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { isVendor: isVendor, showFor: showFor };
+    module.exports = { isVendor: isVendor, showFor: showFor, daysToShow: daysToShow, showParams: showParams };
     return;
   }
 
   function gaPush() { (window.dataLayer = window.dataLayer || []).push(arguments); }
 
+  function localISODate(d) {
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+
   document.addEventListener('click', function (ev) {
     // Styled ticket buttons anywhere, plus the plain "Get Tickets" links in calendar rows.
     var link = ev.target && ev.target.closest && ev.target.closest('a.btn-ticket[href], .iyf-calendar a[href]');
     if (!link || !isVendor(link.href)) return;
-    gaPush('event', 'ticket_click', {
+    var payload = {
       show: showFor(link),
       page: window.location.pathname,
       destination: link.href,
       transport_type: 'beacon'
-    });
+    };
+    var extra = showParams(link, localISODate(new Date()));
+    for (var k in extra) { if (Object.prototype.hasOwnProperty.call(extra, k)) payload[k] = extra[k]; }
+    gaPush('event', 'ticket_click', payload);
   }, true);
 })();

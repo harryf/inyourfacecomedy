@@ -48,7 +48,7 @@
 
   <div class="iyf-show-row__actions">
     {%- if post.ticket_url -%}
-      <a class="btn-ticket btn-ticket--sm" href="{{ post.ticket_url }}" data-show="{{ post.url | remove: "/" }}" rel="noopener" target="_blank">Get Tickets</a>
+      <a class="btn-ticket btn-ticket--sm" href="{{ post.ticket_url }}" data-show="{{ post.url | remove: "/" }}" data-venue="{{ post.venue_slug }}" data-date="{{ post.next_event_date | date: "%Y-%m-%d" }}" data-price="{{ post.price_chf | default: 0 }}" rel="noopener" target="_blank">Get Tickets</a>
     {%- endif -%}
     <a class="btn-ghost btn-ghost--sm" href="{{ post.url | relative_url }}">More info</a>
   </div>
