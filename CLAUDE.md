@@ -1,63 +1,107 @@
 # Notes for Claude working on this codebase
 
-This is the IN YOUR FACE Comedy website: a Jekyll site at inyourfacecomedy.ch for our English stand-up nights in Zürich. Read `README.md` first for the full lay of the land. This file is the short list of things that will bite you if you do not know them.
+Jekyll site for inyourfacecomedy.ch, the IN YOUR FACE Comedy English stand-up nights in Zürich. The theme is vendored (`_layouts/`, `_includes/`, `_sass/`; no theme gem), Ruby 3.2.4 via rbenv, Bundler for gems, bun for JavaScript tests. `README.md` has the lay of the land. This file is the rules that bite plus where everything lives; the deep explanations are in the docs listed at the end, so read the owning doc before changing that area.
 
-## Build and check
+## Commands
 
 ```
-bundle exec jekyll build --future          # always pass --future (some shows are dated ahead)
-ruby script/check-site.rb --no-build        # health smoke test, 78+ checks, exit 0 = good
+bundle exec jekyll build --future          # --future: some shows are dated ahead (La Tarima is dated 2099 on purpose)
+ruby script/check-site.rb --no-build       # 100+ health checks incl. html-proofer, exit 0 = good
+bun test                                   # client-side JS + ga-report-lib, 130+ tests
+ruby script/add-event.rb <eventfrog-url> --host <slug> --feature-img X --image Y --thumbnail Z   # new show
 ```
 
-Always run the health check after a change and before you say you are done. The same check runs in GitHub Actions on every push and pull request (`.github/workflows/jekyll-build.yml`).
+Run the build and the health check after every change and before saying you are done. CI (`.github/workflows/jekyll-build.yml`) runs the same pair on every push and pull request. Run `bun test` after touching anything in `assets/js/` or `script/lib/`. Every script has `--dry-run`; run it before trusting a change.
 
-## Rules that bite
+## Deploy and permissions
 
-- **Push to `master` goes live.** Both GitHub Pages and Netlify build from `master`. For anything that could break the build, work on a branch and open a pull request. Netlify makes a draft of the PR so you can see it is sound, then merge.
-- **The theme is vendored.** `_layouts/` and `_includes/` are the theme itself, edited in place. There is no theme gem and no `theme:` in `_config.yml`, so a missing include really does break the build (a clean build is meaningful).
-- **Do not hand-edit `_comedians/*.md`.** Those pages are built from a Grist table by `script/sync-comedians.rb` and will be overwritten. Change the data in Grist, then run the sync.
-- **The gallery is generated too.** `/moments/` builds from `_data/gallery.yml`, produced by `script/build-gallery-data.rb` (macOS-only: it reads each image with Apple Vision via `auge`). After adding or removing files in `assets/img/gallery/`, run `ruby script/build-gallery-data.rb` — it re-scans incrementally (only new images hit `auge`), rewrites the YAML, and pings IndexNow. Run `ruby script/build-gallery-data.rb tag` to attribute performer photos to a comedian: it previews each untagged shot and prompts for a slug (validated against `_comedians/`). The slug lives in `_data/gallery.yml` and surfaces that photo on the comedian's profile (`_layouts/comedian.liquid`) — never write it into the Grist-generated `_comedians/*.md`.
-- **Do not hand-set `next_event_date` as if it sticks.** `script/refresh-next-event-dates.rb` writes it from Eventfrog every day. Eventfrog is the truth for show dates.
-- **Show → comedian links run off `hosts:` front matter, not lineups.** Each show post carries `hosts: [<comedian-slug>…]` (+ optional `hosts_label:`) naming the regular host(s)/resident cast — stable, hand-maintained, NOT the per-night lineup. It drives the host card grid on the show page, the "Catch X at" chips on the comedian profile, and the Event JSON-LD `performer[]` Persons. An unknown slug renders nothing (no broken link). Comedian profiles also emit `ProfilePage`/`Person` JSON-LD with `sameAs` socials (`_includes/jsonld-comedian.html`). See `COMEDIAN_SEO.md` for the full picture + the IndexNow ping in `sync-comedians.rb`.
-- **Sources of truth are derived from files.** A show is any `_posts` file with a `ticket_url`; a comedian is any file under `_comedians/`. The home page, calendar, sitemap, and health check all build themselves from this, so you rarely hardcode lists.
-- **Every collection document silently has a `date`, and jekyll-seo-tag turns that into `BlogPosting`.** Any page seo-tag types `BlogPosting` also gets a stub `"mainEntityOfPage": {"@type":"WebPage","@id": <page url>}`. Google merges JSON-LD nodes by `@id`, so that stub will swallow any hand-written node of ours that uses the bare page URL as its `@id` — which is exactly how `/comedians/` lost its root `ProfilePage` and earned "Invalid object type for field '<parent_node>'" in Search Console. `_config.yml` sets `seo.type: WebPage` for the comedians collection to suppress it; `script/check-site.rb` asserts both halves. **If you add a new collection that emits its own JSON-LD, set `seo.type` for it too.** To verify structured data before deploy, POST the built HTML to `https://validator.schema.org/validate` with the `html` form param (not `code` — that one only fetches URLs) and check that your type appears as its own root `tripleGroup`. Full write-up in `COMEDIAN_SEO.md`.
-- **Case matters on the live build.** macOS hides case, but Linux (CI and the live build) does not. An image path must match the file's case exactly, or it works on your Mac and 404s once live. html-proofer in the health check catches this.
-- **Markdown inside an `.html` include still gets processed,** because the page that pulls it in is a `.md` file and kramdown runs on the whole thing. So you can inline an include's body into a post and the output stays the same.
-- **Scripts in `script/` run under cron, which defaults to US-ASCII.** cron starts Ruby with `Encoding.default_external = US-ASCII` (no `LANG`/`LC_ALL`), so any `File.read`/`File.foreach` of a repo file that contains non-ASCII bytes — and most do: `Zürich`, `Español`, `—`, `•`, emoji in `_posts/`, `pages/1_calendar.md`, `_data/*.yml` — raises `Encoding::CompatibilityError` (or mangles the text) the moment you regex-match or YAML-parse it. Force UTF-8: put `Encoding.default_external = Encoding::UTF_8` near the top of the script (one line, covers every read), and/or pass `encoding: "UTF-8"` to each read. `script/sync-comedians.rb` is the reference. This bites silently — it works in your UTF-8 terminal and only fails at 3am under cron.
-- **When a `script/` job shells out to another ruby, spawn it with `RbConfig.ruby`, never a bare `"ruby"`.** cron's PATH is minimal (`/usr/bin:/bin`), so a bare `Open3.capture2e("ruby", …)` resolves to `/usr/bin/ruby` = macOS system **2.6**, even though crontab launches the parent with the rbenv 3.2.4 absolute path. 2.6 can't parse our 3.0+ syntax (endless `def foo = expr` in `refresh-calendar-data.rb`, `validate-calendar.rb`) and the child dies with `syntax error, unexpected '='`. Fix: `require "rbconfig"`, `RUBY = RbConfig.ruby`, then `[RUBY, EXTRACTOR]` — the child inherits the parent's exact interpreter. Also silent: passes in your terminal (PATH has the rbenv shim), only fails under cron.
+- **Push to `master` goes live** within about a minute. Netlify serves the site (DNS points at Netlify; its build settings live in the Netlify UI, there is no `netlify.toml`). GitHub Pages still builds every push but nothing resolves to it. For anything that could break the build, work on a branch, open a pull request, check the Netlify draft, then merge.
+- **Ask before** committing or pushing, deleting files, editing `.env` or any credential file, changing the crontab, or touching the Google listing outside the script.
+- **Never commit:** `.env`, `ga-reports-sa.json`, `ga-mcp-oauth-client.json`, `client_secret_*.json`, `gbp-token.json` (acts as the listing owner), `gbp/gbp-state.json`, `script/*.log`, and any campaigns `.xlsx` (people's data). All but the spreadsheet are gitignored. **Stage files by name**, never `git add -A` or `git add .`.
+- `GRIST_API_KEY` lives only in `.env` (gitignored, loaded by the scripts); never write it anywhere tracked.
+- The repo is public, so `gbp/*.txt`, `_data/reports/`, `assets/reports/` and `script/calendar-copy.json` are visible to anyone. Click counts only, nothing personal.
 
-## Google Business Profile (GBP) event posts
+## Sources of truth: derived, never hand-maintained
 
-`script/post-events-to-google.rb` (cron, daily) syncs one EVENT post per upcoming ROBIN's show to the Google Maps listing. Full API/OAuth background: `gbp/google-business-profile-api-setup.md`. `script/probe-gbp-v4.rb` is a read-only "is the API working?" check. Things that will bite you:
+| Thing | Truth | Regenerated by |
+|---|---|---|
+| Shows | any `_posts/*.md` with a `ticket_url` | `add-event.rb` creates one; the home page, calendar, sitemap, catalogs and health check derive from it |
+| `next_event_date`, venue, price on a post | Eventfrog | `refresh-next-event-dates.rb` daily. Never hand-set them expecting it to stick |
+| `_data/calendar.yml`, `calendar_past.yml`, `venues.yml` | Eventfrog | `refresh-calendar-data.rb`, spawned by the daily job |
+| `pages/1_calendar.md` | `calendar.yml` + copy pools in `script/calendar-copy.json` | `refresh-calendar-page.rb`; the markup is a contract, see `CALENDAR_STRUCTURE.md` |
+| `_comedians/*.md` | Grist | `sync-comedians.rb`. Never hand-edit; change Grist, run the sync |
+| `_data/gallery.yml` | `assets/img/gallery/` + Apple Vision | `build-gallery-data.rb` (macOS only). `tag` mode attributes a photo to a comedian; the slug lives in `gallery.yml`, never in `_comedians/` |
+| `_data/reports/`, `assets/reports/`, `pages/reports/` | Google Analytics | `ga-report.ts`. Edit `script/lib/ga-report-lib.ts` or `_layouts/report.liquid` instead |
+| Google Business Profile event posts | `gbp/<slug>.txt` + the posts | `post-events-to-google.rb` |
+| Show to comedian links | `hosts:` (+ `hosts_label:`) on the post: regular hosts, not the per-night lineup | hand. Drives host cards, "Catch X at" chips and Event JSON-LD performers; unknown slugs render nothing |
 
-- **The listing is a stack, not a set.** Google displays event posts newest-POSTED first (confirmed by observation 2026-07-05), so the script posts the furthest-future show first and the next show last, putting the soonest on top. It no-ops when the listing is already correct and otherwise rebuilds the whole stack (create-first, then retire old posts). Do not "optimize" it back to patching posts in place — a single out-of-order write scrambles the user-facing order.
-- **Google rejects posts with NO reason given.** The v4 API returns only `state: REJECTED` ("content policy violation"). Observed triggers, most likely first: a street address in the body (documented auto-reject — say "in the Niederdorf" instead), surnames ("Fücks" reads as profanity to the classifier — first names only), trademarked events ("World Cup" — say "the football"). Rejection lands within minutes of posting.
-- **Rejected posts are quarantined, deliberately.** The script alerts once via Healthchecks, then never re-submits that content until its `gbp/<slug>.txt` changes (repeat violations risk profile-level restrictions on the whole listing). To re-submit: edit the txt, the next run does the rest. Never bypass the quarantine.
-- **Descriptions live in `gbp/<slug>.txt`** (optional first line `TITLE: ...`), hand-editable any time; the next run re-publishes. Hard limits: summary ≤1500 chars, title ≤58. New ROBIN's shows get a description auto-drafted by the `claude` CLI — the prompt embeds the moderation rules above plus a date rule: **no relative day words** ("tonight", "this Saturday" — the text is read on arbitrary days), weekday names only for genuine recurring patterns ("every Thursday"). Keep hand edits to the same rules.
-- **Deletion safety boundary:** the script only ever deletes posts that are topicType EVENT **and** CTA-link to inyourfacecomedy.ch **and** match a managed show slug. Hand-made offers/announcements on the profile are never touched. The BOOK CTA is the `/go/?show=<slug>&utm_…` campaign redirector (see `CAMPAIGN_LINKS.md`); `our_post_slug` reads the slug from that `show` param and still accepts the older `/<slug>/` show-page shape, so posts from before the switch are superseded, not orphaned. If the CTA shape ever changes again, teach `our_post_slug` the new form BEFORE running the script, and confirm with `--dry-run` that "live managed posts" still counts every existing post.
-- **`--dry-run` is read-only end to end** (lists the real posts, prints intended actions, blocks all writes including Healthchecks pings). Run it before trusting any change to this script. `gbp/gbp-state.json` is runtime state (gitignored), not source — never hand-edit it.
+## Cron (Harry's Mac, rbenv 3.2.4 by absolute path, logs in `script/*.log`)
 
-## Show traffic reports
+| When | Job | Log |
+|---|---|---|
+| 09:00 daily | `refresh-next-event-dates.rb`: calendar data, next dates into posts, homepage lastmod, commit, push, IndexNow | `refresh.log` |
+| 09:30 daily | `post-events-to-google.rb`: GBP event posts for ROBIN's shows in the next 7 days | `gbp.log` |
+| 10:05 daily | `sync-comedians.rb`: Grist to `_comedians/`, commit, push, IndexNow | `sync-comedians.log` |
+| 10:20 daily | `bun script/ga-report.ts`: GA to `/reports/`, commit, push | `ga-report.log` |
+| 11:00 Sat, Sun | `refresh-calendar-page.rb --no-refresh`: regenerate `/calendar/`, commit, push | `refresh.log` |
 
-`script/ga-report.ts` (bun, daily cron) writes `_data/reports/*.json`, `assets/reports/*.csv` and `pages/reports/*.md` from Google Analytics, then commits and pushes exactly those paths. All three are generated: never hand-edit them, change `script/lib/ga-report-lib.ts` or `_layouts/report.liquid` instead and re-run. `/reports/` is unlisted (noindex, no sitemap, robots disallow, no nav link); `check-site.rb` asserts that, along with `/go/` and `/linkbuilder/`. `--dry-run` is read-only. Full picture in `CAMPAIGN_LINKS.md`, "Show reports".
+Each job commits and pushes itself and pings Healthchecks.io: the four Ruby jobs share `HEALTHCHECKS_URL`, the reports job has `GA_REPORTS_HEALTHCHECKS_URL` (both in `.env`). A missed run of one Ruby job is masked by the next job's success ping. `refresh-calendar-page.rb --init` and the GBP draft for a brand-new ROBIN's show call the `claude` CLI; never run those from inside a Claude Code session. `script/README.md` documents each script.
 
-## Never commit
+Rules for anything in `script/`:
 
-- `.env` (holds the Healthchecks ping URL)
-- `ga-reports-sa.json` (Google Analytics service-account key for the reports job)
-- `ga-mcp-oauth-client.json` (Google credentials)
-- `client_secret_*.json` and `gbp-token.json` (GBP OAuth client + refresh token — the token acts as the listing owner)
-- the `GRIST_API_KEY` (give it at run time, never write it in a file)
-- the campaigns `.xlsx` at the repo root (it holds people's data, PII)
+- `Encoding.default_external = Encoding::UTF_8` at the top. cron runs Ruby as US-ASCII and the repo is full of Zürich, Español and emoji; it works in your terminal and fails at 09:00.
+- Spawn child Ruby with `RbConfig.ruby`, never a bare `"ruby"`: cron's PATH resolves that to macOS Ruby 2.6, which cannot parse the endless `def` syntax.
+- One runnable file per script, stdlib only, helpers copied with a comment naming the source. No shared lib.
+- Scripts stage their own paths by name and never push from `--dry-run`. `add-event.rb` never touches git or `_comedians/`; only `sync-comedians.rb` writes `_comedians/`.
+- The jobs assume `master` is checked out and the tree is clean. Never leave the repo on a branch or with uncommitted edits under `_posts/`, `_data/` or `_comedians/` when a session ends: the 09:00 job stages `_posts` wholesale (`git add -A _posts`), so a half-edited post gets committed and deployed, and a job on a branch pushes nothing while still reporting success.
+- A new ROBIN's show gets its `gbp/<slug>.txt` drafted by the GBP job, which does not commit. Commit that file yourself once you have read it.
 
-All but the spreadsheet are already in `.gitignore`. Stage files by name when you commit, so the spreadsheet never slips in.
+## Backoffice surfaces
 
-## Two browser tools
+All unlisted: `noindex`, `sitemap: false`, `hide: true`, `robots.txt` disallow, no nav link. `check-site.rb` asserts it. Everything runs in the browser with state in the URL; nothing is server-side.
 
-Both keep their whole state in the link and run in the browser, no server. The `/comedians/` show-promo links and the `/lineup/` Lineup Maker share one query-string scheme (see `SHOW_PROMO_LINKS.md`; the scripts are `assets/js/comedian-lineup.js` and `assets/js/lineup-maker-2000.js`). Both are
-covered by `bun test` (happy-dom, in `assets/js/__tests__/`) — run `bun test` after touching them;
-the suite pins the anti-spam/security invariants and the URL-scheme reshape behavior. `/lineup/` is held out of search and the nav on purpose (`noindex`, `sitemap: false`).
+| URL | What | Owner doc |
+|---|---|---|
+| `/go/?show=<slug>[&date=YYYY-MM-DD]&utm_*` | The click tracker. GA records the tagged visit, then redirects to the show's Eventfrog page. Destinations resolve only against the build-time catalogs in `_includes/go-catalogs.liquid`; unknown slugs land on `/404.html?from=go&show=…` so broken links show up in GA | `CAMPAIGN_LINKS.md` |
+| `/linkbuilder/` | Phone-first UTM link builder for `/go/` and site pages. Google Ads is deliberately not a source (destination-mismatch policy) | `CAMPAIGN_LINKS.md` |
+| `/reports/` | Daily per-show ticket-click reports; `ticket_click` (on-site buttons, `assets/js/ticket-click.js`) plus `ticket_redirect` (via `/go/`) | `CAMPAIGN_LINKS.md`, "Show reports" |
+| `/lineup/` | Lineup Maker 2000, builds and shares a show bill | `SHOW_PROMO_LINKS.md` |
+| `/comedians/?show=…&host=…&lineup=…` | Show promo, lineup recap and thank-you links | `SHOW_PROMO_LINKS.md` |
+| `/admin/` | Decap CMS over git-gateway, edits `_posts` with `editable: "true"` | `admin/config.yml` |
+
+The invariant shared by `go-redirect.js`, `link-builder.js`, `comedian-lineup.js` and `lineup-maker-2000.js`: a query string can name a slug, never a destination. The bun tests pin it; keep them green.
+
+## Google Business Profile
+
+- The listing is a stack: newest-posted shows first, so the script rebuilds the whole stack (create first, then retire). Do not "optimize" it back to patching posts in place.
+- Google rejects with no reason. Known triggers: a street address, surnames, trademarked events. Descriptions in `gbp/<slug>.txt`: first names only, name the neighbourhood not the address, no relative day words ("tonight", "this Saturday"), summary at most 1500 characters, title at most 58.
+- Rejected posts are quarantined on purpose. To resubmit, edit the txt; the next run does the rest. Never bypass the quarantine.
+- The script only deletes posts that are EVENT type, CTA-link to our domain and match a managed slug. If the CTA shape changes, teach `our_post_slug` first and confirm with `--dry-run`.
+- Never hand-edit `gbp/gbp-state.json`. Full API and OAuth background: `gbp/google-business-profile-api-setup.md`. `probe-gbp-v4.rb` is the read-only "is the API alive" check.
+
+## Things that bite
+
+- Case matters on the live Linux build; a wrongly-cased image path works on the Mac and 404s live. html-proofer catches it.
+- Every collection document gets a `date`, and jekyll-seo-tag then emits a `BlogPosting` with a `mainEntityOfPage` whose `@id` swallows any JSON-LD node of ours with the same `@id`. Any new collection that emits its own JSON-LD needs a `seo.type` default in `_config.yml`. Full story and the validator recipe in `COMEDIAN_SEO.md`.
+- Markdown inside an `.html` include is still processed when the including page is `.md`.
+- The IndexNow key file `4b04fa2d03884c6794d4ece40fb41a29.txt` at the root must stay; four scripts ping with that key.
+- Show dates on Eventfrog come from server-rendered individual event pages; the group page is a client-rendered SPA. If the scrapers break, that is where to look.
 
 ## Writing
 
-Visitor-facing copy (page text, intros, alt text, microcopy, anything a human reads on the site) follows the house style guide vendored at `WRITING_GUIDE.md`. Read it before writing copy a visitor will see. It catches the usual AI tells: filler words, significance inflation, Title Case headings, generic praise over specifics. The rule that slips through most is em dashes. Use a comma, colon, or parenthesis instead.
+Visitor-facing copy follows `WRITING_GUIDE.md`: specifics over praise, no Title Case headings, no filler. No em dashes anywhere, including docs and commit messages; use a comma, colon or parenthesis. Email campaigns: `EMAILS.md`.
+
+## Docs map
+
+| Doc | Owns |
+|---|---|
+| `README.md` | Overview, build, how it goes live |
+| `script/README.md` | Each script, cron install, Healthchecks setup |
+| `CAMPAIGN_LINKS.md` | `/go/`, `/linkbuilder/`, `/reports/`, GA events and dimensions |
+| `SHOW_PROMO_LINKS.md` | `/comedians/` promo links and Lineup Maker 2000 |
+| `CALENDAR_STRUCTURE.md` | The `/calendar/` markup contract and `validate-calendar.rb` |
+| `COMEDIAN_SEO.md` | Comedian JSON-LD, `hosts:` mapping, IndexNow, search consoles |
+| `gbp/google-business-profile-api-setup.md` | GBP API, OAuth, moderation history |
+| `EMAILS.md` | Mailchimp playbook |
+| `GOOGLE_PREFERRED_SOURCE.md` | The preferred-source deeplink on `/follow/` and the footer |
+| `WRITING_GUIDE.md` | House style |
