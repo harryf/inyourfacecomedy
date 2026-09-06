@@ -282,6 +282,29 @@ access management), where `ga-report.ts` only needs Viewer.
 
 Neither script touches git.
 
+## `email-monthly.ts`, `email-thankyou.ts`, `email-promo.ts`
+
+The three Mailchimp emails, one script each (playbook, flags and the builder story: `EMAILS.md`).
+Each reads the site's own data, asks Claude for the words via the editable prompt in
+`script/email-prompts/<type>.md`, renders table-based HTML plus plain text, checks it, creates a
+draft campaign from harry@inyourfacecomedy.ch, reads it back and opens it in the browser. They never
+send; Mailchimp's own confirm screen is the send gate.
+
+```
+bun script/email-monthly.ts [--month 2026-10 | --weeks 5] [--no-hero | --hero-title "…" | --no-hero-text]
+bun script/email-thankyou.ts "<thank-you link from Lineup Maker 2000>" [--segment "<tag>"]
+bun script/email-promo.ts --show <slug[,slug]> (--csv <file> | --segment <name> | --all) --brief "..." [--lang it]
+   ... all: --dry-run | --copy <file> --update <web id> | --no-ai | --no-open | --yes
+```
+
+- `MC_API_KEY` comes from `.env` (or, as a fallback, the old exporter's `.env`); never tracked.
+- Output lands in `script/email-out/` (gitignored): `.html`, `.txt`, `.copy.json`, `.preview.html` and an image cache.
+- Shared code: `script/lib/email/` (renderer, Mailchimp client, copy, site data, images, campaign flow). Tests: `script/__tests__/email-lib.test.ts`.
+- `claude` cannot be called from inside a Claude Code session; use `--copy` or `--no-ai` there.
+- The monthly hero title is rendered onto the photo by a local headless Brave or Chrome (`sips` cannot draw text).
+- The draft opens in Brave when installed (`EMAIL_BROWSER` overrides).
+- No cron: these run by hand when there is something to say.
+
 ### Future: GitHub Action
 
 When this matures, move from the laptop's cron to a scheduled workflow:

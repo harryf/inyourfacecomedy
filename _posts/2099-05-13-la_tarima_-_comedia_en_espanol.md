@@ -13,6 +13,7 @@ hosts:
   - "andrea-ramirez"
 ticket_url: https://eventfrog.ch/en/p/groups/la-tarima-open-mic-7487916867123691072.html
 event_type: monthly
+language: es
 event_city_filter: Zürich
 venue_slug: goldfisch-club
 next_event_date: 2026-10-01T19:30:00+02:00

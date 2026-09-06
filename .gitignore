@@ -55,3 +55,6 @@ gbp/gbp-state.json
 
 # Google Analytics service-account key for script/ga-report.ts — never commit
 ga-reports-sa.json
+
+# Email scripts: rendered drafts, copy JSON, image cache (never commit)
+script/email-out/

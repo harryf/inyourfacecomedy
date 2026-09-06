@@ -16,6 +16,7 @@ hosts:
   - "miguel"
   - "coopernik"
 event_type: one-off
+language: it
 venue: "ROBIN's"
 venue_slug: robins
 default_duration_minutes: 150

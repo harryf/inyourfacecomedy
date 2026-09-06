@@ -17,7 +17,7 @@ Run the build and the health check after every change and before saying you are 
 
 - **Push to `master` goes live** within about a minute. Netlify serves the site (DNS points at Netlify; its build settings live in the Netlify UI, there is no `netlify.toml`). GitHub Pages still builds every push but nothing resolves to it. For anything that could break the build, work on a branch, open a pull request, check the Netlify draft, then merge.
 - **Ask before** committing or pushing, deleting files, editing `.env` or any credential file, changing the crontab, or touching the Google listing outside the script.
-- **Never commit:** `.env`, `ga-reports-sa.json`, `ga-mcp-oauth-client.json`, `client_secret_*.json`, `gbp-token.json` (acts as the listing owner), `gbp/gbp-state.json`, `script/*.log`, and any campaigns `.xlsx` (people's data). All but the spreadsheet are gitignored. **Stage files by name**, never `git add -A` or `git add .`.
+- **Never commit:** `.env`, `ga-reports-sa.json`, `ga-mcp-oauth-client.json`, `client_secret_*.json`, `gbp-token.json` (acts as the listing owner), `gbp/gbp-state.json`, `script/*.log`, `script/email-out/` (rendered drafts and image cache), any promo CSV of email addresses, and any campaigns `.xlsx` (people's data). All but the spreadsheet and the CSVs are gitignored. **Stage files by name**, never `git add -A` or `git add .`.
 - `GRIST_API_KEY` lives only in `.env` (gitignored, loaded by the scripts); never write it anywhere tracked.
 - The repo is public, so `gbp/*.txt`, `_data/reports/`, `assets/reports/` and `script/calendar-copy.json` are visible to anyone. Click counts only, nothing personal.
 
@@ -34,6 +34,7 @@ Run the build and the health check after every change and before saying you are 
 | `_data/reports/`, `assets/reports/`, `pages/reports/` | Google Analytics | `ga-report.ts`. Edit `script/lib/ga-report-lib.ts` or `_layouts/report.liquid` instead |
 | Google Business Profile event posts | `gbp/<slug>.txt` + the posts | `post-events-to-google.rb` |
 | Show to comedian links | `hosts:` (+ `hosts_label:`) on the post: regular hosts, not the per-night lineup | hand. Drives host cards, "Catch X at" chips and Event JSON-LD performers; unknown slugs render nothing |
+| Show language | `language: it` / `es` on the post (absent = English) | hand. The monthly email lists non-English shows only when they are at ROBIN's (`EMAILS.md`) |
 
 ## Cron (Harry's Mac, rbenv 3.2.4 by absolute path, logs in `script/*.log`)
 
@@ -66,6 +67,7 @@ All unlisted: `noindex`, `sitemap: false`, `hide: true`, `robots.txt` disallow, 
 | `/linkbuilder/` | Phone-first UTM link builder for `/go/` and site pages. Google Ads is deliberately not a source (destination-mismatch policy) | `CAMPAIGN_LINKS.md` |
 | `/reports/` | Daily per-show ticket-click reports; `ticket_click` (on-site buttons, `assets/js/ticket-click.js`) plus `ticket_redirect` (via `/go/`) | `CAMPAIGN_LINKS.md`, "Show reports" |
 | Google Analytics (property 336856557) | Every page sets `content_group` plus, on show pages, `show`, `venue`, `show_date`, `days_to_show`, `price_chf` via `_includes/ga-page-context.liquid`; ticket events carry the same. Property config is code: `script/ga-setup.ts`; show-date annotations: `script/ga-annotations.ts`. GA is off on any host but `inyourfacecomedy.ch` | `ANALYTICS.md` |
+| Mailchimp emails | `script/email-monthly.ts`, `email-thankyou.ts`, `email-promo.ts` build the HTML (`script/lib/email/`), create a code-your-own draft from harry@inyourfacecomedy.ch and open it; never click Edit design on those drafts; `MC_API_KEY` stays in `.env`; `script/email-out/` is gitignored | `EMAILS.md` |
 | `/lineup/` | Lineup Maker 2000, builds and shares a show bill | `SHOW_PROMO_LINKS.md` |
 | `/comedians/?show=…&host=…&lineup=…` | Show promo, lineup recap and thank-you links | `SHOW_PROMO_LINKS.md` |
 | `/admin/` | Decap CMS over git-gateway, edits `_posts` with `editable: "true"` | `admin/config.yml` |
@@ -104,6 +106,6 @@ Visitor-facing copy follows `WRITING_GUIDE.md`: specifics over praise, no Title 
 | `CALENDAR_STRUCTURE.md` | The `/calendar/` markup contract and `validate-calendar.rb` |
 | `COMEDIAN_SEO.md` | Comedian JSON-LD, `hosts:` mapping, IndexNow, search consoles |
 | `gbp/google-business-profile-api-setup.md` | GBP API, OAuth, moderation history |
-| `EMAILS.md` | Mailchimp playbook |
+| `EMAILS.md` | Mailchimp playbook: the three email scripts, the builder limitation, the review-and-send flow |
 | `GOOGLE_PREFERRED_SOURCE.md` | The preferred-source deeplink on `/follow/` and the footer |
 | `WRITING_GUIDE.md` | House style |
