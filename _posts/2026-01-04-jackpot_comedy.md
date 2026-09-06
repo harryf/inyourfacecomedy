@@ -13,6 +13,7 @@ permalink: /jackpotcomedy/
 hosts:
   - "jack-roberts"
 ticket_url: https://eventfrog.ch/en/p/groups/jackpot-comedy-7413646370706339342.html
+ticket_url_resolved: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7413646370706339342.html
 event_type: series
 venue_slug: otro
 recurrence_day: Wednesday
