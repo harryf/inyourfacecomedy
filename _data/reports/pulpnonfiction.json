@@ -3,34 +3,26 @@
  "title": "Pulp Non-Fiction",
  "ticket_url": "https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html",
  "event_type": "monthly",
- "generated_at": "2026-09-05T08:20:02.019Z",
+ "generated_at": "2026-09-06T08:20:02.359Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-07",
- "through": "2026-09-05",
- "complete_through": "2026-09-03",
+ "pages_since": "2026-08-08",
+ "through": "2026-09-06",
+ "complete_through": "2026-09-04",
  "totals": {
-  "clicks": 6,
-  "redirect": 2,
-  "click": 4,
-  "clicks_30d": 6,
-  "redirect_30d": 2,
-  "click_30d": 4,
-  "views": 19,
-  "views_30d": 19,
-  "sessions": 20,
-  "sessions_30d": 20,
+  "clicks": 14,
+  "redirect": 6,
+  "click": 8,
+  "clicks_30d": 14,
+  "redirect_30d": 6,
+  "click_30d": 8,
+  "views": 23,
+  "views_30d": 23,
+  "sessions": 27,
+  "sessions_30d": 27,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-07",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-08",
    "redirect": 0,
@@ -252,11 +244,19 @@
    "redirect": 0,
    "click": 1,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-05",
+   "redirect": 4,
+   "click": 4,
+   "views": 4,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-06",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -266,6 +266,20 @@
  ],
  "by_source": [
   {
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 4,
+   "views": 0,
+   "sessions": 0
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 3,
+   "views": 9,
+   "sessions": 11
+  },
+  {
    "source": "meetup",
    "medium": "referral",
    "clicks": 3,
@@ -273,18 +287,18 @@
    "sessions": 1
   },
   {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 2,
-   "views": 6,
-   "sessions": 6
-  },
-  {
    "source": "google",
    "medium": "organic",
-   "clicks": 1,
+   "clicks": 2,
    "views": 3,
    "sessions": 3
+  },
+  {
+   "source": "test",
+   "medium": "verify",
+   "clicks": 2,
+   "views": 1,
+   "sessions": 2
   },
   {
    "source": "VA LBHE ABDF Dbzfel",
@@ -323,6 +337,15 @@
   }
  ],
  "by_campaign": [
+  {
+   "campaign": "pulpnonfiction-20260906",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 4,
+   "first": "2026-09-05",
+   "last": "2026-09-05",
+   "content": []
+  },
   {
    "campaign": "pulpnonfiction",
    "source": "meetup",

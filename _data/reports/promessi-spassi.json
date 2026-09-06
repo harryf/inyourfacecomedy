@@ -3,18 +3,18 @@
  "title": "PROMESSI SPASSI",
  "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478863182670358596.html",
  "event_type": "one-off",
- "generated_at": "2026-09-05T08:20:02.019Z",
+ "generated_at": "2026-09-06T08:20:02.359Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-07",
- "through": "2026-09-05",
- "complete_through": "2026-09-03",
+ "pages_since": "2026-08-08",
+ "through": "2026-09-06",
+ "complete_through": "2026-09-04",
  "totals": {
-  "clicks": 459,
-  "redirect": 456,
-  "click": 3,
-  "clicks_30d": 459,
-  "redirect_30d": 456,
-  "click_30d": 3,
+  "clicks": 546,
+  "redirect": 542,
+  "click": 4,
+  "clicks_30d": 546,
+  "redirect_30d": 542,
+  "click_30d": 4,
   "views": 37,
   "views_30d": 37,
   "sessions": 39,
@@ -23,14 +23,6 @@
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-07",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-08",
    "redirect": 0,
@@ -249,16 +241,24 @@
   },
   {
    "date": "2026-09-04",
-   "redirect": 88,
+   "redirect": 101,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-05",
+   "redirect": 61,
    "click": 0,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
   },
   {
-   "date": "2026-09-05",
-   "redirect": 10,
-   "click": 0,
+   "date": "2026-09-06",
+   "redirect": 22,
+   "click": 1,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
@@ -268,7 +268,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 439,
+   "clicks": 525,
    "views": 1,
    "sessions": 1
   },
@@ -301,18 +301,18 @@
    "sessions": 12
   },
   {
+   "source": "google",
+   "medium": "organic",
+   "clicks": 1,
+   "views": 10,
+   "sessions": 9
+  },
+  {
    "source": "instagram",
    "medium": "bio",
    "clicks": 1,
    "views": 0,
    "sessions": 0
-  },
-  {
-   "source": "google",
-   "medium": "organic",
-   "clicks": 0,
-   "views": 10,
-   "sessions": 9
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -362,17 +362,21 @@
    "campaign": "promessi-spassi",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 439,
+   "clicks": 525,
    "first": "2026-08-30",
-   "last": "2026-09-05",
+   "last": "2026-09-06",
    "content": [
     {
      "content": "52672614093400",
-     "clicks": 377
+     "clicks": 444
     },
     {
      "content": "52672431580800",
-     "clicks": 45
+     "clicks": 46
+    },
+    {
+     "content": "52673618076600",
+     "clicks": 15
     }
    ]
   },

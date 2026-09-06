@@ -1,7 +1,7 @@
 {
- "slug": "jokesjokesjokes",
- "title": "Jokes, Jokes, Jokes",
- "ticket_url": "https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726681983598.html",
+ "slug": "gratis-zum-mitnehmen",
+ "title": "Gratis Comedy Zum Mitnehmen",
+ "ticket_url": "https://eventfrog.ch/de/p/gruppen/gratis-zurich-7495107963884945951.html",
  "event_type": "series",
  "generated_at": "2026-09-06T08:20:02.359Z",
  "since": "2026-08-26",
@@ -9,16 +9,16 @@
  "through": "2026-09-06",
  "complete_through": "2026-09-04",
  "totals": {
-  "clicks": 13,
-  "redirect": 5,
-  "click": 8,
-  "clicks_30d": 13,
-  "redirect_30d": 5,
-  "click_30d": 8,
-  "views": 38,
-  "views_30d": 38,
-  "sessions": 33,
-  "sessions_30d": 33,
+  "clicks": 1,
+  "redirect": 0,
+  "click": 1,
+  "clicks_30d": 1,
+  "redirect_30d": 0,
+  "click_30d": 1,
+  "views": 4,
+  "views_30d": 4,
+  "sessions": 4,
+  "sessions_30d": 4,
   "broken_links": 0,
   "untagged": 0
  },
@@ -147,7 +147,7 @@
    "date": "2026-08-23",
    "redirect": 0,
    "click": 0,
-   "views": 2,
+   "views": 0,
    "provisional": false,
    "clicks_tracked": false
   },
@@ -155,7 +155,7 @@
    "date": "2026-08-24",
    "redirect": 0,
    "click": 0,
-   "views": 2,
+   "views": 0,
    "provisional": false,
    "clicks_tracked": false
   },
@@ -163,13 +163,13 @@
    "date": "2026-08-25",
    "redirect": 0,
    "click": 0,
-   "views": 10,
+   "views": 0,
    "provisional": false,
    "clicks_tracked": false
   },
   {
    "date": "2026-08-26",
-   "redirect": 1,
+   "redirect": 0,
    "click": 0,
    "views": 0,
    "provisional": false,
@@ -177,7 +177,7 @@
   },
   {
    "date": "2026-08-27",
-   "redirect": 1,
+   "redirect": 0,
    "click": 0,
    "views": 0,
    "provisional": false,
@@ -187,15 +187,15 @@
    "date": "2026-08-28",
    "redirect": 0,
    "click": 0,
-   "views": 1,
+   "views": 0,
    "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-08-29",
    "redirect": 0,
-   "click": 1,
-   "views": 2,
+   "click": 0,
+   "views": 0,
    "provisional": false,
    "clicks_tracked": true
   },
@@ -209,17 +209,17 @@
   },
   {
    "date": "2026-08-31",
-   "redirect": 1,
-   "click": 2,
-   "views": 3,
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
    "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-01",
-   "redirect": 2,
-   "click": 5,
-   "views": 13,
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
    "provisional": false,
    "clicks_tracked": true
   },
@@ -243,15 +243,15 @@
    "date": "2026-09-04",
    "redirect": 0,
    "click": 0,
-   "views": 2,
+   "views": 0,
    "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-05",
    "redirect": 0,
-   "click": 0,
-   "views": 3,
+   "click": 1,
+   "views": 4,
    "provisional": true,
    "clicks_tracked": true
   },
@@ -266,34 +266,6 @@
  ],
  "by_source": [
   {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 3,
-   "views": 13,
-   "sessions": 11
-  },
-  {
-   "source": "guidle",
-   "medium": "referral",
-   "clicks": 3,
-   "views": 6,
-   "sessions": 5
-  },
-  {
-   "source": "instagram",
-   "medium": "social",
-   "clicks": 3,
-   "views": 2,
-   "sessions": 2
-  },
-  {
-   "source": "chatgpt.com",
-   "medium": "ai-assistant",
-   "clicks": 2,
-   "views": 2,
-   "sessions": 1
-  },
-  {
    "source": "test",
    "medium": "verify",
    "clicks": 1,
@@ -301,58 +273,20 @@
    "sessions": 2
   },
   {
-   "source": "meetup",
-   "medium": "referral",
-   "clicks": 1,
-   "views": 0,
-   "sessions": 0
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
   },
   {
-   "source": "VA LBHE ABDF Dbzfel",
-   "medium": "email",
+   "source": "debug",
+   "medium": "(none)",
    "clicks": 0,
-   "views": 6,
-   "sessions": 5
-  },
-  {
-   "source": "google",
-   "medium": "organic",
-   "clicks": 0,
-   "views": 4,
-   "sessions": 4
-  },
-  {
-   "source": "myswitzerland.com",
-   "medium": "referral",
-   "clicks": 0,
-   "views": 3,
-   "sessions": 3
+   "views": 1,
+   "sessions": 1
   }
  ],
- "by_campaign": [
-  {
-   "campaign": "jokesjokesjokes-20260901",
-   "source": "instagram",
-   "medium": "social",
-   "clicks": 2,
-   "first": "2026-09-01",
-   "last": "2026-09-01",
-   "content": [
-    {
-     "content": "inyourface-story",
-     "clicks": 2
-    }
-   ]
-  },
-  {
-   "campaign": "jokesjokesjokes",
-   "source": "meetup",
-   "medium": "referral",
-   "clicks": 1,
-   "first": "2026-08-31",
-   "last": "2026-08-31",
-   "content": []
-  }
- ],
- "csv": "/assets/reports/jokesjokesjokes.csv"
+ "by_campaign": [],
+ "csv": "/assets/reports/gratis-zum-mitnehmen.csv"
 }

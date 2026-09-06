@@ -3,11 +3,11 @@
  "title": "Filippo Spreafico",
  "ticket_url": "https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/filippo-spreafico-italian-rhapsody-comedy-in-english-7487867600443024331.html",
  "event_type": "one-off",
- "generated_at": "2026-09-05T08:20:02.019Z",
+ "generated_at": "2026-09-06T08:20:02.359Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-07",
- "through": "2026-09-05",
- "complete_through": "2026-09-03",
+ "pages_since": "2026-08-08",
+ "through": "2026-09-06",
+ "complete_through": "2026-09-04",
  "totals": {
   "clicks": 2,
   "redirect": 0,
@@ -15,22 +15,14 @@
   "clicks_30d": 2,
   "redirect_30d": 0,
   "click_30d": 2,
-  "views": 24,
-  "views_30d": 24,
-  "sessions": 22,
-  "sessions_30d": 22,
+  "views": 26,
+  "views_30d": 26,
+  "sessions": 24,
+  "sessions_30d": 24,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-07",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-08",
    "redirect": 0,
@@ -252,7 +244,7 @@
    "redirect": 0,
    "click": 1,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
@@ -262,6 +254,14 @@
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-06",
+   "redirect": 0,
+   "click": 0,
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
   }
  ],
  "by_source": [
@@ -269,8 +269,8 @@
    "source": "google",
    "medium": "organic",
    "clicks": 2,
-   "views": 9,
-   "sessions": 7
+   "views": 11,
+   "sessions": 8
   },
   {
    "source": "l.instagram.com",
@@ -292,6 +292,13 @@
    "clicks": 0,
    "views": 2,
    "sessions": 2
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 0,
+   "views": 0,
+   "sessions": 1
   },
   {
    "source": "instagram",
