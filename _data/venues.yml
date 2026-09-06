@@ -78,3 +78,11 @@ goldfisch-club:
   city: "Zürich"
   country: "CH"
   # website + google_maps_url: add by hand (not in EventFrog data)
+
+yaman-caf-bar:
+  name: "YAMAN Café-Bar"
+  street: "Schmidgasse 4"
+  postal_code: "8001"
+  city: "Zürich"
+  country: "CH"
+  # website + google_maps_url: add by hand (not in EventFrog data)

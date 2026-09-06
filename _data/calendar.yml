@@ -5,23 +5,9 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-09-05T09:25:31+00:00'
-event_count: 45
+generated_at: '2026-09-06T21:47:09+00:00'
+event_count: 51
 events:
-- show: pulpnonfiction
-  name: Pulp Non-Fiction
-  title: Pulp Non-Fiction - Storytelling Open Mic Zürich
-  url: "/pulpnonfiction/"
-  date: '2026-09-06'
-  start: '2026-09-06T19:00:00+02:00'
-  end: '2026-09-06T21:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 0
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-7480252862582278747.html
-  eventfrog_name: Pulp Non-Fiction Storytelling Open Mic Zurich
 - show: jackpotcomedy
   name: Jackpot Comedy
   title: Jackpot Comedy - downstairs @ OTRO
@@ -51,6 +37,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466829949606850703.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-09-10'
+  start: '2026-09-10T20:00:00+02:00'
+  end: '2026-09-10T22:00:00+02:00'
+  venue: yaman-caf-bar
+  venue_name: YAMAN Café-Bar
+  location: YAMAN Café-Bar
+  price_chf: 13
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7502459209105051979.html
+  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
@@ -65,20 +65,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726707149428.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
-- show: jackpotcomedy
-  name: Jackpot Comedy
-  title: Jackpot Comedy - downstairs @ OTRO
-  url: "/jackpotcomedy/"
-  date: '2026-09-16'
-  start: '2026-09-16T20:00:00+02:00'
-  end: '2026-09-16T22:00:00+02:00'
-  venue: otro
-  venue_name: Bar OTRO
-  location: OTRO - Cocktailbar Zürich
-  price_chf: 0
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7497204037504263969.html
-  eventfrog_name: Jackpot Comedy
 - show: promessi-spassi
   name: PROMESSI SPASSI
   title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
@@ -93,6 +79,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478863182670358596.html
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
+- show: jackpotcomedy
+  name: Jackpot Comedy
+  title: Jackpot Comedy - downstairs @ OTRO
+  url: "/jackpotcomedy/"
+  date: '2026-09-16'
+  start: '2026-09-16T20:00:00+02:00'
+  end: '2026-09-16T22:00:00+02:00'
+  venue: otro
+  venue_name: Bar OTRO
+  location: OTRO - Cocktailbar Zürich
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7497204037504263969.html
+  eventfrog_name: Jackpot Comedy
 - show: randomfactsexchange
   name: Random Facts Exchange
   title: Random Facts Exchange - the Science Comedy Show in Zürich
@@ -164,6 +164,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831017073974511.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-09-24'
+  start: '2026-09-24T20:00:00+02:00'
+  end: '2026-09-24T22:00:00+02:00'
+  venue: yaman-caf-bar
+  venue_name: YAMAN Café-Bar
+  location: YAMAN Café-Bar
+  price_chf: 13
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7502459982580842189.html
+  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: gratis-zum-mitnehmen
   name: Gratis Comedy Zum Mitnehmen
   title: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
@@ -192,20 +206,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726778453111.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-10-01'
-  start: '2026-10-01T19:30:00+02:00'
-  end: '2026-10-01T21:30:00+02:00'
-  venue: goldfisch-club
-  venue_name: Goldfisch Club
-  location: Goldfisch Club
-  price_chf: 13
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472019868339987344.html
-  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -221,6 +221,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831189212415058.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-10-01'
+  start: '2026-10-01T20:00:00+02:00'
+  end: '2026-10-01T22:00:00+02:00'
+  venue: yaman-caf-bar
+  venue_name: YAMAN Café-Bar
+  location: YAMAN Café-Bar
+  price_chf: 13
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472019868339987344.html
+  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: double-shot
   name: Double Shot
   title: Double Shot • English Comedy with Martina and Harry • One Night at ROBIN's
@@ -250,6 +264,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-7480253083173315976.html
   eventfrog_name: Pulp Non-Fiction Storytelling Open Mic Zurich
+- show: jackpotcomedy
+  name: Jackpot Comedy
+  title: Jackpot Comedy - downstairs @ OTRO
+  url: "/jackpotcomedy/"
+  date: '2026-10-07'
+  start: '2026-10-07T20:00:00+02:00'
+  end: '2026-10-07T22:00:00+02:00'
+  venue: otro
+  venue_name: Bar OTRO
+  location: OTRO - Cocktailbar Zürich
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7501965911726808268.html
+  eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -293,6 +321,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726832979064.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
+- show: jackpotcomedy
+  name: Jackpot Comedy
+  title: Jackpot Comedy - downstairs @ OTRO
+  url: "/jackpotcomedy/"
+  date: '2026-10-14'
+  start: '2026-10-14T20:00:00+02:00'
+  end: '2026-10-14T22:00:00+02:00'
+  venue: otro
+  venue_name: Bar OTRO
+  location: OTRO - Cocktailbar Zürich
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7501966162084778324.html
+  eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -308,6 +350,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831420029175587.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-10-15'
+  start: '2026-10-15T20:00:00+02:00'
+  end: '2026-10-15T22:00:00+02:00'
+  venue: yaman-caf-bar
+  venue_name: YAMAN Café-Bar
+  location: YAMAN Café-Bar
+  price_chf: 13
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7502460776000545380.html
+  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: gratis-zum-mitnehmen
   name: Gratis Comedy Zum Mitnehmen
   title: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
@@ -322,6 +378,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/gratis-comedy-zum-mitnehmen-free-entry-stand-up-comedy-7492504634877050139.html
   eventfrog_name: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
+- show: jackpotcomedy
+  name: Jackpot Comedy
+  title: Jackpot Comedy - downstairs @ OTRO
+  url: "/jackpotcomedy/"
+  date: '2026-10-21'
+  start: '2026-10-21T20:00:00+02:00'
+  end: '2026-10-21T22:00:00+02:00'
+  venue: otro
+  venue_name: Bar OTRO
+  location: OTRO - Cocktailbar Zürich
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7501966354213278689.html
+  eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -351,20 +421,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726887505113.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-10-29'
-  start: '2026-10-29T20:30:00+02:00'
-  end: '2026-10-29T22:30:00+02:00'
-  venue: goldfisch-club
-  venue_name: Goldfisch Club
-  location: Goldfisch Club
-  price_chf: 13
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472020241897238206.html
-  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -380,6 +436,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831682483568140.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-10-29'
+  start: '2026-10-29T21:00:00+02:00'
+  end: '2026-10-29T23:00:00+02:00'
+  venue: yaman-caf-bar
+  venue_name: YAMAN Café-Bar
+  location: YAMAN Café-Bar
+  price_chf: 13
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472020241897238206.html
+  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: pulpnonfiction
   name: Pulp Non-Fiction
   title: Pulp Non-Fiction - Storytelling Open Mic Zürich
@@ -394,20 +464,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-7480253293014302537.html
   eventfrog_name: Pulp Non-Fiction Storytelling Open Mic Zurich
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-11-05'
-  start: '2026-11-05T20:30:00+02:00'
-  end: '2026-11-05T22:30:00+02:00'
-  venue: goldfisch-club
-  venue_name: Goldfisch Club
-  location: Goldfisch Club
-  price_chf: 13
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472021157165665385.html
-  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -423,6 +479,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831792680472322.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-11-05'
+  start: '2026-11-05T21:00:00+02:00'
+  end: '2026-11-05T23:00:00+02:00'
+  venue: yaman-caf-bar
+  venue_name: YAMAN Café-Bar
+  location: YAMAN Café-Bar
+  price_chf: 13
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472021157165665385.html
+  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
@@ -467,6 +537,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831998151048185.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-11-19'
+  start: '2026-11-19T21:00:00+02:00'
+  end: '2026-11-19T23:00:00+02:00'
+  venue: yaman-caf-bar
+  venue_name: YAMAN Café-Bar
+  location: YAMAN Café-Bar
+  price_chf: 13
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7502463051880252299.html
+  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: gratis-zum-mitnehmen
   name: Gratis Comedy Zum Mitnehmen
   title: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
@@ -580,20 +664,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208727042694424.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-12-10'
-  start: '2026-12-10T20:30:00+02:00'
-  end: '2026-12-10T22:30:00+02:00'
-  venue: goldfisch-club
-  venue_name: Goldfisch Club
-  location: Goldfisch Club
-  price_chf: 13
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472022011318929691.html
-  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -609,6 +679,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466832348371257785.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-12-10'
+  start: '2026-12-10T21:00:00+02:00'
+  end: '2026-12-10T23:00:00+02:00'
+  venue: yaman-caf-bar
+  venue_name: YAMAN Café-Bar
+  location: YAMAN Café-Bar
+  price_chf: 13
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472022011318929691.html
+  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
