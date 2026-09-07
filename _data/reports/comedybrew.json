@@ -3,34 +3,26 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-09-06T08:20:02.359Z",
+ "generated_at": "2026-09-07T08:20:02.172Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-08",
- "through": "2026-09-06",
- "complete_through": "2026-09-04",
+ "pages_since": "2026-08-09",
+ "through": "2026-09-07",
+ "complete_through": "2026-09-05",
  "totals": {
-  "clicks": 206,
-  "redirect": 171,
-  "click": 35,
-  "clicks_30d": 206,
-  "redirect_30d": 171,
-  "click_30d": 35,
-  "views": 219,
-  "views_30d": 219,
-  "sessions": 217,
-  "sessions_30d": 217,
+  "clicks": 210,
+  "redirect": 173,
+  "click": 37,
+  "clicks_30d": 210,
+  "redirect_30d": 173,
+  "click_30d": 37,
+  "views": 222,
+  "views_30d": 222,
+  "sessions": 219,
+  "sessions_30d": 219,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-08",
-   "redirect": 0,
-   "click": 0,
-   "views": 3,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-09",
    "redirect": 0,
@@ -252,13 +244,21 @@
    "redirect": 4,
    "click": 0,
    "views": 2,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-06",
-   "redirect": 3,
-   "click": 0,
+   "redirect": 5,
+   "click": 1,
+   "views": 6,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-07",
+   "redirect": 0,
+   "click": 1,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
@@ -268,21 +268,21 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 154,
+   "clicks": 156,
    "views": 1,
    "sessions": 1
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 19,
-   "views": 100,
-   "sessions": 97
+   "clicks": 20,
+   "views": 102,
+   "sessions": 98
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 13,
+   "clicks": 14,
    "views": 75,
    "sessions": 77
   },
@@ -364,6 +364,13 @@
    "sessions": 3
   },
   {
+   "source": "IN YOUR FACE Comedy",
+   "medium": "email",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
+  },
+  {
    "source": "old.reddit.com",
    "medium": "referral",
    "clicks": 0,
@@ -376,13 +383,13 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 152,
+   "clicks": 154,
    "first": "2026-08-26",
    "last": "2026-09-06",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 110
+     "clicks": 112
     }
    ]
   },
