@@ -3,22 +3,22 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-09-07T08:20:02.172Z",
+ "generated_at": "2026-09-07T19:10:55.453Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-09",
  "through": "2026-09-07",
  "complete_through": "2026-09-05",
  "totals": {
-  "clicks": 210,
-  "redirect": 173,
-  "click": 37,
-  "clicks_30d": 210,
-  "redirect_30d": 173,
-  "click_30d": 37,
-  "views": 222,
-  "views_30d": 222,
-  "sessions": 219,
-  "sessions_30d": 219,
+  "clicks": 220,
+  "redirect": 177,
+  "click": 43,
+  "clicks_30d": 220,
+  "redirect_30d": 177,
+  "click_30d": 43,
+  "views": 228,
+  "views_30d": 228,
+  "sessions": 226,
+  "sessions_30d": 226,
   "broken_links": 0,
   "untagged": 0
  },
@@ -249,7 +249,7 @@
   },
   {
    "date": "2026-09-06",
-   "redirect": 5,
+   "redirect": 8,
    "click": 1,
    "views": 6,
    "provisional": true,
@@ -257,9 +257,9 @@
   },
   {
    "date": "2026-09-07",
-   "redirect": 0,
-   "click": 1,
-   "views": 0,
+   "redirect": 1,
+   "click": 7,
+   "views": 6,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -268,23 +268,23 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 156,
+   "clicks": 159,
    "views": 1,
    "sessions": 1
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 20,
-   "views": 102,
-   "sessions": 98
+   "clicks": 23,
+   "views": 106,
+   "sessions": 100
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 14,
-   "views": 75,
-   "sessions": 77
+   "clicks": 17,
+   "views": 77,
+   "sessions": 82
   },
   {
    "source": "instagram",
@@ -296,7 +296,7 @@
   {
    "source": "meetup",
    "medium": "referral",
-   "clicks": 3,
+   "clicks": 4,
    "views": 3,
    "sessions": 3
   },
@@ -383,13 +383,13 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 154,
+   "clicks": 157,
    "first": "2026-08-26",
-   "last": "2026-09-06",
+   "last": "2026-09-07",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 112
+     "clicks": 113
     }
    ]
   },
@@ -400,6 +400,15 @@
    "clicks": 6,
    "first": "2026-09-02",
    "last": "2026-09-03",
+   "content": []
+  },
+  {
+   "campaign": "comedybrew",
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 2,
+   "first": "2026-08-27",
+   "last": "2026-09-06",
    "content": []
   },
   {
@@ -432,15 +441,6 @@
    "clicks": 2,
    "first": "2026-08-26",
    "last": "2026-08-26",
-   "content": []
-  },
-  {
-   "campaign": "comedybrew",
-   "source": "meetup",
-   "medium": "referral",
-   "clicks": 1,
-   "first": "2026-08-27",
-   "last": "2026-08-27",
    "content": []
   }
  ],
