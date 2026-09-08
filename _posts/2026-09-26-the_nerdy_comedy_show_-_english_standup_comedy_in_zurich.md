@@ -1,0 +1,51 @@
+---
+layout: post
+editable: "true"
+title: The NERDY COMEDY Show - English Standup Comedy in ZURICH
+description: The NERDY COMEDY Show is an English standup comedy show about video
+  games, anime, superheroes, board games and all things Nerdy
+feature-img: /assets/img/uploads/nerdy-comedy-show-wide.jpeg
+image: /assets/img/uploads/nerdy-comedy-show-wide.jpeg
+thumbnail: /assets/img/uploads/nerdy-comedy-show-insta-post.jpeg
+excerpt_separator: <!--more-->
+permalink: /nerdycomedyshow/
+hosts:
+  - "pavel-zborik"
+  - "sussmancomedy"
+ticket_url: https://eventfrog.ch/de/p/gruppen/nerdy-stand-up-comedy-en-7284304661632248367.html
+event_type: series
+default_duration_minutes: 150
+venue_slug: robins
+next_event_date: 2026-09-26T19:30:00+02:00
+next_event_end_date: 2026-09-26T22:00:00+02:00
+price_chf: 8
+last_modified_at: 2026-09-08T14:25:00+00:00
+---
+**STAND-UP FOR PEOPLE WHO'VE ARGUED ABOUT ALIGNMENT CHARTS**
+
+![The NERDY COMEDY Show](/assets/img/uploads/nerdy-comedy-show-wide.jpeg)
+
+You know exactly who you are. You've min-maxed a character build. You've had a strong opinion about power creep in a card game. You've explained the multiverse to someone who did not ask. This show is for you!
+
+NERDY COMEDY is a live stand-up night where Switzerland's best English-language comedians bring their sharpest material, then turn around and argue with the audience about the stuff that actually matters: which edition of D&D peaked, whether Magic: the Gathering is a hobby or a financial mistake, the worst anime filler arc of all time, and why your Steam backlog is a cry for help.
+
+No dice rolls required. No system mastery needed. Just bring your hottest nerd take and the willingness to defend it in front of strangers.
+
+Highlights from past shows: [instagram.com/nerdycomedy](https://instagram.com/nerdycomedy)
+LIMITED SEATING - book ahead, or take your chances at the door like a true chaotic neutral.
+
+Doors: 19:00
+Show: 20:00
+
+## Upcoming dates
+
+Four Saturdays at ROBIN's, Zähringerstrasse 33, 8001 Zürich:
+
+- Saturday, 26 September 2026
+- Saturday, 31 October 2026
+- Saturday, 28 November 2026
+- Saturday, 26 December 2026
+
+One ticket link covers all four dates, pick your night on Eventfrog.
+
+Can't afford a ticket right now? Email pavelzbo@gmail.com, we hold some back. Everyone deserves a laugh.
