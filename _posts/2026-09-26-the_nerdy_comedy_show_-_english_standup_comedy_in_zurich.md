@@ -19,7 +19,7 @@ venue_slug: robins
 next_event_date: 2026-09-26T19:30:00+02:00
 next_event_end_date: 2026-09-26T22:00:00+02:00
 price_chf: 8
-last_modified_at: 2026-09-08T14:25:00+00:00
+last_modified_at: 2026-09-08T15:05:00+00:00
 ---
 **STAND-UP FOR PEOPLE WHO'VE ARGUED ABOUT ALIGNMENT CHARTS**
 
@@ -36,16 +36,3 @@ LIMITED SEATING - book ahead, or take your chances at the door like a true chaot
 
 Doors: 19:00
 Show: 20:00
-
-## Upcoming dates
-
-Four Saturdays at ROBIN's, Zähringerstrasse 33, 8001 Zürich:
-
-- Saturday, 26 September 2026
-- Saturday, 31 October 2026
-- Saturday, 28 November 2026
-- Saturday, 26 December 2026
-
-One ticket link covers all four dates, pick your night on Eventfrog.
-
-Can't afford a ticket right now? Email pavelzbo@gmail.com, we hold some back. Everyone deserves a laugh.
