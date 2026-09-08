@@ -34,5 +34,6 @@ No dice rolls required. No system mastery needed. Just bring your hottest nerd t
 Highlights from past shows: [instagram.com/nerdycomedy](https://instagram.com/nerdycomedy)
 LIMITED SEATING - book ahead, or take your chances at the door like a true chaotic neutral.
 
-Doors: 19:00
-Show: 20:00
+- Doors: 19:30
+- Show: 20:00
+
