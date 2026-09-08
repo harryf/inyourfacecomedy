@@ -45,7 +45,7 @@ export type Block =
   | { kind: "lead"; text: string }                            // bigger opening line
   | { kind: "heading"; text: string }
   | { kind: "button"; label: string; href: string }
-  | { kind: "showCard"; emoji?: string; name: string; href: string; date: string; eyebrow: string; datesLine?: string; blurb?: string; linkLabel?: string }
+  | { kind: "showCard"; emoji?: string; name: string; href: string; date: string; eyebrow: string; datesLine?: string; blurb?: string; linkLabel?: string; img?: { src: string; alt: string; width: number; height: number } }
   | { kind: "faces"; groups: Array<{ label?: string; people: Face[] }> }
   | { kind: "signoff"; lines: string[] }
   | { kind: "note"; text: string }                            // small muted line
@@ -147,8 +147,13 @@ export function showCardHtml(b: Extract<Block, { kind: "showCard" }>): string {
     b.blurb ? p(`margin:6px 0 0;font-family:${T.bodyFont};font-size:15px;line-height:22px;color:${T.inkSoft};`, inline(b.blurb)) : "",
     p(`margin:10px 0 0;font-family:${T.bodyFont};font-size:14px;line-height:20px;`, `<a href="${esc(b.href)}" style="color:${T.red};font-weight:700;text-decoration:none;">${esc(b.linkLabel ?? "Tickets & info")} &rarr;</a>`),
   ].join("");
+  // Optional flyer across the top of the card (536px inside the column padding).
+  const flyerW = T.width - 64;
+  const flyer = b.img
+    ? `<tr><td style="padding:0;"><a href="${esc(b.href)}" style="text-decoration:none;"><img src="${esc(b.img.src)}" width="${flyerW}" height="${Math.round((b.img.height / b.img.width) * flyerW)}" alt="${esc(b.img.alt)}" style="display:block;width:100%;max-width:${flyerW}px;height:auto;border:0;border-radius:10px 10px 0 0;"></a></td></tr>`
+    : "";
   return `<tr><td class="iyf-pad" style="padding:14px 32px 0;">` +
-    table(`width="100%" style="width:100%;background-color:${T.surfaceElev};border-radius:10px;"`, `<tr><td style="padding:16px;">` +
+    table(`width="100%" style="width:100%;background-color:${T.surfaceElev};border-radius:10px;"`, flyer + `<tr><td style="padding:16px;">` +
       table(`width="100%"`, `<tr><td valign="top" width="56" style="width:56px;">${badge}</td><td valign="top" style="padding-left:14px;">${rows}</td></tr>`) +
       `</td></tr>`) +
     `</td></tr>`;

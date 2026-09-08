@@ -289,6 +289,17 @@ describe("render", () => {
     expect(extractLinks(`<a href="https://a.b/?x=1&amp;y=2">1</a><a href="https://a.b/?x=1&amp;y=2">2</a><a href="*|UNSUB|*">u</a><a href="mailto:x@y.z">m</a><img src="https://mcusercontent.com/f.jpg" alt="">`))
       .toEqual(["https://a.b/?x=1&y=2", "https://mcusercontent.com/f.jpg"]);
   });
+  test("show card with a flyer renders the image above the text, sized to the card", () => {
+    const h = renderHtml(doc([{ kind: "showCard", name: "Italian Rhapsody", href: "https://inyourfacecomedy.ch/filippo-spreafico/", date: "2026-09-19", eyebrow: "Sat · 20:00 · ROBIN's", img: { src: "https://mcusercontent.com/x/f.jpg", alt: "Filippo flyer", width: 1072, height: 536 } }]));
+    expect(h).toMatch(/<img src="https:\/\/mcusercontent\.com\/x\/f\.jpg" width="536" height="268" alt="Filippo flyer"/);
+    expect(h.indexOf("Filippo flyer")).toBeLessThan(h.indexOf("Italian Rhapsody"));
+    expect(checkHtml(h)).toEqual([]);
+  });
+  test("promo copy accepts per-show blurbs and rejects half-filled ones", () => {
+    const { copy } = validateCopy("promo", { subject: "Due serate", preheader: "Filippo e Promessi", paragraphs: ["a"], cta: "Prendi i biglietti", shows: [{ slug: "promessi-spassi", blurb: "Corto." }] });
+    expect((copy as { shows?: unknown }).shows).toEqual([{ slug: "promessi-spassi", blurb: "Corto." }]);
+    expect(() => validateCopy("promo", { subject: "x", preheader: "one two three", paragraphs: ["a"], cta: "Go", shows: [{ slug: "x" }] })).toThrow(/slug and blurb/);
+  });
   test("subject with two exclamation marks is rejected", () => {
     expect(() => validateCopy("promo", { subject: "Wow!! Tickets", preheader: "one two three", paragraphs: ["a"], cta: "Go" })).toThrow(/exclamation/);
   });

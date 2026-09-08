@@ -24,11 +24,15 @@ const USAGE = `Usage: bun script/email-promo.ts --show <slug[,slug]> (--csv <fil
 
   --show <slugs>     show page slugs, comma separated (e.g. promessi-spassi)
   --csv <file>       file with email addresses; subscribed ones become a new static segment
+  --tag <name>       with --csv: name that segment (a tag); an existing tag gets the people added
   --segment <name>   existing Mailchimp tag / segment name
   --all              the whole audience
   --brief "<text>"   who the readers are and why these shows are for them (goes to Claude)
   --lang en|it|es|de language of the whole email (default en)
-  --no-hero          no show flyer at the top
+  --no-flyers        no flyer on each show card (the first show's flyer becomes a hero instead)
+  --no-hero          with --no-flyers: no hero either
+
+The copy file may carry per-show blurbs: "shows": [{"slug": "...", "blurb": "..."}], any language each.
   --model <name>     claude model for the copy (default sonnet, or EMAIL_CLAUDE_MODEL)
 ${USAGE_FOOTER}`;
 
@@ -42,7 +46,10 @@ export function segmentNameFor(slugs: string[], date: string): string {
   return `promo-${slugs.join("+")}-${date}`;
 }
 
-async function segmentFromCsv(mc: Mailchimp, file: string, slugs: string[], today: string, yes: boolean): Promise<Segment> {
+// --tag names the segment (a tag in the Mailchimp UI) the CSV becomes; an
+// existing tag of that name gets the new members added. Without --tag the
+// segment is named promo-<show>-<date>.
+async function segmentFromCsv(mc: Mailchimp, file: string, slugs: string[], today: string, yes: boolean, tag?: string): Promise<Segment> {
   if (!existsSync(file)) fail(`csv not found: ${file}`);
   const emails = emailsFrom(readFileSync(file, "utf8"));
   if (!emails.length) fail(`no email addresses found in ${file}`);
@@ -61,6 +68,17 @@ async function segmentFromCsv(mc: Mailchimp, file: string, slugs: string[], toda
   if (missing.length) warn(`${missing.length} not in the audience (skipped): ${missing.slice(0, 5).join(", ")}${missing.length > 5 ? ", ..." : ""}`);
   if (other.length) warn(`${other.length} not subscribed (skipped): ${other.slice(0, 5).join(", ")}${other.length > 5 ? ", ..." : ""}`);
   if (!subscribed.length) fail("none of the addresses is a subscribed member; nothing to send to");
+  if (tag) {
+    const existing = await mc.findSegment(tag);
+    if (existing && existing.type !== "static") fail(`"${tag}" is a ${existing.type} segment, not a tag`);
+    const ok = await confirm(existing
+      ? `Add ${subscribed.length} subscribed people to the existing tag "${tag}" (${existing.member_count} now)?`
+      : `Create the tag "${tag}" with ${subscribed.length} subscribed people?`, { yes });
+    if (!ok) fail("stopped");
+    const seg = existing ? await mc.addToStaticSegment(existing.id, subscribed) : await mc.createStaticSegment(tag, subscribed);
+    log(`  tag    "${seg.name}" now has ${seg.member_count} members`);
+    return seg;
+  }
   let name = segmentNameFor(slugs, today);
   if (await mc.findSegment(name)) name += `-${stamp().slice(-4)}`;
   const ok = await confirm(`Create segment "${name}" with ${subscribed.length} subscribed people?`, { yes });
@@ -104,7 +122,7 @@ async function main() {
   let segment: Segment | undefined;
   let audience = "whole audience";
   if (mc) {
-    if (flagString(args, "csv")) segment = await segmentFromCsv(mc, flagString(args, "csv")!, slugs, today, yes);
+    if (flagString(args, "csv")) segment = await segmentFromCsv(mc, flagString(args, "csv")!, slugs, today, yes, flagString(args, "tag"));
     else if (flagString(args, "segment")) {
       segment = await mc.findSegment(flagString(args, "segment")!);
       if (!segment) fail(`segment "${flagString(args, "segment")}" not found`);
@@ -122,20 +140,28 @@ async function main() {
   };
   const { copy } = resolveCopy("promo", args, vars, baseName, `promo:${slugs.join("+")}`) as { copy: PromoCopy; path: string };
 
+  // Each card carries its show's flyer (--no-flyers: one hero of the first
+  // show instead). Per-show blurbs from the copy file beat the tagline.
   const blocks: Block[] = [];
-  if (!flagBool(args, "no-hero")) {
-    const src = localPathForSiteUrl(rows[0].show.featureImg) || localPathForSiteUrl(rows[0].show.thumbnail);
-    if (src) {
-      const h = await hostedWide(mc, src, 1200, hostedName(`iyf-email-show-${rows[0].slug}-1200`, src, "jpg"));
-      blocks.push({ kind: "hero", src: h.url, alt: rows[0].show.title, href: rows[0].show.url, width: h.width, height: h.height });
-    } else warn(`${rows[0].name} has no local flyer image; no hero`);
+  const flyers = !flagBool(args, "no-flyers");
+  const flyerFor = async (r: (typeof rows)[number]) => {
+    const src = localPathForSiteUrl(r.show.featureImg) || localPathForSiteUrl(r.show.thumbnail);
+    if (!src) { warn(`${r.name} has no local flyer image`); return undefined; }
+    const h = await hostedWide(mc, src, 1072, hostedName(`iyf-email-show-${r.slug}-1072`, src, "jpg"));
+    return { src: h.url, alt: r.show.title, width: h.width, height: h.height };
+  };
+  if (!flyers && !flagBool(args, "no-hero")) {
+    const f = await flyerFor(rows[0]);
+    if (f) blocks.push({ kind: "hero", src: f.src, alt: f.alt, href: rows[0].show.url, width: f.width, height: f.height });
   }
   copy.paragraphs.forEach((text, i) => blocks.push({ kind: i === 0 ? "lead" : "paragraph", text }));
+  const blurbs = new Map((copy.shows ?? []).map((s) => [s.slug, s.blurb]));
   for (const r of rows) {
     if (!r.events.length) continue;
     blocks.push({
       kind: "showCard", name: r.name, href: r.show.url, date: r.events[0].date, eyebrow: eyebrowFor(r.events, r.show, r.venue),
-      datesLine: datesLine(r.events), blurb: r.show.tagline || undefined, linkLabel: copy.cta,
+      datesLine: datesLine(r.events), blurb: blurbs.get(r.slug) || r.show.tagline || undefined, linkLabel: copy.cta,
+      img: flyers ? await flyerFor(r) : undefined,
     });
   }
   blocks.push({ kind: "button", label: copy.cta, href: rows.length === 1 ? rows[0].show.url : CALENDAR_URL });

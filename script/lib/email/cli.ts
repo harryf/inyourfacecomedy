@@ -55,10 +55,10 @@ export function parseArgs(argv: string[]): Args {
 
 // Flags that never take a value, so a following positional is not swallowed.
 const BOOLEAN_FLAGS = new Set([
-  "help", "dry-run", "no-open", "yes", "no-ai", "hero", "no-hero", "no-hero-text", "thumbs", "all", "open", "verbose", "allow-stale", "allow-undated",
+  "help", "dry-run", "no-open", "yes", "no-ai", "hero", "no-hero", "no-hero-text", "no-flyers", "thumbs", "all", "open", "verbose", "allow-stale", "allow-undated",
 ]);
 // Flags that always take a value; `--copy --update 1` must not quietly mean "no copy file".
-const VALUE_FLAGS = new Set(["copy", "update", "segment", "csv", "show", "brief", "lang", "month", "weeks", "from", "date", "model", "hero-title"]);
+const VALUE_FLAGS = new Set(["copy", "update", "segment", "csv", "tag", "show", "brief", "lang", "month", "weeks", "from", "date", "model", "hero-title"]);
 
 export function flagString(args: Args, name: string): string | undefined {
   const v = args.flags[name];

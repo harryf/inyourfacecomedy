@@ -14,7 +14,9 @@ export type EmailType = "thankyou" | "monthly" | "promo";
 
 export interface ThankyouCopy { subject: string; preheader: string; paragraphs: string[]; ps?: string }
 export interface MonthlyCopy { subject: string; preheader: string; opener: string[]; lead: string; shows: Array<{ slug: string; emoji: string; blurb: string }>; closing: string }
-export interface PromoCopy { subject: string; preheader: string; paragraphs: string[]; cta: string }
+// `shows` is optional: a per-show blurb (any language) that replaces the
+// tagline on that show's card, for bills that mix languages or need a bio.
+export interface PromoCopy { subject: string; preheader: string; paragraphs: string[]; cta: string; shows?: Array<{ slug: string; blurb: string }> }
 export type Copy = ThankyouCopy | MonthlyCopy | PromoCopy;
 
 export const SUBJECT_MAX = 50;
@@ -127,7 +129,10 @@ export function validateCopy(type: EmailType, raw: unknown): { copy: Copy; fixes
   } else {
     const paragraphs = list("paragraphs");
     const cta = str("cta");
-    copy = { subject, preheader, paragraphs, cta };
+    const showsRaw = Array.isArray(o.shows) ? (o.shows as Array<Record<string, unknown>>) : [];
+    const shows = showsRaw.map((s) => ({ slug: String(s.slug ?? ""), blurb: cleanText(String(s.blurb ?? "")) }));
+    for (const s of shows) if (!s.slug || !s.blurb) errors.push("a promo show entry needs slug and blurb");
+    copy = { subject, preheader, paragraphs, cta, ...(shows.length ? { shows } : {}) };
   }
   if (errors.length) throw new Error("copy rejected: " + errors.join("; "));
   return { copy, fixes };

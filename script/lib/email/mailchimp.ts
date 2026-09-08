@@ -190,6 +190,15 @@ export class Mailchimp {
     return this.post<Segment>(`/lists/${LIST_ID}/segments`, { name, static_segment: emails });
   }
 
+  // Add members to an existing static segment (a tag); already-tagged
+  // addresses are fine. Returns the refreshed segment.
+  async addToStaticSegment(id: number, emails: string[]): Promise<Segment> {
+    for (let i = 0; i < emails.length; i += 500) {
+      await this.post(`/lists/${LIST_ID}/segments/${id}`, { members_to_add: emails.slice(i, i + 500) });
+    }
+    return this.getSegment(id);
+  }
+
   async memberStatus(email: string): Promise<string | null> {
     const hash = createHash("md5").update(email.trim().toLowerCase()).digest("hex");
     try {
