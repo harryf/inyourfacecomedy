@@ -3,34 +3,26 @@
  "title": "Filippo Spreafico",
  "ticket_url": "https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/filippo-spreafico-italian-rhapsody-comedy-in-english-7487867600443024331.html",
  "event_type": "one-off",
- "generated_at": "2026-09-09T08:20:02.086Z",
+ "generated_at": "2026-09-10T08:20:01.626Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-11",
- "through": "2026-09-09",
- "complete_through": "2026-09-07",
+ "pages_since": "2026-08-12",
+ "through": "2026-09-10",
+ "complete_through": "2026-09-08",
  "totals": {
-  "clicks": 6,
+  "clicks": 7,
   "redirect": 0,
-  "click": 6,
-  "clicks_30d": 6,
+  "click": 7,
+  "clicks_30d": 7,
   "redirect_30d": 0,
-  "click_30d": 6,
-  "views": 36,
-  "views_30d": 36,
-  "sessions": 36,
-  "sessions_30d": 36,
+  "click_30d": 7,
+  "views": 37,
+  "views_30d": 37,
+  "sessions": 37,
+  "sessions_30d": 37,
   "broken_links": 0,
-  "untagged": 0
+  "untagged": 1
  },
  "by_day": [
-  {
-   "date": "2026-08-11",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-12",
    "redirect": 0,
@@ -252,11 +244,19 @@
    "redirect": 0,
    "click": 1,
    "views": 4,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-09",
+   "redirect": 0,
+   "click": 1,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-10",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -268,23 +268,30 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 3,
-   "views": 11,
-   "sessions": 8
-  },
-  {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 2,
-   "views": 2,
-   "sessions": 3
+   "clicks": 4,
+   "views": 12,
+   "sessions": 9
   },
   {
    "source": "instagram",
    "medium": "social",
    "clicks": 1,
-   "views": 6,
-   "sessions": 6
+   "views": 8,
+   "sessions": 8
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 1
+  },
+  {
+   "source": "meta",
+   "medium": "untagged",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
   },
   {
    "source": "l.instagram.com",

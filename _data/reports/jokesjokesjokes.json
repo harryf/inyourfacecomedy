@@ -3,11 +3,11 @@
  "title": "Jokes, Jokes, Jokes",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726681983598.html",
  "event_type": "series",
- "generated_at": "2026-09-09T08:20:02.086Z",
+ "generated_at": "2026-09-10T08:20:01.626Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-11",
- "through": "2026-09-09",
- "complete_through": "2026-09-07",
+ "pages_since": "2026-08-12",
+ "through": "2026-09-10",
+ "complete_through": "2026-09-08",
  "totals": {
   "clicks": 14,
   "redirect": 5,
@@ -15,22 +15,14 @@
   "clicks_30d": 14,
   "redirect_30d": 5,
   "click_30d": 9,
-  "views": 38,
-  "views_30d": 38,
-  "sessions": 32,
-  "sessions_30d": 32,
+  "views": 40,
+  "views_30d": 40,
+  "sessions": 35,
+  "sessions_30d": 35,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-11",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-12",
    "redirect": 0,
@@ -252,14 +244,22 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-09",
    "redirect": 0,
    "click": 1,
-   "views": 0,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-10",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -269,8 +269,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 4,
-   "views": 13,
-   "sessions": 10
+   "views": 14,
+   "sessions": 12
   },
   {
    "source": "guidle",
@@ -308,18 +308,18 @@
    "sessions": 0
   },
   {
+   "source": "google",
+   "medium": "organic",
+   "clicks": 0,
+   "views": 5,
+   "sessions": 5
+  },
+  {
    "source": "VA LBHE ABDF Dbzfel",
    "medium": "email",
    "clicks": 0,
    "views": 6,
    "sessions": 5
-  },
-  {
-   "source": "google",
-   "medium": "organic",
-   "clicks": 0,
-   "views": 4,
-   "sessions": 4
   },
   {
    "source": "myswitzerland.com",

@@ -3,18 +3,18 @@
  "title": "The NERDY COMEDY Show",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/nerdy-stand-up-comedy-en-7284304661632248367.html",
  "event_type": "series",
- "generated_at": "2026-09-09T08:20:02.086Z",
+ "generated_at": "2026-09-10T08:20:01.626Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-11",
- "through": "2026-09-09",
- "complete_through": "2026-09-07",
+ "pages_since": "2026-08-12",
+ "through": "2026-09-10",
+ "complete_through": "2026-09-08",
  "totals": {
-  "clicks": 15,
+  "clicks": 16,
   "redirect": 7,
-  "click": 8,
-  "clicks_30d": 15,
+  "click": 9,
+  "clicks_30d": 16,
   "redirect_30d": 7,
-  "click_30d": 8,
+  "click_30d": 9,
   "views": 37,
   "views_30d": 37,
   "sessions": 36,
@@ -23,14 +23,6 @@
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-11",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-12",
    "redirect": 0,
@@ -252,11 +244,19 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-09",
+   "redirect": 0,
+   "click": 1,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-10",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -265,6 +265,13 @@
   }
  ],
  "by_source": [
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 4,
+   "views": 7,
+   "sessions": 7
+  },
   {
    "source": "instagram",
    "medium": "social",
@@ -278,13 +285,6 @@
    "clicks": 3,
    "views": 15,
    "sessions": 15
-  },
-  {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 3,
-   "views": 7,
-   "sessions": 7
   },
   {
    "source": "IN YOUR FACE Comedy",

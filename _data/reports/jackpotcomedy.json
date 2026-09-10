@@ -3,34 +3,26 @@
  "title": "Jackpot Comedy",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jackpot-comedy-7413646370706339342.html",
  "event_type": "series",
- "generated_at": "2026-09-09T08:20:02.086Z",
+ "generated_at": "2026-09-10T08:20:01.626Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-11",
- "through": "2026-09-09",
- "complete_through": "2026-09-07",
+ "pages_since": "2026-08-12",
+ "through": "2026-09-10",
+ "complete_through": "2026-09-08",
  "totals": {
-  "clicks": 186,
-  "redirect": 175,
-  "click": 11,
-  "clicks_30d": 186,
-  "redirect_30d": 175,
-  "click_30d": 11,
-  "views": 62,
-  "views_30d": 62,
-  "sessions": 56,
-  "sessions_30d": 56,
+  "clicks": 204,
+  "redirect": 190,
+  "click": 14,
+  "clicks_30d": 204,
+  "redirect_30d": 190,
+  "click_30d": 14,
+  "views": 75,
+  "views_30d": 75,
+  "sessions": 76,
+  "sessions_30d": 76,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-11",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-12",
    "redirect": 0,
@@ -252,14 +244,22 @@
    "redirect": 13,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-09",
-   "redirect": 9,
+   "redirect": 17,
+   "click": 3,
+   "views": 12,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-10",
+   "redirect": 7,
    "click": 0,
-   "views": 0,
+   "views": 1,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -268,7 +268,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 152,
+   "clicks": 167,
    "views": 3,
    "sessions": 2
   },
@@ -287,6 +287,13 @@
    "sessions": 0
   },
   {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 5,
+   "views": 31,
+   "sessions": 36
+  },
+  {
    "source": "guidle",
    "medium": "referral",
    "clicks": 5,
@@ -294,18 +301,11 @@
    "sessions": 5
   },
   {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 4,
-   "views": 20,
-   "sessions": 20
-  },
-  {
    "source": "google",
    "medium": "organic",
-   "clicks": 2,
-   "views": 13,
-   "sessions": 11
+   "clicks": 4,
+   "views": 15,
+   "sessions": 15
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -355,13 +355,13 @@
    "campaign": "jackpotcomedy",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 152,
+   "clicks": 167,
    "first": "2026-08-30",
-   "last": "2026-09-09",
+   "last": "2026-09-10",
    "content": [
     {
      "content": "6964168949947",
-     "clicks": 147
+     "clicks": 162
     }
    ]
   },
