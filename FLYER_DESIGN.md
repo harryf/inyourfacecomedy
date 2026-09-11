@@ -116,7 +116,7 @@ Borrowing a first-principles split: **hard** constraints are physics/brand-immov
 | S4 | Host as a ringed circle with a HOST pill | Host emphasis is required; the *form* of that emphasis is open. |
 | S5 | Priority → centre-out + size scaling | The "most important act is most prominent" rule should hold; the geometry that expresses it can change. |
 | S6 | Blue wash + bottom ink scrim | The legibility mechanism (H9) is required; *this particular* wash is a style choice. |
-| S7 | First-name-only captions, uppercase | Readable density choice; a variant could show full names if it has room. |
+| S7 | Short-name captions, uppercase: `firstName()` keeps the whole name when it is 8 characters or fewer (so "Dr Val" is not cut to "Dr"), otherwise the first word | Readable density choice; a variant could show full names if it has room. |
 
 ### 🟢 ASSUMPTIONS — look fixed, are actually free to vary
 
@@ -181,9 +181,30 @@ The `ticket` painter (`paintTicketStub`) is a vintage admission stub standing in
 |---|---|---|
 | Polaroid (`classic`) | legacy `safeTop` / `safeBottom` | done, do not touch |
 | Ticket | key-content area | done |
-| Risograph | legacy insets | done; tagline on a cream label, venue in cream so both read on the red duotone |
+| Risograph | legacy insets | done; tagline on a cream label, venue in cream, captions and host name in cream with an ink offset so everything reads on the red duotone |
 | Neon | legacy insets | left as is by choice |
 | Bold Type | key-content area | done; faces in the shared `faceGrid` as ringed circles, slim photo band, bar on the key-content bottom |
+| Lava Lamp (`lava`) | key-content area | done; Barbarella 1968: ink-to-red field, glowing blobs seeded per show by `lavaSeeds` and kept out of the text bands, space-helmet faces, dimensional yellow Anton title on an ink scrim, date and venue as a billing line (picker label Lava) |
+| Swiss (`swiss`) | key-content area | done; International style without the flag: a near-white paper (`SWISS_PAPER`, a cool off-white, deliberately not the brand cream), Inter 700 flush left in ink, one red circle, square black-and-white photos with ink keylines, red labels, DATE and VENUE information block on 4px rules; a three-line title drops to two lines at a smaller size when that gives the faces room |
+| Lineup (`lineup`) | key-content area | done; the tool's own joke: an almost-white booking-room wall lit from above (radial fall-off to soft grey at the borders reads as shadow) with ink height marks, mugshot frames with paper placards carrying the case number plus an act index, HOST placard in yellow, PRIME SUSPECT stamp on the headliner, title as the case name measured before the faces are laid out so it never lands on them, a charge line from `chargeLines()` picked per show, date and bill (act slugs sorted, so order does not matter); the strip says LINEUP only (no law-enforcement wording, which could trip platform moderation) and the picker uses a ruler emoji for the same reason |
+
+**Numbers from the date.** `showCode(slug, iso)` takes the show date as YYMMDD and jumbles the six digits with a Fisher-Yates shuffle driven by a hash of show plus date, so the ticket serial (`Nº 021620`) and the lineup case number (`IYF 021620`) are really the date without reading as one, and every re-render of the same night gives the same number. `bun test` pins that the code is a permutation of the date, never the plain date in either order, and changes with show and date.
+
+Legibility for these three is a unit test, not a screenshot: `newStylePairs()` lists every text/field pair they paint and `bun test` holds WCAG contrast at 4.5 for body and 3.0 for display via the exported `contrastRatio`.
+
+## 6d. Closing notes (2026-09-12)
+
+Eight styles ship: Polaroid, Ticket, Risograph, Neon, Bold Type, Lava, Swiss, Lineup. What held up across all of them, and what to keep doing when a ninth arrives:
+
+- **One metaphor object per style, drawn big.** The ticket stub, the lava blob, the red circle, the height wall. If a style has no object that reads at thumbnail size, it is a colour scheme, not a style.
+- **Position against the key-content area** (`keyTop` / `keyBottom` / `keySide`) and verify with pixel probes at the band edges in both formats. Polaroid alone keeps the legacy insets and is not to be touched.
+- **Measure the title before laying out the faces.** Every late bug in this round was a fixed-height title block stealing room from the grid, or a fitter measuring at the wrong weight. Fit in the weight you draw.
+- **Render the longest live titles and the biggest bill first** (The NERDY COMEDY Show, Gratis Comedy Zum Mitnehmen, twelve acts plus a guest), then check four acts does not look empty.
+- **Fields are where taste diverges.** No orange cream as a whole-canvas fill; Swiss sits on a cool near-white, Lineup on a lit white wall. Offer two swatches before painting a whole style.
+- **Anything random is seeded** by show slug, date and, where it matters, the bill (`ticketHash`), so a re-render is identical. The one exception is the ticket backdrop, random by request.
+- **Legibility is a unit test.** `newStylePairs()` and `ticketPalettes()` are checked against WCAG floors by `bun test`; add a pair for every new text-on-field combination.
+- **No law-enforcement wording** on the Lineup style, on the canvas or in the picker, so nothing trips platform moderation.
+- **Captions** use `firstName()`: whole name at 8 characters or fewer, first word otherwise.
 
 ## 7. Testing & verification constraints
 

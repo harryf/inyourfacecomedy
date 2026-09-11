@@ -41,6 +41,8 @@
       norm: norm, splitTitle: splitTitle, showDate: showDate,
       dayLabel: dayLabel, flyerDate: flyerDate, faceScale: faceScale, flyerSpec: flyerSpec,
       ticketSerial: ticketSerial, ticketPalettes: ticketPalettes, ticketPalette: ticketPalette,
+      lavaSeeds: lavaSeeds, caseNumber: caseNumber, contrastRatio: contrastRatio, newStylePairs: newStylePairs,
+      showCode: showCode, chargeLines: chargeLines, chargeLine: chargeLine, firstName: firstName,
       isGuest: isGuest, guestName: guestName, guestToken: guestToken, instaHandle: instaHandle
     };
     return;
@@ -743,7 +745,11 @@
         var b = el('button', 'lineup-lab__copy' + (opts.primary ? ' lineup-lab__copy--primary' : '') + (opts.quiet ? ' lineup-lab__copy--quiet' : ''), label);
         b.type = 'button';
         var status = el('span', 'lineup-lab__copy-status', '');
-        b.addEventListener('click', function () { status.textContent = '…'; copy(getter(), status); });
+        b.addEventListener('click', function () {
+          var text = getter();
+          if (!text) { status.textContent = opts.empty || 'Nothing to copy.'; return; }
+          status.textContent = '…'; copy(text, status);
+        });
         var headRow = el('div', 'lineup-lab__copy-head');
         headRow.appendChild(b);
         headRow.appendChild(status);
@@ -759,6 +765,8 @@
       }
       // Running order is what organizers reach for most - make it the loud, full-width one.
       addCopy('💬 Copy running order', 'Plain text - paste straight into WhatsApp.', function () { return plainText(workToState()); }, { primary: true });
+      // Instagram handles of everyone on the bill, always available here (and again under the flyer).
+      addCopy('＠ Copy Insta handles', 'One @handle per line - paste into your story or post to tag everyone on the bill.', function () { return flyerHandlesText(workToState()); }, { quiet: true, empty: 'No Instagram handles on this lineup.' });
       addCopy('📣 Copy promo link', 'For posting the show - features the headliner.', function () { return absPromo(workToState(), false); }, { preview: true });
       addCopy('🙏 Copy thank-you link', 'For after the show.', function () { return absPromo(workToState(), true); }, { preview: true });
       addCopy('🔖 Save lineup for later', 'Re-open this tool with everything as it is now - keep tweaking, or hand to a co-organizer.', function () { return absLab(workToState()); }, { quiet: true, preview: true });
@@ -915,7 +923,13 @@
     ctx.arcTo(x, y, x + w, y, r);
     ctx.closePath();
   }
-  function firstName(name) { return (name || '').split(/\s+/)[0] || name || ''; }
+  // Caption name under a face: the whole name when it is short enough to always fit (8
+  // characters or fewer, so "Dr Val" stays "Dr Val"), otherwise the first word. Pure; exported.
+  function firstName(name) {
+    var full = String(name || '').trim();
+    if (full.length <= 8) return full;
+    return full.split(/\s+/)[0] || full;
+  }
   function fitFont(ctx, text, maxW, startPx, minPx, weight, family) {
     var px = startPx;
     while (px > minPx) {
@@ -1467,11 +1481,24 @@
     for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
     return h >>> 0;
   }
-  // "Nº 04217" style serial from the show slug + date. Pure; exported for tests.
-  function ticketSerial(slug, iso) {
-    var n = ticketHash((slug || 'iyf') + '|' + (iso || '')) % 100000;
-    return 'Nº ' + ('00000' + n).slice(-5);
+  // Six digits from the show date (YYMMDD) jumbled by a hash of show + date, so the number
+  // is really the date but does not read as one, and re-rendering gives the same number.
+  // A show with no date falls back to a hash of the slug. Pure; exported for tests.
+  function showCode(slug, iso) {
+    var d = iso ? new Date(iso) : null;
+    if (!d || isNaN(d.getTime())) return ('000000' + (ticketHash((slug || 'iyf') + '|code') % 1000000)).slice(-6);
+    var digits = ('0' + (d.getFullYear() % 100)).slice(-2) + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2);
+    var n = ticketHash((slug || 'iyf') + '|' + digits + '|code'), arr = digits.split('');
+    for (var i = arr.length - 1; i > 0; i--) {   // Fisher-Yates driven by the hash
+      n = (n * 1103515245 + 12345) >>> 0;
+      var j = (n >>> 8) % (i + 1), t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    }
+    var out = arr.join('');
+    if (out === digits) out = out.slice(2) + out.slice(0, 2);   // never the plain date
+    return out;
   }
+  // "Nº 260210" style serial: the jumbled show date. Pure; exported for tests.
+  function ticketSerial(slug, iso) { return 'Nº ' + showCode(slug, iso); }
 
   // Ticket paper palettes: dark papers only (red, blue, charcoal, brown families; no
   // cream, no yellow) with off-white print, like a raffle roll or a railway stub. Each
@@ -1739,10 +1766,11 @@
       ctx.font = '400 ' + Math.round(photo * 0.14) + 'px ' + FONT_DISPLAY;
       ctx.fillText('★', x + photo - 4, y + 4 + 1);
     }
-    ctx.fillStyle = '#0F0F10'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     var cap = firstName(name).toUpperCase();
     fitFont(ctx, cap, photo, Math.round(capH * 0.8), 16, '700', FONT_BODY);
-    ctx.fillText(cap, cx, y + photo + capH * 0.55);
+    ctx.fillStyle = '#0F0F10'; ctx.fillText(cap, cx + 2, y + photo + capH * 0.55 + 2);   // ink offset, like a misregistered second pass
+    ctx.fillStyle = '#FFF3E0'; ctx.fillText(cap, cx, y + photo + capH * 0.55);
     ctx.restore();
   }
 
@@ -1766,10 +1794,11 @@
     ctx.fillStyle = '#E53935'; ctx.fill();
     ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.font = '700 26px ' + FONT_BODY; ctx.fillText('H O S T', cx, pillY + pillH / 2 + 1);
-    var nameY = pillY + pillH + 30;
-    ctx.fillStyle = '#0F0F10'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    fitFont(ctx, firstName(host.name).toUpperCase(), 320, 40, 20, '', FONT_ACCENT);
-    ctx.fillText(firstName(host.name).toUpperCase(), cx, nameY);
+    var nameY = pillY + pillH + 30, hostCap = firstName(host.name).toUpperCase();
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    fitFont(ctx, hostCap, 320, 40, 20, '', FONT_ACCENT);
+    ctx.fillStyle = '#0F0F10'; ctx.fillText(hostCap, cx + 2, nameY + 2);   // ink offset, like a misregistered second pass
+    ctx.fillStyle = '#FFF3E0'; ctx.fillText(hostCap, cx, nameY);
     return nameY + 26;
   }
 
@@ -2004,13 +2033,501 @@
     drawTypeMetaBar(ctx, spec, m, barY, barH);
   }
 
+
+  // --- shared: WCAG relative luminance + contrast (pure, exported for tests) ----------
+  function relLum(hex) {
+    var h = String(hex || '').replace('#', '');
+    if (h.length === 3) h = h.charAt(0) + h.charAt(0) + h.charAt(1) + h.charAt(1) + h.charAt(2) + h.charAt(2);
+    var n = parseInt(h, 16), c = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map(function (v) {
+      v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+  }
+  function contrastRatio(a, b) {
+    var la = relLum(a), lb = relLum(b), hi = Math.max(la, lb), lo = Math.min(la, lb);
+    return (hi + 0.05) / (lo + 0.05);
+  }
+  // Every text / field pair the three newest painters put on the canvas, so bun test can
+  // hold the legibility floor without a screenshot: 'small' text needs WCAG 4.5, 'large'
+  // (bold at 19px or more, or 24px regular) needs 3.0.
+  function newStylePairs() {
+    return [
+      { style: 'lava', text: '#FFD54F', field: '#0F0F10', kind: 'large' },     // title on the scrim
+      { style: 'lava', text: '#FFF3E0', field: '#0F0F10', kind: 'small' },     // billing block
+      { style: 'lava', text: '#FFF3E0', field: '#B71C1C', kind: 'small' },     // names low on the field
+      { style: 'swiss', text: '#0F0F10', field: '#F2F2EE', kind: 'small' },    // ink type on the paper
+      { style: 'swiss', text: '#E53935', field: '#F2F2EE', kind: 'large' },    // red labels, roles, tagline
+      { style: 'swiss', text: '#0F0F10', field: '#E53935', kind: 'large' },    // title over the red circle
+      { style: 'lineup', text: '#0F0F10', field: '#C8C8CB', kind: 'small' },   // ink title on the darkest corner of the lit wall
+      { style: 'lineup', text: '#E53935', field: '#FAFAFA', kind: 'large' },   // case name label, charge line
+      { style: 'lineup', text: '#0F0F10', field: '#FFF8EE', kind: 'small' },   // placards
+      { style: 'lineup', text: '#0F0F10', field: '#FFD54F', kind: 'small' },   // host placard
+      { style: 'lineup', text: '#FFF3E0', field: '#E53935', kind: 'large' },   // case strip
+      { style: 'lineup', text: '#FFF3E0', field: '#0F0F10', kind: 'small' }    // date bar
+    ];
+  }
+
+  // --- STYLE 5: Lava Lamp (Barbarella, 1968) ----------------------------------
+  // A warm ink-to-red field with slow glowing blobs, space-helmet faces with a highlight,
+  // a dimensional yellow title and a movie billing block. Blob placement is seeded from
+  // the show slug (same show, same lava) and never enters the text bands: the title and
+  // billing block sit on an ink scrim with the blobs kept out from underneath.
+
+  // Deterministic blob list. bands = [{top, bottom}] the blobs must not touch (pure, exported).
+  function lavaSeeds(slug, w, h, bands) {
+    var n = ticketHash((slug || 'iyf') + '|lava'), out = [], tries = 0;
+    bands = bands || [];
+    function rnd() { n = (n * 1103515245 + 12345) >>> 0; return (n >>> 8) / 16777216; }
+    while (out.length < 8 && tries++ < 400) {
+      var r = h * (0.06 + rnd() * 0.10), x = w * (0.06 + rnd() * 0.88), y = h * (0.02 + rnd() * 0.96);
+      var ok = true;
+      for (var i = 0; i < bands.length; i++) {
+        if (y + r > bands[i].top && y - r < bands[i].bottom) { ok = false; break; }
+      }
+      if (!ok) continue;
+      out.push({ x: x, y: y, r: r, wobble: 0.10 + rnd() * 0.12, phase: rnd() * Math.PI * 2, hot: rnd() < 0.45 });
+    }
+    return out;
+  }
+
+  function blobPath(ctx, b) {
+    var steps = 48;
+    ctx.beginPath();
+    for (var i = 0; i <= steps; i++) {
+      var t = (i / steps) * Math.PI * 2;
+      var rr = b.r * (1 + b.wobble * Math.sin(3 * t + b.phase) + b.wobble * 0.5 * Math.sin(5 * t + b.phase * 1.7));
+      var px = b.x + Math.cos(t) * rr, py = b.y + Math.sin(t) * rr * 1.15;
+      if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+  }
+
+  function lavaBlobs(ctx, seeds) {
+    ctx.save();
+    seeds.forEach(function (b) {
+      var g = ctx.createRadialGradient(b.x - b.r * 0.25, b.y - b.r * 0.3, b.r * 0.1, b.x, b.y, b.r * 1.15);
+      if (b.hot) { g.addColorStop(0, '#FFD54F'); g.addColorStop(0.55, '#FFB300'); g.addColorStop(1, '#E53935'); }
+      else { g.addColorStop(0, '#FF5252'); g.addColorStop(0.6, '#E53935'); g.addColorStop(1, '#B71C1C'); }
+      ctx.shadowColor = b.hot ? 'rgba(255,179,0,0.55)' : 'rgba(229,57,53,0.5)';
+      ctx.shadowBlur = b.r * 0.6;
+      ctx.fillStyle = g;
+      blobPath(ctx, b); ctx.fill();
+    });
+    ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0;
+    // glossy highlight on each blob, the way a lit lava lamp catches the glass
+    ctx.globalAlpha = 0.35; ctx.fillStyle = '#FFF3E0';
+    seeds.forEach(function (b) {
+      ctx.beginPath(); ctx.ellipse(b.x - b.r * 0.35, b.y - b.r * 0.45, b.r * 0.22, b.r * 0.12, -0.6, 0, Math.PI * 2); ctx.fill();
+    });
+    ctx.restore();
+  }
+
+  function lavaStars(ctx, slug, w, h) {
+    var n = ticketHash((slug || 'iyf') + '|stars');
+    ctx.save(); ctx.fillStyle = '#FFF3E0';
+    for (var i = 0; i < 90; i++) {
+      n = (n * 1103515245 + 12345) >>> 0; var x = (n >>> 8) % w;
+      n = (n * 1103515245 + 12345) >>> 0; var y = (n >>> 8) % h;
+      n = (n * 1103515245 + 12345) >>> 0; var r = 1 + ((n >>> 8) % 3) * 0.6;
+      ctx.globalAlpha = 0.25 + ((n >>> 4) % 50) / 100;
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  // One act: a space-helmet circle (cream glass rim, highlight arc), ring by role, name in
+  // Anton below. Host ring yellow, headliner ring red plus a star.
+  function drawLavaFace(ctx, it, cx, topY, w) {
+    var r = w / 2, cy = topY + r, ri = r - 7;
+    var ring = it.isHost ? '#FFD54F' : (it.headliner ? '#E53935' : '#FFF3E0');
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 18; ctx.shadowOffsetY = 6;
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fillStyle = ring; ctx.fill();
+    ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
+    ctx.beginPath(); ctx.arc(cx, cy, ri, 0, Math.PI * 2); ctx.clip();
+    if (it.img) drawCover(ctx, it.img, cx - ri, cy - ri, 2 * ri, 2 * ri);
+    else {
+      ctx.fillStyle = '#2A2A2D'; ctx.fillRect(cx - ri, cy - ri, 2 * ri, 2 * ri);
+      ctx.fillStyle = '#FFD54F'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(ri) + 'px ' + FONT_DISPLAY;
+      ctx.fillText((it.name || '?').charAt(0).toUpperCase(), cx, cy + 3);
+    }
+    // helmet glass: a warm tint low, a highlight arc high left
+    var tint = ctx.createLinearGradient(0, cy - ri, 0, cy + ri);
+    tint.addColorStop(0, 'rgba(255,243,224,0)'); tint.addColorStop(1, 'rgba(183,28,28,0.35)');
+    ctx.fillStyle = tint; ctx.fillRect(cx - ri, cy - ri, 2 * ri, 2 * ri);
+    ctx.strokeStyle = 'rgba(255,248,238,0.85)'; ctx.lineWidth = Math.max(4, ri * 0.09); ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.arc(cx, cy, ri * 0.78, Math.PI * 1.15, Math.PI * 1.55); ctx.stroke();
+    ctx.restore();
+    if (it.isHost) {
+      var pw = Math.max(74, Math.round(w * 0.46)), ph = Math.max(24, Math.round(w * 0.15));
+      roundRect(ctx, cx - pw / 2, cy + r - ph * 0.55, pw, ph, ph / 2);
+      ctx.fillStyle = '#FFD54F'; ctx.fill();
+      ctx.fillStyle = '#0F0F10'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '700 ' + Math.round(ph * 0.62) + 'px ' + FONT_BODY;
+      ctx.fillText('HOST', cx, cy + r - ph * 0.55 + ph / 2 + 1);
+    } else if (it.headliner) {
+      var br = Math.max(14, Math.round(w * 0.11)), bx = cx + r * 0.7, by = cy - r * 0.7;
+      ctx.fillStyle = '#E53935'; ctx.beginPath(); ctx.arc(bx, by, br, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#FFD54F'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(br * 1.3) + 'px ' + FONT_DISPLAY;
+      ctx.fillText('\u2605', bx, by + 1);
+    }
+    var cap = firstName(it.name).toUpperCase();
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    fitFont(ctx, cap, w * 1.15, Math.round(Math.min(34, w * 0.19)), 14, '400', FONT_DISPLAY);
+    ctx.fillStyle = '#0F0F10'; ctx.fillText(cap, cx + 2, topY + w + Math.round(w * 0.15) + 2);
+    ctx.fillStyle = '#FFF3E0'; ctx.fillText(cap, cx, topY + w + Math.round(w * 0.15));
+  }
+
+  // Dimensional 1968 title: red-deep offset, ink contact shadow, yellow face; on an ink scrim.
+  function drawLavaTitle(ctx, spec, m, topY, bottomY) {
+    var W = spec.w, cx = W / 2, pad = spec.keySide + 14, maxW = W - pad * 2;
+    var text = (m.show ? splitTitle(m.show.title) : 'IN YOUR FACE').toUpperCase();
+    var avail = bottomY - topY;
+    var ttl = fitTitle(ctx, text, maxW - 24, spec.format === 'story' ? 190 : 160, 60, 3, FONT_DISPLAY);
+    var lineH = ttl.px * 1.0, blockH = ttl.lines.length * lineH;
+    while (blockH > avail && ttl.px > 60) { ttl.px -= 4; lineH = ttl.px * 1.0; blockH = ttl.lines.length * lineH; }
+    var startY = topY + Math.max(0, (avail - blockH) / 2);
+    ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    ctx.font = '400 ' + ttl.px + 'px ' + FONT_DISPLAY;
+    var off = Math.max(6, Math.round(ttl.px * 0.06));
+    ttl.lines.forEach(function (ln, i) {
+      var y = startY + (i + 1) * lineH - lineH * 0.2;
+      ctx.fillStyle = '#B71C1C'; ctx.fillText(ln, cx + off * 2, y + off * 2);
+      ctx.fillStyle = '#0F0F10'; ctx.fillText(ln, cx + off, y + off);
+      ctx.fillStyle = '#FFD54F'; ctx.fillText(ln, cx, y);
+    });
+  }
+
+  // Movie-poster billing block: date and venue in tall yellow caps.
+  function drawLavaBilling(ctx, spec, m, topY, h) {
+    var cx = spec.w / 2, dl = m.show ? flyerDate(m.show.next, spec.format, m.nowMs) : '';
+    var venue = (m.show && m.show.venue) ? String(m.show.venue).toUpperCase() : '';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    var line = [dl, venue].filter(Boolean).join('   \u00B7   ');
+    ctx.fillStyle = '#FFD54F';
+    fitFont(ctx, line, spec.w - (spec.keySide + 14) * 2, 58, 30, '400', FONT_DISPLAY);
+    ctx.fillText(line, cx, topY + h * 0.5);
+  }
+
+  function paintLavaLamp(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story';
+    var top = spec.keyTop, bottomY = H - spec.keyBottom, pad = spec.keySide + 14, cx = W / 2;
+    var slug = m.show ? m.show.slug : '';
+    // 1. field: ink up top warming to red-deep low, stars, then the lava
+    var g = ctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, '#0F0F10'); g.addColorStop(0.55, '#2A2A2D'); g.addColorStop(1, '#B71C1C');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    lavaStars(ctx, slug, W, H);
+    // layout first, so the blobs know where the text bands are
+    var billH = story ? 120 : 100, billY = bottomY - billH;
+    var titleBottom = billY - 16, titleTop = titleBottom - (story ? 270 : 210);
+    var headerBottom = top + (story ? 14 : 30) + (story ? 150 : 132) + 70;   // what flyerHeader returns
+    var seeds = lavaSeeds(slug, W, H, [{ top: top - 20, bottom: headerBottom }, { top: titleTop - 30, bottom: bottomY + 20 }]);
+    lavaBlobs(ctx, seeds);
+    // 2. logo + tagline from the key-content top
+    flyerHeader(ctx, spec, m, { taglineColor: '#FFD54F', top: top });
+    // 3. faces in helmets between header and title
+    var friendsH = m.hasGuests ? 60 : 0;
+    var facesTop = headerBottom + 16, facesBottom = titleTop - 30 - friendsH;
+    var bill = m.bill.slice();
+    if (m.host && m.host.slug) bill.unshift({ slug: m.host.slug, name: m.host.name, img: m.host.img, priority: 'high', isHost: true });
+    faceGrid(ctx, spec, bill, pad, facesTop, W - pad * 2, facesBottom - facesTop, 1.28, story ? 240 : 200,
+      function (ctx, it, ccx, ty, w) { drawLavaFace(ctx, it, ccx, ty, w); });
+    if (m.hasGuests) {
+      ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '40px ' + FONT_ACCENT;
+      ctx.fillText('\u2026 and friends', cx, facesBottom + friendsH / 2);
+    }
+    // 4. ink scrim under the title and billing, feathered at the top, then the type
+    var sc = ctx.createLinearGradient(0, titleTop - 60, 0, titleTop + 40);
+    sc.addColorStop(0, 'rgba(15,15,16,0)'); sc.addColorStop(1, 'rgba(15,15,16,0.72)');
+    ctx.fillStyle = sc; ctx.fillRect(0, titleTop - 60, W, 100);
+    ctx.fillStyle = 'rgba(15,15,16,0.72)'; ctx.fillRect(0, titleTop + 40, W, bottomY - titleTop - 40);
+    var sc2 = ctx.createLinearGradient(0, bottomY, 0, bottomY + 90);
+    sc2.addColorStop(0, 'rgba(15,15,16,0.72)'); sc2.addColorStop(1, 'rgba(15,15,16,0.15)');
+    ctx.fillStyle = sc2; ctx.fillRect(0, bottomY, W, H - bottomY);
+    drawLavaTitle(ctx, spec, m, titleTop, titleBottom);
+    drawLavaBilling(ctx, spec, m, billY, billH);
+  }
+
+  // --- STYLE 6: Swiss International ------------------------------------------
+  // Near-white paper (a cool Pantone-style off-white, deliberately not the brand cream),
+  // Inter as the grotesk, flush-left ragged-right ink type on a strict column grid, one red
+  // circle, black-and-white square photographs with ink keylines, red role labels, and a
+  // flush-left information block on thick rules. No flag, no cross. Scale floor so it
+  // reads at thumbnail: rules 4px, circle at least 20% of the short edge, title big. Every
+  // run of type is large (bold at 19px or more) so red on the paper clears WCAG 3.0.
+  var SWISS_PAPER = '#F2F2EE';
+  var SWISS_RULE = 4, SWISS_CIRCLE_MIN = 216, SWISS_TITLE_MIN = 120;
+  // Two-line floor per format: the post is shorter, so it gives up more title size to keep
+  // the faces at a readable size.
+  function swissTightFloor(spec) { return spec.format === 'story' ? 96 : 76; }
+
+  // Fit the Swiss title: up to three lines at SWISS_TITLE_MIN or more, unless two lines at
+  // a smaller size (down to the format's tight floor) fit, which gives the faces the difference.
+  // Measured in Inter 700 (the shared fitTitle measures at 400, and bold wraps sooner).
+  function swissFit(ctx, text, maxW, startPx, minPx, maxLines) {
+    var px = startPx;
+    while (px >= minPx) {
+      ctx.font = '700 ' + px + 'px ' + FONT_BODY;
+      var lines = wrapWords(ctx, text, maxW);
+      if (lines.length <= maxLines) return { px: px, lines: lines, fits: true };
+      px -= 4;
+    }
+    ctx.font = '700 ' + minPx + 'px ' + FONT_BODY;
+    return { px: minPx, lines: wrapWords(ctx, text, maxW).slice(0, maxLines), fits: false };
+  }
+  function swissFitTitle(ctx, spec, text, maxW, startPx) {
+    var loose = swissFit(ctx, text, maxW, startPx, SWISS_TITLE_MIN, 3);
+    if (loose.lines.length <= 2) return loose;
+    var tight = swissFit(ctx, text, maxW, startPx, swissTightFloor(spec), 2);
+    return tight.fits ? tight : loose;
+  }
+
+  function swissTrack(ctx, px) { if ('letterSpacing' in ctx) ctx.letterSpacing = px + 'px'; }
+
+  function drawSwissFace(ctx, it, cx, topY, w) {
+    var x = cx - w / 2, k = SWISS_RULE;
+    ctx.fillStyle = it.isHost ? '#E53935' : '#0F0F10'; ctx.fillRect(x, topY, w, w);
+    if (it.img) drawMono(ctx, it.img, x + k, topY + k, w - 2 * k, w - 2 * k);
+    else {
+      ctx.fillStyle = '#FFF3E0'; ctx.fillRect(x + k, topY + k, w - 2 * k, w - 2 * k);
+      ctx.fillStyle = '#0F0F10'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '700 ' + Math.round(w * 0.5) + 'px ' + FONT_BODY;
+      ctx.fillText((it.name || '?').charAt(0).toUpperCase(), cx, topY + w / 2 + 2);
+    }
+    if (it.headliner) { ctx.fillStyle = '#E53935'; ctx.fillRect(x, topY, w, k * 3); }
+    ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    var nameY = topY + w + Math.round(w * 0.17);
+    var px = fitFont(ctx, firstName(it.name), w, Math.round(Math.min(34, w * 0.2)), 19, '700', FONT_BODY);
+    ctx.fillStyle = '#0F0F10'; ctx.fillText(firstName(it.name), x, nameY);
+    var role = it.isHost ? 'Host' : (it.headliner ? 'Headliner' : '');
+    if (role) {
+      ctx.fillStyle = '#E53935'; ctx.font = '700 ' + Math.max(19, Math.round(px * 0.8)) + 'px ' + FONT_BODY;
+      ctx.fillText(role, x, nameY + Math.round(px * 0.95));
+    }
+  }
+
+  function drawSwissTitle(ctx, spec, m, x, topY, maxW, avail) {
+    var text = m.show ? splitTitle(m.show.title) : 'In Your Face';
+    var ttl = swissFitTitle(ctx, spec, text, maxW, spec.format === 'story' ? 176 : 150);
+    ctx.font = '700 ' + ttl.px + 'px ' + FONT_BODY;
+    var lineH = ttl.px * 0.94, blockH = ttl.lines.length * lineH;
+    while (blockH > avail && ttl.px > swissTightFloor(spec)) { ttl.px -= 4; lineH = ttl.px * 0.94; blockH = ttl.lines.length * lineH; ctx.font = '700 ' + ttl.px + 'px ' + FONT_BODY; }
+    ctx.fillStyle = '#0F0F10'; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    swissTrack(ctx, -Math.round(ttl.px * 0.035));
+    ttl.lines.forEach(function (ln, i) { ctx.fillText(ln, x - 4, topY + (i + 1) * lineH - lineH * 0.16); });
+    swissTrack(ctx, 0);
+    return topY + blockH;
+  }
+
+  function paintSwiss(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story';
+    var top = spec.keyTop, bottomY = H - spec.keyBottom, pad = spec.keySide + 24, x = pad, colW = W - pad * 2;
+    ctx.fillStyle = SWISS_PAPER; ctx.fillRect(0, 0, W, H);
+    // 1. header: three lines of small caps left, the logo right, a thick rule beneath
+    var logoH = story ? 120 : 104, hy = top;
+    ctx.fillStyle = '#0F0F10'; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    ctx.font = '700 26px ' + FONT_BODY; swissTrack(ctx, 2);
+    ['IN YOUR FACE COMEDY', 'ENGLISH STAND-UP', 'Z\u00DCRICH'].forEach(function (t, i) { ctx.fillText(t, x, hy + 30 + i * 34); });
+    swissTrack(ctx, 0);
+    if (m.logo) { var lw = logoH * (m.logo.width / m.logo.height); ctx.drawImage(m.logo, W - pad - lw, hy, lw, logoH); }
+    var ruleY = hy + logoH + 16;
+    ctx.fillStyle = '#0F0F10'; ctx.fillRect(x, ruleY, colW, SWISS_RULE);
+    // 2. information block on the key-content bottom: date left, venue right, rule above
+    var infoH = story ? 150 : 130, infoY = bottomY - infoH;
+    ctx.fillRect(x, infoY, colW, SWISS_RULE);
+    var dl = m.show ? flyerDate(m.show.next, spec.format, m.nowMs) : '';
+    var venue = (m.show && m.show.venue) ? String(m.show.venue) : '';
+    ctx.fillStyle = '#E53935'; ctx.font = '700 24px ' + FONT_BODY; swissTrack(ctx, 2);
+    ctx.fillText('DATE', x, infoY + 44); ctx.fillText('VENUE', x + colW / 2, infoY + 44);
+    swissTrack(ctx, 0);
+    ctx.fillStyle = '#0F0F10'; ctx.font = '700 60px ' + FONT_BODY; swissTrack(ctx, -1);
+    if (dl) ctx.fillText(dl, x, infoY + 112);
+    swissTrack(ctx, 0);
+    if (venue) { fitFont(ctx, venue, colW / 2 - 10, 44, 24, '700', FONT_BODY); ctx.fillText(venue, x + colW / 2, infoY + 108); }
+    // 3. title block above the info block, sized to the title it holds (measured first so
+    //    a one-line title gives its spare room to the faces), red circle behind its right end
+    var tpx = story ? 176 : 150;
+    var measured = swissFitTitle(ctx, spec, m.show ? splitTitle(m.show.title) : 'In Your Face', colW - 10, tpx);
+    var titleH = Math.round(measured.lines.length * measured.px * 0.94) + 76, titleBottom = infoY - 36, titleTop = titleBottom - titleH;
+    var cr = Math.max(SWISS_CIRCLE_MIN / 2, Math.round(Math.min(W, H) * 0.16));
+    ctx.fillStyle = '#E53935'; ctx.beginPath(); ctx.arc(W - pad - cr * 0.55, titleTop + cr * 0.75, cr, 0, Math.PI * 2); ctx.fill();
+    // tagline in red, flush left, above the title
+    ctx.fillStyle = '#E53935'; ctx.font = '700 30px ' + FONT_BODY; ctx.textAlign = 'left';
+    ctx.fillText('English stand-up comedy', x, titleTop + 30);
+    drawSwissTitle(ctx, spec, m, x, titleTop + 56, colW - 10, titleH - 60);
+    // 4. faces on the grid between the header rule and the title
+    var friendsH = m.hasGuests ? 56 : 0;
+    var facesTop = ruleY + 36, facesBottom = titleTop - 20 - friendsH;
+    var bill = m.bill.slice();
+    if (m.host && m.host.slug) bill.unshift({ slug: m.host.slug, name: m.host.name, img: m.host.img, priority: 'high', isHost: true });
+    faceGrid(ctx, spec, bill, x, facesTop, colW, facesBottom - facesTop, 1.36, story ? 300 : 240,
+      function (ctx, it, ccx, ty, w) { drawSwissFace(ctx, it, ccx, ty, w); });
+    if (m.hasGuests) {
+      ctx.fillStyle = '#0F0F10'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+      ctx.font = '700 30px ' + FONT_BODY;
+      ctx.fillText('\u2026 and friends', x, facesBottom + friendsH / 2);
+    }
+  }
+
+  // --- STYLE 7: Lineup (mugshot wall) ------------------------------------------------
+  // The Lineup Maker's own joke: a height-chart wall, every act in a mugshot frame holding
+  // a placard with a case number, the headliner stamped PRIME SUSPECT, the host on a yellow
+  // placard, the show title as the case name and "wanted for crimes against seriousness".
+
+  // "IYF 260210": the jumbled show date, same as the ticket serial (pure, exported for tests).
+  function caseNumber(slug, iso) { return 'IYF ' + showCode(slug, iso); }
+
+  // The charge under the case name. One is picked per show + date + bill (the act slugs,
+  // sorted, so order does not matter), so a given night's flyer always carries the same
+  // line and the next date or a changed bill gets a fresh one. Pure; exported.
+  function chargeLines() {
+    return [
+      'wanted for crimes against seriousness',
+      'armed with punchlines and considered hilarious',
+      'last seen leaving an audience in stitches',
+      'charged with aggravated wordplay',
+      'suspected of premeditated punchlines',
+      'wanted for grievous bodily humour',
+      'accused of disturbing the peace with laughter',
+      'known to operate without a filter',
+      'do not approach: may improvise',
+      'guilty of excessive callbacks'
+    ];
+  }
+  function chargeLine(slug, iso, acts) {
+    var all = chargeLines();
+    var bill = (acts || []).map(function (a) { return norm(a); }).sort().join(',');
+    return all[ticketHash((slug || 'iyf') + '|' + (iso || '') + '|' + bill + '|charge') % all.length];
+  }
+
+  // Height-chart wall: an almost-white booking-room wall under a bright overhead light,
+  // falling off to a soft grey at the borders so the edges read as shadow, with ink bands
+  // every 60px, a heavier mark and a number every third.
+  var WALL_WHITE = '#FAFAFA';
+  function drawHeightWall(ctx, w, h) {
+    ctx.save();
+    ctx.fillStyle = WALL_WHITE; ctx.fillRect(0, 0, w, h);
+    var light = ctx.createRadialGradient(w / 2, h * 0.28, h * 0.12, w / 2, h * 0.5, h * 0.78);
+    light.addColorStop(0, 'rgba(15,15,16,0)'); light.addColorStop(0.55, 'rgba(15,15,16,0.05)'); light.addColorStop(1, 'rgba(15,15,16,0.22)');
+    ctx.fillStyle = light; ctx.fillRect(0, 0, w, h);
+    halftoneOverlay(ctx, 0, 0, w, h, '#0F0F10', 0.02);
+    var step = 60, k = 0, cm = 200;
+    for (var y = 30; y < h; y += step, k++) {
+      var major = k % 3 === 0;
+      ctx.fillStyle = major ? 'rgba(15,15,16,0.30)' : 'rgba(15,15,16,0.14)';
+      ctx.fillRect(0, y, w, major ? 6 : 4);
+      if (major) {
+        ctx.fillStyle = 'rgba(15,15,16,0.45)'; ctx.font = '700 26px ' + FONT_BODY; ctx.textBaseline = 'bottom';
+        ctx.textAlign = 'left'; ctx.fillText(String(cm), 10, y - 4);
+        ctx.textAlign = 'right'; ctx.fillText(String(cm), w - 10, y - 4);
+        cm -= 10;
+      }
+    }
+    ctx.restore();
+  }
+
+  // One suspect: ink mugshot frame, placard with name (and a case number when there is room),
+  // yellow placard for the host, PRIME SUSPECT stamp for the headliner.
+  function drawLineupFace(ctx, it, cx, topY, w, code, idx) {
+    var x = cx - w / 2, frame = Math.max(5, Math.round(w * 0.035));
+    var placH = Math.round(w * 0.30), placY = topY + w + 6;
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,0.35)'; ctx.shadowBlur = 14; ctx.shadowOffsetY = 6;
+    ctx.fillStyle = '#0F0F10'; ctx.fillRect(x, topY, w, w);
+    ctx.restore();
+    if (it.img) drawCover(ctx, it.img, x + frame, topY + frame, w - 2 * frame, w - 2 * frame);
+    else {
+      ctx.fillStyle = '#2A2A2D'; ctx.fillRect(x + frame, topY + frame, w - 2 * frame, w - 2 * frame);
+      ctx.fillStyle = '#FFD54F'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(w * 0.5) + 'px ' + FONT_DISPLAY;
+      ctx.fillText((it.name || '?').charAt(0).toUpperCase(), cx, topY + w / 2 + 3);
+    }
+    // placard
+    ctx.fillStyle = it.isHost ? '#FFD54F' : '#FFF8EE'; ctx.fillRect(x, placY, w, placH);
+    ctx.strokeStyle = '#0F0F10'; ctx.lineWidth = 3; ctx.strokeRect(x + 1.5, placY + 1.5, w - 3, placH - 3);
+    ctx.fillStyle = '#0F0F10'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    var cap = (it.isHost ? 'HOST \u00B7 ' : '') + firstName(it.name).toUpperCase();
+    var big = w >= 150;
+    fitFont(ctx, cap, w - 14, Math.round(placH * (big ? 0.42 : 0.5)), 13, '700', FONT_BODY);
+    ctx.fillText(cap, cx, placY + placH * (big ? 0.36 : 0.5) + 1);
+    if (big) {
+      ctx.font = '500 ' + Math.round(placH * 0.26) + 'px ' + FONT_BODY;
+      ctx.fillText(code + '-' + ('0' + (idx + 1)).slice(-2), cx, placY + placH * 0.73);
+    }
+    if (it.headliner) drawStamp(ctx, 'PRIME SUSPECT', cx, topY + w - Math.round(w * 0.14), -8, Math.max(16, Math.round(w * 0.11)), '#E53935');
+  }
+
+  function paintLineup(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story';
+    var top = spec.keyTop, bottomY = H - spec.keyBottom, pad = spec.keySide + 14, cx = W / 2;
+    var slug = m.show ? m.show.slug : '', iso = m.show ? m.show.next : '';
+    var code = caseNumber(slug, iso);
+    drawHeightWall(ctx, W, H);
+    // 1. logo + tagline in ink from the key-content top, then the red case strip
+    var headerBottom = flyerHeader(ctx, spec, m, { taglineColor: '#0F0F10', top: top });
+    var stripH = 44, stripY = headerBottom - 10;
+    ctx.fillStyle = '#E53935'; ctx.fillRect(pad, stripY, W - pad * 2, stripH);
+    ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = '700 22px ' + FONT_BODY;
+    ctx.fillText(spaced('LINEUP') + '   ·   ' + spaced('CASE ' + code.slice(4)) + '   ·   ' + spaced('ZÜRICH'), cx, stripY + stripH / 2 + 1);
+    // 2. bottom block, measured before the faces are laid out so a two-line case name
+    //    never lands on the suspects: meta bar, charge line, then the title block sized
+    //    to the lines it actually needs (same fit as drawShowTitle: pad 64, floor 56, 2 lines)
+    var metaH = 96, chargeH = 56;
+    var metaY = bottomY - metaH, chargeY = metaY - chargeH;
+    var titleBottom = chargeY - 6;
+    var ttl = fitTitle(ctx, (m.show ? splitTitle(m.show.title) : 'IN YOUR FACE').toUpperCase(), W - 128, story ? 150 : 130, 56, 2, FONT_DISPLAY);
+    var titleTop = titleBottom - Math.round(ttl.lines.length * ttl.px * 1.02);
+    var labelY = titleTop - 26;
+    // 3. suspects on the wall between the strip and the case name label
+    var friendsH = m.hasGuests ? 56 : 0;
+    var facesTop = stripY + stripH + 30, facesBottom = labelY - 40 - friendsH;
+    var bill = m.bill.slice();
+    if (m.host && m.host.slug) bill.unshift({ slug: m.host.slug, name: m.host.name, img: m.host.img, priority: 'high', isHost: true });
+    faceGrid(ctx, spec, bill, pad, facesTop, W - pad * 2, facesBottom - facesTop, 1.34, story ? 250 : 210,
+      function (ctx, it, ccx, ty, w, idx) { drawLineupFace(ctx, it, ccx, ty, w, code, idx); });
+    if (m.hasGuests) {
+      ctx.fillStyle = '#0F0F10'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '38px ' + FONT_ACCENT;
+      ctx.fillText('… and other known associates', cx, facesBottom + friendsH / 2);
+    }
+    // title as the case name, in ink on the lit wall; the charge in red marker
+    ctx.fillStyle = '#E53935'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = '700 24px ' + FONT_BODY; ctx.fillText(spaced('CASE NAME'), cx, labelY);
+    drawShowTitle(ctx, spec, m, titleBottom, '#0F0F10', story ? 150 : 130, 2, false);
+    ctx.fillStyle = '#E53935'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = '36px ' + FONT_ACCENT;
+    ctx.fillText(chargeLine(slug, iso, bill.map(function (b) { return b.slug; })), cx, chargeY + chargeH / 2);
+    // date and scene on one ink bar, yellow labels, cream values
+    var dl = m.show ? flyerDate(m.show.next, spec.format, m.nowMs) : '';
+    var venue = (m.show && m.show.venue) ? String(m.show.venue).toUpperCase() : '';
+    ctx.fillStyle = '#0F0F10'; ctx.fillRect(pad, metaY + 16, W - pad * 2, metaH - 24);
+    ctx.textBaseline = 'middle'; var my = metaY + 16 + (metaH - 24) / 2 + 1;
+    ctx.textAlign = 'left'; ctx.fillStyle = '#FFD54F'; ctx.font = '700 22px ' + FONT_BODY; ctx.fillText('DATE', pad + 22, my);
+    ctx.fillStyle = '#FFF3E0'; ctx.font = '700 40px ' + FONT_BODY; if (dl) ctx.fillText(dl, pad + 100, my);
+    ctx.textAlign = 'right'; ctx.font = '700 34px ' + FONT_BODY;
+    if (venue) {
+      fitFont(ctx, venue, (W - pad * 2) / 2 - 40, 34, 22, '700', FONT_BODY);
+      ctx.fillText(venue, W - pad - 22, my);
+      var vwid = ctx.measureText(venue).width;
+      ctx.fillStyle = '#FFD54F'; ctx.font = '700 22px ' + FONT_BODY; ctx.fillText('SCENE', W - pad - 22 - vwid - 18, my);
+    }
+  }
+
   // Style registry - keys map to painters; unknown/empty falls back to classic.
   var FLYER_STYLES = {
     classic: paintFlyer,
     ticket: paintTicketStub,
     riso: paintRiso,
     neon: paintNeon,
-    type: paintTypeStack
+    type: paintTypeStack,
+    lava: paintLavaLamp,
+    swiss: paintSwiss,
+    lineup: paintLineup
   };
 
   // Resolve lineup state -> draw the flyer -> callback. done(err|null).
@@ -2122,6 +2639,8 @@
       '.lineup-lab__flyer-ig{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.6rem;max-width:420px;margin:.85rem auto 0}' +
       '.lineup-lab__flyer-ig .lineup-lab__copy--quiet{flex:1 1 auto}' +
       '.lineup-lab__flyer .lineup-lab__copy-hint{max-width:420px;margin:.35rem auto 0;text-align:center}' +
+      '.lineup-lab__flyer .lineup-lab__fmt-toggle{display:flex;justify-content:center;width:max-content;max-width:100%;margin:0 auto .75rem}' +
+      '.lineup-lab__flyer p.lineup-lab__copy-status{display:block;text-align:center;max-width:420px;margin:.5rem auto}' +
       '.lineup-lab__style-toggle{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem;border:0;overflow:visible;max-width:440px;margin:0 auto .6rem}' +
       '.lineup-lab__style-toggle .lineup-lab__fmt-btn{border:2px solid var(--border-strong,rgba(255,243,224,.4));border-radius:8px;font-size:.82rem;padding:.4rem .6rem}';
     document.head.appendChild(st);
@@ -2138,9 +2657,10 @@
     panel.appendChild(el('p', 'lineup-lab__copy-hint',
       'A ready-to-post flyer built from this lineup. Pick a style + format and download.'));
 
-    // Style toggle - five looks, same lineup. Persists on the host like the format does.
+    // Style toggle - eight looks, same lineup. Persists on the host like the format does.
     var styleToggle = el('div', 'lineup-lab__fmt-toggle lineup-lab__style-toggle');
-    [['classic', '🎞️ Polaroid'], ['ticket', '🎟️ Ticket'], ['riso', '🖨️ Risograph'], ['neon', '🌃 Neon'], ['type', '🔠 Bold Type']].forEach(function (p) {
+    [['classic', '🎞️ Polaroid'], ['ticket', '🎟️ Ticket'], ['riso', '🖨️ Risograph'], ['neon', '🌃 Neon'], ['type', '🔠 Bold Type'],
+     ['lava', '🫧 Lava'], ['swiss', '🔴 Swiss'], ['lineup', '📏 Lineup']].forEach(function (p) {
       var b = button('lineup-lab__fmt-btn' + (sty === p[0] ? ' is-on' : ''), p[1]);
       b.setAttribute('aria-pressed', sty === p[0] ? 'true' : 'false');
       b.addEventListener('click', function () { container.__iyfStyle = p[0]; openFlyer(container, st); });

@@ -15,7 +15,16 @@ const lm = require("../lineup-maker-2000.js") as {
   ticketSerial: (slug: string, iso: string) => string;
   ticketPalettes: () => Palette[];
   ticketPalette: (slug: string) => Palette;
+  lavaSeeds: (slug: string, w: number, h: number, bands: { top: number; bottom: number }[]) => { x: number; y: number; r: number }[];
+  caseNumber: (slug: string, iso: string) => string;
+  showCode: (slug: string, iso: string) => string;
+  chargeLines: () => string[];
+  chargeLine: (slug: string, iso: string, acts?: string[]) => string;
+  firstName: (name: string) => string;
+  contrastRatio: (a: string, b: string) => number;
+  newStylePairs: () => { style: string; text: string; field: string; kind: string }[];
 };
+const { lavaSeeds, caseNumber, contrastRatio, newStylePairs, showCode, chargeLines, chargeLine } = lm;
 type Palette = { name: string; paper: string; ink: string; accent: string; chip: string; chipText: string; host: string; hostText: string };
 
 // WCAG 2.x relative luminance + contrast ratio, so the palette readability floors are
@@ -74,10 +83,36 @@ describe("flyer • flyerSpec", () => {
   });
 });
 
+describe("flyer • showCode (the show date, jumbled)", () => {
+  const ISO = "2026-10-02T20:00:00+02:00";
+  test("is six digits, deterministic, and a permutation of YYMMDD", () => {
+    const a = showCode("double-shot", ISO);
+    expect(a).toMatch(/^\d{6}$/);
+    expect(showCode("double-shot", ISO)).toBe(a);
+    expect(a.split("").sort().join("")).toBe("261002".split("").sort().join(""));
+  });
+  test("is never the plain date in either order", () => {
+    for (const slug of ["double-shot", "comedy-brew", "la-tarima", "promessi-spassi", "x", "y", "z"]) {
+      const c = showCode(slug, ISO);
+      expect(c).not.toBe("261002");
+      expect(c).not.toBe("021026");
+    }
+  });
+  test("changes with the show and with the date", () => {
+    expect(showCode("double-shot", ISO)).not.toBe(showCode("comedy-brew", ISO));
+    expect(showCode("double-shot", ISO)).not.toBe(showCode("double-shot", "2026-11-06T20:00:00+01:00"));
+  });
+  test("a show without a date still gets six digits", () => {
+    expect(showCode("double-shot", "")).toMatch(/^\d{6}$/);
+    expect(showCode(undefined as any, undefined as any)).toMatch(/^\d{6}$/);
+  });
+});
+
 describe("flyer • ticketSerial (stable per show + date)", () => {
-  test("is deterministic and formatted as 'Nº ddddd'", () => {
+  test("is deterministic and formatted as 'Nº dddddd' from the jumbled date", () => {
     const a = lm.ticketSerial("double-shot", "2026-10-02T20:00:00+02:00");
-    expect(a).toMatch(/^Nº \d{5}$/);
+    expect(a).toMatch(/^Nº \d{6}$/);
+    expect(a).toBe("Nº " + showCode("double-shot", "2026-10-02T20:00:00+02:00"));
     expect(lm.ticketSerial("double-shot", "2026-10-02T20:00:00+02:00")).toBe(a);
   });
   test("changes with the date and with the show", () => {
@@ -86,7 +121,89 @@ describe("flyer • ticketSerial (stable per show + date)", () => {
     expect(lm.ticketSerial("promessi-spassi", "2026-10-02T20:00:00+02:00")).not.toBe(a);
   });
   test("tolerates a missing slug or date", () => {
-    expect(lm.ticketSerial("", "")).toMatch(/^Nº \d{5}$/);
+    expect(lm.ticketSerial("", "")).toMatch(/^Nº \d{6}$/);
+  });
+});
+
+describe("flyer • lavaSeeds (deterministic blobs kept out of the text bands)", () => {
+  const bands = [{ top: 230, bottom: 484 }, { top: 1200, bottom: 1600 }];
+  test("the same show always gets the same lava", () => {
+    const a = lavaSeeds("comedy-brew", 1080, 1920, bands), b = lavaSeeds("comedy-brew", 1080, 1920, bands);
+    expect(a.length).toBeGreaterThan(3);
+    expect(JSON.stringify(a)).toBe(JSON.stringify(b));
+  });
+  test("different shows get different lava", () => {
+    expect(JSON.stringify(lavaSeeds("comedy-brew", 1080, 1920, bands))).not.toBe(JSON.stringify(lavaSeeds("double-shot", 1080, 1920, bands)));
+  });
+  test("no blob intersects an excluded band", () => {
+    for (const slug of ["comedy-brew", "double-shot", "la-tarima", "x"]) {
+      for (const b of lavaSeeds(slug, 1080, 1920, bands)) {
+        for (const band of bands) expect(b.y + b.r <= band.top || b.y - b.r >= band.bottom).toBe(true);
+      }
+    }
+  });
+  test("tolerates a missing slug and no bands", () => {
+    expect(lavaSeeds(undefined as any, 1080, 1350, undefined as any).length).toBeGreaterThan(0);
+  });
+});
+
+describe("flyer • caseNumber and chargeLine (police lineup, per show + date)", () => {
+  const ISO = "2026-10-02T20:00:00+02:00";
+  test("case number is the jumbled show date behind an IYF prefix", () => {
+    expect(caseNumber("double-shot", ISO)).toBe("IYF " + showCode("double-shot", ISO));
+    expect(caseNumber(undefined as any, undefined as any)).toMatch(/^IYF \d{6}$/);
+  });
+  test("there are several charge lines and the same night always gets the same one", () => {
+    expect(chargeLines().length).toBeGreaterThanOrEqual(8);
+    expect(chargeLines()).toContain("wanted for crimes against seriousness");
+    expect(chargeLine("double-shot", ISO)).toBe(chargeLine("double-shot", ISO));
+    expect(chargeLines()).toContain(chargeLine("double-shot", ISO));
+  });
+  test("the bill is part of the seed, in any order, and a changed bill can change the line", () => {
+    const a = chargeLine("double-shot", ISO, ["benjamin", "adonis", "damir"]);
+    expect(chargeLine("double-shot", ISO, ["damir", "Benjamin", "adonis"])).toBe(a);
+    const seen = new Set<string>();
+    for (let k = 0; k < 12; k++) seen.add(chargeLine("double-shot", ISO, ["benjamin", "act-" + k]));
+    expect(seen.size).toBeGreaterThanOrEqual(3);
+  });
+  test("different shows and dates spread across several lines", () => {
+    const seen = new Set<string>();
+    for (const slug of ["double-shot", "comedy-brew", "la-tarima", "promessi-spassi", "open-mic", "late-show"]) {
+      for (const iso of [ISO, "2026-11-06T20:00:00+01:00", "2026-12-04T20:00:00+01:00"]) seen.add(chargeLine(slug, iso));
+    }
+    expect(seen.size).toBeGreaterThanOrEqual(4);
+  });
+});
+
+describe("flyer • new style legibility (WCAG contrast is a gate, not a hope)", () => {
+  test("contrastRatio matches the WCAG reference values", () => {
+    expect(contrastRatio("#000000", "#FFFFFF")).toBeCloseTo(21, 1);
+    expect(contrastRatio("#FFFFFF", "#FFFFFF")).toBeCloseTo(1, 3);
+  });
+  test("every text / field pair the lava, swiss and lineup painters use clears its floor", () => {
+    const pairs = newStylePairs();
+    expect(pairs.length).toBeGreaterThan(6);
+    for (const p of pairs) {
+      const floor = p.kind === "small" ? 4.5 : 3.0;
+      expect(contrastRatio(p.text, p.field), p.style + " " + p.text + " on " + p.field).toBeGreaterThanOrEqual(floor);
+    }
+  });
+});
+
+describe("flyer • firstName (caption under a face)", () => {
+  test("a short full name is kept whole, so Dr Val is not just Dr", () => {
+    expect(lm.firstName("Dr Val")).toBe("Dr Val");
+    expect(lm.firstName("Jo Kim")).toBe("Jo Kim");
+    expect(lm.firstName("Benjamin")).toBe("Benjamin");
+  });
+  test("a longer name falls back to the first word", () => {
+    expect(lm.firstName("Martina Rossi")).toBe("Martina");
+    expect(lm.firstName("Ahmet Bilge Kaya")).toBe("Ahmet");
+  });
+  test("tolerates blanks and extra whitespace", () => {
+    expect(lm.firstName("")).toBe("");
+    expect(lm.firstName(undefined as any)).toBe("");
+    expect(lm.firstName("  Dr Val  ")).toBe("Dr Val");
   });
 });
 
