@@ -1,0 +1,26 @@
+{% comment %}
+  Build-time catalogs shared by the organizer tools that draw images in the browser:
+  /lineup/ (Lineup Maker 2000) and /week/ (Week Story). Both are read by
+  assets/js/lineup-maker-2000.js. Everything comes ONLY from curated site data, so a
+  crafted link can never invent a show or a comedian (same invariant as the /comedians/
+  promo links and the /go/ campaign layer).
+
+  #iyf-shows      every post with a ticket_url: slug, title, page, ticket link, images,
+                  venue, next date, regular hosts (comedian slugs, hand-set on the post).
+  #iyf-comedians  the full roster with photo, priority and instagram.
+  #iyf-backdrops  audience photos the ticket style stands on, from _data/gallery.yml
+                  (type audience, 4+ faces, aesthetic >= 0.45; FLYER_DESIGN.md, "Ticket style").
+{% endcomment %}
+{% assign iyf_shows = site.posts | where_exp: "p", "p.ticket_url" %}
+<script type="application/json" id="iyf-shows">
+[{% for s in iyf_shows %}{% assign _v = site.data.venues[s.venue_slug] %}{"slug":{{ s.url | remove: "/" | jsonify }},"title":{{ s.title | jsonify }},"desc":{{ s.description | jsonify }},"url":{{ s.url | jsonify }},"tickets":{{ s.ticket_url | jsonify }},"img":{{ s['feature-img'] | jsonify }},"thumb":{{ s.thumbnail | default: "" | jsonify }},"image":{{ s.image | default: "" | jsonify }},"hosts":{{ s.hosts | jsonify }},"venue":{% if s.venue %}{{ s.venue | jsonify }}{% elsif _v %}{{ _v.name | jsonify }}{% else %}""{% endif %},"next":{% if s.next_event_date %}{{ s.next_event_date | date_to_xmlschema | jsonify }}{% else %}""{% endif %}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+</script>
+
+<script type="application/json" id="iyf-comedians">
+[{% for c in site.comedians %}{"slug":{{ c.slug | jsonify }},"name":{{ c.title | jsonify }},"url":{{ c.url | jsonify }},"photo":{{ c.photo | jsonify }},"priority":{{ c.priority | jsonify }},"instagram":{{ c.instagram | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+</script>
+
+{% assign iyf_backdrops = site.data.gallery | where: "type", "audience" | where_exp: "g", "g.faces >= 4 and g.aesthetic >= 0.45" %}
+<script type="application/json" id="iyf-backdrops">
+[{% for g in iyf_backdrops %}{"src":{{ g.src | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+</script>

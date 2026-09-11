@@ -6,6 +6,7 @@ sitemap: false
 ---
 User-agent: *
 Disallow: /lineup/
+Disallow: /week/
 Disallow: /go/
 Disallow: /linkbuilder/
 Disallow: /reports/

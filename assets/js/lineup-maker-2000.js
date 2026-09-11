@@ -24,6 +24,9 @@
   var INTERVAL = '::interval::';
   var GUEST_PREFIX = 'guest:';   // off-catalog "guest" acts ride in the URL as guest:Their Name
   var WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  // Where the week story sends people: the calendar, tagged so the reports see the story traffic
+  // (CAMPAIGN_LINKS.md vocabulary). Defined above the test seam because exported helpers read it.
+  var WEEK_CAL_LINK = 'https://inyourfacecomedy.ch/calendar/?utm_source=instagram&utm_medium=social&utm_campaign=week';
   var MO = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   // --- test seam --------------------------------------------------------------
@@ -44,13 +47,17 @@
       lavaSeeds: lavaSeeds, caseNumber: caseNumber, contrastRatio: contrastRatio, newStylePairs: newStylePairs,
       showCode: showCode, chargeLines: chargeLines, chargeLine: chargeLine, firstName: firstName,
       stubLines: stubLines, stubLine: stubLine,
+      weekWindow: weekWindow, weekEvents: weekEvents, weekHeadlines: weekHeadlines, weekCopy: weekCopy,
+      weekHandles: weekHandles, weekHandlesText: weekHandlesText, weekCaption: weekCaption, weekCalLink: function () { return WEEK_CAL_LINK; },
+      weekIsoWeek: weekIsoWeek, weekComicLayout: weekComicLayout, flapLines: flapLines, weekComicWeight: weekComicWeight, weekMenuPrice: weekMenuPrice, showTagline: showTagline, weekDateBoard: weekDateBoard,
       isGuest: isGuest, guestName: guestName, guestToken: guestToken, instaHandle: instaHandle
     };
     return;
   }
 
   var root = document.getElementById('lineup-lab');
-  if (!root) return;
+  var weekRoot = document.getElementById('iyf-week');   // the /week/ page shares this script
+  if (!root && !weekRoot) return;
 
   // --- catalogs (the only source of shows + comedians) ----------------------
   function parseCatalog(id) {
@@ -184,7 +191,7 @@
   }
 
   // --- URL builders ----------------------------------------------------------
-  function origin() { return root.getAttribute('data-origin') || window.location.origin; }
+  function origin() { return (root || weekRoot).getAttribute('data-origin') || window.location.origin; }
   function billParts(st) {
     var parts = [];
     if (st.type === 'split') {
@@ -2087,7 +2094,30 @@
       { style: 'lineup', text: '#0F0F10', field: '#FFF8EE', kind: 'small' },   // placards
       { style: 'lineup', text: '#0F0F10', field: '#FFD54F', kind: 'small' },   // host placard
       { style: 'lineup', text: '#FFF3E0', field: '#E53935', kind: 'large' },   // case strip
-      { style: 'lineup', text: '#FFF3E0', field: '#0F0F10', kind: 'small' }    // date bar
+      { style: 'lineup', text: '#FFF3E0', field: '#0F0F10', kind: 'small' },   // date bar
+      { style: 'week-type', text: '#B9B2A6', field: '#0F0F10', kind: 'small' }, // venue and time on the ink field
+      { style: 'week-swiss', text: '#5A5A5E', field: '#F2F2EE', kind: 'small' }, // venue line on the paper
+      { style: 'week-ticket', text: '#2B2B2B', field: '#FBF7EE', kind: 'small' }, // stub text
+      { style: 'week-ticket', text: '#C43E33', field: '#FBF7EE', kind: 'small' }, // stub sub line on roll-red paper
+      { style: 'week-polaroid', text: '#5A5A5E', field: '#FFF8EE', kind: 'small' }, // polaroid sub caption
+      { style: 'week-polaroid', text: '#FFD54F', field: '#1A1A1D', kind: 'large' }, // headline on the wall
+      { style: 'week-lava', text: '#FFF3E0', field: '#3B3B1E', kind: 'small' },     // name on the pill over the hottest blob (0.78 ink over #FFD54F)
+      { style: 'week-lava', text: '#FFD54F', field: '#3B3B1E', kind: 'small' },     // time and venue, same worst case
+      { style: 'week-lava', text: '#0F0F10', field: '#FFB300', kind: 'small' },     // day on the blob
+      { style: 'week-comic', text: '#0F0F10', field: '#FFD54F', kind: 'small' },    // caption box, masthead
+      { style: 'week-comic', text: '#0F0F10', field: '#FFFFFF', kind: 'small' },    // balloon
+      { style: 'week-comic', text: '#0F0F10', field: '#EFE7CF', kind: 'small' },    // empty-page note on the newsprint
+      { style: 'week-flap', text: '#FFF3E0', field: '#1E1E22', kind: 'small' },     // show name tiles
+      { style: 'week-flap', text: '#C9C2B6', field: '#1E1E22', kind: 'small' },     // dim sub row tiles
+      { style: 'week-flap', text: '#FFD54F', field: '#151518', kind: 'small' },     // headline tiles, board header on the casing
+      { style: 'week-station', text: '#FFFFFF', field: '#2D3184', kind: 'small' },  // white rows on the indigo board
+      { style: 'week-station', text: '#2D3184', field: '#D6D6D6', kind: 'small' },  // column labels on the grey strip, weekday in the type box
+      { style: 'week-station', text: '#FFFFFF', field: '#E53935', kind: 'large' },  // notice banner and the Gratis box (bold, 33 px and up)
+      { style: 'week-chalk', text: '#F2EFE6', field: '#1C201D', kind: 'small' },    // chalk white
+      { style: 'week-chalk', text: '#F5E6A3', field: '#1C201D', kind: 'small' },    // chalk yellow
+      { style: 'week-menu', text: '#0F0F10', field: '#FBF4E4', kind: 'small' },     // items on the card
+      { style: 'week-menu', text: '#B71C1C', field: '#FBF4E4', kind: 'small' },     // course headings
+      { style: 'week-menu', text: '#5A5A5E', field: '#FBF4E4', kind: 'small' }      // item descriptions
     ];
   }
 
@@ -2603,7 +2633,10 @@
     var dateSlug = (d && !isNaN(d.getTime()))
       ? d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2)
       : '';
-    var fname = [(base || 'flyer'), dateSlug, format].filter(Boolean).join('-') + '.png';
+    downloadPng(canvas, [(base || 'flyer'), dateSlug, format].filter(Boolean).join('-') + '.png', onFail);
+  }
+  // Save a canvas as a PNG named fname (shared by the flyer and the week story).
+  function downloadPng(canvas, fname, onFail) {
     function fail(e) { if (onFail) onFail(e); }
     function trigger(url, revoke) {
       try {
@@ -2741,11 +2774,1225 @@
     });
   }
 
+  // ===========================================================================
+  // WEEK STORY (/week/): the Sunday "shows this week" story and post, drawn from the
+  // calendar data (every occurrence, not the one next date a post carries). Root is
+  // #iyf-week; events come from #iyf-week-events and resolve against the shows catalog.
+  // State lives in the URL: from=YYYY-MM-DD, style, format, v (copy variant).
+  // ===========================================================================
+
+  function ymd(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function parseYmd(s) {
+    var mm = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(s || ''));
+    if (!mm) return null;
+    var d = new Date(+mm[1], +mm[2] - 1, +mm[3]);
+    return isNaN(d.getTime()) ? null : d;
+  }
+  // The from-day plus the following seven: eight calendar days inclusive, so a show this
+  // Sunday and one next Sunday are both in. Pure; exported.
+  function weekWindow(fromIso) {
+    var d = parseYmd(fromIso) || new Date();
+    var from = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    var to = new Date(from.getFullYear(), from.getMonth(), from.getDate() + 7);
+    return { from: ymd(from), to: ymd(to) };
+  }
+  // Calendar events inside the window, earliest first. Pure; exported.
+  function weekEvents(events, fromIso) {
+    var w = weekWindow(fromIso);
+    return (events || []).filter(function (e) {
+      var d = String(e.date || '').slice(0, 10);
+      return d >= w.from && d <= w.to;
+    }).sort(function (a, b) {
+      var ka = String(a.start || a.date || ''), kb = String(b.start || b.date || '');
+      return ka < kb ? -1 : (ka > kb ? 1 : 0);
+    });
+  }
+  // Headline pool. {n} is the number of shows in the window (lines with it are skipped when
+  // there are fewer than two). The image carries no call to action: the link sticker Harry
+  // adds in Instagram is the call to action. Pure; exported for review and tests.
+  function weekHeadlines() {
+    // Harry's rules (2026-09-12 review): nothing bossy, no "you" or "your".
+    return ['THIS WEEK', 'COMEDY THIS WEEK', '{n} SHOWS, 7 NIGHTS', 'THE WEEK AHEAD', 'PLANS?',
+      'PICK A NIGHT', 'THIS WEEK IN ZÜRICH', 'COMING UP', 'A WEEK OF LAUGHS', '{n} REASONS TO GO OUT',
+      "WHAT'S ON", 'LAUGHTER, SCHEDULED'];
+  }
+  // Same week + same variant = same words. The page rolls a random variant on each fresh load
+  // and writes it into the URL; "other words" bumps it. Pure; exported.
+  function weekCopy(fromIso, variant, n) {
+    var w = weekWindow(fromIso), v = (variant | 0), hs = weekHeadlines();
+    var h = hs[ticketHash(w.from + '|week|head|' + v) % hs.length];
+    n = (n == null) ? 0 : (n | 0);
+    if (h.indexOf('{n}') >= 0) h = n >= 2 ? h.replace('{n}', String(n)) : hs[0];
+    return { headline: h };
+  }
+  function weekShowFor(e, shows) {
+    var k = norm(e && e.show);
+    for (var i = 0; i < (shows || []).length; i++) if (norm(shows[i].slug) === k) return shows[i];
+    return null;
+  }
+  function weekDayLabel(dateStr) { var d = parseYmd(dateStr); return d ? WD[d.getDay()].toUpperCase() : ''; }
+  function weekDateLabel(dateStr) { var d = parseYmd(dateStr); return d ? d.getDate() + ' ' + MO[d.getMonth()].toUpperCase() : ''; }
+  // The show page's second title: "Comedy Brew • English Stand-Up Comedy Open Mic • ..." gives
+  // "English Stand-Up Comedy Open Mic"; a title without one gives ''. Pure; exported.
+  function showTagline(t) {
+    var parts = (t || '').replace(/ - /g, ' • ').split('•').map(function (s) { return s.trim(); }).filter(Boolean);
+    return parts[1] || '';
+  }
+  // "15 Sept": the date the way the station board prints it. Pure; exported.
+  function weekDateBoard(dateStr) {
+    var d = parseYmd(dateStr), MB = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+    return d ? d.getDate() + ' ' + MB[d.getMonth()] : '';
+  }
+  function weekDateNice(dateStr) { var d = parseYmd(dateStr); return d ? d.getDate() + ' ' + MO[d.getMonth()] : ''; }   // "13 Sep", for running text
+  function weekTime(e) { var mm = /T(\d{2}:\d{2})/.exec(String(e && e.start || '')); return mm ? mm[1] : ''; }
+  function weekShowName(e, shows) { var s = weekShowFor(e, shows); return s ? splitTitle(s.title) : String(e.name || e.show || ''); }
+  // Instagram handles of the regular hosts of every show in the window, in show order,
+  // de-duplicated. Shows without hosts (a one-off with a touring act) add nothing. Pure; exported.
+  function weekHandles(events, shows, comedians) {
+    var out = [], seen = {};
+    (events || []).forEach(function (e) {
+      var s = weekShowFor(e, shows);
+      ((s && s.hosts) || []).forEach(function (slug) {
+        var k = norm(slug), c = null;
+        for (var i = 0; i < (comedians || []).length; i++) if (norm(comedians[i].slug) === k) { c = comedians[i]; break; }
+        var h = c ? instaHandle(c.instagram) : '';
+        if (!h) return;
+        var hk = h.toLowerCase(); if (seen[hk]) return;
+        seen[hk] = 1; out.push(h);
+      });
+    });
+    return out;
+  }
+  function weekHandlesText(events, shows, comedians) {
+    return weekHandles(events, shows, comedians).map(function (h) { return '@' + h + ' \n'; }).join('');
+  }
+  // Plain-text caption for a post: one line per show, then the tagged calendar link. Pure; exported.
+  function weekCaption(events, shows, fromIso) {
+    var lines = ['This week at IN YOUR FACE Comedy 🎤', ''];
+    (events || []).forEach(function (e) {
+      var d = parseYmd(e.date);
+      var when = d ? WD[d.getDay()] + ' ' + d.getDate() + ' ' + MO[d.getMonth()] : String(e.date || '');
+      lines.push([when, weekTime(e), weekShowName(e, shows), e.venue].filter(Boolean).join(' · '));
+    });
+    if (!(events || []).length) lines.push('No shows in this window. The calendar has the next ones.');
+    lines.push('');
+    lines.push('Full calendar + tickets: ' + WEEK_CAL_LINK);
+    return lines.join('\n');
+  }
+
+  // --- week painters ----------------------------------------------------------
+  // Model m: { rows: [{ e, name, day, date, time, venue, serial, thumb }], from, copy: {headline},
+  //            logo, backdrop, n }.
+  var WEEK_INK = '#0F0F10', WEEK_CREAM = '#FFF3E0', WEEK_YELLOW = '#FFD54F', WEEK_RED = '#E53935';
+
+  function weekLogo(ctx, spec, m, top, h) {
+    if (!m.logo) return top + h;
+    var lw = h * (m.logo.width / m.logo.height);
+    ctx.drawImage(m.logo, spec.w / 2 - lw / 2, top, lw, h);
+    return top + h;
+  }
+  // Headline in the display face, at most two lines, centred. Returns the bottom Y.
+  function weekHeadline(ctx, spec, text, topY, color, startPx, family, weight) {
+    var maxW = spec.w - (spec.keySide + 20) * 2;
+    var fam = family || FONT_DISPLAY, wt = weight || '400';
+    var px = startPx, lines;
+    while (px >= 48) {
+      ctx.font = wt + ' ' + px + 'px ' + fam;
+      lines = wrapWords(ctx, text, maxW);
+      if (lines.length <= 2) break;
+      px -= 4;
+    }
+    var lineH = px * 1.04;
+    ctx.fillStyle = color; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    lines.forEach(function (ln, i) { ctx.fillText(ln, spec.w / 2, topY + (i + 1) * lineH - lineH * 0.16); });
+    return topY + lines.length * lineH;
+  }
+  // The rows stop this far above the key-area floor (the link sticker zone is below it).
+  function weekFloor(spec) { return spec.h - spec.keyBottom - 24; }
+    // Split a rows band: as many rows as events, capped, evenly spaced.
+    function weekRowH(bandH, n, gap, cap) { return n ? Math.min(cap, (bandH - gap * (n - 1)) / n) : 0; }
+  // The show's own artwork (thumbnail, else card image) in a rounded square with a keyline,
+  // centre-cropped: every thumbnail on the site is square or 4:5, so the crop keeps the subject.
+  function weekThumb(ctx, img, x, y, s, ring, mono, fallbackText) {
+    ctx.save();
+    roundRect(ctx, x, y, s, s, Math.round(s * 0.12)); ctx.fillStyle = ring; ctx.fill();
+    var k = 4;
+    roundRect(ctx, x + k, y + k, s - 2 * k, s - 2 * k, Math.round(s * 0.09)); ctx.clip();
+    if (img && mono) drawMono(ctx, img, x + k, y + k, s - 2 * k, s - 2 * k);
+    else if (img) drawCover(ctx, img, x + k, y + k, s - 2 * k, s - 2 * k);
+    else {
+      ctx.fillStyle = '#2A2A2D'; ctx.fillRect(x, y, s, s);
+      ctx.fillStyle = WEEK_YELLOW; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(s * 0.5) + 'px ' + FONT_DISPLAY;
+      ctx.fillText((fallbackText || '?').charAt(0).toUpperCase(), x + s / 2, y + s / 2 + 3);
+    }
+    ctx.restore();
+  }
+  function weekEmpty(ctx, spec, m, color, font) {
+    ctx.fillStyle = color; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = '400 ' + (spec.format === 'story' ? 64 : 56) + 'px ' + font;
+    ctx.fillText('NO SHOWS THIS WEEK', spec.w / 2, spec.h / 2 - 30);
+    ctx.font = '600 34px ' + FONT_BODY;
+    ctx.fillText('The calendar has the next ones', spec.w / 2, spec.h / 2 + 40);
+  }
+
+  // STYLE: Bold Type. Ink field, giant weekday words, red CTA bar.
+  function paintWeekType(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story', pad = spec.keySide + 14;
+    ctx.fillStyle = WEEK_INK; ctx.fillRect(0, 0, W, H);
+    var y = weekLogo(ctx, spec, m, spec.keyTop + 10, story ? 120 : 96) + (story ? 36 : 24);
+    y = weekHeadline(ctx, spec, m.copy.headline, y, WEEK_CREAM, story ? 132 : 108) + (story ? 30 : 20);
+    if (!m.rows.length) { weekEmpty(ctx, spec, m, WEEK_YELLOW, FONT_DISPLAY); return; }
+    var bandTop = y, bandBot = weekFloor(spec), gap = 10;
+    var rowH = weekRowH(bandBot - bandTop, m.rows.length, gap, story ? 190 : 150);
+    var startY = bandTop + Math.max(0, (bandBot - bandTop - (rowH * m.rows.length + gap * (m.rows.length - 1))) / 2);
+    m.rows.forEach(function (row, i) {
+      var top = startY + i * (rowH + gap), cy = top + rowH / 2;
+      if (i) { ctx.fillStyle = '#2A2A2D'; ctx.fillRect(pad, top - gap / 2, W - pad * 2, 2); }
+      // show artwork on the right
+      var ts = Math.round(rowH * 0.8);
+      weekThumb(ctx, row.thumb, W - pad - ts, cy - ts / 2, ts, WEEK_CREAM, false, row.name);
+      var leftEdge = W - pad - ts - 24;
+      // day word
+      var dayPx = Math.round(rowH * 0.72);
+      ctx.fillStyle = WEEK_YELLOW; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + dayPx + 'px ' + FONT_DISPLAY;
+      ctx.fillText(row.day, pad, cy + 2);
+      var dayW = ctx.measureText(row.day).width;
+      ctx.fillStyle = WEEK_CREAM; ctx.font = '700 ' + Math.round(rowH * 0.2) + 'px ' + FONT_BODY;
+      ctx.fillText(row.date, pad + dayW + 14, cy - rowH * 0.14);
+      ctx.fillStyle = '#B9B2A6';
+      if (row.time) ctx.fillText(row.time, pad + dayW + 14, cy + rowH * 0.14);
+      // show name + venue
+      var nx = pad + dayW + 14 + Math.max(ctx.measureText(row.date).width, ctx.measureText(row.time || '').width) + 30;
+      var nameW = Math.max(120, leftEdge - nx);
+      ctx.fillStyle = WEEK_CREAM;
+      fitFont(ctx, row.name.toUpperCase(), nameW, Math.round(rowH * 0.42), 24, '400', FONT_DISPLAY);
+      ctx.fillText(row.name.toUpperCase(), nx, cy - rowH * 0.12);
+      ctx.fillStyle = '#B9B2A6';
+      var venue = String(row.venue || '').toUpperCase();
+      fitFont(ctx, venue, nameW, Math.round(rowH * 0.17), 16, '600', FONT_BODY);
+      ctx.fillText(venue, nx, cy + rowH * 0.24);
+    });
+  }
+
+  // STYLE: Swiss timetable. Near-white paper, small caps header, red rules, mono faces.
+  function paintWeekSwiss(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story', pad = spec.keySide + 16, k = SWISS_RULE;
+    ctx.fillStyle = SWISS_PAPER; ctx.fillRect(0, 0, W, H);
+    var top = spec.keyTop + 10;
+    // header: small caps left, logo right, 4px rule
+    ctx.fillStyle = WEEK_INK; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    ctx.font = '700 26px ' + FONT_BODY; swissTrack(ctx, 4);
+    ctx.fillText(spaced('IN YOUR FACE COMEDY'), pad, top + 40); swissTrack(ctx, 0);
+    ctx.font = '500 26px ' + FONT_BODY; ctx.fillText('Zürich · ' + weekDateLabel(m.from) + ' to ' + weekDateLabel(weekWindow(m.from).to), pad, top + 78);
+    if (m.logo) { var lh = 80, lw = lh * (m.logo.width / m.logo.height); ctx.drawImage(m.logo, W - pad - lw, top + 4, lw, lh); }
+    ctx.fillStyle = WEEK_INK; ctx.fillRect(pad, top + 104, W - pad * 2, k);
+    var y = top + 104 + (story ? 60 : 40);
+    // headline with the red circle behind its end
+    var hx = m.copy.headline.charAt(0) + m.copy.headline.slice(1).toLowerCase();
+    var px = story ? 108 : 88; ctx.font = '700 ' + px + 'px ' + FONT_BODY;
+    var lines = wrapWords(ctx, hx, W - pad * 2);
+    while (lines.length > 2 && px > 56) { px -= 4; ctx.font = '700 ' + px + 'px ' + FONT_BODY; lines = wrapWords(ctx, hx, W - pad * 2); }
+    var lastW = ctx.measureText(lines[lines.length - 1]).width;
+    ctx.fillStyle = WEEK_RED; ctx.beginPath();
+    ctx.arc(Math.min(pad + lastW + 10, W - spec.keySide - px * 0.42), y + (lines.length - 1) * px * 1.06 + px * 0.28, px * 0.42, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = WEEK_INK; ctx.textAlign = 'left';
+    lines.forEach(function (ln, i) { ctx.fillText(ln, pad, y + (i + 1) * px * 1.06 - px * 0.14); });
+    y += lines.length * px * 1.06 + (story ? 40 : 26);
+    if (!m.rows.length) { weekEmpty(ctx, spec, m, WEEK_INK, FONT_BODY); return; }
+    ctx.fillStyle = WEEK_RED; ctx.fillRect(pad, y, W - pad * 2, k); y += k + 6;
+    var gap = 8, bandBot = weekFloor(spec);
+    var rowH = weekRowH(bandBot - y, m.rows.length, gap, story ? 170 : 140);
+    m.rows.forEach(function (row, i) {
+      var t = y + i * (rowH + gap), cy = t + rowH / 2;
+      // show artwork right, black and white with an ink keyline like the Swiss flyer's photos
+      var s = Math.round(rowH * 0.8), x = W - pad - s;
+      weekThumb(ctx, row.thumb, x, cy - s / 2, s, WEEK_INK, true, row.name);
+      x -= s + 8;
+      var rightLimit = x + s + 8 - 24;
+      // day column
+      ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+      ctx.fillStyle = WEEK_RED; ctx.font = '700 ' + Math.round(rowH * 0.2) + 'px ' + FONT_BODY;
+      ctx.fillText(row.day.charAt(0) + row.day.slice(1).toLowerCase(), pad, cy - rowH * 0.24);
+      ctx.fillStyle = WEEK_INK; ctx.font = '700 ' + Math.round(rowH * 0.44) + 'px ' + FONT_BODY;
+      var dnum = String(parseInt(row.date, 10) || '');
+      ctx.fillText(dnum, pad, cy + rowH * 0.14);
+      var dayColW = Math.max(ctx.measureText('30').width, 70) + 26;
+      // time
+      var tx = pad + dayColW;
+      ctx.fillStyle = WEEK_INK; ctx.font = '500 ' + Math.round(rowH * 0.2) + 'px ' + FONT_BODY;
+      if (row.time) ctx.fillText(row.time, tx, cy - rowH * 0.24);
+      // name + venue
+      var nameW = Math.max(120, rightLimit - tx);
+      ctx.fillStyle = WEEK_INK;
+      fitFont(ctx, row.name, nameW, Math.round(rowH * 0.3), 22, '700', FONT_BODY);
+      ctx.fillText(row.name, tx, cy + rowH * 0.1);
+      ctx.fillStyle = '#5A5A5E';
+      fitFont(ctx, String(row.venue || ''), nameW, Math.round(rowH * 0.17), 16, '500', FONT_BODY);
+      ctx.fillText(String(row.venue || ''), tx, cy + rowH * 0.34);
+      ctx.fillStyle = WEEK_INK; ctx.fillRect(pad, t + rowH + gap / 2 - 1, W - pad * 2, 2);
+    });
+  }
+
+  // STYLE: Ticket strip. One admission stub per show on the show's dark paper, the crowd behind.
+  function paintWeekTicket(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story', pad = spec.keySide + 10;
+    var P = ticketPalette('week|' + m.from);
+    ctx.fillStyle = P.paper; ctx.fillRect(0, 0, W, H);
+    if (m.backdrop) { ctx.save(); ctx.globalAlpha = 0.16; drawMono(ctx, m.backdrop, 0, 0, W, H); ctx.restore(); }
+    var y = weekLogo(ctx, spec, m, spec.keyTop + 10, story ? 116 : 92) + (story ? 30 : 20);
+    y = weekHeadline(ctx, spec, m.copy.headline, y, P.ink, story ? 120 : 100) + (story ? 26 : 16);
+    if (!m.rows.length) { weekEmpty(ctx, spec, m, P.ink, FONT_DISPLAY); return; }
+    var gap = 14, bandBot = weekFloor(spec);
+    var rowH = weekRowH(bandBot - y, m.rows.length, gap, story ? 180 : 140);
+    var startY = y + Math.max(0, (bandBot - y - (rowH * m.rows.length + gap * (m.rows.length - 1))) / 2);
+    var stubCream = '#FBF7EE', stubInk = '#2B2B2B';
+    m.rows.forEach(function (row, i) {
+      var t = startY + i * (rowH + gap), x = pad, w = W - pad * 2, cy = t + rowH / 2;
+      ctx.save();
+      ctx.shadowColor = 'rgba(0,0,0,0.35)'; ctx.shadowBlur = 14; ctx.shadowOffsetY = 6;
+      ctx.fillStyle = stubCream; roundRect(ctx, x, t, w, rowH, 10); ctx.fill();
+      ctx.restore();
+      // day block on the left, in the paper colour
+      var dayW = Math.round(rowH * 1.05);
+      ctx.save(); roundRect(ctx, x, t, w, rowH, 10); ctx.clip();
+      ctx.fillStyle = P.paper; ctx.fillRect(x, t, dayW, rowH);
+      ctx.restore();
+      // perforation between the day block and the stub
+      ctx.fillStyle = stubCream;
+      for (var py = t + 10; py < t + rowH - 4; py += 18) { ctx.beginPath(); ctx.arc(x + dayW, py, 5, 0, Math.PI * 2); ctx.fill(); }
+      ctx.fillStyle = P.ink; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(rowH * 0.42) + 'px ' + FONT_DISPLAY;
+      ctx.fillText(row.day, x + dayW / 2, cy - rowH * 0.12);
+      ctx.font = '700 ' + Math.round(rowH * 0.18) + 'px ' + FONT_BODY;
+      ctx.fillText(row.date, x + dayW / 2, cy + rowH * 0.24);
+      // show artwork on the right, ink frame, mono like the ticket flyer's prints
+      var s = Math.round(rowH * 0.76), fx = x + w - 16 - s;
+      weekThumb(ctx, row.thumb, fx, cy - s / 2, s, stubInk, true, row.name);
+      fx -= s + 8;
+      var rightLimit = fx + s + 8 - 20;
+      // serial, top right of the text area
+      var nx = x + dayW + 22, nameW = Math.max(120, rightLimit - nx);
+      ctx.textAlign = 'left'; ctx.fillStyle = stubInk; ctx.globalAlpha = 0.6;
+      ctx.font = '600 ' + Math.round(rowH * 0.13) + 'px ' + FONT_BODY;
+      ctx.fillText(spaced(row.serial), nx, t + rowH * 0.16);
+      ctx.globalAlpha = 1;
+      fitFont(ctx, row.name.toUpperCase(), nameW, Math.round(rowH * 0.36), 22, '400', FONT_DISPLAY);
+      ctx.fillText(row.name.toUpperCase(), nx, cy + rowH * 0.02);
+      var sub = [row.time, row.venue].filter(Boolean).join(' · ').toUpperCase();
+      ctx.fillStyle = P.paper === '#2B2B2B' ? '#C43E33' : P.paper;
+      fitFont(ctx, sub, nameW, Math.round(rowH * 0.16), 14, '700', FONT_BODY);
+      ctx.fillText(sub, nx, t + rowH * 0.8);
+    });
+  }
+
+  // Polaroid for a show: the show's own artwork, the show name as caption, a yellow day tag
+  // pinned to the corner. Own caption logic: firstName() would cut "Comedy Brew".
+  function drawWeekPolaroid(ctx, row, cx, topY, w, tilt) {
+    // Taller top border than a real polaroid: the day tag sits on the frame, never on the artwork.
+    var frame = Math.round(w * 0.06), topF = Math.round(w * 0.17), photo = w - frame * 2, capH = Math.round(w * 0.24), h = topF + photo + capH;
+    ctx.save();
+    ctx.translate(cx, topY + h / 2); ctx.rotate(tilt * Math.PI / 180);
+    ctx.shadowColor = 'rgba(0,0,0,0.45)'; ctx.shadowBlur = 26; ctx.shadowOffsetY = 12;
+    ctx.fillStyle = '#FFF8EE'; roundRect(ctx, -w / 2, -h / 2, w, h, 8); ctx.fill();
+    ctx.shadowColor = 'transparent';
+    var px = -w / 2 + frame, py = -h / 2 + topF;
+    ctx.save(); roundRect(ctx, px, py, photo, photo, 4); ctx.clip();
+    ctx.fillStyle = WEEK_INK; ctx.fillRect(px, py, photo, photo);
+    if (row.thumb) drawCover(ctx, row.thumb, px, py, photo, photo);
+    else {
+      ctx.fillStyle = WEEK_YELLOW; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(photo * 0.5) + 'px ' + FONT_DISPLAY;
+      ctx.fillText((row.name || '?').charAt(0).toUpperCase(), px + photo / 2, py + photo / 2 + 4);
+    }
+    ctx.restore();
+    // caption: the show name, fitted whole
+    var cap = row.name.toUpperCase();
+    ctx.fillStyle = WEEK_INK; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    fitFont(ctx, cap, photo, Math.round(capH * 0.5), 16, '', FONT_ACCENT);
+    var capY = -h / 2 + topF + photo;
+    if (ctx.measureText(cap).width > photo) {
+      // Long show name on a small card: two lines take the whole caption band, no sub line.
+      ctx.font = Math.round(capH * 0.36) + 'px ' + FONT_ACCENT;
+      var cl = wrapWords(ctx, cap, photo).slice(0, 2);
+      cl.forEach(function (ln, li) { ctx.fillText(ln, 0, capY + capH * (cl.length === 1 ? 0.5 : 0.3 + li * 0.42)); });
+    } else {
+      ctx.fillText(cap, 0, capY + capH * 0.42);
+      var sub = [row.time, row.venue].filter(Boolean).join(' · ');
+      ctx.fillStyle = '#5A5A5E';
+      fitFont(ctx, sub, photo, Math.round(capH * 0.2), 11, '600', FONT_BODY);
+      ctx.fillText(sub, 0, capY + capH * 0.8);
+    }
+    // day tag, yellow, on the top border, a touch askew
+    var tag = row.day + ' ' + parseInt(row.date, 10);
+    ctx.font = '700 ' + Math.round(w * 0.09) + 'px ' + FONT_BODY;
+    var tw = ctx.measureText(tag).width + 28, th = Math.round(w * 0.12);
+    ctx.save(); ctx.translate(-w / 2 + frame + 2, -h / 2 + (topF - th) / 2 + 2); ctx.rotate(-3 * Math.PI / 180);
+    ctx.fillStyle = WEEK_YELLOW; roundRect(ctx, 0, 0, tw, th, 6); ctx.fill();
+    ctx.fillStyle = WEEK_INK; ctx.fillText(tag, tw / 2, th / 2 + 1);
+    ctx.restore();
+    ctx.restore();
+    return h;
+  }
+
+  // STYLE: Polaroid wall. Dark field, one polaroid per show in a grid, yellow marker headline.
+  function paintWeekPolaroid(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story';
+    var g = ctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, '#1A1A1D'); g.addColorStop(1, '#2A2A2D');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    var rg = ctx.createRadialGradient(W / 2, H * 0.45, 50, W / 2, H * 0.45, H * 0.7);
+    rg.addColorStop(0, 'rgba(183,28,28,0.28)'); rg.addColorStop(1, 'rgba(183,28,28,0)');
+    ctx.fillStyle = rg; ctx.fillRect(0, 0, W, H);
+    var y = weekLogo(ctx, spec, m, spec.keyTop + 10, story ? 130 : 100) + (story ? 30 : 18);
+    y = weekHeadline(ctx, spec, m.copy.headline, y, WEEK_YELLOW, story ? 124 : 100) + (story ? 26 : 16);
+    if (!m.rows.length) { weekEmpty(ctx, spec, m, WEEK_CREAM, FONT_DISPLAY); return; }
+    var n = m.rows.length, bandTop = y, bandBot = weekFloor(spec), bandH = bandBot - bandTop, bandW = W - (spec.keySide + 18) * 2;   // tilted corners stay inside the sides
+    var ratio = 1.47, gap = 24, best = 0, cols = 1, rows = n;
+    for (var c = 1; c <= Math.min(n, 4); c++) {
+      var rws = Math.ceil(n / c), bw = (bandW - gap * (c - 1)) / c, bh = (bandH - gap * (rws - 1)) / (rws * ratio);
+      var cand = Math.min(bw, bh, story ? 520 : 420);
+      if (cand > best) { best = cand; cols = c; rows = rws; }
+    }
+    var w = best, h = w * ratio, gridH = rows * h + (rows - 1) * gap;
+    var startY = bandTop + Math.max(0, (bandH - gridH) / 2);
+    for (var r = 0; r < rows; r++) {
+      var items = m.rows.slice(r * cols, (r + 1) * cols);
+      var rowW = items.length * w + (items.length - 1) * gap, x0 = W / 2 - rowW / 2;
+      for (var i = 0; i < items.length; i++) {
+        var idx = r * cols + i;
+        drawWeekPolaroid(ctx, items[i], x0 + i * (w + gap) + w / 2, startY + r * (h + gap), w, TILTS[idx % TILTS.length]);
+      }
+    }
+  }
+
+  // STYLE: Lava list. The Lava Lamp flyer's field (ink warming to red-deep, stars, glowing
+  // blobs seeded from the window) carrying a list: each event is a wobbly hot blob with the
+  // weekday and date, the show name in cream on a smoked-glass pill, the artwork in a space
+  // helmet. Blobs stay out of the headline band; the pills dim whatever swims behind a row.
+  function weekLavaTitle(ctx, spec, text, topY, startPx) {
+    var maxW = spec.w - (spec.keySide + 20) * 2, px = startPx, lines;
+    while (px >= 48) {
+      ctx.font = '400 ' + px + 'px ' + FONT_DISPLAY;
+      lines = wrapWords(ctx, text, maxW);
+      if (lines.length <= 2) break;
+      px -= 4;
+    }
+    var lineH = px * 1.04, off = Math.max(6, Math.round(px * 0.06)), cx = spec.w / 2;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    lines.forEach(function (ln, i) {
+      var y = topY + (i + 1) * lineH - lineH * 0.16;
+      ctx.fillStyle = '#B71C1C'; ctx.fillText(ln, cx + off * 2, y + off * 2);
+      ctx.fillStyle = WEEK_INK; ctx.fillText(ln, cx + off, y + off);
+      ctx.fillStyle = WEEK_YELLOW; ctx.fillText(ln, cx, y);
+    });
+    return topY + lines.length * lineH;
+  }
+  // Artwork in a space helmet: cream rim, the print, a warm tint low, a highlight arc high left.
+  function weekHelmet(ctx, img, cx, cy, r, fallbackText) {
+    var ri = r - 6;
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 16; ctx.shadowOffsetY = 5;
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fillStyle = WEEK_CREAM; ctx.fill();
+    ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
+    ctx.beginPath(); ctx.arc(cx, cy, ri, 0, Math.PI * 2); ctx.clip();
+    if (img) drawCover(ctx, img, cx - ri, cy - ri, 2 * ri, 2 * ri);
+    else {
+      ctx.fillStyle = '#2A2A2D'; ctx.fillRect(cx - ri, cy - ri, 2 * ri, 2 * ri);
+      ctx.fillStyle = WEEK_YELLOW; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(ri) + 'px ' + FONT_DISPLAY;
+      ctx.fillText((fallbackText || '?').charAt(0).toUpperCase(), cx, cy + 3);
+    }
+    var tint = ctx.createLinearGradient(0, cy - ri, 0, cy + ri);
+    tint.addColorStop(0, 'rgba(255,243,224,0)'); tint.addColorStop(1, 'rgba(183,28,28,0.35)');
+    ctx.fillStyle = tint; ctx.fillRect(cx - ri, cy - ri, 2 * ri, 2 * ri);
+    ctx.strokeStyle = 'rgba(255,248,238,0.85)'; ctx.lineWidth = Math.max(4, ri * 0.09); ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.arc(cx, cy, ri * 0.78, Math.PI * 1.15, Math.PI * 1.55); ctx.stroke();
+    ctx.restore();
+  }
+  function paintWeekLava(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story', pad = spec.keySide + 14, key = 'week|' + m.from;
+    var g = ctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, '#0F0F10'); g.addColorStop(0.55, '#2A2A2D'); g.addColorStop(1, '#B71C1C');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    lavaStars(ctx, key, W, H);
+    // measure the headline band first so the blobs stay out of it (the fitter only shrinks)
+    var logoH = story ? 120 : 96, headPx = story ? 132 : 108;
+    var headTop = spec.keyTop + 10 + logoH + (story ? 30 : 20);
+    ctx.font = '400 ' + headPx + 'px ' + FONT_DISPLAY;
+    var headLines = Math.min(2, wrapWords(ctx, m.copy.headline, W - (spec.keySide + 20) * 2).length);
+    var headBottom = headTop + headLines * headPx * 1.04;
+    lavaBlobs(ctx, lavaSeeds(key, W, H, [{ top: spec.keyTop - 20, bottom: headBottom + 10 }]));
+    var y = weekLogo(ctx, spec, m, spec.keyTop + 10, logoH) + (story ? 30 : 20);
+    y = weekLavaTitle(ctx, spec, m.copy.headline, y, headPx) + (story ? 34 : 22);
+    if (!m.rows.length) { weekEmpty(ctx, spec, m, WEEK_YELLOW, FONT_DISPLAY); return; }
+    var gap = 16, bandBot = weekFloor(spec);
+    var rowH = weekRowH(bandBot - y, m.rows.length, gap, story ? 176 : 138);
+    var startY = y + Math.max(0, (bandBot - y - (rowH * m.rows.length + gap * (m.rows.length - 1))) / 2);
+    var n = ticketHash(key + '|dayblobs');
+    function rnd() { n = (n * 1103515245 + 12345) >>> 0; return (n >>> 8) / 16777216; }
+    m.rows.forEach(function (row, i) {
+      var t = startY + i * (rowH + gap), cy = t + rowH / 2;
+      var br = rowH * 0.5, bx = pad + br;
+      // smoked-glass pill from the blob's middle to the right margin
+      var pillH = rowH * 0.82;
+      ctx.fillStyle = 'rgba(15,15,16,0.78)'; roundRect(ctx, bx, cy - pillH / 2, W - pad - bx, pillH, pillH / 2); ctx.fill();
+      // the day: a hot blob, its wobble seeded per window and row
+      var b = { x: bx, y: cy, r: br * 0.9, wobble: 0.07 + rnd() * 0.07, phase: rnd() * Math.PI * 2, hot: true };
+      ctx.save();
+      ctx.shadowColor = 'rgba(255,179,0,0.55)'; ctx.shadowBlur = br * 0.5;
+      var bg = ctx.createRadialGradient(b.x - b.r * 0.25, b.y - b.r * 0.3, b.r * 0.1, b.x, b.y, b.r * 1.15);
+      bg.addColorStop(0, '#FFD54F'); bg.addColorStop(0.55, '#FFB300'); bg.addColorStop(1, '#E53935');
+      ctx.fillStyle = bg; blobPath(ctx, b); ctx.fill();
+      ctx.restore();
+      ctx.fillStyle = WEEK_INK; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(br * 0.62) + 'px ' + FONT_DISPLAY;
+      ctx.fillText(row.day, bx, cy - br * 0.16);
+      ctx.font = '700 ' + Math.round(br * 0.28) + 'px ' + FONT_BODY;
+      ctx.fillText(row.date, bx, cy + br * 0.36);
+      // artwork in a helmet on the right
+      var hr = pillH * 0.44, hx = W - pad - 10 - hr;
+      weekHelmet(ctx, row.thumb, hx, cy, hr, row.name);
+      // name and sub line on the pill
+      var nx = bx + br + 22, nameW = Math.max(120, hx - hr - 18 - nx);
+      ctx.textAlign = 'left'; ctx.fillStyle = WEEK_CREAM;
+      fitFont(ctx, row.name.toUpperCase(), nameW, Math.round(pillH * 0.42), 22, '400', FONT_DISPLAY);
+      ctx.fillText(row.name.toUpperCase(), nx, cy - pillH * 0.13);
+      var sub = [row.time, row.venue].filter(Boolean).join(' · ').toUpperCase();
+      ctx.fillStyle = WEEK_YELLOW;
+      fitFont(ctx, sub, nameW, Math.round(pillH * 0.19), 14, '700', FONT_BODY);
+      ctx.fillText(sub, nx, cy + pillH * 0.25);
+    });
+  }
+
+  // STYLE: Comic page. Newsprint with a faint red dot screen, a yellow masthead with the
+  // headline as the issue title (ink face, red offset) and the ISO week as the issue number,
+  // then one bordered panel per event: the artwork as the drawing, a yellow caption box with
+  // the when and where, a speech balloon with the show name lettered in the marker face.
+  // ISO 8601 week number of a YYYY-MM-DD date (the comic's issue number). Pure; exported.
+  function weekIsoWeek(dateStr) {
+    var d = parseYmd(dateStr);
+    if (!d) return 0;
+    var u = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    u.setUTCDate(u.getUTCDate() - ((u.getUTCDay() + 6) % 7) + 3);   // the Thursday of this week
+    var thu = new Date(Date.UTC(u.getUTCFullYear(), 0, 4));
+    thu.setUTCDate(thu.getUTCDate() - ((thu.getUTCDay() + 6) % 7) + 3);   // the Thursday of week 1
+    return 1 + Math.round((u - thu) / 604800000);
+  }
+  // Panel rows for n events: a splash panel over the grid when the count is odd, three
+  // across at most. Returns the panel count per row, summing to n. Pure; exported.
+  function weekComicLayout(n) {
+    n = Math.max(0, n | 0);
+    var table = { 0: [], 1: [1], 2: [1, 1], 3: [1, 2], 4: [2, 2], 5: [1, 2, 2], 6: [2, 2, 2], 7: [1, 3, 3], 8: [2, 3, 3], 9: [3, 3, 3] };
+    if (table[n]) return table[n];
+    var out = [n % 3 || 3], sum = out[0];
+    while (sum < n) { out.push(3); sum += 3; }
+    return out;
+  }
+  var COMIC_PAPER = '#EFE7CF';
+  function comicDots(ctx, W, H, color, alpha, pitch, r) {
+    ctx.save(); ctx.globalAlpha = alpha; ctx.fillStyle = color;
+    for (var y = 0, ri = 0; y < H; y += pitch, ri++) {
+      for (var x = (ri % 2) * pitch / 2; x < W; x += pitch) { ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); }
+    }
+    ctx.restore();
+  }
+  // Speech balloon anchored by its bottom-right corner; the tail points down-left into the
+  // drawing. Text in the marker face, up to two lines.
+  function comicBalloon(ctx, text, right, bottom, maxTextW, startPx, minPx) {
+    var px = fitFont(ctx, text, maxTextW, startPx, minPx, '', FONT_ACCENT), lines = [text];
+    if (ctx.measureText(text).width > maxTextW) { ctx.font = px + 'px ' + FONT_ACCENT; lines = wrapWords(ctx, text, maxTextW).slice(0, 2); }
+    var tw = 0; lines.forEach(function (ln) { tw = Math.max(tw, ctx.measureText(ln).width); });
+    // a rounder balloon than the text box: comic lettering sits inside an oval with air around it
+    var bw = tw + px * 1.6, bh = lines.length * px * 1.15 + px * 1.1;
+    var rx = bw / 2, ry = bh / 2, cx = right - rx, cy = bottom - px * 0.7 - ry;
+    // tail: leaves the rim between two angles low left, tip below and to the left
+    var a1 = Math.PI * 0.60, a2 = Math.PI * 0.72, tx = cx - rx * 0.6, ty = cy + ry + px * 0.6;
+    ctx.save();
+    ctx.lineWidth = 4; ctx.strokeStyle = WEEK_INK; ctx.fillStyle = '#FFFFFF'; ctx.lineJoin = 'round';
+    ctx.beginPath();
+    ctx.ellipse(cx, cy, rx, ry, 0, a2, a1 + Math.PI * 2);   // the rim, leaving a gap for the tail
+    ctx.lineTo(tx, ty);
+    ctx.closePath();
+    ctx.fill(); ctx.stroke();
+    ctx.fillStyle = WEEK_INK; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = px + 'px ' + FONT_ACCENT;
+    lines.forEach(function (ln, i) { ctx.fillText(ln, cx, cy + (i - (lines.length - 1) / 2) * px * 1.15 + 2); });
+    ctx.restore();
+    return { top: cy - ry, left: cx - rx };
+  }
+  function drawWeekPanel(ctx, row, x, y, w, h) {
+    var k = 8, small = w < 420;
+    ctx.fillStyle = WEEK_INK; ctx.fillRect(x, y, w, h);
+    ctx.save(); ctx.beginPath(); ctx.rect(x + k, y + k, w - 2 * k, h - 2 * k); ctx.clip();
+    ctx.fillStyle = '#2A2A2D'; ctx.fillRect(x, y, w, h);
+    if (row.thumb) drawCover(ctx, row.thumb, x + k, y + k, w - 2 * k, h - 2 * k);
+    else {
+      ctx.fillStyle = WEEK_YELLOW; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(Math.min(w, h) * 0.5) + 'px ' + FONT_DISPLAY;
+      ctx.fillText((row.name || '?').charAt(0).toUpperCase(), x + w / 2, y + h / 2 + 4);
+    }
+    // caption box, top left, flush to the border
+    var l1 = row.day + ' ' + row.date, l2 = [row.time, row.venue].filter(Boolean).join(' · ').toUpperCase();
+    var p1 = small ? 24 : 30, p2 = small ? 17 : 21, padc = small ? 10 : 14, maxBw = w - 2 * k - 16;
+    ctx.font = '800 ' + p1 + 'px ' + FONT_BODY; var w1 = ctx.measureText(l1).width;
+    p2 = fitFont(ctx, l2, maxBw - padc * 2, p2, 12, '700', FONT_BODY); var w2 = ctx.measureText(l2).width;
+    var bw = Math.min(maxBw, Math.max(w1, w2) + padc * 2), bh = p1 + (l2 ? p2 + 6 : 0) + padc * 2 - 4;
+    ctx.fillStyle = WEEK_INK; ctx.fillRect(x + k, y + k, bw + 4, bh + 4);
+    ctx.fillStyle = WEEK_YELLOW; ctx.fillRect(x + k, y + k, bw, bh);
+    ctx.fillStyle = WEEK_INK; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    ctx.font = '800 ' + p1 + 'px ' + FONT_BODY; ctx.fillText(l1, x + k + padc, y + k + padc - 2 + p1 * 0.82);
+    if (l2) { ctx.font = '700 ' + p2 + 'px ' + FONT_BODY; ctx.fillText(l2, x + k + padc, y + k + padc + p1 + 2 + p2 * 0.82); }
+    // the balloon, bottom right, kept clear of the caption box
+    comicBalloon(ctx, row.name, x + w - k - 10, y + h - k - 10, Math.min(w * 0.62, 520), small ? 32 : 46, 18);
+    ctx.restore();
+  }
+  function paintWeekComic(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story', pad = spec.keySide + 12, k = 6;
+    ctx.fillStyle = COMIC_PAPER; ctx.fillRect(0, 0, W, H);
+    comicDots(ctx, W, H, WEEK_RED, 0.09, 20, 3);
+    // masthead: yellow banner in an ink frame; a strip with the logo and the issue line, a rule, the title
+    var top = spec.keyTop + 8, mhH = story ? 224 : 176, stripH = story ? 68 : 56, win = weekWindow(m.from);
+    ctx.fillStyle = WEEK_INK; ctx.fillRect(pad - k, top - k, W - pad * 2 + k * 2, mhH + k * 2);
+    ctx.fillStyle = WEEK_YELLOW; ctx.fillRect(pad, top, W - pad * 2, mhH);
+    if (m.logo) { var lh = stripH - 20, lw = lh * (m.logo.width / m.logo.height); ctx.drawImage(m.logo, pad + 16, top + 10, lw, lh); }
+    ctx.fillStyle = WEEK_INK; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.font = '800 ' + (story ? 24 : 21) + 'px ' + FONT_BODY;
+    ctx.fillText('Nº ' + weekIsoWeek(m.from) + '  ·  ZÜRICH  ·  ' + weekDateLabel(m.from) + ' TO ' + weekDateLabel(win.to), W - pad - 16, top + stripH / 2);
+    ctx.fillRect(pad, top + stripH, W - pad * 2, 4);
+    // the title: Anton, ink face over a red offset, at most two lines in the banner
+    var titleTop = top + stripH + 8, avail = mhH - stripH - 16, maxW = W - pad * 2 - 40;
+    var px = story ? 128 : 100, lines;
+    for (;;) {
+      ctx.font = '400 ' + px + 'px ' + FONT_DISPLAY;
+      lines = wrapWords(ctx, m.copy.headline, maxW);
+      if ((lines.length <= 2 && lines.length * px * 1.0 <= avail) || px <= 48) break;
+      px -= 4;
+    }
+    var lineH = px * 1.0, blockTop = titleTop + (avail - lines.length * lineH) / 2;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    lines.forEach(function (ln, i) {
+      var y = blockTop + (i + 1) * lineH - lineH * 0.16;
+      ctx.fillStyle = WEEK_RED; ctx.fillText(ln, W / 2 + 7, y + 7);
+      ctx.fillStyle = WEEK_INK; ctx.fillText(ln, W / 2, y);
+    });
+    var y0 = top + mhH + k + (story ? 28 : 20), gutter = 18, bandBot = weekFloor(spec);
+    if (!m.rows.length) {
+      // one empty panel with the news in a balloon
+      var eh = Math.min(bandBot - y0, story ? 520 : 400);
+      ctx.fillStyle = WEEK_INK; ctx.fillRect(pad, y0, W - pad * 2, eh);
+      ctx.fillStyle = COMIC_PAPER; ctx.fillRect(pad + 8, y0 + 8, W - pad * 2 - 16, eh - 16);
+      comicBalloon(ctx, 'NO SHOWS THIS WEEK', W / 2 + 300, y0 + eh / 2 + 60, 600, 56, 24);
+      ctx.fillStyle = WEEK_INK; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '700 28px ' + FONT_BODY; ctx.fillText('The calendar has the next ones', W / 2, y0 + eh - 40);
+      return;
+    }
+    // panel sizes follow the weights: within a row the widths, across rows the heights
+    var layout = weekComicLayout(m.rows.length), rows = layout.length, idx = 0;
+    var rowItems = layout.map(function (cols) { var it = m.rows.slice(idx, idx + cols); idx += cols; return it; });
+    var rowW = rowItems.map(function (it) { return it.reduce(function (a, row) { return a + weekComicWeight(row); }, 0) / it.length; });
+    var sumW = rowW.reduce(function (a, b) { return a + b; }, 0);
+    var bandH = Math.min(bandBot - y0, rows * (story ? 560 : 430) + gutter * (rows - 1)) - gutter * (rows - 1);
+    var yy = y0;
+    rowItems.forEach(function (it, r) {
+      var ph = bandH * rowW[r] / sumW, tot = it.reduce(function (a, row) { return a + weekComicWeight(row); }, 0), xx = pad;
+      it.forEach(function (row) {
+        var pw = (W - pad * 2 - gutter * (it.length - 1)) * weekComicWeight(row) / tot;
+        drawWeekPanel(ctx, row, xx, yy, pw, ph);
+        xx += pw + gutter;
+      });
+      yy += ph + gutter;
+    });
+  }
+
+  // STYLE: Departures board. A split-flap board (the kind Zürich HB used to have): a dark
+  // casing, one tall tile per character (Anton, condensed) with the split line across its middle, cream glyphs,
+  // the headline in yellow tiles, a few tiles caught mid-flip so it reads as a machine. Per
+  // event a large tile row with the show name, a smaller dim row with the when and where,
+  // and the artwork on a split tile at the right.
+  var FLAP_FACE = '#1E1E22';
+  function flapTile(ctx, ch, x, y, w, h, color, prev) {
+    var r = Math.max(3, w * 0.09);
+    ctx.fillStyle = '#0A0A0B'; roundRect(ctx, x, y, w, h, r); ctx.fill();
+    var g = ctx.createLinearGradient(0, y, 0, y + h);
+    g.addColorStop(0, '#2C2C31'); g.addColorStop(0.5, '#222226'); g.addColorStop(0.5, '#161619'); g.addColorStop(1, FLAP_FACE);
+    ctx.fillStyle = g; roundRect(ctx, x + 1, y + 1, w - 2, h - 2, r); ctx.fill();
+    if (ch && ch !== ' ') {
+      ctx.fillStyle = color; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(h * 0.8) + 'px ' + FONT_DISPLAY;   // condensed glyphs: tall tiles stay legible at 21 tiles across
+      if (prev) {
+        // mid-flip: the top half already shows the new glyph, the lower flap still carries
+        // the old one, squashed as it swings
+        ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h / 2); ctx.clip(); ctx.fillText(ch, x + w / 2, y + h / 2 + 1); ctx.restore();
+        ctx.save(); ctx.beginPath(); ctx.rect(x, y + h / 2, w, h / 2); ctx.clip();
+        ctx.translate(x + w / 2, y + h / 2); ctx.scale(1, 0.5); ctx.globalAlpha = 0.75;
+        ctx.fillText(prev, 0, 2); ctx.restore();
+        ctx.fillStyle = 'rgba(255,243,224,0.3)'; ctx.fillRect(x + 2, y + h / 2, w - 4, 2);
+      } else ctx.fillText(ch, x + w / 2, y + h / 2 + 1);
+    }
+    ctx.fillStyle = 'rgba(0,0,0,0.9)'; ctx.fillRect(x, y + h / 2 - 1, w, 2);
+  }
+  // A row of tiles for text, left-aligned at x. rnd drives the mid-flip tiles. Returns the end x.
+  function flapRow(ctx, text, x, y, w, h, gap, color, rnd) {
+    var chars = String(text).toUpperCase().split(''), AZ = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    chars.forEach(function (ch, i) {
+      var prev = (rnd && /[A-Z0-9]/.test(ch) && rnd() < 0.06) ? AZ.charAt(Math.floor(rnd() * 26)) : '';
+      flapTile(ctx, ch, x + i * (w + gap), y, w, h, color, prev);
+    });
+    return x + chars.length * (w + gap) - gap;
+  }
+  // A show name on the board: one line up to 20 tiles (the width is the literal: exported helpers cannot read vars below the test seam), else two lines split at a word
+  // boundary (a long name must not shrink every other row). Pure; exported.
+  function flapLines(name) {
+    var s = String(name || '').toUpperCase();
+    if (s.length <= 20) return [s];
+    var words = s.split(' '), a = '', b = '';
+    words.forEach(function (w) { if (!b && (a + ' ' + w).trim().length <= 20) a = (a + ' ' + w).trim(); else b = (b + ' ' + w).trim(); });
+    if (!a) { a = b.slice(0, 20); b = b.slice(20); }
+    return b ? [a, b] : [a];
+  }
+  // Tile width that lets `len` tiles fit in availW at the given gap, never above base.
+  function flapFit(len, availW, base, gap, min) { return Math.max(min, Math.min(base, (availW + gap) / Math.max(1, len) - gap)); }
+  // The artwork as a flap: a square tile, the print inset, the split across its middle.
+  function flapArt(ctx, img, x, y, s, fallbackText) {
+    ctx.fillStyle = '#0A0A0B'; roundRect(ctx, x, y, s, s, Math.max(3, s * 0.06)); ctx.fill();
+    ctx.save(); roundRect(ctx, x + 3, y + 3, s - 6, s - 6, Math.max(2, s * 0.05)); ctx.clip();
+    if (img) drawCover(ctx, img, x + 3, y + 3, s - 6, s - 6);
+    else {
+      ctx.fillStyle = FLAP_FACE; ctx.fillRect(x, y, s, s);
+      ctx.fillStyle = WEEK_YELLOW; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '700 ' + Math.round(s * 0.5) + 'px ' + FONT_BODY;
+      ctx.fillText((fallbackText || '?').charAt(0).toUpperCase(), x + s / 2, y + s / 2 + 2);
+    }
+    ctx.restore();
+    ctx.fillStyle = 'rgba(0,0,0,0.9)'; ctx.fillRect(x, y + s / 2 - 1, s, 2);
+    ctx.fillStyle = 'rgba(255,243,224,0.18)'; ctx.fillRect(x + 3, y + s / 2 + 1, s - 6, 1);
+  }
+  function paintWeekFlap(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story', pad = spec.keySide + 14, win = weekWindow(m.from);
+    ctx.fillStyle = WEEK_INK; ctx.fillRect(0, 0, W, H);
+    var n = ticketHash('week|' + m.from + '|flaps');
+    function rnd() { n = (n * 1103515245 + 12345) >>> 0; return (n >>> 8) / 16777216; }
+    var y = weekLogo(ctx, spec, m, spec.keyTop + 10, story ? 110 : 88) + (story ? 26 : 18);
+    // the casing: a slightly lighter panel with a bevelled edge, from here to the key floor
+    var caseTop = y, caseBot = weekFloor(spec) + 12;
+    ctx.fillStyle = '#2A2A2D'; roundRect(ctx, pad - 14, caseTop, W - (pad - 14) * 2, caseBot - caseTop, 14); ctx.fill();
+    ctx.fillStyle = '#151518'; roundRect(ctx, pad - 10, caseTop + 4, W - (pad - 10) * 2, caseBot - caseTop - 8, 12); ctx.fill();
+    y += story ? 22 : 16;
+    // board header line: small yellow caps, the week number at the right
+    ctx.fillStyle = WEEK_YELLOW; ctx.textBaseline = 'middle';
+    ctx.font = '700 ' + (story ? 22 : 19) + 'px ' + FONT_BODY; swissTrack(ctx, 3);
+    ctx.textAlign = 'left'; ctx.fillText('ABFAHRT · DEPARTURES', pad, y + 12);
+    ctx.textAlign = 'right'; ctx.fillText('WOCHE ' + weekIsoWeek(m.from) + ' · ' + weekDateLabel(m.from) + ' TO ' + weekDateLabel(win.to), W - pad, y + 12);
+    swissTrack(ctx, 0);
+    y += story ? 44 : 36;
+    // the headline in yellow tiles, wrapped by tile count
+    var availW = W - pad * 2, hGap = 4, hBase = story ? 56 : 46;
+    var words = m.copy.headline.toUpperCase().split(' '), hLines = [], cur = '';
+    var perLine = Math.floor((availW + hGap) / ((story ? 36 : 32) + hGap));   // shrink the tiles before wrapping; wrap only past ~23 tiles
+    words.forEach(function (wd) { var t = cur ? cur + ' ' + wd : wd; if (t.length <= perLine || !cur) cur = t; else { hLines.push(cur); cur = wd; } });
+    if (cur) hLines.push(cur);
+    hLines.forEach(function (ln) {
+      var tw = flapFit(ln.length, availW, hBase, hGap, 16), th = Math.round(tw * 1.75);
+      flapRow(ctx, ln, pad, y, tw, th, hGap, WEEK_YELLOW, rnd);
+      y += th + 6;
+    });
+    y += story ? 22 : 14;
+    ctx.fillStyle = '#2A2A2D'; ctx.fillRect(pad, y, availW, 2); y += story ? 20 : 14;
+    var bandBot = weekFloor(spec);
+    if (!m.rows.length) {
+      var ew = flapFit(18, availW, 44, 4, 16), eh = Math.round(ew * 1.75);
+      flapRow(ctx, 'NO SHOWS THIS WEEK', pad, y + 20, ew, eh, 4, WEEK_CREAM, null);
+      var sw = flapFit(30, availW, 26, 3, 12);
+      flapRow(ctx, 'THE CALENDAR HAS THE NEXT ONES', pad, y + 20 + eh + 12, sw, Math.round(sw * 1.75), 3, '#C9C2B6', null);
+      return;
+    }
+    // row geometry: base tile sizes scaled to fill the band, capped by the longest lines
+    var big = story ? 38 : 32, bGap = 3, small = story ? 27 : 23, sGap = 2, artPad = 18;
+    var longest = 0, longestSub = 0;
+    // The sub row keeps its tiles legible: when day, time and venue would need more tiles
+    // than fit at the small size, the venue is left off (the board abbreviates, it never shrinks).
+    var maxSub = Math.floor((availW - Math.round(big * 1.75) - 6 - Math.round(small * 1.75) - artPad + sGap) / (small + sGap));
+    var names = m.rows.map(function (row) { return flapLines(row.name); }), extra = 0;
+    var subs = m.rows.map(function (row, i) {
+      var s = [row.day + ' ' + parseInt(row.date, 10), row.time, row.venue].filter(Boolean).join(' · ').toUpperCase();
+      if (s.length > maxSub) s = [row.day + ' ' + row.date, row.time].filter(Boolean).join(' · ').toUpperCase();
+      names[i].forEach(function (ln) { longest = Math.max(longest, ln.length); });
+      if (names[i].length > 1) extra++;
+      longestSub = Math.max(longestSub, s.length);
+      return s;
+    });
+    var rowGap = story ? 18 : 14, baseRow = Math.round(big * 1.75) + 6 + Math.round(small * 1.75);
+    var kH = (bandBot - y - rowGap * (m.rows.length - 1)) / (m.rows.length * (baseRow + 4) + extra * (Math.round(big * 1.75) + 4));
+    var artS0 = baseRow, textW = availW - artS0 - artPad;
+    var kW = Math.min((textW + bGap) / (longest * (big + bGap)), (textW + sGap) / (longestSub * (small + sGap)));
+    var kk = Math.max(0.55, Math.min(1.5, kH, kW));
+    var bw = Math.round(big * kk), bh = Math.round(bw * 1.75), sw2 = Math.round(small * kk), sh = Math.round(sw2 * 1.75);
+    var artS = bh + 6 + sh, nR = m.rows.length;
+    var heights = names.map(function (ls) { return ls.length * bh + (ls.length - 1) * 4 + 6 + sh; });
+    var total = heights.reduce(function (a, b) { return a + b; }, 0);
+    // when the width, not the height, capped the tiles, spread the rows over the board instead of leaving slack
+    if (nR > 1) rowGap = Math.min(rowGap * 2.6, Math.max(rowGap, (bandBot - y - total) / (nR - 1)));
+    var t = y + Math.max(0, (bandBot - y - (total + rowGap * (nR - 1))) / 2);
+    m.rows.forEach(function (row, i) {
+      names[i].forEach(function (ln, li) { flapRow(ctx, ln, pad, t + li * (bh + 4), bw, bh, bGap, WEEK_CREAM, null); });   // never mid-flip inside a name, date or time
+      flapRow(ctx, subs[i], pad, t + heights[i] - sh, sw2, sh, sGap, '#C9C2B6', null);
+      flapArt(ctx, row.thumb, W - pad - artS, t, artS, row.name);
+      t += heights[i] + rowGap;
+    });
+  }
+
+  // STYLE: Station board. The look of the Swiss station general display boards, drawn from
+  // the reference graphic: an indigo board on a black surround, a red notice banner with a
+  // pictogram box and a bold lead-in, a light grey column strip, white rows with the type in
+  // a white box, thin white separators, a Hinweis column with red boxes. Here the weekday is
+  // the type, the show the destination, the venue the via, the date the Gleis, "15 Sept" the
+  // Hinweis with a red Heute / Morgen box for the story day and the day after, and the show's
+  // tagline the yellow info line under the row. No prices, no artwork: the reference has none.
+  var STATION_BLUE = '#2D3184', STATION_GREY = '#D6D6D6';
+  function paintWeekStation(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story', win = weekWindow(m.from);
+    ctx.fillStyle = WEEK_INK; ctx.fillRect(0, 0, W, H);
+    var y = weekLogo(ctx, spec, m, spec.keyTop + 6, story ? 100 : 80) + (story ? 22 : 16);
+    // the board rectangle, inside the key sides, down to just past the key floor
+    var bx = spec.keySide + 4, bw = W - bx * 2, bTop = y, bBot = weekFloor(spec) + 10;
+    ctx.fillStyle = STATION_BLUE; ctx.fillRect(bx, bTop, bw, bBot - bTop);
+    var pad = bx + 14, innerW = W - pad * 2;
+    // red notice banner: pictogram box left, bold lead-in then the rest in regular
+    var banH = story ? 168 : 140;
+    ctx.fillStyle = WEEK_RED; ctx.fillRect(bx, y, bw, banH);
+    var pb = Math.round(banH * 0.42), px0 = pad, py0 = y + (banH - pb) / 2;
+    ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 3; ctx.strokeRect(px0, py0, pb, pb);
+    ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = '400 ' + Math.round(pb * 0.7) + 'px ' + FONT_DISPLAY; ctx.fillText('★', px0 + pb / 2, py0 + pb / 2 + 2);
+    var tx = px0 + pb + 22, tw = W - pad - tx;
+    var lead = m.copy.headline.charAt(0) + m.copy.headline.slice(1).toLowerCase() + ':';
+    var rest = (/\d/.test(m.copy.headline) ? '' : m.n + ' show' + (m.n === 1 ? '' : 's') + ' in ') + 'Zürich, ' + weekDateNice(m.from) + ' to ' + weekDateNice(win.to) + '.';   // headlines that carry the count do not repeat it
+    var bpx = story ? 40 : 33; ctx.textAlign = 'left';
+    ctx.font = '700 ' + bpx + 'px ' + FONT_BODY;
+    var lines = [], leadW = ctx.measureText(lead + ' ').width;
+    ctx.font = '400 ' + bpx + 'px ' + FONT_BODY;
+    var words = rest.split(' '), cur = '', firstW = tw - leadW;
+    words.forEach(function (w) { var t = cur ? cur + ' ' + w : w; var lim = lines.length ? tw : firstW; if (ctx.measureText(t).width <= lim || !cur) cur = t; else { lines.push(cur); cur = w; } });
+    if (cur) lines.push(cur);
+    var lh = bpx * 1.2, blockTop = y + (banH - lh * lines.length) / 2;
+    ctx.fillStyle = '#FFFFFF';
+    lines.forEach(function (ln, i) {
+      var ly = blockTop + lh * (i + 0.5);
+      if (i === 0) { ctx.font = '700 ' + bpx + 'px ' + FONT_BODY; ctx.fillText(lead, tx, ly); ctx.font = '400 ' + bpx + 'px ' + FONT_BODY; ctx.fillText(ln, tx + leadW, ly); }
+      else ctx.fillText(ln, tx, ly);
+    });
+    y += banH;
+    // grey column strip: the week at the left like the clock, then Nach, Gleis, Hinweis
+    var stripH = story ? 46 : 38, typeW = story ? 118 : 96, timeW = story ? 148 : 128, gleisW = story ? 96 : 80, hintW = story ? 150 : 124;
+    ctx.fillStyle = STATION_GREY; ctx.fillRect(bx, y, bw, stripH);
+    ctx.fillStyle = STATION_BLUE; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    ctx.font = '700 ' + (story ? 24 : 20) + 'px ' + FONT_BODY;
+    ctx.fillText('Woche ' + weekIsoWeek(m.from), pad, y + stripH / 2);
+    ctx.fillText('Nach', pad + typeW + timeW, y + stripH / 2);
+    ctx.textAlign = 'right';
+    ctx.fillText('Gleis', W - pad - hintW - 10, y + stripH / 2);
+    ctx.textAlign = 'left'; ctx.fillText('Hinweis', W - pad - hintW + 16, y + stripH / 2);
+    y += stripH;
+    if (!m.rows.length) {
+      ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '700 ' + (story ? 56 : 48) + 'px ' + FONT_BODY; ctx.fillText('Keine Abfahrten', W / 2, y + 140);
+      ctx.font = '400 30px ' + FONT_BODY; ctx.fillText('No shows this week · the calendar has the next ones', W / 2, y + 200);
+      return;
+    }
+    var bandBot = weekFloor(spec), n = m.rows.length, today = m.from, tmr = parseYmd(m.from); if (tmr) tmr.setDate(tmr.getDate() + 1); var tomorrow = tmr ? ymd(tmr) : '';
+    var rowH = weekRowH(bandBot - y, n, 0, story ? 160 : 126);
+    m.rows.forEach(function (row, i) {
+      var t = y + i * rowH, fs = Math.round(Math.min(rowH * 0.27, story ? 38 : 32)), small = Math.round(fs * 0.68);
+      var hasTag = !!row.tagline, lineA = t + rowH * (hasTag ? 0.36 : 0.5);
+      // type box: the weekday, bold blue on white
+      var tb = Math.round(fs * 1.25);
+      ctx.fillStyle = '#FFFFFF'; ctx.fillRect(pad, lineA - tb / 2, typeW - 18, tb);
+      ctx.fillStyle = STATION_BLUE; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '800 ' + Math.round(fs * 0.9) + 'px ' + FONT_BODY; ctx.fillText(row.day, pad + (typeW - 18) / 2, lineA + 1);
+      // time, destination bold, via regular on the same line when it fits
+      ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'left';
+      ctx.font = '700 ' + fs + 'px ' + FONT_BODY; ctx.fillText(row.time || '', pad + typeW, lineA + 1);
+      var nx = pad + typeW + timeW, right = W - pad - hintW - gleisW - 16, nameW = right - nx;
+      var name = row.name, via = row.venue ? '  via  ' + row.venue : '';
+      ctx.font = '700 ' + fs + 'px ' + FONT_BODY; var nw = ctx.measureText(name).width;
+      ctx.font = '400 ' + fs + 'px ' + FONT_BODY; var vw = via ? ctx.measureText(via).width : 0;
+      var viaBelow = false;
+      if (nw + vw <= nameW) {
+        ctx.font = '700 ' + fs + 'px ' + FONT_BODY; ctx.fillText(name, nx, lineA + 1);
+        if (via) { ctx.font = '400 ' + fs + 'px ' + FONT_BODY; ctx.fillText(via, nx + nw, lineA + 1); }
+      } else {
+        fitFont(ctx, name, nameW, fs, 18, '700', FONT_BODY); ctx.fillText(name, nx, lineA + 1);
+        viaBelow = !!row.venue;
+      }
+      // the info line in yellow, like the board's alternative-route line: the tagline, or the via
+      var info = viaBelow ? 'via  ' + row.venue : row.tagline;
+      if (viaBelow && row.tagline) { ctx.font = '400 ' + small + 'px ' + FONT_BODY; if (ctx.measureText(info + '  ·  ' + row.tagline).width <= W - pad - nx) info += '  ·  ' + row.tagline; }   // the tagline joins the via only when both fit at full size
+      if (info) {
+        ctx.fillStyle = WEEK_YELLOW;
+        fitFont(ctx, info, W - pad - nx, small, 14, '400', FONT_BODY);
+        ctx.fillText(info, nx, t + rowH * 0.74);
+      }
+      // Gleis: the date number
+      ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'right'; ctx.font = '700 ' + fs + 'px ' + FONT_BODY;
+      ctx.fillText(String(parseInt(row.date, 10) || ''), W - pad - hintW - 10, lineA + 1);
+      // Hinweis: the date as the board prints it, or a red remark box for today and tomorrow
+      var remark = row.e.date === today ? 'Heute' : (row.e.date === tomorrow ? 'Morgen' : '');
+      if (remark) {
+        var hh = Math.round(fs * 1.2), hw = hintW - 16;
+        ctx.fillStyle = WEEK_RED; ctx.fillRect(W - pad - hw, lineA - hh / 2, hw, hh);
+        ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'left'; fitFont(ctx, remark, hw - 22, Math.round(fs * 0.9), 14, '400', FONT_BODY);   // Morgen must sit inside its box
+        ctx.fillText(remark, W - pad - hw + 11, lineA + 1);
+      } else {
+        ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'left'; ctx.font = '400 ' + Math.round(fs * 0.9) + 'px ' + FONT_BODY;
+        ctx.fillText(weekDateBoard(row.e.date), W - pad - hintW + 16, lineA + 1);
+      }
+      if (i < n - 1) { ctx.fillStyle = 'rgba(255,255,255,0.6)'; ctx.fillRect(bx, t + rowH - 1, bw, 1); }
+    });
+  }
+  function measureBold(ctx, text, fs) { var f = ctx.font; ctx.font = '700 ' + fs + 'px ' + FONT_BODY; var w = ctx.measureText(text).width; ctx.font = f; return w; }
+
+  // Comic panel weight: a bigger frame for Comedy Brew (Harry: always a bit bigger) and for
+  // Friday and Saturday shows (people go out). Pure; exported.
+  function weekComicWeight(row) {
+    var w = 1, slug = norm(row && row.e && row.e.show), day = String(row && row.day || '').toUpperCase();
+    if (slug === 'comedybrew') w += 0.35;
+    if (day === 'FRI' || day === 'SAT') w += 0.25;
+    return w;
+  }
+
+  // STYLE: Chalkboard. A black board wall to wall, chalk dust, a hand-drawn chalk frame,
+  // the headline and rows lettered in the marker face with soft chalky edges, white and
+  // chalk yellow only. No artwork: a chalkboard is lettering.
+  var CHALK_BOARD = '#1C201D', CHALK_WHITE = '#F2EFE6', CHALK_YELLOW = '#F5E6A3';
+  function chalkRnd(seed) { var n = ticketHash(seed); return function () { n = (n * 1103515245 + 12345) >>> 0; return (n >>> 8) / 16777216; }; }
+  // Text with chalky edges: three faint offset passes under one solid pass, then a sprinkle of
+  // board-coloured specks over it so the strokes look dragged rather than printed.
+  function chalkText(ctx, text, x, y, font, color, align, rnd) {
+    ctx.font = font; ctx.textAlign = align || 'left'; ctx.textBaseline = 'alphabetic';
+    ctx.save();
+    ctx.fillStyle = color; ctx.globalAlpha = 0.3;
+    ctx.fillText(text, x - 1.2, y + 0.8); ctx.fillText(text, x + 1.1, y - 0.7); ctx.fillText(text, x + 0.4, y + 1.4);
+    ctx.globalAlpha = 0.92; ctx.fillText(text, x, y);
+    var w = ctx.measureText(text).width, px = parseInt(font, 10) || 30, x0 = align === 'center' ? x - w / 2 : (align === 'right' ? x - w : x);
+    ctx.globalAlpha = 0.55; ctx.fillStyle = CHALK_BOARD;
+    var n = Math.round(w * px / 260);
+    for (var i = 0; i < n; i++) { var sx = x0 + rnd() * w, sy = y - px * 0.85 + rnd() * px; ctx.fillRect(sx, sy, 1 + rnd() * 1.5, 1); }
+    ctx.restore();
+    return w;
+  }
+  function chalkLine(ctx, x1, y1, x2, y2, color, width, rnd) {
+    ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = width; ctx.lineCap = 'round'; ctx.globalAlpha = 0.75;
+    ctx.beginPath(); ctx.moveTo(x1, y1);
+    var steps = 8;
+    for (var i = 1; i <= steps; i++) { var t = i / steps; ctx.lineTo(x1 + (x2 - x1) * t + (rnd() - 0.5) * 2, y1 + (y2 - y1) * t + (rnd() - 0.5) * 3); }
+    ctx.stroke(); ctx.restore();
+  }
+  function paintWeekChalk(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story', pad = spec.keySide + 26;
+    var rnd = chalkRnd('week|' + m.from + '|chalk'), bg = chalkRnd('chalk|board');   // the board itself is the same every week; only the writing changes
+    ctx.fillStyle = CHALK_BOARD; ctx.fillRect(0, 0, W, H);
+    var vg = ctx.createRadialGradient(W / 2, H * 0.4, H * 0.1, W / 2, H * 0.5, H * 0.8);
+    vg.addColorStop(0, 'rgba(255,255,255,0.05)'); vg.addColorStop(1, 'rgba(0,0,0,0.25)');
+    ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
+    // chalk dust and a couple of wiped smudges
+    ctx.save(); ctx.fillStyle = CHALK_WHITE;
+    for (var i = 0; i < 900; i++) { ctx.globalAlpha = 0.03 + bg() * 0.09; ctx.fillRect(bg() * W, bg() * H, 1 + bg() * 2, 1 + bg() * 2); }
+    for (var s = 0; s < 4; s++) { ctx.globalAlpha = 0.035; ctx.beginPath(); ctx.ellipse(bg() * W, bg() * H, 120 + bg() * 220, 40 + bg() * 60, bg() * Math.PI, 0, Math.PI * 2); ctx.fill(); }
+    ctx.restore();
+    // hand-drawn chalk frame inside the key area
+    var fx = spec.keySide + 8, fy = spec.keyTop - 6, fw = W - fx * 2, fh = H - spec.keyBottom - fy + 4;
+    chalkLine(ctx, fx, fy, fx + fw, fy, CHALK_WHITE, 3, bg); chalkLine(ctx, fx + fw, fy, fx + fw, fy + fh, CHALK_WHITE, 3, bg);
+    chalkLine(ctx, fx + fw, fy + fh, fx, fy + fh, CHALK_WHITE, 3, bg); chalkLine(ctx, fx, fy + fh, fx, fy, CHALK_WHITE, 3, bg);
+    // the logo in chalk (mono, a touch faded)
+    var y = spec.keyTop + 16, lh = story ? 110 : 88;
+    if (m.logo) { var lw = lh * (m.logo.width / m.logo.height); ctx.save(); ctx.globalAlpha = 0.9; drawMono(ctx, m.logo, W / 2 - lw / 2, y, lw, lh); ctx.restore(); }
+    y += lh + (story ? 34 : 24);
+    // headline in chalk yellow, wrapped to two lines, underlined by hand
+    var maxW = W - pad * 2, px = story ? 104 : 84, lines;
+    for (;;) { ctx.font = px + 'px ' + FONT_ACCENT; lines = wrapWords(ctx, m.copy.headline, maxW); if (lines.length <= 2 || px <= 48) break; px -= 4; }
+    lines.forEach(function (ln, i) { chalkText(ctx, ln, W / 2, y + (i + 1) * px * 1.1 - px * 0.2, px + 'px ' + FONT_ACCENT, CHALK_YELLOW, 'center', rnd); });
+    y += lines.length * px * 1.1;
+    var lastW = ctx.measureText(lines[lines.length - 1]).width;
+    chalkLine(ctx, W / 2 - lastW / 2, y + 4, W / 2 + lastW / 2, y + 8, CHALK_YELLOW, 4, rnd);
+    y += story ? 44 : 30;
+    if (!m.rows.length) {
+      chalkText(ctx, 'no shows this week', W / 2, H / 2, (story ? 64 : 56) + 'px ' + FONT_ACCENT, CHALK_WHITE, 'center', rnd);
+      chalkText(ctx, 'the calendar has the next ones', W / 2, H / 2 + 60, '600 30px ' + FONT_BODY, CHALK_WHITE, 'center', rnd);
+      return;
+    }
+    var gap = 12, bandBot = weekFloor(spec);
+    var rowH = weekRowH(bandBot - y, m.rows.length, gap, story ? 180 : 140);
+    var startY = y + Math.max(0, (bandBot - y - (rowH * m.rows.length + gap * (m.rows.length - 1))) / 2);
+    m.rows.forEach(function (row, i) {
+      var t = startY + i * (rowH + gap), cy = t + rowH / 2;
+      // day and date in yellow chalk on the left
+      var dpx = Math.round(rowH * 0.34);
+      chalkText(ctx, row.day, pad, cy - rowH * 0.02, dpx + 'px ' + FONT_ACCENT, CHALK_YELLOW, 'left', rnd);
+      chalkText(ctx, String(parseInt(row.date, 10) || ''), pad, cy + rowH * 0.3, Math.round(rowH * 0.26) + 'px ' + FONT_ACCENT, CHALK_YELLOW, 'left', rnd);
+      ctx.font = dpx + 'px ' + FONT_ACCENT; var dayW = Math.max(ctx.measureText(row.day).width, ctx.measureText('WED').width) + 28;
+      // show name in white chalk, time and venue below in a plainer hand
+      var nx = pad + dayW, nameW = W - pad - nx;
+      var npx = fitFont(ctx, row.name, nameW, Math.round(rowH * 0.36), 22, '', FONT_ACCENT);
+      chalkText(ctx, row.name, nx, cy + npx * 0.1, npx + 'px ' + FONT_ACCENT, CHALK_WHITE, 'left', rnd);
+      var sub = [row.time, row.venue].filter(Boolean).join('  ·  ');
+      var spx = fitFont(ctx, sub, nameW, Math.round(rowH * 0.17), 14, '600', FONT_BODY);
+      ctx.save(); ctx.globalAlpha = 0.85; chalkText(ctx, sub, nx, cy + rowH * 0.36, '600 ' + spx + 'px ' + FONT_BODY, CHALK_WHITE, 'left', rnd); ctx.restore();
+      if (i < m.rows.length - 1) chalkLine(ctx, pad, t + rowH + gap / 2, W - pad, t + rowH + gap / 2, CHALK_WHITE, 1.5, rnd);
+    });
+  }
+
+  // STYLE: Restaurant menu. A paper card with double rules on a deep red cover, the headline
+  // as the menu title, one course heading per day, items with dotted leaders to the price
+  // (the calendar's price: FREE when it is 0), the time and venue as the item's description.
+  // Price label for the menu leader. Pure; exported.
+  function weekMenuPrice(price) {
+    if (price === null || price === undefined || price === '') return '';
+    var n = Number(price);
+    if (isNaN(n)) return '';
+    return n <= 0 ? 'FREE' : 'CHF ' + n;
+  }
+  var MENU_PAPER = '#FBF4E4', MENU_GREY = '#5A5A5E', MENU_RED = '#B71C1C';
+  var DAY_FULL = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  function menuLeader(ctx, x1, x2, y, color) {
+    ctx.save(); ctx.fillStyle = color;
+    for (var x = x1 + 8; x < x2 - 4; x += 9) { ctx.beginPath(); ctx.arc(x, y, 1.6, 0, Math.PI * 2); ctx.fill(); }
+    ctx.restore();
+  }
+  function paintWeekMenu(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story', win = weekWindow(m.from);
+    var g = ctx.createLinearGradient(0, 0, W, H);
+    g.addColorStop(0, '#7A1010'); g.addColorStop(1, '#B71C1C');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    // the crowd behind the cover, like the Ticket style, multiplied into the red so it stays red
+    if (m.backdrop) { ctx.save(); ctx.globalAlpha = 0.45; ctx.globalCompositeOperation = 'multiply'; drawMono(ctx, m.backdrop, 0, 0, W, H); ctx.restore(); }
+    // the card, inside the key sides, with double rules
+    var cx0 = spec.keySide + 6, cw = W - cx0 * 2, cy0 = spec.keyTop - 10, ch = H - spec.keyBottom - cy0 + 70;
+    ctx.save(); ctx.shadowColor = 'rgba(0,0,0,0.45)'; ctx.shadowBlur = 30; ctx.shadowOffsetY = 10;
+    ctx.fillStyle = MENU_PAPER; ctx.fillRect(cx0, cy0, cw, ch); ctx.restore();
+    ctx.strokeStyle = WEEK_INK; ctx.lineWidth = 3; ctx.strokeRect(cx0 + 16, cy0 + 16, cw - 32, ch - 32);
+    ctx.lineWidth = 1; ctx.strokeRect(cx0 + 24, cy0 + 24, cw - 48, ch - 48);
+    var pad = cx0 + 48, innerW = W - pad * 2;
+    var y = cy0 + 40 + weekLogo(ctx, spec, m, cy0 + 40, story ? 84 : 68) - (cy0 + 40) + (story ? 22 : 16);
+    // title block
+    ctx.fillStyle = MENU_RED; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    ctx.font = '700 ' + (story ? 22 : 19) + 'px ' + FONT_BODY; swissTrack(ctx, 5);
+    ctx.fillText('ZÜRICH  ·  ' + weekDateLabel(m.from).toUpperCase() + ' TO ' + weekDateLabel(win.to).toUpperCase(), W / 2, y + 18); swissTrack(ctx, 0);
+    y += story ? 44 : 36;
+    var hpx = story ? 108 : 86, lines;
+    for (;;) { ctx.font = '400 ' + hpx + 'px ' + FONT_DISPLAY; lines = wrapWords(ctx, m.copy.headline, innerW); if (lines.length <= 2 || hpx <= 48) break; hpx -= 4; }
+    ctx.fillStyle = WEEK_INK;
+    lines.forEach(function (ln, i) { ctx.fillText(ln, W / 2, y + (i + 1) * hpx * 1.02 - hpx * 0.14); });
+    y += lines.length * hpx * 1.02 + (story ? 14 : 8);
+    // ornament: rule, diamond, rule
+    ctx.fillStyle = MENU_RED; ctx.fillRect(W / 2 - 140, y + 6, 120, 2); ctx.fillRect(W / 2 + 20, y + 6, 120, 2);
+    ctx.save(); ctx.translate(W / 2, y + 7); ctx.rotate(Math.PI / 4); ctx.fillRect(-6, -6, 12, 12); ctx.restore();
+    y += story ? 44 : 32;
+    if (!m.rows.length) {
+      ctx.fillStyle = WEEK_INK; ctx.textAlign = 'center';
+      ctx.font = '400 ' + (story ? 60 : 52) + 'px ' + FONT_DISPLAY; ctx.fillText('KITCHEN CLOSED THIS WEEK', W / 2, y + 120);
+      ctx.fillStyle = MENU_GREY; ctx.font = '600 28px ' + FONT_BODY; ctx.fillText('The calendar has the next ones', W / 2, y + 170);
+      return;
+    }
+    // sections per day; sizes scaled so the whole card fits above the key floor
+    var groups = [], last = null;
+    m.rows.forEach(function (row) { if (!last || last.date !== row.e.date) { last = { date: row.e.date, day: row.day, label: row.date, items: [] }; groups.push(last); } last.items.push(row); });
+    var bandBot = weekFloor(spec) - 8;
+    var headH = story ? 64 : 52, itemH = story ? 104 : 84, gapG = story ? 14 : 10;
+    var need = groups.length * (headH + gapG) + m.rows.length * itemH;
+    var k = Math.min(story ? 1.45 : 1.15, (bandBot - y) / need);   // grow into a quiet week, shrink for a busy one
+    headH *= k; itemH *= k; gapG *= k;
+    groups.forEach(function (gr) {
+      var d = parseYmd(gr.date), full = d ? DAY_FULL[d.getDay()] : gr.day;
+      ctx.fillStyle = MENU_RED; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      var hp = Math.round(24 * k);
+      ctx.font = '700 ' + hp + 'px ' + FONT_BODY; swissTrack(ctx, 4);
+      var label = (full + '  ' + gr.label).toUpperCase(), lw = ctx.measureText(label).width + 40;
+      ctx.fillText(label, W / 2, y + headH / 2); swissTrack(ctx, 0);
+      ctx.fillRect(pad, y + headH / 2, (innerW - lw) / 2 - 12, 1.5); ctx.fillRect(W - pad - ((innerW - lw) / 2 - 12), y + headH / 2, (innerW - lw) / 2 - 12, 1.5);
+      y += headH;
+      gr.items.forEach(function (row) {
+        var price = weekMenuPrice(row.price), py = y + itemH * 0.36;
+        ctx.textBaseline = 'middle'; ctx.textAlign = 'right'; ctx.fillStyle = WEEK_INK;
+        ctx.font = '800 ' + Math.round(34 * k) + 'px ' + FONT_BODY;
+        var pw = price ? ctx.measureText(price).width : 0;
+        if (price) ctx.fillText(price, W - pad, py);
+        ctx.textAlign = 'left';
+        var nameW = innerW - pw - 60;
+        fitFont(ctx, row.name, nameW, Math.round(36 * k), 20, '800', FONT_BODY);
+        ctx.fillText(row.name, pad, py);
+        var nw = ctx.measureText(row.name).width;
+        if (price) menuLeader(ctx, pad + nw + 6, W - pad - pw - 8, py + 6, MENU_GREY);
+        ctx.fillStyle = MENU_GREY; ctx.font = '500 ' + Math.round(24 * k) + 'px ' + FONT_BODY;
+        ctx.fillText([row.time ? 'from ' + row.time : '', row.venue].filter(Boolean).join('  ·  '), pad, y + itemH * 0.76);
+        y += itemH;
+      });
+      y += gapG;
+    });
+  }
+
+  var WEEK_STYLES = { classic: paintWeekPolaroid, ticket: paintWeekTicket, swiss: paintWeekSwiss, type: paintWeekType, lava: paintWeekLava, comic: paintWeekComic, flap: paintWeekFlap, station: paintWeekStation, chalk: paintWeekChalk, menu: paintWeekMenu };
+  var WEEK_EVENTS = parseCatalog('iyf-week-events');
+
+  // Build the model for a window and paint it. wk = { from, v }. Exposed on window for previews.
+  function drawWeek(canvas, wk, format, style, done) {
+    var paint = WEEK_STYLES[style] || paintWeekPolaroid;
+    var spec = flyerSpec(format);
+    canvas.width = spec.w; canvas.height = spec.h;
+    var ctx = canvas.getContext('2d');
+    var win = weekWindow(wk.from), evs = weekEvents(WEEK_EVENTS, win.from);
+    var copy = weekCopy(win.from, wk.v, evs.length);
+    var srcs = ['/assets/img/inyourface.png', assetURL(pickBackdrop())];
+    // Rows carry the show's own artwork (the post's thumbnail, else its card image, else the
+    // feature image); the hosts stay off the image and only their handles are offered.
+    var rows = evs.map(function (e) {
+      var s = weekShowFor(e, SHOWS);
+      srcs.push(assetURL((s && (s.thumb || s.image || s.img)) || ''));
+      return {
+        e: e, name: weekShowName(e, SHOWS), day: weekDayLabel(e.date), date: weekDateLabel(e.date), time: weekTime(e),
+        venue: e.venue || (s && s.venue) || '', serial: 'Nº ' + showCode(e.show, e.start || e.date), price: e.price, tagline: s ? showTagline(s.title) : '',
+        thumb: null, thumbAt: srcs.length - 1
+      };
+    });
+    loadBrandFonts()
+      .then(function () { return Promise.all(srcs.map(loadImg)); })
+      .then(function (imgs) {
+        rows.forEach(function (row) { row.thumb = imgs[row.thumbAt]; });
+        paint(ctx, spec, { rows: rows, from: win.from, copy: copy, logo: imgs[0], backdrop: imgs[1], n: rows.length, nowMs: Date.now() });
+        if (done) done(null);
+      })
+      .catch(function (e) { if (done) done(e); });
+  }
+
+  function ensureWeekCss() {
+    if (document.getElementById('iyf-week-css')) return;
+    var st = document.createElement('style');
+    st.id = 'iyf-week-css';
+    st.textContent =
+      '.iyf-week__from{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.6rem;margin:0 auto 1rem}' +
+      '.iyf-week__from input{font:inherit;padding:.45rem .6rem;border-radius:8px;border:2px solid rgba(255,243,224,.4);background:#0F0F10;color:#FFF3E0}' +
+      '.iyf-week__from label{font-weight:700}' +
+      '.iyf-week__list{max-width:420px;margin:.5rem auto 1rem;padding:0;list-style:none;font-size:.9rem}' +
+      '.iyf-week__list li{padding:.25rem 0;border-bottom:1px solid rgba(255,243,224,.15)}' +
+      '.iyf-week__actions{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;max-width:420px;margin:.85rem auto 0}' +
+      '.iyf-week__actions .lineup-lab__copy{flex:1 1 45%}' +
+      '.iyf-week__row{max-width:420px;margin:.6rem auto 0;text-align:center}';
+    document.head.appendChild(st);
+  }
+
+  // The /week/ page. Everything re-renders in place; the URL mirrors the state.
+  function renderWeek() {
+    ensureFlyerCss(); ensureWeekCss();
+    var p = new URLSearchParams(window.location.search);
+    var wk = {
+      from: (p.get('from') || '').trim(),
+      style: (p.get('style') || '').trim().toLowerCase(),
+      format: (p.get('format') || '').trim().toLowerCase(),
+      v: parseInt(p.get('v') || '', 10)
+    };
+    // A fresh load (no v in the URL) rolls a new headline each time, so reloading is a way to
+    // try another; the URL then carries v, so a copied link re-opens the same words.
+    if (isNaN(wk.v) || wk.v < 0) wk.v = Math.floor(Math.random() * 1000);
+    if (!parseYmd(wk.from)) wk.from = ymd(new Date());
+    if (!WEEK_STYLES[wk.style]) wk.style = 'classic';
+    if (wk.format !== 'post') wk.format = 'story';
+    function sync() {
+      var q = 'from=' + enc(wk.from) + '&style=' + enc(wk.style) + '&format=' + enc(wk.format) + '&v=' + wk.v;
+      try { window.history.replaceState(null, '', window.location.pathname + '?' + q); } catch (e) { /* file: or sandbox */ }
+      try { window.__lineupMakerLastURL = window.location.pathname + '?' + q; } catch (e) { /* read-only env */ }
+    }
+    function paint() { sync(); build(); }
+    function build() {
+      weekRoot.textContent = '';
+      var win = weekWindow(wk.from), evs = weekEvents(WEEK_EVENTS, win.from);
+      var head = el('div', 'lineup-lab__head');
+      head.appendChild(el('h1', 'lineup-lab__title', '📅 Week Story'));
+      weekRoot.appendChild(head);
+      weekRoot.appendChild(el('p', 'lineup-lab__sub', 'The Sunday story: every show from the chosen day through the next seven days, ready to post with the calendar link sticker.'));
+
+      var fromRow = el('div', 'iyf-week__from');
+      var lab = el('label', '', 'Week starting'); lab.htmlFor = 'iyf-week-from';
+      var inp = document.createElement('input'); inp.type = 'date'; inp.id = 'iyf-week-from'; inp.value = wk.from;
+      inp.addEventListener('change', function () { if (parseYmd(inp.value)) { wk.from = inp.value; paint(); } });
+      fromRow.appendChild(lab); fromRow.appendChild(inp);
+      fromRow.appendChild(el('span', 'lineup-lab__copy-hint', win.from === wk.from ? 'to ' + win.to : ''));
+      weekRoot.appendChild(fromRow);
+
+      var list = el('ul', 'iyf-week__list');
+      if (!evs.length) list.appendChild(el('li', '', 'No shows in this window.'));
+      evs.forEach(function (e) {
+        list.appendChild(el('li', '', [weekDayLabel(e.date) + ' ' + weekDateLabel(e.date), weekTime(e), weekShowName(e, SHOWS), e.venue].filter(Boolean).join(' · ')));
+      });
+      weekRoot.appendChild(list);
+
+      var panel = el('div', 'lineup-lab__flyer');
+      panel.appendChild(el('h2', 'lineup-lab__outputs-title', '🎨 Share image'));
+      var styleToggle = el('div', 'lineup-lab__fmt-toggle lineup-lab__style-toggle');
+      [['classic', '🎞️ Polaroid'], ['ticket', '🎟️ Ticket'], ['swiss', '🔴 Swiss'], ['type', '🔠 Bold Type'], ['lava', '🌋 Lava'], ['comic', '💥 Comic'], ['flap', '🛫 Departures'], ['station', '🚉 Station'], ['chalk', '🖍️ Chalkboard'], ['menu', '🍽️ Menu']].forEach(function (pr) {
+        var b = button('lineup-lab__fmt-btn' + (wk.style === pr[0] ? ' is-on' : ''), pr[1]);
+        b.setAttribute('aria-pressed', wk.style === pr[0] ? 'true' : 'false');
+        b.addEventListener('click', function () { wk.style = pr[0]; paint(); });
+        styleToggle.appendChild(b);
+      });
+      panel.appendChild(styleToggle);
+      var toggle = el('div', 'lineup-lab__fmt-toggle');
+      [['story', '📱 Story 9:16'], ['post', '🖼️ Post 4:5']].forEach(function (pr) {
+        var b = button('lineup-lab__fmt-btn' + (wk.format === pr[0] ? ' is-on' : ''), pr[1]);
+        b.setAttribute('aria-pressed', wk.format === pr[0] ? 'true' : 'false');
+        b.addEventListener('click', function () { wk.format = pr[0]; paint(); });
+        toggle.appendChild(b);
+      });
+      panel.appendChild(toggle);
+
+      var canvas = el('canvas', 'lineup-lab__canvas');
+      canvas.setAttribute('role', 'img'); canvas.setAttribute('aria-label', 'Generated week story preview');
+      panel.appendChild(canvas);
+      var status = el('p', 'lineup-lab__copy-status', 'Rendering…');
+      panel.appendChild(status);
+      var dl = el('button', 'btn-ticket', '⬇️ Download PNG'); dl.type = 'button'; dl.disabled = true;
+      panel.appendChild(dl);
+      var shuffleRow = el('div', 'iyf-week__row');
+      var shuffle = button('lineup-lab__copy lineup-lab__copy--quiet', '🔀 Other words');
+      shuffle.addEventListener('click', function () { wk.v = wk.v + 1; paint(); });
+      shuffleRow.appendChild(shuffle);
+      shuffleRow.appendChild(el('span', 'lineup-lab__copy-hint', ' A different headline, same shows.'));
+      panel.appendChild(shuffleRow);
+
+      var actions = el('div', 'iyf-week__actions');
+      function addCopy(label, getter, empty) {
+        var b = button('lineup-lab__copy lineup-lab__copy--quiet', label);
+        b.addEventListener('click', function () {
+          var text = getter();
+          if (!text) { status.textContent = empty || 'Nothing to copy.'; return; }
+          status.textContent = '…'; copy(text, status);
+        });
+        actions.appendChild(b);
+      }
+      addCopy('＠ Copy Insta handles', function () { return weekHandlesText(evs, SHOWS, COMEDIANS); }, 'No Instagram handles for these hosts.');
+      addCopy('🔗 Copy calendar link', function () { return WEEK_CAL_LINK; });
+      addCopy('💬 Copy caption', function () { return weekCaption(evs, SHOWS, win.from); });
+      panel.appendChild(actions);
+      panel.appendChild(el('p', 'lineup-lab__copy-hint', 'Handles tag the hosts in the story; the calendar link goes in the link sticker (that is the call to action); the caption is for a post.'));
+      weekRoot.appendChild(panel);
+
+      drawWeek(canvas, wk, wk.format, wk.style, function (err) {
+        if (err) { status.textContent = 'Could not render the image, try again.'; return; }
+        status.textContent = evs.length ? 'Looks good? Download, add the link sticker, post it. 🎤' : 'No shows in this window: pick another start day.';
+        dl.disabled = false;
+        dl.addEventListener('click', function () {
+          downloadPng(canvas, 'week-' + win.from + '-' + wk.format + '.png', function () { status.textContent = 'Download failed, long-press / right-click the image to save it.'; });
+        });
+      });
+    }
+    paint();
+  }
+
   // Test/preview seam: expose the flyer entry points on window (browser-only, mirrors
   // __lineupMakerLastURL). Lets a harness render a flyer headlessly without walking the
   // wizard UI. No-op in read-only envs.
   try {
-    window.__iyfDrawFlyer = drawFlyer; window.__iyfOpenFlyer = openFlyer;
+    window.__iyfDrawFlyer = drawFlyer; window.__iyfOpenFlyer = openFlyer; window.__iyfDrawWeek = drawWeek;
     window.__iyfFlyerHandles = flyerHandles; window.__iyfFlyerHandlesText = flyerHandlesText;
   } catch (e) { /* read-only env */ }
 
@@ -2758,5 +4005,5 @@
     if (stage === 'format') return show ? renderFormat() : renderShowPicker();
     return renderShowPicker();
   }
-  render();
+  if (weekRoot) renderWeek(); else render();
 })();

@@ -376,6 +376,33 @@ check("Anti: /lineup/ carries noindex robots meta") do
   [lin_html =~ /name=["']robots["']\s+content=["']noindex/i ? true : false, "no noindex meta"]
 end
 
+# ── Week Story ────────────────────────────────────────────────────────────────
+section "Week Story"
+week_html = read_site("week/index.html")
+check("Week Story page exists (/week/)") { [File.exist?(File.join(SITE, "week/index.html")), "missing"] }
+check("/week/ contains #iyf-shows + #iyf-comedians + #iyf-week-events") do
+  [%w[iyf-shows iyf-comedians iyf-week-events].all? { |id| week_html.include?(%(id="#{id}")) }, "missing a catalog"]
+end
+check("/week/ #iyf-week-events valid JSON, count == calendar events") do
+  data = inline_json(week_html, "iyf-week-events")
+  n = (YAML.load_file(File.join(ROOT, "_data/calendar.yml"))["events"] || []).length
+  [data.is_a?(Array) && data.length == n, "got #{data&.length.inspect} vs #{n}"]
+end
+check("/week/ #iyf-shows carries hosts + thumb per show") do
+  data = inline_json(week_html, "iyf-shows")
+  [data.is_a?(Array) && data.all? { |sh| sh.key?("hosts") && sh.key?("thumb") }, "hosts/thumb missing"]
+end
+check("Anti: /week/ carries noindex robots meta") do
+  [week_html =~ /name=["']robots["']\s+content=["']noindex/i ? true : false, "no noindex meta"]
+end
+check("Anti: sitemap does NOT list /week/") { [!sitemap_text.include?("/week/"), "leaked into sitemap"] }
+check("robots.txt disallows /week/") { [read_site("robots.txt").include?("Disallow: /week/"), "missing Disallow"] }
+check("/week/ script carries the ten week painters") do
+  js = File.read(File.join(SITE, "assets/js/lineup-maker-2000.js"))
+  missing = %w[paintWeekPolaroid paintWeekTicket paintWeekSwiss paintWeekType paintWeekLava paintWeekComic paintWeekFlap paintWeekStation paintWeekChalk paintWeekMenu].reject { |fn| js.include?("function #{fn}(") }
+  [missing.empty?, "missing #{missing.join(', ')}"]
+end
+
 # ── script + data health ──────────────────────────────────────────────────────
 section "Script + data health"
 %w[sync-comedians.rb refresh-next-event-dates.rb validate-calendar.rb refresh-calendar-data.rb add-event.rb].each do |s|

@@ -188,3 +188,18 @@ and you share the work.
 build-time catalogs: shows and the full comedian roster). Copy/labels are plain strings near the
 relevant `render*` functions. Comedians and shows resolve only against the embedded catalogs, so a
 crafted Lab link can no more inject a fake performer than a promo link can.
+
+## Week Story - the Sunday story at `/week/`
+
+`https://inyourfacecomedy.ch/week/` draws the "shows this week" Instagram story (and a 4:5 post) from the calendar data: every event from the chosen start day through the following seven days, so a show this Sunday and one next Sunday are both on it. Unlisted like `/lineup/` (noindex, out of the sitemap, blocked in `robots.txt`, off the nav).
+
+**State lives in the URL:** `from=YYYY-MM-DD` (default: today), `style=classic|ticket|swiss|type|lava|comic|flap|station|chalk|menu`, `format=story|post`, `v=N` (which words). Change anything on the page and the address bar follows, so a link re-opens the same image.
+
+**On the page:**
+
+1. **Week starting** date picker, plus the list of shows in the window as a sanity check.
+2. **Style** (Polaroid, Ticket, Swiss, Bold Type, Lava, Comic, Departures, Station, Chalkboard, Menu) and **format** toggles, the preview, **Download PNG** (`week-<from>-<format>.png`).
+3. **Other words**: a different headline for the same shows. Every fresh load of the page rolls a new one too (reload to try again); the URL then carries `v`, so a copied link re-opens the same words. The image carries no call to action and no faces: each row shows the show's own artwork (the post's `thumbnail`, else `image`), and the link sticker you add in Instagram is the call to action.
+4. **Copy Insta handles**: the @handles of the regular hosts of every show in the window, one per line, for tagging in the story. **Copy calendar link**: `/calendar/` tagged `utm_source=instagram&utm_medium=social&utm_campaign=week`, for the link sticker. **Copy caption**: a plain-text list of the shows plus the link, for a post.
+
+**Implementation:** the same `assets/js/lineup-maker-2000.js` (root `#iyf-week`), `pages/week.md` (page, events JSON from `_data/calendar.yml`) and `_includes/iyf-catalogs.liquid` (shows with `hosts` and `thumb`, comedians, backdrops; shared with `/lineup/`). Pure helpers (`weekWindow`, `weekEvents`, `weekCopy`, `weekHandles`, `weekCaption`) are unit-tested in `assets/js/__tests__/lineup-maker-2000.week.unit.test.ts`. Design notes: `FLYER_DESIGN.md` section 6e.
