@@ -175,6 +175,16 @@ The `ticket` painter (`paintTicketStub`) is a vintage admission stub standing in
 
 **Audience backdrop.** Behind the ticket is an audience photo from the gallery, drawn monochrome under a heavy ink layer and a vignette so it never competes with the ticket. The pool is built in Liquid on `pages/lineup.md` from `_data/gallery.yml` (`type: audience`, at least 4 faces, aesthetic at least 0.45) into an `iyf-backdrops` JSON list, so it grows as photos are added. `pickBackdrop()` picks one at random on every render, so re-opening the flyer or switching format gives a fresh crowd (the paper stays per show; the crowd does not). If the list is empty or the image fails to load, the field is plain ink. The photos are the full gallery files (about 570 KB on average today); if phone load time becomes a problem, add a resize step rather than a hand-picked list.
 
+## 6c. Style status (2026-09-11)
+
+| Style | Positions against | Status |
+|---|---|---|
+| Polaroid (`classic`) | legacy `safeTop` / `safeBottom` | done, do not touch |
+| Ticket | key-content area | done |
+| Risograph | legacy insets | done; tagline on a cream label, venue in cream so both read on the red duotone |
+| Neon | legacy insets | left as is by choice |
+| Bold Type | key-content area | done; faces in the shared `faceGrid` as ringed circles, slim photo band, bar on the key-content bottom |
+
 ## 7. Testing & verification constraints
 
 - The **pure layout helpers** (`dayLabel`, `flyerDate`, `faceScale`, `flyerSpec`) are exported behind the CommonJS test seam (lines ~30–45) and covered by `bun test` (happy-dom). Any variant that adds pure helpers should export and test them the same way.

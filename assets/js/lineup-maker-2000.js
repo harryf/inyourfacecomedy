@@ -1277,20 +1277,29 @@
   // ===========================================================================
 
   // Shared: logo + tagline header. Returns the Y just below the header block.
+  // opts.top overrides the inset the logo hangs from (default: legacy safeTop);
+  // opts.taglineLabel draws a rounded label of that colour behind the tagline, for
+  // styles whose background is too busy for bare handwriting.
   function flyerHeader(ctx, spec, m, opts) {
     opts = opts || {};
     var cx = spec.w / 2;
     var logoH = spec.format === 'story' ? 150 : 132;
-    var logoY = spec.safeTop + (spec.format === 'story' ? 14 : 30);
+    var logoY = (opts.top != null ? opts.top : spec.safeTop) + (spec.format === 'story' ? 14 : 30);
     if (m.logo) {
       var lw = logoH * (m.logo.width / m.logo.height);
       ctx.drawImage(m.logo, cx - lw / 2, logoY, lw, logoH);
     }
-    ctx.fillStyle = opts.taglineColor || '#FFD54F';
+    var tagline = 'English stand-up comedy', ty = logoY + logoH + 42;
+    ctx.font = '34px ' + FONT_ACCENT;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
-    ctx.font = '34px ' + FONT_ACCENT;
-    ctx.fillText('English stand-up comedy', cx, logoY + logoH + 42);
+    if (opts.taglineLabel) {
+      var tw = ctx.measureText(tagline).width;
+      roundRect(ctx, cx - tw / 2 - 22, ty - 36, tw + 44, 52, 26);
+      ctx.fillStyle = opts.taglineLabel; ctx.fill();
+    }
+    ctx.fillStyle = opts.taglineColor || '#FFD54F';
+    ctx.fillText(tagline, cx, ty);
     return logoY + logoH + 70;
   }
 
@@ -1783,11 +1792,12 @@
     ctx.fillStyle = '#FFF3E0'; ctx.fillRect(0, 0, W, H);
     if (m.bg) drawDuotone(ctx, m.bg, 0, 0, W, H);
     halftoneOverlay(ctx, 0, 0, W, H, '#B71C1C', 0.10);
-    var headerBottom = flyerHeader(ctx, spec, m, { taglineColor: '#0F0F10' });
+    // tagline on a cream label and venue in cream: bare ink on the red duotone was unreadable
+    var headerBottom = flyerHeader(ctx, spec, m, { taglineColor: '#0F0F10', taglineLabel: '#FFF3E0' });
     var facesTop = headerBottom + 28;
     var metaBaseY = H - bottom - 40;
     var titleTop = drawRisoTitle(ctx, spec, m, metaBaseY - 86);
-    drawMeta(ctx, spec, m, metaBaseY, '#0F0F10', '#FFF3E0', '#0F0F10');
+    drawMeta(ctx, spec, m, metaBaseY, '#0F0F10', '#FFF3E0', '#FFF3E0');
     var rowTop = facesTop;
     if (m.host && m.host.slug) { rowTop = drawRisoHost(ctx, cx, facesTop, m.host) + 22; }
     faceGrid(ctx, spec, m.bill, pad, rowTop, W - pad * 2, (titleTop - 36) - rowTop, 1.20,
@@ -1883,55 +1893,48 @@
   }
 
   // --- STYLE 4: Bold Type Stack ----------------------------------------------
-  function drawMiniAvatar(ctx, it, cx, cy, r, withName) {
-    var ring = it.host ? '#FFD54F' : (it.headliner ? '#FF5252' : '#FFF3E0');
-    ctx.save();
-    ctx.beginPath(); ctx.arc(cx, cy, r + 3, 0, Math.PI * 2); ctx.fillStyle = ring; ctx.fill();
-    ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.clip();
-    if (it.img) drawCover(ctx, it.img, cx - r, cy - r, 2 * r, 2 * r);
-    else {
-      ctx.fillStyle = '#2A2A2D'; ctx.fillRect(cx - r, cy - r, 2 * r, 2 * r);
-      ctx.fillStyle = '#FFD54F'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.font = '400 ' + Math.round(r) + 'px ' + FONT_DISPLAY;
-      ctx.fillText((it.name || '?').charAt(0).toUpperCase(), cx, cy + 2);
-    }
-    ctx.restore();
-    ctx.restore();
-    if (withName) {
-      ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      var cap = firstName(it.name).toUpperCase();
-      fitFont(ctx, cap, r * 2.6, 22, 12, '500', FONT_BODY);
-      ctx.fillText(cap, cx, cy + r + 20);
-    }
-  }
+  // Ink field, giant cream Anton, one red bar. Positioned against the key-content area
+  // (keyTop / keyBottom / keySide). Faces are round prints in the shared priority-centred
+  // faceGrid so they scale to the room available instead of shrinking onto one line.
 
-  function drawAvatarStrip(ctx, spec, m, x0, topY, bandW) {
-    var acts = [];
-    if (m.host && m.host.slug) acts.push({ img: m.host.img, name: m.host.name, host: true });
-    m.bill.forEach(function (b) { acts.push({ img: b.img, name: b.name, headliner: b.headliner }); });
-    if (!acts.length) return topY;
-    var n = acts.length, gap = 14;
-    var d = Math.min(120, (bandW - gap * (n - 1)) / n);
-    var rows = 1, perRow = n;
-    if (d < 66) { rows = 2; perRow = Math.ceil(n / 2); d = Math.min(120, (bandW - gap * (perRow - 1)) / perRow); }
-    var withName = d >= 78;
-    var rowH = d + (withName ? 40 : 18);
-    var cx = x0 + bandW / 2;
-    for (var r = 0; r < rows; r++) {
-      var items = acts.slice(r * perRow, (r + 1) * perRow);
-      var rowW = items.length * d + gap * (items.length - 1);
-      var xx = cx - rowW / 2;
-      var cyc = topY + r * rowH + d / 2;
-      for (var i = 0; i < items.length; i++) {
-        drawMiniAvatar(ctx, items[i], xx + d / 2, cyc, d / 2, withName);
-        xx += d + gap;
-      }
+  // One act: ringed circle (yellow ring + HOST pill for the host, red ring + star for the
+  // headliner, cream ring otherwise) with the first name beneath.
+  function drawTypeFace(ctx, it, cx, topY, w) {
+    var r = w / 2, cy = topY + r, ri = r - 5;
+    var ring = it.isHost ? '#FFD54F' : (it.headliner ? '#E53935' : '#FFF3E0');
+    ctx.save();
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fillStyle = ring; ctx.fill();
+    ctx.beginPath(); ctx.arc(cx, cy, ri, 0, Math.PI * 2); ctx.clip();
+    if (it.img) drawCover(ctx, it.img, cx - ri, cy - ri, 2 * ri, 2 * ri);
+    else {
+      ctx.fillStyle = '#2A2A2D'; ctx.fillRect(cx - ri, cy - ri, 2 * ri, 2 * ri);
+      ctx.fillStyle = '#FFD54F'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(ri) + 'px ' + FONT_DISPLAY;
+      ctx.fillText((it.name || '?').charAt(0).toUpperCase(), cx, cy + 3);
     }
-    return topY + rows * rowH;
+    ctx.restore();
+    if (it.isHost) {
+      var pw = Math.max(72, Math.round(w * 0.46)), ph = Math.max(24, Math.round(w * 0.15));
+      roundRect(ctx, cx - pw / 2, cy + r - ph * 0.55, pw, ph, ph / 2);
+      ctx.fillStyle = '#FFD54F'; ctx.fill();
+      ctx.fillStyle = '#0F0F10'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '700 ' + Math.round(ph * 0.62) + 'px ' + FONT_BODY;
+      ctx.fillText('HOST', cx, cy + r - ph * 0.55 + ph / 2 + 1);
+    } else if (it.headliner) {
+      var br = Math.max(14, Math.round(w * 0.11)), bx = cx + r * 0.7, by = cy - r * 0.7;
+      ctx.fillStyle = '#E53935'; ctx.beginPath(); ctx.arc(bx, by, br, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#FFD54F'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(br * 1.3) + 'px ' + FONT_DISPLAY;
+      ctx.fillText('★', bx, by + 1);
+    }
+    ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    var cap = firstName(it.name).toUpperCase();
+    fitFont(ctx, cap, w * 1.15, Math.round(Math.min(30, w * 0.16)), 13, '600', FONT_BODY);
+    ctx.fillText(cap, cx, topY + w + Math.round(w * 0.14));
   }
 
   function drawGiantTitle(ctx, spec, m, topAvail, baseline) {
-    var cx = spec.w / 2, pad = 48, maxW = spec.w - pad * 2;
+    var cx = spec.w / 2, pad = spec.keySide + 14, maxW = spec.w - pad * 2;
     var text = (m.show ? splitTitle(m.show.title) : 'IN YOUR FACE').toUpperCase();
     var avail = baseline - topAvail;
     var ttl = fitTitle(ctx, text, maxW, spec.format === 'story' ? 220 : 190, 60, 5, FONT_DISPLAY);
@@ -1945,11 +1948,11 @@
     ttl.lines.forEach(function (ln, i) { ctx.fillText(ln, cx, startY + (i + 1) * lineH - lineH * 0.2); });
   }
 
-  function drawTypeMetaBar(ctx, spec, m, metaBaseY) {
-    var W = spec.w, pad = 64;
+  // Full-width red bar with the day/date left and the venue right, top edge at barY.
+  function drawTypeMetaBar(ctx, spec, m, barY, barH) {
+    var W = spec.w, pad = spec.keySide + 14;
     var dl = m.show ? flyerDate(m.show.next, spec.format, m.nowMs) : '';
     var venue = (m.show && m.show.venue) ? String(m.show.venue).toUpperCase() : '';
-    var barH = 80, barY = metaBaseY - barH / 2 - 10;
     ctx.fillStyle = '#E53935'; ctx.fillRect(0, barY, W, barH);
     ctx.fillStyle = '#FFF3E0'; ctx.textBaseline = 'middle';
     ctx.textAlign = 'left'; ctx.font = '700 40px ' + FONT_BODY;
@@ -1959,11 +1962,15 @@
   }
 
   function paintTypeStack(ctx, spec, m) {
-    var W = spec.w, H = spec.h, top = spec.safeTop, bottom = spec.safeBottom, pad = 64, cx = W / 2;
+    var W = spec.w, H = spec.h, story = spec.format === 'story';
+    var top = spec.keyTop, bottomY = H - spec.keyBottom, pad = spec.keySide + 14, cx = W / 2;
     ctx.fillStyle = '#0F0F10'; ctx.fillRect(0, 0, W, H);
-    var headerBottom = flyerHeader(ctx, spec, m, { taglineColor: '#FFD54F' });
-    var bandH = spec.format === 'story' ? 360 : 300;
-    var bandY = headerBottom + 10;
+
+    // 1. logo + tagline hang from the key-content top
+    var headerBottom = flyerHeader(ctx, spec, m, { taglineColor: '#FFD54F', top: top });
+
+    // 2. slim show-photo band (identifies the show; kept short so the faces get the room)
+    var bandH = story ? 200 : 150, bandY = headerBottom + 6;
     if (m.bg) {
       ctx.save(); roundRect(ctx, pad, bandY, W - pad * 2, bandH, 12); ctx.clip();
       drawCover(ctx, m.bg, pad, bandY, W - pad * 2, bandH);
@@ -1972,12 +1979,29 @@
       ctx.fillStyle = gg; ctx.fillRect(pad, bandY, W - pad * 2, bandH);
       ctx.restore();
     }
-    var avTop = bandY + bandH - 40;
-    var avBottom = drawAvatarStrip(ctx, spec, m, pad, avTop, W - pad * 2);
-    ctx.fillStyle = '#E53935'; ctx.fillRect(pad, avBottom + 16, W - pad * 2, 8);
-    var metaBaseY = H - bottom - 40;
-    drawGiantTitle(ctx, spec, m, avBottom + 44, metaBaseY - 90);
-    drawTypeMetaBar(ctx, spec, m, metaBaseY);
+
+    // 3. the bar sits on the key-content bottom; the title gets a fixed block above it
+    var barH = 80, barY = bottomY - barH - 8;
+    var titleBottom = barY - 28, titleTop = titleBottom - (story ? 290 : 220);
+    var ruleY = titleTop - 48;   // the red rule sits well clear of the title's cap height
+
+    // 4. faces: everything between the photo band and the title, host in the grid
+    var friendsH = m.hasGuests ? 60 : 0;
+    var facesTop = bandY + bandH + 28, facesBottom = ruleY - 28 - friendsH;
+    var bill = m.bill.slice();
+    if (m.host && m.host.slug) bill.unshift({ slug: m.host.slug, name: m.host.name, img: m.host.img, priority: 'high', isHost: true });
+    faceGrid(ctx, spec, bill, pad, facesTop, W - pad * 2, facesBottom - facesTop, 1.24, story ? 240 : 200,
+      function (ctx, it, ccx, ty, w) { drawTypeFace(ctx, it, ccx, ty, w); });
+    if (m.hasGuests) {
+      ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '40px ' + FONT_ACCENT;
+      ctx.fillText('… and friends', cx, facesBottom + friendsH / 2);
+    }
+
+    // 5. red rule, giant title, meta bar
+    ctx.fillStyle = '#E53935'; ctx.fillRect(pad, ruleY, W - pad * 2, 6);
+    drawGiantTitle(ctx, spec, m, titleTop, titleBottom);
+    drawTypeMetaBar(ctx, spec, m, barY, barH);
   }
 
   // Style registry - keys map to painters; unknown/empty falls back to classic.
