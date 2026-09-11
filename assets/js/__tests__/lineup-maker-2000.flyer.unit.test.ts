@@ -21,6 +21,8 @@ const lm = require("../lineup-maker-2000.js") as {
   chargeLines: () => string[];
   chargeLine: (slug: string, iso: string, acts?: string[]) => string;
   firstName: (name: string) => string;
+  stubLines: () => string[];
+  stubLine: (slug: string, iso: string) => string;
   contrastRatio: (a: string, b: string) => number;
   newStylePairs: () => { style: string; text: string; field: string; kind: string }[];
 };
@@ -187,6 +189,23 @@ describe("flyer • new style legibility (WCAG contrast is a gate, not a hope)",
       const floor = p.kind === "small" ? 4.5 : 3.0;
       expect(contrastRatio(p.text, p.field), p.style + " " + p.text + " on " + p.field).toBeGreaterThanOrEqual(floor);
     }
+  });
+});
+
+describe("flyer • stubLine (the ticket's small print, per show + date)", () => {
+  const ISO = "2026-10-02T20:00:00+02:00";
+  test("there are several lines, none of them a warning, and the same night always gets the same one", () => {
+    expect(lm.stubLines().length).toBeGreaterThanOrEqual(8);
+    for (const l of lm.stubLines()) expect(l.toLowerCase()).not.toMatch(/no heckling/);
+    expect(lm.stubLine("double-shot", ISO)).toBe(lm.stubLine("double-shot", ISO));
+    expect(lm.stubLines()).toContain(lm.stubLine("double-shot", ISO));
+  });
+  test("different shows and dates spread across several lines", () => {
+    const seen = new Set<string>();
+    for (const slug of ["double-shot", "comedy-brew", "la-tarima", "promessi-spassi", "open-mic", "late-show"]) {
+      for (const iso of [ISO, "2026-11-06T20:00:00+01:00", "2026-12-04T20:00:00+01:00"]) seen.add(lm.stubLine(slug, iso));
+    }
+    expect(seen.size).toBeGreaterThanOrEqual(4);
   });
 });
 

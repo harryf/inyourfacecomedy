@@ -43,6 +43,7 @@
       ticketSerial: ticketSerial, ticketPalettes: ticketPalettes, ticketPalette: ticketPalette,
       lavaSeeds: lavaSeeds, caseNumber: caseNumber, contrastRatio: contrastRatio, newStylePairs: newStylePairs,
       showCode: showCode, chargeLines: chargeLines, chargeLine: chargeLine, firstName: firstName,
+      stubLines: stubLines, stubLine: stubLine,
       isGuest: isGuest, guestName: guestName, guestToken: guestToken, instaHandle: instaHandle
     };
     return;
@@ -1500,6 +1501,27 @@
   // "Nº 260210" style serial: the jumbled show date. Pure; exported for tests.
   function ticketSerial(slug, iso) { return 'Nº ' + showCode(slug, iso); }
 
+  // The small print on the stub. One line per show + date (same night, same line), all
+  // of them a joke rather than a warning. Pure; exported for tests.
+  function stubLines() {
+    return [
+      'No refunds · none needed',
+      'Admit one · leave happier',
+      'Tear here · laugh there',
+      'Valid for one night of nonsense',
+      'May cause sore cheeks',
+      'Keep this stub · tell your friends',
+      'Heckling costs extra',
+      'Laughter guaranteed · seats not',
+      'Warning: may cause snorting',
+      'Good for one evening of bad decisions'
+    ];
+  }
+  function stubLine(slug, iso) {
+    var all = stubLines();
+    return all[ticketHash((slug || 'iyf') + '|' + (iso || '') + '|stub') % all.length];
+  }
+
   // Ticket paper palettes: dark papers only (red, blue, charcoal, brown families; no
   // cream, no yellow) with off-white print, like a raffle roll or a railway stub. Each
   // is the full set of roles the ticket paints with:
@@ -1731,8 +1753,10 @@
     if (line1) { fitFont(ctx, line1, colMax, story ? 40 : 34, 18, '700', FONT_BODY); ctx.fillText(line1, colX, sy + (story ? 52 : 44)); }
     var line2 = (hh ? 'DOORS ' + hh : '') + ((hh && show && show.venue) ? '  ·  ' : '') + ((show && show.venue) ? String(show.venue).toUpperCase() : '');
     if (line2) { fitFont(ctx, line2, colMax, story ? 30 : 26, 14, '600', FONT_BODY); ctx.fillText(line2, colX, sy + (story ? 98 : 84)); }
-    ctx.globalAlpha = 0.7; ctx.font = '600 18px ' + FONT_BODY;
-    ctx.fillText(spaced('No refunds · no heckling'), colX, sy + (story ? 136 : 118));
+    ctx.globalAlpha = 0.7;
+    var small = spaced(stubLine(show ? show.slug : '', iso));
+    fitFont(ctx, small, colMax, 18, 11, '600', FONT_BODY);
+    ctx.fillText(small, colX, sy + (story ? 136 : 118));
     ctx.globalAlpha = 1;
     // barcode + matching serial
     ticketBarcode(ctx, barX, sy + 4, barW, story ? 96 : 80, serial + iso, P.ink);
