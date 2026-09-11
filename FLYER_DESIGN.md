@@ -12,10 +12,16 @@
 
 A **client-side, zero-server PNG generator**. From the lineup the user has assembled in the Lineup Maker, it draws an on-brand show flyer onto a `<canvas>` and lets them download it as a PNG. Two Instagram-native formats:
 
-| Format | Canvas | Ratio | Safe inset (top / bottom) | Date label | Bottom band |
-|--------|--------|-------|---------------------------|------------|-------------|
-| **Story** (default) | 1080 × 1920 | 9:16 | 250 / 320 | weekday only (`THU`) — it's ephemeral | left **empty** for the user's IG link sticker |
-| **Post** | 1080 × 1350 | 4:5 | 70 / 70 | full date (`THU 4 JUN`) — it's archival | used by the layout |
+| Format | Canvas | Ratio | Key-content area (requirement) | Legacy inset (top / bottom) | Date label | Bottom band |
+|--------|--------|-------|--------------------------------|-----------------------------|------------|-------------|
+| **Story** (default) | 1080 × 1920 | 9:16 | y 250 → 1580 (1080 × 1330), ~60 px side margins | 250 / 320 | weekday only (`THU`) — it's ephemeral | left **empty** for the user's IG link sticker |
+| **Post** | 1080 × 1350 | 4:5 | central 1080 × 1080 (y 135 → 1215) fully safe; outer ~135 px top and bottom fine in feed, may be trimmed elsewhere; ~50 px side margins | 70 / 70 | full date (`THU 4 JUN`) — it's archival | used by the layout |
+
+**Safe-area requirement (stored as `keyTop` / `keyBottom` / `keySide` on `flyerSpec()`, pinned by `bun test`):**
+
+- **Story:** keep the first ~250 px clear (progress bar, profile name, close button) and the last ~340 px clear (reply bar, "Send message", sticker or link tap areas). Keep ~50 to 65 px free on each side: some devices crop slightly and stickers or link buttons sit near the edges. Key content lives in the 1080 × 1330 band from y = 250 to y = 1580.
+- **Post (4:5):** treat the central 1080 × 1080 as fully safe. The outer ~135 px at the top and bottom are fine in the feed but may be trimmed elsewhere. Keep ~50 px side margins so nothing sits on the frame edge.
+- `safeTop` / `safeBottom` are the **legacy** insets the polaroid painter (and the older alternates) were tuned against. They are deliberately unchanged so those layouts do not move. New styles position against the key-content fields.
 
 The whole pipeline is `openFlyer()` → `drawFlyer()` (resolve lineup → load assets → `paintFlyer()`) → `downloadCanvas()`. A sibling button copies every on-flyer comedian's Instagram `@handle` for tagging.
 
@@ -92,7 +98,7 @@ Borrowing a first-principles split: **hard** constraints are physics/brand-immov
 |---|------------|--------------------|
 | H1 | **Canvas stays untainted** — all image sources same-origin (or CORS-clean) | A tainted canvas makes `toBlob()`/`toDataURL()` throw → **no download**. This is the whole point of the artifact. |
 | H2 | **Output is exactly 1080×1350 (post) or 1080×1920 (story)** | Instagram's native post/story dimensions. Wrong size = cropped or letterboxed when posted. |
-| H3 | **Respect the safe insets** (story 250 top / 320 bottom) | IG's own UI (avatar/top bar, reply bar, link sticker) overlays these bands. Content there is covered. |
+| H3 | **Respect the key-content area** (story: y 250 → 1580, ~60 px sides; post: central 1080 × 1080, ~50 px sides; see §1) | IG's own UI (progress bar, profile name, close button, reply bar, "Send message", stickers, link buttons) overlays the bands outside it, and some devices crop the edges. Content there is covered or cut. |
 | H4 | **Only the brand palette** (red / yellow / cream / ink, + the blue background system) | The flyer *is* the brand in the wild. Off-palette colour reads as not-IYF. |
 | H5 | **Only the three brand faces** (Anton / Inter / Permanent Marker), loaded before draw | Type *is* the poster energy. A render before fonts load ships a fallback flyer. |
 | H6 | **Every booked performer appears** | A flyer that silently drops an act is a promise broken to that comedian. The grid scales instead of capping. |
@@ -160,6 +166,14 @@ When we build "different flyer styles for more variety," each new style is free 
 **Suggested implementation shape:** factor the current `paintFlyer` into a **default style module** behind a `style` key on the model, so `drawFlyer(canvas, st, format, style, done)` can dispatch to `paintFlyer_polaroid` (current), `paintFlyer_ticketstub`, `paintFlyer_minimal`, etc. — all sharing the helpers in §"canvas primitives" and the `m` model. Add a style toggle next to the existing format toggle in `openFlyer()`.
 
 ---
+
+## 6b. Ticket style: paper palettes and the audience backdrop
+
+The `ticket` painter (`paintTicketStub`) is a vintage admission stub standing inside the key-content area. Two things about it are algorithmic rather than styled by hand:
+
+**Paper palette per show.** `ticketPalettes()` holds the paper sets: dark papers only, in the red (roll red, brick, wine), blue (roll blue, ink blue), charcoal and brown families, all with off-white print like a raffle roll or a railway stub. Cream and yellow papers are deliberately out. `ticketPalette(slug)` hashes the show slug and picks one, so the same show always prints on the same paper and a brand-new show gets a palette the moment it exists. No show names appear in the code. Each palette fills every role the ticket paints with (`paper`, `ink`, `accent`, `chip`, `chipText`, `host`, `hostText`), and `bun test` pins the rules for every palette: WCAG contrast ink on paper at least 4.5, accent on paper, chip text on chip and host text on host at least 3.0, and paper relative luminance under 0.25 (the "no cream, no yellow" rule as a number). Roll red is `#C43E33` rather than the swatch's `#D9463B` so off-white print clears 4.5. Adding a palette means adding an object to that list; the test tells you if it is unreadable or too light. A thin ink rule printed just inside the ticket edge separates a dark paper from the dark field.
+
+**Audience backdrop.** Behind the ticket is an audience photo from the gallery, drawn monochrome under a heavy ink layer and a vignette so it never competes with the ticket. The pool is built in Liquid on `pages/lineup.md` from `_data/gallery.yml` (`type: audience`, at least 4 faces, aesthetic at least 0.45) into an `iyf-backdrops` JSON list, so it grows as photos are added. `pickBackdrop()` picks one at random on every render, so re-opening the flyer or switching format gives a fresh crowd (the paper stays per show; the crowd does not). If the list is empty or the image fails to load, the field is plain ink. The photos are the full gallery files (about 570 KB on average today); if phone load time becomes a problem, add a resize step rather than a hand-picked list.
 
 ## 7. Testing & verification constraints
 

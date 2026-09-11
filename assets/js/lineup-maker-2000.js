@@ -36,10 +36,11 @@
   if (typeof module !== 'undefined' && module.exports) {
     // These MUST stay `function name(){}` declarations (they are hoisted across this early
     // return). Converting any to `var x = function(){}` makes the export undefined and
-    // silently breaks the unit tests. dayLabel/faceScale/flyerSpec are defined far below.
+    // silently breaks the unit tests. dayLabel/faceScale/flyerSpec/ticketSerial are defined far below.
     module.exports = {
       norm: norm, splitTitle: splitTitle, showDate: showDate,
       dayLabel: dayLabel, flyerDate: flyerDate, faceScale: faceScale, flyerSpec: flyerSpec,
+      ticketSerial: ticketSerial, ticketPalettes: ticketPalettes, ticketPalette: ticketPalette,
       isGuest: isGuest, guestName: guestName, guestToken: guestToken, instaHandle: instaHandle
     };
     return;
@@ -56,6 +57,16 @@
   }
   var SHOWS = parseCatalog('iyf-shows');
   var COMEDIANS = parseCatalog('iyf-comedians');
+  // Audience photos for the ticket style's field, built in Liquid from _data/gallery.yml
+  // (type audience, 4+ faces, aesthetic >= 0.45). Empty on pages without the list.
+  var BACKDROPS = parseCatalog('iyf-backdrops');
+  // A different crowd every render (deliberately random, unlike the paper, which is
+  // per show): re-opening the flyer or switching format gives a fresh backdrop.
+  function pickBackdrop() {
+    if (!BACKDROPS.length) return '';
+    var b = BACKDROPS[Math.floor(Math.random() * BACKDROPS.length)];
+    return (b && b.src) || '';
+  }
 
   function norm(s) { return (s || '').toLowerCase().replace(/[^a-z0-9]+/g, ''); }
   var enc = encodeURIComponent;
@@ -844,11 +855,25 @@
     }
   }
 
-  // Canvas spec per Instagram format. Post = 1080x1350 (4:5). Story = 1080x1920
-  // (9:16) with a UI-safe inset (top bar/avatar ~250px, bottom reply+link ~320px).
+  // Canvas spec per Instagram format. Post = 1080x1350 (4:5). Story = 1080x1920 (9:16).
+  //
+  // REQUIREMENT - Instagram key-content area (keyTop / keyBottom / keySide). Essential
+  // content (title, faces, date, venue, logo) must sit inside it; new styles position
+  // against these fields:
+  //   story: y 250..1580 (1080 x 1330). Top ~250px = progress bar, profile name, close
+  //          button. Bottom ~340px = reply bar, "Send message", sticker and link tap
+  //          areas. Sides ~60px: some devices crop slightly and stickers or link
+  //          buttons sit near the edges.
+  //   post:  the central 1080 x 1080 (y 135..1215) is fully safe; the outer ~135px top
+  //          and bottom are fine in the feed but may be trimmed elsewhere (grid, shares,
+  //          other placements). Keep ~50px side margins so nothing sits on the frame edge.
+  //
+  // safeTop / safeBottom are the LEGACY insets the classic (polaroid) and the older
+  // alternate painters were tuned against (story 250 / 320, post 70 / 70). They stay as
+  // they are so those layouts do not move; they are not the requirement above.
   function flyerSpec(format) {
-    if (format === 'story') return { w: 1080, h: 1920, safeTop: 250, safeBottom: 320, format: 'story' };
-    return { w: 1080, h: 1350, safeTop: 70, safeBottom: 70, format: 'post' };
+    if (format === 'story') return { w: 1080, h: 1920, safeTop: 250, safeBottom: 320, keyTop: 250, keyBottom: 340, keySide: 60, format: 'story' };
+    return { w: 1080, h: 1350, safeTop: 70, safeBottom: 70, keyTop: 135, keyBottom: 135, keySide: 50, format: 'post' };
   }
 
   // --- canvas primitives -----------------------------------------------------
@@ -1391,84 +1416,293 @@
     ctx.restore();
   }
 
-  // --- STYLE 1: Ticket Stub --------------------------------------------------
-  function drawStubCard(ctx, img, cx, topY, w, name, star) {
-    var frame = Math.round(w * 0.06);
-    var photo = w - frame * 2;
-    var capH = Math.round(w * 0.26);
-    var h = frame + photo + capH;
-    var x = cx - w / 2, y = topY;
+  // --- STYLE 1: Ticket (vintage admission stub) -------------------------------
+  // A cream admission ticket standing on an ink field, drawn entirely inside the
+  // key-content area (spec.keyTop/keyBottom/keySide): serial strip, black-and-white
+  // show photo with the colour logo and a red ADMIT ONE stamp, the show title, every
+  // act as an ink-framed monochrome print, then a perforation with punched notches
+  // and a tear-off stub carrying the day, date, time, venue, barcode and serial.
+
+  // Grayscale, cover-fit copy of an image on an offscreen canvas, via a pixel loop
+  // rather than ctx.filter (older Safari has no canvas filter). Images arrive through
+  // loadImg (same-origin) so getImageData is safe; if the canvas ever is tainted the
+  // catch keeps the colour original so the render never fails.
+  function monoImage(img, w, h) {
+    var off = document.createElement('canvas');
+    off.width = Math.max(1, Math.round(w));
+    off.height = Math.max(1, Math.round(h));
+    var c = off.getContext('2d');
+    drawCover(c, img, 0, 0, off.width, off.height);
+    try {
+      var id = c.getImageData(0, 0, off.width, off.height), d = id.data;
+      for (var i = 0; i < d.length; i += 4) {
+        var l = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+        l = 128 + (l - 128) * 1.16;               // a little contrast so it prints like ink
+        d[i] = d[i + 1] = d[i + 2] = l < 0 ? 0 : l > 255 ? 255 : l;
+      }
+      c.putImageData(id, 0, 0);
+    } catch (e) { /* tainted canvas: keep the colour original */ }
+    return off;
+  }
+  function drawMono(ctx, img, x, y, w, h) {
+    if (!img) { ctx.fillStyle = '#0F0F10'; ctx.fillRect(x, y, w, h); return; }
+    ctx.drawImage(monoImage(img, w, h), x, y, w, h);
+  }
+
+  // Small deterministic hash so the serial and barcode are stable per show + date.
+  function ticketHash(s) {
+    var h = 2166136261;
+    s = String(s || '');
+    // Math.imul keeps the multiply in 32 bits; a plain * overflows 2^53 and collapses the
+    // low bits, which made neighbouring slugs land on the same palette.
+    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+    return h >>> 0;
+  }
+  // "Nº 04217" style serial from the show slug + date. Pure; exported for tests.
+  function ticketSerial(slug, iso) {
+    var n = ticketHash((slug || 'iyf') + '|' + (iso || '')) % 100000;
+    return 'Nº ' + ('00000' + n).slice(-5);
+  }
+
+  // Ticket paper palettes: dark papers only (red, blue, charcoal, brown families; no
+  // cream, no yellow) with off-white print, like a raffle roll or a railway stub. Each
+  // is the full set of roles the ticket paints with:
+  //   paper     the card itself
+  //   ink       everything printed in the main colour (title, strip, stub, barcode, rails)
+  //   accent    the stamp, the big weekday, the tagline
+  //   chip / chipText   name chips under the faces
+  //   host / hostText   the host's chip
+  // Readability is pinned by bun test: WCAG contrast ink on paper >= 4.5, accent on paper,
+  // chipText on chip and hostText on host >= 3.0, and every paper's relative luminance
+  // under 0.25 (which is what keeps cream and yellow out). Roll red is #C43E33 rather than
+  // the swatch's #D9463B so off-white print clears 4.5. A function rather than a var so the
+  // test seam (which returns before any var below it is assigned) can still call it.
+  function ticketPalettes() {
+    return [
+      { name: 'roll-red', paper: '#C43E33', ink: '#FBF7EE', accent: '#FBF7EE', chip: '#FBF7EE', chipText: '#C43E33', host: '#2B2B2B', hostText: '#FBF7EE' },
+      { name: 'brick', paper: '#9E3B33', ink: '#FBF7EE', accent: '#F3E9D2', chip: '#FBF7EE', chipText: '#9E3B33', host: '#2B2B2B', hostText: '#FBF7EE' },
+      { name: 'roll-blue', paper: '#2F5D9E', ink: '#FBF7EE', accent: '#FBF7EE', chip: '#FBF7EE', chipText: '#2F5D9E', host: '#C43E33', hostText: '#FBF7EE' },
+      { name: 'ink-blue', paper: '#1F3A5F', ink: '#FBF7EE', accent: '#E8D8B0', chip: '#FBF7EE', chipText: '#1F3A5F', host: '#C43E33', hostText: '#FBF7EE' },
+      { name: 'charcoal', paper: '#2B2B2B', ink: '#FBF7EE', accent: '#D9463B', chip: '#FBF7EE', chipText: '#2B2B2B', host: '#D9463B', hostText: '#FBF7EE' },
+      { name: 'brown', paper: '#4A3728', ink: '#FBF7EE', accent: '#E8D8B0', chip: '#FBF7EE', chipText: '#4A3728', host: '#C43E33', hostText: '#FBF7EE' },
+      { name: 'wine', paper: '#6B2B32', ink: '#FBF7EE', accent: '#F3E9D2', chip: '#FBF7EE', chipText: '#6B2B32', host: '#2B2B2B', hostText: '#FBF7EE' }
+    ];
+  }
+  // Same show -> same paper, by hashing the slug. No show names live here: a new show
+  // gets a palette the moment it exists. Pure; exported for tests.
+  function ticketPalette(slug) {
+    var all = ticketPalettes();
+    return all[ticketHash((slug || 'iyf') + '|palette') % all.length];
+  }
+
+  // Ink barcode with varied bar widths (even stripes read as wallpaper).
+  function ticketBarcode(ctx, x, y, w, h, seed, ink) {
+    var widths = [2, 3, 5, 7], n = ticketHash(seed), xx = x, bar = true;
+    ctx.fillStyle = ink || '#0F0F10';
+    while (xx < x + w) {
+      n = (n * 1103515245 + 12345) >>> 0;
+      var bw = widths[(n >>> 16) % widths.length] * 1.6;
+      if (xx + bw > x + w) bw = x + w - xx;
+      if (bar) ctx.fillRect(xx, y, bw, h);
+      xx += bw; bar = !bar;
+    }
+    // guard bars, taller, at both ends
+    ctx.fillRect(x, y, 3, h + 10); ctx.fillRect(x + w - 3, y, 3, h + 10);
+  }
+
+  // Rotated rubber stamp: outlined capsule + text, slightly transparent like real ink.
+  function drawStamp(ctx, text, cx, cy, deg, px, color) {
+    color = color || '#E53935';
     ctx.save();
-    ctx.shadowColor = 'rgba(0,0,0,0.18)'; ctx.shadowBlur = 14; ctx.shadowOffsetY = 6;
-    ctx.fillStyle = '#FFFFFF';
-    roundRect(ctx, x, y, w, h, 10); ctx.fill();
-    ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
-    ctx.lineWidth = 3; ctx.strokeStyle = '#0F0F10';
-    roundRect(ctx, x, y, w, h, 10); ctx.stroke();
-    var px = x + frame, py = y + frame;
-    if (img) {
-      ctx.save(); roundRect(ctx, px, py, photo, photo, 6); ctx.clip();
-      drawCover(ctx, img, px, py, photo, photo); ctx.restore();
-    } else {
-      ctx.fillStyle = '#0F0F10'; ctx.fillRect(px, py, photo, photo);
-      ctx.fillStyle = '#FFD54F'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.font = '400 ' + Math.round(photo * 0.5) + 'px ' + FONT_DISPLAY;
-      ctx.fillText((name || '?').charAt(0).toUpperCase(), px + photo / 2, py + photo / 2 + 4);
-    }
-    if (star) {
-      ctx.fillStyle = '#E53935'; ctx.beginPath();
-      ctx.arc(px + photo - 4, py + 4, Math.max(16, photo * 0.12), 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#FFD54F'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.font = '400 ' + Math.round(photo * 0.14) + 'px ' + FONT_DISPLAY;
-      ctx.fillText('★', px + photo - 4, py + 4 + 1);
-    }
-    // perforation notches punched out of the card sides
-    ctx.fillStyle = '#FFF8EE';
-    ctx.beginPath(); ctx.arc(x, y + h * 0.62, 7, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.arc(x + w, y + h * 0.62, 7, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = '#0F0F10'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    var cap = firstName(name).toUpperCase();
-    fitFont(ctx, cap, photo, Math.round(capH * 0.5), 16, '700', FONT_BODY);
-    ctx.fillText(cap, cx, y + frame + photo + capH / 2);
+    ctx.translate(cx, cy); ctx.rotate(deg * Math.PI / 180);
+    ctx.globalAlpha = 0.9;
+    ctx.font = '400 ' + px + 'px ' + FONT_DISPLAY;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    var tw = ctx.measureText(text).width, padX = px * 0.42, h = px * 1.28;
+    ctx.lineWidth = Math.max(4, px * 0.09); ctx.strokeStyle = color;
+    roundRect(ctx, -tw / 2 - padX, -h / 2, tw + padX * 2, h, 10); ctx.stroke();
+    ctx.fillStyle = color;
+    ctx.fillText(text, 0, px * 0.06);
     ctx.restore();
   }
 
-  function drawTicketHost(ctx, cx, topY, host) {
-    var w = 300;
-    var tabW = 160, tabH = 48, tabY = topY;
-    roundRect(ctx, cx - tabW / 2, tabY, tabW, tabH, tabH / 2);
-    ctx.fillStyle = '#E53935'; ctx.fill();
-    ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.font = '700 27px ' + FONT_BODY;
-    ctx.fillText('H O S T', cx, tabY + tabH / 2 + 1);
-    var cardTop = tabY + tabH - 8;
-    drawStubCard(ctx, host.img, cx, cardTop, w, host.name, false);
-    var frame = Math.round(w * 0.06);
-    var photo = w - frame * 2;
-    var cardH = frame + photo + Math.round(w * 0.26);
-    return cardTop + cardH;
+  // Edge print running up the left rail and down the right rail (decorative only).
+  function drawRailText(ctx, text, x, y1, y2, flip, ink) {
+    ctx.save();
+    ctx.translate(x, (y1 + y2) / 2);
+    ctx.rotate((flip ? 90 : -90) * Math.PI / 180);
+    ctx.fillStyle = ink || '#0F0F10'; ctx.globalAlpha = 0.55;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    fitFont(ctx, text, (y2 - y1) - 40, 20, 12, '700', FONT_BODY);
+    ctx.fillText(text, 0, 0);
+    ctx.restore();
+  }
+
+  // Letter-spaced small caps (canvas letterSpacing is not universal, so space by hand).
+  function spaced(s) { return String(s || '').toUpperCase().split('').join(' '); }
+
+  // One act on the ticket: square monochrome print in an ink frame, a solid name chip
+  // beneath (red chip reading "HOST · NAME" for the host), red star for the headliner.
+  function drawTicketFace(ctx, it, cx, topY, w, P) {
+    var frame = 4, photo = w - frame * 2;
+    var chipH = Math.round(w * 0.24), chipGap = 8;
+    var x = cx - w / 2, y = topY;
+    ctx.fillStyle = P.ink; ctx.fillRect(x, y, w, w);
+    if (it.img) drawMono(ctx, it.img, x + frame, y + frame, photo, photo);
+    else {
+      ctx.fillStyle = P.paper; ctx.fillRect(x + frame, y + frame, photo, photo);
+      ctx.fillStyle = P.ink; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(photo * 0.55) + 'px ' + FONT_DISPLAY;
+      ctx.fillText((it.name || '?').charAt(0).toUpperCase(), cx, y + w / 2 + 4);
+    }
+    if (it.headliner) {
+      var r = Math.max(15, Math.round(w * 0.12));
+      ctx.fillStyle = P.host; ctx.beginPath(); ctx.arc(x + w - 2, y + 2, r, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = P.hostText; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(r * 1.25) + 'px ' + FONT_DISPLAY;
+      ctx.fillText('★', x + w - 2, y + 3);
+    }
+    var cap = firstName(it.name).toUpperCase();
+    if (it.isHost) cap = 'HOST · ' + cap;
+    var cy = y + w + chipGap;
+    ctx.fillStyle = it.isHost ? P.host : P.chip;
+    ctx.fillRect(x, cy, w, chipH);
+    ctx.fillStyle = it.isHost ? P.hostText : P.chipText; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    fitFont(ctx, cap, w - 10, Math.round(chipH * 0.6), 12, '700', FONT_BODY);
+    ctx.fillText(cap, cx, cy + chipH / 2 + 1);
   }
 
   function paintTicketStub(ctx, spec, m) {
-    var W = spec.w, H = spec.h, top = spec.safeTop, bottom = spec.safeBottom, pad = 64, cx = W / 2;
-    ctx.fillStyle = '#FFF8EE'; ctx.fillRect(0, 0, W, H);
-    ctx.strokeStyle = '#0F0F10'; ctx.lineWidth = 6;
-    ctx.strokeRect(pad * 0.5, top + 6, W - pad, H - top - bottom - 12);
-    var headerBottom = flyerHeader(ctx, spec, m, { taglineColor: '#0F0F10' });
-    ctx.fillStyle = '#E53935'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
-    ctx.font = '700 30px ' + FONT_BODY;
-    ctx.fillText('A D M I T   O N E', cx, headerBottom + 8);
-    dashedLine(ctx, pad, headerBottom + 28, W - pad, headerBottom + 28, '#0F0F10');
-    var facesTop = headerBottom + 52;
-    var metaBaseY = H - bottom - 40;
-    var titleTop = drawShowTitle(ctx, spec, m, metaBaseY - 78, '#0F0F10', spec.format === 'story' ? 130 : 120, 3, false);
-    drawMeta(ctx, spec, m, metaBaseY, '#E53935', '#FFF3E0', '#B71C1C');
-    var rowTop = facesTop;
-    if (m.host && m.host.slug) { rowTop = drawTicketHost(ctx, cx, facesTop, m.host) + 24; }
-    faceGrid(ctx, spec, m.bill, pad, rowTop, W - pad * 2, (titleTop - 40) - rowTop, 1.32,
-      spec.format === 'story' ? 230 : 205, function (ctx, it, ccx, ty, w) {
-        drawStubCard(ctx, it.img, ccx, ty, w, it.name, it.headliner);
-      });
+    var W = spec.w, H = spec.h, story = spec.format === 'story';
+    var show = m.show || null;
+    var iso = show ? show.next : '';
+    var serial = ticketSerial(show ? show.slug : '', iso);
+    var d = iso ? new Date(iso) : null;
+    if (d && isNaN(d.getTime())) d = null;
+    var P = ticketPalette(show ? show.slug : '');
+
+    // 1. the field: a monochrome audience photo under a heavy ink layer (quiet, so the
+    //    ticket stays the subject); plain ink when the page has no backdrop pool.
+    var field = m.backdrop ? monoImage(m.backdrop, W, H) : null;
+    function paintField() {
+      ctx.fillStyle = '#0F0F10'; ctx.fillRect(0, 0, W, H);
+      if (!field) return;
+      ctx.drawImage(field, 0, 0, W, H);
+      ctx.fillStyle = 'rgba(15,15,16,0.64)'; ctx.fillRect(0, 0, W, H);
+      var vig = ctx.createRadialGradient(W / 2, H / 2, H * 0.25, W / 2, H / 2, H * 0.75);
+      vig.addColorStop(0, 'rgba(15,15,16,0)'); vig.addColorStop(1, 'rgba(15,15,16,0.55)');
+      ctx.fillStyle = vig; ctx.fillRect(0, 0, W, H);
+    }
+    paintField();
+
+    // the ticket inside the key-content area, on the show's paper
+    var tx = spec.keySide + 10, tw = W - tx * 2;
+    var ty = spec.keyTop + 10, tb = H - spec.keyBottom - 10, th = tb - ty;
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,0.6)'; ctx.shadowBlur = 30; ctx.shadowOffsetY = 10;
+    ctx.fillStyle = P.paper; roundRect(ctx, tx, ty, tw, th, 22); ctx.fill();
+    ctx.restore();
+    // faint paper grain (dots at low alpha keep it printed, not flat)
+    halftoneOverlay(ctx, tx, ty, tw, th, P.ink, 0.035);
+    // printed border: a thin ink rule just inside the edge, the way ticket stock is printed;
+    // also what separates a dark paper from the dark field behind it
+    ctx.save(); ctx.globalAlpha = 0.6; ctx.lineWidth = 3; ctx.strokeStyle = P.ink;
+    roundRect(ctx, tx + 12, ty + 12, tw - 24, th - 24, 14); ctx.stroke();
+    ctx.restore();
+
+    // rails: edge print each side, content lives between them
+    var rail = 46, ix = tx + rail, iw = tw - rail * 2, cx = W / 2;
+    var railText = spaced('IN YOUR FACE COMEDY') + '   ·   ' + spaced('ENGLISH STAND-UP') + '   ·   ' + spaced('ZÜRICH');
+    drawRailText(ctx, railText, tx + rail / 2, ty + 30, tb - 30, false, P.ink);
+    drawRailText(ctx, railText, tx + tw - rail / 2, ty + 30, tb - 30, true, P.ink);
+
+    // 2. top strip: ticket type left, serial right (serial repeats on the stub so the halves match)
+    var y = ty + 28;
+    ctx.textBaseline = 'middle'; ctx.fillStyle = P.ink;
+    ctx.font = '700 22px ' + FONT_BODY; ctx.textAlign = 'left';
+    ctx.fillText(spaced('Admission ticket'), ix, y + 12);
+    ctx.font = '700 24px ' + FONT_BODY; ctx.textAlign = 'right';
+    ctx.fillText(serial, ix + iw, y + 12);
+    y += 46;
+
+    // 3. photo block: monochrome show image, knocked back, colour logo on top, red stamp
+    var ph = story ? 310 : 240;
+    ctx.fillStyle = P.ink; ctx.fillRect(ix, y, iw, ph);
+    drawMono(ctx, m.bg, ix + 4, y + 4, iw - 8, ph - 8);
+    ctx.fillStyle = 'rgba(15,15,16,0.28)'; ctx.fillRect(ix + 4, y + 4, iw - 8, ph - 8);
+    if (m.logo) {
+      var lh = story ? 150 : 120, lw = lh * (m.logo.width / m.logo.height);
+      ctx.save(); ctx.shadowColor = 'rgba(0,0,0,0.7)'; ctx.shadowBlur = 24;
+      ctx.drawImage(m.logo, cx - lw / 2, y + (ph - lh) / 2, lw, lh);
+      ctx.restore();
+    }
+    drawStamp(ctx, 'ADMIT ONE', ix + iw - (story ? 190 : 165), y + (story ? 62 : 52), -9, story ? 46 : 38, P.accent);
+    y += ph + 26;
+
+    // 4. show title (Anton, ink) + handwritten tagline
+    var text = (show ? splitTitle(show.title) : 'IN YOUR FACE').toUpperCase();
+    var ttl = fitTitle(ctx, text, iw - 16, story ? 104 : 88, 52, 2, FONT_DISPLAY);
+    var lineH = ttl.px * 1.0;
+    ctx.fillStyle = P.ink; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    ctx.font = '400 ' + ttl.px + 'px ' + FONT_DISPLAY;
+    ttl.lines.forEach(function (ln, i) { ctx.fillText(ln, cx, y + (i + 1) * lineH - lineH * 0.14); });
+    y += ttl.lines.length * lineH + 6;
+    ctx.font = (story ? 34 : 30) + 'px ' + FONT_ACCENT; ctx.fillStyle = P.accent;
+    ctx.fillText('English stand-up comedy', cx, y + (story ? 30 : 26));
+    y += story ? 52 : 46;
+
+    // 5. stub geometry (bottom), then the faces band is whatever is left above the perforation
+    var stubH = story ? 226 : 200;
+    var perfY = tb - stubH;
+    var friendsH = m.hasGuests ? 56 : 0;
+    var bandTop = y + 8, bandH = perfY - 26 - bandTop - friendsH;
+
+    // 6. faces: host rides in the grid as its own print (centred, tagged), every act shown
+    var bill = m.bill.slice();
+    if (m.host && m.host.slug) bill.unshift({ slug: m.host.slug, name: m.host.name, img: m.host.img, priority: 'high', isHost: true });
+    faceGrid(ctx, spec, bill, ix, bandTop, iw, bandH, 1.32, story ? 240 : 210, function (ctx, it, ccx, ty2, w) {
+      drawTicketFace(ctx, it, ccx, ty2, w, P);
+    });
+    if (m.hasGuests) {
+      ctx.fillStyle = P.ink; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '40px ' + FONT_ACCENT;
+      ctx.fillText('… and friends', cx, perfY - 26 - friendsH / 2);
+    }
+
+    // 7. perforation: dashed tear line, notches punched through to the field behind
+    ctx.save(); ctx.globalAlpha = 0.55;
+    dashedLine(ctx, tx + 18, perfY, tx + tw - 18, perfY, P.ink);
+    ctx.restore();
+    ctx.save();
+    ctx.beginPath(); ctx.arc(tx, perfY, 18, 0, Math.PI * 2); ctx.arc(tx + tw, perfY, 18, 0, Math.PI * 2); ctx.clip();
+    paintField();
+    ctx.restore();
+
+    // 8. stub: day / date / time / venue on the left, barcode + serial on the right
+    var sy = perfY + 30, sx = ix;
+    var dayPx = story ? 150 : 124;
+    var dl = d ? flyerDate(iso, 'story', m.nowMs) : 'IYF';
+    ctx.fillStyle = P.accent; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    ctx.font = '400 ' + dayPx + 'px ' + FONT_DISPLAY;
+    ctx.fillText(dl, sx - 4, sy + dayPx * 0.86);
+    var dayW = ctx.measureText(dl).width;
+    var colX = sx + dayW + 26;
+    var barW = story ? 300 : 260, barX = ix + iw - barW;
+    var colMax = barX - 30 - colX;
+    ctx.fillStyle = P.ink;
+    var line1 = d ? (d.getDate() + ' ' + MO[d.getMonth()].toUpperCase() + ' ' + d.getFullYear()) : '';
+    var hh = d ? ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2) : '';
+    if (line1) { fitFont(ctx, line1, colMax, story ? 40 : 34, 18, '700', FONT_BODY); ctx.fillText(line1, colX, sy + (story ? 52 : 44)); }
+    var line2 = (hh ? 'DOORS ' + hh : '') + ((hh && show && show.venue) ? '  ·  ' : '') + ((show && show.venue) ? String(show.venue).toUpperCase() : '');
+    if (line2) { fitFont(ctx, line2, colMax, story ? 30 : 26, 14, '600', FONT_BODY); ctx.fillText(line2, colX, sy + (story ? 98 : 84)); }
+    ctx.globalAlpha = 0.7; ctx.font = '600 18px ' + FONT_BODY;
+    ctx.fillText(spaced('No refunds · no heckling'), colX, sy + (story ? 136 : 118));
+    ctx.globalAlpha = 1;
+    // barcode + matching serial
+    ticketBarcode(ctx, barX, sy + 4, barW, story ? 96 : 80, serial + iso, P.ink);
+    ctx.fillStyle = P.ink; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    ctx.font = '700 24px ' + FONT_BODY;
+    ctx.fillText(spaced(serial), barX + barW / 2, sy + (story ? 140 : 122));
   }
 
   // --- STYLE 2: Risograph Halftone -------------------------------------------
@@ -1775,6 +2009,8 @@
 
     var srcs = [assetURL(s && s.img), '/assets/img/inyourface.png', hostC ? assetURL(hostC.photo) : ''];
     billSlugs.forEach(function (sl) { var c = findComedian(sl); srcs.push(c ? assetURL(c.photo) : ''); });
+    // Last: the audience backdrop for the ticket style (other painters ignore m.backdrop).
+    srcs.push(assetURL(pickBackdrop()));
 
     loadBrandFonts()
       .then(function () { return Promise.all(srcs.map(loadImg)); })
@@ -1786,7 +2022,8 @@
         paint(ctx, spec, {
           show: s, st: st, bg: imgs[0], logo: imgs[1],
           host: hostSlug ? { slug: hostSlug, name: (hostC && hostC.name) || hostSlug, img: imgs[2] } : null,
-          bill: bill, hasGuests: hasGuests, nowMs: Date.now()
+          bill: bill, hasGuests: hasGuests, nowMs: Date.now(),
+          backdrop: imgs[imgs.length - 1]
         });
         if (done) done(null);
       })

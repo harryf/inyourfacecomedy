@@ -36,4 +36,10 @@ description: "Power Tool for IN YOUR FACE show organizers to build and share a s
 [{% for c in site.comedians %}{"slug":{{ c.slug | jsonify }},"name":{{ c.title | jsonify }},"url":{{ c.url | jsonify }},"photo":{{ c.photo | jsonify }},"priority":{{ c.priority | jsonify }},"instagram":{{ c.instagram | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
 </script>
 
+{% comment %} Audience photos the ticket flyer style stands on: built from the gallery data so it grows as photos are added (FLYER_DESIGN.md, "Ticket style"). {% endcomment %}
+{% assign iyf_backdrops = site.data.gallery | where: "type", "audience" | where_exp: "g", "g.faces >= 4 and g.aesthetic >= 0.45" %}
+<script type="application/json" id="iyf-backdrops">
+[{% for g in iyf_backdrops %}{"src":{{ g.src | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+</script>
+
 <script src="{{ '/assets/js/lineup-maker-2000.js' | relative_url }}" defer></script>
