@@ -3,34 +3,26 @@
  "title": "Filippo Spreafico",
  "ticket_url": "https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/filippo-spreafico-italian-rhapsody-comedy-in-english-7487867600443024331.html",
  "event_type": "one-off",
- "generated_at": "2026-09-10T08:20:01.626Z",
+ "generated_at": "2026-09-11T08:20:02.487Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-12",
- "through": "2026-09-10",
- "complete_through": "2026-09-08",
+ "pages_since": "2026-08-13",
+ "through": "2026-09-11",
+ "complete_through": "2026-09-09",
  "totals": {
-  "clicks": 7,
+  "clicks": 8,
   "redirect": 0,
-  "click": 7,
-  "clicks_30d": 7,
+  "click": 8,
+  "clicks_30d": 8,
   "redirect_30d": 0,
-  "click_30d": 7,
-  "views": 37,
-  "views_30d": 37,
-  "sessions": 37,
-  "sessions_30d": 37,
+  "click_30d": 8,
+  "views": 39,
+  "views_30d": 39,
+  "sessions": 40,
+  "sessions_30d": 40,
   "broken_links": 0,
-  "untagged": 1
+  "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-12",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-13",
    "redirect": 0,
@@ -252,11 +244,19 @@
    "redirect": 0,
    "click": 1,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-10",
+   "redirect": 0,
+   "click": 1,
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-11",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -269,29 +269,22 @@
    "source": "google",
    "medium": "organic",
    "clicks": 4,
-   "views": 12,
-   "sessions": 9
+   "views": 13,
+   "sessions": 10
   },
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 1,
+   "clicks": 2,
    "views": 8,
    "sessions": 8
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 1,
-   "views": 0,
-   "sessions": 1
-  },
-  {
-   "source": "meta",
-   "medium": "untagged",
-   "clicks": 1,
-   "views": 0,
-   "sessions": 0
+   "clicks": 2,
+   "views": 1,
+   "sessions": 3
   },
   {
    "source": "l.instagram.com",
