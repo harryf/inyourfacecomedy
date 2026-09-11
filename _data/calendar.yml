@@ -5,38 +5,9 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-09-10T07:00:04+00:00'
-event_count: 54
+generated_at: '2026-09-11T07:00:02+00:00'
+event_count: 52
 events:
-- show: comedybrew
-  name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
-  url: "/comedybrew/"
-  date: '2026-09-10'
-  start: '2026-09-10T19:30:00+02:00'
-  end: '2026-09-10T22:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 10
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466829949606850703.html
-  eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-09-10'
-  start: '2026-09-10T20:00:00+02:00'
-  end: '2026-09-10T22:00:00+02:00'
-  venue: yaman-caf-bar
-  venue_name: YAMAN Café-Bar
-  location: YAMAN Café-Bar
-  price_chf: 13
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7502459209105051979.html
-  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
@@ -51,20 +22,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726707149428.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
-- show: promessi-spassi
-  name: PROMESSI SPASSI
-  title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
-  url: "/promessi-spassi/"
-  date: '2026-09-16'
-  start: '2026-09-16T20:00:00+02:00'
-  end: '2026-09-16T22:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 10
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478863182670358596.html
-  eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: jackpotcomedy
   name: Jackpot Comedy
   title: Jackpot Comedy - downstairs @ OTRO
@@ -79,6 +36,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7497204037504263969.html
   eventfrog_name: Jackpot Comedy
+- show: promessi-spassi
+  name: PROMESSI SPASSI
+  title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
+  url: "/promessi-spassi/"
+  date: '2026-09-16'
+  start: '2026-09-16T20:00:00+02:00'
+  end: '2026-09-16T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478863182670358596.html
+  eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: randomfactsexchange
   name: Random Facts Exchange
   title: Random Facts Exchange - the Science Comedy Show in Zürich
@@ -593,20 +564,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726988168437.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-11-26'
-  start: '2026-11-26T20:30:00+02:00'
-  end: '2026-11-26T22:30:00+02:00'
-  venue: goldfisch-club
-  venue_name: Goldfisch Club
-  location: Goldfisch Club
-  price_chf: 13
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472021574628952076.html
-  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -622,6 +579,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466832108633224028.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-11-26'
+  start: '2026-11-26T20:30:00+02:00'
+  end: '2026-11-26T22:30:00+02:00'
+  venue: goldfisch-club
+  venue_name: Goldfisch Club
+  location: Goldfisch Club
+  price_chf: 13
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472021574628952076.html
+  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: nerdycomedyshow
   name: The NERDY COMEDY Show
   title: The NERDY COMEDY Show - English Standup Comedy in ZURICH
