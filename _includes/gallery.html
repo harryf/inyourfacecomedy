@@ -25,10 +25,32 @@
           profile can deep-link straight to this frame (#m-…). The SAME expression
           must be used in _layouts/comedian.liquid — slugify the whole basename
           (never split on ".", since WhatsApp names carry dots in the time).
+
+          A frame tagged with a real comedian is wrapped in an <a> to that comedian's
+          profile: crawlers follow it (gallery → profile internal link, an SEO win),
+          and moments-lightbox.js intercepts the click to open the bigger pop-up view
+          instead. Audience/moment frames stay plain images — not zoomable, by design.
         {%- endcomment -%}
+        {%- assign com = nil -%}
+        {%- assign cslug = img.comedian | default: "" -%}
+        {%- if cslug != "" and cslug != "none" -%}
+          {%- assign com = site.comedians | where: "slug", cslug | first -%}
+        {%- endif -%}
         <figure id="m-{{ img.src | split: '/' | last | slugify }}"
-                class="iyf-moment{% if img.featured %} iyf-moment--featured{% endif %}" data-type="{{ img.type }}">
-          <img src="{{ img.src | relative_url }}" alt="{{ img.alt }}" loading="lazy" decoding="async">
+                class="iyf-moment{% if img.featured %} iyf-moment--featured{% endif %}{% if com %} iyf-moment--comedian{% endif %}" data-type="{{ img.type }}">
+          {%- if com -%}
+            <a class="iyf-moment__link" href="{{ com.url | relative_url }}"
+               data-lightbox
+               data-full="{{ img.src | relative_url }}"
+               data-name="{{ com.title | escape }}"
+               data-profile="{{ com.url | relative_url }}"
+               aria-label="See {{ com.title | escape }} larger (links to their profile)">
+              <img src="{{ img.src | relative_url }}" alt="{{ img.alt }}" loading="lazy" decoding="async">
+              <span class="iyf-moment__zoom" aria-hidden="true"><i class="fas fa-expand"></i></span>
+            </a>
+          {%- else -%}
+            <img src="{{ img.src | relative_url }}" alt="{{ img.alt }}" loading="lazy" decoding="async">
+          {%- endif -%}
         </figure>
   {%- if forloop.last -%}
       </div>
@@ -36,3 +58,20 @@
   {%- endif -%}
 {%- endfor -%}
 </div>
+
+{%- comment -%}
+  Lightbox for comedian frames. Hidden until moments-lightbox.js opens it on click;
+  shows the photo bigger with the comedian's name linking to their profile. With JS
+  off, the gallery links navigate straight to the profile (graceful degradation).
+{%- endcomment -%}
+<div class="iyf-lightbox" hidden role="dialog" aria-modal="true" aria-label="Comedian photo, larger view">
+  <button type="button" class="iyf-lightbox__close" aria-label="Close larger view">&times;</button>
+  <figure class="iyf-lightbox__frame">
+    {%- comment -%} Transparent 1x1 placeholder so the empty <img> validates; JS sets the real src on open (the box is hidden until then). {%- endcomment -%}
+    <img class="iyf-lightbox__img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" decoding="async">
+    <figcaption class="iyf-lightbox__caption">
+      <a class="iyf-lightbox__name" href="">Visit profile</a>
+    </figcaption>
+  </figure>
+</div>
+<script defer src="{{ '/assets/js/moments-lightbox.js' | relative_url }}"></script>

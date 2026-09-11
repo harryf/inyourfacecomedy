@@ -12,17 +12,18 @@ permalink: /pulpnonfiction/
 hosts:
   - "albert-louw"
 ticket_url: https://eventfrog.ch/pulpnonfiction/
+ticket_url_resolved: https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html
 event_type: monthly
 venue_slug: robins
 recurrence_time: "19:30"
 default_duration_minutes: 150
-next_event_date: 2026-07-05T19:00:00+02:00
-next_event_end_date: 2026-07-05T21:00:00+02:00
+next_event_date: 2026-10-04T19:00:00+02:00
+next_event_end_date: 2026-10-04T21:00:00+02:00
 price_chf: 0
 performers:
   - Albert Louw
   - Various local and visiting storytellers
-last_modified_at: 2026-06-07T05:59:53+00:00
+last_modified_at: 2026-09-07T07:00:01+00:00
 ---
 **Storytelling is an art from that has evolved with us over millennia. It is in our DNA to share stories. Let's keep this ancient tradition alive in the funkiest way. Join us for an unforgettable evening where laughter intertwines with the strange and the surreal, as comedian Albert Louw and his extraordinary friends share their most captivating tales!**
 

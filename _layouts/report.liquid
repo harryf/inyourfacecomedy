@@ -1,0 +1,175 @@
+---
+layout: page
+---
+{% comment %}
+  Per-show traffic report (/reports/<slug>/). Renders _data/reports/<slug>.json,
+  written daily by script/ga-report.ts from Google Analytics. Sits on the theme's
+  `page` layout so it gets the compact hero and the centred .post-content column
+  like every other inner page. Unlisted: no index, no sitemap, no nav link.
+  Static tables + CSS bars, no JavaScript. Design: CAMPAIGN_LINKS.md, "Show reports".
+{% endcomment %}
+{% assign r = site.data.reports[page.report] %}
+{% assign t = r.totals %}
+<div class="iyf-report">
+  <p class="iyf-report__lede">
+    People who clicked through to <a href="{{ r.ticket_url }}" rel="nofollow">the ticket page</a> and visits to
+    <a href="/{{ r.slug }}/">inyourfacecomedy.ch/{{ r.slug }}/</a>. Ticket clicks counted since {{ r.since | date: "%-d %B %Y" }}{% if r.pages_since < r.since %}, page visits since {{ r.pages_since | date: "%-d %B" }}{% endif %}.
+  </p>
+  <p class="iyf-report__updated">
+    <span class="iyf-badge iyf-badge--muted">Updated daily</span>
+    <span>This report refreshes every morning. Last update {{ r.generated_at | date: "%-d %b %Y, %H:%M" }} UTC. Google Analytics has finished counting
+    through {{ r.complete_through | date: "%-d %b" }}; later days still fill in.</span>
+  </p>
+{% comment %}
+  Eventfrog cockpit link for the show's next date. calendar.yml (Eventfrog-derived, cron
+  refreshed, ascending by date) carries each date's own event page; the numeric id at the
+  end of that URL is the cockpit event id. Eventfrog links only (the cockpit is theirs);
+  no upcoming Eventfrog date, no button. The cockpit needs the organiser's Eventfrog login.
+{% endcomment %}
+{% assign cockpit_id = "" %}
+{% for e in site.data.calendar.events %}
+  {% if cockpit_id == "" and e.show == r.slug and e.ticket_url contains "eventfrog.ch/" %}
+    {% assign candidate = e.ticket_url | split: "-" | last | remove: ".html" | strip %}
+    {% assign as_number = candidate | plus: 0 | append: "" %}
+    {% if candidate == as_number and candidate.size > 10 %}
+      {% assign cockpit_id = candidate %}
+      {% assign cockpit_date = e.date %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% if cockpit_id != "" %}
+  <p class="iyf-report__cockpit">
+    <a class="btn-ticket btn-ticket--sm" href="https://eventfrog.ch/de/cockpitv3/events/{{ cockpit_id }}/orders" target="_blank" rel="noopener">View Sales on Latest Show</a>
+    <span class="iyf-report__note">Eventfrog cockpit for the {{ cockpit_date | date: "%-d %B" }} date; needs the organiser login.</span>
+  </p>
+{% endif %}
+
+  <section class="iyf-report__section">
+    <div class="iyf-report__stats">
+      <div class="iyf-report__stat iyf-report__stat--hero">
+        <span class="iyf-report__stat-n">{{ t.clicks }}</span>
+        <span class="iyf-report__stat-l">ticket clicks, all time</span>
+      </div>
+      <div class="iyf-report__stat">
+        <span class="iyf-report__stat-n">{{ t.clicks_30d }}</span>
+        <span class="iyf-report__stat-l">ticket clicks, last 30 days</span>
+      </div>
+      <div class="iyf-report__stat">
+        <span class="iyf-report__stat-n">{{ t.redirect }}</span>
+        <span class="iyf-report__stat-l">via campaign links</span>
+      </div>
+      <div class="iyf-report__stat">
+        <span class="iyf-report__stat-n">{{ t.click }}</span>
+        <span class="iyf-report__stat-l">via the site's own buttons</span>
+      </div>
+      <div class="iyf-report__stat">
+        <span class="iyf-report__stat-n">{{ t.sessions }}</span>
+        <span class="iyf-report__stat-l">show page visits, all time</span>
+      </div>
+      <div class="iyf-report__stat">
+        <span class="iyf-report__stat-n">{{ t.sessions_30d }}</span>
+        <span class="iyf-report__stat-l">show page visits, last 30 days</span>
+      </div>
+    </div>
+    <p class="iyf-report__note">
+      Campaign links are the tracked links from the <a href="/linkbuilder/">link builder</a>
+      (Meta ads, Instagram, newsletters, Google Maps). Site buttons are the Get Tickets buttons
+      on the show page, home page and calendar. Both count a person leaving for the ticket page;
+      neither can see what happens after that.
+      {% if t.untagged > 0 %}{{ t.untagged }} click{% if t.untagged > 1 %}s{% endif %} came from an ad whose link had no campaign tags; they count as ticket clicks and appear as "untagged" under Where the traffic came from, explained there.{% endif %}
+      {% if t.broken_links > 0 %}<strong>{{ t.broken_links }} click{% if t.broken_links > 1 %}s{% endif %} hit a broken campaign link for this show; check the links in running ads.</strong>{% endif %}
+    </p>
+  </section>
+
+  <section class="iyf-report__section">
+    <h2>By day</h2>
+    {% comment %} Bar = page visits (exists for every day); clicks stay numeric. {% endcomment %}
+    {% assign maxday = 1 %}
+    {% for d in r.by_day %}{% if d.views > maxday %}{% assign maxday = d.views %}{% endif %}{% endfor %}
+    <div class="iyf-report__table-wrap">
+    <table class="iyf-report__table iyf-report__table--days">
+      <thead><tr><th>Date</th><th class="iyf-report__num">Clicks</th><th class="iyf-report__num">Campaign</th><th class="iyf-report__num">Site</th><th class="iyf-report__num">Visits</th><th class="iyf-report__barcell"><span class="iyf-report__sr">Visits as a share of the busiest day</span></th></tr></thead>
+      <tbody>
+      {% for d in r.by_day reversed %}
+        {% assign tot = d.redirect | plus: d.click %}
+        {% assign pct = d.views | times: 100.0 | divided_by: maxday | round %}
+        <tr{% if d.provisional %} class="iyf-report__row--provisional" title="Still being counted by Google Analytics"{% endif %}>
+          <td>{{ d.date | date: "%a %-d %b" }}{% if d.provisional %}<span class="iyf-report__prov">*</span>{% endif %}</td>
+          {% if d.clicks_tracked %}
+          <td class="iyf-report__num">{{ tot }}</td>
+          <td class="iyf-report__num">{{ d.redirect }}</td>
+          <td class="iyf-report__num">{{ d.click }}</td>
+          {% else %}
+          <td class="iyf-report__num iyf-report__na" title="Ticket clicks were not tracked yet">·</td>
+          <td class="iyf-report__num iyf-report__na">·</td>
+          <td class="iyf-report__num iyf-report__na">·</td>
+          {% endif %}
+          <td class="iyf-report__num">{{ d.views }}</td>
+          <td class="iyf-report__barcell"><span class="iyf-report__bar" style="width: {{ pct }}%"></span></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    <p class="iyf-report__note">* still counting: Google Analytics takes up to 48 hours to finish a day. Visits are to the show page{% if r.pages_since < r.since %} and go back to {{ r.pages_since | date: "%-d %b" }}; ticket clicks have only been tracked since {{ r.since | date: "%-d %b" }} (shown as · before that){% endif %}.</p>
+  </section>
+
+  <section class="iyf-report__section">
+    <h2>Campaigns</h2>
+    {% if r.by_campaign.size > 0 %}
+    <div class="iyf-report__table-wrap">
+    <table class="iyf-report__table">
+      <thead><tr><th>Campaign</th><th>Source</th><th class="iyf-report__num">Clicks</th><th>Active</th></tr></thead>
+      <tbody>
+      {% for c in r.by_campaign %}
+        <tr>
+          <td><code>{{ c.campaign }}</code></td>
+          <td>{{ c.source }} / {{ c.medium }}</td>
+          <td class="iyf-report__num">{{ c.clicks }}</td>
+          <td>{{ c.first | date: "%-d %b" }}{% if c.last != c.first %} to {{ c.last | date: "%-d %b" }}{% endif %}</td>
+        </tr>
+        {% for cc in c.content %}
+        <tr class="iyf-report__row--sub">
+          <td class="iyf-report__sub">ad <code>{{ cc.content }}</code></td>
+          <td></td>
+          <td class="iyf-report__num">{{ cc.clicks }}</td>
+          <td></td>
+        </tr>
+        {% endfor %}
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    {% else %}
+    <p class="iyf-report__note">No campaign links have been clicked for this show yet. Build one with the <a href="/linkbuilder/">link builder</a>.</p>
+    {% endif %}
+  </section>
+
+  <section class="iyf-report__section">
+    <h2>Where the traffic came from</h2>
+    <div class="iyf-report__table-wrap">
+    <table class="iyf-report__table">
+      <thead><tr><th>Source / medium</th><th class="iyf-report__num">Ticket clicks</th><th class="iyf-report__num">Page visits</th></tr></thead>
+      <tbody>
+      {% for s in r.by_source %}
+        <tr><td>{{ s.source }} / {{ s.medium }}</td><td class="iyf-report__num">{{ s.clicks }}</td><td class="iyf-report__num">{{ s.sessions }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    <p class="iyf-report__note">"(direct) / (none)" is people typing the address, using a bookmark, or arriving from an app that hides where they came from (most chat apps do).</p>
+    {% if t.untagged > 0 %}
+    <p class="iyf-report__note"><strong>About "untagged":</strong> these {{ t.untagged }} clicks came from an ad on that network, but the link in the ad had no campaign tags, so Google Analytics could not record which campaign or ad it was. We can still tell the network because Meta, TikTok and Google add their own click id to the link. To get the full breakdown (campaign, ad, day) for future clicks, replace the ad's website link with one from the <a href="/linkbuilder/">link builder</a>; the clicks already counted here stay as they are.</p>
+    {% endif %}
+  </section>
+
+  <section class="iyf-report__section iyf-report__section--download">
+    <h2>All clicks</h2>
+    <p>Every ticket click since {{ r.since | date: "%-d %B %Y" }}, one row per click with its time, source, campaign and ad, for lining up against the Eventfrog sales report.</p>
+    <a class="btn-ticket" href="{{ r.csv | relative_url }}" download="{{ r.slug }}-{{ r.generated_at | date: '%Y-%m-%d' }}.csv">Download CSV</a>
+  </section>
+
+  <p class="iyf-report__foot">
+    <a href="/reports/">All show reports</a> · <a href="/linkbuilder/">Link builder</a>
+  </p>
+</div>

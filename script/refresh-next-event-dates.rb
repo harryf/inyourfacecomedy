@@ -97,22 +97,28 @@ def git_run(*args)
   [out.strip, status.success?]
 end
 
+# Discard a generated data file whose ONLY diff is its `generated_at:` timestamp, so
+# a daily run that changed nothing real doesn't push a no-op site rebuild. Both
+# calendar.yml and calendar_past.yml re-stamp generated_at on every run.
+def discard_if_only_timestamp(rel)
+  diff, _ = git_run("diff", "--unified=0", "--", rel)
+  return if diff.empty?
+  body = diff.lines.select { |l| l =~ /\A[+-]/ && l !~ /\A(\+\+\+|---)/ }
+  git_run("checkout", "--", rel) if body.any? && body.all? { |l| l =~ /\A[+-]generated_at:/ }
+end
+
 # Stage, commit, and push refreshed posts + regenerated calendar/venue data.
 # Retries once on non-fast-forward rejection by pulling --rebase against
 # origin/master. Raises on unrecoverable failure; the top-level rescue then pings
 # HC fail. Dry-run is implicit: nothing is written, so nothing stages and we
 # return early via `no_staged`. Commits only when something actually changed.
 def commit_and_push!
-  # Avoid daily churn: the extractor rewrites generated_at every run. If that is
-  # the ONLY change to _data/calendar.yml, discard it so we don't push a no-op
-  # site rebuild every day (matching the old "only commit when a date rolled").
-  diff, _ = git_run("diff", "--unified=0", "--", "_data/calendar.yml")
-  unless diff.empty?
-    body = diff.lines.select { |l| l =~ /\A[+-]/ && l !~ /\A(\+\+\+|---)/ }
-    git_run("checkout", "--", "_data/calendar.yml") if body.any? && body.all? { |l| l =~ /\A[+-]generated_at:/ }
-  end
+  # Avoid daily churn from the generated_at re-stamp on the calendar data files.
+  discard_if_only_timestamp("_data/calendar.yml")
+  discard_if_only_timestamp("_data/calendar_past.yml")
 
-  out, ok = git_run("add", "-A", "_posts", "index.html", "_data/calendar.yml", "_data/venues.yml")
+  out, ok = git_run("add", "-A", "_posts", "index.html",
+                    "_data/calendar.yml", "_data/calendar_past.yml", "_data/venues.yml")
   raise "git add failed: #{out}" unless ok
 
   _, no_staged = git_run("diff", "--quiet", "--staged")

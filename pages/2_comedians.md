@@ -5,7 +5,7 @@ nav_title: Comedians
 title_override: "Comedians"
 subtitle: "The performers you'll see at IN YOUR FACE shows."
 description: "Meet the stand-up comedians who perform at IN YOUR FACE Comedy in Zürich. Bios, photos, and links to their socials."
-last_modified_at: 2026-06-07T15:28:25+00:00
+last_modified_at: 2026-09-07T08:05:06+00:00
 permalink: /comedians/
 image: "/assets/img/thumbs/comedians_card.png"
 thumbnail: "assets/img/thumbs/comedians_card.png"
@@ -24,7 +24,8 @@ thumbnail: "assets/img/thumbs/comedians_card.png"
 {% assign high = site.comedians | where: "priority", "High" %}
 {% assign medium = site.comedians | where: "priority", "Medium" %}
 {% assign low = site.comedians | where: "priority", "Low" %}
-{% assign rest = site.comedians | where_exp: "c", "c.priority != 'High' and c.priority != 'Medium' and c.priority != 'Low'" %}
+{% comment %} Chained where_exp, not `and`: the GitHub Pages build runs Jekyll 3, which cannot parse and/or inside a where_exp condition. {% endcomment %}
+{% assign rest = site.comedians | where_exp: "c", "c.priority != 'High'" | where_exp: "c", "c.priority != 'Medium'" | where_exp: "c", "c.priority != 'Low'" %}
 {% if high.size > 1 %}{% assign high = high | sample: high.size %}{% endif %}
 {% if medium.size > 1 %}{% assign medium = medium | sample: medium.size %}{% endif %}
 {% if low.size > 1 %}{% assign low = low | sample: low.size %}{% endif %}

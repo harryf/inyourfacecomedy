@@ -33,6 +33,16 @@ Encoding.default_external = Encoding::UTF_8
 # Ticket URLs that no longer resolve (dead vanity slugs) are recorded under
 # `unresolved:` so they are visible, not silently dropped.
 #
+# Per-show city filter (opt-in):
+#   A post may set `event_city_filter: Zürich` in its front matter. When present,
+#   only events whose schema.org Place address city matches that value survive.
+#   La Tarima's group mixes Zürich and Basel dates, and the calendar (plus
+#   refresh-next-event-dates.rb, which rolls next_event_date / venue_slug /
+#   price_chf back into the post) must only ever see the Zürich ones. Matching is
+#   case AND diacritic insensitive, so Zürich, Zurich and zürich are one city.
+#   Filtering runs before venue resolution, so a venue in an excluded city is
+#   never minted into venues.yml. Posts without the key are untouched.
+#
 # Usage:
 #   ruby script/refresh-calendar-data.rb              # fetch + write _data/calendar.yml
 #   ruby script/refresh-calendar-data.rb --dry-run    # fetch + print, write nothing
@@ -112,6 +122,62 @@ def venues
   @venues ||= (YAML.safe_load(File.read(VENUES)) || {} rescue {})
 end
 
+# ---------- Resolved ticket URL write-back ----------
+# Some posts use an EventFrog vanity slug as their ticket_url (eventfrog.ch/pulpnonfiction/).
+# That is what we WANT on the show pages (short, brandable), but the campaign-link layer
+# (/go/ + /linkbuilder/ — see CAMPAIGN_LINKS.md) prefers the real destination so the
+# redirect skips EventFrog's extra vanity hop. Since extract_show already follows the
+# redirects, we capture the landing URL here and mirror it into hidden front matter:
+#
+#   ticket_url_resolved: <final_url>    # only when it differs from ticket_url
+#
+# Nothing on the site renders this field except _includes/go-catalogs.liquid
+# (`ticket_url_resolved | default: ticket_url`). Rules:
+#   - written only when the resolved URL differs from ticket_url AND is on eventfrog.ch
+#   - updated in place when the vanity slug starts landing somewhere new
+#   - removed when ticket_url and its resolution converge (no stale hidden state)
+#   - the edit is line surgery inside the front matter block; posts are hand-written
+#     files and are never YAML-re-dumped (formatting and comments survive)
+# The daily refresh-next-event-dates.rb run commits _posts wholesale afterwards, so
+# these writes ride the existing "chore: refresh calendar data" commit.
+def sync_resolved_ticket_url(show, final_url, options)
+  return if final_url.to_s.empty?
+  begin
+    return unless URI(final_url).host.to_s.include?("eventfrog")
+  rescue URI::Error
+    return
+  end
+
+  desired = final_url == show[:ticket_url] ? nil : final_url
+  path = File.join(POSTS_DIR, show[:file])
+  raw = File.read(path, encoding: "UTF-8")
+  m = raw.match(/\A---\n(.*?\n)---\n/m)
+  return unless m
+  fm = m[1]
+
+  current = fm[/^ticket_url_resolved:\s*(\S+)\s*$/, 1]
+  return if current == desired || (current.nil? && desired.nil?)
+
+  new_fm =
+    if desired && current
+      fm.sub(/^ticket_url_resolved:.*$/, "ticket_url_resolved: #{desired}")
+    elsif desired
+      # Insert directly under ticket_url so the pairing is obvious to a human.
+      fm.sub(/^(ticket_url:.*\n)/, "\\1ticket_url_resolved: #{desired}\n")
+    else
+      fm.sub(/^ticket_url_resolved:.*\n/, "")
+    end
+  return if new_fm == fm   # e.g. no ticket_url line matched — leave the post alone
+
+  action = desired ? (current ? "updated" : "added") : "removed"
+  if options[:dry_run]
+    say("  [resolved]   #{show[:slug]} — would have #{action} ticket_url_resolved#{desired ? ": #{desired}" : ""}", options)
+    return
+  end
+  File.write(path, raw.sub(m[1]) { new_fm })   # block form: no \1-interpretation in the replacement
+  say("  [resolved]   #{show[:slug]} — #{action} ticket_url_resolved#{desired ? ": #{desired}" : ""}", options)
+end
+
 # ---------- Venue resolution (per-event, from EventFrog JSON-LD location) ----------
 # Shows like La Tarima and Random Facts Exchange move venue per event, so the venue
 # can't come from the post's static venue_slug — it's read from each event's
@@ -124,6 +190,18 @@ end
 def new_venues = (@new_venues ||= {})
 
 def alnum(s) = s.to_s.downcase.gsub(/[^a-z0-9]/, "")
+
+# Case- and diacritic-insensitive comparison key. `alnum` alone cannot do this: it
+# deletes every non a-z0-9 character outright, so "Zürich" collapses to "zrich"
+# and would never equal "Zurich". NFD decomposes "ü" into "u" plus a combining
+# diaeresis; dropping the combining marks (\p{Mn}) leaves plain ASCII for `alnum`
+# to finish. The encode pass keeps this total: a stray invalid byte becomes U+FFFD
+# instead of raising and taking a whole show down. UTF-8 is forced at the top of
+# this file, so this behaves identically under cron's US-ASCII default.
+def fold(s)
+  utf8 = s.to_s.encode(Encoding::UTF_8, invalid: :replace, undef: :replace)
+  alnum(utf8.unicode_normalize(:nfd).gsub(/\p{Mn}/, ""))
+end
 
 CH_NAMES = %w[switzerland schweiz suisse svizzera ch].freeze
 def normalize_country(c)
@@ -200,6 +278,7 @@ def shows
       name: short_name(fm["title"].to_s),
       url: permalink.empty? ? "/#{slug}/" : permalink,
       venue: fm["venue_slug"],
+      city_filter: fm["event_city_filter"],   # optional; see "Per-show city filter" above
       ticket_url: url
     }
   end
@@ -292,6 +371,37 @@ def event_urls_from(final_url, html)
   kids.empty? ? [final_url] : kids.map { |l| URI.join(final_url, l).to_s }
 end
 
+# ---------- City filter ----------
+
+# Keep only the events matching a show's `event_city_filter`. Returns
+# [kept_events, dropped_count]. An absent or blank filter is a no-op, so every
+# show without the key keeps its previous behaviour exactly.
+#
+# An event whose Place carries no city is DROPPED, not kept: the point of the
+# filter is that downstream (calendar.yml, no_upcoming, venue minting) never sees
+# another city, and "unknown" is not a match. Verbose mode names each dropped
+# event so a wrong drop is diagnosable without re-running the scrape.
+def apply_city_filter(events, show, options)
+  city = show[:city_filter]
+  return [events, 0] if city.to_s.strip.empty?
+
+  want = fold(city)
+  if want.empty?
+    # e.g. `event_city_filter: "-"`. Filtering on nothing would silently drop the
+    # entire show, so refuse the filter loudly and keep every event instead.
+    say("  [filter]     #{show[:slug]}: event_city_filter #{city.inspect} has no comparable characters, ignoring", options)
+    return [events, 0]
+  end
+
+  kept = events.select do |inst|
+    got = inst.dig("address", "city")
+    next true if fold(got) == want
+    vsay("      - dropped #{inst["eventfrog_name"].to_s.strip} (city #{got.to_s.strip.empty? ? "missing" : got.strip.inspect})", options)
+    false
+  end
+  [kept, events.size - kept.size]
+end
+
 # ---------- Per-show extraction ----------
 
 # Returns [events_array, error_string_or_nil, final_url]. events may be empty (no
@@ -323,6 +433,14 @@ def extract_show(show, now, options)
     events << inst
   rescue => e
     vsay("      ! #{ev_url} — #{e.class}: #{e.message}", options)
+  end
+
+  # Applied here, before the caller records anything, so excluded events reach
+  # neither calendar.yml nor the venue-minting path in to_record.
+  total = events.size
+  events, dropped = apply_city_filter(events, show, options)
+  if dropped.positive?
+    say("  [filter]     #{show[:slug]}: city filter '#{show[:city_filter]}' dropped #{dropped} of #{total} events", options)
   end
 
   [events, nil, final_url]
@@ -426,6 +544,9 @@ say("Fetching upcoming shows from EventFrog…\n", options)
 
 shows.each do |show|
   events, err, final_url = extract_show(show, now, options)
+  # Mirror the redirect-resolved destination into the post (vanity-slug shows only);
+  # skip unresolved (HTTP error) so a flaky fetch never rewrites good state.
+  sync_resolved_ticket_url(show, final_url, options) unless err&.start_with?("unresolved", "skipped")
   if err && err.start_with?("unresolved")
     unresolved << { "show" => show[:slug], "ticket_url" => show[:ticket_url], "reason" => err.sub("unresolved — ", "") }
     say("  [UNRESOLVED] #{show[:slug]} — #{err}", options)

@@ -202,6 +202,16 @@ check("sitemap lists every comedian page") do
 end
 check("Anti: sitemap does NOT list /lineup/") { [!sitemap_text.include?("/lineup/"), "leaked into sitemap"] }
 check("Anti: sitemap does NOT list ski-resort-comedy-tour") { [!sitemap_text.include?("ski-resort"), "leaked into sitemap"] }
+check("Anti: sitemap does NOT list /reports/ (show traffic reports are unlisted)") { [!sitemap_text.include?("/reports/"), "leaked into sitemap"] }
+check("Anti: sitemap does NOT list /go/ or /linkbuilder/ (campaign tools are unlisted)") do
+  leaked = %w[/go/ /linkbuilder/].select { |p| sitemap_text.include?("#{p}</loc>") || sitemap_text.include?("#{p}<") }
+  [leaked.empty?, "leaked into sitemap: #{leaked.join(", ")}"]
+end
+check("robots.txt disallows /reports/") { [read_site("robots.txt").include?("Disallow: /reports/"), "missing Disallow"] }
+check("/reports/ index carries noindex") do
+  f = File.join(SITE, "reports", "index.html")
+  [File.exist?(f) && File.read(f) =~ /name=["']robots["'][^>]*noindex/i ? true : false, "no noindex meta"]
+end
 
 # ── SEO / analytics / robots ─────────────────────────────────────────────────
 section "SEO / analytics / robots"
@@ -307,6 +317,39 @@ shows.select { |s| s[:dir] }.each do |s|
   end
 end
 
+# ── Comedian ProfilePage JSON-LD ──────────────────────────────────────────────
+# Guards the fix for the Search Console error "Invalid object type for field
+# '<parent_node>'", which hit every comedian page until 2026-07-28.
+#
+# Google requires ProfilePage to be a ROOT type and merges JSON-LD nodes by @id.
+# jekyll-seo-tag emits, for any page it types BlogPosting, a stub
+# `"mainEntityOfPage": {"@type":"WebPage","@id": <page url>}` — the same @id our
+# ProfilePage uses — so the two merged and our ProfilePage became a CHILD of a
+# BlogPosting. Comedian pages are collection documents, so Jekyll gives them a
+# `date`, so seo-tag typed them BlogPosting. `_config.yml` now sets
+# `seo.type: WebPage` for the comedians collection, which suppresses the stub.
+#
+# Both halves are asserted: the stub must be absent AND the ProfilePage present.
+# Either one alone can regress silently on a theme bump or gem upgrade.
+section "Comedian ProfilePage JSON-LD (rich results)"
+comedian_pages = Dir[File.join(SITE, "comedians", "*", "index.html")].sort
+check("comedian profile pages were built") do
+  [!comedian_pages.empty?, "no _site/comedians/*/index.html found"]
+end
+check("no comedian page emits mainEntityOfPage (@id collision guard)") do
+  bad = comedian_pages.select { |f| File.read(f, encoding: "UTF-8").include?("mainEntityOfPage") }
+       .map { |f| File.basename(File.dirname(f)) }
+  [bad.empty?, "seo.type override lost for: #{bad.join(", ")}"]
+end
+check("every comedian page emits a root ProfilePage with a Person mainEntity") do
+  bad = comedian_pages.reject do |f|
+    blocks = ld_json_blocks(File.read(f, encoding: "UTF-8"))
+    pp = blocks.find { |b| b.is_a?(Hash) && b["@type"] == "ProfilePage" }
+    pp && pp.dig("mainEntity", "@type") == "Person" && !pp.dig("mainEntity", "name").to_s.empty?
+  end.map { |f| File.basename(File.dirname(f)) }
+  [bad.empty?, "no ProfilePage/Person on: #{bad.join(", ")}"]
+end
+
 # ── /comedians/ show-promo feature ────────────────────────────────────────────
 section "Show-promo feature (/comedians/)"
 com_html = read_site("comedians/index.html")
@@ -335,7 +378,7 @@ end
 
 # ── script + data health ──────────────────────────────────────────────────────
 section "Script + data health"
-%w[sync-comedians.rb refresh-next-event-dates.rb validate-calendar.rb refresh-calendar-data.rb].each do |s|
+%w[sync-comedians.rb refresh-next-event-dates.rb validate-calendar.rb refresh-calendar-data.rb add-event.rb].each do |s|
   check("ruby -c clean: #{s}") do
     out, st = Open3.capture2e(RUBY, "-c", File.join(ROOT, "script", s))
     [st.success?, out.strip]
@@ -404,6 +447,52 @@ check("pages/1_calendar.md passes validate-calendar.rb") do
                             "--no-color", "--quiet", chdir: ROOT)
   detail = out.lines.grep(/(^\s*•)|FAIL/).first(6).join(" ").gsub(/\s+/, " ").strip
   [st.success?, st.success? ? nil : (detail.empty? ? out.strip[0, 200] : detail)]
+end
+
+# Calendar Info copy must name comedians by their REAL name, never by their slug.
+# Slugs are Instagram-style handles (harryf.cks, martinadoescomedy, sussmancomedy),
+# and the Info lines are LLM-generated, so a regenerated pool can silently reintroduce
+# a handle. refresh-calendar-page.rb resolves hosts via _comedians/ `title:` and its
+# prompt bans handles, but a prompt is guidance, not enforcement — this is the
+# enforcement. Also catches accent-stripping ("Andrea Ramirez" for Andrea Ramírez),
+# which LLMs do routinely regardless of instruction.
+check("calendar Info copy uses real comedian names, not slugs") do
+  page = File.read(File.join(ROOT, "pages", "1_calendar.md"), encoding: "UTF-8")
+  info_cells = page.lines.filter_map do |l|
+    next unless l.start_with?("|")
+    cells = l.split("|").map(&:strip)
+    cells[4] if cells.size >= 6      # leading empty cell + 5 columns
+  end
+  haystack = info_cells.join("\n")
+
+  bad = []
+  Dir[File.join(COMS, "*.md")].each do |f|
+    fm = front_matter(f)
+    slug = fm["slug"].to_s
+    slug = File.basename(f, ".md") if slug.empty?
+    name = fm["title"].to_s
+    next if name.empty?
+
+    # The label the old slug-title-casing bug produced. Only flag it when it is
+    # UNAMBIGUOUSLY a handle: it carries a dot/underscore/digit, or it is a long
+    # run-on with no space. A bare common word cannot be told apart from prose —
+    # slug "free" (Free Chamizo) legitimately appears in "Free entry, priceless
+    # stories", and slug "don" in "don't". Flagging those is worse than missing them.
+    derived = slug.split("-").map(&:capitalize).join(" ")
+    handle_shaped = derived =~ /[._0-9]/ || (derived.length >= 12 && !derived.include?(" "))
+    if derived != name && handle_shaped && haystack =~ /\b#{Regexp.escape(derived)}\b/
+      bad << "#{derived.inspect} (should be #{name.inspect})"
+    end
+
+    # an @-prefixed handle
+    bad << "@#{slug}" if haystack =~ /@#{Regexp.escape(slug)}\b/i
+
+    # accent-stripped form of a name that genuinely carries diacritics
+    folded = name.unicode_normalize(:nfd).gsub(/\p{Mn}/, "")
+    bad << "#{folded.inspect} (should be #{name.inspect})" if folded != name && haystack.include?(folded)
+  end
+
+  [bad.empty?, bad.uniq.first(4).join(", ")]
 end
 
 # ── html-proofer ──────────────────────────────────────────────────────────────

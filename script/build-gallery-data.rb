@@ -197,7 +197,7 @@ end
 
 # --- Apple Vision via auge ----------------------------------------------------
 def auge(mode, abs_path)
-  out, status = Open3.capture2("auge", "--#{mode}", abs_path, "--json")
+  out, _err, status = Open3.capture3("auge", "--#{mode}", abs_path, "--json")
   return {} unless status.success?
   JSON.parse(out)["results"] || {}
 rescue StandardError
@@ -221,21 +221,23 @@ LEG_JOINTS       = %w[left_leg_joint right_leg_joint left_foot_joint right_foot_
 FEATURED_FRACTION = 0.22 # share of the wall that renders as large 2x2 mosaic tiles
 
 def analyze(abs_path)
-  faces  = auge("faces",  abs_path)["count"].to_i
-  humans = auge("humans", abs_path)["count"].to_i
-  aest   = auge("aesthetics", abs_path)["aesthetics"] || {}
+  faces_r = auge("faces", abs_path)
+  faces   = faces_r["count"].to_i
+  humans  = auge("humans", abs_path)["count"].to_i
+  aest    = auge("aesthetics", abs_path)["aesthetics"] || {}
 
   conf = {} # Vision classifier: label => confidence
   (auge("classify", abs_path)["classifications"] || []).each do |c|
     conf[c["label"]] = c["confidence"].to_f
   end
 
+  bodies = auge("body-pose", abs_path)["bodies"] || []
   # Standing? Seated audience shots resolve no leg/foot joints; a comedian does.
-  standing = (auge("body-pose", abs_path)["bodies"] || []).any? do |b|
+  standing = bodies.any? do |b|
     (b["joints"] || []).any? { |j| LEG_JOINTS.include?(j["name"]) && j["confidence"].to_f >= 0.30 }
   end
 
-  {
+  m = {
     faces: faces, humans: humans, standing: standing,
     aesthetic: (aest["overall"] || 0).to_f,
     utility:   aest["isUtility"] == true,
@@ -244,6 +246,107 @@ def analyze(abs_path)
     mic:       conf["microphone"] || 0,
     crowd:     CROWD_LABELS.map { |l| conf[l] || 0 }.max
   }
+  # Richer alt-text signals (faces array + classify + body-pose already in hand;
+  # extract_seo only adds the landmarks / persons-mask / OCR calls it still needs).
+  m[:seo] = extract_seo(abs_path, faces_r, conf, bodies)
+  m
+end
+
+# =============================================================================
+# Alt-text enrichment signals — deterministic, no LLM
+# =============================================================================
+# auge gives raw numbers; the trick is combining a few into a heuristic that
+# decides what a photo *shows*, then letting compose_alt phrase it. Each flag is
+# earned by a conservative threshold so the sentence stays honest. Signals are
+# cached in gallery.yml (`seo:`) so wording can be retuned without re-running auge.
+
+OPEN_MAR    = 0.36  # innerLips height/width above this reads as an open (laughing) mouth
+RAISE_MARGIN = 0.02 # hand_joint must sit this far above the shoulder (Vision y-up) to count
+PACKED_FACES = 6    # this many faces / person-blobs reads as "a packed audience"
+JOINT_CONF  = 0.30  # min body-pose joint confidence
+
+# Mouth-aspect-ratio from the 76-point innerLips landmarks (face-bbox-normalized).
+# A laughing/open mouth is tall relative to its width; a closed mouth is a thin line.
+def mouth_open?(face)
+  pts = face.dig("landmarks", "innerLips") || []
+  return false if pts.size < 4
+
+  xs = pts.map { |p| p["x"].to_f }
+  ys = pts.map { |p| p["y"].to_f }
+  w = xs.max - xs.min
+  return false if w <= 0
+
+  (ys.max - ys.min) / w >= OPEN_MAR
+end
+
+# A raised hand (hand_joint above the shoulder) is a strong "mid-bit / mic up" tell.
+def hand_raised?(bodies)
+  bodies.any? do |b|
+    j = (b["joints"] || []).each_with_object({}) do |x, h|
+      h[x["name"]] = x if x["confidence"].to_f >= JOINT_CONF
+    end
+    %w[left right].any? do |side|
+      hand = j["#{side}_hand_joint"]
+      sh   = j["#{side}_shoulder_1_joint"]
+      hand && sh && hand["y"].to_f > sh["y"].to_f + RAISE_MARGIN
+    end
+  end
+end
+
+# The IN YOUR FACE banner / watermark, read from OCR. Detected for confidence only —
+# never written into the sentence (the brand already anchors every alt; repeating it
+# would be keyword-stuffing). Kept as a future hook.
+def banner_seen?(text)
+  t = text.to_s.downcase.gsub(/[^a-z ]/, " ")
+  t.include?("inyourface") || t.include?("in your face") || (t.include?("our") && t.include?("face"))
+end
+
+# Combine the signals into the compact flag map stored per entry. faces_r / conf /
+# bodies are passed in from analyze (already fetched); landmarks + persons-mask + OCR
+# are the only extra auge calls. Reused standalone by the `enrich` backfill command.
+def extract_seo(abs_path, faces_r = nil, conf = nil, bodies = nil)
+  faces_r ||= auge("faces", abs_path)
+  bodies  ||= auge("body-pose", abs_path)["bodies"] || []
+  if conf.nil?
+    conf = {}
+    (auge("classify", abs_path)["classifications"] || []).each { |c| conf[c["label"]] = c["confidence"].to_f }
+  end
+
+  face_count = faces_r["count"].to_i
+  persons    = (auge("persons-mask", abs_path)["persons_mask"] || {})["count"].to_i
+  crowd_n    = [face_count, persons].max
+
+  # "laughing" must be earned by AT LEAST TWO open mouths. One open mouth is too weak:
+  # it's as likely to be a yawn, a shout, mid-sentence — or, on a frame auge has
+  # misfiled as audience, a lone performer talking into the mic (which would read as
+  # "the audience laughing", doubly wrong). Two laughing faces is a room reacting.
+  landmarks   = auge("face-landmarks", abs_path)["faces"] || []
+  open_mouths = landmarks.count { |f| mouth_open?(f) }
+  laughing    = open_mouths >= 2
+
+  seo = {}
+  seo["mic"]       = true if (conf["microphone"] || 0) >= MIC_CONF
+  seo["gesturing"] = true if hand_raised?(bodies)
+  seo["laughing"]  = true if laughing
+  seo["packed"]    = true if crowd_n >= PACKED_FACES
+  seo["music"]     = true if %w[music concert].any? { |l| (conf[l] || 0) >= 0.30 }
+  seo["banner"]    = true if banner_seen?(auge("ocr", abs_path)["text"])
+  seo
+end
+
+# Which seo flags actually shape each type's sentence. We persist only these, so the
+# committed YAML carries no misleading dead flags (e.g. a "music" false-positive from
+# stage lighting on a performer shot, or "laughing" on a comedian mid-word). `banner`
+# is intentionally never used (the brand already anchors every alt — see Decisions).
+USED_SEO = {
+  "performer" => %w[mic gesturing],
+  "audience"  => %w[laughing packed],
+  "moment"    => %w[music]
+}.freeze
+
+def prune_seo(type, seo)
+  keep = USED_SEO[type] || []
+  (seo || {}).select { |k, _| keep.include?(k) }
 end
 
 # --- interpretation: what is this a picture of? ------------------------------
@@ -295,19 +398,29 @@ def assign_featured!(entries)
 end
 
 # --- SEO alt text: honest, distinct, brand- + place- + year-anchored ----------
-SCENE = {
-  "audience"  => "the audience at a live English stand-up comedy show",
-  "performer" => "a comedian performing stand-up on stage",
-  "moment"    => "a moment from an English stand-up comedy night"
-}.freeze
-
-def alt_text(type, year, m, name = nil)
-  if type == "performer" && name && !name.empty?
-    return "IN YOUR FACE Comedy, #{name} performing stand-up in Zürich (#{year})"
-  end
-  scene = SCENE.fetch(type)
-  scene = "a live music and comedy moment" if type == "moment" && (m[:labels] & %w[music concert]).any?
-  "IN YOUR FACE Comedy, #{scene} in Zürich (#{year})"
+# compose_alt is PURE: it turns the cached `seo` flag map (+ an optional comedian
+# name) into the sentence, with no auge calls. Every path (build, reuse, tag,
+# reclassify, enrich) goes through it, so the wording is a single source of truth
+# and can be retuned by re-running `build` alone — the slow signal extraction stays
+# cached in gallery.yml. The brand + place + year anchor is always preserved.
+def compose_alt(type, year, seo, name = nil)
+  seo ||= {}
+  phrase =
+    case type
+    when "performer"
+      who = (name.to_s.empty? ? "a comedian" : name)
+      bit = "#{who} performing stand-up"
+      bit += " with a microphone" if seo["mic"]
+      bit += " mid-bit" if seo["gesturing"] && !seo["mic"]
+      "#{bit} on stage"
+    when "audience"
+      crowd = seo["packed"] ? "a packed audience" : "the audience"
+      verb  = seo["laughing"] ? "laughing at" : "at"
+      "#{crowd} #{verb} a live English stand-up comedy show"
+    else # moment
+      seo["music"] ? "a live music and comedy moment" : "a moment from an English stand-up comedy night"
+    end
+  "IN YOUR FACE Comedy, #{phrase} in Zürich (#{year})"
 end
 
 # slug => display name, read from the Grist-generated _comedians/*.md `title:`.
@@ -324,18 +437,19 @@ def comedian_names
   end
 end
 
-# Once a performer frame is tagged with a comedian, name them in the alt text
-# ("…, Jane Doe performing stand-up in Zürich (2025)"). Run after entries are
-# assembled (build) and after tagging, so both paths agree and it stays idempotent
-# — re-deriving the same alt from the slug each time. Untagged / "none" frames and
-# unknown slugs keep the generic alt.
-def apply_comedian_alt!(entries, names)
+# Recompose every entry's alt from its cached `seo` flags + (for tagged performers)
+# the comedian's name. This is the single writer of alt text — it unifies the old
+# apply_comedian_alt! (naming) with the enrichment, runs after entries are assembled
+# (build, tag, reclassify, enrich), and stays idempotent: same seo + same slug =>
+# same sentence. Untagged / "none" / unknown-slug performers stay "a comedian".
+def recompose_all!(entries, names)
   entries.each do |e|
-    next unless e["type"] == "performer"
-    slug = e["comedian"].to_s.strip
-    next if slug.empty? || slug == "none"
-    nm = names[slug]
-    e["alt"] = "IN YOUR FACE Comedy, #{nm} performing stand-up in Zürich (#{e['year']})" if nm
+    name = nil
+    if e["type"] == "performer"
+      slug = e["comedian"].to_s.strip
+      name = names[slug] unless slug.empty? || slug == "none"
+    end
+    e["alt"] = compose_alt(e["type"], e["year"], e["seo"], name)
   end
 end
 
@@ -371,6 +485,35 @@ def interleave_recent(list)
   }.sort_by { |pos, _| pos }.map { |_, e| e }
 end
 
+# The Recent section opens with a deliberate one-two: a strong comedian frame, then a
+# strong audience reaction. The page leads with a face on stage and the room loving it
+# before the mosaic mixes. We pick the BEST of each (featured first, then the quality
+# signals we already store), pin them to slots 1 and 2, and interleave everything else.
+# (_score is gone by reorder time, so we rank on the persisted fields.)
+def best_performer(list)
+  list.select { |e| e["type"] == "performer" }
+      .min_by { |e| [e["featured"] ? 0 : 1, -e["aesthetic"].to_f, e["src"]] }
+end
+
+# "A good one": prefer a featured audience shot, then a laughing room, then more faces
+# (a fuller crowd), then aesthetics — the same things headline_score rewards.
+def best_audience(list)
+  list.select { |e| e["type"] == "audience" }
+      .min_by do |e|
+        [e["featured"] ? 0 : 1,
+         e.dig("seo", "laughing") ? 0 : 1,
+         -(e["faces"] || 0).to_i,
+         -e["aesthetic"].to_f,
+         e["src"]]
+      end
+end
+
+def order_recent(list)
+  leads = [best_performer(list), best_audience(list)].compact
+  rest  = list.reject { |e| leads.include?(e) }
+  leads + interleave_recent(rest)
+end
+
 # --- gallery files + persisted data -------------------------------------------
 def gallery_files
   Dir.children(GALLERY_DIR)
@@ -400,6 +543,8 @@ def canon(e)
   h["utility"] = true if e["utility"] == true # only persisted when a screenshot/flyer
   c = e["comedian"].to_s.strip
   h["comedian"] = c unless c.empty?
+  seo = e["seo"]
+  h["seo"]      = seo if seo.is_a?(Hash) && !seo.empty? # only the flags that fired
   h["alt"]      = e["alt"]
   h["featured"] = e["featured"]
   h
@@ -510,7 +655,8 @@ def cmd_build(rebuild:, ping:, git:, quiet:)
       # still wins, so dates can be corrected without a full --rebuild.
       date = overrides[name] || (Date.iso8601(prev["date"]) rescue capture_or_git_date(abs, name, overrides))
       type, faces, humans = prev["type"], prev["faces"], prev["humans"]
-      aes, alt, comedian  = prev["aesthetic"], prev["alt"], prev["comedian"]
+      aes, comedian = prev["aesthetic"], prev["comedian"]
+      seo  = prev["seo"] # cached enrichment flags; nil until an `enrich`/`--rebuild` pass
       util  = prev["utility"] == true
       score = util ? -999.0 : score_from(type, faces, aes)
     else
@@ -519,32 +665,43 @@ def cmd_build(rebuild:, ping:, git:, quiet:)
       type, faces, humans = classify_type(m), m[:faces], m[:humans]
       aes  = m[:aesthetic].round(3)
       util = m[:utility]
-      alt  = alt_text(type, date.year, m)
+      seo  = m[:seo]
       comedian = prev && prev["comedian"] # keep any slug even on a forced rebuild
       score = headline_score(type, m)
       added << src unless prev
       warn format("  + analysed %-34s %s  %-9s faces=%d", name, date, type, faces) unless quiet
     end
 
+    # A human comedian tag is authoritative: that frame is a performer, even if auge
+    # filed it as audience/moment — and this survives a --rebuild re-analysis. Set via
+    # the `reclassify` command. Recompute the headline score for the corrected type.
+    if comedian.to_s.strip != "" && comedian.to_s.strip != "none" && type != "performer"
+      type  = "performer"
+      score = util ? -999.0 : score_from(type, faces, aes)
+    end
+
+    seo = prune_seo(type, seo) # keep only the flags this type's sentence uses
+
     era = era_for(date, today)
     { "src" => src, "date" => date.iso8601, "year" => date.year,
       "era" => era, "era_label" => era_label(era), "type" => type,
       "faces" => faces, "humans" => humans, "aesthetic" => aes,
-      "utility" => util, "comedian" => comedian, "alt" => alt, "_score" => score }
+      "utility" => util, "comedian" => comedian, "seo" => seo,
+      "alt" => nil, "_score" => score } # alt is composed by recompose_all! below
   end
 
   removed = existing.values.reject { |e| present.include?(e["src"]) }
 
-  apply_comedian_alt!(entries, comedian_names) # name the comedian in tagged alt text
+  recompose_all!(entries, comedian_names) # name the comedian in tagged alt text
   assign_featured!(entries)
   entries.each { |e| e.delete("_score") }
 
-  # Recent (current year) first as a type-mixed block; older years newest-first and
-  # chronological within each section.
+  # Recent (current year) first: a comedian then a good audience shot to open, then a
+  # type-mixed block. Older years stay newest-first and chronological within each section.
   recent = entries.select { |e| e["era"] == "recent" }
   older  = entries.reject { |e| e["era"] == "recent" }
   older.sort_by! { |e| [e["date"], e["src"]] }.reverse!
-  entries.replace(interleave_recent(recent) + older)
+  entries.replace(order_recent(recent) + older)
   write_entries(entries)
 
   feat = entries.count { |e| e["featured"] }
@@ -634,7 +791,7 @@ def cmd_tag(all:, open_preview:, ping:, git:)
     end
   end
 
-  apply_comedian_alt!(entries, comedian_names) # name freshly-tagged comedians in alt
+  recompose_all!(entries, comedian_names) # name freshly-tagged comedians in alt
   write_entries(entries)
   if touched.empty?
     puts "\nNo new tags."
@@ -649,6 +806,193 @@ def cmd_tag(all:, open_preview:, ping:, git:)
   submit_indexnow(["#{SITE_URL}/moments/"] + touched.map { |s| comedian_url(s) }) if ping
 end
 
+# =============================================================================
+# reclassify — rescue comedian frames that auge filed as audience/moment
+# =============================================================================
+# auge sometimes reads a comedian shot as audience or moment (a lone figure taken
+# for a face in a crowd, a wide stage read as a venue moment). Walk those frames
+# NEWEST FIRST, preview each, and on a slug the frame becomes a performer tagged to
+# that comedian. The build then treats the comedian tag as authoritative, so the
+# correction sticks even through a --rebuild.
+#
+# Targeted mode: pass one or more image names (`only`) and ONLY those frames are
+# reviewed, in the order given — for when you already know which frames are mistyped
+# (no auto-detection is reliable; auge's confident signals miss exactly these). Named
+# frames are reviewed whatever their current type, so it also re-tags a wrong performer.
+def cmd_reclassify(open_preview:, ping:, git:, only: nil)
+  entries = load_entries
+  abort "No _data/gallery.yml yet — run `build` first." if entries.empty?
+  slugs = known_slugs
+
+  if only && !only.empty?
+    wanted = only.map { |n| File.basename(n) }
+    by_base = entries.group_by { |e| File.basename(e["src"]) }
+    missing = wanted.reject { |b| by_base.key?(b) }
+    warn "  ! not in the gallery (skipped): #{missing.join(', ')}" unless missing.empty?
+    # Keep the user's order; a name maps to its (single) entry.
+    queue = wanted.filter_map { |b| by_base[b]&.first }
+    abort "None of the named images are in the gallery." if queue.empty?
+  else
+    queue = entries.select { |e| %w[audience moment].include?(e["type"]) }
+                   .sort_by { |e| [e["date"], e["src"]] }.reverse # newest first
+  end
+  if queue.empty?
+    puts "Nothing to review — no audience/moment frames."
+    return
+  end
+
+  # Same tab-completion as `tag`: prefix matches first, then a substring fallback.
+  slug_list = slugs.to_a.sort
+  Readline.completion_append_character = " "
+  Readline.completion_proc = proc do |s|
+    pre = slug_list.grep(/^#{Regexp.escape(s)}/i)
+    pre.empty? ? slug_list.grep(/#{Regexp.escape(s)}/i) : pre
+  end
+
+  scope = only && !only.empty? ? "named" : "audience/moment, newest first"
+  puts "#{queue.size} frame(s) to review (#{scope}). If a frame is really a comedian on"
+  puts "stage, type their slug (Tab to autocomplete) to reclassify it as a performer."
+  puts "Otherwise:  [enter]=leave as-is   l=list   q=save & quit"
+  touched = Set.new
+  count   = 0
+  quit    = false
+
+  queue.each_with_index do |e, i|
+    break if quit
+    abs = File.join(REPO_ROOT, e["src"].sub(%r{^/}, ""))
+    system("open", abs) if open_preview # preview in Preview.app (non-blocking)
+
+    loop do
+      prompt = "\n[#{i + 1}/#{queue.size}] #{File.basename(e['src'])} (#{e['date']}, now #{e['type']})  comedian slug> "
+      input = Readline.readline(prompt, true) # nil on Ctrl-D
+      if input.nil? then quit = true; break end
+      input = input.strip
+      case input
+      when ""  then break                                   # leave as audience/moment
+      when "q" then quit = true; break
+      when "l" then puts "  " + slug_list.join(", "); next
+      else
+        assign = lambda do |slug|
+          e["type"] = "performer"; e["comedian"] = slug
+          # Refresh signals for the new type: drops stale audience flags (laughing/
+          # packed) and picks up performer ones (mic/gesturing), so recompose_all!
+          # writes a correct enriched alt immediately, no separate enrich pass needed.
+          e["seo"] = prune_seo("performer", extract_seo(abs))
+          touched << slug; count += 1
+        end
+        if slugs.include?(input)
+          assign.call(input); break
+        else
+          print "  '#{input}' isn't a known comedian slug. Use it anyway? [y/N] "
+          ans = $stdin.gets&.strip&.downcase
+          if ans == "y" then assign.call(input); break end
+          # otherwise re-prompt
+        end
+      end
+    end
+  end
+
+  recompose_all!(entries, comedian_names) # name the reclassified comedians in alt
+  write_entries(entries)
+  if count.zero?
+    puts "\nNo reclassifications."
+    return
+  end
+  puts "\nSaved. Reclassified #{count} frame(s) to comedian(s): #{touched.to_a.sort.join(', ')}"
+
+  git_commit_push(["_data/gallery.yml"],
+                  "gallery: reclassify #{count} photo(s) to comedians — #{touched.to_a.sort.join(', ')}",
+                  push: true) if git
+
+  submit_indexnow(["#{SITE_URL}/moments/"] + touched.map { |s| comedian_url(s) }) if ping
+end
+
+# =============================================================================
+# delete — remove specific images and their gallery metadata
+# =============================================================================
+# Delete one or more images by filename, then re-run the build so their entries
+# drop out of _data/gallery.yml and the change is committed/pushed/pinged. Accepts
+# a bare filename or a path; only the basename inside assets/img/gallery/ matters.
+# A name that is already off disk but still in the YAML is reconciled away too.
+def cmd_delete(names, ping:, git:, quiet:)
+  abort "Usage: delete <image> [<image> …]" if names.empty?
+  known = load_entries.map { |e| File.basename(e["src"]) }.to_set
+  acted = false
+  names.each do |name|
+    base = File.basename(name)
+    abs  = File.join(GALLERY_DIR, base)
+    if File.exist?(abs)
+      File.delete(abs)
+      warn "  deleted #{base}" unless quiet
+      acted = true
+    elsif known.include?(base)
+      warn "  #{base} already off disk — dropping its stale gallery entry" unless quiet
+      acted = true # the rebuild will reconcile the orphan entry out of the YAML
+    else
+      warn "  ! not found (no file, no gallery entry): #{base}"
+    end
+  end
+  abort "Nothing to delete." unless acted
+  # Rewrite the data (drops the now-missing entries), commit, push, and ping the
+  # affected comedian pages + /moments/ — exactly the build removal path.
+  cmd_build(rebuild: false, ping: ping, git: git, quiet: quiet)
+end
+
+# =============================================================================
+# enrich — backfill auge alt-text signals onto existing photos, recompose alt
+# =============================================================================
+# Walks the committed gallery (newest first), runs ONLY the extra auge signals the
+# richer alt text needs (face-landmarks mouth-open, body-pose raised-hand,
+# persons-mask / face-count crowd size, microphone, OCR banner), caches them as the
+# per-entry `seo:` map, and recomposes alt via the shared composer. Leaves type,
+# date, faces, humans, aesthetic, comedian and featured untouched — purely additive.
+# Idempotent: same image + same code => same seo => same sentence. `--limit N` runs
+# only the first N (newest) for a quick trial.
+def cmd_enrich(limit: nil, ping:, git:, quiet:)
+  entries = load_entries
+  abort "No gallery data yet — run build first." if entries.empty?
+
+  todo = limit ? entries.first(limit) : entries
+  warn "Enriching #{todo.size} of #{entries.size} entries with auge signals…" unless quiet
+
+  names   = comedian_names
+  changed = 0
+  todo.each_with_index do |e, i|
+    abs = File.join(GALLERY_DIR, File.basename(e["src"].to_s))
+    unless File.exist?(abs)
+      warn "  · skip (off disk) #{File.basename(e['src'])}" unless quiet
+      next
+    end
+
+    before = e["alt"]
+    e["seo"] = prune_seo(e["type"], extract_seo(abs))
+    name = nil
+    if e["type"] == "performer"
+      slug = e["comedian"].to_s.strip
+      name = names[slug] unless slug.empty? || slug == "none"
+    end
+    e["alt"] = compose_alt(e["type"], e["year"], e["seo"], name)
+
+    if e["alt"] != before
+      changed += 1
+      unless quiet
+        flags = e["seo"].keys.sort.join(",")
+        warn format("  ~ %3d/%-3d %-30s [%s]", i + 1, todo.size, File.basename(e["src"]), flags)
+        warn "        #{e['alt']}"
+      end
+    end
+  end
+
+  write_entries(entries)
+  puts "Enriched #{todo.size} entr#{todo.size == 1 ? 'y' : 'ies'}; #{changed} alt text(s) changed."
+  return if changed.zero?
+
+  git_commit_push(["_data/gallery.yml"],
+                  "gallery: enrich alt text with auge signals (#{changed} updated)",
+                  push: true) if git
+  submit_indexnow(["#{SITE_URL}/moments/"]) if ping
+end
+
 # --- dispatch -----------------------------------------------------------------
 USAGE = <<~TXT
   build-gallery-data.rb — manage the /moments/ gallery and its metadata.
@@ -656,6 +1000,9 @@ USAGE = <<~TXT
   USAGE
     ./script/build-gallery-data.rb [build] [options]
     ./script/build-gallery-data.rb tag [options]
+    ./script/build-gallery-data.rb reclassify [<image> …] [options]
+    ./script/build-gallery-data.rb delete <image> [<image> …] [options]
+    ./script/build-gallery-data.rb enrich [--limit N] [options]
 
   COMMANDS
     build         (default) Incrementally scan assets/img/gallery/: analyse NEW
@@ -667,6 +1014,25 @@ USAGE = <<~TXT
                   and prompt for the comedian's slug (validated against _comedians/).
                   Saves it, commits + pushes _data/gallery.yml, and pings IndexNow
                   for /moments/ and the tagged comedian pages.
+    reclassify    Walk audience/moment frames NEWEST FIRST, open each in Preview, and
+                  for any that are really a comedian on stage, type the slug to flip it
+                  to a performer tagged to that comedian. The build treats the comedian
+                  tag as authoritative, so the fix survives a --rebuild. Commits +
+                  pushes and pings the same as tag. Pass one or more image names to
+                  review ONLY those frames (any type), in the order given — for when you
+                  already know which frames are mistyped. Flipping a frame also refreshes
+                  its alt-text signals, so the enriched alt is correct right away.
+                  e.g. reclassify IMG_4086.jpg "WhatsApp Image ….jpeg"
+    delete        Delete one or more images by filename and drop their metadata from
+                  _data/gallery.yml (then commit + push + ping, like build). Accepts a
+                  bare name or a path; an entry already off disk is reconciled away.
+                  e.g. delete "IMG_2588_20251120.jpg" "IMG_2386.PNG"
+    enrich        Backfill richer alt-text signals (auge) onto existing photos and
+                  recompose the alt text deterministically (no LLM): "a packed audience
+                  laughing at …", "… performing stand-up with a microphone on stage".
+                  Caches signals in the `seo:` map so wording can be retuned by a plain
+                  `build` with no re-analysis. Purely additive: type/date/tags untouched.
+                  --limit N runs the first N (newest) for a quick trial.
 
   OPTIONS
     build:
@@ -679,12 +1045,26 @@ USAGE = <<~TXT
       --no-open   Don't open Preview (scripted / headless tagging).
       --no-git    Don't commit/push; leave changes in the working tree.
       --no-ping   Don't submit to IndexNow.
+    reclassify:
+      --no-open   Don't open Preview (scripted / headless review).
+      --no-git    Don't commit/push; leave changes in the working tree.
+      --no-ping   Don't submit to IndexNow.
+    delete:
+      --no-git    Don't commit/push; leave changes in the working tree.
+      --no-ping   Don't submit to IndexNow.
+      --quiet     Suppress per-image logging.
+    enrich:
+      --limit N   Only enrich the first N (newest) entries — a quick trial run.
+      --no-git    Don't commit/push; leave changes in the working tree.
+      --no-ping   Don't submit to IndexNow.
+      --quiet     Suppress per-image logging.
     -h, --help    Show this help.
 
   EXAMPLES
     ./script/build-gallery-data.rb                  # rebuild, commit+push, ping
     ./script/build-gallery-data.rb build --rebuild  # full re-analysis
     ./script/build-gallery-data.rb tag              # attribute comedian photos
+    ./script/build-gallery-data.rb reclassify       # rescue misclassified comedian shots
     ./script/build-gallery-data.rb build --no-git   # update data only, no commit
 
   auge (Apple Vision) is macOS-only; the committed _data/gallery.yml is what
@@ -709,6 +1089,15 @@ if __FILE__ == $PROGRAM_NAME
     cmd_build(rebuild: ARGV.include?("--rebuild"), ping: ping, git: git, quiet: quiet)
   when "tag"
     cmd_tag(all: ARGV.include?("--all"), open_preview: !ARGV.include?("--no-open"), ping: ping, git: git)
+  when "reclassify"
+    cmd_reclassify(open_preview: !ARGV.include?("--no-open"), ping: ping, git: git,
+                   only: ARGV.reject { |a| a.start_with?("-") })
+  when "delete"
+    cmd_delete(ARGV.reject { |a| a.start_with?("-") }, ping: ping, git: git, quiet: quiet)
+  when "enrich"
+    li = ARGV.index("--limit")
+    limit = li ? ARGV[li + 1].to_i : nil
+    cmd_enrich(limit: (limit if limit&.positive?), ping: ping, git: git, quiet: quiet)
   else
     warn "Unknown command '#{command}'.\n\n"
     abort USAGE

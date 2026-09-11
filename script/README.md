@@ -4,8 +4,71 @@ Standalone Ruby scripts that run alongside the Jekyll site. Ruby matches Jekyll'
 
 | Script | Purpose | Cadence |
 |---|---|---|
+| `add-event.rb` | Create a brand-new show from its Eventfrog link: writes the `_posts` page, installs the images, then re-derives the calendar, venues and homepage lastmod. Never touches git. | By hand, once per new show |
 | `refresh-next-event-dates.rb` | Scrape each show's Eventfrog page, write the next upcoming event's start/end into the post's front-matter. | Daily via cron |
 | `check-site.rb` | Post-build health smoke test: asserts build, page presence, sitemap, SEO/analytics, Event JSON-LD, promo + Lineup catalogs, script/data health, and link integrity. | On every push/PR (CI) + before release |
+
+## `add-event.rb`
+
+The one command that turns an Eventfrog link into a live-ready show. Everything else in this directory *maintains* shows that already exist; this is the only script that *creates* one.
+
+```bash
+ruby script/add-event.rb https://eventfrog.ch/de/p/.../my-show-1234567890.html \
+  --host martinadoescomedy --host harryf.cks \
+  --feature-img ~/Desktop/flyer-wide.png \
+  --image       ~/Desktop/flyer-1200x630.png \
+  --thumbnail   ~/Desktop/flyer-square.png
+
+ruby script/add-event.rb URL --dry-run --verbose    # preview the whole post, write nothing
+ruby script/add-event.rb --help
+```
+
+### The three images are three different jobs
+
+Same split as the Decap CMS fields in `admin/config.yml`. Pass any subset; each flag is optional.
+
+| Flag | Front matter | Where it shows up | Size |
+|---|---|---|---|
+| `--feature-img` | `feature-img` | Hero banner across the top of the show page, and the Event JSON-LD `image[]` Google uses for rich results | ~1920x1005 |
+| `--image` | `image` | `og:image` / `twitter:image` — the picture in the Twitter/X, Slack and Facebook link card | 1200x630 min |
+| `--thumbnail` | `thumbnail` | Square share image (WhatsApp and friends) | ~1080x1080 |
+
+Files are copied into `assets/img/uploads/` (thumbnails into `assets/img/thumbs/`) under lowercase, permalink-derived names, because the live Linux build is case-sensitive and macOS is not. Pass no `--feature-img` and the script downloads Eventfrog's own flyer instead, so a page is never bannerless; `--image` then falls back to the hero rather than silently inheriting the site-wide default card.
+
+### What it changes
+
+1. **`_posts/<date>-<slug>.md`** — the only non-derived artifact. A show *is* a post with a `ticket_url`; the homepage, sitemap, `/comedians/` chips and health check all build themselves from that fact.
+2. **`assets/img/…`** — the images above.
+3. **`_data/calendar.yml`, `_data/calendar_past.yml`, `_data/venues.yml`** — by running `refresh-calendar-data.rb`. The post already exists by then, so the extractor treats the new show like any other and appends an unseen venue on its own. That is why this script has no venue logic of its own.
+4. **The new post again** — `next_event_date`, `next_event_end_date`, `venue_slug`, `venue` and `price_chf` are back-filled *from* `_data/calendar.yml`, using the same precedence as `refresh-next-event-dates.rb`. The new show is therefore correct for exactly the same reason every existing show is correct.
+5. **`pages/1_calendar.md`** — by running `refresh-calendar-page.rb --no-refresh --no-push`. That page is materialized markdown, not a live query over `calendar.yml`, so it has to be regenerated.
+6. **`index.html` `last_modified_at`** — so the sitemap `<lastmod>` for `/` advances. The homepage *listing* needs no edit: `_layouts/home.liquid` recomputes it from `site.posts` on every build.
+
+### What it deliberately does not do
+
+- **No git.** No add, no commit, no push. You rewrite the description in the house voice (`WRITING_GUIDE.md`) and commit yourself. The script prints the exact `git add` line for the files it touched.
+- **No IndexNow, no Healthchecks.io ping.** Those belong to cron. The child `refresh-calendar-page.rb` is spawned with `HEALTHCHECKS_URL` cleared so an interactive run can never report a fake green to the monitor.
+- **No writes to `_comedians/*.md`.** That collection comes from Grist via `sync-comedians.rb`. A `--host` slug that doesn't match a `slug:` under `_comedians/` is reported with near-miss suggestions and left out of the post — an unresolvable slug renders nothing in the host grid and silently drops a `Person` from the Event JSON-LD, which is worse than a loud warning.
+- **No Google Business Profile post.** `post-events-to-google.rb` owns that, and only for ROBIN's shows.
+
+### After it runs
+
+Two things are worth doing by hand:
+
+- **Rewrite the body.** It is Eventfrog's copy dropped in verbatim, which is why nothing is pushed. Check `description:` too (that is the SEO meta description, ~160 characters).
+- **Fill the calendar copy pool**, or the show gets the generic fallback teaser on `/calendar/`:
+  ```bash
+  ruby script/refresh-calendar-page.rb --init --only <permalink> --no-push
+  ```
+
+Optionally give the show its own palette with a `.show-banner[data-show="<permalink>"]` block in `_sass/components/_show-override.scss`.
+
+### Notes
+
+- Group/series URLs and single-event URLs both work. A group page carries no JSON-LD at all (it renders its instance table client-side), so the script walks it to the individual event pages the same way `refresh-calendar-data.rb` does. More than one upcoming instance sets `event_type: series` and lists the next six dates in the body.
+- Existing permalink → refuses, so you can never clobber a live show. `--force` overrides, `--permalink` picks a different URL.
+- Every input is validated before the first write, so a failed run leaves no half-made show behind.
+- Helpers borrowed from the sibling scripts are copied with a comment naming the source, matching this directory's deliberate one-runnable-file-per-script convention rather than introducing a shared lib.
 
 ## `check-site.rb`
 
@@ -197,6 +260,50 @@ Cron triggers are simpler than event-driven triggers. Most days the script is a 
 ### Why Ruby
 
 Matches the Jekyll runtime. No language switch when this graduates to a GitHub Action or a `jekyll build` hook. Bundler-managed gems are already available (`net/http`, `time`, `uri` are stdlib — no extra `Gemfile` entry needed).
+
+## `ga-setup.ts` and `ga-annotations.ts`
+
+Google Analytics configuration as code (full picture: `ANALYTICS.md`). Both read the
+service-account key from `GA_REPORTS_CREDENTIALS` in `.env`, like `ga-report.ts`, but they
+write, so the service account needs the **Editor** role on the GA property (Admin > Property
+access management), where `ga-report.ts` only needs Viewer.
+
+- `bun script/ga-setup.ts [--dry-run]` makes the property match the desired state declared
+  in the file: 14-month event retention, `ticket_click` and `ticket_redirect` as key events,
+  the custom dimensions `show`, `link`, `venue`, `show_date`, `days_to_show`, the custom
+  metric `price_chf`, and the custom channel group "IN YOUR FACE channels". Idempotent;
+  creates and patches, never deletes or archives. Run it after editing the desired state.
+- `bun script/ga-annotations.ts [--dry-run]` turns every upcoming show date in
+  `_data/calendar.yml` into a GA report annotation ("Comedy Brew @ ROBIN's" on that date),
+  so every chart in GA marks show nights. Idempotent on title + date; past annotations are
+  left alone. Proposed cron line, after the 09:00 calendar refresh has landed:
+
+      25 10 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/ga-annotations.ts >> script/ga-annotations.log 2>&1
+
+Neither script touches git.
+
+## `email-monthly.ts`, `email-thankyou.ts`, `email-promo.ts`
+
+The three Mailchimp emails, one script each (playbook, flags and the builder story: `EMAILS.md`).
+Each reads the site's own data, asks Claude for the words via the editable prompt in
+`script/email-prompts/<type>.md`, renders table-based HTML plus plain text, checks it, creates a
+draft campaign from harry@inyourfacecomedy.ch, reads it back and opens it in the browser. They never
+send; Mailchimp's own confirm screen is the send gate.
+
+```
+bun script/email-monthly.ts [--month 2026-10 | --weeks 5] [--no-hero | --hero-title "…" | --no-hero-text]
+bun script/email-thankyou.ts "<thank-you link from Lineup Maker 2000>" [--segment "<tag>"]
+bun script/email-promo.ts --show <slug[,slug]> (--csv <file> | --segment <name> | --all) --brief "..." [--lang it]
+   ... all: --dry-run | --copy <file> --update <web id> | --no-ai | --no-open | --yes
+```
+
+- `MC_API_KEY` comes from `.env` (or, as a fallback, the old exporter's `.env`); never tracked.
+- Output lands in `script/email-out/` (gitignored): `.html`, `.txt`, `.copy.json`, `.preview.html` and an image cache.
+- Shared code: `script/lib/email/` (renderer, Mailchimp client, copy, site data, images, campaign flow). Tests: `script/__tests__/email-lib.test.ts`.
+- `claude` cannot be called from inside a Claude Code session; use `--copy` or `--no-ai` there.
+- The monthly hero title is rendered onto the photo by a local headless Brave or Chrome (`sips` cannot draw text).
+- The draft opens in Brave when installed (`EMAIL_BROWSER` overrides).
+- No cron: these run by hand when there is something to say.
 
 ### Future: GitHub Action
 

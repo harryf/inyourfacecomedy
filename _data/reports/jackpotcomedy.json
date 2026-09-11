@@ -1,0 +1,411 @@
+{
+ "slug": "jackpotcomedy",
+ "title": "Jackpot Comedy",
+ "ticket_url": "https://eventfrog.ch/en/p/groups/jackpot-comedy-7413646370706339342.html",
+ "event_type": "series",
+ "generated_at": "2026-09-11T08:20:02.487Z",
+ "since": "2026-08-26",
+ "pages_since": "2026-08-13",
+ "through": "2026-09-11",
+ "complete_through": "2026-09-09",
+ "totals": {
+  "clicks": 228,
+  "redirect": 210,
+  "click": 18,
+  "clicks_30d": 228,
+  "redirect_30d": 210,
+  "click_30d": 18,
+  "views": 77,
+  "views_30d": 77,
+  "sessions": 77,
+  "sessions_30d": 77,
+  "broken_links": 0,
+  "untagged": 0
+ },
+ "by_day": [
+  {
+   "date": "2026-08-13",
+   "redirect": 0,
+   "click": 0,
+   "views": 3,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-14",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-15",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-16",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-17",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-18",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-19",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-20",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-21",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-22",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-23",
+   "redirect": 0,
+   "click": 0,
+   "views": 2,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-24",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-25",
+   "redirect": 0,
+   "click": 0,
+   "views": 12,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-26",
+   "redirect": 3,
+   "click": 0,
+   "views": 2,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-27",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-28",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-29",
+   "redirect": 1,
+   "click": 0,
+   "views": 1,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-30",
+   "redirect": 30,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-31",
+   "redirect": 15,
+   "click": 2,
+   "views": 4,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-01",
+   "redirect": 18,
+   "click": 2,
+   "views": 4,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-02",
+   "redirect": 16,
+   "click": 1,
+   "views": 11,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-03",
+   "redirect": 6,
+   "click": 0,
+   "views": 2,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-04",
+   "redirect": 8,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-05",
+   "redirect": 19,
+   "click": 1,
+   "views": 5,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-06",
+   "redirect": 24,
+   "click": 2,
+   "views": 5,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-07",
+   "redirect": 13,
+   "click": 3,
+   "views": 3,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-08",
+   "redirect": 13,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-09",
+   "redirect": 21,
+   "click": 7,
+   "views": 18,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-10",
+   "redirect": 21,
+   "click": 0,
+   "views": 4,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-11",
+   "redirect": 2,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  }
+ ],
+ "by_source": [
+  {
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 186,
+   "views": 3,
+   "sessions": 2
+  },
+  {
+   "source": "facebook",
+   "medium": "social",
+   "clicks": 10,
+   "views": 0,
+   "sessions": 0
+  },
+  {
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 9,
+   "views": 0,
+   "sessions": 0
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 6,
+   "views": 29,
+   "sessions": 33
+  },
+  {
+   "source": "google",
+   "medium": "organic",
+   "clicks": 6,
+   "views": 16,
+   "sessions": 16
+  },
+  {
+   "source": "guidle",
+   "medium": "referral",
+   "clicks": 6,
+   "views": 8,
+   "sessions": 8
+  },
+  {
+   "source": "IN YOUR FACE Comedy",
+   "medium": "email",
+   "clicks": 2,
+   "views": 7,
+   "sessions": 6
+  },
+  {
+   "source": "test",
+   "medium": "verify",
+   "clicks": 2,
+   "views": 2,
+   "sessions": 1
+  },
+  {
+   "source": "chatgpt.com",
+   "medium": "ai-assistant",
+   "clicks": 1,
+   "views": 4,
+   "sessions": 3
+  },
+  {
+   "source": "VA LBHE ABDF Dbzfel",
+   "medium": "email",
+   "clicks": 0,
+   "views": 6,
+   "sessions": 6
+  },
+  {
+   "source": "duckduckgo",
+   "medium": "organic",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
+  },
+  {
+   "source": "kagi.com",
+   "medium": "referral",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
+  }
+ ],
+ "by_campaign": [
+  {
+   "campaign": "jackpotcomedy",
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 186,
+   "first": "2026-08-30",
+   "last": "2026-09-11",
+   "content": [
+    {
+     "content": "6964168949947",
+     "clicks": 181
+    }
+   ]
+  },
+  {
+   "campaign": "jackpotcomedy",
+   "source": "facebook",
+   "medium": "social",
+   "clicks": 10,
+   "first": "2026-08-30",
+   "last": "2026-08-30",
+   "content": []
+  },
+  {
+   "campaign": "jackpotcomedy-20260909",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 6,
+   "first": "2026-09-09",
+   "last": "2026-09-09",
+   "content": []
+  },
+  {
+   "campaign": "jackpotcomedy",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 3,
+   "first": "2026-08-26",
+   "last": "2026-09-05",
+   "content": [
+    {
+     "content": "link_in_bio",
+     "clicks": 2
+    }
+   ]
+  },
+  {
+   "campaign": "jackpotcomedy",
+   "source": "guidle",
+   "medium": "referral",
+   "clicks": 2,
+   "first": "2026-08-31",
+   "last": "2026-09-02",
+   "content": []
+  }
+ ],
+ "csv": "/assets/reports/jackpotcomedy.csv"
+}

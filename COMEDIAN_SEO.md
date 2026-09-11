@@ -15,8 +15,7 @@ Every `/comedians/<slug>/` page now emits:
   array is built from the comedian's social fields (Instagram, TikTok, Facebook, X,
   YouTube, Website) — this is the machine-readable "router" Google uses to tie the page
   to the person across platforms. `Person.memberOf` links them to the IYF Organization
-  node; `@id`s are distinct (`…/` for the page, `…/#person` for the person) so nothing
-  collides with jekyll-seo-tag's output.
+  node; `@id`s are distinct (`…/` for the page, `…/#person` for the person).
 - A visible **"Stand-Up Comedian · IN YOUR FACE Comedy, Zürich"** sub-line under the name
   (crawlable on-page relevance for "<name> comedian" — we deliberately do NOT use a
   `<meta name="keywords">` tag; that signal has been dead at Google since 2009).
@@ -26,6 +25,36 @@ Every `/comedians/<slug>/` page now emits:
 
 All of this is derived at build time from the Grist-synced front-matter. **Do not hand-edit
 `_comedians/*.md`** — change the data in Grist and re-run `script/sync-comedians.rb`.
+
+## The @id collision that broke every profile (fixed 2026-07-28, do not undo)
+
+Search Console reported `Invalid object type for field '<parent_node>'` on every
+`/comedians/<slug>/` page, so none of them were eligible for rich results.
+
+Google requires `ProfilePage` to be a **root** type, and it merges JSON-LD nodes that
+share an `@id`. jekyll-seo-tag emits, for any page it types `BlogPosting`, a stub
+`"mainEntityOfPage": {"@type":"WebPage","@id": <page url>}` — the exact `@id` our
+ProfilePage uses. The two merged, and our ProfilePage stopped being a root node: it
+became a **child of the BlogPosting**. That parent is what `<parent_node>` refers to.
+
+Comedian pages were the only ones hit because they are *collection documents*, and Jekyll
+gives every collection document a `date` — which is the condition seo-tag uses to decide
+something is a `BlogPosting`. (It also meant a person's profile claimed to be a blog post
+authored by the club, with a `datePublished` later than its `dateModified`.)
+
+The fix is one `defaults:` entry in `_config.yml` scoped to `type: comedians`, setting
+`seo.type: WebPage`. That short-circuits the date branch, and `WebPage` is outside
+seo-tag's `VALID_ENTITY_TYPES` (`BlogPosting`, `CreativeWork`), so the colliding stub is
+never emitted. Confirmed with validator.schema.org: the page went from two root nodes
+(`BlogPosting`, `BreadcrumbList`, ProfilePage swallowed) to three (`WebPage`,
+`BreadcrumbList`, **`ProfilePage`**), zero errors.
+
+`script/check-site.rb` now asserts both halves — no page emits `mainEntityOfPage`, and
+every page emits a root ProfilePage with a Person `mainEntity`. If a theme bump or gem
+upgrade brings the collision back, the health check fails before it reaches Google.
+
+After deploy, use Search Console → **Validate Fix** on the affected report so Google
+re-crawls rather than waiting for the natural cycle.
 
 ## The one thing to maintain: show → hosts mapping
 

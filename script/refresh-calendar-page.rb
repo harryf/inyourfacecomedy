@@ -166,6 +166,38 @@ ROW_DATE_RE = /\A(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+(\d{1
 FALLBACK_INFO = "English stand-up comedy you won't want to miss 🎤"
 def fallback_flavor(month_name, year) = "Live English stand-up comedy in Zürich — #{month_name} #{year}."
 
+# Per-show steering for the --init Info prompt, keyed by permalink slug. Lets one show
+# lean into its own running joke / iconography without polluting the generic prompt.
+# Use it to name the emoji palette and to ban anything off-limits for that show.
+# Add a line here, then re-fill that show's pool with:
+#   ruby script/refresh-calendar-page.rb --init --only <slug> --no-push
+SHOW_HINTS = {
+  "offsidecomedy" => "This is a football-themed comedy night for people who'd rather laugh " \
+    "than watch the match. Lean into football/soccer wordplay (offside, nil-nil, VAR, red " \
+    "card, own goal, penalty, kickoff, the beautiful game, extra time). Favour football " \
+    "emojis: ⚽ 🥅 🟥 🟨 🏆 🙌. HARD BAN: never mention the World Cup, any tournament name, " \
+    "or any country's team.",
+  # Bi-weekly Tuesday night at ROBIN's hosted by Woocash, whose whole brand is the
+  # non-obvious angle, so the teasers should feel a little sideways too.
+  "jokesjokesjokes" => "Hosted by Woocash (you may name him), a comedian known for " \
+    "off-beat, unpredictable, non-obvious humour. Lean into surprise: jokes from " \
+    "unexpected angles, punchlines nobody saw coming, comedians trying playful " \
+    "ideas. Favour playful emojis: 🎲 🙃 🎯 🌀 😂 🎤 🎭. Always call the host " \
+    "Woocash (his stage name), never a slug or handle.",
+  # This show is performed in ITALIAN. Without this steer an empty pool falls back to
+  # FALLBACK_INFO, which is English, and an English teaser on an Italian show is simply
+  # wrong (that is exactly what happened on 2026-07-27). The generic prompt already says
+  # "write in the show's language"; this pins the emoji palette and the running jokes too.
+  "promessi-spassi" => "This show is performed entirely in ITALIAN. Write EVERY line in " \
+    "Italian, never English. It is an open mic: established comics test new material and " \
+    "first-timers take their five minutes, hosted by Miguel and Nik (you may name them). " \
+    "Lean into Italian culture and the experience of speaking Italian abroad: gesturing, " \
+    "food, coffee, nonna, the congiuntivo, saying boh. Favour Italian emojis: 🇮🇹 🍕 🍝 " \
+    "🤌 👌 ☕ 🍷 😂 🙌 🎤 🎭. HARD BAN: never name a country, city, region or venue (not " \
+    "even Italia or Ticino) since the venue moves between dates. Elision apostrophes " \
+    "(l'unico, un'ora) are fine; double quotes are not.",
+}.freeze
+
 options = { init: false, dry_run: false, no_push: false, no_refresh: false, verbose: false,
             only: nil,
             pool_size: (ENV["CALENDAR_POOL_SIZE"] || 30).to_i,
@@ -232,6 +264,24 @@ def load_events
   end.select { |e| e[:start] && !e[:show].empty? }.sort_by { |e| e[:start] }
 end
 
+# comedian slug => display name, read from _comedians/*.md. A comedian is any file
+# in that directory (the repo's own definition) and its `slug:` front matter is the
+# key that _posts `hosts:` entries are matched against. Falls back to the filename
+# when `slug:` is absent, exactly as the rest of the repo does.
+def comedian_names
+  @comedian_names ||= Dir[File.join(ROOT, "_comedians", "*.md")].each_with_object({}) do |path, h|
+    raw = File.read(path, encoding: "UTF-8")
+    next unless raw.start_with?("---")
+    fm = (YAML.safe_load(raw.split(/^---\s*$/, 3)[1].to_s,
+                         permitted_classes: [Date, Time], aliases: true) rescue nil)
+    next unless fm.is_a?(Hash)
+    slug = fm["slug"].to_s
+    slug = File.basename(path, ".md") if slug.empty?
+    name = fm["title"].to_s
+    h[slug] = name unless name.empty?
+  end
+end
+
 # slug => {title, description, about} for the Info prompt, built from the show's
 # _posts page. A "show" is any post with a ticket_url (the repo's own definition).
 def show_descriptions
@@ -249,7 +299,14 @@ def show_descriptions
                   .gsub(/\[(.*?)\]\(.*?\)/, '\1')   # links → text
                   .gsub(/[#*_>`]/, " ")             # markdown punctuation
                   .gsub(/\s+/, " ").strip
-    hosts = Array(front["hosts"]).map { |s| s.to_s.split("-").map(&:capitalize).join(" ") }
+    # Resolve host slugs to REAL names via _comedians/, never by title-casing the
+    # slug. The slug is an Instagram-style handle ("harryf.cks", "martinadoescomedy",
+    # "sussmancomedy"), so the old `slug.split("-").map(&:capitalize)` produced
+    # "Harryf.cks" / "Martinadoescomedy" and fed those into the Info prompt, which
+    # duly wrote them into visitor-facing calendar copy. It also dropped accents
+    # ("Andrea Ramirez" for Andrea Ramírez). This mirrors what every Liquid template
+    # already does: site.comedians | where: "slug", slug | first, then .title.
+    hosts = Array(front["hosts"]).filter_map { |s| comedian_names[s.to_s] }
     h[slug] = { "title" => front["title"].to_s, "description" => front["description"].to_s,
                 "host" => hosts.join(", "), "about" => body[0, 800] }
   end
@@ -400,27 +457,44 @@ SEASONS = {
   9 => "early autumn", 10 => "autumn", 11 => "late autumn"
 }.freeze
 
-def info_pool_prompt(n, meta)
+def info_pool_prompt(n, meta, hint = nil)
   host = meta["host"].to_s.empty? ? "" : "Host(s): #{meta["host"]}. "
   src  = [meta["title"], meta["description"], meta["about"]].reject { |s| s.to_s.empty? }.join(" — ")
+  hint_block = hint.to_s.empty? ? "" : "\nSHOW-SPECIFIC STEER (follow this closely):\n#{hint}\n"
   <<~PROMPT
-    Below is one recurring stand-up comedy show. Write #{n} DISTINCT one-line TEASERS for
-    the "Info" column of a calendar — cute, playful hooks that make someone want to come,
-    each a different angle so the calendar stays fresh when this same show repeats week
-    after week. Ground them in the show's own theme, vibe and host(s):
+    You write the tiny "Info" teaser that sits next to one show in a what's-on calendar.
+    This is ONE recurring English stand-up comedy show. Write #{n} DISTINCT teasers — each a
+    genuinely different angle (a different joke, image, or hook), because this same show
+    repeats week after week and the calendar must never feel copy-pasted.
 
+    THE SHOW:
     #{host}#{one_line(src)[0, 900]}
+    #{hint_block}
+    WHAT MAKES A GOOD LINE:
+    - A specific, witty hook drawn from THIS show's own theme, running jokes or host(s) —
+      not a generic line that could describe any comedy night. If a line would fit every
+      show on the calendar, rewrite it.
+    - Inviting and playful, like a friend daring you to come, not a dry description.
+    - Vary the emoji across the set (don't end every line with 🎤/😂); pick one that lands
+      the specific joke in that line.
 
-    STRICT RULES for EVERY line:
-    - Do NOT mention any location, city, venue, country, neighbourhood or address (no
-      "Zürich", "Basel", bar names, etc.). The venue changes between dates, so naming it
-      would be wrong. Tease the SHOW and its host(s), never the place.
-    - Make it a cute, inviting teaser — playful, not a dry description.
-    - If the show is clearly performed in a language other than English (evident from the
-      text above — e.g. Spanish), write the lines in that language to match its voice.
-    - Max ~60 characters before a SINGLE trailing emoji that fits the line; plain text;
-      no quotation marks; no markdown; it must NOT contain the "|" character.
-    Output EXACTLY #{n} lines, one per row, nothing else (no numbering).
+    HARD RULES for EVERY line:
+    - Use a host's REAL NAME exactly as given above, never a username, handle or slug.
+      The names above are already the correct display names. Never invent a handle-style
+      form (no "Harryf.cks", no "Martinadoescomedy", no "Sussmancomedy"), never strip an
+      accent (it is "Andrea Ramírez", not "Andrea Ramirez"), and never prefix a name with
+      "@". If a name looks like a social-media handle to you, it is still the name: write
+      it as given or leave the person out of that line entirely.
+    - No location, city, venue, country, neighbourhood or address (no "Zürich", "Basel",
+      bar names). The venue changes between dates, so naming it would be wrong. Tease the
+      SHOW and its host(s), never the place.
+    - If the show is clearly performed in another language (e.g. Spanish, evident above),
+      write the lines in that language to match its voice.
+    - Keep it punchy: aim for 35-60 characters of text, then ONE single trailing emoji.
+    - HOUSE STYLE (WRITING_GUIDE.md): NEVER use an em dash (—) or en dash (–). Join clauses
+      with a comma, a colon, or parentheses instead. This is a hard rule, no exceptions.
+    - Plain text only: no quotation marks, no markdown, and it must NOT contain "|".
+    Output EXACTLY #{n} lines, one per row, nothing else (no numbering, no preamble).
   PROMPT
 end
 
@@ -432,6 +506,8 @@ def month_pool_prompt(k, month_name, month_num)
     of year and to comedy — warm and funny, not corny.
     Rules for EACH line: a single sentence, max ~140 characters, plain text, no emoji,
     no quotation marks, no markdown, and do NOT name a venue or specific address.
+    HOUSE STYLE (WRITING_GUIDE.md): NEVER use an em dash (—) or en dash (–); join clauses
+    with a comma, colon, or parenthesis instead. Hard rule, no exceptions.
     Output EXACTLY #{k} lines, one per row, nothing else.
   PROMPT
 end
@@ -452,7 +528,7 @@ def init_pools!(cache, events, options)
       say("  [skip] #{slug} — no _posts page to describe")
       next
     end
-    out = claude_say(info_pool_prompt(options[:pool_size], meta), options[:model])
+    out = claude_say(info_pool_prompt(options[:pool_size], meta, SHOW_HINTS[slug]), options[:model])
     lines = parse_lines(out, options[:pool_size])
     if lines.empty?
       say("  [warn] #{slug} — claude returned no usable lines")
@@ -496,10 +572,13 @@ def assign_show_info(cache, events)
     used   = []
 
     dates.each do |d|                                   # keep existing (stable / manual)
-      if prev[d] && !prev[d].to_s.empty?
-        result[d] = prev[d]
-        used << prev[d]
-      end
+      next unless prev[d] && !prev[d].to_s.empty?
+      # A prior FALLBACK assignment was a placeholder written when the pool was still
+      # empty — NOT a deliberate choice. Once the pool has real lines, let it be
+      # re-resolved below instead of sticking forever (the offsidecomedy bug).
+      next if prev[d] == FALLBACK_INFO && !pool.empty?
+      result[d] = prev[d]
+      used << prev[d]
     end
     dates.each do |d|                                   # assign new dates a distinct line
       next if result[d]
@@ -553,6 +632,18 @@ def git_run(*args)
   [out.strip, status.success?]
 end
 
+# Discard a generated data file whose ONLY diff is its `generated_at:` timestamp, so a
+# run that changed nothing real doesn't leave the tree dirty (or push a no-op rebuild).
+# The extractor re-stamps generated_at in calendar.yml + calendar_past.yml every run;
+# without this, calendar_past.yml (which this script regenerates but rarely changes)
+# is left modified-but-uncommitted. Mirrors refresh-next-event-dates.rb.
+def discard_if_only_timestamp(rel)
+  diff, _ = git_run("diff", "--unified=0", "--", rel)
+  return if diff.empty?
+  body = diff.lines.select { |l| l =~ /\A[+-]/ && l !~ /\A(\+\+\+|---)/ }
+  git_run("checkout", "--", rel) if body.any? && body.all? { |l| l =~ /\A[+-]generated_at:/ }
+end
+
 # ---------- IndexNow ----------
 # Push-notify Bing/Yandex/Seznam when the /calendar/ page changes, instead of waiting
 # for the next sitemap crawl. Same key + endpoint as the sibling cron scripts
@@ -592,8 +683,13 @@ rescue => e
 end
 
 def commit_and_push!
+  # The extractor re-stamps generated_at on the data files; drop a timestamp-only
+  # change so it neither churns a commit nor lingers as a dirty working tree.
+  discard_if_only_timestamp("_data/calendar.yml")
+  discard_if_only_timestamp("_data/calendar_past.yml")
+
   out, ok = git_run("add", "--", "pages/1_calendar.md", "script/calendar-copy.json",
-                    "_data/calendar.yml", "_data/venues.yml")
+                    "_data/calendar.yml", "_data/calendar_past.yml", "_data/venues.yml")
   raise "git add failed: #{out}" unless ok
 
   _, no_staged = git_run("diff", "--quiet", "--staged")

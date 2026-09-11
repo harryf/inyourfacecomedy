@@ -1,0 +1,464 @@
+{
+ "slug": "comedybrew",
+ "title": "Comedy Brew",
+ "ticket_url": "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html",
+ "event_type": "series",
+ "generated_at": "2026-09-11T08:20:02.487Z",
+ "since": "2026-08-26",
+ "pages_since": "2026-08-13",
+ "through": "2026-09-11",
+ "complete_through": "2026-09-09",
+ "totals": {
+  "clicks": 326,
+  "redirect": 263,
+  "click": 63,
+  "clicks_30d": 326,
+  "redirect_30d": 263,
+  "click_30d": 63,
+  "views": 261,
+  "views_30d": 261,
+  "sessions": 267,
+  "sessions_30d": 267,
+  "broken_links": 0,
+  "untagged": 1
+ },
+ "by_day": [
+  {
+   "date": "2026-08-13",
+   "redirect": 0,
+   "click": 0,
+   "views": 8,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-14",
+   "redirect": 0,
+   "click": 0,
+   "views": 5,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-15",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-16",
+   "redirect": 0,
+   "click": 0,
+   "views": 3,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-17",
+   "redirect": 0,
+   "click": 0,
+   "views": 7,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-18",
+   "redirect": 0,
+   "click": 0,
+   "views": 7,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-19",
+   "redirect": 0,
+   "click": 0,
+   "views": 16,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-20",
+   "redirect": 0,
+   "click": 0,
+   "views": 31,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-21",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-22",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-23",
+   "redirect": 0,
+   "click": 0,
+   "views": 5,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-24",
+   "redirect": 0,
+   "click": 0,
+   "views": 9,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-25",
+   "redirect": 0,
+   "click": 0,
+   "views": 13,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-26",
+   "redirect": 20,
+   "click": 3,
+   "views": 14,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-27",
+   "redirect": 18,
+   "click": 12,
+   "views": 12,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-28",
+   "redirect": 6,
+   "click": 2,
+   "views": 8,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-29",
+   "redirect": 2,
+   "click": 2,
+   "views": 5,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-30",
+   "redirect": 7,
+   "click": 3,
+   "views": 5,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-31",
+   "redirect": 2,
+   "click": 0,
+   "views": 1,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-01",
+   "redirect": 26,
+   "click": 2,
+   "views": 3,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-02",
+   "redirect": 36,
+   "click": 4,
+   "views": 11,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-03",
+   "redirect": 40,
+   "click": 6,
+   "views": 31,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-04",
+   "redirect": 7,
+   "click": 1,
+   "views": 4,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-05",
+   "redirect": 4,
+   "click": 0,
+   "views": 2,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-06",
+   "redirect": 8,
+   "click": 1,
+   "views": 6,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-07",
+   "redirect": 1,
+   "click": 9,
+   "views": 8,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-08",
+   "redirect": 35,
+   "click": 1,
+   "views": 5,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-09",
+   "redirect": 29,
+   "click": 8,
+   "views": 16,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-10",
+   "redirect": 22,
+   "click": 9,
+   "views": 22,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-11",
+   "redirect": 0,
+   "click": 0,
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
+  }
+ ],
+ "by_source": [
+  {
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 231,
+   "views": 1,
+   "sessions": 1
+  },
+  {
+   "source": "google",
+   "medium": "organic",
+   "clicks": 29,
+   "views": 111,
+   "sessions": 106
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 28,
+   "views": 103,
+   "sessions": 115
+  },
+  {
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 19,
+   "views": 5,
+   "sessions": 5
+  },
+  {
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 5,
+   "views": 3,
+   "sessions": 3
+  },
+  {
+   "source": "guidle",
+   "medium": "referral",
+   "clicks": 4,
+   "views": 3,
+   "sessions": 3
+  },
+  {
+   "source": "test",
+   "medium": "verify",
+   "clicks": 3,
+   "views": 3,
+   "sessions": 3
+  },
+  {
+   "source": "chatgpt.com",
+   "medium": "ai-assistant",
+   "clicks": 2,
+   "views": 5,
+   "sessions": 4
+  },
+  {
+   "source": "hellozurich.ch",
+   "medium": "referral",
+   "clicks": 2,
+   "views": 2,
+   "sessions": 2
+  },
+  {
+   "source": "bing",
+   "medium": "organic",
+   "clicks": 1,
+   "views": 3,
+   "sessions": 3
+  },
+  {
+   "source": "reddit.com",
+   "medium": "referral",
+   "clicks": 1,
+   "views": 1,
+   "sessions": 2
+  },
+  {
+   "source": "meta",
+   "medium": "untagged",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
+  },
+  {
+   "source": "ecosia.org",
+   "medium": "organic",
+   "clicks": 0,
+   "views": 8,
+   "sessions": 7
+  },
+  {
+   "source": "VA LBHE ABDF Dbzfel",
+   "medium": "email",
+   "clicks": 0,
+   "views": 5,
+   "sessions": 5
+  },
+  {
+   "source": "eventfrog.ch",
+   "medium": "referral",
+   "clicks": 0,
+   "views": 4,
+   "sessions": 4
+  },
+  {
+   "source": "duckduckgo",
+   "medium": "organic",
+   "clicks": 0,
+   "views": 3,
+   "sessions": 3
+  },
+  {
+   "source": "IN YOUR FACE Comedy",
+   "medium": "email",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
+  }
+ ],
+ "by_campaign": [
+  {
+   "campaign": "comedybrew",
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 229,
+   "first": "2026-08-26",
+   "last": "2026-09-10",
+   "content": [
+    {
+     "content": "120203748201470314",
+     "clicks": 176
+    }
+   ]
+  },
+  {
+   "campaign": "comedybrew-20260910",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 12,
+   "first": "2026-09-08",
+   "last": "2026-09-10",
+   "content": []
+  },
+  {
+   "campaign": "comedybrew-20260903",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 6,
+   "first": "2026-09-02",
+   "last": "2026-09-03",
+   "content": []
+  },
+  {
+   "campaign": "comedybrew",
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 3,
+   "first": "2026-08-27",
+   "last": "2026-09-10",
+   "content": []
+  },
+  {
+   "campaign": "comedybrew",
+   "source": "guidle",
+   "medium": "referral",
+   "clicks": 3,
+   "first": "2026-08-28",
+   "last": "2026-09-10",
+   "content": []
+  },
+  {
+   "campaign": "linktest",
+   "source": "test",
+   "medium": "verify",
+   "clicks": 2,
+   "first": "2026-08-30",
+   "last": "2026-08-30",
+   "content": [
+    {
+     "content": "go-link-dim",
+     "clicks": 2
+    }
+   ]
+  },
+  {
+   "campaign": "nerdycomedyshow",
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 2,
+   "first": "2026-08-26",
+   "last": "2026-08-26",
+   "content": []
+  }
+ ],
+ "csv": "/assets/reports/comedybrew.csv"
+}

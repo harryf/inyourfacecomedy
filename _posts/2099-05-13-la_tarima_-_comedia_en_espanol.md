@@ -3,7 +3,7 @@ layout: post
 editable: "true"
 title: La Tarima - Comedia en Español
 description: Zúrich habla español… y también se ríe en español.
-last_modified_at: 2026-06-06T08:39:00+00:00
+last_modified_at: 2026-09-11T07:00:02+00:00
 feature-img: /assets/img/uploads/ultra_mega_final_formato_1200_x_400_general_la_tarima_1200_x_400_px_.png
 image: /assets/img/uploads/ultra_mega_final_formato_1200_x_400_general_la_tarima_1200_x_400_px_.png
 thumbnail: /assets/img/uploads/last_one.png
@@ -11,12 +11,14 @@ excerpt_separator: <!--more-->
 permalink: /latarima/
 hosts:
   - "andrea-ramirez"
-ticket_url: https://eventfrog.ch/en/p/groups/la-tarima-comedia-en-espanol-7415721905318030787.html
+ticket_url: https://eventfrog.ch/en/p/groups/la-tarima-open-mic-7487916867123691072.html
 event_type: monthly
-venue_slug: the-beast-basel-comedy-club
-next_event_date: 2026-07-04T20:30:00+02:00
-next_event_end_date: 2026-07-04T22:30:00+02:00
-price_chf: 10
+language: es
+event_city_filter: Zürich
+venue_slug: yaman-caf-bar
+next_event_date: 2026-09-24T20:00:00+02:00
+next_event_end_date: 2026-09-24T22:00:00+02:00
+price_chf: 13
 ---
 ![La Tarima - Comedia en Español](/assets/img/uploads/last_one.png "La Tarima - Comedia en Español")
 

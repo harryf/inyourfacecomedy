@@ -1,0 +1,431 @@
+{
+ "slug": "promessi-spassi",
+ "title": "PROMESSI SPASSI",
+ "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478863182670358596.html",
+ "event_type": "one-off",
+ "generated_at": "2026-09-11T08:20:02.487Z",
+ "since": "2026-08-26",
+ "pages_since": "2026-08-13",
+ "through": "2026-09-11",
+ "complete_through": "2026-09-09",
+ "totals": {
+  "clicks": 1012,
+  "redirect": 1004,
+  "click": 8,
+  "clicks_30d": 1012,
+  "redirect_30d": 1004,
+  "click_30d": 8,
+  "views": 45,
+  "views_30d": 45,
+  "sessions": 48,
+  "sessions_30d": 48,
+  "broken_links": 0,
+  "untagged": 0
+ },
+ "by_day": [
+  {
+   "date": "2026-08-13",
+   "redirect": 0,
+   "click": 0,
+   "views": 2,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-14",
+   "redirect": 0,
+   "click": 0,
+   "views": 2,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-15",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-16",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-17",
+   "redirect": 0,
+   "click": 0,
+   "views": 2,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-18",
+   "redirect": 0,
+   "click": 0,
+   "views": 4,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-19",
+   "redirect": 0,
+   "click": 0,
+   "views": 2,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-20",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-21",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-22",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-23",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-24",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-25",
+   "redirect": 0,
+   "click": 0,
+   "views": 7,
+   "provisional": false,
+   "clicks_tracked": false
+  },
+  {
+   "date": "2026-08-26",
+   "redirect": 0,
+   "click": 0,
+   "views": 4,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-27",
+   "redirect": 13,
+   "click": 0,
+   "views": 4,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-28",
+   "redirect": 2,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-29",
+   "redirect": 1,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-30",
+   "redirect": 14,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-08-31",
+   "redirect": 62,
+   "click": 3,
+   "views": 2,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-01",
+   "redirect": 83,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-02",
+   "redirect": 69,
+   "click": 0,
+   "views": 1,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-03",
+   "redirect": 114,
+   "click": 0,
+   "views": 2,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-04",
+   "redirect": 101,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-05",
+   "redirect": 61,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-06",
+   "redirect": 90,
+   "click": 1,
+   "views": 1,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-07",
+   "redirect": 133,
+   "click": 2,
+   "views": 4,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-08",
+   "redirect": 89,
+   "click": 2,
+   "views": 6,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-09",
+   "redirect": 59,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-10",
+   "redirect": 86,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-11",
+   "redirect": 27,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  }
+ ],
+ "by_source": [
+  {
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 984,
+   "views": 1,
+   "sessions": 1
+  },
+  {
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 13,
+   "views": 0,
+   "sessions": 0
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 3,
+   "views": 13,
+   "sessions": 12
+  },
+  {
+   "source": "test",
+   "medium": "verify",
+   "clicks": 3,
+   "views": 1,
+   "sessions": 3
+  },
+  {
+   "source": "facebook",
+   "medium": "social",
+   "clicks": 3,
+   "views": 0,
+   "sessions": 0
+  },
+  {
+   "source": "IN YOUR FACE Comedy",
+   "medium": "email",
+   "clicks": 2,
+   "views": 11,
+   "sessions": 12
+  },
+  {
+   "source": "google",
+   "medium": "organic",
+   "clicks": 1,
+   "views": 11,
+   "sessions": 10
+  },
+  {
+   "source": "duckduckgo",
+   "medium": "organic",
+   "clicks": 1,
+   "views": 1,
+   "sessions": 1
+  },
+  {
+   "source": "instagram",
+   "medium": "bio",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
+  },
+  {
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
+  },
+  {
+   "source": "VA LBHE ABDF Dbzfel",
+   "medium": "email",
+   "clicks": 0,
+   "views": 3,
+   "sessions": 5
+  },
+  {
+   "source": "facebook.com",
+   "medium": "referral",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
+  },
+  {
+   "source": "l.instagram.com",
+   "medium": "referral",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
+  },
+  {
+   "source": "m.facebook.com",
+   "medium": "referral",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
+  },
+  {
+   "source": "myswitzerland.com",
+   "medium": "referral",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
+  }
+ ],
+ "by_campaign": [
+  {
+   "campaign": "promessi-spassi",
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 984,
+   "first": "2026-08-30",
+   "last": "2026-09-11",
+   "content": [
+    {
+     "content": "52672614093400",
+     "clicks": 901
+    },
+    {
+     "content": "52672431580800",
+     "clicks": 46
+    },
+    {
+     "content": "52673618076600",
+     "clicks": 16
+    }
+   ]
+  },
+  {
+   "campaign": "promessi-spassi",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 13,
+   "first": "2026-08-27",
+   "last": "2026-09-09",
+   "content": [
+    {
+     "content": "link_in_bio",
+     "clicks": 8
+    }
+   ]
+  },
+  {
+   "campaign": "promessi-spassi",
+   "source": "facebook",
+   "medium": "social",
+   "clicks": 3,
+   "first": "2026-08-27",
+   "last": "2026-08-27",
+   "content": []
+  },
+  {
+   "campaign": "promessi-spassi",
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 1,
+   "first": "2026-09-06",
+   "last": "2026-09-06",
+   "content": []
+  }
+ ],
+ "csv": "/assets/reports/promessi-spassi.csv"
+}
