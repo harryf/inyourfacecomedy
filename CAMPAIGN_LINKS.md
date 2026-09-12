@@ -95,6 +95,29 @@ setTimeout(go, 450);            // ad blocker / gtag-missing fallback, whichever
 // go() = window.location.replace(target)
 ```
 
+**The Meta pixel gets the same click.** `_layouts/go.html` loads the pixel (a copy of the
+head.liquid snippet, gated on the live host and the `?notrack=1` flag like gtag on the same
+page, so previews and the promoter's own clicks stay out of the Meta audiences) and fires
+`PageView`; the script then sends, before the GA event:
+
+```js
+fbq('trackCustom', 'TicketRedirect', {
+  content_name: slug, content_ids: [slug], content_type: 'product',
+  show_date, days_to_show, price_chf, value, currency: 'CHF', link, resolution
+}, { eventID: newEventId() });
+```
+
+Nothing waits on it: the inline stub queues the call and `fbevents.js` flushes it when it
+loads (the layout preconnects to `connect.facebook.net`), so a blocked pixel costs the
+redirect nothing, and an unknown show sends no pixel event at all. In Ads Manager this makes
+two things possible: a website custom audience of people who clicked for tickets (URL
+contains `/go/`, or the `TicketRedirect` event, optionally per `content_name`), and an ad set
+optimised for `TicketRedirect` as a custom conversion with `value` as the ticket price. The
+`eventID` is there so a server-side Conversions API event for the same click, if one is ever
+added (it would need a Netlify function, the page itself is static), deduplicates against the
+browser event. Purchases still happen on Eventfrog and stay invisible to the pixel on the
+Free plan.
+
 The redirect must never depend on GA succeeding: with gtag blocked or absent, the timeout
 fires and the visitor still gets their tickets. The page body shows "Taking you to tickets
 for {show}..." with the resolved link rendered as a normal anchor (so a slow or broken script

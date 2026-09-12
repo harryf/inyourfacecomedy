@@ -19,6 +19,8 @@ const go = require("../../../_includes/go-redirect.js") as {
   linkTag: (p: URLSearchParams) => string;
   daysToShow: (showDate: string, today: string) => string;
   showParams: (res: unknown, today: string) => Record<string, unknown>;
+  pixelParams: (res: unknown, params: URLSearchParams, today: string) => Record<string, unknown>;
+  newEventId: () => string;
 };
 
 const SHOWS = [
@@ -195,5 +197,39 @@ describe("go-redirect • show context for GA (ANALYTICS.md)", () => {
   test("an unknown show adds nothing to the event", () => {
     expect(go.showParams(go.resolveTarget(SHOWS, EVENTS, "nope", "", TODAY), TODAY)).toEqual({});
     expect(go.showParams(null, TODAY)).toEqual({});
+  });
+});
+
+describe("go-redirect • Meta pixel TicketRedirect payload", () => {
+  const P = new URLSearchParams("show=comedybrew&date=2026-09-03&utm_source=meta&utm_medium=paid_social&utm_campaign=comedybrew-20260903");
+
+  test("a date link names the show as content and carries the same context as GA", () => {
+    const r = go.resolveTarget(SHOWS, EVENTS, "comedybrew", "2026-09-03", TODAY);
+    expect(go.pixelParams(r, P, TODAY)).toEqual({
+      content_name: "comedybrew", content_ids: ["comedybrew"], content_type: "product",
+      show_date: "2026-09-03", days_to_show: "08-14", price_chf: 10, value: 10, currency: "CHF",
+      link: "meta|paid_social|comedybrew-20260903|", resolution: "event",
+    });
+  });
+
+  test("a series link reports the show's next date and a series resolution", () => {
+    const r = go.resolveTarget(SHOWS, EVENTS, "jackpotcomedy", "", TODAY);
+    const p = go.pixelParams(r, new URLSearchParams("show=jackpotcomedy"), TODAY);
+    expect(p.content_name).toBe("jackpotcomedy");
+    expect(p.show_date).toBe("2026-09-16");
+    expect(p.resolution).toBe("series");
+    expect(p.link).toBe("");
+  });
+
+  test("an unknown show sends no pixel event (a broken link is not ticket intent)", () => {
+    expect(go.pixelParams(go.resolveTarget(SHOWS, EVENTS, "nope", "", TODAY), P, TODAY)).toEqual({});
+    expect(go.pixelParams(null, P, TODAY)).toEqual({});
+  });
+
+  test("newEventId is unique per call and non-empty", () => {
+    const a = go.newEventId();
+    const b = go.newEventId();
+    expect(a.length).toBeGreaterThan(20);
+    expect(a).not.toBe(b);
   });
 });

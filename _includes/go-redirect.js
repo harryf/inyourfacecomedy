@@ -15,6 +15,10 @@
  *    unknown show slug      → /404.html?from=go&show=<slug>&utm_… — deliberately
  *                             loud, so GA can alert on broken campaign links
  *
+ *  Meta: when _layouts/go.html has loaded the pixel (live host, not notrack), the
+ *  same click is sent as a TicketRedirect custom event with an eventID, before the
+ *  GA event; it never delays the redirect.
+ *
  *  GA: this file is INLINED into the page by pages/go.md (it lives in _includes/,
  *  not assets/, so there is no separate fetch on the redirect hot path), and
  *  _layouts/go.html carries its own inline gtag config, so the GA pipeline starts
@@ -45,7 +49,9 @@
       build404: build404,
       linkTag: linkTag,
       daysToShow: daysToShow,
-      showParams: showParams
+      showParams: showParams,
+      pixelParams: pixelParams,
+      newEventId: newEventId
     };
     return;
   }
@@ -145,6 +151,38 @@
     };
   }
 
+  /** Meta pixel payload for the TicketRedirect custom event (CAMPAIGN_LINKS.md,
+   *  "Capturing the UTM tags in GA"). Same facts as the GA event, in the names Meta
+   *  reads: content_name/content_ids carry the slug so an audience or a conversion can
+   *  be built per show; value/currency let an ad set optimise on ticket price. Pure;
+   *  {} when the show is unknown (a broken link is not a ticket intent). */
+  function pixelParams(res, params, today) {
+    if (!res || !res.show) return {};
+    var ctx = showParams(res, today);
+    return {
+      content_name: res.show.slug,
+      content_ids: [res.show.slug],
+      content_type: 'product',
+      show_date: ctx.show_date,
+      days_to_show: ctx.days_to_show,
+      price_chf: ctx.price_chf,
+      value: ctx.value,
+      currency: ctx.currency,
+      link: linkTag(params),
+      resolution: res.kind
+    };
+  }
+
+  /** One id per click, sent as the pixel eventID so a server-side Conversions API
+   *  event for the same click (if one is ever added) deduplicates against it. */
+  function newEventId() {
+    var c = (typeof crypto !== 'undefined') ? crypto : null;
+    if (c && typeof c.randomUUID === 'function') return c.randomUUID();
+    var s = '';
+    for (var i = 0; i < 32; i++) s += Math.floor(Math.random() * 16).toString(16);
+    return 'go-' + s;
+  }
+
   /** Broken-link landing: our own 404 with the evidence, UTMs preserved so GA
    *  attributes the breakage to the campaign that carried it. Pure. */
   function build404(search, showParam) {
@@ -240,6 +278,16 @@
   };
   var extra = showParams(res, today);
   for (var k in extra) { if (Object.prototype.hasOwnProperty.call(extra, k)) payload[k] = extra[k]; }
+
+  // Meta pixel first: fbq is the queueing stub from _layouts/go.html when the pixel is
+  // on (live host, not notrack) and undefined otherwise. The call queues instantly and
+  // fbevents.js flushes it when it loads; nothing here waits on it, so a blocked or
+  // absent pixel costs the redirect nothing. Same race as the GA event.
+  var pixel = pixelParams(res, params, today);
+  if (typeof window.fbq === 'function' && pixel.content_name) {
+    try { window.fbq('trackCustom', 'TicketRedirect', pixel, { eventID: newEventId() }); } catch (err) {}
+  }
+
   gaPush('event', 'ticket_redirect', payload);
   setTimeout(function () { trigger = trigger || 'timeout(' + REDIRECT_DELAY_MS + 'ms)'; go(); }, REDIRECT_DELAY_MS);
 })();

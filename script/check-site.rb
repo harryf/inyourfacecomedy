@@ -224,6 +224,10 @@ check("homepage has GA tag G-JZBDD4CQWV")        { [home.include?("G-JZBDD4CQWV"
 check("homepage has GTM container GTM-M7Z9D4Z")  { [home.include?("GTM-M7Z9D4Z"), "missing GTM"] }
 check("homepage has Clarity id qbtk7v2ls4")      { [home.include?("qbtk7v2ls4"), "missing Clarity"] }
 check("homepage has Meta Pixel 5349931195130820"){ [home.include?("5349931195130820"), "missing Pixel"] }
+check("/go/ has the Meta Pixel and fires TicketRedirect (campaign clicks reach Meta)") do
+  g = read_site("go/index.html")
+  [g.include?("5349931195130820") && g.include?("TicketRedirect"), "pixel or event missing on /go/"]
+end
 check("homepage emits Organization JSON-LD with sameAs") do
   org = ld_json_blocks(home).flat_map { |b| b.is_a?(Array) ? b : (b["@graph"] || [b]) }
                             .find { |o| o.is_a?(Hash) && o["@type"].to_s == "Organization" }

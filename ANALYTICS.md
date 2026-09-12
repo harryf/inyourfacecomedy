@@ -180,6 +180,12 @@ check the `ticket_redirect` request carries the same plus `ep.link`, `epn.value`
 `ep.currency`. One `page_view` per load to `G-JZBDD4CQWV`, not two. DebugView (Admin >
 DebugView, needs `debug_mode`) shows the same thing with names instead of `ep.` keys.
 
+For the Meta side, on the same `/go/?show=comedybrew&debug=1` load filter Network for
+`facebook.com/tr` and check two requests: `ev=PageView` and `ev=TicketRedirect` with
+`cd[content_name]=comedybrew`, `cd[value]` and `cd[currency]=CHF`. Meta Events Manager >
+Test events shows them by name within a minute. Neither request appears on a Netlify
+preview or after `?notrack=1`, by design.
+
 ## Things not to do
 
 - Do not archive `show` or `link`: `script/ga-report.ts` queries them by name.

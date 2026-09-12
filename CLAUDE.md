@@ -63,7 +63,7 @@ All unlisted: `noindex`, `sitemap: false`, `hide: true`, `robots.txt` disallow, 
 
 | URL | What | Owner doc |
 |---|---|---|
-| `/go/?show=<slug>[&date=YYYY-MM-DD]&utm_*` | The click tracker. GA records the tagged visit, then redirects to the show's Eventfrog page. Destinations resolve only against the build-time catalogs in `_includes/go-catalogs.liquid`; unknown slugs land on `/404.html?from=go&show=…` so broken links show up in GA | `CAMPAIGN_LINKS.md` |
+| `/go/?show=<slug>[&date=YYYY-MM-DD]&utm_*` | The click tracker. GA records the tagged visit and the Meta pixel gets a `TicketRedirect` event (live host only, honours `?notrack=1`), then it redirects to the show's Eventfrog page. Destinations resolve only against the build-time catalogs in `_includes/go-catalogs.liquid`; unknown slugs land on `/404.html?from=go&show=…` so broken links show up in GA | `CAMPAIGN_LINKS.md` |
 | `/linkbuilder/` | Phone-first UTM link builder for `/go/` and site pages. Google Ads is deliberately not a source (destination-mismatch policy) | `CAMPAIGN_LINKS.md` |
 | `/reports/` | Daily per-show ticket-click reports; `ticket_click` (on-site buttons, `assets/js/ticket-click.js`) plus `ticket_redirect` (via `/go/`) | `CAMPAIGN_LINKS.md`, "Show reports" |
 | Google Analytics (property 336856557) | Every page sets `content_group` plus, on show pages, `show`, `venue`, `show_date`, `days_to_show`, `price_chf` via `_includes/ga-page-context.liquid`; ticket events carry the same. Property config is code: `script/ga-setup.ts`; show-date annotations: `script/ga-annotations.ts`. GA is off on any host but `inyourfacecomedy.ch` | `ANALYTICS.md` |

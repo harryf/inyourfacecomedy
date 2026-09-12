@@ -11,8 +11,9 @@ description: "Passing you to the ticket page for an IN YOUR FACE Comedy show."
 
 {% comment %}
   /go/?show=<slug>[&date=YYYY-MM-DD]&utm_… — the campaign-link redirector.
-  GA records the visit (UTMs and all), then assets/js/go-redirect.js passes the
-  visitor to the show's Eventfrog page, resolved ONLY against the embedded
+  GA records the visit (UTMs and all) and the Meta pixel gets a TicketRedirect
+  event, then _includes/go-redirect.js (inlined below) passes the visitor to the
+  show's Eventfrog page, resolved ONLY against the embedded
   catalogs below. Unknown show slugs land on our own 404 with the evidence in
   the query string so GA can alert on broken campaign links. Full design +
   the speed budget: CAMPAIGN_LINKS.md.
