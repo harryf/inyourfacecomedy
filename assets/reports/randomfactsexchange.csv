@@ -3,5 +3,6 @@ datetime,event,source,medium,campaign,content,page
 2026-09-03 09:50,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
 2026-09-05 13:54,ticket_click,google,organic,,,https://inyourfacecomedy.ch/randomfactsexchange/
 2026-09-08 21:05,ticket_click,google,organic,,,https://inyourfacecomedy.ch/randomfactsexchange/
-2026-09-10 17:40,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/randomfactsexchange/
-2026-09-10 17:40,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/randomfactsexchange/
+2026-09-10 17:40,ticket_click,google,organic,,,https://inyourfacecomedy.ch/randomfactsexchange/
+2026-09-10 17:40,ticket_click,google,organic,,,https://inyourfacecomedy.ch/randomfactsexchange/
+2026-09-10 20:10,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/

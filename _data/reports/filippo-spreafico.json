@@ -3,34 +3,26 @@
  "title": "Filippo Spreafico",
  "ticket_url": "https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/filippo-spreafico-italian-rhapsody-comedy-in-english-7487867600443024331.html",
  "event_type": "one-off",
- "generated_at": "2026-09-11T08:20:02.487Z",
+ "generated_at": "2026-09-12T08:20:02.741Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-13",
- "through": "2026-09-11",
- "complete_through": "2026-09-09",
+ "pages_since": "2026-08-14",
+ "through": "2026-09-12",
+ "complete_through": "2026-09-10",
  "totals": {
-  "clicks": 8,
-  "redirect": 0,
-  "click": 8,
-  "clicks_30d": 8,
-  "redirect_30d": 0,
-  "click_30d": 8,
-  "views": 39,
-  "views_30d": 39,
-  "sessions": 40,
-  "sessions_30d": 40,
+  "clicks": 15,
+  "redirect": 3,
+  "click": 12,
+  "clicks_30d": 15,
+  "redirect_30d": 3,
+  "click_30d": 12,
+  "views": 52,
+  "views_30d": 52,
+  "sessions": 51,
+  "sessions_30d": 51,
   "broken_links": 0,
-  "untagged": 0
+  "untagged": 1
  },
  "by_day": [
-  {
-   "date": "2026-08-13",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-14",
    "redirect": 0,
@@ -251,12 +243,20 @@
    "date": "2026-09-10",
    "redirect": 0,
    "click": 1,
-   "views": 2,
-   "provisional": true,
+   "views": 4,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-11",
+   "redirect": 3,
+   "click": 4,
+   "views": 11,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-12",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -268,23 +268,30 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 4,
-   "views": 13,
-   "sessions": 10
+   "clicks": 5,
+   "views": 16,
+   "sessions": 13
   },
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 2,
+   "clicks": 5,
    "views": 8,
    "sessions": 8
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 2,
-   "views": 1,
-   "sessions": 3
+   "clicks": 4,
+   "views": 10,
+   "sessions": 10
+  },
+  {
+   "source": "meta",
+   "medium": "untagged",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
   },
   {
    "source": "l.instagram.com",
@@ -304,8 +311,8 @@
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
    "clicks": 0,
-   "views": 3,
-   "sessions": 3
+   "views": 4,
+   "sessions": 4
   },
   {
    "source": "instagram",
@@ -322,6 +329,16 @@
    "sessions": 1
   }
  ],
- "by_campaign": [],
+ "by_campaign": [
+  {
+   "campaign": "filippo-spreafico",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 3,
+   "first": "2026-09-11",
+   "last": "2026-09-11",
+   "content": []
+  }
+ ],
  "csv": "/assets/reports/filippo-spreafico.csv"
 }

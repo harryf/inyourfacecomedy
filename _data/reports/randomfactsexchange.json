@@ -3,34 +3,26 @@
  "title": "Random Facts Exchange",
  "ticket_url": "https://eventfrog.ch/en/p/groups/random-facts-exchange-7434337254674303477.html",
  "event_type": "series",
- "generated_at": "2026-09-11T08:20:02.487Z",
+ "generated_at": "2026-09-12T08:20:02.741Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-13",
- "through": "2026-09-11",
- "complete_through": "2026-09-09",
+ "pages_since": "2026-08-14",
+ "through": "2026-09-12",
+ "complete_through": "2026-09-10",
  "totals": {
-  "clicks": 6,
+  "clicks": 7,
   "redirect": 0,
-  "click": 6,
-  "clicks_30d": 6,
+  "click": 7,
+  "clicks_30d": 7,
   "redirect_30d": 0,
-  "click_30d": 6,
-  "views": 17,
-  "views_30d": 17,
-  "sessions": 18,
-  "sessions_30d": 18,
+  "click_30d": 7,
+  "views": 18,
+  "views_30d": 18,
+  "sessions": 17,
+  "sessions_30d": 17,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-13",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-14",
    "redirect": 0,
@@ -250,9 +242,9 @@
   {
    "date": "2026-09-10",
    "redirect": 0,
-   "click": 2,
-   "views": 3,
-   "provisional": true,
+   "click": 3,
+   "views": 4,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
@@ -262,22 +254,30 @@
    "views": 1,
    "provisional": true,
    "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-12",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
   }
  ],
  "by_source": [
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 4,
-   "views": 9,
-   "sessions": 8
+   "clicks": 6,
+   "views": 12,
+   "sessions": 11
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 2,
-   "views": 3,
-   "sessions": 6
+   "clicks": 1,
+   "views": 1,
+   "sessions": 2
   },
   {
    "source": "duckduckgo",
