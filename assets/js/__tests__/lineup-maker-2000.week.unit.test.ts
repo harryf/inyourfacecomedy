@@ -214,3 +214,83 @@ describe("round seven: the station board's taglines and dates", () => {
     expect(lm4.weekDateBoard("nope")).toBe("");
   });
 });
+
+describe("round eight: the calendar's Info lines on the week image", () => {
+  const lm5 = require("../lineup-maker-2000.js") as {
+    weekInfoFor: (infos: { show: string; date: string; info: string }[], e: { show: string; date: string }) => string;
+    stripEmoji: (s: string) => string;
+    weekCaption: (events: Ev[], shows: unknown[], from: string, infos?: { show: string; date: string; info: string }[]) => string;
+    weekEvents: (events: Ev[], from: string) => Ev[];
+  };
+  const INFOS = [
+    { show: "jackpotcomedy", date: "2026-09-13", info: "Some punchlines land, some crash. All worth it 🎲" },
+    { show: "comedybrew", date: "2026-09-17", info: "Cult-free socialising powered by English comedy 😈" },
+    { show: "", date: "", info: "" },
+  ];
+  test("weekInfoFor finds the line for the show on that date, nothing otherwise", () => {
+    expect(lm5.weekInfoFor(INFOS, { show: "jackpotcomedy", date: "2026-09-13" })).toBe("Some punchlines land, some crash. All worth it 🎲");
+    expect(lm5.weekInfoFor(INFOS, { show: "Jackpot-Comedy", date: "2026-09-13" })).toBe("Some punchlines land, some crash. All worth it 🎲");
+    expect(lm5.weekInfoFor(INFOS, { show: "jackpotcomedy", date: "2026-09-20" })).toBe("");
+    expect(lm5.weekInfoFor([], { show: "jackpotcomedy", date: "2026-09-13" })).toBe("");
+    expect(lm5.weekInfoFor(INFOS, { show: "", date: "" })).toBe("");
+  });
+  test("stripEmoji leaves the words and trims", () => {
+    expect(lm5.stripEmoji("Some punchlines land, some crash. All worth it 🎲")).toBe("Some punchlines land, some crash. All worth it");
+    expect(lm5.stripEmoji("Finalmente una serata di risate in italiano 🇮🇹")).toBe("Finalmente una serata di risate in italiano");
+    expect(lm5.stripEmoji("Free entry: Teddy Hall and friends 🆓")).toBe("Free entry: Teddy Hall and friends");
+    expect(lm5.stripEmoji("no emoji here")).toBe("no emoji here");
+    expect(lm5.stripEmoji("")).toBe("");
+  });
+  test("the caption carries the Info line under its show when infos are given", () => {
+    const evs = lm5.weekEvents(EVENTS, "2026-09-13");
+    const cap = lm5.weekCaption(evs, SHOWS, "2026-09-13", INFOS);
+    expect(cap).toContain("Sun 13 Sep · 20:00 · Jackpot Comedy · Bar OTRO\n   Some punchlines land, some crash. All worth it 🎲");
+    expect(cap).toContain("Thu 17 Sep · 19:30 · Comedy Brew · ROBIN's\n   Cult-free socialising powered by English comedy 😈");
+    expect(lm5.weekCaption(evs, SHOWS, "2026-09-13")).not.toContain("punchlines");
+  });
+});
+
+describe("round nine: the Info line wraps before it shrinks; venues print two words", () => {
+  const lm6 = require("../lineup-maker-2000.js") as {
+    weekInfoLines: (ctx: unknown, text: string, maxW: number, startPx: number, minPx: number, weight: string, family: string, maxLines?: number) => { px: number; lines: string[] };
+    weekVenueShort: (venue: string) => string;
+  };
+  // a measuring context where every glyph is half the font size wide
+  function fakeCtx() {
+    const ctx = { font: "", measureText(s: string) { const px = parseInt((/(\d+)px/.exec(ctx.font) || ["", "0"])[1], 10); return { width: s.length * px * 0.5 }; } };
+    return ctx;
+  }
+  test("a short line stays one line at the start size", () => {
+    const r = lm6.weekInfoLines(fakeCtx(), "Fresh pint of funny", 600, 28, 16, "500", "Inter");
+    expect(r).toEqual({ px: 28, lines: ["Fresh pint of funny"] });
+  });
+  test("a long line wraps to two lines at the start size instead of shrinking", () => {
+    const text = "New material night, zero douchebags policy, pay what you like";   // 61 chars, 854 px at 28
+    const r = lm6.weekInfoLines(fakeCtx(), text, 600, 28, 16, "500", "Inter");
+    expect(r.px).toBe(28);
+    expect(r.lines.length).toBe(2);
+    expect(r.lines.join(" ")).toBe(text);
+  });
+  test("it shrinks only when two lines will not hold the text", () => {
+    const text = "New material night, zero douchebags policy, pay what you like";
+    const r = lm6.weekInfoLines(fakeCtx(), text, 300, 28, 16, "500", "Inter");
+    expect(r.px).toBeLessThan(28);
+    expect(r.lines.length).toBeLessThanOrEqual(2);
+  });
+  test("maxLines 1 keeps a single fitted line", () => {
+    const text = "New material night, zero douchebags policy, pay what you like";
+    const r = lm6.weekInfoLines(fakeCtx(), text, 600, 28, 16, "400", "Inter", 1);
+    expect(r.lines).toEqual([text]);
+    expect(r.px).toBe(18);   // 61 * 9 = 549 fits, 61 * 10 = 610 does not
+  });
+  test("empty text gives no lines and sets nothing", () => {
+    expect(lm6.weekInfoLines(fakeCtx(), "", 600, 28, 16, "500", "Inter")).toEqual({ px: 28, lines: [] });
+  });
+  test("weekVenueShort keeps the first two words", () => {
+    expect(lm6.weekVenueShort("Natural History Museum of the University of Zurich")).toBe("Natural History");
+    expect(lm6.weekVenueShort("YAMAN Café-Bar")).toBe("YAMAN Café-Bar");
+    expect(lm6.weekVenueShort("ROBIN's")).toBe("ROBIN's");
+    expect(lm6.weekVenueShort("  Bar   OTRO ")).toBe("Bar OTRO");
+    expect(lm6.weekVenueShort("")).toBe("");
+  });
+});

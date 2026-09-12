@@ -388,6 +388,26 @@ check("/week/ #iyf-week-events valid JSON, count == calendar events") do
   n = (YAML.load_file(File.join(ROOT, "_data/calendar.yml"))["events"] || []).length
   [data.is_a?(Array) && data.length == n, "got #{data&.length.inspect} vs #{n}"]
 end
+check("/week/ #iyf-week-info count == assigned Info lines in _data/calendar-copy.json") do
+  data = inline_json(week_html, "iyf-week-info")
+  pools = JSON.parse(File.read(File.join(__dir__, "..", "_data", "calendar-copy.json")))
+  want = pools["show_info"].values.sum { |v| (v["assigned"] || {}).size }
+  got = data.is_a?(Array) ? data.count { |r| r["show"].to_s != "" } : -1
+  [got == want && want > 0, "got #{got}, want #{want}"]
+end
+# The copy pools moved from script/ to _data/ (round eight of the Week Story): the refresh
+# script, the add-event hint and the docs must all point at the one file, or a cron run
+# would recreate the old one and the calendar and the week story would drift apart.
+check("Anti: nothing references the old script/ path of calendar-copy.json (pools live in _data/)") do
+  root = File.expand_path("..", __dir__)
+  files = Dir.glob(File.join(root, "{script,pages,_includes,_layouts}/**/*.{rb,ts,md,liquid,html}")) + Dir.glob(File.join(root, "*.md"))
+  hits = files.select { |f| File.read(f).include?("script/" + "calendar-copy.json") }.map { |f| f.sub(root + "/", "") }
+  [hits.empty?, "still referenced by #{hits.join(', ')}"]
+end
+check("refresh-calendar-page.rb reads and git-adds _data/calendar-copy.json") do
+  src = File.read(File.join(__dir__, "refresh-calendar-page.rb"))
+  [src.include?('File.join(ROOT, "_data", "calendar-copy.json")') && src.include?('"_data/calendar-copy.json"'), "path mismatch"]
+end
 check("/week/ #iyf-shows carries hosts + thumb per show") do
   data = inline_json(week_html, "iyf-shows")
   [data.is_a?(Array) && data.all? { |sh| sh.key?("hosts") && sh.key?("thumb") }, "hosts/thumb missing"]

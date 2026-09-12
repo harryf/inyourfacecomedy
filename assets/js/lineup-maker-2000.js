@@ -49,7 +49,7 @@
       stubLines: stubLines, stubLine: stubLine,
       weekWindow: weekWindow, weekEvents: weekEvents, weekHeadlines: weekHeadlines, weekCopy: weekCopy,
       weekHandles: weekHandles, weekHandlesText: weekHandlesText, weekCaption: weekCaption, weekCalLink: function () { return WEEK_CAL_LINK; },
-      weekIsoWeek: weekIsoWeek, weekComicLayout: weekComicLayout, flapLines: flapLines, weekComicWeight: weekComicWeight, weekMenuPrice: weekMenuPrice, showTagline: showTagline, weekDateBoard: weekDateBoard,
+      weekIsoWeek: weekIsoWeek, weekComicLayout: weekComicLayout, flapLines: flapLines, weekComicWeight: weekComicWeight, weekMenuPrice: weekMenuPrice, showTagline: showTagline, weekDateBoard: weekDateBoard, weekInfoFor: weekInfoFor, stripEmoji: stripEmoji, weekInfoLines: weekInfoLines, weekVenueShort: weekVenueShort,
       isGuest: isGuest, guestName: guestName, guestToken: guestToken, instaHandle: instaHandle
     };
     return;
@@ -1000,7 +1000,7 @@
           l.href = 'https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Permanent+Marker&display=swap';
           document.head.appendChild(l);
         }
-        var faces = ['400 64px "Anton"', '64px "Permanent Marker"', '700 48px "Inter"', '500 40px "Inter"'];
+        var faces = ['400 64px "Anton"', '64px "Permanent Marker"', '700 48px "Inter"', '500 40px "Inter"', '400 40px "Inter"'];   // 400 too: the station board measures regular text before it draws
         if (document.fonts && document.fonts.load) {
           Promise.all(faces.map(function (f) { return document.fonts.load(f).catch(function () {}); }))
             .then(function () { return document.fonts.ready; }).then(resolve, resolve);
@@ -2843,6 +2843,18 @@
     var d = parseYmd(dateStr), MB = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     return d ? d.getDate() + ' ' + MB[d.getMonth()] : '';
   }
+  // The calendar page's Info line for an event: the line assigned to that show on that date
+  // by refresh-calendar-page.rb (so the story says what /calendar/ says). '' when none. Pure; exported.
+  function weekInfoFor(infos, e) {
+    var k = norm(e && e.show), d = String(e && e.date || '');
+    for (var i = 0; i < (infos || []).length; i++) if (infos[i] && norm(infos[i].show) === k && String(infos[i].date) === d) return String(infos[i].info || '').trim();
+    return '';
+  }
+  // Drop pictographs, variation selectors and joiners: for the objects that never show an emoji. Pure; exported.
+  function stripEmoji(s) { return String(s || '').replace(/[\p{Extended_Pictographic}\u{1F1E6}-\u{1F1FF}\u{1F100}-\u{1F1E5}\u{FE0F}\u{200D}\u{20E3}]/gu, '').replace(/\s+/g, ' ').trim(); }
+  // The venue as the image prints it: the first two words (Harry: the museum's full name was
+  // throwing the flyers off). The caption keeps the full name. Pure; exported.
+  function weekVenueShort(venue) { return String(venue || '').trim().split(/\s+/).slice(0, 2).join(' '); }
   function weekDateNice(dateStr) { var d = parseYmd(dateStr); return d ? d.getDate() + ' ' + MO[d.getMonth()] : ''; }   // "13 Sep", for running text
   function weekTime(e) { var mm = /T(\d{2}:\d{2})/.exec(String(e && e.start || '')); return mm ? mm[1] : ''; }
   function weekShowName(e, shows) { var s = weekShowFor(e, shows); return s ? splitTitle(s.title) : String(e.name || e.show || ''); }
@@ -2867,12 +2879,14 @@
     return weekHandles(events, shows, comedians).map(function (h) { return '@' + h + ' \n'; }).join('');
   }
   // Plain-text caption for a post: one line per show, then the tagged calendar link. Pure; exported.
-  function weekCaption(events, shows, fromIso) {
+  function weekCaption(events, shows, fromIso, infos) {
     var lines = ['This week at IN YOUR FACE Comedy 🎤', ''];
     (events || []).forEach(function (e) {
       var d = parseYmd(e.date);
       var when = d ? WD[d.getDay()] + ' ' + d.getDate() + ' ' + MO[d.getMonth()] : String(e.date || '');
       lines.push([when, weekTime(e), weekShowName(e, shows), e.venue].filter(Boolean).join(' · '));
+      var info = weekInfoFor(infos, e);
+      if (info) lines.push('   ' + info);
     });
     if (!(events || []).length) lines.push('No shows in this window. The calendar has the next ones.');
     lines.push('');
@@ -2911,6 +2925,23 @@
   function weekFloor(spec) { return spec.h - spec.keyBottom - 24; }
     // Split a rows band: as many rows as events, capped, evenly spaced.
     function weekRowH(bandH, n, gap, cap) { return n ? Math.min(cap, (bandH - gap * (n - 1)) / n) : 0; }
+  // The calendar's Info line for a row: at most maxLines lines (two by default), shrinking by
+  // 2 px only when that many lines will not hold it. One fitted line of 64 characters in a
+  // 600 px column lands at 18 px; two lines at 24 px read on a phone (1 canvas px is about
+  // 0.36 pt on a story). Leaves ctx.font set to the chosen size. Exported.
+  function weekInfoLines(ctx, text, maxW, startPx, minPx, weight, family, maxLines) {
+    var str = String(text || '').trim(), cap = maxLines || 2;
+    if (!str) return { px: startPx, lines: [] };
+    var px = startPx, lines;
+    for (;;) {
+      ctx.font = (weight ? weight + ' ' : '') + px + 'px ' + family;
+      lines = wrapWords(ctx, str, maxW);
+      var fits = lines.length <= cap && lines.every(function (ln) { return ctx.measureText(ln).width <= maxW; });
+      if (fits || px <= minPx) break;
+      px -= 2;
+    }
+    return { px: px, lines: lines.slice(0, cap) };
+  }
   // The show's own artwork (thumbnail, else card image) in a rounded square with a keyline,
   // centre-cropped: every thumbnail on the site is square or 4:5, so the crop keeps the subject.
   function weekThumb(ctx, img, x, y, s, ring, mono, fallbackText) {
@@ -2940,11 +2971,11 @@
   function paintWeekType(ctx, spec, m) {
     var W = spec.w, H = spec.h, story = spec.format === 'story', pad = spec.keySide + 14;
     ctx.fillStyle = WEEK_INK; ctx.fillRect(0, 0, W, H);
-    var y = weekLogo(ctx, spec, m, spec.keyTop + 10, story ? 120 : 96) + (story ? 36 : 24);
-    y = weekHeadline(ctx, spec, m.copy.headline, y, WEEK_CREAM, story ? 132 : 108) + (story ? 30 : 20);
+    var y = weekLogo(ctx, spec, m, spec.keyTop + 10, story ? 108 : 88) + (story ? 30 : 20);
+    y = weekHeadline(ctx, spec, m.copy.headline, y, WEEK_CREAM, story ? 124 : 104) + (story ? 26 : 18);
     if (!m.rows.length) { weekEmpty(ctx, spec, m, WEEK_YELLOW, FONT_DISPLAY); return; }
-    var bandTop = y, bandBot = weekFloor(spec), gap = 10;
-    var rowH = weekRowH(bandBot - bandTop, m.rows.length, gap, story ? 190 : 150);
+    var bandTop = y, bandBot = weekFloor(spec), gap = 8;
+    var rowH = weekRowH(bandBot - bandTop, m.rows.length, gap, story ? 200 : 156);
     var startY = bandTop + Math.max(0, (bandBot - bandTop - (rowH * m.rows.length + gap * (m.rows.length - 1))) / 2);
     m.rows.forEach(function (row, i) {
       var top = startY + i * (rowH + gap), cy = top + rowH / 2;
@@ -2953,8 +2984,8 @@
       var ts = Math.round(rowH * 0.8);
       weekThumb(ctx, row.thumb, W - pad - ts, cy - ts / 2, ts, WEEK_CREAM, false, row.name);
       var leftEdge = W - pad - ts - 24;
-      // day word
-      var dayPx = Math.round(rowH * 0.72);
+      // day word (rowH 0.62: the name column needs the width more than the day needs the size)
+      var dayPx = Math.round(rowH * 0.62);
       ctx.fillStyle = WEEK_YELLOW; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
       ctx.font = '400 ' + dayPx + 'px ' + FONT_DISPLAY;
       ctx.fillText(row.day, pad, cy + 2);
@@ -2963,16 +2994,23 @@
       ctx.fillText(row.date, pad + dayW + 14, cy - rowH * 0.14);
       ctx.fillStyle = '#B9B2A6';
       if (row.time) ctx.fillText(row.time, pad + dayW + 14, cy + rowH * 0.14);
-      // show name + venue
+      // name, venue, then the calendar's Info line in up to two lines; the stack is centred on the row
       var nx = pad + dayW + 14 + Math.max(ctx.measureText(row.date).width, ctx.measureText(row.time || '').width) + 30;
       var nameW = Math.max(120, leftEdge - nx);
+      var info = row.info ? weekInfoLines(ctx, row.info, nameW, Math.round(rowH * 0.2), 16, '500', FONT_BODY) : { lines: [] };
+      var k = info.lines.length, nameH = k ? 0.3 : 0.42, subH = k ? 0.15 : 0.17, pitch = 0.21, top = cy - rowH * (nameH + subH + pitch * k) / 2;
       ctx.fillStyle = WEEK_CREAM;
-      fitFont(ctx, row.name.toUpperCase(), nameW, Math.round(rowH * 0.42), 24, '400', FONT_DISPLAY);
-      ctx.fillText(row.name.toUpperCase(), nx, cy - rowH * 0.12);
+      fitFont(ctx, row.name.toUpperCase(), nameW, Math.round(rowH * nameH), 24, '400', FONT_DISPLAY);
+      ctx.fillText(row.name.toUpperCase(), nx, top + rowH * nameH / 2 + 2);
       ctx.fillStyle = '#B9B2A6';
       var venue = String(row.venue || '').toUpperCase();
-      fitFont(ctx, venue, nameW, Math.round(rowH * 0.17), 16, '600', FONT_BODY);
-      ctx.fillText(venue, nx, cy + rowH * 0.24);
+      fitFont(ctx, venue, nameW, Math.round(rowH * subH), 16, '600', FONT_BODY);
+      ctx.fillText(venue, nx, top + rowH * (nameH + subH / 2));
+      if (k) {
+        ctx.fillStyle = WEEK_CREAM; ctx.globalAlpha = 0.92; ctx.font = '500 ' + info.px + 'px ' + FONT_BODY;
+        info.lines.forEach(function (ln, li) { ctx.fillText(ln, nx, top + rowH * (nameH + subH + pitch * (li + 0.5))); });
+        ctx.globalAlpha = 1;
+      }
     });
   }
 
@@ -3002,8 +3040,8 @@
     y += lines.length * px * 1.06 + (story ? 40 : 26);
     if (!m.rows.length) { weekEmpty(ctx, spec, m, WEEK_INK, FONT_BODY); return; }
     ctx.fillStyle = WEEK_RED; ctx.fillRect(pad, y, W - pad * 2, k); y += k + 6;
-    var gap = 8, bandBot = weekFloor(spec);
-    var rowH = weekRowH(bandBot - y, m.rows.length, gap, story ? 170 : 140);
+    var gap = 6, bandBot = weekFloor(spec);
+    var rowH = weekRowH(bandBot - y, m.rows.length, gap, story ? 180 : 146);
     m.rows.forEach(function (row, i) {
       var t = y + i * (rowH + gap), cy = t + rowH / 2;
       // show artwork right, black and white with an ink keyline like the Swiss flyer's photos
@@ -3019,19 +3057,25 @@
       var dnum = String(parseInt(row.date, 10) || '');
       ctx.fillText(dnum, pad, cy + rowH * 0.14);
       var dayColW = Math.max(ctx.measureText('30').width, 70) + 26;
-      // time
-      var tx = pad + dayColW;
-      ctx.fillStyle = WEEK_INK; ctx.font = '500 ' + Math.round(rowH * 0.2) + 'px ' + FONT_BODY;
-      if (row.time) ctx.fillText(row.time, tx, cy - rowH * 0.24);
-      // name + venue
-      var nameW = Math.max(120, rightLimit - tx);
+      // name, then the time (bold) and venue (grey) on one line, then the calendar's Info line
+      // in regular ink, up to two lines, emoji stripped: the timetable stays quiet
+      var tx = pad + dayColW, nameW = Math.max(120, rightLimit - tx);
+      var info = row.info ? weekInfoLines(ctx, stripEmoji(row.info), nameW, Math.round(rowH * 0.19), 15, '400', FONT_BODY) : { lines: [] };
+      var k = info.lines.length, nameH = k ? 0.28 : 0.3, subH = k ? 0.16 : 0.19, pitch = 0.2, top = cy - rowH * (nameH + subH + pitch * k) / 2;
       ctx.fillStyle = WEEK_INK;
-      fitFont(ctx, row.name, nameW, Math.round(rowH * 0.3), 22, '700', FONT_BODY);
-      ctx.fillText(row.name, tx, cy + rowH * 0.1);
+      fitFont(ctx, row.name, nameW, Math.round(rowH * nameH), 22, '700', FONT_BODY);
+      ctx.fillText(row.name, tx, top + rowH * nameH / 2);
+      var subPx = Math.round(rowH * subH), sy = top + rowH * (nameH + subH / 2), tw = 0;
+      ctx.font = '700 ' + subPx + 'px ' + FONT_BODY;
+      if (row.time) { ctx.fillText(row.time, tx, sy); tw = ctx.measureText(row.time + '   ').width; }
       ctx.fillStyle = '#5A5A5E';
-      fitFont(ctx, String(row.venue || ''), nameW, Math.round(rowH * 0.17), 16, '500', FONT_BODY);
-      ctx.fillText(String(row.venue || ''), tx, cy + rowH * 0.34);
-      ctx.fillStyle = WEEK_INK; ctx.fillRect(pad, t + rowH + gap / 2 - 1, W - pad * 2, 2);
+      fitFont(ctx, String(row.venue || ''), nameW - tw, subPx, 14, '500', FONT_BODY);
+      ctx.fillText(String(row.venue || ''), tx + tw, sy);
+      if (k) {
+        ctx.fillStyle = WEEK_INK; ctx.font = '400 ' + info.px + 'px ' + FONT_BODY;
+        info.lines.forEach(function (ln, li) { ctx.fillText(ln, tx, top + rowH * (nameH + subH + pitch * (li + 0.5))); });
+      }
+      if (i < m.rows.length - 1) { ctx.fillStyle = WEEK_INK; ctx.fillRect(pad, t + rowH + gap / 2 - 1, W - pad * 2, 2); }   // rules between rows only: the last one fell 2 px under the key floor
     });
   }
 
@@ -3044,8 +3088,8 @@
     var y = weekLogo(ctx, spec, m, spec.keyTop + 10, story ? 116 : 92) + (story ? 30 : 20);
     y = weekHeadline(ctx, spec, m.copy.headline, y, P.ink, story ? 120 : 100) + (story ? 26 : 16);
     if (!m.rows.length) { weekEmpty(ctx, spec, m, P.ink, FONT_DISPLAY); return; }
-    var gap = 14, bandBot = weekFloor(spec);
-    var rowH = weekRowH(bandBot - y, m.rows.length, gap, story ? 180 : 140);
+    var gap = 10, bandBot = weekFloor(spec);
+    var rowH = weekRowH(bandBot - y, m.rows.length, gap, story ? 190 : 148);
     var startY = y + Math.max(0, (bandBot - y - (rowH * m.rows.length + gap * (m.rows.length - 1))) / 2);
     var stubCream = '#FBF7EE', stubInk = '#2B2B2B';
     m.rows.forEach(function (row, i) {
@@ -3072,18 +3116,25 @@
       weekThumb(ctx, row.thumb, fx, cy - s / 2, s, stubInk, true, row.name);
       fx -= s + 8;
       var rightLimit = fx + s + 8 - 20;
-      // serial, top right of the text area
+      // name at the top of the stub, the time and venue under it, then the calendar's Info line
+      // as the stub's small print in up to two lines (no serial: it read as noise)
       var nx = x + dayW + 22, nameW = Math.max(120, rightLimit - nx);
-      ctx.textAlign = 'left'; ctx.fillStyle = stubInk; ctx.globalAlpha = 0.6;
-      ctx.font = '600 ' + Math.round(rowH * 0.13) + 'px ' + FONT_BODY;
-      ctx.fillText(spaced(row.serial), nx, t + rowH * 0.16);
-      ctx.globalAlpha = 1;
-      fitFont(ctx, row.name.toUpperCase(), nameW, Math.round(rowH * 0.36), 22, '400', FONT_DISPLAY);
-      ctx.fillText(row.name.toUpperCase(), nx, cy + rowH * 0.02);
+      ctx.textAlign = 'left';
+      var info = row.info ? weekInfoLines(ctx, row.info, nameW, Math.round(rowH * 0.2), 16, '500', FONT_BODY) : { lines: [] };
+      var three = info.lines.length > 0;
+      ctx.fillStyle = stubInk;
+      fitFont(ctx, row.name.toUpperCase(), nameW, Math.round(rowH * (three ? 0.3 : 0.38)), 22, '400', FONT_DISPLAY);
+      ctx.fillText(row.name.toUpperCase(), nx, t + rowH * (three ? 0.22 : 0.38));
       var sub = [row.time, row.venue].filter(Boolean).join(' · ').toUpperCase();
       ctx.fillStyle = P.paper === '#2B2B2B' ? '#C43E33' : P.paper;
-      fitFont(ctx, sub, nameW, Math.round(rowH * 0.16), 14, '700', FONT_BODY);
-      ctx.fillText(sub, nx, t + rowH * 0.8);
+      fitFont(ctx, sub, nameW, Math.round(rowH * (three ? 0.15 : 0.16)), 14, '700', FONT_BODY);
+      ctx.fillText(sub, nx, t + rowH * (three ? 0.45 : 0.7));
+      if (three) {
+        ctx.fillStyle = stubInk; ctx.globalAlpha = 0.85; ctx.font = '500 ' + info.px + 'px ' + FONT_BODY;
+        var ly = t + rowH * (info.lines.length > 1 ? 0.64 : 0.74);
+        info.lines.forEach(function (ln, li) { ctx.fillText(ln, nx, ly + li * rowH * 0.21); });
+        ctx.globalAlpha = 1;
+      }
     });
   }
 
@@ -3227,8 +3278,8 @@
     var y = weekLogo(ctx, spec, m, spec.keyTop + 10, logoH) + (story ? 30 : 20);
     y = weekLavaTitle(ctx, spec, m.copy.headline, y, headPx) + (story ? 34 : 22);
     if (!m.rows.length) { weekEmpty(ctx, spec, m, WEEK_YELLOW, FONT_DISPLAY); return; }
-    var gap = 16, bandBot = weekFloor(spec);
-    var rowH = weekRowH(bandBot - y, m.rows.length, gap, story ? 176 : 138);
+    var gap = 10, bandBot = weekFloor(spec);
+    var rowH = weekRowH(bandBot - y, m.rows.length, gap, story ? 190 : 148);
     var startY = y + Math.max(0, (bandBot - y - (rowH * m.rows.length + gap * (m.rows.length - 1))) / 2);
     var n = ticketHash(key + '|dayblobs');
     function rnd() { n = (n * 1103515245 + 12345) >>> 0; return (n >>> 8) / 16777216; }
@@ -3236,7 +3287,7 @@
       var t = startY + i * (rowH + gap), cy = t + rowH / 2;
       var br = rowH * 0.5, bx = pad + br;
       // smoked-glass pill from the blob's middle to the right margin
-      var pillH = rowH * 0.82;
+      var pillH = rowH * 0.92;
       ctx.fillStyle = 'rgba(15,15,16,0.78)'; roundRect(ctx, bx, cy - pillH / 2, W - pad - bx, pillH, pillH / 2); ctx.fill();
       // the day: a hot blob, its wobble seeded per window and row
       var b = { x: bx, y: cy, r: br * 0.9, wobble: 0.07 + rnd() * 0.07, phase: rnd() * Math.PI * 2, hot: true };
@@ -3254,15 +3305,22 @@
       // artwork in a helmet on the right
       var hr = pillH * 0.44, hx = W - pad - 10 - hr;
       weekHelmet(ctx, row.thumb, hx, cy, hr, row.name);
-      // name and sub line on the pill
+      // name, the time and venue, then the calendar's Info line in up to two lines, centred on the pill
       var nx = bx + br + 22, nameW = Math.max(120, hx - hr - 18 - nx);
+      var info = row.info ? weekInfoLines(ctx, row.info, nameW, Math.round(pillH * 0.2), 16, '500', FONT_BODY) : { lines: [] };
+      var k = info.lines.length, nameH = k ? 0.32 : 0.42, subH = k ? 0.16 : 0.18, pitch = 0.22, top = cy - pillH * (nameH + subH + pitch * k) / 2;
       ctx.textAlign = 'left'; ctx.fillStyle = WEEK_CREAM;
-      fitFont(ctx, row.name.toUpperCase(), nameW, Math.round(pillH * 0.42), 22, '400', FONT_DISPLAY);
-      ctx.fillText(row.name.toUpperCase(), nx, cy - pillH * 0.13);
+      fitFont(ctx, row.name.toUpperCase(), nameW, Math.round(pillH * nameH), 22, '400', FONT_DISPLAY);
+      ctx.fillText(row.name.toUpperCase(), nx, top + pillH * nameH / 2 + 2);
       var sub = [row.time, row.venue].filter(Boolean).join(' · ').toUpperCase();
       ctx.fillStyle = WEEK_YELLOW;
-      fitFont(ctx, sub, nameW, Math.round(pillH * 0.19), 14, '700', FONT_BODY);
-      ctx.fillText(sub, nx, cy + pillH * 0.25);
+      fitFont(ctx, sub, nameW, Math.round(pillH * subH), 14, '700', FONT_BODY);
+      ctx.fillText(sub, nx, top + pillH * (nameH + subH / 2));
+      if (k) {
+        ctx.fillStyle = WEEK_CREAM; ctx.globalAlpha = 0.92; ctx.font = '500 ' + info.px + 'px ' + FONT_BODY;
+        info.lines.forEach(function (ln, li) { ctx.fillText(ln, nx, top + pillH * (nameH + subH + pitch * (li + 0.5))); });
+        ctx.globalAlpha = 1;
+      }
     });
   }
 
@@ -3346,6 +3404,13 @@
     if (l2) { ctx.font = '700 ' + p2 + 'px ' + FONT_BODY; ctx.fillText(l2, x + k + padc, y + k + padc + p1 + 2 + p2 * 0.82); }
     // the balloon, bottom right, kept clear of the caption box
     comicBalloon(ctx, row.name, x + w - k - 10, y + h - k - 10, Math.min(w * 0.62, 520), small ? 32 : 46, 18);
+    if (row.info && w >= 800) {   // a splash panel has room for a second caption box with the calendar's Info line
+      var cp = 22, cpad = 12; ctx.font = '700 ' + cp + 'px ' + FONT_BODY; cp = fitFont(ctx, row.info, w * 0.45 - cpad * 2, cp, 14, '700', FONT_BODY);
+      var cw = ctx.measureText(row.info).width + cpad * 2, chh = cp + cpad * 2 - 4;
+      ctx.fillStyle = WEEK_INK; ctx.fillRect(x + k, y + h - k - chh - 4, cw + 4, chh + 4);
+      ctx.fillStyle = WEEK_YELLOW; ctx.fillRect(x + k, y + h - k - chh, cw, chh);
+      ctx.fillStyle = WEEK_INK; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.fillText(row.info, x + k + cpad, y + h - k - chh + cpad - 2 + cp * 0.82);
+    }
     ctx.restore();
   }
   function paintWeekComic(ctx, spec, m) {
@@ -3585,7 +3650,7 @@
     });
     y += banH;
     // grey column strip: the week at the left like the clock, then Nach, Gleis, Hinweis
-    var stripH = story ? 46 : 38, typeW = story ? 118 : 96, timeW = story ? 148 : 128, gleisW = story ? 96 : 80, hintW = story ? 150 : 124;
+    var stripH = story ? 46 : 38, typeW = story ? 118 : 96, timeW = story ? 136 : 118, gleisW = story ? 72 : 62, hintW = story ? 146 : 122;
     ctx.fillStyle = STATION_GREY; ctx.fillRect(bx, y, bw, stripH);
     ctx.fillStyle = STATION_BLUE; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
     ctx.font = '700 ' + (story ? 24 : 20) + 'px ' + FONT_BODY;
@@ -3603,36 +3668,50 @@
     }
     var bandBot = weekFloor(spec), n = m.rows.length, today = m.from, tmr = parseYmd(m.from); if (tmr) tmr.setDate(tmr.getDate() + 1); var tomorrow = tmr ? ymd(tmr) : '';
     var rowH = weekRowH(bandBot - y, n, 0, story ? 160 : 126);
+    var fs = Math.round(Math.min(rowH * 0.27, story ? 38 : 32)), small = Math.round(fs * 0.74);
+    var nx = pad + typeW + timeW, right = W - pad - hintW - gleisW - 16, nameW = right - nx, lineW = W - pad - nx;
+    // pre-pass: the name and via share a line when they fit together at fs down to 0.8 fs;
+    // otherwise the via takes its own white line. One line grid for the whole board.
+    var plan = m.rows.map(function (row) {
+      var via = row.venue ? '  via  ' + row.venue : '', px = fs, fits = false;
+      while (px >= fs * 0.8) {
+        ctx.font = '700 ' + px + 'px ' + FONT_BODY; var nw = ctx.measureText(row.name).width;
+        ctx.font = '400 ' + px + 'px ' + FONT_BODY; var vw = via ? ctx.measureText(via).width : 0;
+        if (nw + vw <= nameW) { fits = true; break; }
+        px -= 1;
+      }
+      var sell = stripEmoji(row.info) || row.tagline;   // the calendar's Info line first (no emoji on a board), else the tagline
+      return { via: via, px: fits ? px : fs, viaBelow: !!via && !fits, sell: sell };
+    });
+    var anyThree = plan.some(function (q) { return q.viaBelow && q.sell; }), anyTwo = plan.some(function (q) { return q.viaBelow || q.sell; });
+    var lineA0 = anyThree ? 0.26 : (anyTwo ? 0.36 : 0.5);
     m.rows.forEach(function (row, i) {
-      var t = y + i * rowH, fs = Math.round(Math.min(rowH * 0.27, story ? 38 : 32)), small = Math.round(fs * 0.68);
-      var hasTag = !!row.tagline, lineA = t + rowH * (hasTag ? 0.36 : 0.5);
+      var t = y + i * rowH, q = plan[i], lineA = t + rowH * lineA0;
       // type box: the weekday, bold blue on white
       var tb = Math.round(fs * 1.25);
       ctx.fillStyle = '#FFFFFF'; ctx.fillRect(pad, lineA - tb / 2, typeW - 18, tb);
       ctx.fillStyle = STATION_BLUE; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.font = '800 ' + Math.round(fs * 0.9) + 'px ' + FONT_BODY; ctx.fillText(row.day, pad + (typeW - 18) / 2, lineA + 1);
-      // time, destination bold, via regular on the same line when it fits
+      // time, then the destination in bold with the via in regular on the same line when they fit
       ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'left';
       ctx.font = '700 ' + fs + 'px ' + FONT_BODY; ctx.fillText(row.time || '', pad + typeW, lineA + 1);
-      var nx = pad + typeW + timeW, right = W - pad - hintW - gleisW - 16, nameW = right - nx;
-      var name = row.name, via = row.venue ? '  via  ' + row.venue : '';
-      ctx.font = '700 ' + fs + 'px ' + FONT_BODY; var nw = ctx.measureText(name).width;
-      ctx.font = '400 ' + fs + 'px ' + FONT_BODY; var vw = via ? ctx.measureText(via).width : 0;
-      var viaBelow = false;
-      if (nw + vw <= nameW) {
-        ctx.font = '700 ' + fs + 'px ' + FONT_BODY; ctx.fillText(name, nx, lineA + 1);
-        if (via) { ctx.font = '400 ' + fs + 'px ' + FONT_BODY; ctx.fillText(via, nx + nw, lineA + 1); }
+      var lineB = t + rowH * (anyThree ? 0.54 : 0.7);
+      if (!q.viaBelow) {
+        ctx.font = '700 ' + q.px + 'px ' + FONT_BODY; ctx.fillText(row.name, nx, lineA + 1);
+        var nw = ctx.measureText(row.name).width;
+        if (q.via) { ctx.font = '400 ' + q.px + 'px ' + FONT_BODY; ctx.fillText(q.via, nx + nw, lineA + 1); }
       } else {
-        fitFont(ctx, name, nameW, fs, 18, '700', FONT_BODY); ctx.fillText(name, nx, lineA + 1);
-        viaBelow = !!row.venue;
+        fitFont(ctx, row.name, nameW, fs, 18, '700', FONT_BODY); ctx.fillText(row.name, nx, lineA + 1);
+        // the via on its own white line under the name
+        var viaLine = 'via  ' + row.venue;
+        fitFont(ctx, viaLine, lineW, small, 14, '400', FONT_BODY); ctx.fillText(viaLine, nx, lineB);
+        lineB = t + rowH * 0.8;
       }
-      // the info line in yellow, like the board's alternative-route line: the tagline, or the via
-      var info = viaBelow ? 'via  ' + row.venue : row.tagline;
-      if (viaBelow && row.tagline) { ctx.font = '400 ' + small + 'px ' + FONT_BODY; if (ctx.measureText(info + '  ·  ' + row.tagline).width <= W - pad - nx) info += '  ·  ' + row.tagline; }   // the tagline joins the via only when both fit at full size
-      if (info) {
+      // the Info line in yellow, directly under the name (under the via when that wrapped), like the board's remark line
+      if (q.sell) {
         ctx.fillStyle = WEEK_YELLOW;
-        fitFont(ctx, info, W - pad - nx, small, 14, '400', FONT_BODY);
-        ctx.fillText(info, nx, t + rowH * 0.74);
+        fitFont(ctx, q.sell, lineW, small, 16, '400', FONT_BODY);
+        ctx.fillText(q.sell, nx, lineB);
       }
       // Gleis: the date number
       ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'right'; ctx.font = '700 ' + fs + 'px ' + FONT_BODY;
@@ -3722,8 +3801,8 @@
       chalkText(ctx, 'the calendar has the next ones', W / 2, H / 2 + 60, '600 30px ' + FONT_BODY, CHALK_WHITE, 'center', rnd);
       return;
     }
-    var gap = 12, bandBot = weekFloor(spec);
-    var rowH = weekRowH(bandBot - y, m.rows.length, gap, story ? 180 : 140);
+    var gap = 10, bandBot = weekFloor(spec);
+    var rowH = weekRowH(bandBot - y, m.rows.length, gap, story ? 190 : 148);
     var startY = y + Math.max(0, (bandBot - y - (rowH * m.rows.length + gap * (m.rows.length - 1))) / 2);
     m.rows.forEach(function (row, i) {
       var t = startY + i * (rowH + gap), cy = t + rowH / 2;
@@ -3734,11 +3813,19 @@
       ctx.font = dpx + 'px ' + FONT_ACCENT; var dayW = Math.max(ctx.measureText(row.day).width, ctx.measureText('WED').width) + 28;
       // show name in white chalk, time and venue below in a plainer hand
       var nx = pad + dayW, nameW = W - pad - nx;
-      var npx = fitFont(ctx, row.name, nameW, Math.round(rowH * 0.36), 22, '', FONT_ACCENT);
-      chalkText(ctx, row.name, nx, cy + npx * 0.1, npx + 'px ' + FONT_ACCENT, CHALK_WHITE, 'left', rnd);
+      var sell = stripEmoji(row.info);
+      var info = sell ? weekInfoLines(ctx, sell, nameW, Math.round(rowH * 0.19), 15, '500', FONT_BODY) : { lines: [] };
+      var k = info.lines.length, nameH = k ? 0.32 : 0.36, subH = k ? 0.15 : 0.18, pitch = 0.2, top = cy - rowH * (nameH + subH + pitch * k) / 2;
+      var npx = fitFont(ctx, row.name, nameW, Math.round(rowH * nameH), 22, '', FONT_ACCENT);
+      chalkText(ctx, row.name, nx, top + rowH * nameH / 2 + npx * 0.35, npx + 'px ' + FONT_ACCENT, CHALK_WHITE, 'left', rnd);
       var sub = [row.time, row.venue].filter(Boolean).join('  ·  ');
-      var spx = fitFont(ctx, sub, nameW, Math.round(rowH * 0.17), 14, '600', FONT_BODY);
-      ctx.save(); ctx.globalAlpha = 0.85; chalkText(ctx, sub, nx, cy + rowH * 0.36, '600 ' + spx + 'px ' + FONT_BODY, CHALK_WHITE, 'left', rnd); ctx.restore();
+      var spx = fitFont(ctx, sub, nameW, Math.round(rowH * subH), 14, '600', FONT_BODY);
+      ctx.save(); ctx.globalAlpha = 0.85; chalkText(ctx, sub, nx, top + rowH * (nameH + subH / 2) + spx * 0.35, '600 ' + spx + 'px ' + FONT_BODY, CHALK_WHITE, 'left', rnd); ctx.restore();
+      if (k) {   // the calendar's Info line, a smaller hand, up to two lines
+        ctx.save(); ctx.globalAlpha = 0.85;
+        info.lines.forEach(function (ln, li) { chalkText(ctx, ln, nx, top + rowH * (nameH + subH + pitch * (li + 0.5)) + info.px * 0.35, '500 ' + info.px + 'px ' + FONT_BODY, CHALK_WHITE, 'left', rnd); });
+        ctx.restore();
+      }
       if (i < m.rows.length - 1) chalkLine(ctx, pad, t + rowH + gap / 2, W - pad, t + rowH + gap / 2, CHALK_WHITE, 1.5, rnd);
     });
   }
@@ -3799,34 +3886,58 @@
     var groups = [], last = null;
     m.rows.forEach(function (row) { if (!last || last.date !== row.e.date) { last = { date: row.e.date, day: row.day, label: row.date, items: [] }; groups.push(last); } last.items.push(row); });
     var bandBot = weekFloor(spec) - 8;
-    var headH = story ? 64 : 52, itemH = story ? 104 : 84, gapG = story ? 14 : 10;
-    var need = groups.length * (headH + gapG) + m.rows.length * itemH;
-    var k = Math.min(story ? 1.45 : 1.15, (bandBot - y) / need);   // grow into a quiet week, shrink for a busy one
-    headH *= k; itemH *= k; gapG *= k;
+    // sizes at scale 1: the name line carries the time and venue in grey after the name, the
+    // calendar's Info line sits under it in regular ink (emoji stripped); a second Info line
+    // only when the week is quiet enough. Three passes settle the scale k against the real
+    // line counts: assume two lines, measure at that k, measure again at the resulting k.
+    var base = story ? 1 : 0.85, headH0 = 56 * base, gapG0 = 12 * base, nameH0 = 46 * base, infoH0 = 32 * base, itemGap0 = 10 * base;
+    var infos = m.rows.map(function (r) { return stripEmoji(r.info); });
+    var kCap = story ? 1.3 : 1.15;
+    function needFor(counts) { var n = groups.length * (headH0 + gapG0); m.rows.forEach(function (r, i) { n += nameH0 + infoH0 * counts[i] + itemGap0; }); return n; }
+    function countsAt(k, cap) { return infos.map(function (t) { return t ? weekInfoLines(ctx, t, innerW, Math.round(28 * k), Math.round(20 * k), '400', FONT_BODY, cap).lines.length : 0; }); }
+    var k = Math.min(kCap, (bandBot - y) / needFor(infos.map(function (t) { return t ? 2 : 0; })));
+    var maxLines = k >= 0.9 ? 2 : 1;
+    if (maxLines === 1) k = Math.min(kCap, (bandBot - y) / needFor(infos.map(function (t) { return t ? 1 : 0; })));
+    var counts = countsAt(k, maxLines); k = Math.min(kCap, (bandBot - y) / needFor(counts));
+    counts = countsAt(k, maxLines); k = Math.min(k, (bandBot - y) / needFor(counts));
+    var headH = headH0 * k, gapG = gapG0 * k;
     groups.forEach(function (gr) {
       var d = parseYmd(gr.date), full = d ? DAY_FULL[d.getDay()] : gr.day;
       ctx.fillStyle = MENU_RED; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      var hp = Math.round(24 * k);
+      var hp = Math.round(22 * k);
       ctx.font = '700 ' + hp + 'px ' + FONT_BODY; swissTrack(ctx, 4);
       var label = (full + '  ' + gr.label).toUpperCase(), lw = ctx.measureText(label).width + 40;
       ctx.fillText(label, W / 2, y + headH / 2); swissTrack(ctx, 0);
       ctx.fillRect(pad, y + headH / 2, (innerW - lw) / 2 - 12, 1.5); ctx.fillRect(W - pad - ((innerW - lw) / 2 - 12), y + headH / 2, (innerW - lw) / 2 - 12, 1.5);
       y += headH;
       gr.items.forEach(function (row) {
-        var price = weekMenuPrice(row.price), py = y + itemH * 0.36;
+        var i = m.rows.indexOf(row), sell = infos[i], nameH = nameH0 * k, py = y + nameH * 0.5;
+        var price = weekMenuPrice(row.price);
         ctx.textBaseline = 'middle'; ctx.textAlign = 'right'; ctx.fillStyle = WEEK_INK;
-        ctx.font = '800 ' + Math.round(34 * k) + 'px ' + FONT_BODY;
+        ctx.font = '800 ' + Math.round(32 * k) + 'px ' + FONT_BODY;
         var pw = price ? ctx.measureText(price).width : 0;
         if (price) ctx.fillText(price, W - pad, py);
         ctx.textAlign = 'left';
-        var nameW = innerW - pw - 60;
+        // the time and venue after the name in grey; a long venue shrinks to at most 55 percent
+        // of the line before the name shrinks, so neither can run into the price
+        var sub = [row.time, row.venue].filter(Boolean).join(' · '), subPx = Math.round(22 * k);
+        if (sub) subPx = fitFont(ctx, sub, (innerW - pw - 70) * 0.55, subPx, Math.round(14 * k), '500', FONT_BODY);
+        var sw = sub ? ctx.measureText(sub).width + 16 : 0;
+        var nameW = innerW - pw - sw - 70;
         fitFont(ctx, row.name, nameW, Math.round(36 * k), 20, '800', FONT_BODY);
         ctx.fillText(row.name, pad, py);
         var nw = ctx.measureText(row.name).width;
-        if (price) menuLeader(ctx, pad + nw + 6, W - pad - pw - 8, py + 6, MENU_GREY);
-        ctx.fillStyle = MENU_GREY; ctx.font = '500 ' + Math.round(24 * k) + 'px ' + FONT_BODY;
-        ctx.fillText([row.time ? 'from ' + row.time : '', row.venue].filter(Boolean).join('  ·  '), pad, y + itemH * 0.76);
-        y += itemH;
+        ctx.fillStyle = MENU_GREY; ctx.font = '500 ' + subPx + 'px ' + FONT_BODY;
+        if (sub) ctx.fillText(sub, pad + nw + 16, py + 2);
+        if (price) menuLeader(ctx, pad + nw + sw + 6, W - pad - pw - 8, py + 6, MENU_GREY);
+        y += nameH;
+        if (sell) {   // the calendar's Info line as the dish description
+          var info = weekInfoLines(ctx, sell, innerW, Math.round(28 * k), Math.round(20 * k), '400', FONT_BODY, maxLines);
+          ctx.fillStyle = WEEK_INK; ctx.font = '400 ' + info.px + 'px ' + FONT_BODY;
+          info.lines.forEach(function (ln, li) { ctx.fillText(ln, pad, y + infoH0 * k * (li + 0.5)); });
+          y += infoH0 * k * info.lines.length;
+        }
+        y += itemGap0 * k;
       });
       y += gapG;
     });
@@ -3834,6 +3945,7 @@
 
   var WEEK_STYLES = { classic: paintWeekPolaroid, ticket: paintWeekTicket, swiss: paintWeekSwiss, type: paintWeekType, lava: paintWeekLava, comic: paintWeekComic, flap: paintWeekFlap, station: paintWeekStation, chalk: paintWeekChalk, menu: paintWeekMenu };
   var WEEK_EVENTS = parseCatalog('iyf-week-events');
+  var WEEK_INFO = parseCatalog('iyf-week-info');   // the calendar's Info line per show and date
 
   // Build the model for a window and paint it. wk = { from, v }. Exposed on window for previews.
   function drawWeek(canvas, wk, format, style, done) {
@@ -3851,7 +3963,7 @@
       srcs.push(assetURL((s && (s.thumb || s.image || s.img)) || ''));
       return {
         e: e, name: weekShowName(e, SHOWS), day: weekDayLabel(e.date), date: weekDateLabel(e.date), time: weekTime(e),
-        venue: e.venue || (s && s.venue) || '', serial: 'Nº ' + showCode(e.show, e.start || e.date), price: e.price, tagline: s ? showTagline(s.title) : '',
+        venue: weekVenueShort(e.venue || (s && s.venue) || ''), serial: 'Nº ' + showCode(e.show, e.start || e.date), price: e.price, tagline: s ? showTagline(s.title) : '', info: stripEmoji(weekInfoFor(WEEK_INFO, e)),   // no emoji on any image (Harry); the caption keeps them
         thumb: null, thumbAt: srcs.length - 1
       };
     });
@@ -3971,7 +4083,7 @@
       }
       addCopy('＠ Copy Insta handles', function () { return weekHandlesText(evs, SHOWS, COMEDIANS); }, 'No Instagram handles for these hosts.');
       addCopy('🔗 Copy calendar link', function () { return WEEK_CAL_LINK; });
-      addCopy('💬 Copy caption', function () { return weekCaption(evs, SHOWS, win.from); });
+      addCopy('💬 Copy caption', function () { return weekCaption(evs, SHOWS, win.from, WEEK_INFO); });
       panel.appendChild(actions);
       panel.appendChild(el('p', 'lineup-lab__copy-hint', 'Handles tag the hosts in the story; the calendar link goes in the link sticker (that is the call to action); the caption is for a post.'));
       weekRoot.appendChild(panel);

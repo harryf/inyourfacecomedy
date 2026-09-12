@@ -198,7 +198,7 @@ crafted Lab link can no more inject a fake performer than a promo link can.
 **On the page:**
 
 1. **Week starting** date picker, plus the list of shows in the window as a sanity check.
-2. **Style** (Polaroid, Ticket, Swiss, Bold Type, Lava, Comic, Departures, Station, Chalkboard, Menu) and **format** toggles, the preview, **Download PNG** (`week-<from>-<format>.png`).
+2. **Style** (Polaroid, Ticket, Swiss, Bold Type, Lava, Comic, Departures, Station, Chalkboard, Menu) and **format** toggles, the preview, **Download PNG** (`week-<from>-<format>.png`). Styles with room for a selling line print the calendar's Info line for each show (the same line as on `/calendar/`, from `_data/calendar-copy.json`): Station, Menu, Chalkboard, Ticket, Bold Type, Lava and the Comic's splash panel; the caption carries it too.
 3. **Other words**: a different headline for the same shows. Every fresh load of the page rolls a new one too (reload to try again); the URL then carries `v`, so a copied link re-opens the same words. The image carries no call to action and no faces: each row shows the show's own artwork (the post's `thumbnail`, else `image`), and the link sticker you add in Instagram is the call to action.
 4. **Copy Insta handles**: the @handles of the regular hosts of every show in the window, one per line, for tagging in the story. **Copy calendar link**: `/calendar/` tagged `utm_source=instagram&utm_medium=social&utm_campaign=week`, for the link sticker. **Copy caption**: a plain-text list of the shows plus the link, for a post.
 

@@ -19,7 +19,7 @@ Run the build and the health check after every change and before saying you are 
 - **Ask before** committing or pushing, deleting files, editing `.env` or any credential file, changing the crontab, or touching the Google listing outside the script.
 - **Never commit:** `.env`, `ga-reports-sa.json`, `ga-mcp-oauth-client.json`, `client_secret_*.json`, `gbp-token.json` (acts as the listing owner), `gbp/gbp-state.json`, `script/*.log`, `script/email-out/` (rendered drafts and image cache), any promo CSV of email addresses, and any campaigns `.xlsx` (people's data). All but the spreadsheet and the CSVs are gitignored. **Stage files by name**, never `git add -A` or `git add .`.
 - `GRIST_API_KEY` lives only in `.env` (gitignored, loaded by the scripts); never write it anywhere tracked.
-- The repo is public, so `gbp/*.txt`, `_data/reports/`, `assets/reports/` and `script/calendar-copy.json` are visible to anyone. Click counts only, nothing personal.
+- The repo is public, so `gbp/*.txt`, `_data/reports/`, `assets/reports/` and `_data/calendar-copy.json` are visible to anyone. Click counts only, nothing personal.
 
 ## Sources of truth: derived, never hand-maintained
 
@@ -28,7 +28,7 @@ Run the build and the health check after every change and before saying you are 
 | Shows | any `_posts/*.md` with a `ticket_url` | `add-event.rb` creates one; the home page, calendar, sitemap, catalogs and health check derive from it |
 | `next_event_date`, venue, price on a post | Eventfrog | `refresh-next-event-dates.rb` daily. Never hand-set them expecting it to stick |
 | `_data/calendar.yml`, `calendar_past.yml`, `venues.yml` | Eventfrog | `refresh-calendar-data.rb`, spawned by the daily job |
-| `pages/1_calendar.md` | `calendar.yml` + copy pools in `script/calendar-copy.json` | `refresh-calendar-page.rb`; the markup is a contract, see `CALENDAR_STRUCTURE.md` |
+| `pages/1_calendar.md` | `calendar.yml` + copy pools in `_data/calendar-copy.json` (also read by `/week/` for the Info lines) | `refresh-calendar-page.rb`; the markup is a contract, see `CALENDAR_STRUCTURE.md` |
 | `_comedians/*.md` | Grist | `sync-comedians.rb`. Never hand-edit; change Grist, run the sync |
 | `_data/gallery.yml` | `assets/img/gallery/` + Apple Vision | `build-gallery-data.rb` (macOS only). `tag` mode attributes a photo to a comedian; the slug lives in `gallery.yml`, never in `_comedians/` |
 | `_data/reports/`, `assets/reports/`, `pages/reports/` | Google Analytics | `ga-report.ts`. Edit `script/lib/ga-report-lib.ts` or `_layouts/report.liquid` instead |

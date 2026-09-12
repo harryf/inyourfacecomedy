@@ -19,7 +19,7 @@ Encoding.default_external = Encoding::UTF_8
 # each time it appears, and each month needs its own flavor sentence. To make that
 # possible WITHOUT calling an LLM every week, copy lives in a pre-generated pool:
 #
-#   script/calendar-copy.json
+#   _data/calendar-copy.json
 #   {
 #     "month_flavor": {
 #       "pool":     { "06": ["June line A", "June line B", ...], "12": [...] },
@@ -90,7 +90,7 @@ VALIDATOR   = File.join(SCRIPT_DIR, "validate-calendar.rb")
 # parse the 3.0+ endless `def foo = …` defs in refresh-calendar-data.rb and
 # validate-calendar.rb. cron launches us via the absolute rbenv 3.2.4 path.
 RUBY        = RbConfig.ruby
-CACHE_FILE  = File.join(SCRIPT_DIR, "calendar-copy.json")
+CACHE_FILE  = File.join(ROOT, "_data", "calendar-copy.json")   # under _data so /week/ can read the assigned Info lines
 POSTS_DIR   = File.join(ROOT, "_posts")
 SITE_URL    = "https://inyourfacecomedy.ch"
 SCRIPT_NAME = File.basename(__FILE__)
@@ -688,7 +688,7 @@ def commit_and_push!
   discard_if_only_timestamp("_data/calendar.yml")
   discard_if_only_timestamp("_data/calendar_past.yml")
 
-  out, ok = git_run("add", "--", "pages/1_calendar.md", "script/calendar-copy.json",
+  out, ok = git_run("add", "--", "pages/1_calendar.md", "_data/calendar-copy.json",
                     "_data/calendar.yml", "_data/calendar_past.yml", "_data/venues.yml")
   raise "git add failed: #{out}" unless ok
 

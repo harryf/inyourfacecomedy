@@ -871,7 +871,7 @@ unless bad_hosts.empty?
 end
 say("  #{bad_hosts.empty? ? 3 : 4}. Verify, then commit:")
 say("        bundle exec jekyll build --future && ruby script/check-site.rb --no-build")
-say("        git add _posts _data assets/img pages/1_calendar.md index.html script/calendar-copy.json")
+say("        git add _posts _data assets/img pages/1_calendar.md index.html _data/calendar-copy.json")
 say("")
 say("Optional: give the show its own palette in _sass/components/_show-override.scss")
 say("          with a .show-banner[data-show=\"#{permalink}\"] block.")

@@ -30,6 +30,9 @@ description: "Power Tool for IN YOUR FACE show organizers: the Instagram story o
 
 {% include iyf-catalogs.liquid %}
 
+<script type="application/json" id="iyf-week-info">
+[{% assign _si = site.data["calendar-copy"].show_info %}{% for pair in _si %}{% for a in pair[1].assigned %}{"show":{{ pair[0] | jsonify }},"date":{{ a[0] | jsonify }},"info":{{ a[1] | jsonify }}},{% endfor %}{% endfor %}{"show":"","date":"","info":""}]
+</script>
 <script type="application/json" id="iyf-week-events">
 [{% for e in site.data.calendar.events %}{"show":{{ e.show | jsonify }},"date":{{ e.date | jsonify }},"start":{{ e.start | jsonify }},"venue":{{ e.venue_name | default: "" | jsonify }},"price":{{ e.price_chf | default: 0 | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
 </script>
