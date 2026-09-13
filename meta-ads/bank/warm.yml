@@ -1,0 +1,55 @@
+# The Warm bank: people who follow us or visited the site and never clicked for tickets.
+# Same rules as cold.yml (evergreen, one person per ad, no names, no dates, no prices).
+adset: warm
+link: { show: comedybrew, utm_campaign: warm }
+description: "Comedy Brew, Thursdays at ROBIN's"
+
+concepts:
+  - id: W1
+    person: The planner
+    body: "Every Thursday. Plan the week around it. Comedy Brew at ROBIN's, ten comedians, two minutes from Central."
+    title: "Thursdays are sorted"
+    image: { style: station, headline: "Thursdays are sorted.", sub: "Comedy Brew, ROBIN's | Doors 19:00, show 19:30 | Two minutes from Central" }
+    status: bench
+  - id: W2
+    person: The follower who has not been
+    body: "Following is nice. Sitting in the room is better. Thursday, 19:30, ROBIN's, ten acts."
+    title: "Have you actually been?"
+    image: { style: photo, photo: /assets/img/gallery/dalis_In_Your_Face_Nov_7_2021_wide_20211107_2713.jpeg, headline: "Have you actually been?", sub: "Thursday, 19:30, ROBIN's" }
+    status: bench
+  - id: W3
+    person: The one who worries one act will be bad
+    body: "Ten comedians, five minutes each. If one is not for you, the next one is on in five minutes."
+    title: "Ten acts. Something will land."
+    image: { style: type, headline: "Ten acts. Five minutes each.", sub: "If one is not for you, the next is on in five" }
+    status: bench
+  - id: W4
+    person: The friend
+    body: "Know someone who needs a laugh? Thursday at ROBIN's. Two tickets, one good deed."
+    title: "Bring the one who needs it"
+    image: { style: photo, photo: /assets/img/gallery/dalis_011A0435.jpeg, headline: "Bring the one who needs it.", sub: "Thursday at ROBIN's, two tickets, one good deed" }
+    status: bench
+  - id: W5
+    person: The habit
+    body: "Same night, same room, a different show every week. Comedy Brew, Thursdays since 2021."
+    title: "Same night. Different show."
+    image: { style: swiss, headline: "Same night. Different show.", sub: "Comedy Brew, Thursdays since 2021" }
+    status: bench
+  - id: W6
+    person: The visual doubter
+    body: "This is what a Thursday looks like. Comedy Brew, ROBIN's, two minutes from Central."
+    title: "This is what Thursday looks like"
+    image: { style: photo, photo: /assets/img/gallery/canape_PXXX8895.jpg, headline: "This is what Thursday looks like.", sub: "" }
+    status: bench
+  - id: W7
+    person: The calendar reader
+    body: "Comedy Brew is Thursday; the rest of the week is on the calendar. English stand-up in Zürich, most nights."
+    title: "This week in Zürich"
+    image: { style: week, week_style: flap }
+    status: bench
+  - id: W8
+    person: The person who saw a clip
+    body: "You have seen the clips. Now hear the room. Thursday at ROBIN's, doors 19:00."
+    title: "Now hear the room"
+    image: { style: clip, note: "ten seconds of the room laughing, from Harry's phone" }
+    status: bench

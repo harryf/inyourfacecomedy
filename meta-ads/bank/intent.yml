@@ -1,0 +1,55 @@
+# The Intent bank: people who visited the site or clicked for tickets and never bought.
+# Same rules as cold.yml (evergreen, one person per ad, no names, no dates, no prices).
+adset: intent
+link: { show: comedybrew, utm_campaign: intent }
+description: "Tickets on Eventfrog and on the door"
+
+concepts:
+  - id: I1
+    person: The practical one
+    body: "Two minutes from Central, less than a cocktail, ten comedians. Thursday. Tickets on the door too."
+    title: "Two minutes from Central"
+    image: { style: photo, photo: /assets/img/gallery/dalis_011A0435.jpeg, headline: "Two minutes from Central. Less than a cocktail.", sub: "Ten comedians, every Thursday" }
+    status: bench
+  - id: I2
+    person: The one who needs proof
+    body: "This is what it sounds like."
+    title: "Thursday, ROBIN's"
+    image: { style: clip, note: "ten seconds of the room laughing, no text over it" }
+    status: bench
+  - id: I3
+    person: The one worried about getting home
+    body: "Still deciding? The last train home is after the show and the door is two minutes from Central."
+    title: "The last train is after the show"
+    image: { style: station, headline: "Still deciding? The last train is after the show.", sub: "Show ends 21:30 | Central, two minutes on foot | Trains until after midnight" }
+    status: bench
+  - id: I4
+    person: The one who wants a seat
+    body: "Doors 19:00, show 19:30, seats go. English stand-up, Thursday at ROBIN's. Come early, the bar is open."
+    title: "Doors 19:00. Seats go."
+    image: { style: chalk, headline: "Stand-up. Thursday. Doors 19:00.", sub: "Ten comedians at ROBIN's. Seats go, the bar is open." }
+    status: bench
+  - id: I5
+    person: The solo visitor
+    body: "Solo is fine. Half the room came alone. Thursday, English stand-up, near Central."
+    title: "Half the room came alone"
+    image: { style: photo, photo: /assets/img/gallery/canape_PXXX8414.jpg, headline: "Half the room came alone.", sub: "Solo is fine. Thursday, near Central." }
+    status: bench
+  - id: I6
+    person: The one waiting for a reason
+    body: "Not sure about the lineup? Nobody is. That is the fun of ten acts in one night."
+    title: "Ten acts. Nobody knows."
+    image: { style: type, headline: "Ten acts. Nobody knows.", sub: "That is the fun of it. Thursday at ROBIN's." }
+    status: bench
+  - id: I7
+    person: The weather excuse
+    body: "Rain or not, the show is inside and the bar is open. Thursday at ROBIN's."
+    title: "It is indoors"
+    image: { style: photo, photo: /assets/img/gallery/canape_PXXX8030.jpg, headline: "It is indoors.", sub: "Rain or not, Thursday at ROBIN's" }
+    status: bench
+  - id: I8
+    person: The one who nearly booked
+    body: "Thursday is nearly here. Comedy Brew, ROBIN's, 19:30. Tickets take a minute."
+    title: "Tickets take a minute"
+    image: { style: logo, headline: "Tickets take a minute.", sub: "Comedy Brew, Thursday, 19:30" }
+    status: bench

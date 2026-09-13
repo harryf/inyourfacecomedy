@@ -45,7 +45,7 @@
       dayLabel: dayLabel, flyerDate: flyerDate, faceScale: faceScale, flyerSpec: flyerSpec,
       ticketSerial: ticketSerial, ticketPalettes: ticketPalettes, ticketPalette: ticketPalette,
       lavaSeeds: lavaSeeds, caseNumber: caseNumber, contrastRatio: contrastRatio, newStylePairs: newStylePairs,
-      showCode: showCode, chargeLines: chargeLines, chargeLine: chargeLine, firstName: firstName,
+      showCode: showCode, chargeLines: chargeLines, chargeLine: chargeLine, firstName: firstName, adcardStyles: adcardStyles,
       stubLines: stubLines, stubLine: stubLine,
       weekWindow: weekWindow, weekEvents: weekEvents, weekHeadlines: weekHeadlines, weekCopy: weekCopy,
       weekHandles: weekHandles, weekHandlesText: weekHandlesText, weekCaption: weekCaption, weekCalLink: function () { return WEEK_CAL_LINK; },
@@ -57,7 +57,8 @@
 
   var root = document.getElementById('lineup-lab');
   var weekRoot = document.getElementById('iyf-week');   // the /week/ page shares this script
-  if (!root && !weekRoot) return;
+  var adRoot = document.getElementById('iyf-adcard');   // the /adcard/ page too (the Meta ads bank)
+  if (!root && !weekRoot && !adRoot) return;
 
   // --- catalogs (the only source of shows + comedians) ----------------------
   function parseCatalog(id) {
@@ -191,7 +192,7 @@
   }
 
   // --- URL builders ----------------------------------------------------------
-  function origin() { return (root || weekRoot).getAttribute('data-origin') || window.location.origin; }
+  function origin() { return (root || weekRoot || adRoot).getAttribute('data-origin') || window.location.origin; }
   function billParts(st) {
     var parts = [];
     if (st.type === 'split') {
@@ -2117,7 +2118,15 @@
       { style: 'week-chalk', text: '#F5E6A3', field: '#1C201D', kind: 'small' },    // chalk yellow
       { style: 'week-menu', text: '#0F0F10', field: '#FBF4E4', kind: 'small' },     // items on the card
       { style: 'week-menu', text: '#B71C1C', field: '#FBF4E4', kind: 'small' },     // course headings
-      { style: 'week-menu', text: '#5A5A5E', field: '#FBF4E4', kind: 'small' }      // item descriptions
+      { style: 'week-menu', text: '#5A5A5E', field: '#FBF4E4', kind: 'small' },     // item descriptions
+      { style: 'adcard-photo', text: '#FFF3E0', field: '#1A1A1D', kind: 'large' },   // headline on the scrim
+      { style: 'adcard-photo', text: '#FFD54F', field: '#1A1A1D', kind: 'small' },   // sub line on the scrim
+      { style: 'adcard-swiss', text: '#0F0F10', field: '#F2F2EE', kind: 'small' },   // headline on the paper
+      { style: 'adcard-swiss', text: '#E53935', field: '#F2F2EE', kind: 'large' },   // sub and label in red
+      { style: 'adcard-type', text: '#FFF3E0', field: '#0F0F10', kind: 'small' },    // capitals on ink
+      { style: 'adcard-type', text: '#FFF3E0', field: '#E53935', kind: 'large' },    // sub on the red bar
+      { style: 'adcard-logo', text: '#FFF3E0', field: '#E53935', kind: 'large' },    // headline on brand red
+      { style: 'adcard-logo', text: '#0F0F10', field: '#E53935', kind: 'small' }     // sub on brand red
     ];
   }
 
@@ -4100,11 +4109,245 @@
     paint();
   }
 
+  // --- Ad Card (/adcard/): one headline over a photo or on a brand field --------------------
+  // The Meta ads bank (meta-ads/creative-bank-plan.md) is evergreen: no names, no dates, no
+  // prices, one sentence that names a person. Six looks, all in the flyer palette, all with
+  // the text inside the key-content area so a story or a reel does not crop it. Painted by
+  // drawAdCard(canvas, ad, format, done) with ad = { headline, sub, style, photo }; exposed as
+  // window.__iyfDrawAdCard for script/meta-bank.ts.
+  var AD_INK = '#0F0F10', AD_CREAM = '#FFF3E0', AD_YELLOW = '#FFD54F', AD_RED = '#E53935', AD_SCRIM = '#1A1A1D';
+  function adcardStyles() { return ['photo', 'swiss', 'type', 'chalk', 'station', 'logo']; }
+  var AD_STATION_BG = '/assets/img/uploads/comedybrew_featured.png';   // the station board's default backdrop; bg= in the URL overrides, empty for none
+  // Shrink from startPx until the text fits in maxLines (or minPx). Returns { px, lines }.
+  function adFit(ctx, text, maxW, startPx, minPx, maxLines, weight, family) {
+    var px = startPx, lines;
+    for (;;) { ctx.font = weight + ' ' + px + 'px ' + family; lines = wrapWords(ctx, text, maxW); if (lines.length <= maxLines || px <= minPx) break; px -= 4; }
+    return { px: px, lines: lines };
+  }
+  function adLines(ctx, fit, x, y, color, align, lh) {
+    ctx.fillStyle = color; ctx.textAlign = align; ctx.textBaseline = 'alphabetic';
+    var lineH = fit.px * (lh || 1.08);
+    fit.lines.forEach(function (ln, i) { ctx.fillText(ln, x, y + (i + 1) * lineH - lineH * 0.2); });
+    return y + fit.lines.length * lineH;
+  }
+  function adLogo(ctx, m, x, y, h, mono) {
+    if (!m.logo) return 0;
+    var w = h * (m.logo.width / m.logo.height);
+    if (mono) drawMono(ctx, m.logo, x, y, w, h); else ctx.drawImage(m.logo, x, y, w, h);
+    return w;
+  }
+  // 1. Photo: the room, a dark scrim from the middle down, the headline in Anton on it.
+  function paintAdPhoto(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story', pad = spec.keySide + 30, maxW = W - pad * 2;
+    ctx.fillStyle = AD_INK; ctx.fillRect(0, 0, W, H);
+    if (m.photo) drawCover(ctx, m.photo, 0, 0, W, H);
+    var g = ctx.createLinearGradient(0, H * 0.3, 0, H);
+    g.addColorStop(0, 'rgba(15,15,16,0)'); g.addColorStop(0.45, 'rgba(15,15,16,0.72)'); g.addColorStop(1, 'rgba(15,15,16,0.95)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    adLogo(ctx, m, pad - 10, spec.keyTop + 10, story ? 130 : 100);
+    var bottom = H - spec.keyBottom - 26;
+    var sub = m.sub ? adFit(ctx, m.sub, maxW, story ? 46 : 40, 30, 2, '600', FONT_BODY) : null;
+    var subH = sub ? sub.lines.length * sub.px * 1.2 + 18 : 0;
+    var head = adFit(ctx, m.headline, maxW, story ? 124 : 108, 56, 3, '400', FONT_DISPLAY);
+    var headH = head.lines.length * head.px * 1.04;
+    var y = bottom - subH - headH;
+    ctx.font = '400 ' + head.px + 'px ' + FONT_DISPLAY;
+    adLines(ctx, head, pad, y, AD_CREAM, 'left', 1.04);
+    if (sub) { ctx.font = '600 ' + sub.px + 'px ' + FONT_BODY; adLines(ctx, sub, pad, bottom - subH + 10, AD_YELLOW, 'left', 1.2); }
+  }
+  // 2. Swiss: the near-white paper, one red circle, Inter 800 flush left in ink.
+  function paintAdSwiss(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story', pad = spec.keySide + 34, maxW = W - pad * 2;
+    ctx.fillStyle = SWISS_PAPER; ctx.fillRect(0, 0, W, H);
+    var r = Math.round(W * 0.21);
+    ctx.fillStyle = AD_RED; ctx.beginPath(); ctx.arc(W - pad - r * 0.55, spec.keyTop + r * 0.85, r, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = AD_RED; ctx.font = '700 ' + (story ? 40 : 34) + 'px ' + FONT_BODY; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    ctx.fillText('ZÜRICH', pad, spec.keyTop + (story ? 60 : 50));
+    ctx.fillStyle = AD_INK; ctx.fillRect(pad, spec.keyTop + (story ? 84 : 70), Math.round(maxW * 0.28), 6);
+    var y = spec.keyTop + r * 1.9 + (story ? 60 : 30);
+    var head = adFit(ctx, m.headline, maxW, story ? 118 : 100, 52, 4, '800', FONT_BODY);
+    ctx.font = '800 ' + head.px + 'px ' + FONT_BODY;
+    y = adLines(ctx, head, pad, y, AD_INK, 'left', 1.02) + (story ? 34 : 24);
+    if (m.sub) { var sub = adFit(ctx, m.sub, maxW, story ? 46 : 40, 30, 2, '600', FONT_BODY); ctx.font = '600 ' + sub.px + 'px ' + FONT_BODY; adLines(ctx, sub, pad, y, AD_RED, 'left', 1.2); }
+    var lh = story ? 96 : 80;
+    adLogo(ctx, m, pad, H - spec.keyBottom - lh - 10, lh);
+  }
+  // 3. Bold Type: ink field, the headline in Anton capitals as big as it goes, a red bar for the sub.
+  function paintAdType(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story', pad = spec.keySide + 30, maxW = W - pad * 2;
+    ctx.fillStyle = AD_INK; ctx.fillRect(0, 0, W, H);
+    var lh = story ? 120 : 96, lw = adLogo(ctx, m, 0, 0, 0);   // measured below
+    if (m.logo) { lw = lh * (m.logo.width / m.logo.height); ctx.drawImage(m.logo, W / 2 - lw / 2, spec.keyTop + 8, lw, lh); }
+    var barH = m.sub ? (story ? 150 : 120) : 0, barY = H - spec.keyBottom - barH;
+    var top = spec.keyTop + lh + (story ? 60 : 36), avail = barY - top - (story ? 40 : 24);
+    var head = adFit(ctx, String(m.headline).toUpperCase(), maxW, story ? 176 : 150, 64, 4, '400', FONT_DISPLAY);
+    var lineH = head.px * 1.0, blockH = head.lines.length * lineH;
+    while (blockH > avail && head.px > 64) { head = adFit(ctx, String(m.headline).toUpperCase(), maxW, head.px - 8, 64, 4, '400', FONT_DISPLAY); lineH = head.px * 1.0; blockH = head.lines.length * lineH; }
+    ctx.font = '400 ' + head.px + 'px ' + FONT_DISPLAY;
+    var y = top + (avail - blockH) / 2;
+    ctx.fillStyle = AD_CREAM; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    head.lines.forEach(function (ln, i) { ctx.fillText(ln, W / 2, y + (i + 1) * lineH - lineH * 0.14); });
+    if (m.sub) {
+      ctx.fillStyle = AD_RED; ctx.fillRect(0, barY, W, barH);
+      var sub = adFit(ctx, m.sub, maxW, story ? 48 : 42, 30, 2, '700', FONT_BODY);
+      ctx.font = '700 ' + sub.px + 'px ' + FONT_BODY; ctx.fillStyle = AD_CREAM; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      var sl = sub.px * 1.15, sy = barY + barH / 2 - (sub.lines.length - 1) * sl / 2;
+      sub.lines.forEach(function (ln, i) { ctx.fillText(ln, W / 2, sy + i * sl); });
+    }
+  }
+  // 4. Chalkboard: the week story's board, the headline in chalk marker, the sub in chalk white.
+  function paintAdChalk(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story', pad = spec.keySide + 40, maxW = W - pad * 2;
+    var rnd = chalkRnd('adcard|' + m.headline), bg = chalkRnd('chalk|board');
+    ctx.fillStyle = CHALK_BOARD; ctx.fillRect(0, 0, W, H);
+    var vg = ctx.createRadialGradient(W / 2, H * 0.4, H * 0.1, W / 2, H * 0.5, H * 0.8);
+    vg.addColorStop(0, 'rgba(255,255,255,0.05)'); vg.addColorStop(1, 'rgba(0,0,0,0.25)');
+    ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
+    ctx.save(); ctx.fillStyle = CHALK_WHITE;
+    for (var i = 0; i < 900; i++) { ctx.globalAlpha = 0.03 + bg() * 0.09; ctx.fillRect(bg() * W, bg() * H, 1 + bg() * 2, 1 + bg() * 2); }
+    for (var s = 0; s < 4; s++) { ctx.globalAlpha = 0.035; ctx.beginPath(); ctx.ellipse(bg() * W, bg() * H, 120 + bg() * 220, 40 + bg() * 60, bg() * Math.PI, 0, Math.PI * 2); ctx.fill(); }
+    ctx.restore();
+    var fx = spec.keySide + 8, fy = spec.keyTop - 6, fw = W - fx * 2, fh = H - spec.keyBottom - fy + 4;
+    chalkLine(ctx, fx, fy, fx + fw, fy, CHALK_WHITE, 3, bg); chalkLine(ctx, fx + fw, fy, fx + fw, fy + fh, CHALK_WHITE, 3, bg);
+    chalkLine(ctx, fx + fw, fy + fh, fx, fy + fh, CHALK_WHITE, 3, bg); chalkLine(ctx, fx, fy + fh, fx, fy, CHALK_WHITE, 3, bg);
+    var lh = story ? 120 : 96;
+    if (m.logo) { var lw = lh * (m.logo.width / m.logo.height); ctx.save(); ctx.globalAlpha = 0.9; drawMono(ctx, m.logo, W / 2 - lw / 2, spec.keyTop + 18, lw, lh); ctx.restore(); }
+    var head = adFit(ctx, m.headline, maxW, story ? 112 : 96, 52, 3, '400', FONT_ACCENT);
+    var sub = m.sub ? adFit(ctx, m.sub, maxW, story ? 52 : 46, 32, 2, '400', FONT_ACCENT) : null;
+    var lineH = head.px * 1.12, blockH = head.lines.length * lineH + (sub ? 40 + sub.lines.length * sub.px * 1.2 : 0);
+    var top = spec.keyTop + lh + 40, floor = H - spec.keyBottom - 30;
+    var y = top + Math.max(0, (floor - top - blockH) / 2);
+    head.lines.forEach(function (ln, i) { chalkText(ctx, ln, W / 2, y + (i + 1) * lineH - lineH * 0.2, head.px + 'px ' + FONT_ACCENT, CHALK_YELLOW, 'center', rnd); });
+    y += head.lines.length * lineH;
+    ctx.font = head.px + 'px ' + FONT_ACCENT;
+    var lastW = ctx.measureText(head.lines[head.lines.length - 1]).width;
+    chalkLine(ctx, W / 2 - lastW / 2, y + 2, W / 2 + lastW / 2, y + 6, CHALK_YELLOW, 4, rnd);
+    if (sub) { y += 40; sub.lines.forEach(function (ln, i) { chalkText(ctx, ln, W / 2, y + (i + 1) * sub.px * 1.2 - sub.px * 0.2, sub.px + 'px ' + FONT_ACCENT, CHALK_WHITE, 'center', rnd); }); }
+  }
+  // 5. Station board: the indigo board with a red notice banner carrying the headline; the sub
+  //    lines (split on " | ") are the white rows, the last row gets the red "DO" box.
+  function paintAdStation(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story';
+    ctx.fillStyle = WEEK_INK; ctx.fillRect(0, 0, W, H);
+    // A subtle backdrop (Harry, 2026-09-13): the show photo behind the board, most of the way to ink.
+    if (m.bg) { drawCover(ctx, m.bg, 0, 0, W, H); ctx.fillStyle = 'rgba(15,15,16,0.8)'; ctx.fillRect(0, 0, W, H); }
+    var lh = story ? 100 : 80, y = spec.keyTop + 6;
+    if (m.logo) { var lw = lh * (m.logo.width / m.logo.height); ctx.drawImage(m.logo, W / 2 - lw / 2, y, lw, lh); }
+    y += lh + (story ? 22 : 16);
+    var bx = spec.keySide + 4, bw = W - bx * 2;
+    var pad = bx + 14, innerW = W - pad * 2;
+    var head = adFit(ctx, m.headline, innerW - (story ? 110 : 90), story ? 56 : 46, 30, 3, '700', FONT_BODY);
+    var banH = Math.max(story ? 168 : 140, head.lines.length * head.px * 1.2 + 40);
+    // The board is as tall as its rows (banner, strip, rows, a foot), centred in the room left
+    // under the logo, so three rows do not sit on an empty field.
+    var rows = String(m.sub || '').split('|').map(function (s) { return s.trim(); }).filter(Boolean);
+    var stripH = story ? 60 : 50, rowH = story ? 118 : 96, rpx = story ? 44 : 38;
+    var boardH = banH + stripH + rows.length * rowH + (story ? 40 : 30), floor = H - spec.keyBottom - 14;
+    y += Math.max(0, Math.floor((floor - y - boardH) / 2));
+    ctx.fillStyle = STATION_BLUE; ctx.fillRect(bx, y, bw, boardH);
+    ctx.fillStyle = WEEK_RED; ctx.fillRect(bx, y, bw, banH);
+    var pb = Math.round((story ? 168 : 140) * 0.42), px0 = pad, py0 = y + (banH - pb) / 2;
+    ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 3; ctx.strokeRect(px0, py0, pb, pb);
+    ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = '400 ' + Math.round(pb * 0.7) + 'px ' + FONT_DISPLAY; ctx.fillText('★', px0 + pb / 2, py0 + pb / 2 + 2);
+    ctx.font = '700 ' + head.px + 'px ' + FONT_BODY; ctx.textAlign = 'left';
+    var tx = px0 + pb + 22, hl = head.px * 1.2, hTop = y + (banH - hl * head.lines.length) / 2;
+    head.lines.forEach(function (ln, i) { ctx.fillText(ln, tx, hTop + hl * (i + 0.5)); });
+    y += banH;
+    ctx.fillStyle = STATION_GREY; ctx.fillRect(bx, y, bw, stripH);
+    ctx.fillStyle = STATION_BLUE; ctx.font = '700 ' + (story ? 30 : 26) + 'px ' + FONT_BODY; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+    ctx.fillText('Zürich', pad, y + stripH / 2); ctx.textAlign = 'right'; ctx.fillText('Nach · Gleis · Hinweis', W - pad, y + stripH / 2);
+    y += stripH;
+    rows.forEach(function (row, i) {
+      var ry = y + i * rowH;
+      ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+      ctx.font = '700 ' + rpx + 'px ' + FONT_BODY;
+      var fit = adFit(ctx, row, innerW - (i === rows.length - 1 ? 150 : 0), rpx, 26, 2, '700', FONT_BODY);
+      ctx.font = '700 ' + fit.px + 'px ' + FONT_BODY;
+      var rl = fit.px * 1.15, rTop = ry + rowH / 2 - (fit.lines.length - 1) * rl / 2;
+      fit.lines.forEach(function (ln, k) { ctx.fillText(ln, pad, rTop + k * rl); });
+      if (i === rows.length - 1) { ctx.fillStyle = WEEK_RED; var boxW = 120, boxH = rowH - 28; ctx.fillRect(W - pad - boxW, ry + 14, boxW, boxH); ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.font = '700 ' + (story ? 40 : 34) + 'px ' + FONT_BODY; ctx.fillText('DO', W - pad - boxW / 2, ry + rowH / 2); }
+      ctx.fillStyle = 'rgba(255,255,255,0.55)'; ctx.fillRect(bx + 10, ry + rowH - 1, bw - 20, 1);
+    });
+  }
+  // 6. Logo: brand red, the logo big, the headline under it in Anton cream, the sub in ink.
+  function paintAdLogo(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story', pad = spec.keySide + 30, maxW = W - pad * 2;
+    ctx.fillStyle = AD_RED; ctx.fillRect(0, 0, W, H);
+    var sub = m.sub ? adFit(ctx, m.sub, maxW, story ? 46 : 40, 30, 2, '700', FONT_BODY) : null;
+    var head = adFit(ctx, m.headline, maxW, story ? 116 : 100, 56, 3, '400', FONT_DISPLAY);
+    var headH = head.lines.length * head.px * 1.04, subH = sub ? sub.lines.length * sub.px * 1.2 + 20 : 0;
+    var lw = Math.round(W * (story ? 0.56 : 0.5)), lh = m.logo ? lw * (m.logo.height / m.logo.width) : lw;
+    var total = lh + (story ? 60 : 44) + headH + subH, top = spec.keyTop + Math.max(0, (H - spec.keyTop - spec.keyBottom - total) / 2);
+    if (m.logo) ctx.drawImage(m.logo, W / 2 - lw / 2, top, lw, lh);
+    var y = top + lh + (story ? 60 : 44);
+    ctx.font = '400 ' + head.px + 'px ' + FONT_DISPLAY;
+    y = adLines(ctx, head, W / 2, y, AD_CREAM, 'center', 1.04);
+    if (sub) { ctx.font = '700 ' + sub.px + 'px ' + FONT_BODY; adLines(ctx, sub, W / 2, y + 20, AD_INK, 'center', 1.2); }
+  }
+  var AD_STYLES = { photo: paintAdPhoto, swiss: paintAdSwiss, type: paintAdType, chalk: paintAdChalk, station: paintAdStation, logo: paintAdLogo };
+
+  // ad = { headline, sub, style, photo } (photo a root-relative gallery path or empty).
+  function drawAdCard(canvas, ad, format, done) {
+    var paint = AD_STYLES[ad.style] || paintAdPhoto;
+    var spec = flyerSpec(format);
+    canvas.width = spec.w; canvas.height = spec.h;
+    var ctx = canvas.getContext('2d');
+    var bg = ad.bg !== undefined ? ad.bg : (ad.style === 'station' ? AD_STATION_BG : '');
+    var srcs = ['/assets/img/inyourface.png', assetURL(ad.photo || ''), assetURL(bg || '')];
+    loadBrandFonts()
+      .then(function () { return Promise.all(srcs.map(function (s) { return s ? loadImg(s) : Promise.resolve(null); })); })
+      .then(function (imgs) {
+        paint(ctx, spec, { headline: stripEmoji(ad.headline || ''), sub: stripEmoji(ad.sub || ''), logo: imgs[0], photo: imgs[1], bg: imgs[2] });
+        if (done) done(null);
+      })
+      .catch(function (e) { if (done) done(e); });
+  }
+
+  // The /adcard/ page: a small form, the canvas, a download button; the URL mirrors the state.
+  function renderAdcard() {
+    ensureFlyerCss(); ensureWeekCss();
+    var p = new URLSearchParams(window.location.search);
+    var ad = { headline: (p.get('headline') || 'Lost in Zürich? Find your funny.').trim(), sub: (p.get('sub') || '').trim(), style: (p.get('style') || 'photo').trim().toLowerCase(), photo: (p.get('photo') || '').trim(), bg: p.has('bg') ? (p.get('bg') || '').trim() : undefined, format: (p.get('format') || 'post').trim().toLowerCase() };
+    if (!AD_STYLES[ad.style]) ad.style = 'photo';
+    if (ad.format !== 'story') ad.format = 'post';
+    function sync() {
+      var q = 'headline=' + enc(ad.headline) + '&sub=' + enc(ad.sub) + '&style=' + enc(ad.style) + '&photo=' + enc(ad.photo) + (ad.bg !== undefined ? '&bg=' + enc(ad.bg) : '') + '&format=' + enc(ad.format);
+      try { window.history.replaceState(null, '', window.location.pathname + '?' + q); } catch (e) { /* sandbox */ }
+    }
+    function build() {
+      adRoot.textContent = '';
+      var head = el('div', 'lineup-lab__head');
+      head.appendChild(el('h1', 'lineup-lab__title', '🪧 Ad Card'));
+      adRoot.appendChild(head);
+      adRoot.appendChild(el('p', 'lineup-lab__sub', 'One headline, one line under it, one look. The Meta ads bank renders through this page; by hand it makes one image.'));
+      var form = el('div', 'iyf-week__from');
+      function field(label, key, wide) {
+        var lab = el('label', '', label); var inp = document.createElement('input'); inp.type = 'text'; inp.value = ad[key]; inp.style.minWidth = wide ? '320px' : '200px';
+        inp.addEventListener('change', function () { ad[key] = inp.value.trim(); paint(); }); lab.appendChild(inp); form.appendChild(lab);
+      }
+      field('Headline', 'headline', true); field('Sub', 'sub', true); field('Photo path', 'photo', true);
+      adRoot.appendChild(form);
+      var styles = el('div', 'iyf-week__actions');
+      adcardStyles().forEach(function (s) { var b = el('button', 'lineup-lab__copy' + (s === ad.style ? ' is-active' : ''), s); b.type = 'button'; b.addEventListener('click', function () { ad.style = s; paint(); }); styles.appendChild(b); });
+      ['post', 'story'].forEach(function (f) { var b = el('button', 'lineup-lab__copy' + (f === ad.format ? ' is-active' : ''), f); b.type = 'button'; b.addEventListener('click', function () { ad.format = f; paint(); }); styles.appendChild(b); });
+      adRoot.appendChild(styles);
+      var canvas = document.createElement('canvas'); canvas.className = 'lineup-lab__flyer'; canvas.style.maxWidth = '420px'; canvas.style.width = '100%'; canvas.style.display = 'block'; canvas.style.margin = '1rem auto';
+      adRoot.appendChild(canvas);
+      var row = el('div', 'iyf-week__row');
+      var dl = el('a', 'lineup-lab__copy', 'Download PNG'); dl.href = '#'; dl.addEventListener('click', function (ev) { ev.preventDefault(); var a = document.createElement('a'); a.download = 'adcard-' + ad.style + '-' + ad.format + '.png'; a.href = canvas.toDataURL('image/png'); a.click(); });
+      row.appendChild(dl); adRoot.appendChild(row);
+      drawAdCard(canvas, ad, ad.format, function (e) { if (e) adRoot.appendChild(el('p', 'lineup-lab__sub', 'Could not draw: ' + e)); });
+    }
+    function paint() { sync(); build(); }
+    paint();
+  }
+
   // Test/preview seam: expose the flyer entry points on window (browser-only, mirrors
   // __lineupMakerLastURL). Lets a harness render a flyer headlessly without walking the
   // wizard UI. No-op in read-only envs.
   try {
-    window.__iyfDrawFlyer = drawFlyer; window.__iyfOpenFlyer = openFlyer; window.__iyfDrawWeek = drawWeek;
+    window.__iyfDrawFlyer = drawFlyer; window.__iyfOpenFlyer = openFlyer; window.__iyfDrawWeek = drawWeek; window.__iyfDrawAdCard = drawAdCard;
     window.__iyfFlyerHandles = flyerHandles; window.__iyfFlyerHandlesText = flyerHandlesText;
   } catch (e) { /* read-only env */ }
 
@@ -4117,5 +4360,5 @@
     if (stage === 'format') return show ? renderFormat() : renderShowPicker();
     return renderShowPicker();
   }
-  if (weekRoot) renderWeek(); else render();
+  if (adRoot) renderAdcard(); else if (weekRoot) renderWeek(); else render();
 })();

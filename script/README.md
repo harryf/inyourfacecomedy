@@ -465,3 +465,33 @@ only; never compare Cold with Intent, because Cold sends the visitors Intent lat
 Tests: `script/__tests__/meta-insights.test.ts` covers both scripts' pure parts (verdicts,
 floors, median, retire cap, starved rule, the site join, the calendar count, the desired
 targeting, the diff, the post body, the month projection, the cap rule).
+
+## `meta-bank.ts`
+
+The creative bank for the Cold, Warm and Intent ad sets (plan: `meta-ads/creative-bank-plan.md`).
+The concepts live in `meta-ads/bank/{cold,warm,intent}.yml` (tracked): one body, one headline,
+one description, one image spec and a status per concept. Images are rendered through the
+site's own pages in headless Brave (`script/lib/headless.ts`, shared with the lineup script):
+`/adcard/` paints a headline over a photo or on a brand field in six looks (photo, swiss, type,
+chalk, station, logo), `/week/` paints the week list for the calendar concepts, and a `clip`
+concept is a phone video Harry supplies.
+
+```
+bundle exec jekyll build --future                       # the local render reads _site/
+bun script/meta-bank.ts --render --local                # every group, post and story
+bun script/meta-bank.ts --render --local --group cold --only C1,C3
+bun script/meta-bank.ts --render --base https://inyourfacecomedy.ch   # from the live site
+```
+
+Output: `meta-ads/creative/bank/<group>/<id>-post.png` and `-story.png` (gitignored) and a
+contact sheet at `meta-ads/creative/bank/index.html`. The loader refuses a body over 125
+characters or a concept without an image style. Ad creation (upload, single-text creative,
+one ad per concept, paused, then `--activate`) is the next step; the flags are not built yet.
+
+The `/adcard/` page also works by hand: `headline`, `sub`, `style`, `photo` (a gallery path)
+and `format` in the URL, a Download PNG button. The station look splits `sub` on ` | ` into
+board rows and sits on a subtle backdrop, the Comedy Brew feature photo darkened most of the
+way to ink (`bg=` in the URL or `image.bg` in the bank file overrides it; empty for none). The
+contact sheet is rebuilt from every image on disk after each render, so a `--only` run never
+shrinks it. Contrast pairs for the six looks sit in `newStylePairs()` and `bun test` holds them
+at the WCAG floors like every other style.

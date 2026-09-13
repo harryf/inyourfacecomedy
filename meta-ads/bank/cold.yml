@@ -1,0 +1,79 @@
+# The Cold bank: people who have never heard of us (meta-ads/creative-bank-plan.md).
+# One ad per concept: one body (125 characters or fewer), one headline (under 40), one
+# description, one image. Evergreen: no dates, no comedian names, no prices, one sentence
+# that names a person, nothing that reads as "we watched you", no em dashes.
+# image.style is an /adcard/ look (photo, swiss, type, chalk, station, logo); image.photo a
+# gallery path for the photo look; image.headline and image.sub are what the card paints.
+# status: live (has an ad), bench (waiting for a slot), retired (paused by the readout).
+adset: cold
+link: { show: comedybrew, utm_campaign: cold }
+description: "English stand-up, every Thursday"
+
+concepts:
+  - id: C1
+    person: The newcomer (the proven angle, kept as the control)
+    body: "Lost in Zürich? Find your funny. English stand-up every Thursday, two minutes from Central."
+    title: "Lost in Zürich? Find your funny."
+    image: { style: photo, photo: /assets/img/gallery/canape_PXXX8236.jpg, headline: "Lost in Zürich? Find your funny.", sub: "English stand-up, every Thursday" }
+    status: bench
+  - id: C2
+    person: New in town, knows nobody
+    body: "New in Zürich and know nobody yet? Thursday night, English stand-up near Central. Nobody will make you talk."
+    title: "New in Zürich? Start here."
+    image: { style: photo, photo: /assets/img/gallery/canape_PXXX8284.jpg, headline: "New in Zürich? Start here.", sub: "Thursday nights, English stand-up, near Central" }
+    status: bench
+  - id: C3
+    person: The Swiss person (in German)
+    body: "Live-Comedy auf Englisch, jeden Donnerstag in Zürich. Dein Englisch reicht, versprochen."
+    title: "Dein Englisch reicht. Versprochen."
+    description: "Jeden Donnerstag, 19:30"
+    image: { style: swiss, headline: "Dein Englisch reicht. Versprochen.", sub: "Live-Comedy auf Englisch, jeden Donnerstag" }
+    status: bench
+  - id: C4
+    person: Anyone who likes the joke
+    body: "Switzerland has four official languages and one everyone actually speaks. Stand-up in it, every Thursday in Zürich."
+    title: "Comedy in Switzerland's fifth language"
+    image: { style: swiss, headline: "Deutsch. Français. Italiano. Rumantsch. English.", sub: "Stand-up in the fifth language, every Thursday" }
+    status: bench
+  - id: C5
+    person: The student
+    body: "Student in Zürich? Ten comedians, one Thursday, walking distance from ETH and Uni. Bring the flatmate."
+    title: "Thursday, ten acts, near ETH"
+    image: { style: chalk, headline: "Ten comedians. One Thursday.", sub: "Walking distance from ETH and Uni" }
+    status: bench
+  - id: C6
+    person: The visitor
+    body: "In Zürich this week? There is English stand-up on Thursday, two minutes from the main station. The locals go."
+    title: "In Zürich on a Thursday?"
+    image: { style: photo, photo: /assets/img/gallery/canape_PXXX8895.jpg, headline: "In Zürich on a Thursday?", sub: "English stand-up, two minutes from the main station" }
+    status: bench
+  - id: C7
+    person: The relocated European
+    body: "Moved to Zürich for work? Your colleagues laugh here on Thursdays. English stand-up, ten acts, near Central."
+    title: "Where Zürich's expats laugh"
+    image: { style: photo, photo: /assets/img/gallery/canape_PXXX8030.jpg, headline: "Where Zürich's expats laugh", sub: "Thursdays, ten acts, in English" }
+    status: bench
+  - id: C8
+    person: The native English speaker
+    body: "Missing a proper comedy night? Zürich has one every Thursday. Ten acts, all in English, near Central."
+    title: "A proper comedy night. In Zürich."
+    image: { style: photo, photo: /assets/img/gallery/kafi_PXXX3234.jpg, headline: "A proper comedy night. In Zürich.", sub: "Every Thursday, ten acts, all in English" }
+    status: bench
+  - id: C9
+    person: The person who does not want to socialise
+    body: "Want to be around people without talking to anyone? Sit in the dark and laugh. Thursdays, Zürich, in English."
+    title: "A night out with no small talk"
+    image: { style: type, headline: "A night out. No small talk.", sub: "English stand-up, Thursdays in Zürich" }
+    status: bench
+  - id: C10
+    person: The doubter
+    body: "Yes, there is English stand-up in Zürich. Every Thursday since 2021, ten comedians, one room near Central."
+    title: "English stand-up in Zürich. Really."
+    image: { style: logo, headline: "English stand-up in Zürich. Really.", sub: "Every Thursday since 2021" }
+    status: bench
+  - id: C11
+    person: The regional commuter
+    body: "Winterthur, Baden, Zug: it is 25 minutes and the last train home is after the show. Thursdays, English stand-up."
+    title: "25 minutes and a late train home"
+    image: { style: station, headline: "The last train home is after the show.", sub: "Winterthur 25 min | Baden 20 min | Zug 25 min" }
+    status: bench

@@ -203,6 +203,12 @@ Buyers (paused, no ads yet).
 
 ## Phase 4: creative and the first ads (one weekend)
 
+Superseded 2026-09-13 by the creative bank in `meta-ads/creative-bank-plan.md`: the concepts
+per ad set live in `meta-ads/bank/{cold,warm,intent}.yml`, `bun script/meta-bank.ts --render
+--local` paints them through the site's `/adcard/` and `/week/` pages into
+`meta-ads/creative/bank/` (contact sheet `index.html` there), and the ad creation step of the
+same script follows. The table below is the first draft of the bank and stays for the record.
+
 The bank, from report section 11.3. Make six images (4:5 for feed, 9:16 for stories where the
 tool offers it) and save them under `meta-ads/creative/bank/<hook>/`:
 
