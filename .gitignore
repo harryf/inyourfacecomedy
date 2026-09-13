@@ -68,3 +68,6 @@ meta-ads/lists/*
 !meta-ads/lists/.gitkeep
 !meta-ads/lists/README.md
 script/meta-out/
+
+# Eventfrog sales snapshots, order rows (no buyer fields, but order numbers), guard log, reviews. Never commit.
+script/eventfrog-out/

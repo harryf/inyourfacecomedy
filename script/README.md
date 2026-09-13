@@ -541,3 +541,71 @@ way to ink (`bg=` in the URL or `image.bg` in the bank file overrides it; empty 
 contact sheet is rebuilt from every image on disk after each render, so a `--only` run never
 shrinks it. Contrast pairs for the six looks sit in `newStylePairs()` and `bun test` holds them
 at the WCAG floors like every other style.
+
+## `eventfrog-sales.ts`
+
+Comedy Brew ticket sales from the Eventfrog Organizer API beside the Meta spend: snapshots, the
+sales curve, the capacity guard, the profit line and the Saturday review. The design and every
+threshold: `~/Documents/2026-09-13-comedy-brew-sales-tracking-strategy.md`. Config: the
+`comedybrew:` block in `meta-ads/config.yml`. Key: `EVENTFROG_ORGANIZER` in `.env`.
+
+```
+bun script/eventfrog-sales.ts --poll --slot daily      # 09:00: next two shows, snapshot and order rows, readout; a past show within 7 days gets its final record
+bun script/eventfrog-sales.ts --poll --slot midday     # Tue and Wed 13, 17, 20: the next show only
+bun script/eventfrog-sales.ts --poll --slot showday    # Thu 10 to 20 hourly: the next show; no-op when today is not a show
+bun script/eventfrog-sales.ts --backfill [--limit 6]   # past Comedy Brews: order rows, check-ins, payouts, spend, final records
+bun script/eventfrog-sales.ts --final [--date D]       # the final record for a past show
+bun script/eventfrog-sales.ts --guard [--apply]        # capacity guard for the next show; dry-run prints, --apply writes to Meta
+bun script/eventfrog-sales.ts --review                 # Saturday: review-<date>.md and the ramp verdict for the coming week
+bun script/eventfrog-sales.ts --curve 2026-09-10       # a past show's curve from the order rows
+```
+
+Read-only by construction: `lib/eventfrog-api.ts` has one method, `get`, a whitelist of the six
+read paths, the key in the Authorization header only, `X-RateLimit-Remaining` read on every
+call (waits for the minute under 5), one wait on a 429, a hard cap of 40 calls per run, and
+401 or 403 raise `EventfrogAuthError` (the Healthchecks fail ping says "key rejected"). The
+key Harry created has write and delete rights; nothing here can use them, and the plan is to
+swap it for Eventfrog's read-only Organiser key type.
+
+Files, all under `script/eventfrog-out/` (gitignored): `sales.jsonl` (append-only, one
+snapshot per poll per show: tickets, students, cancelled, orders, gross, capacity, remaining,
+last order), `orders.jsonl` (one row per order keyed by order id: dates, counts, money,
+payment; no name, no email, no ticket ids), `shows/<date>.json` (the final record: check-ins,
+payout, Meta spend per ad set in the Friday-to-Thursday window, site clicks from
+`_data/reports/comedybrew.json`, blended net price, ads per ticket, whether the ramp ran,
+profit), `guard.json` (every guard action with its reason, and the ramp state), `events.json`
+(the day's Comedy Brew list from the API, so hourly slots make one call), `sales-<date>.md`
+and `review-<date>.md`.
+
+The capacity guard reads a projection inside 72 hours of the show (sold divided by the share
+of a night usually sold by then, from the order rows, the export baseline under three shows):
+at capacity minus `door_reserve` the ramp is put back to base on Warm, Intent and Buyers; at
+`seats_left_ramp_stop` seats left the same; at sold out the dated `lineup-<date>` ad is
+paused. No ad set is ever paused and Cold and the old ad set are never touched. The profit
+guard is the review's ramp verdict: full, half or off from the four-show median of ramp francs
+per extra ticket (ads per ticket over all tickets until base-only weeks exist) against
+`ramp_warn_share`, `ramp_stop_share` and `ramp_restore_share` of the blended net price,
+with a two-clean-week restore. It is advisory: Harry sets the ramp on Saturday.
+
+Healthchecks: create a check "IYF Eventfrog sales" (grace 26 hours), put its URL in `.env` as
+`EVENTFROG_HEALTHCHECKS_URL`. Every run pings success; readout lines go to `/log`; a guard
+action, a sold-out show or a rejected key goes to `/fail` (Telegram).
+
+Cron, after a week of hand runs (`--guard` without `--apply` for the first two weeks, then add
+`--apply` to the three poll lines):
+
+```cron
+# IYF Comedy Brew sales (Eventfrog, read-only): daily snapshot 09:00; a past show within 7 days gets its final record
+0 9 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/eventfrog-sales.ts --poll --slot daily --guard >> script/eventfrog-sales.log 2>&1
+# Tuesday and Wednesday: three more snapshots of the next show
+0 13,17,20 * * 2,3 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/eventfrog-sales.ts --poll --slot midday --guard >> script/eventfrog-sales.log 2>&1
+# Show day: hourly 10:00 to 20:00 (no-op when Thursday is not a Comedy Brew)
+0 10-20 * * 4 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/eventfrog-sales.ts --poll --slot showday --guard >> script/eventfrog-sales.log 2>&1
+# Saturday: the review file
+30 9 * * 6 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/eventfrog-sales.ts --review >> script/eventfrog-sales.log 2>&1
+```
+
+Tests: `script/__tests__/eventfrog-sales.test.ts` (the client's refusals and headers, redaction,
+capacity with the student sub-category, Zürich time across the October change, the window,
+slots, the curve, the projection, the pace, the guard table, blended net, profit, the ramp
+verdict with hysteresis, the site click join).

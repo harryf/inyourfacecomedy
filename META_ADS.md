@@ -24,7 +24,7 @@ Tick as you go. A future session reads this table first.
 | 4 | Bank ads from `meta-ads/bank/*.yml` via `meta-bank.ts`, plus the lineup ad | done | 2026-09-13 | 12 ads live: cold C1 C2 C3 C4 C7 C8, warm W1 W2 W6, intent I1 I3 I5 (in review); two clip concepts by hand; every bank creative carries the 4:5 post image for feeds and the 9:16 story image for Stories and Reels (`meta-bank.ts --restory` moved the first push onto it after Ads Manager asked for a Reels asset; a bench concept pushed later gets both from the start) |
 | 5 | Budget schedules for the next four Thursdays, two automated rules | | | |
 | 6 | Cold, Warm and Intent targeting written by `meta-adsets.ts` | script built | 2026-09-13 | diff verified; `--apply` to run by Harry; old ad set kept |
-| 7 | App, system user, token in `.env`, curl test; scripts: helper, insights, audiences, schedule, lineup ad; cron | prelude, helper, lineup ad | 2026-09-13 | app 1741863547101457 (Live since 2026-09-13), system user iyfadsbot 61594074792364; `meta-lists.ts`, `lib/meta-api.ts`, `meta-lineup-ad.ts`, `meta-adsets.ts`, `meta-insights.ts` built; first lineup ad `lineup-2026-09-17` live in Buyers (ad 120249200016280314); audiences and schedule scripts and cron still open; creative bank per `meta-ads/creative-bank-plan.md` next |
+| 7 | App, system user, token in `.env`, curl test; scripts: helper, insights, audiences, schedule, lineup ad; cron | prelude, helper, lineup ad | 2026-09-13 | app 1741863547101457 (Live since 2026-09-13), system user iyfadsbot 61594074792364; `meta-lists.ts`, `lib/meta-api.ts`, `meta-lineup-ad.ts`, `meta-adsets.ts`, `meta-insights.ts`, `eventfrog-sales.ts` (Eventfrog read-only: sales, curve, capacity guard, Saturday review; cron lines in script/README.md, not yet installed) built; first lineup ad `lineup-2026-09-17` live in Buyers (ad 120249200016280314); audiences and schedule scripts and cron still open; creative bank per `meta-ads/creative-bank-plan.md` next |
 
 Audience sizes after matching (fill in at phase 2): Buyers recent ____, Buyers lapsed ____,
 Show clickers ____, Site visitors ____, IG engagers ____, FB engagers ____.
@@ -367,12 +367,19 @@ Later, not now: `ViewContent` on show pages and `TicketClick` on the site's tick
 on the Free plan, replaces the Mailchimp export as the source for `meta-audiences.ts`; a
 second-visit-rate script over the Eventfrog export is the quarterly number the report asks for.
 
-## Weekly readout (ten minutes, Friday)
+## Weekly readout (ten minutes: Friday insights, Saturday review)
 
 ```
-bun script/meta-insights.ts            # last 14 days, every ad set, verdict per ad
+bun script/meta-insights.ts            # Friday: last 14 days, every ad set, verdict per ad
 bun script/meta-insights.ts --apply    # every second Friday: pause the "retire" ads
+bun script/eventfrog-sales.ts --review # Saturday: tickets and profit per show beside the spend, the ramp verdict for the coming week
 ```
+
+The Saturday review (`script/eventfrog-out/review-<date>.md`, strategy at
+`~/Documents/2026-09-13-comedy-brew-sales-tracking-strategy.md` section 9) is where the ramp for
+the coming week is set: full, half or off from the verdict, with `meta-adsets.ts --apply` or in
+Ads Manager. When the verdict is a cut, that is the week's one change. Write the confounders
+(lineup, holidays, weather) on the review's first line before reading the numbers.
 
 The readout (`script/meta-out/insights-<date>.md`) puts Meta's spend, link clicks, landing
 page views and ticket clicks beside the site's `/go/` count for the same `utm_content`, and
@@ -405,6 +412,8 @@ them at two to five times the cost per click); never upload the raw Eventfrog sh
 commit `meta-ads/config.yml`, anything under `meta-ads/lists/`, `script/meta-out/` or `.env`.
 
 ## For the next session
+
+Ticket sales against the ads: the strategy is at `~/Documents/2026-09-13-comedy-brew-sales-tracking-strategy.md` (read-only Eventfrog poll on a cron, capacity projection on Tuesday, ramp guard on the blended ticket margin, Saturday review; section 11 is the build list, section 12 the questions Harry answers first). Nothing from it is built yet.
 
 Read the status table above first, then `meta-ads/config.example.yml` for the keys, then the
 report sections the current phase names. The pixel and the `TicketRedirect` event on `/go/`

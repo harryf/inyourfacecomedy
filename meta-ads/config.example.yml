@@ -85,3 +85,22 @@ insights:
   max_retire_per_adset: 2
   starved_after_days: 28      # under the floor this long while a sibling passed it: starved
   frequency_flag: 3.5         # 7-day frequency above this flags the ad set
+
+# Comedy Brew sales tracking (script/eventfrog-sales.ts, strategy 2026-09-13). The Eventfrog key lives in .env as
+# EVENTFROG_ORGANIZER and is used read-only whatever its rights (the client has one verb). Thresholds are shares of
+# the blended net ticket price so they move with the student mix.
+comedybrew:
+  show: comedybrew                  # calendar slug, also the /reports/ file the site clicks come from
+  group_id: "7132091334890862636"   # the Comedy Brew event group on Eventfrog (the number in the group ticket URL)
+  capacity_override: 0              # 0 = read totalNumberOfTickets from the API
+  fixed_cost_chf: 0                 # what a night costs before tickets (room, host, comedians, drinks); 0 = nothing per show
+  per_ticket_cost_chf: 0            # Eventfrog fee per ticket if an invoice ever shows one (payouts equal gross so far)
+  door_sales: none                  # none | cash; cash adds "the sales figure is a floor" to every readout
+  new_buyer_value_chf: 0            # credit per first-time buyer beyond the ticket; 0 keeps profit strictly per night
+  door_reserve: 4                   # seats kept back for comps, guests and door cash; the guard line is capacity minus this
+  seats_left_ramp_stop: 6           # late backstop: at or under this many seats left the ramp stops
+  ramp_warn_share: 0.8              # profit guard: ramp francs per extra ticket above 0.8 x blended net halves the ramp
+  ramp_stop_share: 1.0              # above 1.0 x blended net the ramp stops
+  ramp_restore_share: 0.6           # a cut ramp comes back only under this, two clean weeks in a row
+  weekly_envelope_chf: 115          # the monthly cap spread over the weeks (review line only)
+  student_title: student            # ticket category title fragment that marks the student sub-category
