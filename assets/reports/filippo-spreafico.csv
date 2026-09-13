@@ -7,10 +7,12 @@ datetime,event,source,medium,campaign,content,page
 2026-09-08 21:59,ticket_click,google,organic,,,https://inyourfacecomedy.ch/filippo-spreafico/
 2026-09-09 11:46,ticket_click,instagram,social,filippo-spreafico,,https://inyourfacecomedy.ch/filippo-spreafico/
 2026-09-10 14:06,ticket_click,google,organic,,,https://inyourfacecomedy.ch/filippo-spreafico/
-2026-09-11 12:22,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/filippo-spreafico/
-2026-09-11 15:31,ticket_click,meta,untagged,,,https://inyourfacecomedy.ch/calendar/
+2026-09-11 12:22,ticket_click,IN YOUR FACE Comedy,email,64026e8943-EMAIL_CAMPAIGN_2026_09_07_04_29,,https://inyourfacecomedy.ch/filippo-spreafico/
+2026-09-11 15:31,ticket_click,instagram,social,calendar,inyourface_profile,https://inyourfacecomedy.ch/calendar/
 2026-09-11 15:35,ticket_redirect,instagram,social,filippo-spreafico,,Ticket Redirect
 2026-09-11 15:38,ticket_redirect,instagram,social,filippo-spreafico,,Ticket Redirect
 2026-09-11 15:40,ticket_redirect,instagram,social,filippo-spreafico,,Ticket Redirect
-2026-09-11 21:01,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/filippo-spreafico/
-2026-09-11 21:04,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/filippo-spreafico/
+2026-09-11 15:41,ticket_redirect,instagram,social,filippo-spreafico,,Ticket Redirect
+2026-09-11 21:01,ticket_click,google,organic,,,https://inyourfacecomedy.ch/filippo-spreafico/
+2026-09-11 21:04,ticket_click,google,organic,,,https://inyourfacecomedy.ch/filippo-spreafico/
+2026-09-12 19:12,ticket_click,google,organic,,,https://inyourfacecomedy.ch/filippo-spreafico/

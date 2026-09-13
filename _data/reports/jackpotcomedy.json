@@ -3,34 +3,26 @@
  "title": "Jackpot Comedy",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jackpot-comedy-7413646370706339342.html",
  "event_type": "series",
- "generated_at": "2026-09-12T08:20:02.741Z",
+ "generated_at": "2026-09-13T08:20:01.807Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-14",
- "through": "2026-09-12",
- "complete_through": "2026-09-10",
+ "pages_since": "2026-08-15",
+ "through": "2026-09-13",
+ "complete_through": "2026-09-11",
  "totals": {
-  "clicks": 248,
-  "redirect": 230,
+  "clicks": 270,
+  "redirect": 252,
   "click": 18,
-  "clicks_30d": 248,
-  "redirect_30d": 230,
+  "clicks_30d": 270,
+  "redirect_30d": 252,
   "click_30d": 18,
   "views": 77,
   "views_30d": 77,
-  "sessions": 73,
-  "sessions_30d": 73,
+  "sessions": 72,
+  "sessions_30d": 72,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-14",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-15",
    "redirect": 0,
@@ -249,15 +241,23 @@
   },
   {
    "date": "2026-09-11",
-   "redirect": 14,
+   "redirect": 15,
    "click": 0,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-12",
-   "redirect": 2,
+   "redirect": 22,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-13",
+   "redirect": 1,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -268,7 +268,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 206,
+   "clicks": 228,
    "views": 3,
    "sessions": 2
   },
@@ -290,8 +290,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 6,
-   "views": 29,
-   "sessions": 30
+   "views": 28,
+   "sessions": 28
   },
   {
    "source": "google",
@@ -325,8 +325,8 @@
    "source": "chatgpt.com",
    "medium": "ai-assistant",
    "clicks": 1,
-   "views": 4,
-   "sessions": 3
+   "views": 5,
+   "sessions": 4
   },
   {
    "source": "VA LBHE ABDF Dbzfel",
@@ -355,13 +355,13 @@
    "campaign": "jackpotcomedy",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 206,
+   "clicks": 228,
    "first": "2026-08-30",
-   "last": "2026-09-12",
+   "last": "2026-09-13",
    "content": [
     {
      "content": "6964168949947",
-     "clicks": 201
+     "clicks": 223
     }
    ]
   },
