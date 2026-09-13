@@ -24,7 +24,25 @@ export interface MetaConfig {
   monthly_cap_chf: number;
   ramp_shows: string[];
   lineup: { grist_table: string; default_style: string; fallback: string; ends_at?: string };
+  old_adset_id?: string;            // the 2024 carousel ad set: reported, never written
+  targeting?: Partial<Record<"cold" | "warm" | "intent", AdsetSpec>>;
+  insights?: Partial<InsightsRules>;
 }
+
+// One bank ad set's targeting as written by script/meta-adsets.ts.
+export interface AdsetSpec {
+  location: { city_key?: string; radius_km?: number; countries?: string[]; location_types?: string[] };
+  ages: [number, number];
+  locales?: number[];
+  include: string[];                // audience keys from config.audiences
+  exclude: string[];
+  optimization: string;             // LANDING_PAGE_VIEWS, LINK_CLICKS, ...
+}
+
+export interface InsightsRules {
+  ticket_floor: number; lpv_floor: number; retire_factor: number; max_retire_per_adset: number; starved_after_days: number; frequency_flag: number;
+}
+export const DEFAULT_RULES: InsightsRules = { ticket_floor: 10, lpv_floor: 30, retire_factor: 1.5, max_retire_per_adset: 2, starved_after_days: 28, frequency_flag: 3.5 };
 
 // .env at the repo root, KEY=value lines, never overriding a real environment variable.
 export function loadEnv(): void {

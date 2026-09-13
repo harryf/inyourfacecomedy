@@ -395,3 +395,73 @@ jobs:
 ```
 
 Eliminates the "laptop must be on" failure mode and removes the per-machine cron-install friction.
+
+## `meta-adsets.ts`
+
+Writes the Cold, Warm and Intent ad sets from the `targeting:` block in `meta-ads/config.yml`
+(plan: `meta-ads/creative-bank-plan.md`). Never touches Buyers (the lineup script owns it) or
+the old ad set (`old_adset_id`).
+
+```
+bun script/meta-adsets.ts                 # diff per field, writes nothing
+bun script/meta-adsets.ts --validate      # Meta checks the write (execution_options validate_only), nothing written
+bun script/meta-adsets.ts --apply         # write the differing fields, asks per ad set
+bun script/meta-adsets.ts --adset cold    # one ad set
+```
+
+Run the diff, then `--validate`, then `--apply`: the diff cannot tell you what Meta will refuse
+on an edit, validate_only can. Known from 2026-09-13: changing `destination_type` from the
+profile-visit value to WEBSITE and the goal to landing page views is accepted on an ad set
+without ads; a `promoted_object` with the pixel is rejected on a traffic ad set (error
+1885014), so the script does not send one.
+
+Per ad set it sets: location (a city key with a radius in km, or countries), location types,
+ages, locales (Meta ids), included and excluded custom audiences (by the keys in
+`config.audiences`), Advantage+ audience off, the optimisation goal, billing on impressions,
+destination WEBSITE, 1-day click attribution, and the base daily budget from `budgets`. An
+included audience under 1,000 people is warned about before the write (Meta accepts it and
+under-delivers rather than refusing). Targeting is written as one object when any of its fields moved;
+the write is read back and any field that still differs is printed.
+
+The cap: the script projects the month (every running ad set's daily budget times 30.4, plus
+the ramps for the Comedy Brew dates in the next 30 days at three days each) before and after
+the write. A write that would raise the projection above `monthly_cap_chf` is refused with
+the arithmetic; a write that lowers it always goes through. The account spending limit in
+Business settings is the hard stop; Meta does not read the config file.
+
+If Meta rejects an include list because an audience is too small (Show clickers was under
+1,000 on 2026-09-13), the script retries once without `show_clickers` and says so.
+
+## `meta-insights.ts`
+
+The Friday readout: Meta's numbers per ad beside the site's `/go/` counts for the same
+`utm_content`, floors and verdicts (plan: `meta-ads/creative-bank-plan.md`, "The loop").
+
+```
+bun script/meta-insights.ts                  # last 14 days, every ad set plus the old one
+bun script/meta-insights.ts --days 28
+bun script/meta-insights.ts --adset cold
+bun script/meta-insights.ts --apply          # pause the "retire" ads, asks per ad
+```
+
+Writes `script/meta-out/insights-<date>.md` and `.json` (gitignored). Columns per ad: spend,
+impressions, frequency, link clicks, landing page views, Meta ticket clicks (the custom
+conversion `offsite_conversion.custom.<id>`, 1-day click), the site's `/go/` clicks for the
+ad's `utm_content` (matched by ad name, then ad id; the report's own window is printed in the
+header), cost per ticket click and per landing page view, verdict, note. Per ad set the header
+carries status, budget, goal, 7-day frequency and the sizes of its audiences; the window is
+tagged with the number of Comedy Brew dates inside it.
+
+Verdict rules (`insights:` in config, defaults in `lib/meta-api.ts`): an ad set ranks on cost
+per ticket click when at least two of its live ads have `ticket_floor` (10) ticket clicks,
+else on cost per landing page view for ads with `lpv_floor` (30) views; an ad under both
+floors is `untested`, or `starved` when it has been under for `starved_after_days` (28) while
+a sibling passed; a ranked ad worse than `retire_factor` (1.5) times the ad set's median is
+`retire`, at most `max_retire_per_adset` (2) per run, never below two live ads. Buyers and the
+old ad set are `protected`: reported, never paused. Flags: 7-day frequency over
+`frequency_flag` (3.5), or an ad set over CHF 3 per ticket click. Ranking is inside one ad set
+only; never compare Cold with Intent, because Cold sends the visitors Intent later converts.
+
+Tests: `script/__tests__/meta-insights.test.ts` covers both scripts' pure parts (verdicts,
+floors, median, retire cap, starved rule, the site join, the calendar count, the desired
+targeting, the diff, the post body, the month projection, the cap rule).

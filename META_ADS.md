@@ -23,8 +23,8 @@ Tick as you go. A future session reads this table first.
 | 3 | Campaign renamed, Warm, Intent and Buyers ad sets created (paused) | | | |
 | 4 | Six bank ads plus the first lineup ad, links from /linkbuilder/, ad sets on | | | |
 | 5 | Budget schedules for the next four Thursdays, two automated rules | | | |
-| 6 | Trained ad set became Cold by the exclusion edit | | | |
-| 7 | App, system user, token in `.env`, curl test; scripts: helper, insights, audiences, schedule, lineup ad; cron | prelude, helper, lineup ad | 2026-09-13 | app 1741863547101457 (Live since 2026-09-13), system user iyfadsbot 61594074792364; `meta-lists.ts`, `lib/meta-api.ts`, `meta-lineup-ad.ts` built; first lineup ad `lineup-2026-09-17` live in Buyers (ad 120249200016280314); insights, audiences, schedule scripts and cron still open |
+| 6 | Cold, Warm and Intent targeting written by `meta-adsets.ts` | script built | 2026-09-13 | diff verified; `--apply` to run by Harry; old ad set kept |
+| 7 | App, system user, token in `.env`, curl test; scripts: helper, insights, audiences, schedule, lineup ad; cron | prelude, helper, lineup ad | 2026-09-13 | app 1741863547101457 (Live since 2026-09-13), system user iyfadsbot 61594074792364; `meta-lists.ts`, `lib/meta-api.ts`, `meta-lineup-ad.ts`, `meta-adsets.ts`, `meta-insights.ts` built; first lineup ad `lineup-2026-09-17` live in Buyers (ad 120249200016280314); audiences and schedule scripts and cron still open; creative bank per `meta-ads/creative-bank-plan.md` next |
 
 Audience sizes after matching (fill in at phase 2): Buyers recent ____, Buyers lapsed ____,
 Show clickers ____, Site visitors ____, IG engagers ____, FB engagers ____.
@@ -267,22 +267,33 @@ link. In `/reports/comedybrew/` the next day, clicks appear under `utm_content` 
 4. Monthly: add the next month's Thursdays to the three schedules. The schedule script in
    phase 7 replaces this chore.
 
-## Phase 6: the trained ad set becomes Cold (one Friday, after two weeks)
+## Phase 6: the three ad sets get their targeting (by script, 2026-09-13)
 
-Wait until Warm, Intent and Buyers have delivered for two Thursdays. Then, on a Friday (the
-quietest day in the click data), open the Cold ad set and make one edit, all in one save:
-under Audience, switch to original audience options if needed, and add every warm audience to
-Exclude: IYF IG engagers, IYF FB engagers, IYF Site visitors, IYF Show clickers, IYF Buyers
-recent, IYF Buyers lapsed. Keep location, languages, age and performance goal exactly as they
-are (link clicks stays; the report's "landing page views" for Cold would be a second reset,
-not worth it on a running set). Save.
+What happened instead of the original plan: phase 3 created Cold, Warm and Intent as fresh ad
+sets, and the 2024 ad set kept running beside them (Harry's decision, 2026-09-13: it works,
+review in a month). The three new sets were shells (all Switzerland, 18 to 65, profile visits,
+Advantage+ on, CHF 20 a day each, no audiences), so their targeting is written by script from
+the `targeting:` block in `meta-ads/config.yml`, per `meta-ads/creative-bank-plan.md`:
 
-If phase 3 had to create a fresh campaign, this step is instead: add the same exclusions to a
-new Cold ad set in the new campaign with the old ad copied into it, then pause the old campaign.
+| | Cold | Warm | Intent |
+|---|---|---|---|
+| Location | Zürich 30 km, home and recent | Switzerland | Switzerland |
+| Age | 21 to 50 | 18 to 65 | 18 to 65 |
+| Languages | the old ad set's 31 | none | none |
+| Include | nobody | IG and FB engagers | Site visitors, Show clickers |
+| Exclude | every warm audience and both buyer lists | Site visitors, Show clickers, buyers | buyers |
+| Goal | landing page views, website, pixel, 1-day click | same | same |
+| Budget | CHF 3 | CHF 3 (ramp 10) | CHF 2 (ramp 5) |
 
-Expect "Learning" on Cold for up to a week; at its click volume it settles fast. Its existing ad
-stays as the first Cold creative; the bank ads sit beside it. From this Friday on, nobody in a
-warm audience sees the cold message, and the four ad sets are the ladder from the report.
+```
+bun script/meta-adsets.ts            # the diff, nothing written
+bun script/meta-adsets.ts --apply    # write it (asks per ad set)
+```
+
+Run the diff first and read it; then apply. Expect "Learning" on each set once ads go in. The
+old ad set and Buyers are never written by this script. With the old ad set kept at CHF 5 a
+day, the projected month is about CHF 650 against the CHF 500 cap in config; either raise
+`monthly_cap_chf` and the account spending limit, or trim the bases.
 
 ## Phase 7 prelude: API access (one evening, do it when you start the scripts)
 
@@ -336,7 +347,8 @@ exception the GA report already uses (`script/lib/ga-report-lib.ts`).
 | Script | Job | Cron |
 |---|---|---|
 | `script/lib/meta-api.ts` | token from `.env`, `api_version` from config, `get` and `post` with error printing, paging | none |
-| `script/meta-insights.ts` | pull spend, impressions, link clicks, landing page views, cost per link click per ad set and ad per day; write `_data/reports/_meta.json`; `ga-report.ts` or the report layout shows spend next to clicks. Read-only, so it is built first and proves the token | 10:25 daily, after the GA report |
+| `script/meta-insights.ts` | built 2026-09-13: per ad, Meta's spend, impressions, frequency, link clicks, landing page views and ticket clicks beside the site's `/go/` count, floors and verdicts, flags for frequency and cost per ticket click; writes `script/meta-out/insights-<date>.{md,json}`; `--apply` pauses the retire verdicts (never Buyers or the old ad set) | Fridays 09:00 |
+| `script/meta-adsets.ts` | built 2026-09-13: writes Cold, Warm and Intent targeting, goal, destination, attribution and base budgets from config `targeting:`; diff by default, `--apply` writes; refuses a write that would push the projected month over `monthly_cap_chf` | none (run by hand after a config change) |
 | `script/meta-audiences.ts` | read the newest Mailchimp export in `meta-ads/lists/` (later: the Mailchimp API with the last-show tag), split recent and lapsed, normalise and SHA-256 the emails, replace the users of both customer-list audiences, print sizes | Fridays 09:00, after the week's ticket import |
 | `script/meta-schedule.ts` | read `_data/calendar.yml`, write budget schedules for next month's shows on the ramped ad sets (Tuesday 06:00 to show day 23:00), never touching Cold | 1st of the month 09:00 |
 | `script/meta-lineup-ad.ts` | read the Grist `Lineups` table (in the Comedians Directory document, the one `sync-comedians.rb` uses; columns `date` Date, `show` Text, `link` Text, `style` Choice of the eight Flyer Maker keys; created 2026-09-13 with the 2026-09-17 row) for the next Comedy Brew; render the flyer by opening the lineup link in headless Chrome and calling the page's own draw function, post and story sizes, into `script/meta-out/`; upload images, create the creative (names in running order, calendar Info line, date, time, price, the date link with `utm_content=lineup`), create the ad in Buyers, pause last week's; fallback to the week story with the host's name if no row by Tuesday 09:00; Friday run pauses the show's ad | Mon 13:00, Mon 18:00, Tue 09:00, Fri 09:00 |
@@ -351,12 +363,19 @@ second-visit-rate script over the Eventfrog export is the quarterly number the r
 
 ## Weekly readout (ten minutes, Friday)
 
-In Ads Manager, columns: Amount spent, Link clicks, Cost per link click, Landing page views,
-Frequency, per ad set and per ad, last 7 days. On the site, `/reports/comedybrew/` shows the
-same clicks by `utm_content`, so each ad's clicks are visible without Meta's attribution.
-Judge an ad only after 2,000 impressions or 50 landing page views. Every second Friday retire
-the worst bank ad and add one; never run one ad longer than six weeks; never touch targeting
-or the performance goal on a running ad set.
+```
+bun script/meta-insights.ts            # last 14 days, every ad set, verdict per ad
+bun script/meta-insights.ts --apply    # every second Friday: pause the "retire" ads
+```
+
+The readout (`script/meta-out/insights-<date>.md`) puts Meta's spend, link clicks, landing
+page views and ticket clicks beside the site's `/go/` count for the same `utm_content`, and
+gives each ad a verdict: untested (under the floors: 10 ticket clicks, else 30 landing page
+views), keep, retire (worse than 1.5 times the ad set's median), starved (under the floor for
+four weeks while siblings passed). The site count is the ground truth; ranking is inside one
+ad set only. Never compare Cold with Intent. Never touch targeting or the performance goal on
+a running ad set; retire and replace in one batch at the fortnight boundary. Ads Manager still
+works for a glance: Amount spent, Link clicks, Landing page views, Frequency, last 7 days.
 
 After four Comedy Brews with all four ad sets live, compare cost per link click per ad set.
 If Warm and Intent are not clearly cheaper than Cold, collapse them into Cold (report section

@@ -48,3 +48,40 @@ lineup:
   default_style: classic            # Flyer Maker style key when the row leaves style empty
   fallback: week                    # what to post when no row exists by Tuesday 09:00: the week story
   ends_at: "18:00"                  # Zürich time on show day when the Buyers ad set stops (meta-lineup-ad.ts sets end_time)
+
+# The old ad set (the 2024 carousel, kept running by Harry's choice, 2026-09-13). meta-insights.ts
+# reports it; meta-adsets.ts and meta-insights.ts --apply never write to it.
+old_adset_id: ""
+
+# Targeting per bank ad set, written by script/meta-adsets.ts (dry-run diff by default, --apply
+# writes). Keys under include/exclude are the audience keys above. `locales` are Meta locale ids
+# (the old ad set's 31 languages; read them with GET /<adset>/targetingsentencelines).
+targeting:
+  cold:
+    location: { city_key: "313044", radius_km: 30, location_types: [home, recent] }   # Zürich
+    ages: [21, 50]
+    locales: [2, 4, 5, 6, 7, 8, 9, 10, 13, 14, 15, 16, 17, 18, 19, 23, 24, 31, 32, 33, 34, 38, 39, 42, 44, 52, 54, 58, 79, 84, 87]
+    include: []
+    exclude: [ig_engagers, fb_engagers, site_visitors, show_clickers, buyers_recent, buyers_lapsed]
+    optimization: LANDING_PAGE_VIEWS
+  warm:
+    location: { countries: [CH], location_types: [home, recent] }
+    ages: [18, 65]
+    include: [ig_engagers, fb_engagers]
+    exclude: [site_visitors, show_clickers, buyers_recent, buyers_lapsed]
+    optimization: LANDING_PAGE_VIEWS
+  intent:
+    location: { countries: [CH], location_types: [home, recent] }
+    ages: [18, 65]
+    include: [site_visitors, show_clickers]     # show_clickers alone is under 1,000 (2026-09-13); dropped with a warning if Meta rejects it
+    exclude: [buyers_recent, buyers_lapsed]
+    optimization: LANDING_PAGE_VIEWS
+
+# Readout rules for script/meta-insights.ts (plan: meta-ads/creative-bank-plan.md).
+insights:
+  ticket_floor: 10            # ticket clicks in the window before cost per ticket click ranks an ad
+  lpv_floor: 30               # landing page views before cost per landing page view ranks it
+  retire_factor: 1.5          # worse than this times the ad set median past the floor: retire
+  max_retire_per_adset: 2
+  starved_after_days: 28      # under the floor this long while a sibling passed it: starved
+  frequency_flag: 3.5         # 7-day frequency above this flags the ad set
