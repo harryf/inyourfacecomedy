@@ -485,8 +485,26 @@ bun script/meta-bank.ts --render --base https://inyourfacecomedy.ch   # from the
 
 Output: `meta-ads/creative/bank/<group>/<id>-post.png` and `-story.png` (gitignored) and a
 contact sheet at `meta-ads/creative/bank/index.html`. The loader refuses a body over 125
-characters or a concept without an image style. Ad creation (upload, single-text creative,
-one ad per concept, paused, then `--activate`) is the next step; the flags are not built yet.
+characters or a concept without an image style.
+
+```
+bun script/meta-bank.ts --push --dry-run          # what would be created for every status: live concept
+bun script/meta-bank.ts --push --activate         # upload, creative, ad per concept, switched on
+bun script/meta-bank.ts --push --only C5,C9       # named concepts whatever their status, left PAUSED
+```
+
+`--push` makes one ad per concept: the post image uploaded to the account's image library,
+one single-text creative (link_data: body, headline, the concept's description or the
+group's, the image, Book Now) with `url_tags` `utm_content={{ad.name}}` so the site report
+lists clicks per ad, and one ad named `<group>-<id>` in the group's ad set, PAUSED unless
+`--activate`. The link is the series link through `/go/` with the ad set as the campaign. A
+multi-text creative would turn the ad set dynamic-creative (one ad allowed), so every bank ad
+is single-text; text variants are separate concepts. It never creates a concept twice (the ad
+set is read by name, and `meta-ads/creative/bank/state.json` remembers ids), refuses to add a
+seventh live ad to an ad set, skips clip concepts with a note, and waits out Meta's per-account
+request limit (code 17, after about ten creations in a row). The bank files' `status` is the
+human intent: `live` is pushed, `bench` waits, `retired` was paused by the readout. First
+push 2026-09-13: cold C1, C2, C3, C4, C7, C8; warm W1, W2, W6; intent I1, I3, I5.
 
 The `/adcard/` page also works by hand: `headline`, `sub`, `style`, `photo` (a gallery path)
 and `format` in the URL, a Download PNG button. The station look splits `sub` on ` | ` into

@@ -10,13 +10,13 @@ concepts:
     body: "Every Thursday. Plan the week around it. Comedy Brew at ROBIN's, ten comedians, two minutes from Central."
     title: "Thursdays are sorted"
     image: { style: station, headline: "Thursdays are sorted.", sub: "Comedy Brew, ROBIN's | Doors 19:00, show 19:30 | Two minutes from Central" }
-    status: bench
+    status: live
   - id: W2
     person: The follower who has not been
     body: "Following is nice. Sitting in the room is better. Thursday, 19:30, ROBIN's, ten acts."
     title: "Have you actually been?"
     image: { style: photo, photo: /assets/img/gallery/dalis_In_Your_Face_Nov_7_2021_wide_20211107_2713.jpeg, headline: "Have you actually been?", sub: "Thursday, 19:30, ROBIN's" }
-    status: bench
+    status: live
   - id: W3
     person: The one who worries one act will be bad
     body: "Ten comedians, five minutes each. If one is not for you, the next one is on in five minutes."
@@ -40,7 +40,7 @@ concepts:
     body: "This is what a Thursday looks like. Comedy Brew, ROBIN's, two minutes from Central."
     title: "This is what Thursday looks like"
     image: { style: photo, photo: /assets/img/gallery/canape_PXXX8895.jpg, headline: "This is what Thursday looks like.", sub: "" }
-    status: bench
+    status: live
   - id: W7
     person: The calendar reader
     body: "Comedy Brew is Thursday; the rest of the week is on the calendar. English stand-up in Zürich, most nights."

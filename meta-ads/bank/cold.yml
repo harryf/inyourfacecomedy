@@ -15,26 +15,26 @@ concepts:
     body: "Lost in Zürich? Find your funny. English stand-up every Thursday, two minutes from Central."
     title: "Lost in Zürich? Find your funny."
     image: { style: photo, photo: /assets/img/gallery/canape_PXXX8236.jpg, headline: "Lost in Zürich? Find your funny.", sub: "English stand-up, every Thursday" }
-    status: bench
+    status: live
   - id: C2
     person: New in town, knows nobody
     body: "New in Zürich and know nobody yet? Thursday night, English stand-up near Central. Nobody will make you talk."
     title: "New in Zürich? Start here."
     image: { style: photo, photo: /assets/img/gallery/canape_PXXX8284.jpg, headline: "New in Zürich? Start here.", sub: "Thursday nights, English stand-up, near Central" }
-    status: bench
+    status: live
   - id: C3
     person: The Swiss person (in German)
     body: "Live-Comedy auf Englisch, jeden Donnerstag in Zürich. Dein Englisch reicht, versprochen."
     title: "Dein Englisch reicht. Versprochen."
     description: "Jeden Donnerstag, 19:30"
     image: { style: swiss, headline: "Dein Englisch reicht. Versprochen.", sub: "Live-Comedy auf Englisch, jeden Donnerstag" }
-    status: bench
+    status: live
   - id: C4
     person: Anyone who likes the joke
     body: "Switzerland has four official languages and one everyone actually speaks. Stand-up in it, every Thursday in Zürich."
     title: "Comedy in Switzerland's fifth language"
     image: { style: swiss, headline: "Deutsch. Français. Italiano. Rumantsch. English.", sub: "Stand-up in the fifth language, every Thursday" }
-    status: bench
+    status: live
   - id: C5
     person: The student
     body: "Student in Zürich? Ten comedians, one Thursday, walking distance from ETH and Uni. Bring the flatmate."
@@ -52,13 +52,13 @@ concepts:
     body: "Moved to Zürich for work? Your colleagues laugh here on Thursdays. English stand-up, ten acts, near Central."
     title: "Where Zürich's expats laugh"
     image: { style: photo, photo: /assets/img/gallery/canape_PXXX8030.jpg, headline: "Where Zürich's expats laugh", sub: "Thursdays, ten acts, in English" }
-    status: bench
+    status: live
   - id: C8
     person: The native English speaker
     body: "Missing a proper comedy night? Zürich has one every Thursday. Ten acts, all in English, near Central."
     title: "A proper comedy night. In Zürich."
     image: { style: photo, photo: /assets/img/gallery/kafi_PXXX3234.jpg, headline: "A proper comedy night. In Zürich.", sub: "Every Thursday, ten acts, all in English" }
-    status: bench
+    status: live
   - id: C9
     person: The person who does not want to socialise
     body: "Want to be around people without talking to anyone? Sit in the dark and laugh. Thursdays, Zürich, in English."

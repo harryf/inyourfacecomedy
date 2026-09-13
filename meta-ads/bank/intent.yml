@@ -10,7 +10,7 @@ concepts:
     body: "Two minutes from Central, less than a cocktail, ten comedians. Thursday. Tickets on the door too."
     title: "Two minutes from Central"
     image: { style: photo, photo: /assets/img/gallery/dalis_011A0435.jpeg, headline: "Two minutes from Central. Less than a cocktail.", sub: "Ten comedians, every Thursday" }
-    status: bench
+    status: live
   - id: I2
     person: The one who needs proof
     body: "This is what it sounds like."
@@ -22,7 +22,7 @@ concepts:
     body: "Still deciding? The last train home is after the show and the door is two minutes from Central."
     title: "The last train is after the show"
     image: { style: station, headline: "Still deciding? The last train is after the show.", sub: "Show ends 21:30 | Central, two minutes on foot | Trains until after midnight" }
-    status: bench
+    status: live
   - id: I4
     person: The one who wants a seat
     body: "Doors 19:00, show 19:30, seats go. English stand-up, Thursday at ROBIN's. Come early, the bar is open."
@@ -34,7 +34,7 @@ concepts:
     body: "Solo is fine. Half the room came alone. Thursday, English stand-up, near Central."
     title: "Half the room came alone"
     image: { style: photo, photo: /assets/img/gallery/canape_PXXX8414.jpg, headline: "Half the room came alone.", sub: "Solo is fine. Thursday, near Central." }
-    status: bench
+    status: live
   - id: I6
     person: The one waiting for a reason
     body: "Not sure about the lineup? Nobody is. That is the fun of ten acts in one night."

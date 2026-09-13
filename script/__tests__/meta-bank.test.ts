@@ -45,3 +45,26 @@ describe("urls and the contact sheet", () => {
     expect(html).toContain("cold/C1-post.png"); expect(html).toContain("cold/C1-story.png"); expect(html).toContain("<b>cold C1</b>");
   });
 });
+
+describe("push: names, links and the creative", () => {
+  const { adName, bankLink, creativeSpec, pushList, URL_TAGS } = require("../meta-bank");
+  const bank = { adset: "cold", link: { show: "comedybrew", utm_campaign: "cold" }, description: "d", concepts: [c({ id: "C1", status: "live" }), c({ id: "C2", status: "bench" }), c({ id: "C3", status: "live", description: "own" })] };
+  test("live concepts push by default; --only overrides status", () => {
+    expect(pushList(bank, []).map((x: Concept) => x.id)).toEqual(["C1", "C3"]);
+    expect(pushList(bank, ["C2"]).map((x: Concept) => x.id)).toEqual(["C2"]);
+  });
+  test("the link goes through /go/ with the ad set as the campaign and the ad name as content via url_tags", () => {
+    expect(bankLink(bank)).toBe("https://inyourfacecomedy.ch/go/?show=comedybrew&utm_source=meta&utm_medium=paid_social&utm_campaign=cold");
+    expect(URL_TAGS).toBe("utm_content={{ad.name}}");
+    expect(adName("cold", { id: "C1" })).toBe("cold-C1");
+  });
+  test("the creative is single-text link_data with Book Now, the concept's own description when it has one", () => {
+    const s = creativeSpec({ page_id: "p", instagram_account_id: "ig" }, "cold", bank, bank.concepts[2], "h");
+    expect(s.object_story_spec.link_data.image_hash).toBe("h");
+    expect(s.object_story_spec.link_data.description).toBe("own");
+    expect(s.object_story_spec.link_data.call_to_action.type).toBe("BOOK_TRAVEL");
+    expect(s.url_tags).toBe(URL_TAGS);
+    expect((s as any).asset_feed_spec).toBeUndefined();
+    expect(creativeSpec({ page_id: "p", instagram_account_id: "" }, "cold", bank, bank.concepts[0], "h").object_story_spec.link_data.description).toBe("d");
+  });
+});
