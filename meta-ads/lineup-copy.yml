@@ -1,0 +1,33 @@
+# Copy for the Buyers lineup ad (script/meta-lineup-ad.ts). Written for people who have been
+# to the show before: they do not remember names, they remember the night. Meta shows one
+# body, one title and one description per person and learns which pairing works.
+#
+# Placeholders: {show} Comedy Brew, {weekday} Thursday, {date} Thu 17 Sep, {time} 19:30,
+# {venue} ROBIN's, {price} CHF 10. Bodies must stay at 125 characters or fewer after the
+# placeholders are filled (the script refuses longer ones); titles read best under 40,
+# descriptions under 30. Five of each is Meta's maximum. Edit freely; no names, no prices
+# (Harry, 2026-09-13), nothing that could read as "we watched you", no claims that every act
+# is new to them (regulars have seen some), no em dashes.
+
+stamp: "THIS {weekday_upper}"          # drawn on the flyer; empty string for no stamp
+
+bodies:
+  - "New faces, new jokes, same {weekday}. {show} is back at {venue} this week. You know where the door is."
+  - "Remember {show}? It remembers you. This {weekday}, {time} at {venue}. Faces you know, jokes you don't."
+  - "Same room, same cocktails, completely different show. {show}, this {weekday} at {venue}, {time}."
+  - "{weekday} again. The one thing in Zürich that never runs the same twice: {show}, {venue}, {time}."
+  - "Your seat is still there. Old favourites, new faces, all new jokes. {show}, this {weekday} at {venue}."
+
+titles:
+  - "{show}: this {weekday}"
+  - "New jokes. Same {weekday}."
+  - "Back at {venue}, {date}"
+  - "The place that remembers you"
+  - "New faces, old favourites"
+
+descriptions:
+  - "English stand-up, {time}"
+  - "2 min from Central"
+  - "Every {weekday}, never the same"
+  - "Doors 19:00, show {time}"
+  - "Tickets on Eventfrog"

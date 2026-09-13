@@ -322,6 +322,54 @@ bun script/meta-lists.ts [--dry-run] [--date YYYY-MM-DD] [--months 12] [--ticket
   subscribed) and warns when a file is under Meta's floor of 100.
 - Tests: `script/__tests__/meta-lists.test.ts`. No cron; run it before each audience refresh.
 
+## `meta-lineup-ad.ts`
+
+The Buyers lineup ad (META_ADS.md phase 7). Reads the next Comedy Brew row from the Grist
+`Lineups` table (Comedians Directory document: date, show, link, style), takes time, venue and
+price from `_data/calendar.yml` and the names from `_comedians/`, opens the lineup link in
+headless Brave and calls the page's own `window.__iyfDrawFlyer` for the post (1080x1350) and
+story (1080x1920) images into `script/meta-out/` (gitignored), stamps "THIS THURSDAY" on them,
+uploads the post image and creates the creative: five primary texts, five headlines and five
+descriptions from `meta-ads/lineup-copy.yml` (Meta's multiple text options, one image, Book Now
+to the tracked /go/ link with `utm_content=lineup-<yyyymmdd>`). The Buyers ad set holds one
+`lineup-*` ad; the script gives it the new creative and this date's name each week (created
+the first time). A re-run on the same date changes nothing unless `--replace`. Unless
+`--skip-adset`, the Buyers ad set is checked and, if needed, set to the two buyer lists,
+Advantage+ audience off, link clicks, the ramp budget from `meta-ads/config.yml` (printed
+before writing).
+
+```
+bun script/meta-lineup-ad.ts --dry-run [--date YYYY-MM-DD]    # render, print the 15 texts with counts, no Meta writes
+bun script/meta-lineup-ad.ts --activate [--date ...] [--skip-adset] [--replace]
+```
+
+- Needs `META_ACCESS_TOKEN` and `GRIST_API_KEY` in `.env`; the Meta app must be Live (Development
+  mode refuses creatives, error 1885183). `META_ADS_HEALTHCHECKS_URL` optional.
+- Shared helper: `script/lib/meta-api.ts` (token, version, get and post, paging, errors).
+- Copy: `meta-ads/lineup-copy.yml`, placeholders `{show} {weekday} {date} {time} {venue} {price}`
+  filled from the calendar. Bodies over 125 characters stop the run; titles over 40 and
+  descriptions over 30 get a `!` in the dry-run listing. Written for people who have been
+  before: no name list, the flyer shows the faces. Edit the file, then `--replace --activate`.
+- One ad per ad set is Meta's rule once a creative carries multiple texts (the ad set becomes
+  "dynamic creative"; a second ad, even paused, is refused with error 1885553). Hence the
+  update-in-place.
+- The flyer carries a random case number, so each render is a new image and a new upload.
+- Run window: the script sets the Buyers ad set's end time to show day at `lineup.ends_at`
+  (config, default 18:00 Zürich), so the ad stops before doors and the ad set shows
+  "Completed" until the next run moves the end time to the next show and re-activates it.
+  The start of the window is simply when you run `--activate` (Monday, once the lineup is in
+  Grist). No budget schedule needed on Buyers.
+- Ads Manager and drafts: opening an ad's edit view saves a draft of what the view loaded; the
+  view then shows that draft, not what the API changed later ("Unpublished edits" chip). Never
+  publish those drafts over a script-managed ad; discard them. Read the truth with
+  `bun script/meta-lineup-ad.ts --dry-run` or the API, not the edit view.
+- Cron, once the Monday rhythm is trusted (Monday 13:00 create paused, Tuesday 09:00 activate):
+  ```
+  0 13 * * 1 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/meta-lineup-ad.ts >> script/meta-lineup-ad.log 2>&1
+  0 9 * * 2 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/meta-lineup-ad.ts --activate >> script/meta-lineup-ad.log 2>&1
+  ```
+  Not installed yet; the first weeks run by hand.
+
 ### Future: GitHub Action
 
 When this matures, move from the laptop's cron to a scheduled workflow:

@@ -24,7 +24,7 @@ Tick as you go. A future session reads this table first.
 | 4 | Six bank ads plus the first lineup ad, links from /linkbuilder/, ad sets on | | | |
 | 5 | Budget schedules for the next four Thursdays, two automated rules | | | |
 | 6 | Trained ad set became Cold by the exclusion edit | | | |
-| 7 | App, system user, token in `.env`, curl test; scripts: helper, insights, audiences, schedule, lineup ad; cron | prelude | 2026-09-13 | app 1741863547101457, system user iyfadsbot 61594074792364, curl returned CHF and status 1; scripts not started |
+| 7 | App, system user, token in `.env`, curl test; scripts: helper, insights, audiences, schedule, lineup ad; cron | prelude, helper, lineup ad | 2026-09-13 | app 1741863547101457 (Live since 2026-09-13), system user iyfadsbot 61594074792364; `meta-lists.ts`, `lib/meta-api.ts`, `meta-lineup-ad.ts` built; first lineup ad `lineup-2026-09-17` live in Buyers (ad 120249200016280314); insights, audiences, schedule scripts and cron still open |
 
 Audience sizes after matching (fill in at phase 2): Buyers recent ____, Buyers lapsed ____,
 Show clickers ____, Site visitors ____, IG engagers ____, FB engagers ____.
@@ -227,10 +227,13 @@ Then:
    image (or clip), paste the primary text, headline "Comedy Brew, Thursday at ROBIN's", website
    URL the link from step 1, URL parameters `utm_content={{ad.name}}`, call to action "Get
    tickets" (may read "Book now"). Publish.
-3. The Buyers ad, by hand for the first week: build Monday's lineup in `/lineup/`, download the
-   Polaroid flyer, save it under `meta-ads/creative/lineup/comedybrew-YYYY-MM-DD/`, create the
-   ad in Buyers with the names in running order as primary text and the date link. Phase 7
-   automates this.
+3. The Buyers ad is the script's (`bun script/meta-lineup-ad.ts`, phase 7, running since
+   2026-09-13): the Lineup-style flyer stamped "THIS THURSDAY", five primary texts, five
+   headlines and five descriptions from `meta-ads/lineup-copy.yml` written for people who have
+   been before (no name list; they remember the night, not the names), Book Now, the date link.
+   Meta shows one text per person and learns the pairing. Edit the copy file and run
+   `--replace --activate` to change the words; the ad set allows one ad, so the script updates
+   it in place each week.
 4. Turn the three new ad sets on, on a Monday. Cold keeps running as before.
 5. Review: every new ad shows "In review" for an hour to a day. A rejection shows in the ad
    row with a reason; edit what it names and resubmit. Do not resubmit unchanged.
@@ -240,13 +243,16 @@ link. In `/reports/comedybrew/` the next day, clicks appear under `utm_content` 
 
 ## Phase 5: budget schedule and rules (half an hour, then monthly)
 
-1. Budget schedule on Warm, Intent and Buyers: open the ad set, "Budget and schedule", under the
+1. Budget schedule on Warm and Intent: open the ad set, "Budget and schedule", under the
    daily budget tick "Increase your budget during specific time periods" (may be behind "Show
    more options"), "Create budget schedule": start Tuesday 06:00, end Thursday 23:00, increase
-   by a fixed amount: Buyers to CHF 8 (plus 6), Warm to CHF 10 (plus 7), Intent to CHF 5
-   (plus 3). Add one entry per Thursday for the next four weeks. Meta allows up to 50 per ad
-   set. Cold gets no schedule: its base already covers the week, and prospecting is not where
-   the last three days pay.
+   by a fixed amount: Warm to CHF 10 (plus 7), Intent to CHF 5 (plus 3). Add one entry per
+   Thursday for the next four weeks. Meta allows up to 50 per ad set. Cold gets no schedule:
+   its base already covers the week, and prospecting is not where the last three days pay.
+   Buyers needs none: `meta-lineup-ad.ts` runs it at the ramp figure (CHF 8) from the Monday
+   you activate the lineup ad until 18:00 on show day (`lineup.ends_at` in config; the script
+   sets the ad set's end time, next week's run moves it on). Between shows the ad set reads
+   "Completed" in Ads Manager; that is the schedule working.
 2. Rule one: "All tools", "Automated rules", "Create rule". Apply to: all active ad sets in the
    campaign. Condition: cost per link click greater than CHF 1.00, over the last 7 days, with at
    least 30 link clicks (rules take fixed amounts, not averages; revisit the number monthly

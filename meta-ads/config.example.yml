@@ -47,3 +47,4 @@ lineup:
   grist_table: Lineups              # columns: date, show, link, style
   default_style: classic            # Flyer Maker style key when the row leaves style empty
   fallback: week                    # what to post when no row exists by Tuesday 09:00: the week story
+  ends_at: "18:00"                  # Zürich time on show day when the Buyers ad set stops (meta-lineup-ad.ts sets end_time)

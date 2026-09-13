@@ -23,7 +23,7 @@ export interface MetaConfig {
   budgets: Record<string, { base: number; ramp?: number }>;
   monthly_cap_chf: number;
   ramp_shows: string[];
-  lineup: { grist_table: string; default_style: string; fallback: string };
+  lineup: { grist_table: string; default_style: string; fallback: string; ends_at?: string };
 }
 
 // .env at the repo root, KEY=value lines, never overriding a real environment variable.
