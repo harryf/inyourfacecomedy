@@ -17,7 +17,7 @@ Run the build and the health check after every change and before saying you are 
 
 - **Push to `master` goes live** within about a minute. Netlify serves the site (DNS points at Netlify; its build settings live in the Netlify UI, there is no `netlify.toml`). GitHub Pages still builds every push but nothing resolves to it. For anything that could break the build, work on a branch, open a pull request, check the Netlify draft, then merge.
 - **Ask before** committing or pushing, deleting files, editing `.env` or any credential file, changing the crontab, or touching the Google listing outside the script.
-- **Never commit:** `.env`, `ga-reports-sa.json`, `ga-mcp-oauth-client.json`, `client_secret_*.json`, `gbp-token.json` (acts as the listing owner), `gbp/gbp-state.json`, `script/*.log`, `script/email-out/` (rendered drafts and image cache), any promo CSV of email addresses, and any campaigns `.xlsx` (people's data). All but the spreadsheet and the CSVs are gitignored. **Stage files by name**, never `git add -A` or `git add .`.
+- **Never commit:** `.env`, `ga-reports-sa.json`, `ga-mcp-oauth-client.json`, `client_secret_*.json`, `gbp-token.json` (acts as the listing owner), `gbp/gbp-state.json`, `script/*.log`, `script/email-out/` (rendered drafts and image cache), `meta-ads/config.yml`, `meta-ads/lists/` (email lists for Meta audiences), `meta-ads/creative/` (may show faces), `script/meta-out/`, any promo CSV of email addresses, and any campaigns `.xlsx` (people's data). All but the spreadsheet and the CSVs are gitignored. **Stage files by name**, never `git add -A` or `git add .`.
 - `GRIST_API_KEY` lives only in `.env` (gitignored, loaded by the scripts); never write it anywhere tracked.
 - The repo is public, so `gbp/*.txt`, `_data/reports/`, `assets/reports/` and `_data/calendar-copy.json` are visible to anyone. Click counts only, nothing personal.
 
@@ -109,4 +109,5 @@ Visitor-facing copy follows `WRITING_GUIDE.md`: specifics over praise, no Title 
 | `gbp/google-business-profile-api-setup.md` | GBP API, OAuth, moderation history |
 | `EMAILS.md` | Mailchimp playbook: the three email scripts, the builder limitation, the review-and-send flow |
 | `GOOGLE_PREFERRED_SOURCE.md` | The preferred-source deeplink on `/follow/` and the footer |
+| `META_ADS.md` | The Meta ads runbook: five-stage ad sets, API access, creative and list folders, the `script/meta-*.ts` jobs. Ids in `meta-ads/config.yml` (from `config.example.yml`), filled by hand as the phases produce them |
 | `WRITING_GUIDE.md` | House style |

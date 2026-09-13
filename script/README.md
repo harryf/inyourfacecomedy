@@ -305,6 +305,23 @@ bun script/email-promo.ts --show <slug[,slug]> (--csv <file> | --segment <name> 
 - The draft opens in Brave when installed (`EMAIL_BROWSER` overrides).
 - No cron: these run by hand when there is something to say.
 
+## `meta-lists.ts`
+
+Builds the Meta customer-list upload files for META_ADS.md phase 0 step 4: the ticket sales
+sheet, kept to people who are subscribed in Mailchimp, split into buyers whose last show was
+within 12 months and older ones. Meta's own column headers (`email, fn, ln, ct, zip, country,
+value`), so the upload wizard maps them without clicking.
+
+```
+bun script/meta-lists.ts [--dry-run] [--date YYYY-MM-DD] [--months 12] [--tickets <file>] [--mailchimp <file>] [--out <dir>]
+```
+
+- Inputs and outputs live in `meta-ads/lists/` (gitignored): newest `tickets-*.csv` and
+  `mailchimp-*.csv` in, `buyers-recent-<date>.csv` and `buyers-lapsed-<date>.csv` out.
+- Prints the counts (matched, recent, lapsed, subscribers who never bought, buyers not
+  subscribed) and warns when a file is under Meta's floor of 100.
+- Tests: `script/__tests__/meta-lists.test.ts`. No cron; run it before each audience refresh.
+
 ### Future: GitHub Action
 
 When this matures, move from the laptop's cron to a scheduled workflow:

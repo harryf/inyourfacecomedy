@@ -1,0 +1,49 @@
+# Meta ads configuration: ids and numbers the script/meta-*.ts jobs read.
+# Copy to meta-ads/config.yml (gitignored) and fill in as META_ADS.md phases produce each value.
+# Ids are not secrets; the access token is, and lives only in .env as META_ACCESS_TOKEN.
+
+api_version: v23.0            # Graph API version used in every call; bump when Meta retires it (app dashboard warns)
+
+ad_account_id: act_817058156574069   # phase 1 step 1 (the number the campaign export is named after)
+pixel_id: "5349931195130820"          # phase 1 step 2
+page_id: ""                           # phase 1 step 3
+instagram_account_id: ""              # phase 1 step 3
+app_id: ""                            # phase 1 step 5
+system_user_id: ""                    # phase 7 prelude step 3, the "iyfadsbot" system user (Business Suite, Users, System users)
+
+campaign_id: ""                       # phase 3 step 1, the renamed "IYF stages" campaign
+
+adsets:
+  cold: ""                            # phase 3 step 3, the existing trained ad set, renamed
+  warm: ""                            # phase 3 step 4
+  intent: ""                          # phase 3 step 4
+  buyers: ""                          # phase 3 step 4
+
+audiences:
+  show_clickers: ""                   # phase 2, website audience on TicketRedirect, 180 days
+  site_visitors: ""                   # phase 2, website audience, all visitors, 180 days
+  ig_engagers: ""                     # phase 2, Instagram engagers, 365 days
+  fb_engagers: ""                     # phase 2, Facebook Page engagers, 365 days
+  buyers_recent: ""                   # phase 2, customer list from meta-ads/lists/buyers-recent-*.csv
+  buyers_lapsed: ""                   # phase 2, customer list from meta-ads/lists/buyers-lapsed-*.csv (empty if merged)
+  buyers_lookalike: ""                # phase 2 step 5, 1% Switzerland, experiments only
+
+custom_conversion_id: ""              # phase 2 step 2, "Ticket click" on TicketRedirect
+
+# Budgets in CHF per day. Base is the always-on figure; ramp is the figure during the
+# Tuesday 06:00 to show day 23:00 window that script/meta-schedule.ts writes (never on cold).
+budgets:
+  cold:   { base: 3 }
+  warm:   { base: 3, ramp: 10 }
+  intent: { base: 2, ramp: 5 }
+  buyers: { base: 2, ramp: 8 }
+monthly_cap_chf: 500
+
+# Which shows get a ramp. Dates always come from _data/calendar.yml, never from here.
+ramp_shows: [comedybrew]
+
+# Lineup ad (script/meta-lineup-ad.ts)
+lineup:
+  grist_table: Lineups              # columns: date, show, link, style
+  default_style: classic            # Flyer Maker style key when the row leaves style empty
+  fallback: week                    # what to post when no row exists by Tuesday 09:00: the week story

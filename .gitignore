@@ -58,3 +58,13 @@ ga-reports-sa.json
 
 # Email scripts: rendered drafts, copy JSON, image cache (never commit)
 script/email-out/
+
+# Meta ads (META_ADS.md): ids config, hand-made creative (faces), email lists, generated flyers. Never commit.
+meta-ads/config.yml
+meta-ads/creative/*
+!meta-ads/creative/.gitkeep
+!meta-ads/creative/README.md
+meta-ads/lists/*
+!meta-ads/lists/.gitkeep
+!meta-ads/lists/README.md
+script/meta-out/
