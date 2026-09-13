@@ -339,7 +339,7 @@ datetime,event,source,medium,campaign,content,page
 2026-09-11 16:09,ticket_redirect,instagram,social,comedybrew-20260910,,Ticket Redirect
 2026-09-11 18:10,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
 2026-09-11 19:06,ticket_click,instagram,social,comedybrew,inyourface_profile,https://inyourfacecomedy.ch/comedybrew/
-2026-09-12 11:44,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-09-12 11:44,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
 2026-09-12 13:48,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
 2026-09-12 13:48,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
 2026-09-12 13:57,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
@@ -348,3 +348,19 @@ datetime,event,source,medium,campaign,content,page
 2026-09-12 16:50,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
 2026-09-12 19:49,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
 2026-09-13 06:35,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/comedybrew/
+2026-09-13 13:46,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
+2026-09-13 14:50,ticket_redirect,(direct),(none),,,Ticket Redirect
+2026-09-13 14:57,ticket_redirect,(direct),(none),,,Ticket Redirect
+2026-09-13 17:15,ticket_redirect,meta,paid_social,comedybrew-20260917,lineup-20260917,Ticket Redirect
+2026-09-13 17:16,ticket_redirect,meta,paid_social,comedybrew-20260917,lineup-20260917,Ticket Redirect
+2026-09-13 17:16,ticket_redirect,meta,paid_social,comedybrew-20260917,lineup-20260917,Ticket Redirect
+2026-09-13 17:17,ticket_redirect,meta,paid_social,comedybrew-20260917,lineup-20260917,Ticket Redirect
+2026-09-13 17:17,ticket_redirect,meta,paid_social,comedybrew-20260917,lineup-20260917,Ticket Redirect
+2026-09-13 17:17,ticket_redirect,meta,paid_social,comedybrew-20260917,lineup-20260917,Ticket Redirect
+2026-09-13 17:18,ticket_redirect,meta,paid_social,comedybrew-20260917,lineup-20260917,Ticket Redirect
+2026-09-13 17:19,ticket_redirect,meta,paid_social,comedybrew-20260917,lineup-20260917,Ticket Redirect
+2026-09-13 17:20,ticket_redirect,meta,paid_social,comedybrew-20260917,lineup-20260917,Ticket Redirect
+2026-09-13 17:20,ticket_redirect,meta,paid_social,comedybrew-20260917,lineup-20260917,Ticket Redirect
+2026-09-13 17:21,ticket_redirect,meta,paid_social,comedybrew-20260917,lineup-20260917,Ticket Redirect
+2026-09-13 17:25,ticket_redirect,meta,paid_social,comedybrew-20260917,lineup-20260917,Ticket Redirect
+2026-09-13 17:31,ticket_redirect,meta,paid_social,comedybrew-20260917,lineup-20260917,Ticket Redirect

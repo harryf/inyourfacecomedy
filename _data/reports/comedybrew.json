@@ -3,22 +3,22 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-09-13T08:20:01.807Z",
+ "generated_at": "2026-09-13T18:43:15.641Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-15",
  "through": "2026-09-13",
  "complete_through": "2026-09-11",
  "totals": {
-  "clicks": 349,
-  "redirect": 281,
+  "clicks": 365,
+  "redirect": 297,
   "click": 68,
-  "clicks_30d": 349,
-  "redirect_30d": 281,
+  "clicks_30d": 365,
+  "redirect_30d": 297,
   "click_30d": 68,
   "views": 280,
   "views_30d": 280,
-  "sessions": 274,
-  "sessions_30d": 274,
+  "sessions": 273,
+  "sessions_30d": 273,
   "broken_links": 0,
   "untagged": 0
  },
@@ -257,7 +257,7 @@
   },
   {
    "date": "2026-09-13",
-   "redirect": 0,
+   "redirect": 16,
    "click": 1,
    "views": 1,
    "provisional": true,
@@ -268,23 +268,23 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 245,
+   "clicks": 259,
    "views": 1,
    "sessions": 1
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 34,
-   "views": 119,
-   "sessions": 113
+   "clicks": 35,
+   "views": 123,
+   "sessions": 115
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 26,
-   "views": 108,
-   "sessions": 109
+   "clicks": 27,
+   "views": 104,
+   "sessions": 105
   },
   {
    "source": "instagram",
@@ -340,7 +340,7 @@
    "medium": "referral",
    "clicks": 1,
    "views": 1,
-   "sessions": 2
+   "sessions": 3
   },
   {
    "source": "ecosia.org",
@@ -383,13 +383,13 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 243,
+   "clicks": 244,
    "first": "2026-08-26",
-   "last": "2026-09-12",
+   "last": "2026-09-13",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 186
+     "clicks": 187
     }
    ]
   },
@@ -401,6 +401,20 @@
    "first": "2026-09-08",
    "last": "2026-09-11",
    "content": []
+  },
+  {
+   "campaign": "comedybrew-20260917",
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 13,
+   "first": "2026-09-13",
+   "last": "2026-09-13",
+   "content": [
+    {
+     "content": "lineup-20260917",
+     "clicks": 13
+    }
+   ]
   },
   {
    "campaign": "comedybrew-20260903",

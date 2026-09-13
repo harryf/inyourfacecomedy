@@ -3,22 +3,22 @@
  "title": "Filippo Spreafico",
  "ticket_url": "https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/filippo-spreafico-italian-rhapsody-comedy-in-english-7487867600443024331.html",
  "event_type": "one-off",
- "generated_at": "2026-09-13T08:20:01.807Z",
+ "generated_at": "2026-09-13T18:43:15.641Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-15",
  "through": "2026-09-13",
  "complete_through": "2026-09-11",
  "totals": {
-  "clicks": 17,
-  "redirect": 4,
-  "click": 13,
-  "clicks_30d": 17,
-  "redirect_30d": 4,
-  "click_30d": 13,
-  "views": 60,
-  "views_30d": 60,
-  "sessions": 57,
-  "sessions_30d": 57,
+  "clicks": 20,
+  "redirect": 6,
+  "click": 14,
+  "clicks_30d": 20,
+  "redirect_30d": 6,
+  "click_30d": 14,
+  "views": 64,
+  "views_30d": 64,
+  "sessions": 59,
+  "sessions_30d": 59,
   "broken_links": 0,
   "untagged": 0
  },
@@ -249,42 +249,42 @@
   },
   {
    "date": "2026-09-12",
-   "redirect": 0,
+   "redirect": 1,
    "click": 1,
-   "views": 6,
+   "views": 8,
    "provisional": true,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-13",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
+   "redirect": 1,
+   "click": 1,
+   "views": 2,
    "provisional": true,
    "clicks_tracked": true
   }
  ],
  "by_source": [
   {
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 9,
+   "views": 9,
+   "sessions": 9
+  },
+  {
    "source": "google",
    "medium": "organic",
    "clicks": 8,
-   "views": 22,
-   "sessions": 18
-  },
-  {
-   "source": "instagram",
-   "medium": "social",
-   "clicks": 7,
-   "views": 8,
-   "sessions": 8
+   "views": 27,
+   "sessions": 21
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 1,
-   "views": 11,
-   "sessions": 10
+   "clicks": 2,
+   "views": 9,
+   "sessions": 8
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -327,9 +327,9 @@
    "campaign": "filippo-spreafico",
    "source": "instagram",
    "medium": "social",
-   "clicks": 4,
+   "clicks": 6,
    "first": "2026-09-11",
-   "last": "2026-09-11",
+   "last": "2026-09-13",
    "content": []
   }
  ],
