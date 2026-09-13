@@ -4168,9 +4168,12 @@
     var head = adFit(ctx, m.headline, maxW, story ? 118 : 100, 52, 4, '800', FONT_BODY);
     ctx.font = '800 ' + head.px + 'px ' + FONT_BODY;
     y = adLines(ctx, head, pad, y, AD_INK, 'left', 1.02) + (story ? 34 : 24);
-    if (m.sub) { var sub = adFit(ctx, m.sub, maxW, story ? 46 : 40, 30, 2, '600', FONT_BODY); ctx.font = '600 ' + sub.px + 'px ' + FONT_BODY; adLines(ctx, sub, pad, y, AD_RED, 'left', 1.2); }
-    var lh = story ? 96 : 80;
-    adLogo(ctx, m, pad, H - spec.keyBottom - lh - 10, lh);
+    if (m.sub) { var sub = adFit(ctx, m.sub, maxW, story ? 46 : 40, 30, 2, '600', FONT_BODY); ctx.font = '600 ' + sub.px + 'px ' + FONT_BODY; y = adLines(ctx, sub, pad, y, AD_RED, 'left', 1.2); }
+    // The logo sits on the key-content floor, or under the words when they reach that far
+    // (the story card's floor is high, for Reels).
+    var lh = story ? 96 : 80, logoY = H - spec.keyBottom - lh - 10;
+    if (y + 20 > logoY) logoY = y + 20;
+    adLogo(ctx, m, pad, logoY, lh);
   }
   // 3. Bold Type: ink field, the headline in Anton capitals as big as it goes, a red bar for the sub.
   function paintAdType(ctx, spec, m) {
@@ -4290,7 +4293,9 @@
   // ad = { headline, sub, style, photo } (photo a root-relative gallery path or empty).
   function drawAdCard(canvas, ad, format, done) {
     var paint = AD_STYLES[ad.style] || paintAdPhoto;
-    var spec = flyerSpec(format);
+    // Ad cards also run on Reels, whose own controls cover the bottom third and the top strip:
+    // a story card keeps its words above that (Stories and Reels safe zone), post cards as before.
+    var spec = format === 'story' ? Object.assign({}, flyerSpec(format), { keyTop: 270, keyBottom: 690 }) : flyerSpec(format);
     canvas.width = spec.w; canvas.height = spec.h;
     var ctx = canvas.getContext('2d');
     var bg = ad.bg !== undefined ? ad.bg : (ad.style === 'station' ? AD_STATION_BG : '');

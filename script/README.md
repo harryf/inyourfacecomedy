@@ -493,18 +493,46 @@ bun script/meta-bank.ts --push --activate         # upload, creative, ad per con
 bun script/meta-bank.ts --push --only C5,C9       # named concepts whatever their status, left PAUSED
 ```
 
-`--push` makes one ad per concept: the post image uploaded to the account's image library,
-one single-text creative (link_data: body, headline, the concept's description or the
-group's, the image, Book Now) with `url_tags` `utm_content={{ad.name}}` so the site report
-lists clicks per ad, and one ad named `<group>-<id>` in the group's ad set, PAUSED unless
-`--activate`. The link is the series link through `/go/` with the ad set as the campaign. A
-multi-text creative would turn the ad set dynamic-creative (one ad allowed), so every bank ad
-is single-text; text variants are separate concepts. It never creates a concept twice (the ad
-set is read by name, and `meta-ads/creative/bank/state.json` remembers ids), refuses to add a
-seventh live ad to an ad set, skips clip concepts with a note, and waits out Meta's per-account
-request limit (code 17, after about ten creations in a row). The bank files' `status` is the
-human intent: `live` is pushed, `bench` waits, `retired` was paused by the readout. First
-push 2026-09-13: cold C1, C2, C3, C4, C7, C8; warm W1, W2, W6; intent I1, I3, I5.
+`--push` makes one ad per concept: the post and the story image uploaded to the account's
+image library, one single-text creative with `url_tags` `utm_content={{ad.name}}` so the site
+report lists clicks per ad, and one ad named `<group>-<id>` in the group's ad set, PAUSED
+unless `--activate`. The creative is an `asset_feed_spec` with ONE body, ONE title and ONE
+description (the concept's or the group's), Book Now, the `/go/` series link with the ad set
+as the campaign, and two placement rules: the 9:16 story image on Facebook and Instagram
+Stories and Reels (priority 1), the 4:5 post image on every other position of every platform
+(priority 2, platforms only, so nothing is left uncovered). Every Advantage+ creative feature
+is opted out explicitly (`CREATIVE_FEATURES_OFF`, the list Meta stored on the first push), so
+Meta adds no text variations or image changes. A multi-text creative would turn the ad set
+dynamic-creative (one ad allowed), so every bank ad is single-text; text variants are separate
+concepts. It never creates a concept twice (the ad set is read by name, and
+`meta-ads/creative/bank/state.json` remembers ids), refuses a concept missing either image,
+refuses to add a seventh live ad to an ad set, skips clip concepts with a note, and waits out
+Meta's per-account request limit (code 17, after about ten creations in a row). The bank
+files' `status` is the human intent: `live` is pushed, `bench` waits, `retired` was paused by
+the readout. First push 2026-09-13: cold C1, C2, C3, C4, C7, C8; warm W1, W2, W6; intent I1,
+I3, I5.
+
+```
+bun script/meta-bank.ts --restory --dry-run       # ads in state.json still on the first push's one-image creative
+bun script/meta-bank.ts --restory --validate      # Meta checks each new creative (validate_only), writes nothing
+bun script/meta-bank.ts --restory                 # new creative per ad, the ad moved onto it, old id kept in state.json
+```
+
+`--restory` exists because the first push sent one 4:5 image in a plain `link_data` creative
+and Ads Manager then recommended a 9:16 asset for Reels on all three ad sets. It uploads the
+story image, creates the two-image creative, and changes the ad's creative in place (same ad
+id, name and url_tags; Meta reviews the ad again, and an ad that has been delivering re-enters
+learning, so do it early). The new creative id is written to state.json before the ad update
+and picked up on a rerun, so a crash never makes a second creative; `previous_creative_id`
+keeps the old one. Ads with a `story_hash` in state.json are skipped. `--validate` uploads the
+story image (a library image, free) and sends the creative with `execution_options`
+`validate_only`; Meta checks the creative alone, not the ad update, so the go for real is
+the only full proof.
+
+Story cards paint inside the Reels safe zone (`drawAdCard` raises the story key-content area
+to 270 px top and 690 px bottom, about 14 and 35 percent, where Reels draws its own controls);
+post cards keep the flyer spec. The Swiss look puts its logo under the words when they reach
+the floor.
 
 The `/adcard/` page also works by hand: `headline`, `sub`, `style`, `photo` (a gallery path)
 and `format` in the URL, a Download PNG button. The station look splits `sub` on ` | ` into

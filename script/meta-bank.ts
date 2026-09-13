@@ -6,6 +6,8 @@
 //   bun script/meta-bank.ts --render --base https://inyourfacecomedy.ch   # from the live site instead of _site/
 //   bun script/meta-bank.ts --push --dry-run                 # what would be created for every `status: live` concept
 //   bun script/meta-bank.ts --push --activate                # upload, one single-text creative and one ad per concept, on
+//   bun script/meta-bank.ts --restory --validate             # Meta checks the two-image creative for ads pushed with one image
+//   bun script/meta-bank.ts --restory                        # and moves them onto it
 //
 // Output: meta-ads/creative/bank/<group>/<id>-post.png and -story.png (gitignored) and a
 // contact sheet meta-ads/creative/bank/index.html to look at them all in one page. --push
@@ -27,6 +29,9 @@ const USAGE = `usage: bun script/meta-bank.ts (--render | --push) [options]
   --push         create the ads for every concept with status: live that has no ad yet
     --activate     switch the created ads on (default: left PAUSED)
     --dry-run      print what would be uploaded and created, write nothing
+  --restory      move ads pushed with one image onto the two-image creative (post for feeds, story for Stories and Reels)
+    --validate     ask Meta to check each new creative (validate_only), write nothing
+    --dry-run      list the ads that would move
   --group KEY    one group (default all three)
   --only IDS     comma-separated concept ids (with --push: pushed even when status is bench)
 `;
@@ -136,7 +141,7 @@ export function bankLink(bank: Pick<Bank, "link">): string {
 export const URL_TAGS = "utm_content={{ad.name}}";
 export function adName(group: Group, c: Pick<Concept, "id">): string { return `${group}-${c.id}`; }
 
-export interface PushState { [adName: string]: { ad_id: string; creative_id: string; image_hash: string; pushed: string } }
+export interface PushState { [adName: string]: { ad_id: string; creative_id: string; image_hash: string; pushed: string; story_hash?: string; previous_creative_id?: string; pending_creative_id?: string; restoried?: string } }
 const STATE_FILE = join(CREATIVE_DIR, "state.json");
 export function readState(file = STATE_FILE): PushState { try { return JSON.parse(readFileSync(file, "utf8")); } catch { return {}; } }
 
@@ -145,26 +150,74 @@ export function pushList(bank: Bank, only: string[]): Concept[] {
   return bank.concepts.filter((c) => (only.length ? only.includes(c.id) : c.status === "live"));
 }
 
-// The single-text creative (link_data, one image): a second text on the same ad would turn the
-// ad set dynamic-creative, which allows one ad, and the bank needs six side by side.
-export function creativeSpec(config: Pick<MetaConfig, "page_id" | "instagram_account_id">, group: Group, bank: Bank, c: Concept, imageHash: string) {
+// Where each image goes: the 9:16 story image on Stories and Reels (Meta's "Reels format"
+// recommendation, 2026-09-13), the 4:5 post image everywhere else. Rules apply lowest priority
+// first; the feed rule names platforms only, so it catches every position the ad sets can
+// deliver to (a position no rule covers gets no ad).
+export const STORY_PLACEMENTS = {
+  publisher_platforms: ["facebook", "instagram"],
+  facebook_positions: ["story", "facebook_reels"],
+  instagram_positions: ["story", "reels"],
+};
+export const FEED_PLACEMENTS = {
+  publisher_platforms: ["facebook", "instagram", "messenger", "audience_network", "threads"],
+};
+
+// Every Advantage+ creative feature off, as Meta stored it on the first push's creatives (read
+// back 2026-09-13): text variations or image changes would put words and pictures in the ads
+// that nobody wrote, and a text variation is a second text, which the six-ad rule forbids.
+export const CREATIVE_FEATURES_OFF = ["adapt_to_placement", "add_text_overlay", "ads_with_benefits", "advantage_plus_creative", "app_highlights", "audio", "auto_promotion_tag", "biz_ai", "carousel_to_video", "catalog_feed_tag", "creative_stickers", "customize_product_recommendation", "cv_transformation", "description_automation", "dha_optimization", "dynamic_cta_text", "dynamic_partner_content", "enable_ncs_testimonials", "enhance_cta", "fb_feed_tag", "fb_reels_tag", "fb_story_tag", "feed_caption_optimization", "generate_cta", "hide_price", "hyperlink_formatting", "ig_feed_tag", "ig_glados_feed", "ig_reels_tag", "ig_stream_tag", "ig_video_native_subtitle", "image_animation", "image_auto_crop", "image_background_gen", "image_banner", "image_brightness_and_contrast", "image_end_card", "image_enhancement", "image_templates", "image_text_translation", "image_touchups", "image_uncrop", "inline_comment", "local_store_extension", "media_liquidity_animated_image", "media_order", "media_type_automation", "multi_creative_post_carousel", "multi_photo_to_video", "music_generation", "pac_genai_recomposition", "pac_recomposition", "pac_relaxation", "product_browsing", "product_extensions", "product_metadata_automation", "product_tags", "profile_card", "profile_extension", "replace_media_text", "reveal_details_over_time", "show_destination_blurbs", "show_summary", "site_extensions", "standard_enhancements_catalog", "text_extraction_for_headline", "text_extraction_for_tap_target", "text_formatting_optimization", "text_generation", "text_optimizations", "text_overlay_translation", "text_translation", "translate_voiceover", "video_auto_crop", "video_filtering", "video_highlight", "video_highlights", "video_to_image", "video_uncrop", "video_voiceover", "wa_mm_image_filtering", "wa_mm_text_truncation_length"];
+export function degreesOfFreedomOff() {
+  return { creative_features_spec: Object.fromEntries(CREATIVE_FEATURES_OFF.map((f) => [f, { enroll_status: "OPT_OUT" }])) };
+}
+
+// The single-text creative with two images: asset_feed_spec with ONE body, ONE title and ONE
+// description (a second text on the same ad would turn the ad set dynamic-creative, which
+// allows one ad, and the bank needs six side by side) and placement rules picking the post or
+// the story image. url_tags fills utm_content with the ad's name at click time.
+export function creativeSpec(config: Pick<MetaConfig, "page_id" | "instagram_account_id">, group: Group, bank: Bank, c: Concept, images: { post: string; story: string }) {
   const link = bankLink(bank);
   return {
     name: `${adName(group, c)} creative`,
     url_tags: URL_TAGS,
+    degrees_of_freedom_spec: degreesOfFreedomOff(),
     object_story_spec: {
       page_id: config.page_id,
       instagram_user_id: config.instagram_account_id || undefined,
-      link_data: {
-        link,
-        message: c.body,
-        name: c.title,
-        description: c.description || bank.description,
-        image_hash: imageHash,
-        call_to_action: { type: "BOOK_TRAVEL", value: { link } },
-      },
+    },
+    asset_feed_spec: {
+      images: [
+        { hash: images.post, adlabels: [{ name: "feed" }] },
+        { hash: images.story, adlabels: [{ name: "story" }] },
+      ],
+      bodies: [{ text: c.body }],
+      titles: [{ text: c.title }],
+      descriptions: [{ text: c.description || bank.description }],
+      link_urls: [{ website_url: link, display_url: "inyourfacecomedy.ch" }],
+      call_to_action_types: ["BOOK_TRAVEL"],
+      ad_formats: ["SINGLE_IMAGE"],
+      asset_customization_rules: [
+        { customization_spec: STORY_PLACEMENTS, image_label: { name: "story" }, priority: 1 },
+        { customization_spec: FEED_PLACEMENTS, image_label: { name: "feed" }, priority: 2 },
+      ],
     },
   };
+}
+
+// The live ads that still carry the one-image creative: in state.json, no story_hash yet, and
+// their concept still in the bank (a concept dropped from the bank is left alone).
+export function restoryList(state: PushState, banks: Partial<Record<Group, Bank>>, onlyGroup?: Group, only: string[] = []): { name: string; group: Group; concept: Concept; entry: PushState[string] }[] {
+  const out = [];
+  for (const [name, entry] of Object.entries(state)) {
+    const [group, id] = name.split("-") as [Group, string];
+    if (onlyGroup && group !== onlyGroup) continue;
+    if (only.length && !only.includes(id)) continue;
+    if (entry.story_hash) continue;
+    const concept = banks[group]?.concepts.find((c) => c.id === id);
+    if (!concept) continue;
+    out.push({ name, group, concept, entry });
+  }
+  return out;
 }
 
 // Meta's per-account request limit (code 17) trips after about ten creations in a row; wait
@@ -177,6 +230,72 @@ async function patient<T>(what: string, fn: () => Promise<T>, waits = [60, 120, 
       await new Promise((r) => setTimeout(r, waits[i] * 1000));
     }
   }
+}
+
+function imageFiles(group: Group, c: Pick<Concept, "id">): { post: string; story: string } {
+  return { post: join(CREATIVE_DIR, group, `${c.id}-post.png`), story: join(CREATIVE_DIR, group, `${c.id}-story.png`) };
+}
+function saveState(state: PushState) {
+  mkdirSync(CREATIVE_DIR, { recursive: true });
+  writeFileSync(STATE_FILE, JSON.stringify(state, null, 2) + "\n");
+}
+async function uploadImage(meta: ReturnType<typeof metaFromEnv>, act: string, name: string, file: string): Promise<string> {
+  const png = readFileSync(file);
+  const key = createHash("sha256").update(png).digest("hex").slice(0, 16);
+  const up = await patient(`${name} image`, () => meta.post(`${act}/adimages`, { bytes: png.toString("base64"), name: `${name}-${key}.png` }));
+  const hash = (Object.values(up.images || {})[0] as any)?.hash;
+  if (!hash) fail(`${name}: image upload returned no hash: ${JSON.stringify(up).slice(0, 300)}`);
+  return hash;
+}
+
+// --restory: move the ads pushed with the one-image creative onto the two-image one. The ad
+// keeps its id, name and url_tags (only its creative changes), Meta reviews it again, and the
+// old creative id stays in state.json so the swap can be undone.
+async function restory(args: ReturnType<typeof parseArgs>, onlyGroup: Group | undefined, only: string[]) {
+  const dryRun = flagBool(args, "dry-run");
+  const validate = flagBool(args, "validate");
+  const config = loadConfig();
+  const act = config.ad_account_id;
+  const state = readState();
+  const banks: Partial<Record<Group, Bank>> = {};
+  for (const g of GROUPS) banks[g] = loadBank(g);
+  const list = restoryList(state, banks, onlyGroup, only);
+  if (!list.length) { log("nothing to do: every ad in state.json already has a story image"); return; }
+  log(`${list.length} ad(s) still on the one-image creative: ${list.map((r) => `${r.name} (ad ${r.entry.ad_id}, creative ${r.entry.creative_id})`).join(", ")}`);
+  if (dryRun) { log("dry run, nothing written"); return; }
+  const meta = metaFromEnv(config);
+  let done = 0, accepted = 0;
+  for (const { name, group, concept, entry } of list) {
+    const files = imageFiles(group, concept);
+    if (!existsSync(files.story)) { warn(`${name}: no story image at ${files.story}; run --render first`); continue; }
+    if (validate) {
+      // The story hash is needed for the check, so the upload is real (an image in the library costs nothing); the creative is not.
+      const story = await uploadImage(meta, act, name, files.story);
+      const spec = creativeSpec(config, group, banks[group]!, concept, { post: entry.image_hash, story });
+      try { const r = await patient(`${name} creative`, () => meta.post(`${act}/adcreatives`, { ...spec, execution_options: ["validate_only"] })); log(`${name}: validate_only accepted (${JSON.stringify(r)})`); accepted++; }
+      catch (e: any) { warn(`${name}: validate_only REJECTED: ${e.message}`); }
+      continue;
+    }
+    const story = await uploadImage(meta, act, name, files.story);
+    // The creative id is saved before the ad update, so a crash between the two is picked up
+    // on the next run instead of making a second creative.
+    let creativeId = entry.pending_creative_id;
+    if (creativeId) log(`${name}: creative ${creativeId} from an earlier run, attaching it`);
+    else {
+      const creative = await patient(`${name} creative`, () => meta.post(`${act}/adcreatives`, creativeSpec(config, group, banks[group]!, concept, { post: entry.image_hash, story })));
+      creativeId = String(creative.id);
+      state[name] = { ...entry, pending_creative_id: creativeId };
+      saveState(state);
+    }
+    await patient(`${name} ad`, () => meta.post(entry.ad_id, { creative: { creative_id: creativeId } }));
+    state[name] = { ...entry, previous_creative_id: entry.creative_id, creative_id: creativeId, story_hash: story, restoried: new Date().toISOString() };
+    delete state[name].pending_creative_id;
+    saveState(state);
+    const back = await meta.get(entry.ad_id, { fields: "status,effective_status,creative{id}" });
+    log(`${name}: story ${story}, creative ${entry.creative_id} -> ${creativeId}, ad ${entry.ad_id} ${back.status}/${back.effective_status} on creative ${back.creative?.id}`);
+    done++;
+  }
+  log(validate ? `\n${accepted}/${list.length} accepted by Meta, nothing written` : `\n${done} ad(s) moved onto the two-image creative (Meta reviews them again)`);
 }
 
 async function push(args: ReturnType<typeof parseArgs>, onlyGroup: Group | undefined, only: string[]) {
@@ -203,23 +322,24 @@ async function push(args: ReturnType<typeof parseArgs>, onlyGroup: Group | undef
       if (c.image.style === "clip") { clipsSkipped.push(name); warn(`${name}: a phone clip, create it by hand in Ads Manager (${c.image.note || ""})`); continue; }
       if (byName.has(name)) { log(`${name}: exists (${byName.get(name).id}, ${byName.get(name).effective_status}), skipped`); continue; }
       if (state[name]?.ad_id) { log(`${name}: in state.json as ${state[name].ad_id}, skipped`); continue; }
-      const file = join(CREATIVE_DIR, group, `${c.id}-post.png`);
-      if (!existsSync(file)) { warn(`${name}: no image at ${file}; run --render first`); continue; }
+      const files = imageFiles(group, c);
+      const missing = (["post", "story"] as const).filter((f) => !existsSync(files[f]));
+      if (missing.length) { warn(`${name}: no image at ${missing.map((f) => files[f]).join(" and ")}; run --render first`); continue; }
       if (active >= MAX_ADS_PER_ADSET) { warn(`${name}: ${group} already has ${active} live ads (max ${MAX_ADS_PER_ADSET}); retire one first`); continue; }
-      const png = readFileSync(file);
-      const key = createHash("sha256").update(png).digest("hex").slice(0, 16);
-      const spec = creativeSpec(config, group, bank, c, `<hash of ${c.id}-post.png ${key}>`);
-      if (dryRun) { log(`${name}: would upload ${file} (${(png.length / 1024).toFixed(0)} KB), create creative ${JSON.stringify(spec.object_story_spec.link_data).slice(0, 200)}..., ad ${activate ? "ACTIVE" : "PAUSED"}`); active++; continue; }
-      const up = await patient(`${name} image`, () => meta.post(`${act}/adimages`, { bytes: png.toString("base64"), name: `${name}-${key}.png` }));
-      const hash = (Object.values(up.images || {})[0] as any)?.hash;
-      if (!hash) fail(`${name}: image upload returned no hash: ${JSON.stringify(up).slice(0, 300)}`);
-      const creative = await patient(`${name} creative`, () => meta.post(`${act}/adcreatives`, creativeSpec(config, group, bank, c, hash)));
+      if (dryRun) {
+        const sizes = (["post", "story"] as const).map((f) => `${files[f]} (${(statSync(files[f]).size / 1024).toFixed(0)} KB)`).join(" and ");
+        const spec = creativeSpec(config, group, bank, c, { post: `<hash of ${c.id}-post.png>`, story: `<hash of ${c.id}-story.png>` });
+        log(`${name}: would upload ${sizes}, create creative ${JSON.stringify({ bodies: spec.asset_feed_spec.bodies, titles: spec.asset_feed_spec.titles }).slice(0, 200)} with feed and story rules, ad ${activate ? "ACTIVE" : "PAUSED"}`);
+        active++; continue;
+      }
+      const post = await uploadImage(meta, act, name, files.post);
+      const story = await uploadImage(meta, act, name, files.story);
+      const creative = await patient(`${name} creative`, () => meta.post(`${act}/adcreatives`, creativeSpec(config, group, bank, c, { post, story })));
       const ad = await patient(`${name} ad`, () => meta.post(`${act}/ads`, { name, adset_id: adsetId, creative: { creative_id: creative.id }, status: activate ? "ACTIVE" : "PAUSED" }));
-      state[name] = { ad_id: String(ad.id), creative_id: String(creative.id), image_hash: hash, pushed: new Date().toISOString() };
-      mkdirSync(CREATIVE_DIR, { recursive: true });
-      writeFileSync(STATE_FILE, JSON.stringify(state, null, 2) + "\n");
+      state[name] = { ad_id: String(ad.id), creative_id: String(creative.id), image_hash: post, story_hash: story, pushed: new Date().toISOString() };
+      saveState(state);
       const back = await meta.get(ad.id, { fields: "status,effective_status" });
-      log(`${name}: image ${hash}, creative ${creative.id}, ad ${ad.id} ${back.status}/${back.effective_status}`);
+      log(`${name}: images ${post} and ${story}, creative ${creative.id}, ad ${ad.id} ${back.status}/${back.effective_status}`);
       created++; active++;
     }
   }
@@ -232,6 +352,7 @@ async function main() {
   if (onlyGroup && !GROUPS.includes(onlyGroup)) fail(`--group must be one of ${GROUPS.join(", ")}`);
   const only = (flagString(args, "only") || "").split(",").map((s) => s.trim()).filter(Boolean);
   if (flagBool(args, "push")) return push(args, onlyGroup, only);
+  if (flagBool(args, "restory")) return restory(args, onlyGroup, only);
   if (flagBool(args, "help") || !flagBool(args, "render")) { console.log(USAGE); return; }
   const local = flagBool(args, "local") ? serveSite(join(REPO_ROOT, "_site")) : null;
   const base = local ? local.base : (flagString(args, "base") || "https://inyourfacecomedy.ch").replace(/\/$/, "");

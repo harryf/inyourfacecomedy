@@ -58,13 +58,41 @@ describe("push: names, links and the creative", () => {
     expect(URL_TAGS).toBe("utm_content={{ad.name}}");
     expect(adName("cold", { id: "C1" })).toBe("cold-C1");
   });
-  test("the creative is single-text link_data with Book Now, the concept's own description when it has one", () => {
-    const s = creativeSpec({ page_id: "p", instagram_account_id: "ig" }, "cold", bank, bank.concepts[2], "h");
-    expect(s.object_story_spec.link_data.image_hash).toBe("h");
-    expect(s.object_story_spec.link_data.description).toBe("own");
-    expect(s.object_story_spec.link_data.call_to_action.type).toBe("BOOK_TRAVEL");
+  test("the creative is single-text with two images: story on Stories and Reels first, post everywhere else, Book Now, the concept's own description when it has one", () => {
+    const s = creativeSpec({ page_id: "p", instagram_account_id: "ig" }, "cold", bank, bank.concepts[2], { post: "hp", story: "hs" });
+    const f = s.asset_feed_spec;
+    expect((s.object_story_spec as any).link_data).toBeUndefined();
+    expect(s.object_story_spec.page_id).toBe("p"); expect(s.object_story_spec.instagram_user_id).toBe("ig");
+    expect(f.images).toEqual([{ hash: "hp", adlabels: [{ name: "feed" }] }, { hash: "hs", adlabels: [{ name: "story" }] }]);
+    expect(f.bodies).toHaveLength(1); expect(f.titles).toHaveLength(1); expect(f.descriptions).toHaveLength(1);
+    expect(f.bodies[0].text).toBe("b"); expect(f.titles[0].text).toBe("t"); expect(f.descriptions[0].text).toBe("own");
+    expect(f.call_to_action_types).toEqual(["BOOK_TRAVEL"]); expect(f.ad_formats).toEqual(["SINGLE_IMAGE"]);
+    expect(f.link_urls[0].website_url).toBe(bankLink(bank));
     expect(s.url_tags).toBe(URL_TAGS);
-    expect((s as any).asset_feed_spec).toBeUndefined();
-    expect(creativeSpec({ page_id: "p", instagram_account_id: "" }, "cold", bank, bank.concepts[0], "h").object_story_spec.link_data.description).toBe("d");
+    const features = s.degrees_of_freedom_spec.creative_features_spec;
+    expect(Object.keys(features).length).toBeGreaterThanOrEqual(80);
+    expect(features.text_optimizations.enroll_status).toBe("OPT_OUT"); expect(features.image_templates.enroll_status).toBe("OPT_OUT");
+    expect(Object.values(features).every((v: any) => v.enroll_status === "OPT_OUT")).toBe(true);
+    const rules = f.asset_customization_rules;
+    expect(rules.map((r: any) => [r.image_label.name, r.priority])).toEqual([["story", 1], ["feed", 2]]);
+    expect(rules[0].customization_spec.facebook_positions).toEqual(["story", "facebook_reels"]);
+    expect(rules[0].customization_spec.instagram_positions).toEqual(["story", "reels"]);
+    expect(rules[1].customization_spec.facebook_positions).toBeUndefined();
+    expect(rules[1].customization_spec.publisher_platforms).toContain("facebook");
+    expect(creativeSpec({ page_id: "p", instagram_account_id: "" }, "cold", bank, bank.concepts[0], { post: "a", story: "b" }).asset_feed_spec.descriptions[0].text).toBe("d");
+  });
+  test("restory lists the ads still on one image whose concept is in the bank", () => {
+    const { restoryList } = require("../meta-bank");
+    const state = {
+      "cold-C1": { ad_id: "1", creative_id: "c1", image_hash: "h", pushed: "x" },
+      "cold-C3": { ad_id: "3", creative_id: "c3", image_hash: "h", pushed: "x", story_hash: "s" },
+      "cold-C9": { ad_id: "9", creative_id: "c9", image_hash: "h", pushed: "x" },
+      "warm-W1": { ad_id: "5", creative_id: "c5", image_hash: "h", pushed: "x" },
+    };
+    const warm = { ...bank, adset: "warm", concepts: [c({ id: "W1", status: "live" })] };
+    expect(restoryList(state, { cold: bank, warm }).map((r: any) => r.name)).toEqual(["cold-C1", "warm-W1"]);
+    expect(restoryList(state, { cold: bank, warm }, "warm").map((r: any) => r.name)).toEqual(["warm-W1"]);
+    expect(restoryList(state, { cold: bank, warm }, undefined, ["C1"]).map((r: any) => r.name)).toEqual(["cold-C1"]);
+    expect(restoryList(state, { cold: bank }).map((r: any) => r.name)).toEqual(["cold-C1"]);
   });
 });
