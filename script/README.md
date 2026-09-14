@@ -343,6 +343,8 @@ bun script/meta-lineup-ad.ts --dry-run [--date YYYY-MM-DD]    # render, print th
 bun script/meta-lineup-ad.ts --activate [--date ...] [--skip-adset] [--replace]
 ```
 
+The Buyers ad set is written by this script only (goal LINK_CLICKS, destination WEBSITE, the two buyer lists, Advantage+ off, the ramp budget). Destination WEBSITE matters: the set was created by hand as a profile-visit shell, and until 2026-09-14 the script left that in place, so Ads Manager reported "Instagram Profile Visit" as the result and optimised for it. Every run now checks it.
+
 - Needs `META_ACCESS_TOKEN` and `GRIST_API_KEY` in `.env`; the Meta app must be Live (Development
   mode refuses creatives, error 1885183). `META_ADS_HEALTHCHECKS_URL` optional.
 - Shared helper: `script/lib/meta-api.ts` (token, version, get and post, paging, errors).

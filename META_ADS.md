@@ -301,6 +301,8 @@ old ad set and Buyers are never written by this script. With the old ad set kept
 day, the projected month is about CHF 650 against the CHF 500 cap in config; either raise
 `monthly_cap_chf` and the account spending limit, or trim the bases.
 
+Result types in Ads Manager (checked on the API 2026-09-14): the Results column follows the ad set's conversion location (`destination_type`) and goal, not the ad's link. Cold, Warm and Intent report Landing Page Views because their goal is landing page views (a link click that loaded the page: the stricter count, chosen on purpose); Buyers reports Link Clicks (goal link clicks, destination website; the buyer lists are too small to learn on page views); the old 2024 set reports Link Clicks with the 2024 default destination. Until 2026-09-14 Buyers still carried the hand-made shell's "Instagram profile and Facebook page" destination, so Ads Manager counted Instagram Profile Visits and optimised for them; `meta-lineup-ad.ts` now writes and checks destination WEBSITE on every run. The weekly readout counts inline link clicks and landing page views for every ad set whatever the goal, so the rows stay comparable.
+
 ## Phase 7 prelude: API access (one evening, do it when you start the scripts)
 
 1. Create the app: `developers.facebook.com/apps`, "Create app". The 2026 flow asks for a use

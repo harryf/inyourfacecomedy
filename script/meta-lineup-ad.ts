@@ -304,14 +304,14 @@ async function main() {
 
   // 4. Buyers ad set: the experiment is meaningless against all of Switzerland.
   if (!skipAdset) {
-    const a = await meta.get(adsetId, { fields: "name,status,daily_budget,optimization_goal,billing_event,targeting" });
+    const a = await meta.get(adsetId, { fields: "name,status,daily_budget,optimization_goal,billing_event,destination_type,targeting" });
     const t = a.targeting || {};
     const want = [config.audiences.buyers_recent, config.audiences.buyers_lapsed].filter(Boolean);
     const have = (t.custom_audiences || []).map((c: any) => String(c.id));
     const advOn = t.targeting_automation?.advantage_audience === 1;
     const rampChf = config.budgets?.buyers?.ramp ?? 8;
-    const needs = want.some((id) => !have.includes(id)) || advOn || a.optimization_goal !== "LINK_CLICKS";
-    log(`adset:     ${a.name} ${a.status} budget CHF ${minorToChf(a.daily_budget)}/day goal ${a.optimization_goal} audiences [${have.join(",") || "none"}] advantage+ ${advOn ? "on" : "off"}`);
+    const needs = want.some((id) => !have.includes(id)) || advOn || a.optimization_goal !== "LINK_CLICKS" || a.destination_type !== "WEBSITE";
+    log(`adset:     ${a.name} ${a.status} budget CHF ${minorToChf(a.daily_budget)}/day goal ${a.optimization_goal} destination ${a.destination_type} audiences [${have.join(",") || "none"}] advantage+ ${advOn ? "on" : "off"}`);
     if (needs) {
       const targeting = {
         geo_locations: { countries: ["CH"], location_types: ["home", "recent"] },
@@ -319,10 +319,12 @@ async function main() {
         custom_audiences: want.map((id) => ({ id })),
         targeting_automation: { advantage_audience: 0 },
       };
-      log(`adset:     writing targeting = buyers lists (${want.join(", ")}), Advantage+ off, LINK_CLICKS, budget CHF ${rampChf}/day (was CHF ${minorToChf(a.daily_budget)})`);
-      await meta.post(adsetId, { targeting, optimization_goal: "LINK_CLICKS", billing_event: "IMPRESSIONS", daily_budget: chfToMinor(rampChf) });
-      const b = await meta.get(adsetId, { fields: "daily_budget,optimization_goal,targeting" });
-      log(`adset:     now budget CHF ${minorToChf(b.daily_budget)}/day goal ${b.optimization_goal} audiences [${(b.targeting?.custom_audiences || []).map((c: any) => c.id).join(",")}] advantage+ ${b.targeting?.targeting_automation?.advantage_audience === 1 ? "on" : "off"}`);
+      log(`adset:     writing targeting = buyers lists (${want.join(", ")}), Advantage+ off, LINK_CLICKS to the website, budget CHF ${rampChf}/day (was CHF ${minorToChf(a.daily_budget)})`);
+      // destination_type WEBSITE: the shell was created as a profile-visit set, and without this
+      // Ads Manager counts Instagram profile visits as the result (seen 2026-09-14).
+      await meta.post(adsetId, { targeting, optimization_goal: "LINK_CLICKS", billing_event: "IMPRESSIONS", destination_type: "WEBSITE", daily_budget: chfToMinor(rampChf) });
+      const b = await meta.get(adsetId, { fields: "daily_budget,optimization_goal,destination_type,targeting" });
+      log(`adset:     now budget CHF ${minorToChf(b.daily_budget)}/day goal ${b.optimization_goal} destination ${b.destination_type} audiences [${(b.targeting?.custom_audiences || []).map((c: any) => c.id).join(",")}] advantage+ ${b.targeting?.targeting_automation?.advantage_audience === 1 ? "on" : "off"}`);
     } else log(`adset:     already set up, left as is`);
 
     // Run window: the ad set stops at the configured hour on show day (lineup.ends_at, default
