@@ -33,7 +33,7 @@ Run the build and the health check after every change and before saying you are 
 | `_data/gallery.yml` | `assets/img/gallery/` + Apple Vision | `build-gallery-data.rb` (macOS only). `tag` mode attributes a photo to a comedian; the slug lives in `gallery.yml`, never in `_comedians/` |
 | `_data/reports/`, `assets/reports/`, `pages/reports/` | Google Analytics | `ga-report.ts`. Edit `script/lib/ga-report-lib.ts` or `_layouts/report.liquid` instead |
 | Google Business Profile event posts | `gbp/<slug>.txt` + the posts | `post-events-to-google.rb` |
-| Show to comedian links | `hosts:` (+ `hosts_label:`) on the post: regular hosts, not the per-night lineup | hand. Drives host cards, "Catch X at" chips and Event JSON-LD performers; unknown slugs render nothing |
+| Show to comedian links | `hosts:` (+ `hosts_label:`) on the post: regular hosts, not the per-night lineup | hand. Drives host cards, the hosted shows at the front of the comedian page's related-shows row (`_includes/related-shows.liquid`) and Event JSON-LD performers; unknown slugs render nothing |
 | Show language | `language: it` / `es` on the post (absent = English) | hand. The monthly email lists non-English shows only when they are at ROBIN's (`EMAILS.md`) |
 
 ## Cron (Harry's Mac, rbenv 3.2.4 by absolute path, logs in `script/*.log`)

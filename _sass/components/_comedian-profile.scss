@@ -94,12 +94,6 @@
     margin: 0;
   }
 
-  // "Catch <name> at …" — ghost-button chips linking to the shows they host.
-  &__shows {
-    margin: var(--space-7) 0 0;
-    text-align: center;
-  }
-
   // "<name> on stage" — their photos from the /moments/ gallery, tagged via
   // script/build-gallery-data.rb. Reuses the .iyf-moments__grid mosaic.
   &__photos {
@@ -107,14 +101,6 @@
 
     .iyf-lineup-section__title { text-align: center; }
     .iyf-moments__grid { margin-top: var(--space-4); }
-  }
-
-  &__show-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-3);
-    margin-top: var(--space-4);
   }
 
   &__bio {

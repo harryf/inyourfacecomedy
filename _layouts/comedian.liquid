@@ -85,27 +85,6 @@ layout: default
   {% endif %}
 
   {%- comment -%}
-    Reverse link: shows this comedian is a regular/host at. Sourced from each
-    show post's `hosts:` slug-list (stable: hosts/residents, not per-night
-    lineups). This injects UNIQUE, substantive content into otherwise-thin
-    profiles — the strongest lever against "Crawled – currently not indexed" —
-    and completes the bidirectional show↔comedian internal-link graph. A
-    comedian who hosts nothing renders no section (no empty heading).
-  {%- endcomment -%}
-  {%- assign my_shows = site.posts | where_exp: "p", "p.ticket_url" | where_exp: "p", "p.hosts contains page.slug" -%}
-  {%- if my_shows.size > 0 -%}
-    <section class="iyf-comedian-profile__shows" aria-label="Shows {{ page.title }} performs at">
-      <h2 class="iyf-lineup-section__title">Catch {{ page.title | split: ' ' | first }} at</h2>
-      <div class="iyf-comedian-profile__show-links">
-        {%- for s in my_shows -%}
-          {%- assign show_title = s.title | replace: ' - ', ' • ' | split: '•' | first | strip -%}
-          <a class="btn-ghost" href="{{ s.url | relative_url }}">{{ show_title }}</a>
-        {%- endfor -%}
-      </div>
-    </section>
-  {%- endif -%}
-
-  {%- comment -%}
     Photos of this comedian on stage, pulled from the /moments/ gallery. The link
     lives in _data/gallery.yml (each image's `comedian:` slug, set by
     `script/build-gallery-data.rb tag`), never in the Grist-generated
@@ -140,3 +119,6 @@ layout: default
     <a class="clear" href="{{ '/comedians/' | relative_url }}">&larr; All comedians</a>
   </p>
 </article>
+
+{%- comment -%} Other shows row, above the footer. Rule and markup: _includes/related-shows.liquid {%- endcomment -%}
+{% include related-shows.liquid %}

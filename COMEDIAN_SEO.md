@@ -19,9 +19,10 @@ Every `/comedians/<slug>/` page now emits:
 - A visible **"Stand-Up Comedian · IN YOUR FACE Comedy, Zürich"** sub-line under the name
   (crawlable on-page relevance for "<name> comedian" — we deliberately do NOT use a
   `<meta name="keywords">` tag; that signal has been dead at Google since 2009).
-- A **"Catch <name> at …"** block linking to the shows they host/are a resident of
-  (see below). This gives otherwise-thin profiles unique content — the single biggest
-  lever against Google's "Crawled – currently not indexed".
+- An **"Other IN YOUR FACE shows"** row above the footer (the shows they host first, then
+  Comedy Brew, then two more; see "Related shows row" below). This gives otherwise-thin
+  profiles unique content and three onward links, the single biggest lever against
+  Google's "Crawled – currently not indexed".
 
 All of this is derived at build time from the Grist-synced front-matter. **Do not hand-edit
 `_comedians/*.md`** — change the data in Grist and re-run `script/sync-comedians.rb`.
@@ -61,7 +62,7 @@ re-crawls rather than waiting for the natural cycle.
 Each show post (`_posts/*.md`) carries a `hosts:` list of comedian **slugs** — the people who
 reliably appear (host or resident cast), NOT the per-night lineup (which we only know last
 minute). This drives both directions of internal linking: show page → host cards, and
-comedian profile → "Catch them at" show chips.
+comedian profile → the hosted shows lead its "Other IN YOUR FACE shows" row.
 
 ```yaml
 # in a show post's front-matter
@@ -130,3 +131,32 @@ pressure anyone for this. The intent is that as comedians see their IYF page wor
 over time, some will choose to use it — a ready-made hub that routes to all their socials, a
 nice alternative to Linktree for those without a website. If/when someone asks, point them at
 their `/comedians/<slug>/` URL.
+
+## Related shows row
+
+Every show page and every comedian page ends with an "Other IN YOUR FACE shows" row
+(`_includes/related-shows.liquid`, styles in `_sass/components/_related-shows.scss`):
+three other shows, artwork plus a one-line description, each a plain link to the show
+page. No ticket link, no date, no price. It exists so no page is a crawl dead end and
+link equity flows between shows; before it, fifty of the sixty-three comedian pages
+linked to no show at all.
+
+The selection is decided in Liquid at build time (static HTML, same result on every
+build for the same posts):
+
+- eligible: posts with a `ticket_url` whose `next_event_date` is today or later. A
+  finished one-nighter drops out at the next daily build with no edit.
+- anchor: Comedy Brew, on every page where it is eligible and not the current page.
+- ring: the other eligible shows sorted by permalink.
+- show page: the anchor, then the two ring shows after this one (wrapping).
+- comedian page: the shows they host, then the anchor, then the ring rotated by the
+  comedian's position in the roster, so non-hosts spread evenly over every show.
+- each page takes the next three distinct shows, never itself.
+
+Result: every ring show gets at least two inbound links from show pages and roughly one
+from every fifth comedian page; Comedy Brew is linked from every other page. Popularity
+(the GA reports), venue and host affinity are deliberately not used: eight of eleven
+shows are at ROBIN's, so affinity would cluster them and starve the rest. The heading
+is neutral on comedian pages until Grist holds real lineup data; "Shows where you might
+see X" can come then. `script/check-site.rb` ("Related shows row") asserts the rule
+against the built site.

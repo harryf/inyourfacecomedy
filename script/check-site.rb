@@ -99,6 +99,23 @@ def shows
   end
 end
 
+# The shows the "related shows" row is allowed to link: every show whose
+# next_event_date parses to today or later. A post with no next_event_date is NOT
+# eligible (it is dormant, or the refresh cron never gave it a date), which is the
+# same reading the staleness check below applies, so the date parsing matches it.
+def eligible_shows
+  @eligible_shows ||= begin
+    today = Date.today
+    shows.select do |s|
+      d = s[:fm]["next_event_date"]
+      next false unless d
+
+      date = (d.respond_to?(:to_date) ? d.to_date : Date.parse(d.to_s)) rescue nil
+      date ? date >= today : false
+    end
+  end
+end
+
 # Jekyll's default slugify: lowercase, every non-alphanumeric run → single "-",
 # trim leading/trailing "-". This is what the `:name` permalink placeholder applies,
 # so the built dir for `slug: "harryf.cks"` is `/comedians/harryf-cks/`.
@@ -141,6 +158,25 @@ end
 def inline_json(html, id)
   m = html.match(%r{<script[^>]*id=["']#{Regexp.escape(id)}["'][^>]*>(.*?)</script>}m)
   m && JSON.parse(m[1])
+end
+
+# The card hrefs of the "related shows" row: the page slice from the first
+# `class="iyf-related"` to the following `</section>`, scanned for card links.
+# Attribute order inside the <a> is not fixed, so the class and the href are
+# matched within the same tag rather than in sequence. [] when there is no row.
+def related_hrefs(html)
+  text = html.to_s
+  start = text.index('class="iyf-related"')
+  return [] unless start
+
+  stop = text.index("</section>", start)
+  row = stop ? text[start...stop] : text[start..]
+  row.scan(/<a\b[^>]*>/).filter_map do |tag|
+    next unless tag.include?('class="iyf-related__card"')
+
+    m = tag.match(/href=["']([^"']*)["']/)
+    m && m[1]
+  end
 end
 
 def sitemap_text
@@ -484,6 +520,121 @@ check("_data/calendar.yml: no past-dated events (refresh cron health)") do
   today = Date.today
   past = cal_events.select { |e| (Date.parse(e["date"].to_s) < today rescue false) }
   [past.empty?, "stale: #{past.first(3).map { |e| "#{e["show"]} #{e["date"]}" }.join(", ")} — re-run script/refresh-calendar-data.rb"]
+end
+
+# ── related shows row ─────────────────────────────────────────────────────────
+# Every show page and every comedian page ends with a row of up to three cards
+# pointing at OTHER shows that are still running. The row is generated, so the
+# thing worth asserting is not the markup alone but the selection rule: only
+# eligible shows (next_event_date today or later) get linked, never the page's
+# own show, never the same show twice, and the ring is wired densely enough that
+# no eligible show is an orphan. The inbound checks are skipped when the pool is
+# too small for the rule to mean anything, so a quiet month is not a failure.
+section "Related shows row"
+
+# A show with no permalink has no page to link to, so it is not a candidate even
+# when its date is in the future.
+related_eligible_paths = eligible_shows.filter_map { |s| s[:dir] && "/#{s[:dir]}/" }
+related_anchor_path = "/comedybrew/"
+related_ring_paths = related_eligible_paths - [related_anchor_path]
+
+related_show_pages = shows.select { |s| s[:dir] }.map do |s|
+  { dir: s[:dir], path: "/#{s[:dir]}/", html: (read_site(File.join(s[:dir], "index.html")) rescue nil) }
+end
+related_comedian_pages = comedian_slugs.map do |slug|
+  { slug: slug, html: (read_site(File.join("comedians", slug, "index.html")) rescue nil) }
+end
+
+check("related row: every show page has the row") do
+  bad = related_show_pages.reject do |p|
+    p[:html].to_s.include?('class="iyf-related"') && p[:html].to_s.include?('data-related="show"')
+  end.map { |p| p[:dir] }
+  [bad.empty?, "no row on: #{bad.first(5).join(", ")}#{bad.size > 5 ? " (+#{bad.size - 5} more)" : ""}"]
+end
+
+check("related row: every comedian page has the row") do
+  bad = related_comedian_pages.reject do |p|
+    p[:html].to_s.include?('class="iyf-related"') && p[:html].to_s.include?('data-related="comedian"')
+  end.map { |p| p[:slug] }
+  [bad.empty?, "no row on: #{bad.first(5).join(", ")}#{bad.size > 5 ? " (+#{bad.size - 5} more)" : ""}"]
+end
+
+check("related row: exactly three links when three or more candidates exist") do
+  pool = related_eligible_paths.length
+  bad = []
+  related_show_pages.each do |p|
+    want = [3, pool - (related_eligible_paths.include?(p[:path]) ? 1 : 0)].min
+    got = related_hrefs(p[:html]).length
+    bad << "#{p[:dir]}: #{got} links, want #{want}" unless got == want
+  end
+  related_comedian_pages.each do |p|
+    want = [3, pool].min
+    got = related_hrefs(p[:html]).length
+    bad << "comedians/#{p[:slug]}: #{got} links, want #{want}" unless got == want
+  end
+  [bad.empty?, bad.first(5).join("; ")]
+end
+
+check("related row: no page links to itself") do
+  bad = related_show_pages.select { |p| related_hrefs(p[:html]).include?(p[:path]) }.map { |p| p[:dir] }
+  [bad.empty?, "self-link on: #{bad.join(", ")}"]
+end
+
+check("related row: no duplicate links in a row") do
+  bad = []
+  related_show_pages.each do |p|
+    hrefs = related_hrefs(p[:html])
+    bad << "#{p[:dir]} (#{hrefs.join(" ")})" if hrefs.uniq.length != hrefs.length
+  end
+  related_comedian_pages.each do |p|
+    hrefs = related_hrefs(p[:html])
+    bad << "comedians/#{p[:slug]} (#{hrefs.join(" ")})" if hrefs.uniq.length != hrefs.length
+  end
+  [bad.empty?, "duplicates on: #{bad.first(5).join("; ")}"]
+end
+
+check("related row: only eligible shows are linked") do
+  bad = []
+  related_show_pages.each do |p|
+    (related_hrefs(p[:html]) - related_eligible_paths).each { |h| bad << "#{p[:dir]} → #{h}" }
+  end
+  related_comedian_pages.each do |p|
+    (related_hrefs(p[:html]) - related_eligible_paths).each { |h| bad << "comedians/#{p[:slug]} → #{h}" }
+  end
+  [bad.empty?, "not eligible: #{bad.uniq.first(5).join(", ")}"]
+end
+
+check("related row: every ring show has at least two inbound links from show pages") do
+  if related_ring_paths.length < 3
+    [true, "skipped: ring too small"]
+  else
+    inbound = Hash.new(0)
+    related_show_pages.each { |p| related_hrefs(p[:html]).each { |h| inbound[h] += 1 } }
+    thin = related_ring_paths.reject { |path| inbound[path] >= 2 }
+    [thin.empty?, thin.map { |path| "#{path} (#{inbound[path]} inbound)" }.join(", ")]
+  end
+end
+
+check("related row: every eligible show has at least one inbound link from comedian pages") do
+  if comedian_slugs.length < related_ring_paths.length
+    [true, "skipped"]
+  else
+    inbound = Hash.new(0)
+    related_comedian_pages.each { |p| related_hrefs(p[:html]).each { |h| inbound[h] += 1 } }
+    orphans = related_eligible_paths.reject { |path| inbound[path] >= 1 }
+    [orphans.empty?, "no inbound comedian link: #{orphans.join(", ")}"]
+  end
+end
+
+check("related row: the anchor show is linked from every other show page") do
+  if !related_eligible_paths.include?(related_anchor_path)
+    [true, "skipped: anchor not eligible"]
+  else
+    bad = related_show_pages.reject do |p|
+      p[:path] == related_anchor_path || related_hrefs(p[:html]).include?(related_anchor_path)
+    end.map { |p| p[:dir] }
+    [bad.empty?, "anchor missing from: #{bad.first(5).join(", ")}#{bad.size > 5 ? " (+#{bad.size - 5} more)" : ""}"]
+  end
 end
 
 # ── calendar structure ──────────────────────────────────────────────────────

@@ -1,0 +1,98 @@
+// =============================================================================
+// Related shows row: "Other IN YOUR FACE shows" above the footer
+// =============================================================================
+// Rendered by _includes/related-shows.liquid at the end of every show page and
+// comedian page. Three cards in a row on desktop, one column on phones. Each
+// card is the show's horizontal artwork at its natural aspect (never cropped,
+// same rule as .iyf-show-row) plus the show name, with a one-line description
+// under the link. No button, no date, no price: it is a content link.
+// The .show-banner data-show hook on the item pulls the per-show --show-*
+// palette from _show-override.scss for the name colour on hover.
+// -----------------------------------------------------------------------------
+
+.iyf-related {
+  margin: var(--space-9) auto var(--space-8);
+  padding: 0 var(--space-5);
+  max-width: 1100px;
+
+  .iyf-section-head {
+    margin-bottom: var(--space-6);
+  }
+
+  &__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    align-items: start;
+
+    @media (min-width: 720px) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-5);
+    }
+  }
+
+  &__item {
+    list-style: none;
+    min-width: 0;
+  }
+
+  &__card {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    border-radius: var(--radius-md, 12px);
+    outline-offset: 4px;
+
+    &:hover .iyf-related__name,
+    &:focus-visible .iyf-related__name {
+      color: var(--show-accent, var(--brand-red));
+    }
+    &:hover .iyf-related__media img,
+    &:focus-visible .iyf-related__media img {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md, 0 8px 24px rgba(0, 0, 0, 0.18));
+    }
+  }
+
+  // Fixed 16:9 box so the three cards line up whatever the artwork aspect
+  // (flyers run from 16:9 to 3:1). The image is CONTAINED, never cropped, on
+  // the show's own --show-bg so letterboxing reads as part of the card.
+  &__media {
+    display: block;
+    overflow: hidden;
+    border-radius: var(--radius-md, 12px);
+    background: var(--show-bg, var(--surface-elev));
+    aspect-ratio: 16 / 9;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: var(--radius-md, 12px);
+      transition: transform var(--t-base) var(--ease-out), box-shadow var(--t-base) var(--ease-out);
+    }
+  }
+
+  &__name {
+    display: block;
+    margin-top: var(--space-3);
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-tight);
+    text-transform: uppercase;
+    transition: color var(--t-base) var(--ease-out);
+  }
+
+  &__desc {
+    margin: var(--space-2) 0 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    line-height: var(--lh-base, 1.5);
+    color: var(--muted);
+  }
+}

@@ -1,0 +1,129 @@
+{%- comment -%}
+  related-shows.liquid: the "Other IN YOUR FACE shows" row above the footer on
+  every show page (_layouts/post.liquid) and comedian page
+  (_layouts/comedian.liquid). Three other shows, flyer plus one-line
+  description, each a plain link to the show page. No ticket link, no date,
+  no price: the row is a content link so crawlers and readers reach the rest
+  of the catalogue, not a sales surface. Everything is decided at build time
+  in Liquid, so the links are in the static HTML and the graph is the same on
+  every build for the same posts. script/check-site.rb ("Related shows row")
+  asserts the rule below against the built site.
+
+  The rule (ring plus anchor):
+    eligible  = posts with a ticket_url whose next_event_date is today or
+                later (build day). A finished one-nighter drops out at the
+                next daily build with no edit; a post that never got a
+                next_event_date is never recommended. The day is site.time's
+                day: the 09:00 Zürich cron build is 07:00 or 08:00 UTC, so a
+                Netlify build agrees; only a manual build between 22:00 and
+                24:00 UTC is a day early, and the next cron build corrects it.
+    anchor    = Comedy Brew (the weekly open mic), recommended on every page
+                where it is eligible and not the current page.
+    ring      = eligible minus the anchor, sorted by permalink (stable; post
+                dates are arbitrary, La Tarima is dated 2099).
+    show page = anchor, then the ring starting at the first member whose url
+                sorts after this page's url (so: the two shows after me; the
+                anchor page and an expired show page start where their url
+                would sit).
+    comedian  = the shows I host (from the posts' hosts: lists), then the
+                anchor, then the ring rotated by my position in the roster,
+                so fifty non-host comedians spread evenly over the ring.
+    Every page walks its candidate list and takes the next three distinct
+    shows, skipping itself. Each ring show is linked by its two ring
+    predecessors (at least two inbound from show pages) and by roughly every
+    Nth comedian page. Popularity, venue and host affinity are deliberately
+    not used: with eight of eleven shows at ROBIN's they would cluster and
+    starve the rest.
+
+  Heading is neutral on both page types (Harry, 2026-09-14): "Shows where you
+  might see X" waits until Grist has real lineup data.
+{%- endcomment -%}
+{%- assign rs_anchor_url = '/comedybrew/' -%}
+{%- assign rs_today = site.time | date: '%Y-%m-%d' -%}
+{%- assign rs_sorted = site.posts | where_exp: "p", "p.ticket_url" | sort: "permalink" -%}
+{%- assign rs_eligible = '' | split: '' -%}
+{%- for p in rs_sorted -%}
+  {%- if p.next_event_date -%}
+    {%- assign rs_day = p.next_event_date | date: '%Y-%m-%d' -%}
+    {%- if rs_day >= rs_today -%}{%- assign rs_eligible = rs_eligible | push: p -%}{%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign rs_anchor = nil -%}
+{%- assign rs_ring = '' | split: '' -%}
+{%- for p in rs_eligible -%}
+  {%- if p.url == rs_anchor_url -%}{%- assign rs_anchor = p -%}{%- else -%}{%- assign rs_ring = rs_ring | push: p -%}{%- endif -%}
+{%- endfor -%}
+
+{%- comment -%} Candidate list, in priority order. {%- endcomment -%}
+{%- assign rs_candidates = '' | split: '' -%}
+{%- assign rs_start = 0 -%}
+{%- if page.layout == 'comedian' -%}
+  {%- assign rs_kind = 'comedian' -%}
+  {%- for p in rs_eligible -%}
+    {%- if p.hosts contains page.slug -%}{%- assign rs_candidates = rs_candidates | push: p -%}{%- endif -%}
+  {%- endfor -%}
+  {%- if rs_anchor -%}{%- assign rs_candidates = rs_candidates | push: rs_anchor -%}{%- endif -%}
+  {%- if rs_ring.size > 0 -%}
+    {%- assign rs_index = 0 -%}
+    {%- for c in site.comedians -%}
+      {%- if c.slug == page.slug -%}{%- assign rs_index = forloop.index0 -%}{%- break -%}{%- endif -%}
+    {%- endfor -%}
+    {%- assign rs_start = rs_index | modulo: rs_ring.size -%}
+  {%- endif -%}
+{%- else -%}
+  {%- assign rs_kind = 'show' -%}
+  {%- if rs_anchor -%}{%- assign rs_candidates = rs_candidates | push: rs_anchor -%}{%- endif -%}
+  {%- assign rs_found = false -%}
+  {%- for p in rs_ring -%}
+    {%- if rs_found == false and p.url > page.url -%}{%- assign rs_start = forloop.index0 -%}{%- assign rs_found = true -%}{%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+{%- if rs_ring.size > 0 -%}
+  {%- assign rs_tail = rs_ring | slice: rs_start, rs_ring.size -%}
+  {%- assign rs_head = rs_ring | slice: 0, rs_start -%}
+  {%- assign rs_candidates = rs_candidates | concat: rs_tail | concat: rs_head -%}
+{%- endif -%}
+
+{%- comment -%} Take the next three distinct shows, never this page. {%- endcomment -%}
+{%- assign rs_picks = '' | split: '' -%}
+{%- assign rs_taken = '|' -%}
+{%- for p in rs_candidates -%}
+  {%- if rs_picks.size >= 3 -%}{%- break -%}{%- endif -%}
+  {%- assign rs_key = '|' | append: p.url | append: '|' -%}
+  {%- if p.url != page.url -%}
+    {%- unless rs_taken contains rs_key -%}
+      {%- assign rs_picks = rs_picks | push: p -%}
+      {%- assign rs_taken = rs_taken | append: p.url | append: '|' -%}
+    {%- endunless -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if rs_picks.size > 0 -%}
+<section class="iyf-related" data-related="{{ rs_kind }}" aria-labelledby="related-shows-heading">
+  <div class="iyf-section-head">
+    <h2 id="related-shows-heading" class="iyf-section-head__title">Other IN YOUR FACE shows</h2>
+  </div>
+  <ul class="iyf-related__grid" role="list">
+    {%- for p in rs_picks -%}
+      {%- assign rs_slug = p.url | remove: '/' -%}
+      {%- assign rs_title_normalized = p.title | replace: ' - ', ' • ' -%}
+      {%- assign rs_name = rs_title_normalized | split: '•' | first | strip -%}
+      {%- assign rs_img = p.image | default: p['feature-img'] -%}
+      {%- assign rs_desc = p.tagline | default: p.description | strip_html | strip_newlines | truncate: 160 -%}
+      <li class="iyf-related__item show-banner" data-show="{{ rs_slug }}">
+        <a class="iyf-related__card" href="{{ p.url | relative_url }}">
+          {%- if rs_img -%}
+            <span class="iyf-related__media">
+              <img src="{{ rs_img | relative_url }}" alt="{{ rs_name }}" loading="lazy" decoding="async">
+            </span>
+          {%- endif -%}
+          <span class="iyf-related__name">{{ rs_name }}</span>
+        </a>
+        {%- if rs_desc and rs_desc != '' -%}
+          <p class="iyf-related__desc">{{ rs_desc }}</p>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+{%- endif -%}
