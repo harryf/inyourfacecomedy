@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "José"
-description: "José performs English stand-up comedy with IN YOUR FACE in Zürich, Switzerland."
-last_modified_at: "2026-09-13T17:24:45+00:00"
+description: "6 months trying to be funny on stage."
+last_modified_at: "2026-09-14T08:05:02+00:00"
 slug: "jose.avvenire"
 photo: "/assets/img/comedians/jose.avvenire.jpg"
 instagram: "https://instagram.com/jose.avvenire"
@@ -13,6 +13,7 @@ youtube_channel: ""
 website: ""
 priority: "Low"
 image: "/assets/img/comedians/jose.avvenire.jpg"
-bio: ""
+bio: |
+  6 months trying to be funny on stage.
 ---
 
