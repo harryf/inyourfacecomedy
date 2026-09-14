@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { DEFAULT_RULES } from "../lib/meta-api";
-import { actionCount, median, rankingMetric, showsInWindow, siteClicksByContent, siteFor, verdicts, type AdRow } from "../meta-insights";
+import { actionCount, collectRecommendations, median, rankingMetric, renderRecommendations, showsInWindow, siteClicksByContent, siteFor, verdicts, type AdRow } from "../meta-insights";
 import { capAllows, desiredFor, diffFields, postBody, projectedMonthChf, showsInNext30Days } from "../meta-adsets";
 
 const row = (p: Partial<AdRow>): AdRow => ({
@@ -127,5 +127,62 @@ describe("ad set spec, diff and cap", () => {
     expect(capAllows(1975, 648, 500).ok).toBe(true);     // over the cap, but lower than today
     expect(capAllows(300, 648, 500).ok).toBe(false);     // would raise the month over the cap
     expect(capAllows(300, 648, 500).reason).toMatch(/exceed/);
+  });
+});
+
+describe("Meta recommendations", () => {
+  const names = new Map([["1", "adset cold"], ["2", "adset warm"], ["3", "adset intent"], ["4", "adset old"], ["90", "ad cold-C3"]]);
+  const groups = [{ recommendations: ["3", "2", "1", "4"].map((id, i) => ({ object_ids: [id], type: "REELS_PC_RECOMMENDATION", recommendation_stage: "mid_flight_recommendation", recommendation_time: "2026-09-13T18:25:0" + i + "+0000", recommendation_content: { lift_estimate: "8% lower cost per result", body: "Including a fullscreen  vertical video (9:16)\n with audio", opportunity_score_lift: "2" }, url: "https://adsmanager.facebook.com/x?recommendation_hash_string=" + id })) }];
+  const langItem = { code: 1942001, title: "Targeted Languages Don't Match Text", message: "The languages you're targeting are different", importance: "HIGH", confidence: "LOW", blame_field: "creative" };
+  test("account groups flatten to four named rows with date, lift and link", () => {
+    const rows = collectRecommendations(groups, [], names);
+    expect(rows.length).toBe(4);
+    expect(rows.map((r) => r.objects[0])).toEqual(["adset intent", "adset warm", "adset cold", "adset old"]);
+    expect(rows[0].since).toBe("2026-09-13");
+    expect(rows[0].lift).toBe("8% lower cost per result");
+    expect(rows[0].text).toBe("Including a fullscreen vertical video (9:16) with audio");
+    expect(rows[0].url).toContain("recommendation_hash_string=3");
+    expect(rows.every((r) => r.source === "account" && r.accepted === "")).toBe(true);
+  });
+  test("an object item on an ad gets source object, the ad name and the code", () => {
+    const rows = collectRecommendations([], [{ id: "90", recommendations: [langItem] }, { id: "1", recommendations: [] }, { id: "2" }], names);
+    expect(rows.length).toBe(1);
+    expect(rows[0]).toMatchObject({ source: "object", type: "1942001", objects: ["ad cold-C3"], object_ids: ["90"], since: "", url: "", lift: "importance HIGH, confidence LOW" });
+    expect(rows[0].text).toBe("Targeted Languages Don't Match Text: The languages you're targeting are different");
+  });
+  test("an unknown id stays raw, a unix time becomes a date", () => {
+    const rows = collectRecommendations([{ recommendations: [{ object_ids: ["777"], type: "X", recommendation_time: 1757786701 }] }], [], names);
+    expect(rows[0].objects).toEqual(["777"]);
+    expect(rows[0].since).toBe("2025-09-13");
+    expect(rows[0].lift).toBe("");
+  });
+  test("the same type on the same object from both surfaces is one row", () => {
+    const rows = collectRecommendations(groups, [{ id: "1", recommendations: [{ code: "REELS_PC_RECOMMENDATION", title: "echo" }] }], names);
+    expect(rows.length).toBe(4);
+  });
+  test("accepted items carry the reason and sort last", () => {
+    const rows = collectRecommendations(groups, [{ id: "90", recommendations: [langItem] }], names, [
+      { type: "REELS_PC_RECOMMENDATION", object: "adset cold", reason: "clips pending" },
+      { type: "1942001", object: "ad cold-C3", reason: "German on purpose" },
+    ]);
+    expect(rows.length).toBe(5);
+    expect(rows.slice(0, 3).every((r) => r.accepted === "")).toBe(true);
+    expect(rows[3]).toMatchObject({ objects: ["adset cold"], accepted: "clips pending" });
+    expect(rows[4]).toMatchObject({ objects: ["ad cold-C3"], accepted: "German on purpose" });
+  });
+  test("render distinguishes none from unavailable", () => {
+    expect(renderRecommendations([]).join("\n")).toContain("none (the API exposes a subset");
+    const u = renderRecommendations([], "(#100) Tried accessing nonexisting field | x").join("\n");
+    expect(u).toContain("unavailable this run: (#100) Tried accessing nonexisting field \\| x");
+    expect(u).not.toContain("none (");
+  });
+  test("render prints the coverage line, a header, one row per item, pipes escaped, decision and link", () => {
+    const rows = collectRecommendations(groups, [{ id: "90", recommendations: [{ code: 1, title: "T | U", message: "M" }] }], names, [{ type: "1", object: "ad cold-C3", reason: "ok" }]);
+    const L = renderRecommendations(rows);
+    expect(L[2]).toBe("5 item(s) on the API; Ads Manager may show more, not every pill reaches the API.");
+    const tableRows = L.filter((l) => l.startsWith("| ") && !l.startsWith("| Object"));
+    expect(tableRows.length).toBe(5);
+    expect(tableRows[0]).toContain("| open | [Ads Manager](");
+    expect(tableRows[4]).toBe("| ad cold-C3 | 1 |  |  | T \\| U: M | accepted: ok |  |");
   });
 });

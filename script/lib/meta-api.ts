@@ -41,6 +41,9 @@ export interface AdsetSpec {
 
 export interface InsightsRules {
   ticket_floor: number; lpv_floor: number; retire_factor: number; max_retire_per_adset: number; starved_after_days: number; frequency_flag: number;
+  // Meta recommendations the Saturday review has decided on: matched by type and the object's
+  // readout name ("adset cold", "ad cold-C3"); they print with the reason and sort last.
+  accepted_recommendations?: { type: string; object: string; reason: string }[];
 }
 export const DEFAULT_RULES: InsightsRules = { ticket_floor: 10, lpv_floor: 30, retire_factor: 1.5, max_retire_per_adset: 2, starved_after_days: 28, frequency_flag: 3.5 };
 

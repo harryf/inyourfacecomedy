@@ -8,6 +8,13 @@
 //
 // Writes script/meta-out/insights-<date>.md and .json (gitignored). Never writes to the old
 // ad set (config old_adset_id) or to Buyers, whose one ad the lineup script owns.
+//
+// Meta's recommendations (the "N recommendations" pills in Ads Manager) are read from two
+// surfaces and printed in their own section: the account edge act_<id>/recommendations (the
+// Ads Manager items, with a deep link) and the `recommendations` field on each ad set and
+// ad (per-object checks such as a language mismatch). They are read, never applied: each is
+// an Advantage+ toggle, a creative asset or a targeting change, and the Saturday review
+// decides. There is no API call that applies a recommendation.
 
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -135,15 +142,87 @@ export function showsInWindow(yamls: string[], show: string, since: string, unti
   return seen.size;
 }
 
+// ---------- recommendations, pure ----------
+
+export interface Recommendation {
+  source: "account" | "object";   // act_<id>/recommendations, or the recommendations field on an ad set or ad
+  type: string;                   // REELS_PC_RECOMMENDATION, or the per-object code
+  objects: string[];              // config key ("adset cold"), ad name ("ad cold-C3"), or the raw id
+  object_ids: string[];
+  since: string;                  // ISO date of recommendation_time, or "" for object items
+  lift: string;                   // Meta's estimate text, "" when absent
+  text: string;
+  url: string;                    // Ads Manager deep link, "" for object items
+  accepted: string;               // the reason from config insights.accepted_recommendations, "" when not accepted
+}
+
+export interface AcceptedRecommendation { type: string; object: string; reason: string }
+
+const isoDay = (t: unknown): string => {
+  if (t === undefined || t === null || t === "") return "";
+  if (typeof t === "number" || /^\d{9,11}$/.test(String(t))) return new Date(Number(t) * 1000).toISOString().slice(0, 10);
+  return String(t).slice(0, 10);
+};
+const oneLine = (x: unknown) => String(x ?? "").replace(/\s+/g, " ").trim();
+
+// Flatten both surfaces. `groups` is the account edge's data array (each entry holds a
+// `recommendations` list); `objects` is a list of { id, recommendations } read off the ad sets
+// and ads. `names` maps ids to display names; unknown ids stay raw. One row per type and
+// object (the ad set field can echo the account item). Rows named in `accepted` (type plus
+// object name) carry the reason and sort last.
+export function collectRecommendations(groups: any[], objects: { id: string; recommendations?: any[] }[], names: Map<string, string>, accepted: AcceptedRecommendation[] = []): Recommendation[] {
+  const out: Recommendation[] = [];
+  const seen = new Set<string>();
+  const nameOf = (id: string) => names.get(String(id)) || String(id);
+  const push = (r: Recommendation) => {
+    const key = r.type + "|" + r.object_ids.join(",");
+    if (seen.has(key)) return;
+    seen.add(key);
+    r.accepted = accepted.find((a) => String(a.type) === r.type && r.objects.includes(a.object))?.reason || "";
+    out.push(r);
+  };
+  for (const g of groups || []) for (const r of g?.recommendations || []) {
+    const ids = (r.object_ids || []).map(String);
+    push({
+      source: "account", type: String(r.type || ""), objects: ids.map(nameOf), object_ids: ids,
+      since: isoDay(r.recommendation_time), lift: oneLine(r.recommendation_content?.lift_estimate),
+      text: oneLine(r.recommendation_content?.body), url: String(r.url || ""), accepted: "",
+    });
+  }
+  for (const o of objects || []) for (const r of o.recommendations || []) {
+    push({
+      source: "object", type: String(r.code ?? r.title ?? ""), objects: [nameOf(o.id)], object_ids: [String(o.id)],
+      since: "", lift: r.importance ? `importance ${r.importance}, confidence ${r.confidence || "?"}` : "",
+      text: oneLine([r.title, r.message].filter(Boolean).join(": ")), url: "", accepted: "",
+    });
+  }
+  return [...out.filter((r) => !r.accepted), ...out.filter((r) => r.accepted)];
+}
+
+const cell = (x: string) => x.replace(/\|/g, "\\|");
+
+// `error` set means the surfaces could not be read: rendered as unavailable, never as none.
+export function renderRecommendations(recs: Recommendation[], error = ""): string[] {
+  const L: string[] = ["**Meta recommendations** (read only; the Saturday review decides, nothing is applied by script)", ""];
+  if (error) { L.push(`unavailable this run: ${cell(oneLine(error)).slice(0, 200)}`, ""); return L; }
+  if (!recs.length) { L.push("none (the API exposes a subset; Ads Manager may still show pills)", ""); return L; }
+  L.push(`${recs.length} item(s) on the API; Ads Manager may show more, not every pill reaches the API.`, "");
+  L.push("| Object | Type | Since | Meta's estimate | Text | Decision | Link |", "|---|---|---|---|---|---|---|");
+  for (const r of recs) L.push(`| ${cell(r.objects.join(", "))} | ${cell(r.type)} | ${r.since} | ${cell(r.lift)} | ${cell(r.text)} | ${r.accepted ? "accepted: " + cell(r.accepted) : "open"} | ${r.url ? "[Ads Manager](" + r.url + ")" : ""} |`);
+  L.push("");
+  return L;
+}
+
 // ---------- markdown ----------
 
 const chf = (n: number | null) => (n === null || !Number.isFinite(n) ? "" : n.toFixed(2));
 
-export function renderMarkdown(rowsByAdset: Map<string, AdRow[]>, meta: { since: string; until: string; shows: number; siteWindow: string; adsetInfo: Map<string, string>; flags: string[] }): string {
+export function renderMarkdown(rowsByAdset: Map<string, AdRow[]>, meta: { since: string; until: string; shows: number; siteWindow: string; adsetInfo: Map<string, string>; flags: string[]; recommendations?: Recommendation[]; recommendationsError?: string }): string {
   const L: string[] = [];
   L.push(`# Meta ads readout, ${meta.since} to ${meta.until}`, "");
   L.push(`${meta.shows} Comedy Brew date(s) in the window. Site /go/ counts cover ${meta.siteWindow} (the report's own window). Meta ticket clicks are the custom conversion, 1-day click; the site count is the ground truth for ranking. Verdicts rank inside one ad set only.`, "");
   if (meta.flags.length) { L.push("**Flags**", ""); for (const f of meta.flags) L.push(`- ${f}`); L.push(""); }
+  if (meta.recommendations || meta.recommendationsError) L.push(...renderRecommendations(meta.recommendations || [], meta.recommendationsError || ""));
   for (const [key, rows] of rowsByAdset) {
     L.push(`## ${key}${meta.adsetInfo.get(key) ? `: ${meta.adsetInfo.get(key)}` : ""}`, "");
     L.push("| Ad | Status | Spend | Impr. | Freq. | Link clicks | LPV | Ticket (Meta) | /go/ (site) | CHF/ticket | CHF/LPV | Verdict | Note |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|");
@@ -213,6 +292,10 @@ async function main() {
 
   const flags: string[] = [];
   const adsetInfo = new Map<string, string>();
+  // Names for the recommendations section, and the per-object items collected on the way.
+  const names = new Map<string, string>();
+  for (const [id, k] of keyOf) names.set(id, `adset ${k}`);
+  for (const ad of ads) names.set(String(ad.id), `ad ${ad.name}`);
   for (const [key, rows] of rowsByAdset) {
     const id = key === "old" ? config.old_adset_id! : config.adsets[key as keyof typeof config.adsets];
     const a = await meta.get(id, { fields: "name,effective_status,daily_budget,optimization_goal,targeting" });
@@ -229,11 +312,31 @@ async function main() {
   const cal = ["calendar.yml", "calendar_past.yml"].map((f) => join(REPO_ROOT, "_data", f)).filter(existsSync).map((p) => readFileSync(p, "utf8"));
   const shows = showsInWindow(cal, "comedybrew", since, until);
   if (!conversionSeen) flags.push(`no ${ticketType} in any ad's actions this window (types seen: ${seenTypes.filter((t) => !t.startsWith("onsite_") && !t.startsWith("post")).join(", ") || "none"}); ticket clicks read as 0 until Meta attributes the custom conversion`);
-  const md = renderMarkdown(rowsByAdset, { since, until, shows, siteWindow: site.window, adsetInfo, flags });
+  // Meta's recommendations: the account edge (what Ads Manager shows) plus the per-object items.
+  // A failure here is a warning; the readout still writes.
+  // Both are read apart from the core insight calls, so a permission or version change here
+  // cannot take the readout down.
+  const wantedAdsetIds = [...keyOf].filter(([, k]) => wanted.includes(k)).map(([id]) => id);
+  const wantedAdIds = ads.filter((ad: any) => wanted.includes(keyOf.get(String(ad.adset_id)) || "")).map((ad: any) => String(ad.id));
+  let recommendations: Recommendation[] | null = null;
+  let recommendationsError = "";
+  try {
+    const groups: any[] = (await meta.get(`${config.ad_account_id}/recommendations`, { limit: 50 })).data || [];
+    const recObjects: { id: string; recommendations?: any[] }[] = [];
+    for (const id of wantedAdsetIds) recObjects.push({ id, recommendations: (await meta.get(id, { fields: "recommendations" })).recommendations });
+    for (const a of await meta.getAll(`${config.campaign_id}/ads`, { fields: "id,recommendations" })) if (wantedAdIds.includes(String(a.id))) recObjects.push({ id: String(a.id), recommendations: a.recommendations });
+    const wantedIds = new Set([...wantedAdsetIds, ...wantedAdIds]);
+    recommendations = collectRecommendations(groups, recObjects, names, rules.accepted_recommendations || []).filter((r) => !only || r.object_ids.some((id) => wantedIds.has(id)));
+  } catch (e: any) {
+    recommendationsError = String(e?.message || e);
+    warn(`recommendations could not be read: ${recommendationsError.slice(0, 200)}`);
+    flags.push("Meta recommendations could not be read this run (see the section)");
+  }
+  const md = renderMarkdown(rowsByAdset, { since, until, shows, siteWindow: site.window, adsetInfo, flags, recommendations: recommendations || [], recommendationsError });
   mkdirSync(OUT_DIR, { recursive: true });
   const base = join(OUT_DIR, `insights-${today}`);
   writeFileSync(`${base}.md`, md);
-  writeFileSync(`${base}.json`, JSON.stringify({ since, until, shows, site_window: site.window, rules, flags, adsets: Object.fromEntries(rowsByAdset) }, null, 2));
+  writeFileSync(`${base}.json`, JSON.stringify({ since, until, shows, site_window: site.window, rules, flags, recommendations, recommendations_error: recommendationsError || null, adsets: Object.fromEntries(rowsByAdset) }, null, 2));
   log(md);
   log(`\nwritten ${base}.md and .json`);
 

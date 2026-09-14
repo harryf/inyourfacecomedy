@@ -446,6 +446,8 @@ bun script/meta-insights.ts --adset cold
 bun script/meta-insights.ts --apply          # pause the "retire" ads, asks per ad
 ```
 
+Meta recommendations, two surfaces, printed as their own section after the flags (and in the JSON): the account edge `act_<id>/recommendations` returns what Ads Manager shows as "N recommendations" (type, the ad set or ad it points at, when it appeared, Meta's lift estimate, the text, a deep link into Ads Manager), and the `recommendations` field on each ad set and ad returns per-object checks (for example a language mismatch between copy and targeting). Not every pill is exposed: on 2026-09-14 Ads Manager showed two per ad set, the API one (the Reels video nudge) plus one per-ad item. The script reads them and never applies any: there is no API call that applies a recommendation, and each one is an Advantage+ toggle, a creative asset or a targeting change that the Saturday review decides on. If the edge fails the readout warns and still writes.
+
 Writes `script/meta-out/insights-<date>.md` and `.json` (gitignored). Columns per ad: spend,
 impressions, frequency, link clicks, landing page views, Meta ticket clicks (the custom
 conversion `offsite_conversion.custom.<id>`, 1-day click), the site's `/go/` clicks for the

@@ -85,6 +85,14 @@ insights:
   max_retire_per_adset: 2
   starved_after_days: 28      # under the floor this long while a sibling passed it: starved
   frequency_flag: 3.5         # 7-day frequency above this flags the ad set
+  # Meta recommendations already decided on the Saturday review (type as the API names it, the
+  # object as the readout names it). They still print, marked accepted, after the open ones.
+  accepted_recommendations:
+    - { type: REELS_PC_RECOMMENDATION, object: adset cold, reason: "9:16 video with audio waits for the two phone clips (W8, I2); the 9:16 image is in place" }
+    - { type: REELS_PC_RECOMMENDATION, object: adset warm, reason: "same, the clips" }
+    - { type: REELS_PC_RECOMMENDATION, object: adset intent, reason: "same, the clips" }
+    - { type: REELS_PC_RECOMMENDATION, object: adset old, reason: "the 2024 carousel stays as it is, review in a month" }
+    - { type: "1942001", object: ad cold-C3, reason: "German copy on purpose (the Swiss person); the set targets German among its 31 languages; Meta's confidence is LOW" }
 
 # Comedy Brew sales tracking (script/eventfrog-sales.ts, strategy 2026-09-13). The Eventfrog key lives in .env as
 # EVENTFROG_ORGANIZER and is used read-only whatever its rights (the client has one verb). Thresholds are shares of
