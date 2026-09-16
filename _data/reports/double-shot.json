@@ -3,34 +3,26 @@
  "title": "Double Shot",
  "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/double-shot-english-comedy-with-harry-and-martina-7461804081197142415.html",
  "event_type": "single",
- "generated_at": "2026-09-15T08:20:02.002Z",
+ "generated_at": "2026-09-16T08:20:01.951Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-17",
- "through": "2026-09-15",
- "complete_through": "2026-09-13",
+ "pages_since": "2026-08-18",
+ "through": "2026-09-16",
+ "complete_through": "2026-09-14",
  "totals": {
-  "clicks": 5,
+  "clicks": 6,
   "redirect": 0,
-  "click": 5,
-  "clicks_30d": 5,
+  "click": 6,
+  "clicks_30d": 6,
   "redirect_30d": 0,
-  "click_30d": 5,
-  "views": 7,
-  "views_30d": 7,
-  "sessions": 8,
-  "sessions_30d": 8,
+  "click_30d": 6,
+  "views": 8,
+  "views_30d": 8,
+  "sessions": 9,
+  "sessions_30d": 9,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-17",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-18",
    "redirect": 0,
@@ -251,12 +243,20 @@
    "date": "2026-09-14",
    "redirect": 0,
    "click": 0,
-   "views": 1,
-   "provisional": true,
+   "views": 2,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-15",
+   "redirect": 0,
+   "click": 1,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-16",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -275,7 +275,7 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 1,
+   "clicks": 2,
    "views": 3,
    "sessions": 3
   },
@@ -289,6 +289,13 @@
   {
    "source": "chatgpt.com",
    "medium": "ai-assistant",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
+  },
+  {
+   "source": "instagram",
+   "medium": "social",
    "clicks": 0,
    "views": 1,
    "sessions": 1

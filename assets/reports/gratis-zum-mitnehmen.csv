@@ -2,6 +2,6 @@ datetime,event,source,medium,campaign,content,page
 2026-09-05 11:59,ticket_click,test,verify,linktest,go-link-dim,https://inyourfacecomedy.ch/calendar/
 2026-09-07 09:16,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
 2026-09-07 21:14,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-09-14 18:31,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-09-14 18:31,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
 2026-09-14 18:31,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
 2026-09-14 18:32,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/

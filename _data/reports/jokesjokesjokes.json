@@ -3,34 +3,26 @@
  "title": "Jokes, Jokes, Jokes",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726681983598.html",
  "event_type": "series",
- "generated_at": "2026-09-15T08:20:02.002Z",
+ "generated_at": "2026-09-16T08:20:01.951Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-17",
- "through": "2026-09-15",
- "complete_through": "2026-09-13",
+ "pages_since": "2026-08-18",
+ "through": "2026-09-16",
+ "complete_through": "2026-09-14",
  "totals": {
-  "clicks": 19,
-  "redirect": 7,
-  "click": 12,
-  "clicks_30d": 19,
-  "redirect_30d": 7,
-  "click_30d": 12,
-  "views": 46,
-  "views_30d": 46,
-  "sessions": 41,
-  "sessions_30d": 41,
+  "clicks": 24,
+  "redirect": 9,
+  "click": 15,
+  "clicks_30d": 24,
+  "redirect_30d": 9,
+  "click_30d": 15,
+  "views": 48,
+  "views_30d": 48,
+  "sessions": 45,
+  "sessions_30d": 45,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-17",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-18",
    "redirect": 0,
@@ -249,17 +241,25 @@
   },
   {
    "date": "2026-09-14",
-   "redirect": 2,
+   "redirect": 3,
    "click": 1,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-15",
+   "redirect": 1,
+   "click": 4,
+   "views": 3,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-16",
    "redirect": 0,
-   "click": 1,
-   "views": 1,
+   "click": 0,
+   "views": 0,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -268,14 +268,14 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 5,
-   "views": 18,
-   "sessions": 15
+   "clicks": 8,
+   "views": 20,
+   "sessions": 19
   },
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 5,
+   "clicks": 7,
    "views": 2,
    "sessions": 2
   },
@@ -338,6 +338,15 @@
  ],
  "by_campaign": [
   {
+   "campaign": "jokesjokesjokes-20260915",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 4,
+   "first": "2026-09-14",
+   "last": "2026-09-15",
+   "content": []
+  },
+  {
    "campaign": "jokesjokesjokes-20260901",
    "source": "instagram",
    "medium": "social",
@@ -350,15 +359,6 @@
      "clicks": 2
     }
    ]
-  },
-  {
-   "campaign": "jokesjokesjokes-20260915",
-   "source": "instagram",
-   "medium": "social",
-   "clicks": 2,
-   "first": "2026-09-14",
-   "last": "2026-09-14",
-   "content": []
   },
   {
    "campaign": "jokesjokesjokes",
