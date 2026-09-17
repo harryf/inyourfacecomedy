@@ -3,34 +3,26 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-09-16T08:20:01.951Z",
+ "generated_at": "2026-09-17T08:20:02.067Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-18",
- "through": "2026-09-16",
- "complete_through": "2026-09-14",
+ "pages_since": "2026-08-19",
+ "through": "2026-09-17",
+ "complete_through": "2026-09-15",
  "totals": {
-  "clicks": 630,
-  "redirect": 554,
-  "click": 76,
-  "clicks_30d": 630,
-  "redirect_30d": 554,
-  "click_30d": 76,
-  "views": 289,
-  "views_30d": 289,
-  "sessions": 286,
-  "sessions_30d": 286,
+  "clicks": 725,
+  "redirect": 639,
+  "click": 86,
+  "clicks_30d": 725,
+  "redirect_30d": 639,
+  "click_30d": 86,
+  "views": 294,
+  "views_30d": 294,
+  "sessions": 287,
+  "sessions_30d": 287,
   "broken_links": 0,
-  "untagged": 2
+  "untagged": 1
  },
  "by_day": [
-  {
-   "date": "2026-08-18",
-   "redirect": 0,
-   "click": 0,
-   "views": 7,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-19",
    "redirect": 0,
@@ -249,15 +241,23 @@
   },
   {
    "date": "2026-09-15",
-   "redirect": 39,
-   "click": 3,
-   "views": 11,
-   "provisional": true,
+   "redirect": 48,
+   "click": 7,
+   "views": 15,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-16",
-   "redirect": 10,
+   "redirect": 56,
+   "click": 6,
+   "views": 8,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-17",
+   "redirect": 30,
    "click": 0,
    "views": 1,
    "provisional": true,
@@ -268,42 +268,42 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 516,
+   "clicks": 599,
    "views": 1,
    "sessions": 1
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 37,
+   "clicks": 41,
    "views": 123,
    "sessions": 115
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 28,
-   "views": 108,
-   "sessions": 114
+   "clicks": 32,
+   "views": 116,
+   "sessions": 117
   },
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 26,
-   "views": 12,
-   "sessions": 12
+   "clicks": 27,
+   "views": 13,
+   "sessions": 13
   },
   {
    "source": "guidle",
    "medium": "referral",
-   "clicks": 5,
+   "clicks": 7,
    "views": 4,
    "sessions": 4
   },
   {
    "source": "meetup",
    "medium": "referral",
-   "clicks": 5,
+   "clicks": 6,
    "views": 3,
    "sessions": 3
   },
@@ -329,11 +329,11 @@
    "sessions": 2
   },
   {
-   "source": "meta",
-   "medium": "untagged",
-   "clicks": 2,
-   "views": 0,
-   "sessions": 0
+   "source": "reddit.com",
+   "medium": "referral",
+   "clicks": 1,
+   "views": 2,
+   "sessions": 4
   },
   {
    "source": "bing",
@@ -343,25 +343,18 @@
    "sessions": 3
   },
   {
-   "source": "reddit.com",
-   "medium": "referral",
+   "source": "whatsapp-sharing",
+   "medium": "social",
    "clicks": 1,
    "views": 1,
-   "sessions": 3
+   "sessions": 1
   },
   {
-   "source": "ecosia.org",
-   "medium": "organic",
-   "clicks": 0,
-   "views": 6,
-   "sessions": 5
-  },
-  {
-   "source": "eventfrog.ch",
-   "medium": "referral",
-   "clicks": 0,
-   "views": 5,
-   "sessions": 5
+   "source": "meta",
+   "medium": "untagged",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
   },
   {
    "source": "VA LBHE ABDF Dbzfel",
@@ -371,22 +364,29 @@
    "sessions": 5
   },
   {
-   "source": "duckduckgo",
+   "source": "eventfrog.ch",
+   "medium": "referral",
+   "clicks": 0,
+   "views": 4,
+   "sessions": 4
+  },
+  {
+   "source": "ecosia.org",
    "medium": "organic",
    "clicks": 0,
    "views": 3,
    "sessions": 3
   },
   {
-   "source": "IN YOUR FACE Comedy",
-   "medium": "email",
+   "source": "duckduckgo",
+   "medium": "organic",
    "clicks": 0,
-   "views": 1,
-   "sessions": 1
+   "views": 2,
+   "sessions": 2
   },
   {
-   "source": "whatsapp-sharing",
-   "medium": "social",
+   "source": "IN YOUR FACE Comedy",
+   "medium": "email",
    "clicks": 0,
    "views": 1,
    "sessions": 1
@@ -397,13 +397,13 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 283,
+   "clicks": 327,
    "first": "2026-08-26",
-   "last": "2026-09-16",
+   "last": "2026-09-17",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 226
+     "clicks": 270
     }
    ]
   },
@@ -411,17 +411,17 @@
    "campaign": "cold",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 81,
+   "clicks": 108,
    "first": "2026-09-13",
-   "last": "2026-09-16",
+   "last": "2026-09-17",
    "content": [
     {
      "content": "cold-C7",
-     "clicks": 32
+     "clicks": 58
     },
     {
      "content": "cold-C4",
-     "clicks": 14
+     "clicks": 15
     },
     {
      "content": "cold-C1",
@@ -445,13 +445,13 @@
    "campaign": "warm",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 81,
+   "clicks": 92,
    "first": "2026-09-13",
-   "last": "2026-09-15",
+   "last": "2026-09-17",
    "content": [
     {
      "content": "warm-W6",
-     "clicks": 35
+     "clicks": 46
     },
     {
      "content": "warm-W2",
@@ -471,21 +471,21 @@
    "campaign": "intent",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 48,
+   "clicks": 49,
    "first": "2026-09-13",
-   "last": "2026-09-16",
+   "last": "2026-09-17",
    "content": [
     {
      "content": "intent-I3",
      "clicks": 11
     },
     {
-     "content": "intent-I5",
+     "content": "intent-I1",
      "clicks": 10
     },
     {
-     "content": "intent-I1",
-     "clicks": 9
+     "content": "intent-I5",
+     "clicks": 10
     }
    ]
   },
@@ -525,18 +525,18 @@
    "campaign": "comedybrew",
    "source": "meetup",
    "medium": "referral",
-   "clicks": 3,
+   "clicks": 4,
    "first": "2026-08-27",
-   "last": "2026-09-10",
+   "last": "2026-09-16",
    "content": []
   },
   {
    "campaign": "comedybrew",
    "source": "guidle",
    "medium": "referral",
-   "clicks": 3,
+   "clicks": 4,
    "first": "2026-08-28",
-   "last": "2026-09-10",
+   "last": "2026-09-17",
    "content": []
   },
   {

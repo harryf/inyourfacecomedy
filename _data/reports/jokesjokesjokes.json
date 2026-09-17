@@ -3,34 +3,26 @@
  "title": "Jokes, Jokes, Jokes",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726681983598.html",
  "event_type": "series",
- "generated_at": "2026-09-16T08:20:01.951Z",
+ "generated_at": "2026-09-17T08:20:02.067Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-18",
- "through": "2026-09-16",
- "complete_through": "2026-09-14",
+ "pages_since": "2026-08-19",
+ "through": "2026-09-17",
+ "complete_through": "2026-09-15",
  "totals": {
-  "clicks": 24,
-  "redirect": 9,
-  "click": 15,
-  "clicks_30d": 24,
-  "redirect_30d": 9,
-  "click_30d": 15,
-  "views": 48,
-  "views_30d": 48,
-  "sessions": 45,
-  "sessions_30d": 45,
+  "clicks": 27,
+  "redirect": 10,
+  "click": 17,
+  "clicks_30d": 27,
+  "redirect_30d": 10,
+  "click_30d": 17,
+  "views": 53,
+  "views_30d": 53,
+  "sessions": 48,
+  "sessions_30d": 48,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-18",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-19",
    "redirect": 0,
@@ -249,14 +241,22 @@
   },
   {
    "date": "2026-09-15",
-   "redirect": 1,
-   "click": 4,
-   "views": 3,
-   "provisional": true,
+   "redirect": 2,
+   "click": 6,
+   "views": 6,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-16",
+   "redirect": 0,
+   "click": 0,
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-17",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -265,13 +265,6 @@
   }
  ],
  "by_source": [
-  {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 8,
-   "views": 20,
-   "sessions": 19
-  },
   {
    "source": "instagram",
    "medium": "social",
@@ -282,23 +275,30 @@
   {
    "source": "guidle",
    "medium": "referral",
-   "clicks": 3,
-   "views": 6,
-   "sessions": 5
+   "clicks": 6,
+   "views": 10,
+   "sessions": 9
   },
   {
-   "source": "chatgpt.com",
-   "medium": "ai-assistant",
-   "clicks": 2,
-   "views": 2,
-   "sessions": 1
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 5,
+   "views": 20,
+   "sessions": 17
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 1,
-   "views": 7,
-   "sessions": 8
+   "clicks": 3,
+   "views": 8,
+   "sessions": 9
+  },
+  {
+   "source": "chatgpt.com",
+   "medium": "ai-assistant",
+   "clicks": 3,
+   "views": 2,
+   "sessions": 1
   },
   {
    "source": "test",
@@ -367,6 +367,15 @@
    "clicks": 1,
    "first": "2026-08-31",
    "last": "2026-08-31",
+   "content": []
+  },
+  {
+   "campaign": "jokesjokesjokes",
+   "source": "guidle",
+   "medium": "referral",
+   "clicks": 1,
+   "first": "2026-09-15",
+   "last": "2026-09-15",
    "content": []
   }
  ],

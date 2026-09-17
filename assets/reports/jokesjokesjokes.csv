@@ -20,6 +20,9 @@ datetime,event,source,medium,campaign,content,page
 2026-09-14 13:41,ticket_click,eventfrog.ch,referral,,,https://inyourfacecomedy.ch/calendar/
 2026-09-15 00:51,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/jokesjokesjokes/
 2026-09-15 09:41,ticket_redirect,instagram,social,jokesjokesjokes-20260915,,Ticket Redirect
-2026-09-15 15:14,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-09-15 17:40,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/jokesjokesjokes/
-2026-09-15 18:33,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
+2026-09-15 12:40,ticket_click,guidle,referral,jokesjokesjokes,,https://inyourfacecomedy.ch/jokesjokesjokes/
+2026-09-15 14:16,ticket_click,guidle,referral,jokesjokesjokes,,https://inyourfacecomedy.ch/jokesjokesjokes/
+2026-09-15 15:14,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/calendar/
+2026-09-15 17:31,ticket_redirect,guidle,referral,jokesjokesjokes,,Ticket Redirect
+2026-09-15 17:40,ticket_click,google,organic,,,https://inyourfacecomedy.ch/jokesjokesjokes/
+2026-09-15 18:33,ticket_click,google,organic,,,https://inyourfacecomedy.ch/

@@ -3,34 +3,26 @@
  "title": "PROMESSI SPASSI",
  "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478863182670358596.html",
  "event_type": "one-off",
- "generated_at": "2026-09-16T08:20:01.951Z",
+ "generated_at": "2026-09-17T08:20:02.067Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-18",
- "through": "2026-09-16",
- "complete_through": "2026-09-14",
+ "pages_since": "2026-08-19",
+ "through": "2026-09-17",
+ "complete_through": "2026-09-15",
  "totals": {
-  "clicks": 1817,
-  "redirect": 1799,
-  "click": 18,
-  "clicks_30d": 1817,
-  "redirect_30d": 1799,
-  "click_30d": 18,
-  "views": 55,
-  "views_30d": 55,
-  "sessions": 60,
-  "sessions_30d": 60,
+  "clicks": 2054,
+  "redirect": 2034,
+  "click": 20,
+  "clicks_30d": 2054,
+  "redirect_30d": 2034,
+  "click_30d": 20,
+  "views": 65,
+  "views_30d": 65,
+  "sessions": 71,
+  "sessions_30d": 71,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-18",
-   "redirect": 0,
-   "click": 0,
-   "views": 4,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-19",
    "redirect": 0,
@@ -249,17 +241,25 @@
   },
   {
    "date": "2026-09-15",
-   "redirect": 143,
-   "click": 1,
-   "views": 4,
-   "provisional": true,
+   "redirect": 192,
+   "click": 2,
+   "views": 6,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-16",
-   "redirect": 34,
+   "redirect": 182,
+   "click": 1,
+   "views": 11,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-17",
+   "redirect": 38,
    "click": 0,
-   "views": 0,
+   "views": 1,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -268,44 +268,44 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 1751,
+   "clicks": 1974,
    "views": 1,
    "sessions": 1
   },
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 26,
+   "clicks": 28,
    "views": 0,
    "sessions": 0
   },
   {
    "source": "whatsapp-sharing",
    "medium": "social",
-   "clicks": 11,
+   "clicks": 18,
    "views": 0,
    "sessions": 0
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 7,
-   "views": 20,
-   "sessions": 20
+   "clicks": 9,
+   "views": 28,
+   "sessions": 29
   },
   {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
-   "clicks": 7,
-   "views": 20,
-   "sessions": 20
+   "clicks": 8,
+   "views": 21,
+   "sessions": 21
   },
   {
    "source": "google",
    "medium": "organic",
    "clicks": 3,
    "views": 4,
-   "sessions": 5
+   "sessions": 4
   },
   {
    "source": "test",
@@ -331,9 +331,16 @@
   {
    "source": "meetup",
    "medium": "referral",
-   "clicks": 2,
+   "clicks": 3,
    "views": 0,
    "sessions": 0
+  },
+  {
+   "source": "guidle",
+   "medium": "referral",
+   "clicks": 1,
+   "views": 1,
+   "sessions": 1
   },
   {
    "source": "instagram",
@@ -348,6 +355,13 @@
    "clicks": 0,
    "views": 3,
    "sessions": 5
+  },
+  {
+   "source": "ecosia.org",
+   "medium": "organic",
+   "clicks": 0,
+   "views": 0,
+   "sessions": 1
   },
   {
    "source": "facebook.com",
@@ -383,13 +397,13 @@
    "campaign": "promessi-spassi",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 1751,
+   "clicks": 1974,
    "first": "2026-08-30",
-   "last": "2026-09-16",
+   "last": "2026-09-17",
    "content": [
     {
      "content": "52672614093400",
-     "clicks": 1662
+     "clicks": 1884
     },
     {
      "content": "52672431580800",
@@ -405,13 +419,13 @@
    "campaign": "promessi-spassi",
    "source": "instagram",
    "medium": "social",
-   "clicks": 26,
+   "clicks": 28,
    "first": "2026-08-27",
    "last": "2026-09-16",
    "content": [
     {
      "content": "link_in_bio",
-     "clicks": 20
+     "clicks": 21
     }
    ]
   },
@@ -419,9 +433,9 @@
    "campaign": "promessi-spassi",
    "source": "whatsapp-sharing",
    "medium": "social",
-   "clicks": 11,
+   "clicks": 18,
    "first": "2026-09-15",
-   "last": "2026-09-15",
+   "last": "2026-09-16",
    "content": []
   },
   {
@@ -437,9 +451,18 @@
    "campaign": "promessi-spassi",
    "source": "meetup",
    "medium": "referral",
-   "clicks": 2,
+   "clicks": 3,
    "first": "2026-09-06",
-   "last": "2026-09-15",
+   "last": "2026-09-16",
+   "content": []
+  },
+  {
+   "campaign": "promessi-spassi",
+   "source": "guidle",
+   "medium": "referral",
+   "clicks": 1,
+   "first": "2026-09-16",
+   "last": "2026-09-16",
    "content": []
   }
  ],
