@@ -102,6 +102,9 @@ they're live in Grist. To add a new show's hosts, just add the `hosts:` block to
 - **Google does not use IndexNow.** For Google the levers are the sitemap, the schema, the
   internal links, freshness, and — for a brand-new page you want crawled now — a manual
   "Request Indexing" in Search Console (below). Expect Bing to react faster than Google.
+- Any other page change: `bun script/reindex.ts` (daily cron) bumps the page's `last_modified_at`
+  so the sitemap `lastmod` is true, pings IndexNow and reads Google's URL Inspection. The full
+  picture of what Google does and does not offer: `search-console.md`, "Re-indexing after a change".
 
 ## One-time manual setup (search consoles)
 

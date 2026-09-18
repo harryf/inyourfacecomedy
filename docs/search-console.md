@@ -91,6 +91,33 @@ the repo. `_config.yml` excludes `seo/` from the published site.
 - **Brand queries** ("in your face comedy" and variants) are excluded from scoring; they
   are already ours.
 
+## Re-indexing after a change
+
+Two different questions hide in "get the search engines to see the new page".
+
+**Bing, Yandex, Seznam, Naver: IndexNow.** One POST with the URLs and the key file at the repo
+root, and they fetch within minutes. `sync-comedians.rb` and `build-gallery-data.rb` do this for
+the pages they write; `script/reindex.ts` does it for everything else (`scripts.md`).
+
+**Google: there is no request-indexing API for ordinary pages.** Three things people confuse:
+
+- The **Indexing API** exists but Google restricts it to pages with `JobPosting` or
+  `BroadcastEvent` structured data. Using it for a comedy show page is against the guidelines
+  and, in practice, ignored. We do not call it.
+- The **URL Inspection API** (part of the Search Console API) is read-only: it returns the
+  verdict, coverage state and last crawl time for a URL, 2,000 calls a day. `reindex.ts` uses
+  it to report what Google knows, not to trigger anything.
+- The **sitemap ping** endpoint was retired in 2023. Google reads the sitemap on its own
+  schedule and pays attention to `<lastmod>` when a site keeps it truthful.
+
+So the honest levers for Google are: a truthful `<lastmod>` (jekyll-sitemap writes it from the
+page's `last_modified_at`), internal links from pages Google crawls often (the home page and the
+calendar), and the manual "Request Indexing" button in the Search Console UI for a page that
+must be seen today. `reindex.ts` covers the first: it bumps `last_modified_at` on any page whose
+stamp is older than its last commit, commits, waits for the deploy, then pings IndexNow and
+reads the inspection. It runs daily at 10:50 (`automation.md`), so a hand edit is picked up
+the next morning at the latest; run it by hand right after a push when it matters.
+
 ## Reading a verdict honestly
 
 - Read it beside the trend table and the movers list in the same report. When every query

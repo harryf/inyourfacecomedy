@@ -58,6 +58,7 @@ Scheduled jobs first. "Git" says whether the script commits and pushes by itself
 | `sync-comedians.rb` | Grist to `_comedians/` with resized photos; unpublishes who is no longer Live | cron, 10:05 daily | yes |
 | `ga-report.ts` | Google Analytics to the per-show `/reports/` pages | cron, 10:20 daily | yes |
 | `gsc-report.ts` | The Search Console learning loop: weekly snapshot, every page's search opportunities priced in clicks, verdicts on logged page changes, into `seo/` (`seo/README.md`) | cron, 10:40 Monday | yes |
+| `reindex.ts` | Bumps `last_modified_at` on hand-edited pages so the sitemap `lastmod` is true, pings IndexNow, reads Google's URL Inspection (`search-console.md`) | cron, 10:50 daily | yes (only the stamp bump) |
 | `refresh-calendar-page.rb` | Regenerates `pages/1_calendar.md` from `calendar.yml` and the copy pools, validates it | cron, 11:00 Saturday and Sunday | yes |
 | `robins-calendar.ts` | ROBIN's shows into the Apple calendar shared with the bar staff, with a ticket count in the last three days | launchd, 11:05 daily | no |
 | `eventfrog-sales.ts` | Comedy Brew sales snapshots, the capacity guard, the Saturday review | by hand for now; cron lines below | no |
@@ -91,6 +92,7 @@ ruby script/refresh-next-event-dates.rb --dry-run --verbose
 bun script/robins-calendar.ts --dry-run
 bun script/ga-report.ts --dry-run
 bun script/gsc-report.ts --dry-run
+bun script/reindex.ts --dry-run
 ruby script/post-events-to-google.rb --dry-run --verbose
 ruby script/sync-comedians.rb --dry-run
 ```
@@ -111,7 +113,7 @@ Two things to know before running the git jobs by hand:
 
 ## cron
 
-Seven of the eight scheduled jobs run from Harry's user crontab (`crontab -e`, `crontab -l`). The
+Eight of the nine scheduled jobs run from Harry's user crontab (`crontab -e`, `crontab -l`). The
 job lines as installed (comments shortened here):
 
 ```cron
@@ -125,6 +127,8 @@ job lines as installed (comments shortened here):
 20 10 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/ga-report.ts >> script/ga-report.log 2>&1
 # IYF: Search Console learning loop (docs/search-console.md), Monday, after the GA job so two pushes never race. Installed 2026-09-18
 40 10 * * 1 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/gsc-report.ts >> script/gsc-report.log 2>&1
+# IYF: sitemap stamps, IndexNow and the Google crawl read-back for pages changed since yesterday (docs/search-console.md). Installed 2026-09-18
+50 10 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/reindex.ts >> script/reindex.log 2>&1
 # IYF: regenerate /calendar/ on Saturday and Sunday (a missed day is covered by the next)
 0 11 * * 6,0 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.rbenv/versions/3.2.4/bin/ruby script/refresh-calendar-page.rb --no-refresh >> script/refresh.log 2>&1
 ```
@@ -272,7 +276,7 @@ show by hand can never report a fake green for the weekend job.
 | A job has not run for days, no alert | was the Mac awake at that time; is the shared check masking it (above) |
 
 Logs: `script/refresh.log` (the 09:00 job and the weekend calendar page), `gbp.log`,
-`sync-comedians.log`, `ga-report.log`, `gsc-report.log`, `robins-calendar.log`.
+`sync-comedians.log`, `ga-report.log`, `gsc-report.log`, `reindex.log`, `robins-calendar.log`.
 
 ## Rules for writing a new script
 

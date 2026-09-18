@@ -74,3 +74,6 @@ script/eventfrog-out/
 
 # ROBINs staff calendar sync: state and the compiled EventKit helper
 script/robins-out/
+
+# Re-index tool state (last processed commit, submissions). Never commit.
+script/reindex-out/

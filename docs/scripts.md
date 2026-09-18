@@ -249,6 +249,28 @@ Restricted user on the domain property `sc-domain:inyourfacecomedy.ch` (added 20
 the Search Console API enabled on its project (`inyourface-ga-mcp`). `GSC_SITE` overrides the
 property; `GSC_HEALTHCHECKS_URL`, if set, gets the summary or `/fail`.
 
+## `reindex.ts`
+
+After a page changes: make the sitemap tell the truth, tell IndexNow, read back what Google
+knows (the reasoning and the Google caveats: `search-console.md`, "Re-indexing after a change").
+
+```
+bun script/reindex.ts [--dry-run] [--no-push] [--no-inspect]        # pages changed since the last run
+bun script/reindex.ts --since HEAD~5                                 # explicit git range (the first run needs it)
+bun script/reindex.ts --urls /comedybrew/,/calendar/                 # these pages, no git diff
+bun script/reindex.ts --all                                          # every sitemap URL to IndexNow, after a layout or include change
+```
+
+In order: finds page sources changed since the commit remembered in gitignored
+`script/reindex-out/state.json` (`index.html`, `_posts`, `_comedians`, `pages`) and keeps the URLs
+the live sitemap lists; bumps `last_modified_at` where the stamp is more than ten minutes older
+than the file's last commit (hand edits; the generated pages stamp themselves), commits and
+pushes that; waits until the live sitemap shows the new stamps (the deploy landed, up to six
+minutes); POSTs the URLs to IndexNow with the key file at the repo root; reads Google's URL
+Inspection for up to 30 of them (verdict, coverage, last crawl; read-only). A failed ping is
+printed and ignored; only a git failure exits non-zero. Pure logic and tests:
+`script/lib/reindex-lib.ts`.
+
 ## `build-gallery-data.rb` and `build-gallery-card.rb`
 
 macOS-only authoring tools for the `/moments/` gallery; the Linux build only reads what they commit.
