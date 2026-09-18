@@ -1,8 +1,8 @@
 ---
 layout: post
 editable: false
-title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS in Niederdorf Zürich
-description: "Wondering where to meet people in Zürich? Tired of hiking and meetup groups? Join local English-speaking comedians and new-comers for a Thursday night of comedy • English Stand-Up Comedy in Switzerland"
+title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+description: "Zürich's weekly English comedy open mic at ROBIN's near Central. Every Thursday, doors 19:30, CHF 10. Ten comedians, new jokes, first-timers, all in English."
 last_modified_at: 2026-09-18T07:00:01+00:00
 feature-img: "assets/img/uploads/comedybrew_featured.png"
 image: "/assets/img/uploads/comedybrew_horizontal.png"
@@ -30,7 +30,19 @@ redirect_from:
   - /2024/01/18/comedybrew.html
 ---
 
-## Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday
+## The essentials
+
+- **Every Thursday.** Doors 19:30, show 19:50 to about 22:00, a 15-minute break in the middle. Home in time for the last tram.
+- **ROBIN's, Zähringerstrasse 33, 8001 Zürich.** Two minutes from Central, five from the main station.
+- **CHF 10** (students CHF 5). Buy in advance; door sales slow everyone down.
+- **In English.** Every set, every week. No Swiss German needed.
+- **About ten comedians a night.** Pros testing new jokes and first-timers getting their first five minutes.
+
+## What's a comedy open mic?
+
+A comedy show where experienced comedians try new jokes and new comedians try comedy for the first time. Usually at least ten comedians perform on the night, so there is a mix of the best local talent trying new material and new-comers getting their first taste. It is always a wild, fun and unpredictable night. Want a spot yourself? [Here is how to perform](/perform/).
+
+## Why come?
 
 Is looking for friends in Zurich harder than finding affordable rent? Tired of getting up at 5am on Saturday just to hike? Do meetup groups start to feel like a cult? We've got you! With IN YOUR FACE Comedy Brew...
 
@@ -45,13 +57,6 @@ Join local English-speaking comedians and new-comers for a Thursday night of com
 
  Come and see both the best local talent trying new material and new-comers to comedy getting their first taste. It's always a wild, fun and unpredictable night.
 
-
-<h3>What&apos;s a Comedy Open Mic?</h3>
-It&apos;s a comedy show where experienced comedians try new jokes and new comedians try comedy for the first time. Usually we&apos;ve got at least 10 comedians performing on the night, so there&apos;s something for everyone. And if you&apos;d like to try comedy yourself check out our page on <strong><a href="https://inyourfacecomedy.ch/perform/">performing for the first time</a></strong>...
-
-<h3>When Does it Start?</h3>
-
-The doors open 7:30pm on Thursday evenings and we're usually done by 10pm latest.
 
 <h3>What about ROBIN'S?</h3>
 ROBIN's is a multifaceted gem in the <a href="https://goo.gl/maps/RLpgaaVbGDYWaZmEA">heart of Zürich</a>. Begin your day with expertly brewed coffee in a warm and inviting atmosphere.
