@@ -119,5 +119,5 @@ All internal docs live in `docs/` (index: `docs/README.md`), which `_config.yml`
 | `docs/google-business-profile-api-setup.md` | GBP API, OAuth, moderation history |
 | `docs/emails.md` | Mailchimp playbook: the three email scripts, the builder limitation, the review-and-send flow |
 | `docs/google-preferred-source.md` | The preferred-source deeplink on `/follow/` and the footer |
-| `docs/meta-ads.md` | The Meta ads runbook: five-stage ad sets, API access, creative and list folders, the `script/meta-*.ts` jobs. Ids in `meta-ads/config.yml` (from `config.example.yml`); working plans stay in `meta-ads/` |
+| `docs/meta-ads.md` | The Meta ads runbook: five-stage ad sets, API access, creative and list folders, the `script/meta-*.ts` jobs. Ids in `meta-ads/config.yml` (from `config.example.yml`); working plans stay in `meta-ads/`; the video ads are the Remotion project in `video/` (own README, audio never in git) |
 | `docs/writing-guide.md` | House style |

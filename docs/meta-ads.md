@@ -25,6 +25,13 @@ sales export, typical night 22 tickets), so this spend is most of the income and
 experiment, not a standing budget. On 31 October look at one number: has the typical night gone
 from about 22 tickets to 28 or more? If not, drop to about CHF 200 a month.
 
+Applied on Meta on 18 September 2026: the two budgets, the four resting ads paused (`meta-bank.ts
+--sync` reads back in sync), Buyers paused.
+
+**Video ads.** `video/` is a Remotion project (its README says how to render); two concepts
+render with sound, Departures and Fifth language. Plan, concepts and what is still to build
+(the upload and the video twin ads): `meta-ads/video-plan.md`.
+
 **Buyers is parked (2026-09-18).** The ad set never delivered one impression in its life
 (active, approved, no error on the API); the matched buyer lists are too small. It is paused,
 `meta-lineup-ad.ts` is not run, `budgets.buyers` is 0 in config. Come back to it when the

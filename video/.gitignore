@@ -1,0 +1,4 @@
+node_modules/
+out/
+# audio: room recordings and an unlicensed draft effect, never committed (meta-ads/video-plan.md)
+public/audio/
