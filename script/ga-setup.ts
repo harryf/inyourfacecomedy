@@ -1,12 +1,12 @@
 #!/usr/bin/env bun
 // GA4 property configuration as code. Idempotent: every run reads the property,
 // creates what is missing and patches what differs, so the setup documented in
-// ANALYTICS.md is also the setup that is live. Nothing is ever deleted or archived.
+// docs/analytics.md is also the setup that is live. Nothing is ever deleted or archived.
 //
 //   bun script/ga-setup.ts --dry-run   # print the diff, change nothing
 //   bun script/ga-setup.ts             # apply
 //
-// What it ensures (see ANALYTICS.md for the why):
+// What it ensures (see docs/analytics.md for the why):
 //   - event data retention 14 months (GA default is 2, which makes explorations
 //     forget everything older than 60 days)
 //   - key events: ticket_click, ticket_redirect
@@ -84,7 +84,7 @@ const RETENTION = "FOURTEEN_MONTHS";
 const KEY_EVENTS = ["ticket_click", "ticket_redirect"];
 
 const DIMENSIONS: { parameterName: string; displayName: string; description: string }[] = [
-  { parameterName: "show", displayName: "Show", description: "Show slug on page_view (show pages), ticket_redirect and ticket_click (see CAMPAIGN_LINKS.md)" },
+  { parameterName: "show", displayName: "Show", description: "Show slug on page_view (show pages), ticket_redirect and ticket_click (see docs/campaign-links.md)" },
   { parameterName: "link", displayName: "Campaign link tags", description: "utm_source|utm_medium|utm_campaign|utm_content of the clicked /go/ link (ticket_redirect)" },
   { parameterName: "venue", displayName: "Venue", description: "Venue slug from _data/venues.yml (robins, otro, ...) on show page views and ticket events" },
   { parameterName: "show_date", displayName: "Show date", description: "YYYY-MM-DD of the show the visitor looked at or clicked for; the next date for series shows" },
@@ -171,7 +171,7 @@ async function plan(token: string): Promise<Change[]> {
 
   const cg = await api(token, "GET", `v1alpha/${PROPERTY}/channelGroups?pageSize=50`);
   const group = (cg.channelGroups ?? []).find((g: any) => g.displayName === CHANNEL_GROUP_NAME);
-  const body = { displayName: CHANNEL_GROUP_NAME, description: "Promo channels as IN YOUR FACE runs them (see ANALYTICS.md). Managed by script/ga-setup.ts", groupingRule: CHANNEL_RULES.map((r) => ({ displayName: r.displayName, expression: normalise(r.expression) })) };
+  const body = { displayName: CHANNEL_GROUP_NAME, description: "Promo channels as IN YOUR FACE runs them (see docs/analytics.md). Managed by script/ga-setup.ts", groupingRule: CHANNEL_RULES.map((r) => ({ displayName: r.displayName, expression: normalise(r.expression) })) };
   if (!group) {
     changes.push({ kind: "channel group", detail: `create "${CHANNEL_GROUP_NAME}" with ${CHANNEL_RULES.length} rules`, apply: () =>
       api(token, "POST", `v1alpha/${PROPERTY}/channelGroups`, body) });

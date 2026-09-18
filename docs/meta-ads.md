@@ -24,7 +24,7 @@ Tick as you go. A future session reads this table first.
 | 4 | Bank ads from `meta-ads/bank/*.yml` via `meta-bank.ts`, plus the lineup ad | done | 2026-09-13 | 12 ads live: cold C1 C2 C3 C4 C7 C8, warm W1 W2 W6, intent I1 I3 I5 (in review); two clip concepts by hand; every bank creative carries the 4:5 post image for feeds and the 9:16 story image for Stories and Reels (`meta-bank.ts --restory` moved the first push onto it after Ads Manager asked for a Reels asset; a bench concept pushed later gets both from the start) |
 | 5 | Budget schedules for the next four Thursdays, two automated rules | | | |
 | 6 | Cold, Warm and Intent targeting written by `meta-adsets.ts` | script built | 2026-09-13 | diff verified; `--apply` to run by Harry; old ad set kept |
-| 7 | App, system user, token in `.env`, curl test; scripts: helper, insights, audiences, schedule, lineup ad; cron | prelude, helper, lineup ad | 2026-09-13 | app 1741863547101457 (Live since 2026-09-13), system user iyfadsbot 61594074792364; `meta-lists.ts`, `lib/meta-api.ts`, `meta-lineup-ad.ts`, `meta-adsets.ts`, `meta-insights.ts`, `eventfrog-sales.ts` (Eventfrog read-only: sales, curve, capacity guard, Saturday review; cron lines in script/README.md, not yet installed) built; first lineup ad `lineup-2026-09-17` live in Buyers (ad 120249200016280314); audiences and schedule scripts and cron still open; creative bank per `meta-ads/creative-bank-plan.md` next |
+| 7 | App, system user, token in `.env`, curl test; scripts: helper, insights, audiences, schedule, lineup ad; cron | prelude, helper, lineup ad | 2026-09-13 | app 1741863547101457 (Live since 2026-09-13), system user iyfadsbot 61594074792364; `meta-lists.ts`, `lib/meta-api.ts`, `meta-lineup-ad.ts`, `meta-adsets.ts`, `meta-insights.ts`, `eventfrog-sales.ts` (Eventfrog read-only: sales, curve, capacity guard, Saturday review; cron lines in scripts.md, not yet installed) built; first lineup ad `lineup-2026-09-17` live in Buyers (ad 120249200016280314); audiences and schedule scripts and cron still open; creative bank per `meta-ads/creative-bank-plan.md` next |
 
 Audience sizes after matching (fill in at phase 2): Buyers recent ____, Buyers lapsed ____,
 Show clickers ____, Site visitors ____, IG engagers ____, FB engagers ____.
@@ -53,7 +53,7 @@ Buyers by itself, and five small bun scripts that keep audiences, budgets and re
 
 | Thing | Where | In git? |
 |---|---|---|
-| This plan | `META_ADS.md` | yes |
+| This plan | `meta-ads.md` | yes |
 | Ids (ad account, pixel, page, audiences, ad sets) and budgets | `meta-ads/config.yml`, copied from `meta-ads/config.example.yml` | no (the example is) |
 | The access token | `.env` as `META_ACCESS_TOKEN` | no |
 | Ad creative you make by hand (bank images, clips) | `meta-ads/creative/` (see its README) | no |
@@ -421,4 +421,4 @@ Ticket sales against the ads: the strategy is at `~/Documents/2026-09-13-comedy-
 
 Read the status table above first, then `meta-ads/config.example.yml` for the keys, then the
 report sections the current phase names. The pixel and the `TicketRedirect` event on `/go/`
-are already live (commit 4704fe7, documented in `CAMPAIGN_LINKS.md`); do not redo them.
+are already live (commit 4704fe7, documented in `campaign-links.md`); do not redo them.

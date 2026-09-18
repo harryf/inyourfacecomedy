@@ -8,7 +8,7 @@ Layout:
 
 ```
 meta-ads/creative/
-  bank/<hook>/           one folder per hook from META_ADS.md phase 4 (newcomer, coffee, plain, proof, central, region, ...)
+  bank/<hook>/           one folder per hook from docs/meta-ads.md phase 4 (newcomer, coffee, plain, proof, central, region, ...)
     <hook>-post-v1.png   4:5 feed image (1080 x 1350), from Flyer Maker or Week Story "post" format
     <hook>-story-v1.png  9:16 story image (1080 x 1920), the "story" format
     <hook>-post-v1.mp4   a clip, when the hook is a clip

@@ -1,6 +1,6 @@
 // =============================================================================
 // Campaign Link Builder (/linkbuilder/ — assets/js/link-builder.js) and the
-// /go/ redirector's tiny interstitial. See CAMPAIGN_LINKS.md.
+// /go/ redirector's tiny interstitial. See docs/campaign-links.md.
 // -----------------------------------------------------------------------------
 // Mobile-first on purpose: the primary use is one-handed on an iPhone while
 // posting an Instagram story — big tap targets, one column, and the built link
@@ -213,4 +213,4 @@
 }
 
 // (The /go/ interstitial styles live inline in _layouts/go.html — that page
-// deliberately skips the CSS bundle for speed. See CAMPAIGN_LINKS.md.)
+// deliberately skips the CSS bundle for speed. See docs/campaign-links.md.)

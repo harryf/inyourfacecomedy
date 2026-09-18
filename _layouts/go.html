@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  Bare-metal layout for the /go/ campaign-link redirector (see CAMPAIGN_LINKS.md).
+  Bare-metal layout for the /go/ campaign-link redirector (see docs/campaign-links.md).
   Deliberately NOT the site theme: no 110KB CSS bundle, no navbar/footer, no GTM,
   no Clarity, no main.min.js. The page exists for ~300ms to let GA record the
   UTM-tagged visit before passing the visitor to Eventfrog, so it carries its own
@@ -34,7 +34,7 @@
         show: (new URLSearchParams(location.search).get('show') || '(unknown)').toLowerCase().slice(0, 64)
       });
       // Live host only, like head.liquid: previews and local builds stay out of GA, and so
-      // does a browser that once opened a page with ?notrack=1 (ANALYTICS.md).
+      // does a browser that once opened a page with ?notrack=1 (docs/analytics.md).
       var iyfTrack = true;
       try { iyfTrack = localStorage.getItem('iyf-notrack') !== '1'; } catch (e) {}
       if (iyfTrack && /(^|\.)inyourfacecomedy\.ch$/.test(location.hostname)) gtag('config', '{{ site.google_analytics }}');
@@ -45,7 +45,7 @@
          (this layout skips the theme head on purpose). Unlike the theme pages it is gated on
          the live host and the ?notrack=1 flag, the same way gtag is above, so previews and the
          promoter's own clicks stay out of the Meta audiences. The redirect script then fires
-         a TicketRedirect custom event (CAMPAIGN_LINKS.md, "Capturing the UTM tags"). -->
+         a TicketRedirect custom event (docs/campaign-links.md, "Capturing the UTM tags"). -->
     <script>
       (function () {
         var track = true;

@@ -2,7 +2,7 @@
 
 **For:** IN YOUR FACE Comedy (Google Business Profile)
 **Goal:** Be able to publish events (and upload photos) to the Google Maps / Google Search business listing programmatically, from the `inyourfacecomedy` project.
-**Written:** 2026-06-05
+**Written:** 2026-06-05, before the script existed. **Since then:** access was approved and `script/post-events-to-google.rb` was built; it runs daily at 09:30 from cron (`automation.md`). The OAuth client file ended up as `client_secret_*.json` and the token as `gbp-token.json` (both gitignored), not the `gbp-oauth-client.json` name used below. The checklist and the "then build" notes at the end are history; the API, OAuth and moderation background is still current.
 **Status of facts:** Verified against Google's developer docs and current (2026) behaviour — see Sources at the end. Where Google's process is known to drift, I've flagged it.
 
 ---

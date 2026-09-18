@@ -8,7 +8,7 @@ What goes here:
 - `tickets-YYYY-MM-DD.csv`: the ticket sales sheet ("Customer Analyser - Tickets Sold"), one
   row per ticket. Never uploaded as is.
 - `mailchimp-YYYY-MM-DD.csv`: the Mailchimp audience export, Subscribed only. The opt-in is the
-  consent (META_ADS.md phase 0); only emails in this file reach Meta.
+  consent (docs/meta-ads.md phase 0); only emails in this file reach Meta.
 - `buyers-recent-YYYY-MM-DD.csv`, `buyers-lapsed-YYYY-MM-DD.csv` and `buyers-all-YYYY-MM-DD.csv`:
   written by `bun script/meta-lists.ts` from the two above. Recent and lapsed are uploaded as
   customer-list audiences; all is the seed for the value-based lookalike (or the one upload

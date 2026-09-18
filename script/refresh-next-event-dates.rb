@@ -28,7 +28,7 @@ Encoding.default_external = Encoding::UTF_8
 #   ruby script/refresh-next-event-dates.rb --dry-run     # don't write
 #   ruby script/refresh-next-event-dates.rb --verbose     # show parse details
 #
-# See ./README.md for cron install instructions.
+# See docs/automation.md for cron install instructions.
 
 require "net/http"
 require "uri"

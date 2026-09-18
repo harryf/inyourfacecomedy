@@ -31,7 +31,7 @@ TMP_PNG     = File.join(Dir.tmpdir, "gallery_card_render.png")
 
 # --- Card copy (edit here) -------------------------------------------------
 # Headline is a social-media pun parallel to the comedians card's "IN YOUR FACEBOOK"
-# (a photo gallery is your feed). No em dashes per WRITING_GUIDE.md.
+# (a photo gallery is your feed). No em dashes per docs/writing-guide.md.
 HEADLINE_L1 = "IN YOUR"
 HEADLINE_L2 = "FEED"
 SUBTITLE    = "Moments from IN YOUR FACE comedy nights in Zürich"

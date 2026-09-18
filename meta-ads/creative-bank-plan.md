@@ -173,7 +173,7 @@ Every Friday (cron) and on demand:
    mid-fortnight, because every significant edit restarts the ad set's learning.
 6. Output: `script/meta-out/insights-<date>.md` (the table, one row per ad, verdicts) and
    `.json`; default is read-only. `--apply` pauses the "retire" ads and prints the concepts to
-   add; `meta-bank.ts` creates them. The Friday readout in META_ADS.md points at this file.
+   add; `meta-bank.ts` creates them. The Friday readout in docs/meta-ads.md points at this file.
    Each fortnight's readout is tagged with the number of show dates inside it, so a fortnight
    with two Comedy Brews is not compared blindly with one that had a holiday.
 7. Frequency guard: the readout pulls audience size and 7-day frequency per ad set and flags
@@ -202,7 +202,7 @@ enough of the spend to reach a floor.
 - `meta-ads/creative/bank/`: rendered PNGs and clips, gitignored.
 - `script/meta-out/`: readouts and insights, gitignored.
 - `meta-ads/config.yml`: a `targeting:` block per ad set (gitignored; example file updated).
-- `META_ADS.md`: phase 4 rewritten to point at the bank and the scripts; phase 6 becomes the
+- `docs/meta-ads.md`: phase 4 rewritten to point at the bank and the scripts; phase 6 becomes the
   ad set rewrite; the weekly readout section names `meta-insights.ts`.
 
 ## Sessions

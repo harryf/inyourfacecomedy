@@ -25,7 +25,7 @@
   var GUEST_PREFIX = 'guest:';   // off-catalog "guest" acts ride in the URL as guest:Their Name
   var WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   // Where the week story sends people: the calendar, tagged so the reports see the story traffic
-  // (CAMPAIGN_LINKS.md vocabulary). Defined above the test seam because exported helpers read it.
+  // (docs/campaign-links.md vocabulary). Defined above the test seam because exported helpers read it.
   var WEEK_CAL_LINK = 'https://inyourfacecomedy.ch/calendar/?utm_source=instagram&utm_medium=social&utm_campaign=week';
   var MO = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -1293,7 +1293,7 @@
 
   // ===========================================================================
   // Alternate flyer styles - each is a paintFlyer(ctx, spec, m) drop-in that
-  // honours the same contract as the classic painter (FLYER_DESIGN.md §6):
+  // honours the same contract as the classic painter (docs/flyer-design.md §6):
   // native IG dims + safe insets, untainted canvas, brand palette + 3 fonts,
   // EVERY booked act shown, priority drives prominence. They share the helpers
   // below so the look changes but the rules never do.

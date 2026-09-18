@@ -1,4 +1,4 @@
-/** /go/ — campaign-link ticket redirector (see CAMPAIGN_LINKS.md).
+/** /go/ — campaign-link ticket redirector (see docs/campaign-links.md).
  *
  *  Campaign links point here (/go/?show=slug[&date=YYYY-MM-DD]&utm_…) so our GA
  *  sees the click before the visitor is passed to Eventfrog. Resolution happens
@@ -26,7 +26,7 @@
  *  onto window.dataLayer with an arguments helper so the script has no load-order
  *  dependency. The redirect races the event's event_callback against
  *  REDIRECT_DELAY_MS so a blocked/absent GA never strands the visitor. That
- *  constant is the one tuning knob (speed budget: CAMPAIGN_LINKS.md).
+ *  constant is the one tuning knob (speed budget: docs/campaign-links.md).
  */
 (function () {
   'use strict';
@@ -132,7 +132,7 @@
     return '31+';
   }
 
-  /** Show context for the ticket_redirect event (ANALYTICS.md): venue, the date the
+  /** Show context for the ticket_redirect event (docs/analytics.md): venue, the date the
    *  click is for (the picked date, else the show's next date), days to that date,
    *  and the ticket price as both a custom metric and GA's own value/currency pair.
    *  Pure; {} when the show is unknown. */
@@ -151,7 +151,7 @@
     };
   }
 
-  /** Meta pixel payload for the TicketRedirect custom event (CAMPAIGN_LINKS.md,
+  /** Meta pixel payload for the TicketRedirect custom event (docs/campaign-links.md,
    *  "Capturing the UTM tags in GA"). Same facts as the GA event, in the names Meta
    *  reads: content_name/content_ids carry the slug so an audience or a conversion can
    *  be built per show; value/currency let an ad set optimise on ticket price. Pure;

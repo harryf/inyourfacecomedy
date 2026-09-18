@@ -14,7 +14,7 @@ description: "Build UTM-tagged campaign links that route ticket clicks through /
   Analytics sees which channel drove each ticket click. Phone-first on purpose: the
   primary flow is one-handed on an iPhone mid-Instagram-post (tap show, tap source,
   copy from the sticky bar, flip back). assets/js/link-builder.js does everything
-  client-side from the same curated catalogs as /go/. Design: CAMPAIGN_LINKS.md.
+  client-side from the same curated catalogs as /go/. Design: docs/campaign-links.md.
 {% endcomment %}
 
 <div id="link-builder" class="link-builder">

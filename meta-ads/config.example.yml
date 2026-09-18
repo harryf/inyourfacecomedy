@@ -1,5 +1,5 @@
 # Meta ads configuration: ids and numbers the script/meta-*.ts jobs read.
-# Copy to meta-ads/config.yml (gitignored) and fill in as META_ADS.md phases produce each value.
+# Copy to meta-ads/config.yml (gitignored) and fill in as docs/meta-ads.md phases produce each value.
 # Ids are not secrets; the access token is, and lives only in .env as META_ACCESS_TOKEN.
 
 api_version: v23.0            # Graph API version used in every call; bump when Meta retires it (app dashboard warns)

@@ -1,4 +1,4 @@
-/** /linkbuilder/ — campaign link builder (see CAMPAIGN_LINKS.md).
+/** /linkbuilder/ — campaign link builder (see docs/campaign-links.md).
  *
  *  Assembles UTM-tagged links that route through /go/ so GA attributes ticket
  *  clicks to a campaign/source. Phone-first: the built link lives in a sticky
@@ -18,7 +18,7 @@
 
   // Sources on offer. medium is the GA4 default-channel-group token for the source.
   // google-ads is deliberately NOT offered: Google Ads campaigns use direct show-page
-  // URLs with gclid auto-tagging (see CAMPAIGN_LINKS.md). If someone types it into the
+  // URLs with gclid auto-tagging (see docs/campaign-links.md). If someone types it into the
   // free-text field anyway, buildLink() still applies the direct-link carve-out.
   var SOURCES = [
     { id: 'meta', label: 'Meta ads', medium: 'paid_social' },

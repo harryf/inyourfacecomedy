@@ -440,7 +440,7 @@ end
 # would recreate the old one and the calendar and the week story would drift apart.
 check("Anti: nothing references the old script/ path of calendar-copy.json (pools live in _data/)") do
   root = File.expand_path("..", __dir__)
-  files = Dir.glob(File.join(root, "{script,pages,_includes,_layouts}/**/*.{rb,ts,md,liquid,html}")) + Dir.glob(File.join(root, "*.md"))
+  files = Dir.glob(File.join(root, "{script,pages,_includes,_layouts,docs}/**/*.{rb,ts,md,liquid,html}")) + Dir.glob(File.join(root, "*.md"))
   hits = files.select { |f| File.read(f).include?("script/" + "calendar-copy.json") }.map { |f| f.sub(root + "/", "") }
   [hits.empty?, "still referenced by #{hits.join(', ')}"]
 end
@@ -641,7 +641,7 @@ end
 # The /calendar/ page's CSS and "Jump to Next Show" JS are coupled to the exact
 # markdown structure of pages/1_calendar.md (column order, wrapper divs, heading
 # markup, date string format). validate-calendar.rb enforces that contract —
-# see CALENDAR_STRUCTURE.md. Source-level, so it runs even with --no-build.
+# see docs/calendar-structure.md. Source-level, so it runs even with --no-build.
 # Its rule 12 is advisory (warning, exit 0), so it won't fail this harness.
 section "Calendar structure"
 check("pages/1_calendar.md passes validate-calendar.rb") do

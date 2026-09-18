@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 // Daily per-show traffic reports from Google Analytics 4 → /reports/<slug>/.
-// See CAMPAIGN_LINKS.md, "Show reports".
+// See docs/campaign-links.md, "Show reports".
 //
 //   bun script/ga-report.ts               # fetch, write data/CSV/pages, commit, push
 //   bun script/ga-report.ts --dry-run     # fetch + print summary, write nothing

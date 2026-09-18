@@ -8,7 +8,7 @@
 //
 // One card per show with its real dates (never hand-typed), a bolded show count
 // linking to /calendar/, one optional audience photo as the hero, words from
-// Claude via script/email-prompts/monthly.md. Playbook: EMAILS.md.
+// Claude via script/email-prompts/monthly.md. Playbook: docs/emails.md.
 
 import { USAGE_FOOTER, fail, flagBool, flagString, loadEnv, log, parseArgs, stamp, todayISO, warn } from "./lib/email/cli";
 import { CALENDAR_URL, eyebrowFor, hostedName, hostedWide, logoUrl, mailchimpFor, requireFreshCalendar, resolveCopy, showsTable, signoffFor } from "./lib/email/common";

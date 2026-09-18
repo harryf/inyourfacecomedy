@@ -1,7 +1,7 @@
 // Pure helpers for script/ga-report.ts (no network, no filesystem writes): show
 // discovery from _posts front matter, GA row shaping, aggregation, CSV. Kept
 // separate so `bun test` can pin the behaviour without touching Google.
-// Design: CAMPAIGN_LINKS.md, "Show reports".
+// Design: docs/campaign-links.md, "Show reports".
 
 export interface Show {
   slug: string;

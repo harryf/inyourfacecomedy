@@ -1,6 +1,6 @@
 // Shared plumbing for the three email scripts: .env loading, argument parsing,
 // confirmation prompts, output directory, browser opening, logging.
-// No Mailchimp or site knowledge here. See EMAILS.md.
+// No Mailchimp or site knowledge here. See docs/emails.md.
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";

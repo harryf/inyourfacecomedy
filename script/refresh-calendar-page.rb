@@ -5,7 +5,7 @@
 # (no LANG/LC_ALL), and this script reads files full of non-ASCII bytes — Zürich,
 # Español, emoji, "—", "•". Without this, the first regex/YAML op against that
 # text raises Encoding::CompatibilityError at 3am even though it works in a UTF-8
-# terminal. See ./README.md and the repo CLAUDE.md "Rules that bite".
+# terminal. See docs/automation.md and the repo CLAUDE.md "Rules for anything in script/".
 Encoding.default_external = Encoding::UTF_8
 
 # refresh-calendar-page.rb
@@ -50,7 +50,7 @@ Encoding.default_external = Encoding::UTF_8
 #
 # The page front matter, intro prose, and closing CTA + <script> tail are preserved
 # verbatim; only the month region between them is rewritten. After writing, the page
-# is validated with script/validate-calendar.rb (which enforces CALENDAR_STRUCTURE.md
+# is validated with script/validate-calendar.rb (which enforces docs/calendar-structure.md
 # section 11); a failure reverts the page and exits non-zero. _data/calendar.yml is
 # already future-only, so past events and emptied months simply don't reappear.
 #
@@ -491,7 +491,7 @@ def info_pool_prompt(n, meta, hint = nil)
     - If the show is clearly performed in another language (e.g. Spanish, evident above),
       write the lines in that language to match its voice.
     - Keep it punchy: aim for 35-60 characters of text, then ONE single trailing emoji.
-    - HOUSE STYLE (WRITING_GUIDE.md): NEVER use an em dash (—) or en dash (–). Join clauses
+    - HOUSE STYLE (docs/writing-guide.md): NEVER use an em dash (—) or en dash (–). Join clauses
       with a comma, a colon, or parentheses instead. This is a hard rule, no exceptions.
     - Plain text only: no quotation marks, no markdown, and it must NOT contain "|".
     Output EXACTLY #{n} lines, one per row, nothing else (no numbering, no preamble).
@@ -506,7 +506,7 @@ def month_pool_prompt(k, month_name, month_num)
     of year and to comedy — warm and funny, not corny.
     Rules for EACH line: a single sentence, max ~140 characters, plain text, no emoji,
     no quotation marks, no markdown, and do NOT name a venue or specific address.
-    HOUSE STYLE (WRITING_GUIDE.md): NEVER use an em dash (—) or en dash (–); join clauses
+    HOUSE STYLE (docs/writing-guide.md): NEVER use an em dash (—) or en dash (–); join clauses
     with a comma, colon, or parenthesis instead. Hard rule, no exceptions.
     Output EXACTLY #{k} lines, one per row, nothing else.
   PROMPT

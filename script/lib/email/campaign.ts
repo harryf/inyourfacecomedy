@@ -1,7 +1,7 @@
 // The last mile shared by the three scripts: write the HTML and text locally,
 // run the hard checks, probe every link, then create (or --update) the
 // Mailchimp draft, read it back, and open it in the browser. Nothing here
-// sends; Mailchimp's own checklist is the send gate. See EMAILS.md.
+// sends; Mailchimp's own checklist is the send gate. See docs/emails.md.
 
 import { join } from "node:path";
 import { OUT_DIR, confirm, fail, log, openInBrowser, warn, writeOut } from "./cli";

@@ -1,4 +1,4 @@
-/** On-site "Get Tickets" click tracking (see CAMPAIGN_LINKS.md).
+/** On-site "Get Tickets" click tracking (see docs/campaign-links.md).
  *
  *  Campaign links already reach GA via /go/ (ticket_redirect). Clicks on the site's
  *  own ticket buttons (show pages, home cards, calendar rows, promo hero) go straight

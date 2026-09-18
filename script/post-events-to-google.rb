@@ -10,7 +10,7 @@ Encoding.default_external = Encoding::UTF_8
 #
 # Keeps the IN YOUR FACE Comedy Google Business Profile listing in sync: one EVENT
 # "Local Post" per ROBIN's show happening in the NEXT 7 DAYS, with its date, poster
-# image and a BOOK button to the show page. See gbp/google-business-profile-api-setup.md
+# image and a BOOK button to the show page. See docs/google-business-profile-api-setup.md
 # for the full API/OAuth background.
 #
 # Strategy (see ISA / setup guide):
@@ -427,7 +427,7 @@ def list_local_posts(token, account)
   posts
 end
 
-# The BOOK button's URL: the campaign-link redirector (/go/, see CAMPAIGN_LINKS.md)
+# The BOOK button's URL: the campaign-link redirector (/go/, see docs/campaign-links.md)
 # with UTM tags, so GA attributes ticket clicks from the Maps listing to the
 # "google-business" source and the show's evergreen campaign. /go/ resolves the slug
 # against the site's own catalog and passes the visitor to Eventfrog.

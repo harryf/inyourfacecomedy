@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// The Buyers lineup ad (META_ADS.md phase 7): for the next Comedy Brew row in the Grist
+// The Buyers lineup ad (docs/meta-ads.md phase 7): for the next Comedy Brew row in the Grist
 // `Lineups` table, render the flyer with the page's own drawing code, upload it, and create
 // the ad in the Buyers ad set with a tracked /go/ link.
 //
@@ -20,7 +20,7 @@
 // Buyers gets it and this date's name (created if missing; a re-run on the same date changes
 // nothing unless --replace) -> Buyers ad set checked: buyer lists, Advantage+ off, link
 // clicks, ramp budget (printed before writing).
-// Cron (Mondays, Tuesday fallback, Friday pause): see script/README.md.
+// Cron (Mondays, Tuesday fallback, Friday pause): see docs/scripts.md.
 
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";

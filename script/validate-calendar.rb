@@ -15,7 +15,7 @@ Encoding.default_external = Encoding::UTF_8
 # notices until it is live.
 #
 # This script enforces the machine-checkable invariants written in
-# CALENDAR_STRUCTURE.md section 11. Rules 1-11 are ERRORS (structural breakage);
+# docs/calendar-structure.md section 11. Rules 1-11 are ERRORS (structural breakage);
 # rule 12 is an advisory WARNING (visible/structured-data divergence).
 #
 # Usage:

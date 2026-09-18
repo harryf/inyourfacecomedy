@@ -45,7 +45,7 @@
     const isCookieConsent = '{{ site.cookie_consent }}';
     // GA only on the live host. `jekyll serve`, Netlify deploy previews and the GitHub
     // Pages shadow build otherwise land in GA as localhost / *.pages.dev / *.netlify.app
-    // sessions (ANALYTICS.md). main.min.js skips gtag('config') when analyticsName is empty.
+    // sessions (docs/analytics.md). main.min.js skips gtag('config') when analyticsName is empty.
     // Your own devices: open any page once with ?notrack=1 and that browser stays out of
     // GA (localStorage flag); ?notrack=0 switches it back on. Beats an IP filter for a
     // promoter who refreshes his own show pages from a phone all day.

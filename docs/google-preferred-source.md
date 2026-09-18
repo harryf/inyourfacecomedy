@@ -1,7 +1,7 @@
 # Google preferred source
 
 Whether Google's "preferred sources" feature makes sense for inyourfacecomedy.ch, and how to set it up.
-This file is an internal dev doc and sits in the `exclude:` list in `_config.yml` like the others.
+This file is an internal dev doc; `docs/` is in the `exclude:` list in `_config.yml`.
 Reference: https://developers.google.com/search/docs/appearance/preferred-sources
 
 ## Verdict: yes, as a fan-loyalty play

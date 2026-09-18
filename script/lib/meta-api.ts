@@ -1,4 +1,4 @@
-// Shared Meta Marketing API helper for the script/meta-*.ts jobs (META_ADS.md phase 7).
+// Shared Meta Marketing API helper for the script/meta-*.ts jobs (docs/meta-ads.md phase 7).
 // Token from .env (META_ACCESS_TOKEN), api_version and ids from meta-ads/config.yml.
 // The same one-shared-lib exception the GA report and the emails already use.
 
@@ -58,7 +58,7 @@ export function loadEnv(): void {
 }
 
 export function loadConfig(): MetaConfig {
-  if (!existsSync(CONFIG_PATH)) throw new Error(`missing ${CONFIG_PATH}: copy meta-ads/config.example.yml and fill the ids (META_ADS.md phase 1)`);
+  if (!existsSync(CONFIG_PATH)) throw new Error(`missing ${CONFIG_PATH}: copy meta-ads/config.example.yml and fill the ids (docs/meta-ads.md phase 1)`);
   const c = Bun.YAML.parse(readFileSync(CONFIG_PATH, "utf8")) as MetaConfig;
   if (!c.ad_account_id?.startsWith("act_")) throw new Error(`config ad_account_id must start with act_ (got ${c.ad_account_id})`);
   return c;
@@ -88,7 +88,7 @@ function formBody(params: Params): URLSearchParams {
 export class Meta {
   readonly base: string;
   constructor(private readonly token: string, version: string) {
-    if (!token) throw new Error("META_ACCESS_TOKEN is not set (see META_ADS.md phase 7 prelude)");
+    if (!token) throw new Error("META_ACCESS_TOKEN is not set (see docs/meta-ads.md phase 7 prelude)");
     this.base = `https://graph.facebook.com/${version}`;
   }
 

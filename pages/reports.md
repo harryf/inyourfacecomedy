@@ -13,7 +13,7 @@ description: "Daily Google Analytics traffic reports per show, for show runners.
 {% comment %}
   Index of per-show traffic reports. Each entry is a _data/reports/<slug>.json file
   written daily by script/ga-report.ts; the page for it is pages/reports/<slug>.md
-  (layout: report). Design: CAMPAIGN_LINKS.md, "Show reports".
+  (layout: report). Design: docs/campaign-links.md, "Show reports".
 {% endcomment %}
 
 <div class="iyf-report iyf-report--index">

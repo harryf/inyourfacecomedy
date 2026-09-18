@@ -2,7 +2,7 @@
 // three scripts need: campaigns (create, patch, content, read back), static and
 // saved segments, member lookup, File Manager uploads. Auth is a Basic header,
 // never a URL parameter. Datacenter comes from the key suffix (`...-us9`).
-// Playbook and gotchas: EMAILS.md.
+// Playbook and gotchas: docs/emails.md.
 
 import { createHash } from "node:crypto";
 
@@ -236,7 +236,7 @@ export class Mailchimp {
 
 // Opens and clicks on (they are how we learn what works); Google Analytics
 // auto-tagging off, so links arrive clean. The GA toggle in the wizard is a
-// separate UI-only switch: EMAILS.md says to untick it before sending.
+// separate UI-only switch: docs/emails.md says to untick it before sending.
 export const TRACKING = {
   opens: true,
   html_clicks: true,

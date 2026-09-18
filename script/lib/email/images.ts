@@ -1,7 +1,7 @@
 // Images for email: resize with macOS `sips` (no npm dependency), upload once to
 // Mailchimp's File Manager, remember the hosted URL in a local cache so later
 // runs reuse it. Emails must stay light: faces are 216px squares (shown at
-// 108px, sharp on retina), a hero is 1200px wide at most. See EMAILS.md.
+// 108px, sharp on retina), a hero is 1200px wide at most. See docs/emails.md.
 
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { basename, extname, join } from "node:path";

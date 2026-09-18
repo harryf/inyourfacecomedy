@@ -1,5 +1,5 @@
 // Write the bank ad sets' targeting, goal and budgets from meta-ads/config.yml (phase 6 of
-// META_ADS.md, plan: meta-ads/creative-bank-plan.md).
+// docs/meta-ads.md, plan: meta-ads/creative-bank-plan.md).
 //
 //   bun script/meta-adsets.ts                 # diff only: what each field is and what config says
 //   bun script/meta-adsets.ts --apply         # write the differences (asks once per ad set)

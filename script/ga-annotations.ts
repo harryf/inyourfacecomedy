@@ -9,7 +9,7 @@
 //   bun script/ga-annotations.ts             # create
 //
 // Auth and .env handling are shared with script/ga-setup.ts (Editor role needed;
-// the Admin API v1alpha carries reportingDataAnnotations). See ANALYTICS.md.
+// the Admin API v1alpha carries reportingDataAnnotations). See docs/analytics.md.
 
 import { readFileSync } from "node:fs";
 import { join, resolve } from "node:path";

@@ -59,7 +59,7 @@ describe("ticket-click • DOM: one event per vendor click", () => {
     expect(params.show).toBe("comedybrew");
     expect(params.destination).toContain("eventfrog.ch");
     expect(params.transport_type).toBe("beacon");
-    // Show context from the button's data attributes (ANALYTICS.md).
+    // Show context from the button's data attributes (docs/analytics.md).
     expect(params.venue).toBe("robins");
     expect(params.show_date).toBe("2099-12-31");
     expect(params.days_to_show).toBe("31+");   // data-date is 2099-12-31

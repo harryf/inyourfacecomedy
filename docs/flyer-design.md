@@ -1,6 +1,6 @@
 # Flyer Generator — Design & Constraints
 
-> What the **🎨 Make a share image** button in `assets/js/lineup-maker-2000.js` produces, the design rules it inherits from the [IN YOUR FACE Design System](../inyourface_design_system), and — most importantly — **which decisions are fixed and which are free** so we can build new flyer styles without breaking the artifact or the brand.
+> What the **🎨 Make a share image** button in `assets/js/lineup-maker-2000.js` produces, the design rules it inherits from the [IN YOUR FACE Design System](../../inyourface_design_system), and — most importantly — **which decisions are fixed and which are free** so we can build new flyer styles without breaking the artifact or the brand.
 >
 > Source of truth for the brand: `inyourface_design_system/` (tokens + README + ISA).
 > Source of truth for the flyer: `assets/js/lineup-maker-2000.js`, lines ~797–1392 ("Flyer Maker" section).

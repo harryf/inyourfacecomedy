@@ -125,7 +125,7 @@ end
 # ---------- Resolved ticket URL write-back ----------
 # Some posts use an EventFrog vanity slug as their ticket_url (eventfrog.ch/pulpnonfiction/).
 # That is what we WANT on the show pages (short, brandable), but the campaign-link layer
-# (/go/ + /linkbuilder/ — see CAMPAIGN_LINKS.md) prefers the real destination so the
+# (/go/ + /linkbuilder/ — see docs/campaign-links.md) prefers the real destination so the
 # redirect skips EventFrog's extra vanity hop. Since extract_show already follows the
 # redirects, we capture the landing URL here and mirror it into hidden front matter:
 #

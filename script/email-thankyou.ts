@@ -10,7 +10,7 @@
 // newest Mailchimp tag for this show (asks before using it), write the copy
 // with Claude, render faces + calendar + next date, create the draft, read it
 // back, open it. Run it after the ticket import has created the show's tag.
-// Playbook: EMAILS.md.
+// Playbook: docs/emails.md.
 
 import { existsSync } from "node:fs";
 import { USAGE_FOOTER, confirm, fail, flagBool, flagString, loadEnv, log, parseArgs, stamp, todayISO, warn } from "./lib/email/cli";

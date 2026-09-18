@@ -9,7 +9,7 @@
 // --csv takes any file with email addresses in it (one per line or a column);
 // the addresses that are subscribed members become a static segment named
 // promo-<show>-<date>. Keep such CSVs outside the repo (people's data).
-// Playbook: EMAILS.md.
+// Playbook: docs/emails.md.
 
 import { existsSync, readFileSync } from "node:fs";
 import { USAGE_FOOTER, confirm, fail, flagBool, flagString, loadEnv, log, parseArgs, stamp, todayISO, warn } from "./lib/email/cli";

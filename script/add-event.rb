@@ -521,7 +521,7 @@ end
 
 # The body is a SCAFFOLD, deliberately. Eventfrog's own copy is dropped in as the
 # intro so the page is never empty, but the whole point of not pushing is that you
-# rewrite this in the house voice (WRITING_GUIDE.md — no em dashes) before commit.
+# rewrite this in the house voice (docs/writing-guide.md — no em dashes) before commit.
 def render_body(f, events)
   first = events.first
   out = []
@@ -860,7 +860,7 @@ say("Done. NOTHING has been committed or pushed — that is yours.")
 say("")
 say("Next steps:")
 say("  1. Edit _posts/#{File.basename(post_path)} — the body is Eventfrog's copy verbatim.")
-say("     House style is WRITING_GUIDE.md (no em dashes). Check the `description:` too.")
+say("     House style is docs/writing-guide.md (no em dashes). Check the `description:` too.")
 say("  2. The /calendar/ Info line for this show falls back to a generic teaser until")
 say("     its copy pool exists. Fill it with:")
 say("        ruby script/refresh-calendar-page.rb --init --only #{permalink} --no-push")

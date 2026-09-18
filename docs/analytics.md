@@ -2,7 +2,7 @@
 
 The GA4 property for inyourfacecomedy.ch, what the site sends it, what is configured on it,
 and the reports built on top. Internal dev doc, excluded from the build. Campaign links and
-the click tracker have their own doc (`CAMPAIGN_LINKS.md`); this one is the property.
+the click tracker have their own doc (`campaign-links.md`); this one is the property.
 
 | Thing | Value |
 |---|---|
@@ -102,7 +102,7 @@ upcoming show date ("Comedy Brew @ ROBIN's"), so the timeline in every report ma
 nights and a traffic spike can be read against the show that caused it. Idempotent on
 title + date, so a rescheduled show gets a new annotation and the old one stays (delete
 it by hand in Admin > Annotations if it bothers you). The endpoint is Admin API v1alpha
-and may move. Proposed cron line in `script/README.md` (not installed by default).
+and may move. Proposed cron line in `automation.md` (not installed).
 
 ## The report collection
 

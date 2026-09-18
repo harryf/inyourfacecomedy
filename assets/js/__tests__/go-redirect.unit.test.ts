@@ -158,7 +158,7 @@ describe("go-redirect • small helpers", () => {
   });
 });
 
-describe("go-redirect • show context for GA (ANALYTICS.md)", () => {
+describe("go-redirect • show context for GA (docs/analytics.md)", () => {
   test("daysToShow buckets like the Eventfrog sales export", () => {
     const cases: [string, string][] = [
       ["2026-08-26", "00"], ["2026-08-27", "01"], ["2026-08-28", "02-03"], ["2026-08-29", "02-03"],

@@ -1,6 +1,6 @@
 # Email campaigns: the Mailchimp playbook
 
-Internal doc, excluded from the published site in `_config.yml`. Three scripts under `script/` build the three emails IN YOUR FACE sends, create a Mailchimp draft from harry@inyourfacecomedy.ch, check it, and open it in your browser. You review and press Send in Mailchimp. Copy style: [WRITING_GUIDE.md](WRITING_GUIDE.md) applies to every word a subscriber reads.
+Internal doc; `docs/` is excluded from the published site in `_config.yml`. Three scripts under `script/` build the three emails IN YOUR FACE sends, create a Mailchimp draft from harry@inyourfacecomedy.ch, check it, and open it in your browser. You review and press Send in Mailchimp. Copy style: [writing-guide.md](writing-guide.md) applies to every word a subscriber reads.
 
 ## The three scripts
 

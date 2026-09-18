@@ -1,8 +1,9 @@
 # Campaign links: the /go/ redirector and /linkbuilder/
 
 Implementation plan for tracking where ticket traffic comes from, given that Eventfrog's free
-plan has no conversion tracking. Internal dev doc, in the `_config.yml` exclude list like the
-others. Status: plan for review, nothing built yet.
+plan has no conversion tracking. Internal dev doc; `docs/` is excluded from the published site
+in `_config.yml`. Status: built and live (`/go/`, `/linkbuilder/`, `/reports/`). It began as
+the implementation plan, so some sections still read as one.
 
 ## The problem, honestly stated
 
@@ -42,7 +43,7 @@ Slug matching reuses the case- and separator-insensitive normalization from
 ### Where the data comes from
 
 The page embeds two small JSON catalogs at build time, exactly the pattern
-`pages/2_comedians.md` and `pages/lineup.md` already use (see `SHOW_PROMO_LINKS.md`):
+`pages/2_comedians.md` and `pages/lineup.md` already use (see `show-promo-links.md`):
 
 1. **Shows**: every post with a `ticket_url` (slug, name, series `ticket_url`, on-site page URL,
    `event_type`). Some posts use an EventFrog vanity slug as their `ticket_url`
@@ -88,7 +89,7 @@ before leaving, so reports can slice clicks by show:
 gtag('event', 'ticket_redirect', {
   show: slug, date: date || '(series)', destination: target,
   // plus link (see "Show reports") and the show context fields venue, show_date,
-  // days_to_show, price_chf, value, currency (see "On-site Get Tickets clicks" and ANALYTICS.md)
+  // days_to_show, price_chf, value, currency (see "On-site Get Tickets clicks" and analytics.md)
   event_callback: go, event_timeout: 400
 });
 setTimeout(go, 450);            // ad blocker / gtag-missing fallback, whichever fires first
@@ -343,7 +344,7 @@ date's venue and price, else the show's). Beacon transport survives the navigati
 is no delay and no timeout. Together with `ticket_redirect` (campaign clicks via `/go/`)
 this gives one "ticket clicks by show" view in GA across on-site and campaign traffic. The
 dimensions and the metric are registered by `script/ga-setup.ts`; the full GA setup, what
-each field is for and the reports built on them are in `ANALYTICS.md`.
+each field is for and the reports built on them are in `analytics.md`.
 
 ### Show reports (/reports/ and /reports/<slug>/)
 

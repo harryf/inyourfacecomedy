@@ -16,7 +16,7 @@ description: "Passing you to the ticket page for an IN YOUR FACE Comedy show."
   show's Eventfrog page, resolved ONLY against the embedded
   catalogs below. Unknown show slugs land on our own 404 with the evidence in
   the query string so GA can alert on broken campaign links. Full design +
-  the speed budget: CAMPAIGN_LINKS.md.
+  the speed budget: docs/campaign-links.md.
 {% endcomment %}
 
 <div id="go-redirect" class="go-redirect">

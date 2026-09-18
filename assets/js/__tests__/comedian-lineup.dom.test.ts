@@ -1,6 +1,6 @@
 // DOM-integration tests for assets/js/comedian-lineup.js — "testing by calling the URL scheme".
 // Each test builds the /comedians/ page DOM, sets window.location, runs the whole script,
-// and asserts the page reshaped exactly as SHOW_PROMO_LINKS.md documents.
+// and asserts the page reshaped exactly as docs/show-promo-links.md documents.
 import { describe, expect, test, spyOn, beforeEach, afterEach } from "bun:test";
 import {
   buildComediansDOM,

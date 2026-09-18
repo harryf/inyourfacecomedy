@@ -1,13 +1,13 @@
 # Notes for Claude working on this codebase
 
-Jekyll site for inyourfacecomedy.ch, the IN YOUR FACE Comedy English stand-up nights in Zürich. The theme is vendored (`_layouts/`, `_includes/`, `_sass/`; no theme gem), Ruby 3.2.4 via rbenv, Bundler for gems, bun for JavaScript tests. `README.md` has the lay of the land. This file is the rules that bite plus where everything lives; the deep explanations are in the docs listed at the end, so read the owning doc before changing that area.
+Jekyll site for inyourfacecomedy.ch, the IN YOUR FACE Comedy English stand-up nights in Zürich. The theme is vendored (`_layouts/`, `_includes/`, `_sass/`; no theme gem), Ruby 3.2.4 via rbenv, Bundler for gems, bun for JavaScript tests. `README.md` has the lay of the land. This file is the rules that bite plus where everything lives; the deep explanations are in `docs/` (map at the end), so read the owning doc before changing that area.
 
 ## Commands
 
 ```
 bundle exec jekyll build --future          # --future: some shows are dated ahead (La Tarima is dated 2099 on purpose)
 ruby script/check-site.rb --no-build       # 100+ health checks incl. html-proofer, exit 0 = good
-bun test                                   # client-side JS + ga-report-lib, 130+ tests
+bun test                                   # client-side JS + script helpers, 330+ tests
 ruby script/add-event.rb <eventfrog-url> --host <slug> --feature-img X --image Y --thumbnail Z   # new show
 ```
 
@@ -28,16 +28,16 @@ Run the build and the health check after every change and before saying you are 
 | Shows | any `_posts/*.md` with a `ticket_url` | `add-event.rb` creates one; the home page, calendar, sitemap, catalogs and health check derive from it |
 | `next_event_date`, venue, price on a post | Eventfrog | `refresh-next-event-dates.rb` daily. Never hand-set them expecting it to stick |
 | `_data/calendar.yml`, `calendar_past.yml`, `venues.yml` | Eventfrog | `refresh-calendar-data.rb`, spawned by the daily job |
-| `pages/1_calendar.md` | `calendar.yml` + copy pools in `_data/calendar-copy.json` (also read by `/week/` for the Info lines) | `refresh-calendar-page.rb`; the markup is a contract, see `CALENDAR_STRUCTURE.md` |
+| `pages/1_calendar.md` | `calendar.yml` + copy pools in `_data/calendar-copy.json` (also read by `/week/` for the Info lines) | `refresh-calendar-page.rb`; the markup is a contract, see `docs/calendar-structure.md` |
 | `_comedians/*.md` | Grist | `sync-comedians.rb`. Never hand-edit; change Grist, run the sync |
 | `_data/gallery.yml` | `assets/img/gallery/` + Apple Vision | `build-gallery-data.rb` (macOS only). `tag` mode attributes a photo to a comedian; the slug lives in `gallery.yml`, never in `_comedians/` |
 | `_data/reports/`, `assets/reports/`, `pages/reports/` | Google Analytics | `ga-report.ts`. Edit `script/lib/ga-report-lib.ts` or `_layouts/report.liquid` instead |
 | Google Business Profile event posts | `gbp/<slug>.txt` + the posts | `post-events-to-google.rb` |
 | Show to comedian links | `hosts:` (+ `hosts_label:`) on the post: regular hosts, not the per-night lineup | hand. Drives host cards, the hosted shows at the front of the comedian page's related-shows row (`_includes/related-shows.liquid`) and Event JSON-LD performers; unknown slugs render nothing |
 | Apple calendar "Comedy @ ROBINs" shared with the bar staff (name in `.env` as `ROBINS_CALENDAR`) | `_data/calendar.yml`, venue `robins` only, plus the post's `hosts:` for the notes and Eventfrog for the ticket count | `bun script/robins-calendar.ts` daily. A field a person edited in the calendar is theirs for good (state in gitignored `script/robins-out/state.json`); `--force` hands it back to the website. A per-date room change is made by editing the title in Calendar.app, a per-show one with `room: front` on the post |
-| Show language | `language: it` / `es` on the post (absent = English) | hand. The monthly email lists non-English shows only when they are at ROBIN's (`EMAILS.md`) |
+| Show language | `language: it` / `es` on the post (absent = English) | hand. The monthly email lists non-English shows only when they are at ROBIN's (`docs/emails.md`) |
 
-## Cron (Harry's Mac, rbenv 3.2.4 by absolute path, logs in `script/*.log`)
+## Scheduled jobs (Harry's Mac, rbenv 3.2.4 by absolute path, logs in `script/*.log`)
 
 | When | Job | Log |
 |---|---|---|
@@ -48,9 +48,11 @@ Run the build and the health check after every change and before saying you are 
 | 11:00 Sat, Sun | `refresh-calendar-page.rb --no-refresh`: regenerate `/calendar/`, commit, push | `refresh.log` |
 | 11:05 daily, **launchd not cron** | `bun script/robins-calendar.ts`: ROBIN's shows into the staff Apple calendar; no git, no Healthchecks ping | `robins-calendar.log` |
 
-Each job commits and pushes itself and pings Healthchecks.io: the four Ruby jobs share `HEALTHCHECKS_URL`, the reports job has `GA_REPORTS_HEALTHCHECKS_URL` (both in `.env`). A missed run of one Ruby job is masked by the next job's success ping. `refresh-calendar-page.rb --init` and the GBP draft for a brand-new ROBIN's show call the `claude` CLI; never run those from inside a Claude Code session. `script/README.md` documents each script.
+Requirements, the cron and launchd lines, Healthchecks and troubleshooting: `docs/automation.md`. Per-script detail: `docs/scripts.md`. The short version:
 
-The ROBIN's calendar job is the launchd agent `~/Library/LaunchAgents/ch.inyourfacecomedy.robins-calendar.plist` (copy in `script/launchd/`), because cron runs outside the login session and macOS refuses it the Calendars permission without ever prompting. launchd starts `script/robins-out/ekcal run bun script/robins-calendar.ts`: the permission is pinned on the first process, and only `ekcal` carries the usage description macOS needs to show the prompt. Editing `script/lib/ekcal.swift` rebuilds that binary and macOS asks again: after such a change run `launchctl kickstart gui/$(id -u)/ch.inyourfacecomedy.robins-calendar` while Harry is at the screen and check `script/robins-calendar.log`. Its `remove` op is for `--first-load` only; the daily sync never deletes. It is the one TypeScript plus Swift pair in `script/`.
+- The git jobs commit and push themselves. Healthchecks.io: the four Ruby jobs share `HEALTHCHECKS_URL`, the reports job has `GA_REPORTS_HEALTHCHECKS_URL` (both in `.env`). A missed run of one Ruby job is masked by the next job's success ping.
+- `refresh-calendar-page.rb --init` and the three email scripts call the `claude` CLI; never run those from inside a Claude Code session (the email scripts take `--copy` or `--no-ai`). The GBP draft for a brand-new ROBIN's show uses the local llama-server instead.
+- The ROBIN's calendar job is a launchd agent (`~/Library/LaunchAgents/ch.inyourfacecomedy.robins-calendar.plist`, copy in `script/launchd/`) because macOS refuses cron the Calendars permission without prompting. It starts `script/robins-out/ekcal run bun script/robins-calendar.ts` so the permission is pinned on `ekcal`. Editing `script/lib/ekcal.swift` rebuilds that binary and loses the grant: afterwards run `launchctl kickstart gui/$(id -u)/ch.inyourfacecomedy.robins-calendar` while Harry is at the screen and check `script/robins-calendar.log`. Its `remove` op is for `--first-load` only; the daily sync never deletes.
 
 Rules for anything in `script/`:
 
@@ -67,14 +69,14 @@ All unlisted: `noindex`, `sitemap: false`, `hide: true`, `robots.txt` disallow, 
 
 | URL | What | Owner doc |
 |---|---|---|
-| `/go/?show=<slug>[&date=YYYY-MM-DD]&utm_*` | The click tracker. GA records the tagged visit and the Meta pixel gets a `TicketRedirect` event (live host only, honours `?notrack=1`), then it redirects to the show's Eventfrog page. Destinations resolve only against the build-time catalogs in `_includes/go-catalogs.liquid`; unknown slugs land on `/404.html?from=go&show=…` so broken links show up in GA | `CAMPAIGN_LINKS.md` |
-| `/linkbuilder/` | Phone-first UTM link builder for `/go/` and site pages. Google Ads is deliberately not a source (destination-mismatch policy) | `CAMPAIGN_LINKS.md` |
-| `/reports/` | Daily per-show ticket-click reports; `ticket_click` (on-site buttons, `assets/js/ticket-click.js`) plus `ticket_redirect` (via `/go/`) | `CAMPAIGN_LINKS.md`, "Show reports" |
-| Google Analytics (property 336856557) | Every page sets `content_group` plus, on show pages, `show`, `venue`, `show_date`, `days_to_show`, `price_chf` via `_includes/ga-page-context.liquid`; ticket events carry the same. Property config is code: `script/ga-setup.ts`; show-date annotations: `script/ga-annotations.ts`. GA is off on any host but `inyourfacecomedy.ch` | `ANALYTICS.md` |
-| Mailchimp emails | `script/email-monthly.ts`, `email-thankyou.ts`, `email-promo.ts` build the HTML (`script/lib/email/`), create a code-your-own draft from harry@inyourfacecomedy.ch and open it; never click Edit design on those drafts; `MC_API_KEY` stays in `.env`; `script/email-out/` is gitignored | `EMAILS.md` |
-| `/lineup/` | Lineup Maker 2000, builds and shares a show bill | `SHOW_PROMO_LINKS.md` |
-| `/week/?from=YYYY-MM-DD&style=…&format=story|post&v=N` | Week Story: the Sunday Instagram story (and post) of every calendar event from `from` (default today) through the next seven days, in ten styles: four flyer-derived (Polaroid, Ticket, Swiss, Bold Type) plus a Lava list, a Comic page, a split-flap Departures board, a Swiss station display board, a Chalkboard and a restaurant Menu (show artwork, no faces, no call to action on the image: the link sticker is the call to action), with a seeded headline, plus copy buttons for the hosts' handles, the UTM-tagged calendar link and a caption. Reads `_data/calendar.yml`, so it knows every occurrence of a series | `SHOW_PROMO_LINKS.md`, "Week Story" |
-| `/comedians/?show=…&host=…&lineup=…` | Show promo, lineup recap and thank-you links | `SHOW_PROMO_LINKS.md` |
+| `/go/?show=<slug>[&date=YYYY-MM-DD]&utm_*` | The click tracker. GA records the tagged visit and the Meta pixel gets a `TicketRedirect` event (live host only, honours `?notrack=1`), then it redirects to the show's Eventfrog page. Destinations resolve only against the build-time catalogs in `_includes/go-catalogs.liquid`; unknown slugs land on `/404.html?from=go&show=…` so broken links show up in GA | `docs/campaign-links.md` |
+| `/linkbuilder/` | Phone-first UTM link builder for `/go/` and site pages. Google Ads is deliberately not a source (destination-mismatch policy) | `docs/campaign-links.md` |
+| `/reports/` | Daily per-show ticket-click reports; `ticket_click` (on-site buttons, `assets/js/ticket-click.js`) plus `ticket_redirect` (via `/go/`) | `docs/campaign-links.md`, "Show reports" |
+| Google Analytics (property 336856557) | Every page sets `content_group` plus, on show pages, `show`, `venue`, `show_date`, `days_to_show`, `price_chf` via `_includes/ga-page-context.liquid`; ticket events carry the same. Property config is code: `script/ga-setup.ts`; show-date annotations: `script/ga-annotations.ts`. GA is off on any host but `inyourfacecomedy.ch` | `docs/analytics.md` |
+| Mailchimp emails | `script/email-monthly.ts`, `email-thankyou.ts`, `email-promo.ts` build the HTML (`script/lib/email/`), create a code-your-own draft from harry@inyourfacecomedy.ch and open it; never click Edit design on those drafts; `MC_API_KEY` stays in `.env`; `script/email-out/` is gitignored | `docs/emails.md` |
+| `/lineup/` | Lineup Maker 2000, builds and shares a show bill | `docs/show-promo-links.md`; flyer rules in `docs/flyer-design.md` |
+| `/week/?from=YYYY-MM-DD&style=…&format=story|post&v=N` | Week Story: the Sunday Instagram story (and post) of every calendar event in the next seven days, ten styles, a seeded headline, copy buttons for handles, link and caption. No faces and no call to action on the image. Reads `_data/calendar.yml` | `docs/show-promo-links.md`, "Week Story" |
+| `/comedians/?show=…&host=…&lineup=…` | Show promo, lineup recap and thank-you links | `docs/show-promo-links.md` |
 | `/admin/` | Decap CMS over git-gateway, edits `_posts` with `editable: "true"` | `admin/config.yml` |
 
 The invariant shared by `go-redirect.js`, `link-builder.js`, `comedian-lineup.js` and `lineup-maker-2000.js`: a query string can name a slug, never a destination. The bun tests pin it; keep them green.
@@ -85,33 +87,37 @@ The invariant shared by `go-redirect.js`, `link-builder.js`, `comedian-lineup.js
 - Google rejects with no reason. Known triggers: a street address, surnames, trademarked events. Descriptions in `gbp/<slug>.txt`: first names only, name the neighbourhood not the address, no relative day words ("tonight", "this Saturday"), summary at most 1500 characters, title at most 58.
 - Rejected posts are quarantined on purpose. To resubmit, edit the txt; the next run does the rest. Never bypass the quarantine.
 - The script only deletes posts that are EVENT type, CTA-link to our domain and match a managed slug. If the CTA shape changes, teach `our_post_slug` first and confirm with `--dry-run`.
-- Never hand-edit `gbp/gbp-state.json`. Full API and OAuth background: `gbp/google-business-profile-api-setup.md`. `probe-gbp-v4.rb` is the read-only "is the API alive" check.
+- Never hand-edit `gbp/gbp-state.json`. Full API and OAuth background: `docs/google-business-profile-api-setup.md`. `probe-gbp-v4.rb` is the read-only "is the API alive" check.
 
 ## Things that bite
 
 - Case matters on the live Linux build; a wrongly-cased image path works on the Mac and 404s live. html-proofer catches it.
-- Every collection document gets a `date`, and jekyll-seo-tag then emits a `BlogPosting` with a `mainEntityOfPage` whose `@id` swallows any JSON-LD node of ours with the same `@id`. Any new collection that emits its own JSON-LD needs a `seo.type` default in `_config.yml`. Full story and the validator recipe in `COMEDIAN_SEO.md`.
+- Every collection document gets a `date`, and jekyll-seo-tag then emits a `BlogPosting` with a `mainEntityOfPage` whose `@id` swallows any JSON-LD node of ours with the same `@id`. Any new collection that emits its own JSON-LD needs a `seo.type` default in `_config.yml`. Full story and the validator recipe in `docs/comedian-seo.md`.
 - Markdown inside an `.html` include is still processed when the including page is `.md`.
 - The IndexNow key file `4b04fa2d03884c6794d4ece40fb41a29.txt` at the root must stay; four scripts ping with that key.
 - Show dates on Eventfrog come from server-rendered individual event pages; the group page is a client-rendered SPA. If the scrapers break, that is where to look.
 
 ## Writing
 
-Visitor-facing copy follows `WRITING_GUIDE.md`: specifics over praise, no Title Case headings, no filler. No em dashes anywhere, including docs and commit messages; use a comma, colon or parenthesis. Email campaigns: `EMAILS.md`.
+Visitor-facing copy follows `docs/writing-guide.md`: specifics over praise, no Title Case headings, no filler. No em dashes anywhere, including docs and commit messages; use a comma, colon or parenthesis. Email campaigns: `docs/emails.md`.
 
 ## Docs map
 
+All internal docs live in `docs/` (index: `docs/README.md`), which `_config.yml` excludes from the published site. A new doc goes there, lowercase kebab-case, with a row here and in the index. Inside `docs/` files name each other by bare file name; everywhere else use the `docs/` path. Keep this file to rules and pointers: explanations belong in the owning doc.
+
 | Doc | Owns |
 |---|---|
-| `README.md` | Overview, build, how it goes live |
-| `script/README.md` | Each script, cron install, Healthchecks setup |
-| `CAMPAIGN_LINKS.md` | `/go/`, `/linkbuilder/`, `/reports/`, GA events and dimensions |
-| `ANALYTICS.md` | The GA4 property: what is configured and why, the page context, the report collection, data-quality caveats, the GTM second ID |
-| `SHOW_PROMO_LINKS.md` | `/comedians/` promo links and Lineup Maker 2000 |
-| `CALENDAR_STRUCTURE.md` | The `/calendar/` markup contract and `validate-calendar.rb` |
-| `COMEDIAN_SEO.md` | Comedian JSON-LD, `hosts:` mapping, IndexNow, search consoles |
-| `gbp/google-business-profile-api-setup.md` | GBP API, OAuth, moderation history |
-| `EMAILS.md` | Mailchimp playbook: the three email scripts, the builder limitation, the review-and-send flow |
-| `GOOGLE_PREFERRED_SOURCE.md` | The preferred-source deeplink on `/follow/` and the footer |
-| `META_ADS.md` | The Meta ads runbook: five-stage ad sets, API access, creative and list folders, the `script/meta-*.ts` jobs. Ids in `meta-ads/config.yml` (from `config.example.yml`), filled by hand as the phases produce them |
-| `WRITING_GUIDE.md` | House style |
+| `README.md` | What the repo is, running it locally, how it goes live |
+| `docs/automation.md` | Every script at a glance, requirements, running by hand, cron and launchd install, Healthchecks, troubleshooting |
+| `docs/scripts.md` | The detailed reference per script (`script/README.md` only points here) |
+| `docs/campaign-links.md` | `/go/`, `/linkbuilder/`, `/reports/`, GA events and dimensions |
+| `docs/analytics.md` | The GA4 property: what is configured and why, the page context, the report collection, data-quality caveats, the GTM second ID |
+| `docs/show-promo-links.md` | `/comedians/` promo links, Lineup Maker 2000, the Week Story |
+| `docs/flyer-design.md` | The flyer generator: fixed and free design decisions |
+| `docs/calendar-structure.md` | The `/calendar/` markup contract and `validate-calendar.rb` |
+| `docs/comedian-seo.md` | Comedian JSON-LD, `hosts:` mapping, related-shows row, IndexNow, search consoles |
+| `docs/google-business-profile-api-setup.md` | GBP API, OAuth, moderation history |
+| `docs/emails.md` | Mailchimp playbook: the three email scripts, the builder limitation, the review-and-send flow |
+| `docs/google-preferred-source.md` | The preferred-source deeplink on `/follow/` and the footer |
+| `docs/meta-ads.md` | The Meta ads runbook: five-stage ad sets, API access, creative and list folders, the `script/meta-*.ts` jobs. Ids in `meta-ads/config.yml` (from `config.example.yml`); working plans stay in `meta-ads/` |
+| `docs/writing-guide.md` | House style |

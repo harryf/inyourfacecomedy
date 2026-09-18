@@ -62,7 +62,7 @@ describe("flyer • flyerSpec", () => {
     expect(lm.flyerSpec("")).toMatchObject({ w: 1080, h: 1350 });
     expect(lm.flyerSpec("whatever")).toMatchObject({ w: 1080, h: 1350 });
   });
-  // The Instagram key-content requirement (see the flyerSpec comment + FLYER_DESIGN.md §1):
+  // The Instagram key-content requirement (see the flyerSpec comment + docs/flyer-design.md §1):
   // story keeps ~250px top / ~340px bottom / ~60px sides clear; post treats the central
   // 1080x1080 as safe with ~50px side margins. New styles position against these.
   test("story key-content area is y 250..1580 with 60px side margins", () => {

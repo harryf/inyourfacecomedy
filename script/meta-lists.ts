@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Meta customer-list files (META_ADS.md phase 0 step 4) from the Eventfrog ticket
+// Meta customer-list files (docs/meta-ads.md phase 0 step 4) from the Eventfrog ticket
 // sales sheet, kept to people who are subscribed in Mailchimp.
 //
 //   bun script/meta-lists.ts                      # newest tickets-*.csv and mailchimp-*.csv in meta-ads/lists/
@@ -17,7 +17,7 @@
 //   buyers-lapsed-YYYY-MM-DD.csv   last show older than that
 //   buyers-all-YYYY-MM-DD.csv      both together, the seed for the value-based lookalike
 // A buyer whose email is not in the Mailchimp export is dropped: the opt-in is the consent.
-// Playbook: META_ADS.md phase 0.
+// Playbook: docs/meta-ads.md phase 0.
 
 import { existsSync, readdirSync } from "node:fs";
 import { basename, join, resolve } from "node:path";
@@ -193,7 +193,7 @@ export function metaRows(buyers: Buyer[]): string[][] {
 function newest(prefix: string): string {
   if (!existsSync(LISTS_DIR)) fail(`missing folder ${LISTS_DIR}`);
   const names = readdirSync(LISTS_DIR).filter((n) => n.startsWith(prefix) && n.endsWith(".csv")).sort();
-  if (!names.length) fail(`no ${prefix}*.csv in meta-ads/lists/ (see META_ADS.md phase 0)`);
+  if (!names.length) fail(`no ${prefix}*.csv in meta-ads/lists/ (see docs/meta-ads.md phase 0)`);
   return join(LISTS_DIR, names[names.length - 1]);
 }
 
@@ -231,7 +231,7 @@ async function main() {
   const dropped = buyers.size - s.recent.length - s.lapsed.length;
   log(`  buyers not subscribed, dropped: ${dropped}`);
   for (const [name, list] of [["recent", s.recent], ["lapsed", s.lapsed]] as const) {
-    if (list.length < 100) warn(`${name} has fewer than 100 people; Meta may not build an audience from it (merge the two files, META_ADS.md phase 2)`);
+    if (list.length < 100) warn(`${name} has fewer than 100 people; Meta may not build an audience from it (merge the two files, docs/meta-ads.md phase 2)`);
   }
 
   // buyers-all is the two together: the better seed for one value-based lookalike (bigger source).
@@ -246,7 +246,7 @@ async function main() {
     await Bun.write(path, toCsv(META_HEADER, metaRows(list)));
     log(`wrote ${path} (${list.length} rows)`);
   }
-  if (!dryRun) log(`Upload each file in Ads Manager: Audiences, Create audience, Custom audience, Customer list (META_ADS.md phase 2).`);
+  if (!dryRun) log(`Upload each file in Ads Manager: Audiences, Create audience, Custom audience, Customer list (docs/meta-ads.md phase 2).`);
 }
 
 if (import.meta.main) main().catch((e) => fail(e?.stack || String(e)));
