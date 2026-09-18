@@ -35,6 +35,7 @@ concepts:
     body: "Switzerland has four official languages and one everyone actually speaks. Stand-up in it, every Thursday in Zürich."
     title: "Comedy in Switzerland's fifth language"
     image: { style: swiss, headline: "Deutsch. Français. Italiano. Rumantsch. English.", sub: "Stand-up in the fifth language, every Thursday" }
+    video: { composition: FifthLanguage }      # the twin ad cold-C4v: same words, the video on Stories and Reels
     status: live
   - id: C5
     person: The student
@@ -59,7 +60,7 @@ concepts:
     body: "Missing a proper comedy night? Zürich has one every Thursday. Ten acts, all in English, near Central."
     title: "A proper comedy night. In Zürich."
     image: { style: photo, photo: /assets/img/gallery/kafi_PXXX3234.jpg, headline: "A proper comedy night. In Zürich.", sub: "Every Thursday, ten acts, all in English" }
-    status: live
+    status: resting      # 2026-09-18: made room for the two video ads (it was the weakest of round one); back in round two
   - id: C9
     person: The person who does not want to socialise
     body: "Want to be around people without talking to anyone? Sit in the dark and laugh. Thursdays, Zürich, in English."
@@ -78,3 +79,10 @@ concepts:
     title: "25 minutes and a late train home"
     image: { style: station, headline: "The last train home is after the show.", sub: "Winterthur 25 min | Baden 20 min | Zug 25 min" }
     status: bench
+  - id: C12
+    person: Anyone who has waited under a departures board
+    body: "English stand-up departs every Thursday from ROBIN's, two minutes from Central. Ten acts. All aboard."
+    title: "Next departure: Thursday"
+    image: { style: station, headline: "English stand-up. Every Thursday.", sub: "ROBIN's | 2 min from Central" }
+    video: { composition: Departures, twin: false }   # the video ad cold-C12v only: no still ad beside it
+    status: live

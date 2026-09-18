@@ -8,6 +8,9 @@
 //   bun script/meta-bank.ts --push --activate                # upload, one single-text creative and one ad per concept, on
 //   bun script/meta-bank.ts --restory --validate             # Meta checks the two-image creative for ads pushed with one image
 //   bun script/meta-bank.ts --restory                        # and moves them onto it
+//   bun script/meta-bank.ts --push-video --dry-run           # the video ads that would be made (concepts with a `video:` block)
+//   bun script/meta-bank.ts --push-video --validate          # upload the video, have Meta check the creative, make no ad
+//   bun script/meta-bank.ts --push-video --activate          # upload, creative, one ad per concept named <group>-<id>v, on
 //   bun script/meta-bank.ts --sync                           # diff: ads whose on/off state differs from the bank files' status
 //   bun script/meta-bank.ts --sync --apply                   # pause the resting and retired ones, switch the live ones back on (asks first)
 //
@@ -26,7 +29,7 @@ import { confirm, fail, flagBool, flagString, log, parseArgs, warn } from "./lib
 import { REPO_ROOT, loadConfig, metaFromEnv, type MetaConfig } from "./lib/meta-api";
 import { evaluate, navigate, openBrowser, pngBytes } from "./lib/headless";
 
-const USAGE = `usage: bun script/meta-bank.ts (--render | --push | --restory | --sync) [options]
+const USAGE = `usage: bun script/meta-bank.ts (--render | --push | --push-video | --restory | --sync) [options]
 
   --render       render the bank's images
     --local        serve _site/ on a local port for the render (build the site first)
@@ -34,6 +37,10 @@ const USAGE = `usage: bun script/meta-bank.ts (--render | --push | --restory | -
   --push         create the ads for every concept with status: live that has no ad yet
     --activate     switch the created ads on (default: left PAUSED)
     --dry-run      print what would be uploaded and created, write nothing
+  --push-video   for every live concept with a \`video:\` block: upload video/out/<composition>.mp4 and create
+                 the ad <group>-<id>v (the video on Stories and Reels, the 4:5 image on feeds)
+    --validate     upload, let Meta check the creative (validate_only), create no creative and no ad
+    --activate, --dry-run   as for --push
   --restory      move ads pushed with one image onto the two-image creative (post for feeds, story for Stories and Reels)
     --validate     ask Meta to check each new creative (validate_only), write nothing
     --dry-run      list the ads that would move
@@ -54,8 +61,13 @@ export const CREATIVE_DIR = join(REPO_ROOT, "meta-ads", "creative", "bank");   /
 export interface Concept {
   id: string; person: string; body: string; title: string; description?: string;
   image: { style: string; photo?: string; bg?: string; headline?: string; sub?: string; week_style?: string; note?: string };
+  // A Remotion composition in video/ (rendered to video/out/<composition>.mp4). `twin: true`
+  // (the default): the still ad <group>-<id> runs beside the video ad <group>-<id>v with the
+  // same words, so the two can be compared. `twin: false`: the video ad only.
+  video?: { composition: string; twin?: boolean };
   status: "live" | "resting" | "bench" | "retired";
 }
+export const VIDEO_OUT = join(REPO_ROOT, "video", "out");   // gitignored
 export interface Bank { adset: Group; link: { show: string; utm_campaign: string }; description: string; concepts: Concept[] }
 
 export function loadBank(group: Group, dir = BANK_DIR): Bank {
@@ -148,13 +160,22 @@ export function bankLink(bank: Pick<Bank, "link">): string {
 export const URL_TAGS = "utm_content={{ad.name}}";
 export function adName(group: Group, c: Pick<Concept, "id">): string { return `${group}-${c.id}`; }
 
-export interface PushState { [adName: string]: { ad_id: string; creative_id: string; image_hash: string; pushed: string; story_hash?: string; previous_creative_id?: string; pending_creative_id?: string; restoried?: string } }
+export interface PushState { [adName: string]: { video_id?: string; video_sha?: string; ad_id: string; creative_id: string; image_hash: string; pushed: string; story_hash?: string; previous_creative_id?: string; pending_creative_id?: string; restoried?: string } }
 const STATE_FILE = join(CREATIVE_DIR, "state.json");
 export function readState(file = STATE_FILE): PushState { try { return JSON.parse(readFileSync(file, "utf8")); } catch { return {}; } }
 
 // Which concepts a push touches: status live, or the ids named with --only whatever their status.
 export function pushList(bank: Bank, only: string[]): Concept[] {
-  return bank.concepts.filter((c) => (only.length ? only.includes(c.id) : c.status === "live"));
+  return bank.concepts.filter((c) => c.video?.twin !== false && (only.length ? only.includes(c.id) : c.status === "live"));
+}
+// The video ads: every concept with a `video:` block, named <group>-<id>v.
+export function videoAdName(group: Group, c: Pick<Concept, "id">): string { return `${adName(group, c)}v`; }
+export function videoList(bank: Bank, only: string[]): Concept[] {
+  return bank.concepts.filter((c) => c.video && (only.length ? only.includes(c.id) : c.status === "live"));
+}
+// An ad name's id part back to its concept: <id>, or <id>v for a concept with a video.
+export function conceptFor(bank: Bank | undefined, id: string): Concept | undefined {
+  return bank?.concepts.find((c) => c.id === id) || bank?.concepts.find((c) => c.video && `${c.id}v` === id);
 }
 
 // Where each image goes: the 9:16 story image on Stories and Reels (Meta's "Reels format"
@@ -211,6 +232,27 @@ export function creativeSpec(config: Pick<MetaConfig, "page_id" | "instagram_acc
   };
 }
 
+// The video ad's creative: the same single text, the 4:5 image on feeds, the video on Stories
+// and Reels with the 9:16 still as its thumbnail. Image and video in one asset feed need
+// AUTOMATIC_FORMAT.
+export function videoCreativeSpec(config: Pick<MetaConfig, "page_id" | "instagram_account_id">, group: Group, bank: Bank, c: Concept, assets: { post: string; story: string; video_id: string }) {
+  const still = creativeSpec(config, group, bank, c, { post: assets.post, story: assets.story });
+  return {
+    ...still,
+    name: `${videoAdName(group, c)} creative`,
+    asset_feed_spec: {
+      ...still.asset_feed_spec,
+      images: [{ hash: assets.post, adlabels: [{ name: "feed" }] }],
+      videos: [{ video_id: assets.video_id, thumbnail_hash: assets.story, adlabels: [{ name: "story" }] }],
+      ad_formats: ["AUTOMATIC_FORMAT"],
+      asset_customization_rules: [
+        { customization_spec: STORY_PLACEMENTS, video_label: { name: "story" }, priority: 1 },
+        { customization_spec: FEED_PLACEMENTS, image_label: { name: "feed" }, priority: 2 },
+      ],
+    },
+  };
+}
+
 // The live ads that still carry the one-image creative: in state.json, no story_hash yet, and
 // their concept still in the bank (a concept dropped from the bank is left alone).
 export function restoryList(state: PushState, banks: Partial<Record<Group, Bank>>, onlyGroup?: Group, only: string[] = []): { name: string; group: Group; concept: Concept; entry: PushState[string] }[] {
@@ -219,7 +261,7 @@ export function restoryList(state: PushState, banks: Partial<Record<Group, Bank>
     const [group, id] = name.split("-") as [Group, string];
     if (onlyGroup && group !== onlyGroup) continue;
     if (only.length && !only.includes(id)) continue;
-    if (entry.story_hash) continue;
+    if (entry.story_hash || !entry.ad_id) continue;
     const concept = banks[group]?.concepts.find((c) => c.id === id);
     if (!concept) continue;
     out.push({ name, group, concept, entry });
@@ -236,7 +278,7 @@ export function syncPlan(state: PushState, banks: Partial<Record<Group, Bank>>, 
     const [group, id] = name.split("-") as [Group, string];
     if (onlyGroup && group !== onlyGroup) continue;
     if (only.length && !only.includes(id)) continue;
-    const concept = banks[group]?.concepts.find((c) => c.id === id);
+    const concept = conceptFor(banks[group], id);
     const from = statuses[entry.ad_id];
     if (!concept || !from) continue;
     const to = concept.status === "live" ? "ACTIVE" : "PAUSED";
@@ -371,6 +413,80 @@ async function push(args: ReturnType<typeof parseArgs>, onlyGroup: Group | undef
   log(`\n${dryRun ? "dry run, nothing written" : `${created} ad(s) created${activate ? " and switched on (Meta reviews new ads, usually under a day)" : ", left PAUSED; --activate to switch them on"}`}${clipsSkipped.length ? `; clips to make by hand: ${clipsSkipped.join(", ")}` : ""}`);
 }
 
+// Upload a rendered video once (cached by content hash in state.json) and wait until Meta has
+// processed it; a creative made before that is refused.
+async function uploadVideo(meta: ReturnType<typeof metaFromEnv>, act: string, name: string, file: string, state: PushState): Promise<string> {
+  const bytes = readFileSync(file);
+  const sha = createHash("sha256").update(bytes).digest("hex").slice(0, 16);
+  const cached = state[name];
+  let id = cached?.video_sha === sha ? cached.video_id : undefined;
+  if (id) log(`${name}: video ${id} already uploaded for this render`);
+  else {
+    const form = new FormData();
+    form.set("name", `${name}-${sha}`);
+    form.set("source", new Blob([bytes], { type: "video/mp4" }), `${name}-${sha}.mp4`);
+    const up = await patient(`${name} video`, () => meta.postForm(`${act}/advideos`, form));
+    id = String(up.id);
+    state[name] = { ...(cached || { ad_id: "", creative_id: "", image_hash: "", pushed: "" }), video_id: id, video_sha: sha };
+    saveState(state);
+    log(`${name}: uploaded ${(bytes.length / 1e6).toFixed(1)} MB as video ${id}`);
+  }
+  for (let i = 0; i < 40; i++) {
+    const v = await meta.get(id, { fields: "status" });
+    const s = v.status?.video_status;
+    if (s === "ready") return id;
+    if (s === "error") fail(`${name}: Meta could not process the video: ${JSON.stringify(v.status).slice(0, 300)}`);
+    await new Promise((r) => setTimeout(r, 5000));
+  }
+  return fail(`${name}: video ${id} still processing after 200 s; run again`);
+}
+
+// --push-video: one ad per live concept with a `video:` block, named <group>-<id>v.
+async function pushVideo(args: ReturnType<typeof parseArgs>, onlyGroup: Group | undefined, only: string[]) {
+  const dryRun = flagBool(args, "dry-run"), validate = flagBool(args, "validate"), activate = flagBool(args, "activate");
+  const config = loadConfig();
+  const meta = metaFromEnv(config);
+  const act = config.ad_account_id;
+  const state = readState();
+  let created = 0;
+  for (const group of onlyGroup ? [onlyGroup] : GROUPS) {
+    const bank = loadBank(group);
+    const list = videoList(bank, only);
+    if (!list.length) continue;
+    const adsetId = config.adsets[group];
+    const existing = await patient(`${group} ads`, () => meta.getAll(`${adsetId}/ads`, { fields: "id,name,status,effective_status" }));
+    const byName = new Map(existing.map((a: any) => [a.name, a]));
+    let active = existing.filter((a: any) => a.effective_status !== "PAUSED" && a.effective_status !== "DELETED" && a.effective_status !== "ARCHIVED").length;
+    for (const c of list) {
+      const name = videoAdName(group, c);
+      if (byName.has(name)) { log(`${name}: exists (${byName.get(name).id}, ${byName.get(name).effective_status}), skipped`); continue; }
+      if (state[name]?.ad_id) { log(`${name}: in state.json as ${state[name].ad_id}, skipped`); continue; }
+      const files = imageFiles(group, c), video = join(VIDEO_OUT, `${c.video!.composition}.mp4`);
+      const missing = [files.post, files.story, video].filter((f) => !existsSync(f));
+      if (missing.length) { warn(`${name}: missing ${missing.join(" and ")} (--render for the images, bun scripts/Render.ts in video/ for the video)`); continue; }
+      if (!validate && active >= MAX_ADS_PER_ADSET) { warn(`${name}: ${group} already has ${active} live ads (max ${MAX_ADS_PER_ADSET})`); continue; }
+      if (dryRun) { log(`${name}: would upload ${video} (${(statSync(video).size / 1e6).toFixed(1)} MB), the 4:5 image for feeds and the 9:16 still as thumbnail, create the creative and the ad ${activate ? "ACTIVE" : "PAUSED"}`); active++; continue; }
+      const post = await uploadImage(meta, act, name, files.post);
+      const story = await uploadImage(meta, act, name, files.story);
+      const videoId = await uploadVideo(meta, act, name, video, state);
+      const spec = videoCreativeSpec(config, group, bank, c, { post, story, video_id: videoId });
+      if (validate) {
+        try { const r = await patient(`${name} creative`, () => meta.post(`${act}/adcreatives`, { ...spec, execution_options: ["validate_only"] })); log(`${name}: validate_only accepted (${JSON.stringify(r)})`); }
+        catch (e: any) { warn(`${name}: validate_only REJECTED: ${e.message}`); }
+        continue;
+      }
+      const creative = await patient(`${name} creative`, () => meta.post(`${act}/adcreatives`, spec));
+      const ad = await patient(`${name} ad`, () => meta.post(`${act}/ads`, { name, adset_id: adsetId, creative: { creative_id: creative.id }, status: activate ? "ACTIVE" : "PAUSED" }));
+      state[name] = { ...state[name], ad_id: String(ad.id), creative_id: String(creative.id), image_hash: post, story_hash: story, pushed: new Date().toISOString() };
+      saveState(state);
+      const back = await meta.get(ad.id, { fields: "status,effective_status" });
+      log(`${name}: video ${videoId}, creative ${creative.id}, ad ${ad.id} ${back.status}/${back.effective_status}`);
+      created++; active++;
+    }
+  }
+  log(`\n${dryRun ? "dry run, nothing written" : validate ? "validate only: the videos and images are in the library, no creative and no ad made" : `${created} video ad(s) created${activate ? " and switched on (Meta reviews new ads, usually under a day)" : ", left PAUSED; --sync --apply switches the live ones on"}`}`);
+}
+
 // --sync: make each pushed ad's on/off state match its concept's status. Diff by default.
 async function sync(args: ReturnType<typeof parseArgs>, onlyGroup: Group | undefined, only: string[]) {
   const apply = flagBool(args, "apply") && !flagBool(args, "dry-run");
@@ -402,6 +518,7 @@ async function main() {
   const onlyGroup = flagString(args, "group") as Group | undefined;
   if (onlyGroup && !GROUPS.includes(onlyGroup)) fail(`--group must be one of ${GROUPS.join(", ")}`);
   const only = (flagString(args, "only") || "").split(",").map((s) => s.trim()).filter(Boolean);
+  if (flagBool(args, "push-video")) return pushVideo(args, onlyGroup, only);
   if (flagBool(args, "push")) return push(args, onlyGroup, only);
   if (flagBool(args, "restory")) return restory(args, onlyGroup, only);
   if (flagBool(args, "sync")) return sync(args, onlyGroup, only);

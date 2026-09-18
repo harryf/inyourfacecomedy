@@ -111,6 +111,17 @@ export class Meta {
     return json as T;
   }
 
+  // Multipart POST for file uploads (advideos takes the file itself as `source`).
+  async postForm<T = any>(path: string, form: FormData): Promise<T> {
+    form.set("access_token", this.token);
+    const res = await fetch(`${this.base}/${path.startsWith("/") ? path.slice(1) : path}`, { method: "POST", body: form });
+    const text = await res.text();
+    let json: any;
+    try { json = JSON.parse(text); } catch { throw new Error(`Meta API ${path}: non-JSON response (http ${res.status}): ${text.slice(0, 200)}`); }
+    if (!res.ok || json?.error) throw new MetaApiError(path, res.status, json?.error || { message: text.slice(0, 200) });
+    return json as T;
+  }
+
   get<T = any>(path: string, params: Params = {}): Promise<T> { return this.call<T>("GET", path, params); }
   post<T = any>(path: string, params: Params = {}): Promise<T> { return this.call<T>("POST", path, params); }
 

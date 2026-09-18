@@ -18,7 +18,7 @@ Harry decided: keep going and spend more so the ad sets learn. Cold CHF 6 a day 
 CHF 5 (was 3), Intent CHF 2 (its audience is the limit, not the money), the 2024 set as Harry
 runs it. `monthly_cap_chf` is 600 for the period; the account spending limit wants raising to
 CHF 1,000 in Ads Manager. Only two or three ads run per set at a time (`status: resting` in the
-bank files, `meta-bank.ts --sync`): round one is cold C7, C4, C8, warm W6, W2, intent I1, I3,
+bank files, `meta-bank.ts --sync`): round one is cold C7, C4, C8 (C8 rested the same day for the video ads, below), warm W6, W2, intent I1, I3,
 I5; C1, C2, C3 and W1 come back in round two, about 2 October. The sizing: Comedy Brew's online
 ticket income is about CHF 650 in a typical month (median of the last twelve; 126 nights in the
 sales export, typical night 22 tickets), so this spend is most of the income and is an
@@ -28,9 +28,15 @@ from about 22 tickets to 28 or more? If not, drop to about CHF 200 a month.
 Applied on Meta on 18 September 2026: the two budgets, the four resting ads paused (`meta-bank.ts
 --sync` reads back in sync), Buyers paused.
 
-**Video ads.** `video/` is a Remotion project (its README says how to render); two concepts
-render with sound, Departures and Fifth language. Plan, concepts and what is still to build
-(the upload and the video twin ads): `meta-ads/video-plan.md`.
+**Video ads, live since 18 September 2026.** `video/` is a Remotion project (its README says how
+to render). Two video ads run in Cold, made by `meta-bank.ts --push-video` from the `video:`
+block on a bank concept: `cold-C4v` (Fifth language), the twin of the still ad `cold-C4` with the
+same words, and `cold-C12v` (Departures), which has no still beside it. Each shows the video on
+Stories and Reels and the 4:5 image on feeds. C8 rests to make room, so Cold runs C7, C4, C4v
+and C12v. How to judge them: compare `cold-C4v` with `cold-C4` on Stories and Reels only, cost per
+landing page view, past the 30-view floor, after two to three weeks; the video wins at 25
+percent cheaper (`meta-ads/video-plan.md`, "How we will know"). Harry kept the flap sound in
+Departures, to be licensed later if needed (`meta-ads/creative/audio/SOURCES.md`, not in git).
 
 **Buyers is parked (2026-09-18).** The ad set never delivered one impression in its life
 (active, approved, no error on the API); the matched buyer lists are too small. It is paused,

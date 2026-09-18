@@ -504,6 +504,26 @@ bank files (`live` and `resting`) and run `--sync`; do it at a fortnight boundar
 with any budget change, since each batch of edits costs the ad set some learning.
 
 ```
+bun script/meta-bank.ts --push-video --dry-run    # the video ads that would be made
+bun script/meta-bank.ts --push-video --validate   # upload video and images, Meta checks the creative, nothing else is made
+bun script/meta-bank.ts --push-video --activate   # creative and ad per concept, named <group>-<id>v, switched on
+```
+
+`--push-video` makes the video ads. A concept gets one by carrying a `video:` block, for
+example `video: { composition: FifthLanguage }`: the composition is rendered beforehand in
+`video/` (`bun scripts/Render.ts FifthLanguage`, see `video/README.md`) and read from
+`video/out/<composition>.mp4`. The ad is named `<group>-<id>v` and carries the concept's own
+words, the 4:5 image for feeds and the video for Stories and Reels, with the 9:16 still as the
+video's thumbnail (so run `--render` for the concept first). By default the still ad
+`<group>-<id>` runs beside it as its twin, for a like-for-like comparison; `twin: false` makes
+the video ad only. The upload goes to `act_<id>/advideos` as a multipart form (`postForm` in
+`lib/meta-api.ts`), is cached in state.json by the file's hash so a rerun never uploads the same
+render twice, and the script waits until Meta reports the video ready before it makes the
+creative. Image and video in one asset feed need `ad_formats: AUTOMATIC_FORMAT`; Meta accepted
+that with a single text on 2026-09-18. `--sync` treats the video ad like the still: it follows
+the concept's `status`.
+
+```
 bun script/meta-bank.ts --restory --dry-run       # ads in state.json still on the first push's one-image creative
 bun script/meta-bank.ts --restory --validate      # Meta checks each new creative (validate_only), writes nothing
 bun script/meta-bank.ts --restory                 # new creative per ad, the ad moved onto it, old id kept in state.json

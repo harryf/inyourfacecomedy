@@ -115,3 +115,35 @@ describe("sync: the bank files' status against Meta's on/off state", () => {
     expect(syncPlan(state, banks, { "1": "ACTIVE", "9": "ACTIVE" }, undefined, ["C9"]).map((p: any) => p.name)).toEqual(["cold-C9"]);
   });
 });
+
+describe("video ads: names, lists and the creative", () => {
+  const { conceptFor, pushList, syncPlan, videoAdName, videoCreativeSpec, videoList } = require("../meta-bank");
+  const c = (id: string, status: Concept["status"], video?: Concept["video"]) => ({ id, person: "p", body: "b", title: "t", image: { style: "type" }, status, video }) as Concept;
+  const bank = { adset: "cold", link: { show: "comedybrew", utm_campaign: "cold" }, description: "d", concepts: [c("C4", "live", { composition: "FifthLanguage" }), c("C7", "live"), c("C12", "live", { composition: "Departures", twin: false }), c("C13", "bench", { composition: "X" })] } as any;
+
+  test("a twin concept gets both ads, a video-only concept gets no still ad, bench stays out", () => {
+    expect(pushList(bank, []).map((x: Concept) => x.id)).toEqual(["C4", "C7"]);
+    expect(videoList(bank, []).map((x: Concept) => x.id)).toEqual(["C4", "C12"]);
+    expect(videoAdName("cold", { id: "C4" })).toBe("cold-C4v");
+  });
+  test("an ad name finds its concept, with or without the v", () => {
+    expect(conceptFor(bank, "C4v")?.id).toBe("C4");
+    expect(conceptFor(bank, "C7v")).toBeUndefined();   // C7 has no video
+    expect(conceptFor(bank, "C7")?.id).toBe("C7");
+  });
+  test("the video goes to Stories and Reels, the image everywhere else, one text", () => {
+    const spec = videoCreativeSpec({ page_id: "1", instagram_account_id: "2" }, "cold", bank, bank.concepts[0], { post: "P", story: "S", video_id: "V" });
+    expect(spec.name).toBe("cold-C4v creative");
+    expect(spec.asset_feed_spec.ad_formats).toEqual(["AUTOMATIC_FORMAT"]);
+    expect(spec.asset_feed_spec.images).toEqual([{ hash: "P", adlabels: [{ name: "feed" }] }]);
+    expect(spec.asset_feed_spec.videos).toEqual([{ video_id: "V", thumbnail_hash: "S", adlabels: [{ name: "story" }] }]);
+    expect(spec.asset_feed_spec.asset_customization_rules.map((r: any) => Object.keys(r).find((k) => k.endsWith("_label")))).toEqual(["video_label", "image_label"]);
+    expect(spec.asset_feed_spec.bodies).toHaveLength(1);
+    expect(spec.url_tags).toBe("utm_content={{ad.name}}");
+  });
+  test("sync follows the concept's status for the video ad too, and skips a half-made entry", () => {
+    const e = (ad_id: string) => ({ ad_id, creative_id: "c", image_hash: "h", pushed: "x" });
+    const rested = { cold: { ...bank, concepts: [c("C4", "resting", { composition: "FifthLanguage" })] } } as any;
+    expect(syncPlan({ "cold-C4v": e("4"), "cold-C12v": e("") }, rested, { "4": "ACTIVE" }).map((p: any) => `${p.name}>${p.to}`)).toEqual(["cold-C4v>PAUSED"]);
+  });
+});

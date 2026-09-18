@@ -2,7 +2,7 @@
 
 Written 14 September 2026. The creative bank rules (`meta-ads/creative-bank-plan.md`) and the runbook (`docs/meta-ads.md`) apply unchanged.
 
-State on 18 September 2026: the `video/` folder exists (see its README) and two concepts render with sound, Departures (2) and Fifth language (3). The laughter comes from Harry's own set recording, not from a Thursday show; that recording has no applause, so the closing logo carries a big laugh. Not built yet: the upload and the video twin ads in `meta-bank.ts` (the spike's step 3 and the bank integration below), concepts 1 and 4 to 8. Open before anything goes live: the flap sound's licence, and a word with the venue about the room recording.
+State on 18 September 2026: the `video/` folder exists (see its README) and two concepts render with sound, Departures (2) and Fifth language (3). The laughter comes from Harry's own set recording, not from a Thursday show; that recording has no applause, so the closing logo carries a big laugh. Also on 18 September: `meta-bank.ts --push-video` was built and both went live in Cold, `cold-C4v` (Fifth language, the twin of `cold-C4`) and `cold-C12v` (Departures, no still beside it). Meta accepted image and video in one single-text asset feed (`AUTOMATIC_FORMAT`), so the fallback below was not needed, and the spike's paused test ad was skipped in favour of `validate_only` plus the real push. Not built yet: concepts 1 and 4 to 8, and a 4:5 video for feeds. Open: Harry kept the flap sound, to be licensed later if needed; a word with the venue about the room recording; an applause take.
 
 ## What exists already
 
