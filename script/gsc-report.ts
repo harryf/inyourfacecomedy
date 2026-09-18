@@ -1,49 +1,48 @@
 #!/usr/bin/env bun
-// Search Console worksheet: which queries show a page of ours just off page one,
-// and what that page currently says. Reads the Search Console API with the same
-// service account as ga-report.ts (Restricted user on the property), writes a
-// Markdown worksheet plus the raw rows into gitignored script/gsc-out/, and prints
-// the top pages. Never touches git. See docs/scripts.md, "gsc-report.ts".
+// The weekly Search Console learning loop (design and reading guide: seo/README.md).
+// Each run takes a 28-day snapshot of query and page data, scores every page's
+// opportunities against the site's own click curve, reads the experiments ledger to
+// judge changes already made, writes the report, and commits the seo/ folder.
 //
-//   bun script/gsc-report.ts                       # last 90 final days, position 11-20, 10+ impressions
-//   bun script/gsc-report.ts --dry-run             # fetch and print, write nothing
-//   bun script/gsc-report.ts --band 8-11 --min-impressions 30
-//   bun script/gsc-report.ts --days 28 --page /comedybrew/
-//   bun script/gsc-report.ts --country che         # one country (ISO 3166-1 alpha-3)
+//   bun script/gsc-report.ts                        # snapshot (if none for today), report, commit + push seo/
+//   bun script/gsc-report.ts --dry-run              # fetch and print, write nothing
+//   bun script/gsc-report.ts --no-push              # write files, skip git
+//   bun script/gsc-report.ts --backfill             # weekly snapshots back 16 months (no report, no git)
+//   bun script/gsc-report.ts --log-change /comedybrew/ "open mic zürich, open mic zurich" "Title now opens with Open Mic Zürich"
 //
-// Auth: GA_REPORTS_CREDENTIALS in .env names the service-account key (repo-relative).
-// The account must be a user (Restricted is enough) on the Search Console property
-// named by GSC_SITE (default sc-domain:inyourfacecomedy.ch). Optional
-// GSC_HEALTHCHECKS_URL gets a ping with the summary, or /fail with the error.
+// Auth: GA_REPORTS_CREDENTIALS in .env names the service-account key (repo-relative);
+// the account is a Restricted user on the property named by GSC_SITE (default
+// sc-domain:inyourfacecomedy.ch). Optional GSC_HEALTHCHECKS_URL gets the summary,
+// or /fail with the error. Comedian pages are meta-only by design (seo/README.md).
 
-import { readFileSync, readdirSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { readFileSync, readdirSync, writeFileSync, mkdirSync, existsSync, appendFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { createSign } from "node:crypto";
+import { spawnSync } from "node:child_process";
+import { SITE_URL, addDays, frontMatterOf, pageSource, shapePageTotals, shapeRow, type GscRow, type PageSource, type PageTotals } from "./lib/gsc-report-lib";
 import {
-  DEFAULT_BAND, SITE_URL, groupByPage, pageSource, parseBand, reportWindow, shapePageTotals, shapeRow, summaryLines, worksheet,
-  type GscRow, type PageSource, type PageTotals,
-} from "./lib/gsc-report-lib";
+  DISCOVERY_DAYS, MIN_ROW_IMPRESSIONS, WINDOW_DAYS, clickCurve, comedianTemplateBrief, experimentYaml, isBrandQuery, judge, loopSummary, metricsFor, movers,
+  nextExperimentId, pageBriefs, renderReport, scopeOf, scoreOpportunities, trend, type Experiment, type ExperimentReading, type Names, type Snapshot,
+} from "./lib/gsc-loop-lib";
 
 const ROOT = resolve(import.meta.dir, "..");
-const OUT_DIR = join(ROOT, "script", "gsc-out");
-const args = process.argv.slice(2);
+const SEO_DIR = join(ROOT, "seo");
+const SNAP_DIR = join(SEO_DIR, "snapshots");
+const REPORT_DIR = join(SEO_DIR, "reports");
+const LEDGER = join(SEO_DIR, "experiments.yml");
+const BASELINES = join(SEO_DIR, "experiments-baselines.json");
+const FINAL_LAG_DAYS = 3;
+const HISTORY_DAYS = 16 * 30;   // what Search Console keeps
 
-function flag(name: string): string | undefined {
-  const i = args.indexOf(name);
-  return i >= 0 ? args[i + 1] : undefined;
-}
+const args = process.argv.slice(2);
 if (args.includes("--help") || args.includes("-h")) {
   console.log(readFileSync(import.meta.path, "utf8").split("\n").filter((l) => l.startsWith("//")).map((l) => l.slice(3)).join("\n"));
   process.exit(0);
 }
 const DRY = args.includes("--dry-run");
-const DAYS = Number(flag("--days") ?? 90);
-const MIN_IMP = Number(flag("--min-impressions") ?? DEFAULT_BAND.minImpressions);
-const BAND = parseBand(flag("--band") ?? `${DEFAULT_BAND.minPosition}-${DEFAULT_BAND.maxPosition}`, MIN_IMP);
-const ONLY_PAGE = flag("--page");
-const COUNTRY = flag("--country");
-if (!Number.isFinite(DAYS) || DAYS < 1 || DAYS > 480) throw new Error("--days wants 1 to 480 (Search Console keeps 16 months)");
-if (!Number.isFinite(MIN_IMP) || MIN_IMP < 0) throw new Error("--min-impressions wants a number");
+const NO_PUSH = args.includes("--no-push");
+const BACKFILL = args.includes("--backfill");
+const LOG_AT = args.indexOf("--log-change");
 
 // ---------- .env (same convention as the other scripts) ----------
 const envPath = join(ROOT, ".env");
@@ -100,28 +99,120 @@ async function query(token: string, body: Record<string, unknown>): Promise<any[
   }
 }
 
-function filters(): Record<string, unknown> {
-  const groups: any[] = [];
-  const f: any[] = [];
-  if (ONLY_PAGE) f.push({ dimension: "page", operator: "equals", expression: SITE_URL + ONLY_PAGE });
-  if (COUNTRY) f.push({ dimension: "country", operator: "equals", expression: COUNTRY });
-  if (f.length) groups.push({ filters: f });
-  return groups.length ? { dimensionFilterGroups: groups } : {};
+function windowFor(date: string): { startDate: string; endDate: string } {
+  const endDate = addDays(date, -FINAL_LAG_DAYS);
+  return { startDate: addDays(endDate, -(WINDOW_DAYS - 1)), endDate };
 }
 
-// ---------- Jekyll sources ----------
-function loadSources(): Map<string, PageSource> {
+// Discovery: the longer window opportunities are scored on (fetched, not stored).
+async function discovery(token: string, date: string): Promise<{ startDate: string; endDate: string; rows: GscRow[]; pages: PageTotals[] }> {
+  const endDate = addDays(date, -FINAL_LAG_DAYS);
+  const startDate = addDays(endDate, -(DISCOVERY_DAYS - 1));
+  const [pairs, pages] = await Promise.all([
+    query(token, { startDate, endDate, dimensions: ["query", "page"] }),
+    query(token, { startDate, endDate, dimensions: ["page"] }),
+  ]);
+  return { startDate, endDate, rows: pairs.map(shapeRow).filter((r) => r.impressions >= MIN_ROW_IMPRESSIONS), pages: pages.map(shapePageTotals) };
+}
+
+async function takeSnapshot(token: string, date: string): Promise<Snapshot> {
+  const { startDate, endDate } = windowFor(date);
+  const [pairs, pages, devices] = await Promise.all([
+    query(token, { startDate, endDate, dimensions: ["query", "page"] }),
+    query(token, { startDate, endDate, dimensions: ["page"] }),
+    query(token, { startDate, endDate, dimensions: ["device"] }),
+  ]);
+  return {
+    date, startDate, endDate,
+    rows: pairs.map(shapeRow).filter((r) => r.impressions >= MIN_ROW_IMPRESSIONS).sort((a, b) => b.impressions - a.impressions),
+    pages: pages.map(shapePageTotals).sort((a, b) => b.impressions - a.impressions),
+    devices: devices.map((d) => ({ device: d.keys[0], clicks: d.clicks, impressions: d.impressions, position: d.position })),
+  };
+}
+
+// The 28 days before a change, for one page: fixed once, cached in seo/.
+async function baselineFor(token: string, exp: Experiment): Promise<GscRow[]> {
+  const endDate = addDays(exp.date, -1);
+  const startDate = addDays(endDate, -(WINDOW_DAYS - 1));
+  const rows = await query(token, {
+    startDate, endDate, dimensions: ["query", "page"],
+    dimensionFilterGroups: [{ filters: [{ dimension: "page", operator: "equals", expression: SITE_URL + exp.page }] }],
+  });
+  return rows.map(shapeRow);
+}
+
+// ---------- files ----------
+function loadSnapshots(): Snapshot[] {
+  if (!existsSync(SNAP_DIR)) return [];
+  return readdirSync(SNAP_DIR).filter((f) => f.endsWith(".json")).sort()
+    .map((f) => JSON.parse(readFileSync(join(SNAP_DIR, f), "utf8")) as Snapshot);
+}
+
+function loadExperiments(): Experiment[] {
+  if (!existsSync(LEDGER)) return [];
+  const doc = Bun.YAML.parse(readFileSync(LEDGER, "utf8")) as any;
+  const list: any[] = Array.isArray(doc) ? doc : (doc?.experiments ?? []);
+  return list.map((e) => ({
+    id: String(e.id), date: String(e.date).slice(0, 10), page: String(e.page), change: String(e.change ?? ""),
+    queries: Array.isArray(e.queries) ? e.queries.map(String) : String(e.queries ?? "").split(",").map((s: string) => s.trim()).filter(Boolean),
+    status: e.status === "closed" ? "closed" : "open", verdict: e.verdict ? String(e.verdict) : undefined,
+  }));
+}
+
+interface Sources { sources: Map<string, PageSource>; bodies: Map<string, string>; names: Names }
+
+function stripMarkup(body: string): string {
+  return body.replace(/<!--[\s\S]*?-->/g, " ").replace(/\{%[\s\S]*?%\}/g, " ").replace(/\{\{[\s\S]*?\}\}/g, " ")
+    .replace(/<[^>]+>/g, " ").replace(/\]\([^)]*\)/g, "]").replace(/[#*_>`]/g, " ");
+}
+
+function loadSources(): Sources {
   const files: string[] = ["index.html"];
   for (const dir of ["_posts", "_comedians", "pages"]) {
     if (!existsSync(join(ROOT, dir))) continue;
     for (const f of readdirSync(join(ROOT, dir))) if (f.endsWith(".md")) files.push(`${dir}/${f}`);
   }
-  const map = new Map<string, PageSource>();
+  const sources = new Map<string, PageSource>();
+  const bodies = new Map<string, string>();
+  const names: Names = { people: [], shows: [] };
   for (const file of files) {
-    const src = pageSource(file, readFileSync(join(ROOT, file), "utf8"));
-    if (src) map.set(src.path, src);
+    const text = readFileSync(join(ROOT, file), "utf8");
+    const src = pageSource(file, text);
+    if (!src) continue;
+    sources.set(src.path, src);
+    const body = text.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "");
+    bodies.set(src.path, scopeOf(src.path) === "full" ? stripMarkup(body) : "");
+    if (file.startsWith("_comedians/")) names.people.push(src.title);
+    if (file.startsWith("_posts/")) {
+      const short = src.title.split(/\s*[•|:]\s*|\s+-\s+/)[0];
+      if (short && short.split(/\s+/).length <= 4) names.shows.push(short);
+    }
   }
-  return map;
+  return { sources, bodies, names };
+}
+
+// ---------- git ----------
+function git(...a: string[]): { ok: boolean; out: string } {
+  const r = spawnSync("git", a, { cwd: ROOT, encoding: "utf8" });
+  return { ok: r.status === 0, out: (r.stdout || "") + (r.stderr || "") };
+}
+
+function commitAndPush(date: string): string {
+  let r = git("add", "-A", "seo");
+  if (!r.ok) throw new Error(`git add failed: ${r.out}`);
+  if (git("diff", "--quiet", "--staged").ok) return "no changes";
+  r = git("commit", "-m", `chore: Search Console snapshot and report (${date})`);
+  if (!r.ok) throw new Error(`git commit failed: ${r.out}`);
+  r = git("push", "origin", "master");
+  if (r.ok) return "pushed";
+  if (/non-fast-forward|fetch first|rejected/i.test(r.out)) {
+    r = git("pull", "--rebase", "origin", "master");
+    if (!r.ok) throw new Error(`git pull --rebase failed: ${r.out}`);
+    r = git("push", "origin", "master");
+    if (!r.ok) throw new Error(`git push after rebase failed: ${r.out}`);
+    return "pushed after rebase";
+  }
+  throw new Error(`git push failed: ${r.out}`);
 }
 
 async function ping(suffix: "" | "/start" | "/fail", body?: string): Promise<void> {
@@ -129,35 +220,89 @@ async function ping(suffix: "" | "/start" | "/fail", body?: string): Promise<voi
   try { await fetch(HC_URL + suffix, { method: "POST", body }); } catch { /* best effort */ }
 }
 
-// ---------- main ----------
-async function main(): Promise<void> {
-  await ping("/start");
+// ---------- modes ----------
+function logChange(): void {
+  const [page, queries, change] = args.slice(LOG_AT + 1, LOG_AT + 4);
+  if (!page || !queries || !change) throw new Error('--log-change wants three arguments: <path> "<query, query>" "<what changed>"');
+  if (!page.startsWith("/")) throw new Error(`page wants a site path like /comedybrew/ (got ${page})`);
   const today = new Date().toISOString().slice(0, 10);
-  const { startDate, endDate } = reportWindow(today, DAYS);
-  const token = await accessToken();
-  const [pairRows, pageRows] = await Promise.all([
-    query(token, { startDate, endDate, dimensions: ["query", "page"], ...filters() }),
-    query(token, { startDate, endDate, dimensions: ["page"], ...filters() }),
-  ]);
-  const rows: GscRow[] = pairRows.map(shapeRow);
-  const totals: PageTotals[] = pageRows.map(shapePageTotals);
-  const groups = groupByPage(rows, BAND, totals, loadSources());
-  const generatedAt = new Date().toISOString();
-  const md = worksheet(groups, { startDate, endDate, band: BAND, site: SITE, generatedAt, totalRows: rows.length });
-  const lines = summaryLines(groups);
+  const existing = loadExperiments();
+  const exp: Experiment = { id: nextExperimentId(existing, today), date: today, page, queries: queries.split(",").map((s) => s.trim()).filter(Boolean), change, status: "open" };
+  const block = experimentYaml(exp);
+  if (DRY) { console.log("dry run, would append to seo/experiments.yml:\n" + block); return; }
+  mkdirSync(SEO_DIR, { recursive: true });
+  if (!existsSync(LEDGER)) writeFileSync(LEDGER, "# The experiments ledger: one entry per page change made for search. Read seo/README.md.\n# The weekly report judges each open entry after 28 days of final data. Close it by hand\n# (status: closed, verdict: ...) once the reading is in.\n");
+  appendFileSync(LEDGER, block);
+  console.log(`logged ${exp.id} in seo/experiments.yml:\n${block}Commit it with your page change so the date and the edit travel together.`);
+}
 
-  console.log(`Search Console ${DRY ? "(dry run) " : ""}${SITE}, ${startDate} to ${endDate}: ${rows.length} query/page pairs, ${groups.length} pages with queries at position ${BAND.minPosition}-${BAND.maxPosition} (${BAND.minImpressions}+ impressions)`);
+async function backfill(token: string): Promise<void> {
+  const today = new Date().toISOString().slice(0, 10);
+  const oldest = addDays(today, -HISTORY_DAYS);
+  const have = new Set(loadSnapshots().map((s) => s.date));
+  let taken = 0, skipped = 0;
+  for (let k = 1; ; k++) {
+    const date = addDays(today, -7 * k);
+    const { startDate } = windowFor(date);
+    if (startDate < oldest) break;
+    if (have.has(date)) { skipped++; continue; }
+    const snap = await takeSnapshot(token, date);
+    if (!DRY) { mkdirSync(SNAP_DIR, { recursive: true }); writeFileSync(join(SNAP_DIR, `${date}.json`), JSON.stringify(snap) + "\n"); }
+    taken++;
+    console.log(`  ${date}: ${snap.rows.length} pairs, ${snap.pages.length} pages, ${snap.pages.reduce((n, p) => n + p.clicks, 0)} clicks`);
+  }
+  console.log(`backfill ${DRY ? "(dry run) " : ""}done: ${taken} snapshots taken, ${skipped} already present`);
+}
+
+async function weekly(token: string): Promise<void> {
+  const today = new Date().toISOString().slice(0, 10);
+  let snaps = loadSnapshots();
+  let current = snaps.find((s) => s.date === today);
+  if (!current) {
+    current = await takeSnapshot(token, today);
+    if (!DRY) { mkdirSync(SNAP_DIR, { recursive: true }); writeFileSync(join(SNAP_DIR, `${today}.json`), JSON.stringify(current) + "\n"); }
+    snaps = [...snaps.filter((s) => s.date < today), current];
+  }
+  const previous = [...snaps].filter((s) => s.date < today).pop();
+  const disc = await discovery(token, today);
+  const { sources, bodies, names } = loadSources();
+  const curve = clickCurve(disc.rows, isBrandQuery);
+  const opps = scoreOpportunities({ rows: disc.rows, curve, sources, bodies, names });
+  const briefs = pageBriefs(opps, disc.pages, sources);
+
+  // Experiments: baseline fetched once and cached, latest from this snapshot.
+  const experiments = loadExperiments();
+  const baselines: Record<string, GscRow[]> = existsSync(BASELINES) ? JSON.parse(readFileSync(BASELINES, "utf8")) : {};
+  const readings: ExperimentReading[] = [];
+  let baselinesChanged = false;
+  for (const exp of experiments) {
+    if (!baselines[exp.id]) { baselines[exp.id] = await baselineFor(token, exp); baselinesChanged = true; }
+    readings.push(judge(exp, metricsFor(baselines[exp.id], exp.page, exp.queries), metricsFor(current.rows, exp.page, exp.queries), current.endDate));
+  }
+
+  const generatedAt = new Date().toISOString();
+  const md = renderReport({ snapshot: current, discovery: { startDate: disc.startDate, endDate: disc.endDate, rows: disc.rows.length }, curve, briefs, comedians: comedianTemplateBrief(briefs), readings, trend: trend(snaps), movers: movers(previous, current), generatedAt });
+  const lines = loopSummary(briefs, readings);
+  console.log(`Search Console ${DRY ? "(dry run) " : ""}${SITE}: snapshot ${current.startDate} to ${current.endDate} (${current.rows.length} pairs), discovery ${disc.startDate} to ${disc.endDate} (${disc.rows.length} pairs over ${disc.pages.length} pages), ${opps.length} opportunities on ${briefs.length} pages, ${readings.length} experiment(s), ${snaps.length} snapshot(s)`);
   for (const l of lines) console.log("  " + l);
-  if (groups.length > lines.length) console.log(`  ... ${groups.length - lines.length} more pages in the worksheet`);
   if (DRY) { console.log("dry run: nothing written"); return; }
 
-  mkdirSync(OUT_DIR, { recursive: true });
-  const stamp = `${today}-pos${BAND.minPosition}-${BAND.maxPosition}${ONLY_PAGE ? "-" + ONLY_PAGE.replace(/\W+/g, "_").replace(/^_|_$/g, "") : ""}${COUNTRY ? "-" + COUNTRY : ""}`;
-  writeFileSync(join(OUT_DIR, `${stamp}.md`), md);
-  writeFileSync(join(OUT_DIR, `${stamp}.json`), JSON.stringify({ site: SITE, startDate, endDate, generatedAt, band: BAND, rows, totals }, null, 1) + "\n");
-  writeFileSync(join(OUT_DIR, "latest.md"), md);
-  console.log(`wrote script/gsc-out/${stamp}.md (+ .json) and script/gsc-out/latest.md`);
-  await ping("", `${groups.length} pages in band ${BAND.minPosition}-${BAND.maxPosition}\n${lines.join("\n")}`);
+  mkdirSync(REPORT_DIR, { recursive: true });
+  writeFileSync(join(REPORT_DIR, `${today}.md`), md);
+  writeFileSync(join(SEO_DIR, "latest.md"), md);
+  if (baselinesChanged) writeFileSync(BASELINES, JSON.stringify(baselines) + "\n");
+  console.log(`wrote seo/reports/${today}.md and seo/latest.md`);
+  if (NO_PUSH) { console.log("files written, --no-push: skipping git"); return; }
+  console.log("git: " + commitAndPush(today));
+  await ping("", `${opps.length} opportunities on ${briefs.length} pages\n${lines.join("\n")}`);
+}
+
+async function main(): Promise<void> {
+  if (LOG_AT >= 0) { logChange(); return; }
+  await ping("/start");
+  const token = await accessToken();
+  if (BACKFILL) { await backfill(token); return; }
+  await weekly(token);
 }
 
 main().catch(async (err) => {

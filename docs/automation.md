@@ -56,6 +56,7 @@ Scheduled jobs first. "Git" says whether the script commits and pushes by itself
 | `post-events-to-google.rb` | Google Business Profile event posts for ROBIN's shows in the next 7 days, managed as a stack | cron, 09:30 daily | no |
 | `sync-comedians.rb` | Grist to `_comedians/` with resized photos; unpublishes who is no longer Live | cron, 10:05 daily | yes |
 | `ga-report.ts` | Google Analytics to the per-show `/reports/` pages | cron, 10:20 daily | yes |
+| `gsc-report.ts` | The Search Console learning loop: weekly snapshot, every page's search opportunities priced in clicks, verdicts on logged page changes, into `seo/` (`seo/README.md`) | cron, 10:40 Monday | yes |
 | `refresh-calendar-page.rb` | Regenerates `pages/1_calendar.md` from `calendar.yml` and the copy pools, validates it | cron, 11:00 Saturday and Sunday | yes |
 | `robins-calendar.ts` | ROBIN's shows into the Apple calendar shared with the bar staff, with a ticket count in the last three days | launchd, 11:05 daily | no |
 | `eventfrog-sales.ts` | Comedy Brew sales snapshots, the capacity guard, the Saturday review | by hand for now; cron lines below | no |
@@ -72,7 +73,6 @@ Run by hand when needed:
 | `probe-gbp-v4.rb` | Read-only "is the Google Business Profile API alive" check |
 | `build-gallery-data.rb`, `build-gallery-card.rb` | The `/moments/` gallery data (Apple Vision) and its share card |
 | `ga-setup.ts` | The GA property's configuration as code (`analytics.md`) |
-| `gsc-report.ts` | Search Console worksheet: queries at position 11 to 20 and the page that ranks for each, with its current title and description (`scripts.md`) |
 | `email-monthly.ts`, `email-thankyou.ts`, `email-promo.ts` | Build a Mailchimp draft and open it; they never send (`emails.md`) |
 | `meta-lists.ts`, `meta-adsets.ts`, `meta-bank.ts`, `meta-insights.ts` | Meta ads: customer lists, ad set targeting, the creative bank, the Friday readout (`meta-ads.md`) |
 
@@ -89,13 +89,14 @@ cd ~/Code/personal/inyourfacecomedy
 ruby script/refresh-next-event-dates.rb --dry-run --verbose
 bun script/robins-calendar.ts --dry-run
 bun script/ga-report.ts --dry-run
+bun script/gsc-report.ts --dry-run
 ruby script/post-events-to-google.rb --dry-run --verbose
 ruby script/sync-comedians.rb --dry-run
 ```
 
 A dry run writes nothing, commits nothing and pushes nothing. Drop the flag to do it for real; the
 jobs marked "Git: yes" above then commit and push by themselves, staging only their own paths.
-Flags that stop short of git: `--no-push` (`ga-report.ts`, `refresh-calendar-page.rb`),
+Flags that stop short of git: `--no-push` (`ga-report.ts`, `gsc-report.ts`, `refresh-calendar-page.rb`),
 `--no-commit` (`sync-comedians.rb`). Most scripts answer `--help` or print usage on a bad flag; the
 full flag lists are in `scripts.md`.
 
@@ -121,6 +122,8 @@ job lines as installed (comments shortened here):
 5 10 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.rbenv/versions/3.2.4/bin/ruby script/sync-comedians.rb >> script/sync-comedians.log 2>&1
 # IYF: GA reports
 20 10 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/ga-report.ts >> script/ga-report.log 2>&1
+# IYF: Search Console learning loop, Monday, after the GA job so two pushes never race
+40 10 * * 1 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/gsc-report.ts >> script/gsc-report.log 2>&1
 # IYF: regenerate /calendar/ on Saturday and Sunday (a missed day is covered by the next)
 0 11 * * 6,0 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.rbenv/versions/3.2.4/bin/ruby script/refresh-calendar-page.rb --no-refresh >> script/refresh.log 2>&1
 ```
@@ -225,6 +228,7 @@ script whose variable is unset skips the ping silently; nothing else changes.
 |---|---|---|
 | `HEALTHCHECKS_URL` | the four Ruby cron jobs, sharing one check | `refresh-next-event-dates.rb`, `refresh-calendar-page.rb`, `sync-comedians.rb`, `post-events-to-google.rb` (which prefers `GBP_HEALTHCHECKS_URL` if that is ever set) |
 | `GA_REPORTS_HEALTHCHECKS_URL` | the reports job | `ga-report.ts`. Also `/fail` when GA shows a new broken `/go/` link, so a typo in a campaign link alerts |
+| `GSC_HEALTHCHECKS_URL` | the Search Console loop | `gsc-report.ts`, weekly (period 7 days, grace 1 day) |
 | `EVENTFROG_HEALTHCHECKS_URL` | Comedy Brew sales | `eventfrog-sales.ts`: success per run, readout lines to `/log` (recorded, no alarm), `/fail` on a guard action, a sold-out show or a rejected key |
 | `META_ADS_HEALTHCHECKS_URL` | the Meta jobs, one check to start | `meta-lineup-ad.ts`, `meta-adsets.ts`, `meta-insights.ts` |
 | none yet | the staff calendar | `robins-calendar.ts` does not ping. Its failures are only in `script/robins-calendar.log` |
@@ -267,7 +271,7 @@ show by hand can never report a fake green for the weekend job.
 | A job has not run for days, no alert | was the Mac awake at that time; is the shared check masking it (above) |
 
 Logs: `script/refresh.log` (the 09:00 job and the weekend calendar page), `gbp.log`,
-`sync-comedians.log`, `ga-report.log`, `robins-calendar.log`.
+`sync-comedians.log`, `ga-report.log`, `gsc-report.log`, `robins-calendar.log`.
 
 ## Rules for writing a new script
 

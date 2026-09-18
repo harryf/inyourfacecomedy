@@ -74,6 +74,3 @@ script/eventfrog-out/
 
 # ROBINs staff calendar sync: state and the compiled EventKit helper
 script/robins-out/
-
-# Search Console worksheets from script/gsc-report.ts (raw rows and Markdown). Never commit.
-script/gsc-out/

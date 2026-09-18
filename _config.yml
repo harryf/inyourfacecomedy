@@ -116,7 +116,9 @@ exclude: [".jekyll-cache", ".jekyll-metadata", ".idea", "vendor/*", "assets/node
   # Remotion project for the video ads (meta-ads/video-plan.md): its own package.json and node_modules, never published.
   "video",
   # Google Business Profile poster: descriptions, state, setup doc — used by script/post-events-to-google.rb, never published.
-  "gbp"]
+  "gbp",
+  # Search Console learning loop: snapshots, experiments ledger, weekly reports (script/gsc-report.ts), never published.
+  "seo"]
 
 plugins:
   - jekyll-paginate

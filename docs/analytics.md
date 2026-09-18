@@ -12,7 +12,7 @@ the click tracker have their own doc (`campaign-links.md`); this one is the prop
 | Login | inyourfacecomedych@gmail.com (`?authuser=2` in the GA URL when several Google accounts are signed in) |
 | API access | Service account `ga-reports@inyourface-ga-mcp.iam.gserviceaccount.com`, key in `ga-reports-sa.json` (gitignored), path in `.env` `GA_REPORTS_CREDENTIALS`. Editor on the property since 2026-09-05 (it writes config and annotations; it cannot manage users) |
 | Scripts | `script/ga-report.ts` (reads, daily cron), `script/ga-setup.ts` (property config as code), `script/ga-annotations.ts` (show dates as annotations) |
-| Search Console | Domain property `sc-domain:inyourfacecomedy.ch`. The same service account is a Restricted user on it (added 2026-09-18) and the Search Console API is enabled on `inyourface-ga-mcp`; `script/gsc-report.ts` reads the performance data (`scripts.md`) |
+| Search Console | Domain property `sc-domain:inyourfacecomedy.ch`. The same service account is a Restricted user on it (added 2026-09-18) and the Search Console API is enabled on `inyourface-ga-mcp`; `script/gsc-report.ts` runs the weekly learning loop into `seo/` (`seo/README.md`) |
 
 ## What to expect in the first days (read before judging the reports)
 
