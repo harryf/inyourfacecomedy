@@ -656,4 +656,14 @@ this: it needs the event id, exact start and exact title. "Comedy @ ROBINs" was 
 2026-09-18 (backups in `script/robins-out/`); the daily run for it is plain
 `bun script/robins-calendar.ts` with `ROBINS_CALENDAR="Comedy @ ROBINs"` in `.env`.
 
+Cron (installed 2026-09-18, daily 11:05, after the 09:00 refresh and clear of the hourly Thursday sales
+poll; the script never touches git):
+
+```
+5 11 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/robins-calendar.ts >> script/robins-calendar.log 2>&1
+```
+
+If the log says "calendar access denied", cron lacks the Calendars permission: grant it in System
+Settings, Privacy & Security, Calendars.
+
 Tests: `script/__tests__/robins-calendar.test.ts` (room rule, title, key, notes, the human-edit rules, `--force`).
