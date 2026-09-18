@@ -16,8 +16,10 @@ laptop. The phone app hides most of these settings.
 **The experiment, 18 September to 31 October 2026.** After the first week's readout (below)
 Harry decided: keep going and spend more so the ad sets learn. Cold CHF 6 a day (was 3), Warm
 CHF 5 (was 3), Intent CHF 2 (its audience is the limit, not the money), the 2024 set as Harry
-runs it. `monthly_cap_chf` is 600 for the period; the account spending limit wants raising to
-CHF 1,000 in Ads Manager. Only two or three ads run per set at a time (`status: resting` in the
+runs it. `monthly_cap_chf` is 600 for the period. The account spending limit stays at CHF 600 too
+(Harry's choice): it is a running total, not a monthly one, and when it is reached Meta stops
+every ad in the account, so Harry watches it and resets the counter on the billing page (at
+about CHF 14 a day plus the show-week boosts, roughly once a month). Only two or three ads run per set at a time (`status: resting` in the
 bank files, `meta-bank.ts --sync`): round one is cold C7, C4, C8 (C8 rested the same day for the video ads, below), warm W6, W2, intent I1, I3,
 I5; C1, C2, C3 and W1 come back in round two, about 2 October. The sizing: Comedy Brew's online
 ticket income is about CHF 650 in a typical month (median of the last twelve; 126 nights in the
