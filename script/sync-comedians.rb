@@ -601,11 +601,15 @@ META_DESCRIPTION_MAX = 200
 # Build the `<meta name="description">` text for one comedian. Uses the bio if
 # present (collapsed to one line, word-boundary truncated with ellipsis), else
 # falls back to a brand-voiced one-liner so the SERP snippet stays useful.
+# Every description opens with the same short pattern (docs/search-console.md): the
+# words comedian searches add that a bare name lacks. The bio follows untouched.
+DESCRIPTION_PREFIX = "Comedian on IN YOUR FACE Comedy stages in Zürich. "
+
 def description_for(name, bio)
-  cleaned = bio.to_s.gsub(/\s+/, " ").strip
-  if cleaned.empty?
-    "#{name} performs English stand-up comedy with IN YOUR FACE in Zürich, Switzerland."
-  elsif cleaned.length <= META_DESCRIPTION_MAX
+  bio_clean = bio.to_s.gsub(/\s+/, " ").strip
+  return "#{name} performs English stand-up comedy with IN YOUR FACE in Zürich, Switzerland." if bio_clean.empty?
+  cleaned = DESCRIPTION_PREFIX + bio_clean
+  if cleaned.length <= META_DESCRIPTION_MAX
     cleaned
   else
     trimmed = cleaned[0, META_DESCRIPTION_MAX]
@@ -968,12 +972,15 @@ end
 # Choice-List cell — so reordering a multi-tag Priority in Grist doesn't force
 # a needless rewrite when the emitted `priority:` line is unchanged.
 def comedian_data_sig(fields)
-  payload = PUBLIC_FIELDS.map do |k|
+  # The description pattern is part of the fingerprint: change DESCRIPTION_PREFIX and
+  # every page is rewritten on the next run (docs/search-console.md).
+  lines = ["template=#{DESCRIPTION_PREFIX.inspect}"]
+  lines += PUBLIC_FIELDS.map do |k|
     value = (k == "Priority") ? extract_priority(fields[k]) : fields[k]
     value = "" if value.nil?  # treat absent (nil) and empty ("") identically — both render as ""
     "#{k}=#{value.inspect}"
-  end.join("\n")
-  Digest::SHA256.hexdigest(payload)
+  end
+  Digest::SHA256.hexdigest(lines.join("\n"))
 end
 
 def main

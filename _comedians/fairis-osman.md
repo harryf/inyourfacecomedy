@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Fairis Osman"
-description: "🇲🇾 Comedian in Switzerland🇨🇭 Comedy Basel Champion 2022 🏆"
-last_modified_at: "2026-05-30T11:09:08+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. 🇲🇾 Comedian in Switzerland🇨🇭 Comedy Basel Champion 2022 🏆"
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "fairis-osman"
 photo: "/assets/img/comedians/fairis-osman.jpg"
 instagram: "https://instagram.com/fairisosman"

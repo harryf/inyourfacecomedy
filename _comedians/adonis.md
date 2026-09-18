@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Adonis"
-description: "🎤 Stand-up Comedian🇨🇭 / 🇱🇧"
-last_modified_at: "2026-05-30T12:02:54+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. 🎤 Stand-up Comedian🇨🇭 / 🇱🇧"
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "adonis"
 photo: "/assets/img/comedians/adonis.jpg"
 instagram: "https://instagram.com/adoniscomedy_"

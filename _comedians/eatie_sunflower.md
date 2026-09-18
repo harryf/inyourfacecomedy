@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Elli"
-description: "Welsh person in Switzerland. Strange but friendly. Absolutely Delightful, Heroic and Determined."
-last_modified_at: "2026-06-03T10:13:21+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. Welsh person in Switzerland. Strange but friendly. Absolutely Delightful, Heroic and Determined."
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "eatie_sunflower"
 photo: "/assets/img/comedians/eatie_sunflower.jpg"
 instagram: "https://instagram.com/eatie_sunflower"

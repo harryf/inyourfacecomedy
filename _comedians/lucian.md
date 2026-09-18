@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Lucian"
-description: "A Romanian comedian transplanted to Switzerland fixing his trauma on stage."
-last_modified_at: "2026-05-30T12:30:04+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. A Romanian comedian transplanted to Switzerland fixing his trauma on stage."
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "lucian"
 photo: "/assets/img/comedians/lucian.jpg"
 instagram: "https://instagram.com/todirica.lucian"

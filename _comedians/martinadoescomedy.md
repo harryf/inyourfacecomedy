@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Martina"
-description: "Martina does comedy, Funny Women Zurich Showcase and Open Mics, and sometimes her laundry. Expect comedic chaos that's somehow cute. Think hurricane but pocket-sized. She performs all over…"
-last_modified_at: "2026-05-29T21:20:43+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. Martina does comedy, Funny Women Zurich Showcase and Open Mics, and sometimes her laundry. Expect comedic chaos that's somehow cute. Think hurricane…"
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "martinadoescomedy"
 photo: "/assets/img/comedians/martinadoescomedy.jpg"
 instagram: "https://instagram.com/martinadoescomedy"

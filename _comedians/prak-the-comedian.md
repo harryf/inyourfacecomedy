@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Prak The Comedian"
-description: "I'm supposed to be going on a blind date..."
-last_modified_at: "2026-05-29T21:21:18+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. I'm supposed to be going on a blind date..."
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "prak-the-comedian"
 photo: "/assets/img/comedians/prak-the-comedian.jpg"
 instagram: "https://instagram.com/returnoftheprak"

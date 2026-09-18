@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Pavel Zborik"
-description: "Pavel Zborik grew up in Russia and Germany and moved to Switzerland to work in the laundry business (mostly wealth management). Between 3 managers, 2 cats and a wife, he’s only left with the stage to…"
-last_modified_at: "2026-09-11T21:27:15+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. Pavel Zborik grew up in Russia and Germany and moved to Switzerland to work in the laundry business (mostly wealth management). Between 3 managers, 2…"
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "pavel-zborik"
 photo: "/assets/img/comedians/pavel-zborik.jpg"
 instagram: "https://instagram.com/pavelcomedy"

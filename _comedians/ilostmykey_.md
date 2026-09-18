@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Kristi"
-description: "✨✨✨"
-last_modified_at: "2026-09-13T17:24:44+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. ✨✨✨"
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "ilostmykey_"
 photo: "/assets/img/comedians/ilostmykey_.jpg"
 instagram: "https://instagram.com/ilostmykey_"

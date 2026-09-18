@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Qiyan"
-description: "🇨🇳 Chinese comedian in Switzerland🇨🇭"
-last_modified_at: "2026-09-13T17:24:44+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. 🇨🇳 Chinese comedian in Switzerland🇨🇭"
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "qiyan"
 photo: "/assets/img/comedians/qiyan.jpg"
 instagram: "https://instagram.com/qiyancomedy"

@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Zeina"
-description: "Mom of 2. I go to open mics to sit down for 5 minutes. The only way to stand out in stand-up? Sit down. 🪑"
-last_modified_at: "2026-05-29T21:21:10+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. Mom of 2. I go to open mics to sit down for 5 minutes. The only way to stand out in stand-up? Sit down. 🪑"
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "zeina"
 photo: "/assets/img/comedians/zeina.jpg"
 instagram: "https://instagram.com/sitdowncomedy89"

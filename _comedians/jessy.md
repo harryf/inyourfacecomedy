@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Jessy"
-description: "Real Life Stories Humor is a Ventil for not getting insane and Stand up is my therapy"
-last_modified_at: "2026-05-30T11:45:01+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. Real Life Stories Humor is a Ventil for not getting insane and Stand up is my therapy"
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "jessy"
 photo: "/assets/img/comedians/jessy.jpg"
 instagram: "https://instagram.com/jess.man1981"

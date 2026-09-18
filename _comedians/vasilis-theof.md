@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Vasilis Theof"
-description: "Host of Random Facts Exchange"
-last_modified_at: "2026-05-30T19:00:01+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. Host of Random Facts Exchange"
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "vasilis-theof"
 photo: "/assets/img/comedians/vasilis-theof.jpg"
 instagram: "https://instagram.com/theof_vasilis"

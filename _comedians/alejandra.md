@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Alejandra"
-description: "🎤 Stand-up comedian born in 🇨🇴 & raised in🇨🇭 😎Finding the funny in life’s little adventures"
-last_modified_at: "2026-05-29T22:34:07+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. 🎤 Stand-up comedian born in 🇨🇴 & raised in🇨🇭 😎Finding the funny in life’s little adventures"
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "alejandra"
 photo: "/assets/img/comedians/alejandra.jpg"
 instagram: "https://instagram.com/alejandracomedy7"

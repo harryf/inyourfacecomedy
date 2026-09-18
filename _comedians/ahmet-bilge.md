@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Ahmet Bilge"
-description: "💈Comedy is my thing🔪🇹🇷🧿🇨🇭 ✌️Turkish in Switzerland but i travel the world🌍"
-last_modified_at: "2026-06-08T06:14:39+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. 💈Comedy is my thing🔪🇹🇷🧿🇨🇭 ✌️Turkish in Switzerland but i travel the world🌍"
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "ahmet-bilge"
 photo: "/assets/img/comedians/ahmet-bilge.jpg"
 instagram: "https://instagram.com/ahmetbilgecomedy"

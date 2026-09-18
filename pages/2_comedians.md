@@ -5,7 +5,7 @@ nav_title: Comedians
 title_override: "Comedians"
 subtitle: "The performers you'll see at IN YOUR FACE shows."
 description: "Meet the stand-up comedians who perform at IN YOUR FACE Comedy in Zürich. Bios, photos, and links to their socials."
-last_modified_at: 2026-09-18T08:51:25+00:00
+last_modified_at: 2026-09-18T19:28:24+00:00
 permalink: /comedians/
 image: "/assets/img/thumbs/comedians_card.png"
 thumbnail: "assets/img/thumbs/comedians_card.png"

@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Richard Cunha"
-description: "🇧🇷 Brazilian stand-up comedian in Switzerland 🇨🇭"
-last_modified_at: "2026-05-29T23:00:21+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. 🇧🇷 Brazilian stand-up comedian in Switzerland 🇨🇭"
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "richard-cunha"
 photo: "/assets/img/comedians/richard-cunha.jpg"
 instagram: "https://instagram.com/richardcunhacomedy"

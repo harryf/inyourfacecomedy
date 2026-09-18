@@ -19,3 +19,15 @@
   queries: ["swiss comedians", "swiss stand up comedians", "swiss comedian"]
   change: "New section 'Swiss comedians on our stages' listing the comedians from Switzerland with a profile (front matter swiss_comedians), linking to their pages and to /comedians/"
   status: open
+- id: exp-2026-09-18-4
+  date: 2026-09-18
+  page: /comedians/teddy-hall/
+  queries: ["teddy hall comedy", "teddy hall", "teddy hall comedian"]
+  change: "Comedian title pattern '<Name>, Stand-up Comedian | IN YOUR FACE Comedy Zürich' (head.liquid) and meta description prefix 'Comedian on IN YOUR FACE Comedy stages in Zürich.' (sync-comedians.rb); applies to all 64 profiles, bios untouched"
+  status: open
+- id: exp-2026-09-18-5
+  date: 2026-09-18
+  page: /comedians/martinadoescomedy/
+  queries: ["martina comedian", "martina in switzerland", "martina komikerin"]
+  change: "Same comedian title pattern and description prefix as exp-2026-09-18-4 (second representative page)"
+  status: open

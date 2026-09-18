@@ -80,8 +80,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         })(window, document, "clarity", "script", "{{ site.ms_clarify }}");
     </script>
   {% endif %}
-  <!-- seo tags (og:image, og:type, og:title, og:description, twitter:title/description/card/image emitted by jekyll-seo-tag) -->
+  <!-- seo tags (og:image, og:type, og:title, og:description, twitter:title/description/card/image emitted by jekyll-seo-tag).
+       Comedian pages get a <title> pattern of their own (the page title stays the bare name for the H1, og:title and
+       the Person JSON-LD): the words their search queries add are "comedian", "comedy" and "Zürich". docs/search-console.md -->
+  {% if page.layout == 'comedian' %}
+  {% seo title=false %}
+  <title>{{ page.title }}, Stand-up Comedian | IN YOUR FACE Comedy Zürich</title>
+  {% else %}
   {% seo %}
+  {% endif %}
 
   <!-- Schema.org JSON-LD (Sprint-1 task 01) -->
   {% if page.next_event_date %}{% include jsonld-event.html %}{% endif %}

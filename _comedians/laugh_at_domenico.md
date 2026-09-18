@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Domenico"
-description: "I have the resources to develop punchlines within the next few months."
-last_modified_at: "2026-06-08T06:14:38+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. I have the resources to develop punchlines within the next few months."
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "laugh_at_domenico"
 photo: "/assets/img/comedians/laugh_at_domenico.jpg"
 instagram: "https://instagram.com/laugh_at_domenico"

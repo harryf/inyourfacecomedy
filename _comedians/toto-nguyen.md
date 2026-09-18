@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Toto Nguyen"
-description: "🇭🇺🇻🇳 Telling stories. Sometimes they’re funny."
-last_modified_at: "2026-05-29T21:21:16+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. 🇭🇺🇻🇳 Telling stories. Sometimes they’re funny."
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "toto-nguyen"
 photo: "/assets/img/comedians/toto-nguyen.jpg"
 instagram: "https://instagram.com/totonguyencomedy"

@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Eternal Damnation"
-description: "Your Cosmo Singing Queer from Zurich"
-last_modified_at: "2026-08-24T14:33:47+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. Your Cosmo Singing Queer from Zurich"
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "eternal-damnation"
 photo: "/assets/img/comedians/eternal-damnation.jpg"
 instagram: "https://instagram.com/eternal.damnation_"

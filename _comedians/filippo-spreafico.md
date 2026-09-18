@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Filippo Spreafico"
-description: "Italian comedian Filippo Spreafico has performed on Comedy Central Italy and RAI, took his hit show Italian Rhapsody to Edinburgh in 2026 and tours across Europe and the UK in both English and…"
-last_modified_at: "2026-09-18T08:51:25+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. Italian comedian Filippo Spreafico has performed on Comedy Central Italy and RAI, took his hit show Italian Rhapsody to Edinburgh in 2026 and tours…"
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "filippo-spreafico"
 photo: "/assets/img/comedians/filippo-spreafico.jpg"
 instagram: "https://instagram.com/spreafig"

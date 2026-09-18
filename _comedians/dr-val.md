@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Dr Val"
-description: "Stand Up 🎤✨️ PhD Survivor 🧪🎓 Based in Switzerland 🇨🇭"
-last_modified_at: "2026-05-29T22:02:40+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. Stand Up 🎤✨️ PhD Survivor 🧪🎓 Based in Switzerland 🇨🇭"
+last_modified_at: "2026-09-18T19:28:24+00:00"
 slug: "dr-val"
 photo: "/assets/img/comedians/dr-val.jpg"
 instagram: "https://instagram.com/dr.valcomedy"
