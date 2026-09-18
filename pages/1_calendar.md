@@ -1,10 +1,10 @@
 ---
 layout: page
-title: "Comedy in Zürich Tonight & This Week"
+title: "Comedy Zürich 2026: Calendar of English Stand-up Shows"
 nav_title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
-description: "See English stand-up comedy in Zürich tonight, this week, and beyond. Full calendar with dates, venues, and ticket links. Updated weekly."
+description: "Every IN YOUR FACE comedy show in Zürich, month by month through 2026: dates, venues and ticket links for English stand-up nights and open mics. Comedy Veranstaltungen in Zürich auf Englisch. Updated weekly."
 last_modified_at: 2026-09-18T12:16:21+00:00
 permalink: /calendar/
 feature-img: "assets/img/pages/follow.png"
@@ -21,6 +21,8 @@ Discover all upcoming **English stand-up comedy shows in Zurich** from IN YOUR F
 This calendar lists show dates, venues and ticket links for our regular comedy nights and special events throughout 2026.
 
 Whether you are looking for open mics, featured shows or touring comedians, you will find all upcoming performances here.
+
+Auf Deutsch: alle Comedy Veranstaltungen und Auftritte von IN YOUR FACE in Zürich 2026 auf einen Blick, gespielt auf Englisch (kein Schweizerdeutsch nötig).
 
 <h2 class="iyf-month-heading">September 2026</h2>
 <p class="iyf-month-flavor">Precision watches, flawless trains, zero tolerance for bad cheese, and now a month of people determined to make you laugh.</p>

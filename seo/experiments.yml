@@ -31,3 +31,9 @@
   queries: ["martina comedian", "martina in switzerland", "martina komikerin"]
   change: "Same comedian title pattern and description prefix as exp-2026-09-18-4 (second representative page)"
   status: open
+- id: exp-2026-09-18-6
+  date: 2026-09-18
+  page: /calendar/
+  queries: ["comedy zürich 2026", "comedy shows 2026", "comedy 2026", "comedy september 2026", "comedy schweiz 2026", "comedy veranstaltungen 2026", "comedy auftritte 2026"]
+  change: "Calendar title now 'Comedy Zürich 2026: Calendar of English Stand-up Shows' (was 'Comedy in Zürich Tonight & This Week', a niche the home page already wins), description rewritten for dated searches with a German phrase, one German intro line added; month headings unchanged"
+  status: open

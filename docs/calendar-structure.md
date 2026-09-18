@@ -29,7 +29,7 @@ The page's YAML front matter wires up the layout, the hero button, the SEO schem
 ```yaml
 ---
 layout: page                 # provides the hero header + the Jump button slot (_layouts/page.liquid)
-title: "Comedy in Zürich Tonight & This Week"
+title: "Comedy Zürich 2026: Calendar of English Stand-up Shows"   # carries the year: bump it each January (docs/search-console.md, the calendar owns dated searches)
 nav_title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
