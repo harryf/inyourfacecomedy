@@ -35,7 +35,10 @@ same words, and `cold-C12v` (Departures), which has no still beside it. Each sho
 Stories and Reels and the 4:5 image on feeds. C8 rests to make room, so Cold runs C7, C4, C4v
 and C12v. How to judge them: compare `cold-C4v` with `cold-C4` on Stories and Reels only, cost per
 landing page view, past the 30-view floor, after two to three weeks; the video wins at 25
-percent cheaper (`meta-ads/video-plan.md`, "How we will know"). Harry kept the flap sound in
+percent cheaper (`meta-ads/video-plan.md`, "How we will know"). Following up on a video: someone who watches half of
+one without tapping joins the hand-made audience "IYF Video viewers 50%" (`meta-bank.ts
+--video-audience` says which videos it must hold); Warm includes it and Cold excludes it once
+its id is in config as `audiences.video_viewers`. Harry kept the flap sound in
 Departures, to be licensed later if needed (`meta-ads/creative/audio/SOURCES.md`, not in git).
 
 **Buyers is parked (2026-09-18).** The ad set never delivered one impression in its life

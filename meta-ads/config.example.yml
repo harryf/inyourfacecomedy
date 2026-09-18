@@ -27,6 +27,8 @@ audiences:
   buyers_recent: ""                   # phase 2, customer list from meta-ads/lists/buyers-recent-*.csv
   buyers_lapsed: ""                   # phase 2, customer list from meta-ads/lists/buyers-lapsed-*.csv (empty if merged)
   buyers_lookalike: ""                # phase 2 step 5, 1% Switzerland, experiments only
+  # video_viewers: ""                 # made by hand ("IYF Video viewers 50%", see meta-bank.ts --video-audience); once it has
+  #                                   # an id, uncomment and add video_viewers to targeting.warm.include and targeting.cold.exclude
 
 custom_conversion_id: ""              # phase 2 step 2, "Ticket click" on TicketRedirect
 

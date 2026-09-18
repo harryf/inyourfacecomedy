@@ -11,6 +11,7 @@
 //   bun script/meta-bank.ts --push-video --dry-run           # the video ads that would be made (concepts with a `video:` block)
 //   bun script/meta-bank.ts --push-video --validate          # upload the video, have Meta check the creative, make no ad
 //   bun script/meta-bank.ts --push-video --activate          # upload, creative, one ad per concept named <group>-<id>v, on
+//   bun script/meta-bank.ts --video-audience                 # helper for the hand-made "watched half of a bank video" audience that feeds Warm
 //   bun script/meta-bank.ts --sync                           # diff: ads whose on/off state differs from the bank files' status
 //   bun script/meta-bank.ts --sync --apply                   # pause the resting and retired ones, switch the live ones back on (asks first)
 //
@@ -41,6 +42,8 @@ const USAGE = `usage: bun script/meta-bank.ts (--render | --push | --push-video 
                  the ad <group>-<id>v (the video on Stories and Reels, the 4:5 image on feeds)
     --validate     upload, let Meta check the creative (validate_only), create no creative and no ad
     --activate, --dry-run   as for --push
+  --video-audience   the audience of people who watched half of any bank video (made by hand in Ads Manager):
+                 lists the videos it has to hold, finds it by name, says what config still needs
   --restory      move ads pushed with one image onto the two-image creative (post for feeds, story for Stories and Reels)
     --validate     ask Meta to check each new creative (validate_only), write nothing
     --dry-run      list the ads that would move
@@ -487,6 +490,37 @@ async function pushVideo(args: ReturnType<typeof parseArgs>, onlyGroup: Group | 
   log(`\n${dryRun ? "dry run, nothing written" : validate ? "validate only: the videos and images are in the library, no creative and no ad made" : `${created} video ad(s) created${activate ? " and switched on (Meta reviews new ads, usually under a day)" : ", left PAUSED; --sync --apply switches the live ones on"}`}`);
 }
 
+// --video-audience: the people who watched at least half of any bank video. Warm includes
+// that audience and Cold excludes it, which is how someone who watched a Cold video without
+// tapping anything moves on to Warm. The audience is made BY HAND in Ads Manager: through the
+// API Meta refuses a video that was uploaded to the ad account ("isn't associated with a
+// Page", error 2654, with or without the Page as context_id; tried 2026-09-18), and the ads'
+// Page posts expose no Page-owned copy. This step is the helper around that: it names the
+// videos the audience has to hold, finds the audience by name and reports whether config
+// knows it. Rerun after every new --push-video and add the new video in Ads Manager.
+export const VIDEO_AUDIENCE_NAME = "IYF Video viewers 50%";
+export function bankVideoIds(state: PushState): { ad: string; video_id: string }[] {
+  return Object.entries(state).filter(([, e]) => e.video_id).map(([ad, e]) => ({ ad, video_id: e.video_id! })).sort((x, y) => x.ad.localeCompare(y.ad));
+}
+async function videoAudience() {
+  const config = loadConfig();
+  const meta = metaFromEnv(config);
+  const videos = bankVideoIds(readState());
+  if (!videos.length) { log("no uploaded videos in state.json; run --push-video first"); return; }
+  log(`the audience "${VIDEO_AUDIENCE_NAME}" has to hold ${videos.length} video(s):`);
+  for (const v of videos) log(`  ${v.ad}: video ${v.video_id}`);
+  const all = await meta.getAll(`${config.ad_account_id}/customaudiences`, { fields: "id,name,subtype,approximate_count_lower_bound,approximate_count_upper_bound,operation_status" });
+  const found = all.find((x: any) => x.name === VIDEO_AUDIENCE_NAME);
+  if (!found) {
+    log(`\nnot on Meta yet. In Ads Manager: Audiences, Create audience, Custom audience, Video, "People who viewed at least 50% of your video", Choose videos (pick by campaign "Comedy Brew" or paste the ids above), retention 365 days, name it exactly "${VIDEO_AUDIENCE_NAME}". Then run this again.`);
+    return;
+  }
+  log(`\nfound: audience ${found.id}, about ${found.approximate_count_lower_bound} to ${found.approximate_count_upper_bound} people (${found.operation_status?.description || "status unknown"})`);
+  const inConfig = config.audiences?.video_viewers;
+  if (inConfig === found.id) log("config knows it (audiences.video_viewers); meta-adsets.ts shows whether Warm includes and Cold excludes it");
+  else log(`config ${inConfig ? `has a different id (${inConfig})` : "does not know it"}: set audiences.video_viewers: "${found.id}" in meta-ads/config.yml, add video_viewers to targeting.warm.include and targeting.cold.exclude, then run meta-adsets.ts`);
+}
+
 // --sync: make each pushed ad's on/off state match its concept's status. Diff by default.
 async function sync(args: ReturnType<typeof parseArgs>, onlyGroup: Group | undefined, only: string[]) {
   const apply = flagBool(args, "apply") && !flagBool(args, "dry-run");
@@ -519,6 +553,7 @@ async function main() {
   if (onlyGroup && !GROUPS.includes(onlyGroup)) fail(`--group must be one of ${GROUPS.join(", ")}`);
   const only = (flagString(args, "only") || "").split(",").map((s) => s.trim()).filter(Boolean);
   if (flagBool(args, "push-video")) return pushVideo(args, onlyGroup, only);
+  if (flagBool(args, "video-audience")) return videoAudience();
   if (flagBool(args, "push")) return push(args, onlyGroup, only);
   if (flagBool(args, "restory")) return restory(args, onlyGroup, only);
   if (flagBool(args, "sync")) return sync(args, onlyGroup, only);

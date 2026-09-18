@@ -524,6 +524,17 @@ that with a single text on 2026-09-18. `--sync` treats the video ad like the sti
 the concept's `status`.
 
 ```
+bun script/meta-bank.ts --video-audience          # read only: the videos the audience must hold, and whether config knows it
+```
+
+`--video-audience` is the helper for the one audience made by hand, "IYF Video viewers 50%"
+(watched at least half of a bank video, 365 days). Through the API Meta refuses a video that
+was uploaded to the ad account (error 2654, "isn't associated with a Page"), so the audience is
+created in Ads Manager; the helper prints the video ids to pick, finds the audience by its exact
+name, and says what `meta-ads/config.yml` still needs. Run it after every new `--push-video` and
+add the new video to the audience in Ads Manager.
+
+```
 bun script/meta-bank.ts --restory --dry-run       # ads in state.json still on the first push's one-image creative
 bun script/meta-bank.ts --restory --validate      # Meta checks each new creative (validate_only), writes nothing
 bun script/meta-bank.ts --restory                 # new creative per ad, the ad moved onto it, old id kept in state.json
