@@ -10,7 +10,7 @@ concepts:
     body: "Every Thursday. Plan the week around it. Comedy Brew at ROBIN's, ten comedians, two minutes from Central."
     title: "Thursdays are sorted"
     image: { style: station, headline: "Thursdays are sorted.", sub: "Comedy Brew, ROBIN's | Doors 19:00, show 19:30 | Two minutes from Central" }
-    status: live
+    status: resting      # round one (2026-09-18): paused so W6 and W2 get fed; back in round two
   - id: W2
     person: The follower who has not been
     body: "Following is nice. Sitting in the room is better. Thursday, 19:30, ROBIN's, ten acts."

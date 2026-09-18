@@ -8,20 +8,25 @@
 //   bun script/meta-bank.ts --push --activate                # upload, one single-text creative and one ad per concept, on
 //   bun script/meta-bank.ts --restory --validate             # Meta checks the two-image creative for ads pushed with one image
 //   bun script/meta-bank.ts --restory                        # and moves them onto it
+//   bun script/meta-bank.ts --sync                           # diff: ads whose on/off state differs from the bank files' status
+//   bun script/meta-bank.ts --sync --apply                   # pause the resting and retired ones, switch the live ones back on (asks first)
 //
 // Output: meta-ads/creative/bank/<group>/<id>-post.png and -story.png (gitignored) and a
 // contact sheet meta-ads/creative/bank/index.html to look at them all in one page. --push
 // records what it made in meta-ads/creative/bank/state.json (gitignored) and never creates
-// the same concept twice; the bank files' `status` is the human intent (live, bench, retired).
+// the same concept twice; the bank files' `status` is the human intent (live, resting, bench,
+// retired). Meta feeds one or two ads per ad set and starves the rest, so at small budgets only
+// two or three run at a time: `resting` is an ad that exists, is paused on purpose and comes
+// back in a later round; --sync makes Meta match.
 
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { join, extname } from "node:path";
-import { fail, flagBool, flagString, log, parseArgs, warn } from "./lib/email/cli";
+import { confirm, fail, flagBool, flagString, log, parseArgs, warn } from "./lib/email/cli";
 import { REPO_ROOT, loadConfig, metaFromEnv, type MetaConfig } from "./lib/meta-api";
 import { evaluate, navigate, openBrowser, pngBytes } from "./lib/headless";
 
-const USAGE = `usage: bun script/meta-bank.ts (--render | --push) [options]
+const USAGE = `usage: bun script/meta-bank.ts (--render | --push | --restory | --sync) [options]
 
   --render       render the bank's images
     --local        serve _site/ on a local port for the render (build the site first)
@@ -32,6 +37,8 @@ const USAGE = `usage: bun script/meta-bank.ts (--render | --push) [options]
   --restory      move ads pushed with one image onto the two-image creative (post for feeds, story for Stories and Reels)
     --validate     ask Meta to check each new creative (validate_only), write nothing
     --dry-run      list the ads that would move
+  --sync         compare each pushed ad's on/off state with its concept's status (live = on, anything else = off)
+    --apply        write the differences (asks first; --yes skips the question)
   --group KEY    one group (default all three)
   --only IDS     comma-separated concept ids (with --push: pushed even when status is bench)
 `;
@@ -47,7 +54,7 @@ export const CREATIVE_DIR = join(REPO_ROOT, "meta-ads", "creative", "bank");   /
 export interface Concept {
   id: string; person: string; body: string; title: string; description?: string;
   image: { style: string; photo?: string; bg?: string; headline?: string; sub?: string; week_style?: string; note?: string };
-  status: "live" | "bench" | "retired";
+  status: "live" | "resting" | "bench" | "retired";
 }
 export interface Bank { adset: Group; link: { show: string; utm_campaign: string }; description: string; concepts: Concept[] }
 
@@ -220,6 +227,24 @@ export function restoryList(state: PushState, banks: Partial<Record<Group, Bank>
   return out;
 }
 
+// --sync, pure part: which pushed ads are on when their concept is not live, or off when it
+// is. `statuses` is each ad's configured status on Meta (ACTIVE or PAUSED); an ad missing from
+// it (deleted on Meta) and a concept dropped from the bank are left alone.
+export function syncPlan(state: PushState, banks: Partial<Record<Group, Bank>>, statuses: Record<string, string>, onlyGroup?: Group, only: string[] = []): { name: string; ad_id: string; concept_status: Concept["status"]; from: string; to: "ACTIVE" | "PAUSED" }[] {
+  const out = [];
+  for (const [name, entry] of Object.entries(state)) {
+    const [group, id] = name.split("-") as [Group, string];
+    if (onlyGroup && group !== onlyGroup) continue;
+    if (only.length && !only.includes(id)) continue;
+    const concept = banks[group]?.concepts.find((c) => c.id === id);
+    const from = statuses[entry.ad_id];
+    if (!concept || !from) continue;
+    const to = concept.status === "live" ? "ACTIVE" : "PAUSED";
+    if (from !== to) out.push({ name, ad_id: entry.ad_id, concept_status: concept.status, from, to } as const);
+  }
+  return out;
+}
+
 // Meta's per-account request limit (code 17) trips after about ten creations in a row; wait
 // and try again rather than leaving the run half done.
 async function patient<T>(what: string, fn: () => Promise<T>, waits = [60, 120, 180]): Promise<T> {
@@ -346,6 +371,32 @@ async function push(args: ReturnType<typeof parseArgs>, onlyGroup: Group | undef
   log(`\n${dryRun ? "dry run, nothing written" : `${created} ad(s) created${activate ? " and switched on (Meta reviews new ads, usually under a day)" : ", left PAUSED; --activate to switch them on"}`}${clipsSkipped.length ? `; clips to make by hand: ${clipsSkipped.join(", ")}` : ""}`);
 }
 
+// --sync: make each pushed ad's on/off state match its concept's status. Diff by default.
+async function sync(args: ReturnType<typeof parseArgs>, onlyGroup: Group | undefined, only: string[]) {
+  const apply = flagBool(args, "apply") && !flagBool(args, "dry-run");
+  const config = loadConfig();
+  const meta = metaFromEnv(config);
+  const state = readState();
+  const banks: Partial<Record<Group, Bank>> = {};
+  for (const g of GROUPS) banks[g] = loadBank(g);
+  const statuses: Record<string, string> = {};
+  for (const g of GROUPS) {
+    if (onlyGroup && g !== onlyGroup) continue;
+    const ads = await patient(`${g} ads`, () => meta.getAll(`${config.adsets[g]}/ads`, { fields: "id,name,status" }));
+    for (const a of ads) statuses[a.id] = a.status;
+  }
+  const plan = syncPlan(state, banks, statuses, onlyGroup, only);
+  if (!plan.length) { log("in sync: every pushed ad's on/off state matches its concept's status"); return; }
+  for (const p of plan) log(`${p.name}: concept is ${p.concept_status}, ad ${p.ad_id} is ${p.from} -> ${p.to}`);
+  if (!apply) { log("diff only; --apply to write"); return; }
+  if (!flagBool(args, "yes") && !(await confirm(`write ${plan.length} status change(s) to Meta?`))) { log("nothing written"); return; }
+  for (const p of plan) {
+    await patient(p.name, () => meta.post(p.ad_id, { status: p.to }));
+    const back = await meta.get(p.ad_id, { fields: "status,effective_status" });
+    log(`${p.name}: now ${back.status}/${back.effective_status}`);
+  }
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const onlyGroup = flagString(args, "group") as Group | undefined;
@@ -353,6 +404,7 @@ async function main() {
   const only = (flagString(args, "only") || "").split(",").map((s) => s.trim()).filter(Boolean);
   if (flagBool(args, "push")) return push(args, onlyGroup, only);
   if (flagBool(args, "restory")) return restory(args, onlyGroup, only);
+  if (flagBool(args, "sync")) return sync(args, onlyGroup, only);
   if (flagBool(args, "help") || !flagBool(args, "render")) { console.log(USAGE); return; }
   const local = flagBool(args, "local") ? serveSite(join(REPO_ROOT, "_site")) : null;
   const base = local ? local.base : (flagString(args, "base") || "https://inyourfacecomedy.ch").replace(/\/$/, "");

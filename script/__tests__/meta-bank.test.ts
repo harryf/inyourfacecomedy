@@ -96,3 +96,22 @@ describe("push: names, links and the creative", () => {
     expect(restoryList(state, { cold: bank }).map((r: any) => r.name)).toEqual(["cold-C1"]);
   });
 });
+
+describe("sync: the bank files' status against Meta's on/off state", () => {
+  const { syncPlan } = require("../meta-bank");
+  const concept = (id: string, status: Concept["status"]) => ({ id, person: "p", body: "b", title: "t", image: { style: "type" }, status }) as Concept;
+  const banks = { cold: { adset: "cold", link: { show: "comedybrew", utm_campaign: "cold" }, description: "d", concepts: [concept("C1", "resting"), concept("C7", "live"), concept("C9", "retired")] } } as any;
+  const entry = (ad_id: string) => ({ ad_id, creative_id: "c", image_hash: "h", pushed: "2026-09-13" });
+  const state = { "cold-C1": entry("1"), "cold-C7": entry("7"), "cold-C9": entry("9"), "cold-C99": entry("99") };
+
+  test("a resting or retired concept's running ad is paused; a live one that is off comes back", () => {
+    const plan = syncPlan(state, banks, { "1": "ACTIVE", "7": "PAUSED", "9": "ACTIVE", "99": "ACTIVE" });
+    expect(plan.map((p: any) => `${p.name} ${p.from}>${p.to}`)).toEqual(["cold-C1 ACTIVE>PAUSED", "cold-C7 PAUSED>ACTIVE", "cold-C9 ACTIVE>PAUSED"]);
+  });
+  test("nothing to do when Meta already matches, and an ad Meta no longer lists is left alone", () => {
+    expect(syncPlan(state, banks, { "1": "PAUSED", "7": "ACTIVE" })).toEqual([]);
+  });
+  test("--only narrows the plan", () => {
+    expect(syncPlan(state, banks, { "1": "ACTIVE", "9": "ACTIVE" }, undefined, ["C9"]).map((p: any) => p.name)).toEqual(["cold-C9"]);
+  });
+});

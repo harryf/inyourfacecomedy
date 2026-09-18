@@ -4,7 +4,8 @@
 # that names a person, nothing that reads as "we watched you", no em dashes.
 # image.style is an /adcard/ look (photo, swiss, type, chalk, station, logo); image.photo a
 # gallery path for the photo look; image.headline and image.sub are what the card paints.
-# status: live (has an ad), bench (waiting for a slot), retired (paused by the readout).
+# status: live (has an ad, on), resting (has an ad, paused for this round, comes back), bench
+# (no ad yet, waiting for a slot), retired (paused by the readout). `meta-bank.ts --sync` makes Meta match.
 adset: cold
 link: { show: comedybrew, utm_campaign: cold }
 description: "English stand-up, every Thursday"
@@ -15,20 +16,20 @@ concepts:
     body: "Lost in Zürich? Find your funny. English stand-up every Thursday, two minutes from Central."
     title: "Lost in Zürich? Find your funny."
     image: { style: photo, photo: /assets/img/gallery/canape_PXXX8236.jpg, headline: "Lost in Zürich? Find your funny.", sub: "English stand-up, every Thursday" }
-    status: live
+    status: resting      # round one (2026-09-18): paused so C7, C4 and C8 get fed; back in round two
   - id: C2
     person: New in town, knows nobody
     body: "New in Zürich and know nobody yet? Thursday night, English stand-up near Central. Nobody will make you talk."
     title: "New in Zürich? Start here."
     image: { style: photo, photo: /assets/img/gallery/canape_PXXX8284.jpg, headline: "New in Zürich? Start here.", sub: "Thursday nights, English stand-up, near Central" }
-    status: live
+    status: resting      # round one (2026-09-18): paused so C7, C4 and C8 get fed; back in round two
   - id: C3
     person: The Swiss person (in German)
     body: "Live-Comedy auf Englisch, jeden Donnerstag in Zürich. Dein Englisch reicht, versprochen."
     title: "Dein Englisch reicht. Versprochen."
     description: "Jeden Donnerstag, 19:30"
     image: { style: swiss, headline: "Dein Englisch reicht. Versprochen.", sub: "Live-Comedy auf Englisch, jeden Donnerstag" }
-    status: live
+    status: resting      # round one (2026-09-18): paused so C7, C4 and C8 get fed; back in round two
   - id: C4
     person: Anyone who likes the joke
     body: "Switzerland has four official languages and one everyone actually speaks. Stand-up in it, every Thursday in Zürich."

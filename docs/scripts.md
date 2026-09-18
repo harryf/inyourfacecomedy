@@ -301,6 +301,10 @@ bun script/meta-lists.ts [--dry-run] [--date YYYY-MM-DD] [--months 12] [--ticket
 
 ## `meta-lineup-ad.ts`
 
+Parked since 2026-09-18: the Buyers ad set never delivered an impression (the matched buyer
+lists are too small) and is paused, so nobody runs this script for now. It stays for the day
+the lists are big enough. The rest of this section describes it as built.
+
 The Buyers lineup ad (meta-ads.md phase 7). Reads the next Comedy Brew row from the Grist
 `Lineups` table (Comedians Directory document: date, show, link, style), takes time, venue and
 price from `_data/calendar.yml` and the names from `_comedians/`, opens the lineup link in
@@ -459,9 +463,20 @@ concepts. It never creates a concept twice (the ad set is read by name, and
 `meta-ads/creative/bank/state.json` remembers ids), refuses a concept missing either image,
 refuses to add a seventh live ad to an ad set, skips clip concepts with a note, and waits out
 Meta's per-account request limit (code 17, after about ten creations in a row). The bank
-files' `status` is the human intent: `live` is pushed, `bench` waits, `retired` was paused by
-the readout. First push 2026-09-13: cold C1, C2, C3, C4, C7, C8; warm W1, W2, W6; intent I1,
+files' `status` is the human intent: `live` is pushed and on, `resting` is pushed and paused
+for this round, `bench` waits for its first push, `retired` was paused by the readout. First push 2026-09-13: cold C1, C2, C3, C4, C7, C8; warm W1, W2, W6; intent I1,
 I3, I5.
+
+```
+bun script/meta-bank.ts --sync                    # diff: pushed ads whose on/off state differs from their concept's status
+bun script/meta-bank.ts --sync --apply            # pause the resting and retired ones, switch live ones back on (asks first)
+```
+
+`--sync` exists because Meta feeds one or two ads per ad set and starves the rest: in the
+first week 75 percent of Cold's spend went to one ad of six, and four never came near the
+readout's floor. So only two or three run per set at a time. To rotate, change `status` in the
+bank files (`live` and `resting`) and run `--sync`; do it at a fortnight boundary together
+with any budget change, since each batch of edits costs the ad set some learning.
 
 ```
 bun script/meta-bank.ts --restory --dry-run       # ads in state.json still on the first push's one-image creative

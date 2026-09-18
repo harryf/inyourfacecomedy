@@ -13,6 +13,33 @@ laptop. The phone app hides most of these settings.
 
 ## Status
 
+**The experiment, 18 September to 31 October 2026.** After the first week's readout (below)
+Harry decided: keep going and spend more so the ad sets learn. Cold CHF 6 a day (was 3), Warm
+CHF 5 (was 3), Intent CHF 2 (its audience is the limit, not the money), the 2024 set as Harry
+runs it. `monthly_cap_chf` is 600 for the period; the account spending limit wants raising to
+CHF 1,000 in Ads Manager. Only two or three ads run per set at a time (`status: resting` in the
+bank files, `meta-bank.ts --sync`): round one is cold C7, C4, C8, warm W6, W2, intent I1, I3,
+I5; C1, C2, C3 and W1 come back in round two, about 2 October. The sizing: Comedy Brew's online
+ticket income is about CHF 650 in a typical month (median of the last twelve; 126 nights in the
+sales export, typical night 22 tickets), so this spend is most of the income and is an
+experiment, not a standing budget. On 31 October look at one number: has the typical night gone
+from about 22 tickets to 28 or more? If not, drop to about CHF 200 a month.
+
+**Buyers is parked (2026-09-18).** The ad set never delivered one impression in its life
+(active, approved, no error on the API); the matched buyer lists are too small. It is paused,
+`meta-lineup-ad.ts` is not run, `budgets.buyers` is 0 in config. Come back to it when the
+lists have grown. Everything below about Buyers and the lineup ad describes what was built.
+
+**First readout, 12 to 18 September.** Week of the 17 September show: ad spend CHF 75 against
+about 31 before, site ticket clicks 460 against 139, tickets 23 against 24. Cost per landing
+page view: Cold 0.18, Warm 0.24, old set 0.28, Intent 1.42 at a weekly frequency of 3.8. Meta
+reports 0 ticket clicks on every ad because no ad carries the pixel as a tracking spec (the
+pixel itself counts about 100 `TicketRedirect` a day); since the ads land on `/go/`, a landing
+page view and a ticket click are the same event, so fixing that would add nothing. A later
+test: land one Cold ad on the show page, so a ticket click becomes a real choice Meta can
+optimise for. Unexplained: the site counts 4 to 11 `/go/` clicks on ads where Meta reports 0 to
+3, so per-ad site counts are not yet safe for ranking small ads.
+
 Tick as you go. A future session reads this table first.
 
 | Phase | What | Done | Date | Notes |

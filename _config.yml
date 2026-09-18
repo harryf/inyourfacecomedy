@@ -113,6 +113,8 @@ exclude: [".jekyll-cache", ".jekyll-metadata", ".idea", "vendor/*", "assets/node
   "README.md", "CLAUDE.md", "docs",
   # Meta ads runbook folder: config template, creative and email lists (gitignored), never published.
   "meta-ads",
+  # Remotion project for the video ads (meta-ads/video-plan.md): its own package.json and node_modules, never published.
+  "video",
   # Google Business Profile poster: descriptions, state, setup doc — used by script/post-events-to-google.rb, never published.
   "gbp"]
 

@@ -58,7 +58,7 @@ Scheduled jobs first. "Git" says whether the script commits and pushes by itself
 | `refresh-calendar-page.rb` | Regenerates `pages/1_calendar.md` from `calendar.yml` and the copy pools, validates it | cron, 11:00 Saturday and Sunday | yes |
 | `robins-calendar.ts` | ROBIN's shows into the Apple calendar shared with the bar staff, with a ticket count in the last three days | launchd, 11:05 daily | no |
 | `eventfrog-sales.ts` | Comedy Brew sales snapshots, the capacity guard, the Saturday review | by hand for now; cron lines below | no |
-| `meta-lineup-ad.ts` | The weekly lineup ad in the Buyers ad set | by hand on Monday; cron lines below | no |
+| `meta-lineup-ad.ts` | The weekly lineup ad in the Buyers ad set | parked since 2026-09-18 (the ad set is paused; see `meta-ads.md`), not run | no |
 | `ga-annotations.ts` | Show dates as annotations on GA charts | by hand; cron line below | no |
 
 Run by hand when needed:
@@ -147,9 +147,7 @@ what for):
 ```cron
 # GA annotations for show dates, after the 09:00 refresh has landed
 25 10 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/ga-annotations.ts >> script/ga-annotations.log 2>&1
-# Meta lineup ad: Monday 13:00 create paused, Tuesday 09:00 activate
-0 13 * * 1 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/meta-lineup-ad.ts >> script/meta-lineup-ad.log 2>&1
-0 9 * * 2 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/meta-lineup-ad.ts --activate >> script/meta-lineup-ad.log 2>&1
+# (The Meta lineup ad lines, Monday 13:00 and Tuesday 09:00, are gone: Buyers is parked, see meta-ads.md.)
 # Comedy Brew sales (Eventfrog, read-only): daily snapshot; Tuesday and Wednesday three more; show day hourly; Saturday review
 0 9 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/eventfrog-sales.ts --poll --slot daily --guard >> script/eventfrog-sales.log 2>&1
 0 13,17,20 * * 2,3 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/eventfrog-sales.ts --poll --slot midday --guard >> script/eventfrog-sales.log 2>&1
