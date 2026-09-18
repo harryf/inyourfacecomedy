@@ -34,6 +34,7 @@ Replace with plain alternatives.
 - **No significance inflation.** Don't add sentences explaining why mundane facts matter to a broader trend.
 - **No social media presence sentences.** Never write "[Subject] maintains an active social media presence."
 - **No lead-in preambles.** Don't acknowledge something is minor then discuss its importance anyway.
+- **No prices in site copy.** Ticket prices live on Eventfrog and change (early bird, students, door). Never write "tickets from CHF 10" or a price in a title, description, hero or body; say "tickets on Eventfrog" and link. Harry, 2026-09-18. The `price_chf` front matter is data for the ticket buttons and GA, not copy.
 
 ## Grammar / style patterns to drop
 
