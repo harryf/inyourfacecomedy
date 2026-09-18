@@ -31,7 +31,7 @@
 // Room: front matter `room: front|back` on the post wins; otherwise Front in July and August, Back the rest
 // of the year.
 
-import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { REPO_ROOT, eventfrogFromEnv, loadEnv, type Eventfrog } from "./lib/eventfrog-api";
 
@@ -148,9 +148,26 @@ async function soldFor(ef: Eventfrog, organiserEvents: any[], startIso: string):
 // ---------- the calendar side ----------
 
 function ekcal(args: string[], stdin?: string): any {
-  if (!existsSync(EKCAL_BIN) || statSync(EKCAL_BIN).mtimeMs < statSync(EKCAL_SRC).mtimeMs) {
-    const c = Bun.spawnSync(["swiftc", "-O", EKCAL_SRC, "-o", EKCAL_BIN]);
+  // Rebuild only when the source text changes (not on a git checkout that touches the mtime): a new binary
+  // loses its Calendars grant and the launchd job would be refused until someone answers the prompt again.
+  const sha = new Bun.CryptoHasher("sha256").update(readFileSync(EKCAL_SRC)).digest("hex"), shaFile = `${EKCAL_BIN}.sha256`;
+  if (!existsSync(EKCAL_BIN) || !existsSync(shaFile) || readFileSync(shaFile, "utf8").trim() !== sha) {
+    // launchd runs this outside any app, so the helper itself asks macOS for the calendars. The prompt only
+    // appears for a binary that carries a usage description: an Info.plist linked into the executable.
+    const plist = join(OUT, "ekcal-Info.plist");
+    writeFileSync(plist, `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleIdentifier</key><string>ch.inyourfacecomedy.ekcal</string>
+<key>CFBundleName</key><string>IYF ROBINs calendar sync</string>
+<key>NSCalendarsFullAccessUsageDescription</key><string>Keeps the ROBIN's staff calendar in step with the inyourfacecomedy.ch show calendar.</string>
+<key>NSCalendarsUsageDescription</key><string>Keeps the ROBIN's staff calendar in step with the inyourfacecomedy.ch show calendar.</string>
+</dict></plist>
+`);
+    const c = Bun.spawnSync(["swiftc", "-O", EKCAL_SRC, "-o", EKCAL_BIN, "-Xlinker", "-sectcreate", "-Xlinker", "__TEXT", "-Xlinker", "__info_plist", "-Xlinker", plist]);
     if (c.exitCode !== 0) throw new Error(`swiftc failed: ${c.stderr.toString()}`);
+    writeFileSync(shaFile, sha);
+    console.log("ekcal rebuilt: macOS will ask for calendar access again on the next launchd run");
   }
   const r = Bun.spawnSync([EKCAL_BIN, ...args], stdin === undefined ? {} : { stdin: Buffer.from(stdin) });
   if (r.exitCode !== 0) throw new Error(r.stderr.toString().trim() || `ekcal ${args[0]} failed`);

@@ -34,6 +34,7 @@ Run the build and the health check after every change and before saying you are 
 | `_data/reports/`, `assets/reports/`, `pages/reports/` | Google Analytics | `ga-report.ts`. Edit `script/lib/ga-report-lib.ts` or `_layouts/report.liquid` instead |
 | Google Business Profile event posts | `gbp/<slug>.txt` + the posts | `post-events-to-google.rb` |
 | Show to comedian links | `hosts:` (+ `hosts_label:`) on the post: regular hosts, not the per-night lineup | hand. Drives host cards, the hosted shows at the front of the comedian page's related-shows row (`_includes/related-shows.liquid`) and Event JSON-LD performers; unknown slugs render nothing |
+| Apple calendar "Comedy @ ROBINs" shared with the bar staff (name in `.env` as `ROBINS_CALENDAR`) | `_data/calendar.yml`, venue `robins` only, plus the post's `hosts:` for the notes and Eventfrog for the ticket count | `bun script/robins-calendar.ts` daily. A field a person edited in the calendar is theirs for good (state in gitignored `script/robins-out/state.json`); `--force` hands it back to the website. A per-date room change is made by editing the title in Calendar.app, a per-show one with `room: front` on the post |
 | Show language | `language: it` / `es` on the post (absent = English) | hand. The monthly email lists non-English shows only when they are at ROBIN's (`EMAILS.md`) |
 
 ## Cron (Harry's Mac, rbenv 3.2.4 by absolute path, logs in `script/*.log`)
@@ -45,8 +46,11 @@ Run the build and the health check after every change and before saying you are 
 | 10:05 daily | `sync-comedians.rb`: Grist to `_comedians/`, commit, push, IndexNow | `sync-comedians.log` |
 | 10:20 daily | `bun script/ga-report.ts`: GA to `/reports/`, commit, push | `ga-report.log` |
 | 11:00 Sat, Sun | `refresh-calendar-page.rb --no-refresh`: regenerate `/calendar/`, commit, push | `refresh.log` |
+| 11:05 daily, **launchd not cron** | `bun script/robins-calendar.ts`: ROBIN's shows into the staff Apple calendar; no git, no Healthchecks ping | `robins-calendar.log` |
 
 Each job commits and pushes itself and pings Healthchecks.io: the four Ruby jobs share `HEALTHCHECKS_URL`, the reports job has `GA_REPORTS_HEALTHCHECKS_URL` (both in `.env`). A missed run of one Ruby job is masked by the next job's success ping. `refresh-calendar-page.rb --init` and the GBP draft for a brand-new ROBIN's show call the `claude` CLI; never run those from inside a Claude Code session. `script/README.md` documents each script.
+
+The ROBIN's calendar job is the launchd agent `~/Library/LaunchAgents/ch.inyourfacecomedy.robins-calendar.plist` (copy in `script/launchd/`), because cron runs outside the login session and macOS refuses it the Calendars permission without ever prompting. launchd starts `script/robins-out/ekcal run bun script/robins-calendar.ts`: the permission is pinned on the first process, and only `ekcal` carries the usage description macOS needs to show the prompt. Editing `script/lib/ekcal.swift` rebuilds that binary and macOS asks again: after such a change run `launchctl kickstart gui/$(id -u)/ch.inyourfacecomedy.robins-calendar` while Harry is at the screen and check `script/robins-calendar.log`. Its `remove` op is for `--first-load` only; the daily sync never deletes. It is the one TypeScript plus Swift pair in `script/`.
 
 Rules for anything in `script/`:
 

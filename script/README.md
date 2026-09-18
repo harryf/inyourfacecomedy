@@ -656,14 +656,25 @@ this: it needs the event id, exact start and exact title. "Comedy @ ROBINs" was 
 2026-09-18 (backups in `script/robins-out/`); the daily run for it is plain
 `bun script/robins-calendar.ts` with `ROBINS_CALENDAR="Comedy @ ROBINs"` in `.env`.
 
-Cron (installed 2026-09-18, daily 11:05, after the 09:00 refresh and clear of the hourly Thursday sales
-poll; the script never touches git):
+Schedule: a launchd agent, daily 11:05 (after the 09:00 refresh, clear of the hourly Thursday sales
+poll). Not cron: cron runs outside the login session, so macOS refuses it the Calendars permission
+without ever showing a prompt. The agent starts the helper, which asks for access and then runs the
+script: `script/robins-out/ekcal run /Users/harry/.bun/bin/bun script/robins-calendar.ts`. The
+permission is pinned on the process launchd starts, and only `ekcal` carries the usage description
+(an Info.plist the script links into it) that lets macOS prompt. Started as plain `bun ...` the
+request is pinned on bun and refused silently (tried 2026-09-18).
 
 ```
-5 11 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/robins-calendar.ts >> script/robins-calendar.log 2>&1
+cp script/launchd/ch.inyourfacecomedy.robins-calendar.plist ~/Library/LaunchAgents/
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ch.inyourfacecomedy.robins-calendar.plist
+launchctl kickstart gui/$(id -u)/ch.inyourfacecomedy.robins-calendar     # run now; click Allow on the first run
+launchctl print gui/$(id -u)/ch.inyourfacecomedy.robins-calendar | grep -E "runs|last exit"
+launchctl bootout gui/$(id -u)/ch.inyourfacecomedy.robins-calendar       # uninstall
 ```
 
-If the log says "calendar access denied", cron lacks the Calendars permission: grant it in System
-Settings, Privacy & Security, Calendars.
+Log: `script/robins-calendar.log` (each run appends). The helper is rebuilt
+only when the text of `ekcal.swift` changes (a sha256 beside the binary); a rebuilt binary loses its
+grant, so kickstart the agent once afterwards and answer the prompt. "calendar access denied" in
+the log means exactly that. A Mac asleep at 11:05 runs the job when it wakes.
 
 Tests: `script/__tests__/robins-calendar.test.ts` (room rule, title, key, notes, the human-edit rules, `--force`).

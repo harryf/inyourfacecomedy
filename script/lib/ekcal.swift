@@ -2,6 +2,14 @@
 //
 //   ekcal list  "<calendar title>" <fromISO> <toISO>     events in the range, as a JSON array
 //   ekcal apply "<calendar title>" < ops.json            create and update events, results as a JSON array
+//   ekcal run   <program> [args...]                      ask for calendar access, then run the program
+//
+// "run" is how launchd starts the daily job. macOS pins a privacy request on the process launchd
+// started, and only shows the prompt when that process carries a usage description (the Info.plist
+// robins-calendar.ts links into this binary). Started as "bun script/robins-calendar.ts" the request is
+// pinned on bun and refused without a prompt; started as "ekcal run bun script/..." it is pinned on
+// ekcal, prompts once, and the list and apply calls further down inherit the grant. cron can never
+// prompt: it runs outside the login session. A rebuild of this file changes the binary and macOS asks again.
 //
 // It talks to the local Calendar store (the iCloud account syncs it onward), so it needs the
 // Calendars permission of whatever runs it (System Settings, Privacy & Security, Calendars).
@@ -82,8 +90,18 @@ func setFields(_ e: EKEvent, from op: [String: Any]) {
 }
 
 let args = Array(CommandLine.arguments.dropFirst())
-guard args.count >= 2 else { die("usage: ekcal list <calendar> <fromISO> <toISO> | ekcal apply <calendar> < ops.json") }
+guard args.count >= 2 else { die("usage: ekcal list <calendar> <fromISO> <toISO> | ekcal apply <calendar> < ops.json | ekcal run <program> [args...]") }
 guard requestAccess() else { die("ekcal: calendar access denied (System Settings, Privacy & Security, Calendars)") }
+
+if args[0] == "run" {
+    let child = Process()
+    child.executableURL = URL(fileURLWithPath: args[1])
+    child.arguments = Array(args.dropFirst(2))
+    do { try child.run() } catch { die("ekcal: cannot run \(args[1]): \(error.localizedDescription)") }
+    child.waitUntilExit()
+    exit(child.terminationStatus)
+}
+
 let cal = findCalendar(args[1])
 
 switch args[0] {
