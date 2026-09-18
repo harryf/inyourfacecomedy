@@ -30,11 +30,15 @@ redirect_from:
   - /2024/01/18/comedybrew.html
 ---
 
+Is looking for friends in Zurich harder than finding affordable rent? Tired of getting up at 5am on Saturday just to hike? Do meetup groups start to feel like a cult? We've got you! With IN YOUR FACE Comedy Brew...
+
+![Comedy Brew flyer: English stand-up comedy open mic, every Thursday at ROBIN's in Zürich](/assets/img/uploads/comedybrew_horizontal.png){:class="img-responsive"}
+
 ## The essentials
 
 - **Every Thursday.** Doors 19:30, show 19:50 to about 22:00, a 15-minute break in the middle. Home in time for the last tram.
 - **ROBIN's, Zähringerstrasse 33, 8001 Zürich.** Two minutes from Central, five from the main station.
-- **Tickets on Eventfrog.** Buy in advance; door sales slow everyone down.
+- **Tickets on Eventfrog.** The Get Tickets button above takes you there. Buy in advance; door sales slow everyone down.
 - **In English.** Every set, every week. No Swiss German needed.
 - **About ten comedians a night.** Pros testing new jokes and first-timers getting their first five minutes.
 
@@ -43,8 +47,6 @@ redirect_from:
 A comedy show where experienced comedians try new jokes and new comedians try comedy for the first time. Usually at least ten comedians perform on the night, so there is a mix of the best local talent trying new material and new-comers getting their first taste. It is always a wild, fun and unpredictable night. Want a spot yourself? [Here is how to perform](/perform/).
 
 ## Why come?
-
-Is looking for friends in Zurich harder than finding affordable rent? Tired of getting up at 5am on Saturday just to hike? Do meetup groups start to feel like a cult? We've got you! With IN YOUR FACE Comedy Brew...
 
 Join local English-speaking comedians and new-comers for a Thursday night of comedy! It's a great way to low-key meet people while enjoying the laughs (and awkward moments) of an English stand-up comedy open mic.
 
