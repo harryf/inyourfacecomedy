@@ -37,7 +37,7 @@ All gitignored, all at the repo root, none ever committed. Names only here; valu
 |---|---|
 | `HEALTHCHECKS_URL` | the four Ruby jobs (see "Healthchecks") |
 | `GA_REPORTS_CREDENTIALS` (path to `ga-reports-sa.json`), `GA_REPORTS_HEALTHCHECKS_URL` | `ga-report.ts`; `ga-setup.ts` and `ga-annotations.ts` use the same key but need the Editor role on the property |
-| `GSC_SITE`, `GSC_HEALTHCHECKS_URL` (both optional) | `gsc-report.ts`, which reads Search Console with the `GA_REPORTS_CREDENTIALS` account (a Restricted user on the property) |
+| `GSC_SITE` (optional), `GSC_HEALTHCHECKS_URL` | `gsc-report.ts`, which reads Search Console with the `GA_REPORTS_CREDENTIALS` account (a Restricted user on the property; `search-console.md`) |
 | `GRIST_API_KEY` | `sync-comedians.rb`, `meta-lineup-ad.ts` |
 | `EVENTFROG_ORGANIZER`, `EVENTFROG_HEALTHCHECKS_URL` | `eventfrog-sales.ts`, the ticket count in `robins-calendar.ts`. The key can write; the code cannot: `script/lib/eventfrog-api.ts` has one verb, GET, over a whitelist of paths |
 | `META_ACCESS_TOKEN`, `META_ADS_HEALTHCHECKS_URL` | the `meta-*.ts` scripts, plus ids and budgets in gitignored `meta-ads/config.yml` (from `config.example.yml`) |
@@ -110,7 +110,7 @@ Two things to know before running the git jobs by hand:
 
 ## cron
 
-Six of the seven scheduled jobs run from Harry's user crontab (`crontab -e`, `crontab -l`). The
+Seven of the eight scheduled jobs run from Harry's user crontab (`crontab -e`, `crontab -l`). The
 job lines as installed (comments shortened here):
 
 ```cron
@@ -122,7 +122,7 @@ job lines as installed (comments shortened here):
 5 10 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.rbenv/versions/3.2.4/bin/ruby script/sync-comedians.rb >> script/sync-comedians.log 2>&1
 # IYF: GA reports
 20 10 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/ga-report.ts >> script/ga-report.log 2>&1
-# IYF: Search Console learning loop, Monday, after the GA job so two pushes never race
+# IYF: Search Console learning loop (docs/search-console.md), Monday, after the GA job so two pushes never race. Installed 2026-09-18
 40 10 * * 1 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/gsc-report.ts >> script/gsc-report.log 2>&1
 # IYF: regenerate /calendar/ on Saturday and Sunday (a missed day is covered by the next)
 0 11 * * 6,0 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.rbenv/versions/3.2.4/bin/ruby script/refresh-calendar-page.rb --no-refresh >> script/refresh.log 2>&1
@@ -228,7 +228,7 @@ script whose variable is unset skips the ping silently; nothing else changes.
 |---|---|---|
 | `HEALTHCHECKS_URL` | the four Ruby cron jobs, sharing one check | `refresh-next-event-dates.rb`, `refresh-calendar-page.rb`, `sync-comedians.rb`, `post-events-to-google.rb` (which prefers `GBP_HEALTHCHECKS_URL` if that is ever set) |
 | `GA_REPORTS_HEALTHCHECKS_URL` | the reports job | `ga-report.ts`. Also `/fail` when GA shows a new broken `/go/` link, so a typo in a campaign link alerts |
-| `GSC_HEALTHCHECKS_URL` | the Search Console loop | `gsc-report.ts`, weekly (period 7 days, grace 1 day) |
+| `GSC_HEALTHCHECKS_URL` | the Search Console loop, check "IYF gsc-report" (created 2026-09-18) | `gsc-report.ts`, weekly: `/start`, the page summary on success, `/fail` with the error (period 7 days, grace 1 day, so a missed Monday alerts Tuesday) |
 | `EVENTFROG_HEALTHCHECKS_URL` | Comedy Brew sales | `eventfrog-sales.ts`: success per run, readout lines to `/log` (recorded, no alarm), `/fail` on a guard action, a sold-out show or a rejected key |
 | `META_ADS_HEALTHCHECKS_URL` | the Meta jobs, one check to start | `meta-lineup-ad.ts`, `meta-adsets.ts`, `meta-insights.ts` |
 | none yet | the staff calendar | `robins-calendar.ts` does not ping. Its failures are only in `script/robins-calendar.log` |

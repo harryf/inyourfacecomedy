@@ -14,6 +14,7 @@ Claude Code, [`CLAUDE.md`](../CLAUDE.md) (the rules that bite). Then:
 | [`comedian-seo.md`](comedian-seo.md) | You touch comedian pages: JSON-LD, the `hosts:` mapping, the related-shows row, IndexNow, the search consoles |
 | [`campaign-links.md`](campaign-links.md) | You touch `/go/`, `/linkbuilder/` or `/reports/`: tracked ticket links, UTM rules, the show reports |
 | [`analytics.md`](analytics.md) | You touch Google Analytics: what the GA4 property has configured and why, page context, caveats |
+| [`search-console.md`](search-console.md) | You touch search performance: Search Console access, the weekly learning loop in `seo/`, what may be changed on which page, reading a verdict |
 | [`show-promo-links.md`](show-promo-links.md) | You touch the `/comedians/` promo links, Lineup Maker 2000 or the Week Story |
 | [`flyer-design.md`](flyer-design.md) | You touch the flyer generator: which design decisions are fixed and which are free |
 | [`emails.md`](emails.md) | You send a Mailchimp campaign: the three email scripts and the review-and-send flow |

@@ -105,6 +105,10 @@ they're live in Grist. To add a new show's hosts, just add the `hosts:` block to
 
 ## One-time manual setup (search consoles)
 
+Search performance (which queries show which page, and the weekly loop that proposes and
+measures changes) is `search-console.md`. Comedian pages are meta-only there: bios are never
+edited for search; the shared title and description pattern is the only lever.
+
 1. **Google Search Console** (https://search.google.com/search-console) — confirm the
    property is verified, and that `https://inyourfacecomedy.ch/sitemap.xml` is submitted under
    Sitemaps. For a new comedian you want indexed quickly: URL Inspection → paste the profile

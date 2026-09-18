@@ -112,10 +112,11 @@ All internal docs live in `docs/` (index: `docs/README.md`), which `_config.yml`
 | `docs/scripts.md` | The detailed reference per script (`script/README.md` only points here) |
 | `docs/campaign-links.md` | `/go/`, `/linkbuilder/`, `/reports/`, GA events and dimensions |
 | `docs/analytics.md` | The GA4 property: what is configured and why, the page context, the report collection, data-quality caveats, the GTM second ID |
+| `docs/search-console.md` | Search Console access (service account, API on the GA project), the weekly learning loop in `seo/`, the comedian meta-only rule, reading verdicts |
 | `docs/show-promo-links.md` | `/comedians/` promo links, Lineup Maker 2000, the Week Story |
 | `docs/flyer-design.md` | The flyer generator: fixed and free design decisions |
 | `docs/calendar-structure.md` | The `/calendar/` markup contract and `validate-calendar.rb` |
-| `docs/comedian-seo.md` | Comedian JSON-LD, `hosts:` mapping, related-shows row, IndexNow, search consoles |
+| `docs/comedian-seo.md` | Comedian JSON-LD, `hosts:` mapping, related-shows row, IndexNow, search consoles (performance data and the meta-only rule: `docs/search-console.md`) |
 | `docs/google-business-profile-api-setup.md` | GBP API, OAuth, moderation history |
 | `docs/emails.md` | Mailchimp playbook: the three email scripts, the builder limitation, the review-and-send flow |
 | `docs/google-preferred-source.md` | The preferred-source deeplink on `/follow/` and the footer |

@@ -226,7 +226,7 @@ expires; Viewer role is enough) or, by hand, gcloud Application Default Credenti
 
 ## `gsc-report.ts`
 
-The weekly Search Console learning loop (the design and the reading guide: `seo/README.md`).
+The weekly Search Console learning loop (access and policy: `search-console.md`; the reading guide: `seo/README.md`).
 Each run stores a 28-day snapshot of query and page data in `seo/snapshots/`, scores every
 page's opportunities over a 90-day discovery window against the site's own click curve
 (page-two queries, bottom-of-page-one queries, well-ranked queries with few clicks, two pages
