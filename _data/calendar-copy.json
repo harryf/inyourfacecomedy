@@ -234,7 +234,6 @@
         "Your social life called, it wants you at open mic 📞"
       ],
       "assigned": {
-        "2026-09-17": "Cult-free socialising powered by English comedy 😈",
         "2026-09-24": "Hiking the social scene? Wrong trail, try comedy 🥾",
         "2026-10-01": "Harry Fücks is hosting and chaos is guaranteed 🌀",
         "2026-10-08": "Comedy Brew: your Thursday just found its purpose 🎯",
@@ -381,7 +380,6 @@
         "Wednesday's most thrilling gamble, no poker face required 🃏"
       ],
       "assigned": {
-        "2026-09-16": "Jack Roberts rolls the dice on your funny bone 🎰",
         "2026-09-23": "Low expectations welcome. High laughs guaranteed 😂",
         "2026-10-07": "Fresh jokes, zero safety net: pure comedy gold 🃏",
         "2026-10-14": "Jack Roberts bets his dignity you'll love this 🤑",
@@ -412,7 +410,6 @@
         "Every edition a new lineup, same happy chaos 🌀"
       ],
       "assigned": {
-        "2026-09-15": "Woocash and friends, gloriously unpredictable 🎲",
         "2026-09-29": "Polished bits meet loose ideas after dark 🌙",
         "2026-10-13": "The punchline lands where you least expect 🎪",
         "2026-10-27": "Comedy that zigs where every other night zags 😏",
@@ -512,7 +509,6 @@
         "Esta noche el español no necesita subtítulos, solo risas 😊"
       ],
       "assigned": {
-        "2026-09-24": "Reírse de la migración: más barato que terapia 😂",
         "2026-10-01": "El humor que une a los que llegaron de lejos 💫",
         "2026-10-15": "Chistes con acento y sin pedir perdón 🔥",
         "2026-10-29": "Catarsis colectiva en tu idioma, sin subtítulos 🙌",
@@ -600,7 +596,9 @@
         "Il palco è aperto e le risate scorrono 🍷"
       ],
       "assigned": {
-        "2026-09-16": "Finalmente una serata di risate in italiano 🇮🇹"
+        "2026-10-21": "Finalmente una serata di risate in italiano 🇮🇹",
+        "2026-11-18": "Zero traduzioni, zero scuse, solo risate 🇮🇹",
+        "2026-12-16": "Risate italiane senza bisogno di sottotitoli 🇮🇹"
       }
     },
     "pulpnonfiction": {
@@ -817,7 +815,6 @@
         "The most fun you'll have learning anything 🎭"
       ],
       "assigned": {
-        "2026-09-17": "Tonight someone proves their ex wrong with math 📐",
         "2026-10-12": "Vasilis fell into Wikipedia and made it a show 🕳️",
         "2026-12-03": "Real science, real obsessions, real funny humans 🔬"
       }
