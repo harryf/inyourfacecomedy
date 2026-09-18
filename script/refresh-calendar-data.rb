@@ -371,6 +371,16 @@ def event_urls_from(final_url, html)
   kids.empty? ? [final_url] : kids.map { |l| URI.join(final_url, l).to_s }
 end
 
+# A ticket_url that names ONE instance of a series lists no siblings: the page
+# links to its group and nothing else, so the show drops off the calendar the day
+# that instance passes (promessi-spassi, 2026-09-17). Returns the group page that
+# a single event page belongs to, or nil for a true one-off or a group page.
+def group_url_from(final_url, html)
+  return nil if final_url =~ GROUP_PATH_RE
+  link = html.scan(EVENT_LINK_RE).map(&:strip).find { |l| l =~ GROUP_PATH_RE }
+  link && URI.join(final_url, link).to_s
+end
+
 # ---------- City filter ----------
 
 # Keep only the events matching a show's `event_city_filter`. Returns
@@ -404,6 +414,24 @@ end
 
 # ---------- Per-show extraction ----------
 
+# Fetch each event page and keep the parsed instances that are still to come.
+def future_events(event_urls, now, options)
+  events = []
+  event_urls.each do |ev_url|
+    _f, ev_code, ev_html = http_get(ev_url)
+    next unless ev_code == 200
+    ev = event_jsonld(ev_html)
+    next unless ev
+    inst = parse_event(ev, ev_url)
+    next unless inst && inst["start"] > now             # ISC-9 / ISC-18: future only
+    next if inst["status"] == "EventCancelled"
+    events << inst
+  rescue => e
+    vsay("      ! #{ev_url} — #{e.class}: #{e.message}", options)
+  end
+  events
+end
+
 # Returns [events_array, error_string_or_nil, final_url]. events may be empty (no
 # future instances). A non-nil error means the show could not be resolved at all.
 def extract_show(show, now, options)
@@ -421,18 +449,17 @@ def extract_show(show, now, options)
   return [[], "resolved but no event links found at #{final_url}", final_url] if event_urls.empty?
   vsay("    #{show[:slug]}: #{event_urls.size} candidate event page(s)", options)
 
-  events = []
-  event_urls.each do |ev_url|
-    _f, ev_code, ev_html = http_get(ev_url)
-    next unless ev_code == 200
-    ev = event_jsonld(ev_html)
-    next unless ev
-    inst = parse_event(ev, ev_url)
-    next unless inst && inst["start"] > now             # ISC-9 / ISC-18: future only
-    next if inst["status"] == "EventCancelled"
-    events << inst
-  rescue => e
-    vsay("      ! #{ev_url} — #{e.class}: #{e.message}", options)
+  events = future_events(event_urls, now, options)
+
+  # Nothing upcoming on a single event page: look in the series it belongs to.
+  if events.empty? && (group_url = group_url_from(final_url, html))
+    g_final, g_code, g_html = http_get(group_url)
+    if g_code == 200
+      events = future_events(event_urls_from(g_final, g_html), now, options)
+      unless events.empty?
+        say("  [group]      #{show[:slug]}: ticket_url is one past event, #{events.size} upcoming found via its group #{g_final} (point ticket_url at the group)", options)
+      end
+    end
   end
 
   # Applied here, before the caller records anything, so excluded events reach

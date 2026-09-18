@@ -9,13 +9,13 @@ feature-img: "/assets/img/uploads/promessi-spassi_feature.png"
 image: "/assets/img/uploads/promessi-spassi_card.jpeg"
 thumbnail: "/assets/img/thumbs/promessi-spassi.jpeg"
 excerpt_separator: <!--more-->
-ticket_url: "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478863182670358596.html"
+ticket_url: "https://eventfrog.ch/en/p/groups/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081056758243.html"
 permalink: /promessi-spassi/
 hosts_label: "Hosted by"
 hosts:
   - "miguel"
   - "coopernik"
-event_type: one-off
+event_type: monthly
 language: it
 venue: "ROBIN's"
 venue_slug: robins
