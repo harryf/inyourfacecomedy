@@ -1,0 +1,9 @@
+# The experiments ledger: one entry per page change made for search. Read seo/README.md.
+# The weekly report judges each open entry after 28 days of final data. Close it by hand
+# (status: closed, verdict: ...) once the reading is in.
+- id: exp-2026-09-18-1
+  date: 2026-09-18
+  page: /
+  queries: ["stand up comedy zürich", "stand up comedy zurich", "comedy zurich", "comedy zürich", "comedy club zurich", "comedy club zürich", "stand up comedy schweiz", "stand up comedy"]
+  change: "Home title now 'Stand-up Comedy Zürich: English Comedy Club, Shows & Open Mic', description names the club, Switzerland, the Thursday open mic and CHF 10; an intro paragraph under the hero heading links 'Thursday open mic' to /comedybrew/"
+  status: open
