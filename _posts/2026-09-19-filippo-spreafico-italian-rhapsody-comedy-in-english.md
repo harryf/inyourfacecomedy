@@ -11,6 +11,9 @@ thumbnail: "/assets/img/thumbs/filippo-spreafico.png"
 excerpt_separator: <!--more-->
 ticket_url: "https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/filippo-spreafico-italian-rhapsody-comedy-in-english-7487867600443024331.html"
 permalink: /filippo-spreafico/
+hosts_label: "Starring"
+hosts:
+  - "filippo-spreafico"
 event_type: one-off
 venue: "ROBIN's"
 venue_slug: robins
