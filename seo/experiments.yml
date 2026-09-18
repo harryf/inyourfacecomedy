@@ -5,13 +5,13 @@
   date: 2026-09-18
   page: /
   queries: ["stand up comedy zürich", "stand up comedy zurich", "comedy zurich", "comedy zürich", "comedy club zurich", "comedy club zürich", "stand up comedy schweiz", "stand up comedy"]
-  change: "Home title now 'Stand-up Comedy Zürich: English Comedy Club, Shows & Open Mic', description names the club, Switzerland, the Thursday open mic and CHF 10; an intro paragraph under the hero heading links 'Thursday open mic' to /comedybrew/"
+  change: "Home title now 'Stand-up Comedy Zürich: English Comedy Club, Shows & Open Mic', description names the club, Switzerland, the Thursday open mic; an intro paragraph under the hero heading links 'Thursday open mic' to /comedybrew/"
   status: open
 - id: exp-2026-09-18-2
   date: 2026-09-18
   page: /comedybrew/
   queries: ["open mic zürich", "open mic zurich", "open mic comedy zürich", "open mic comedy", "comedy open mic zurich"]
-  change: "Title now 'Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday'; description states Thursday, doors 19:30, CHF 10; 'The essentials' facts list and 'What's a comedy open mic?' moved to the top of the body, price stated in text for the first time"
+  change: "Title now 'Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday'; description states Thursday and doors 19:30; 'The essentials' facts list and 'What's a comedy open mic?' moved to the top of the body"
   status: open
 - id: exp-2026-09-18-3
   date: 2026-09-18

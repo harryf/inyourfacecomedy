@@ -2,7 +2,7 @@
 layout: post
 editable: false
 title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
-description: "Zürich's weekly English comedy open mic at ROBIN's near Central. Every Thursday, doors 19:30, CHF 10. Ten comedians, new jokes, first-timers, all in English."
+description: "Zürich's weekly English comedy open mic at ROBIN's near Central. Every Thursday, doors 19:30. Ten comedians, new jokes, first-timers, all in English."
 last_modified_at: 2026-09-18T07:00:01+00:00
 feature-img: "assets/img/uploads/comedybrew_featured.png"
 image: "/assets/img/uploads/comedybrew_horizontal.png"
@@ -34,7 +34,7 @@ redirect_from:
 
 - **Every Thursday.** Doors 19:30, show 19:50 to about 22:00, a 15-minute break in the middle. Home in time for the last tram.
 - **ROBIN's, Zähringerstrasse 33, 8001 Zürich.** Two minutes from Central, five from the main station.
-- **CHF 10** (students CHF 5). Buy in advance; door sales slow everyone down.
+- **Tickets on Eventfrog.** Buy in advance; door sales slow everyone down.
 - **In English.** Every set, every week. No Swiss German needed.
 - **About ten comedians a night.** Pros testing new jokes and first-timers getting their first five minutes.
 
