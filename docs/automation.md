@@ -37,6 +37,7 @@ All gitignored, all at the repo root, none ever committed. Names only here; valu
 |---|---|
 | `HEALTHCHECKS_URL` | the four Ruby jobs (see "Healthchecks") |
 | `GA_REPORTS_CREDENTIALS` (path to `ga-reports-sa.json`), `GA_REPORTS_HEALTHCHECKS_URL` | `ga-report.ts`; `ga-setup.ts` and `ga-annotations.ts` use the same key but need the Editor role on the property |
+| `GSC_SITE`, `GSC_HEALTHCHECKS_URL` (both optional) | `gsc-report.ts`, which reads Search Console with the `GA_REPORTS_CREDENTIALS` account (a Restricted user on the property) |
 | `GRIST_API_KEY` | `sync-comedians.rb`, `meta-lineup-ad.ts` |
 | `EVENTFROG_ORGANIZER`, `EVENTFROG_HEALTHCHECKS_URL` | `eventfrog-sales.ts`, the ticket count in `robins-calendar.ts`. The key can write; the code cannot: `script/lib/eventfrog-api.ts` has one verb, GET, over a whitelist of paths |
 | `META_ACCESS_TOKEN`, `META_ADS_HEALTHCHECKS_URL` | the `meta-*.ts` scripts, plus ids and budgets in gitignored `meta-ads/config.yml` (from `config.example.yml`) |
@@ -71,6 +72,7 @@ Run by hand when needed:
 | `probe-gbp-v4.rb` | Read-only "is the Google Business Profile API alive" check |
 | `build-gallery-data.rb`, `build-gallery-card.rb` | The `/moments/` gallery data (Apple Vision) and its share card |
 | `ga-setup.ts` | The GA property's configuration as code (`analytics.md`) |
+| `gsc-report.ts` | Search Console worksheet: queries at position 11 to 20 and the page that ranks for each, with its current title and description (`scripts.md`) |
 | `email-monthly.ts`, `email-thankyou.ts`, `email-promo.ts` | Build a Mailchimp draft and open it; they never send (`emails.md`) |
 | `meta-lists.ts`, `meta-adsets.ts`, `meta-bank.ts`, `meta-insights.ts` | Meta ads: customer lists, ad set targeting, the creative bank, the Friday readout (`meta-ads.md`) |
 

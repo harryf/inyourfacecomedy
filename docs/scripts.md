@@ -224,6 +224,31 @@ Reads GA with the service-account key named by `GA_REPORTS_CREDENTIALS` (the cro
 expires; Viewer role is enough) or, by hand, gcloud Application Default Credentials. Pings
 `GA_REPORTS_HEALTHCHECKS_URL`; a new broken `/go/` link seen in GA is sent as `/fail` so it alerts.
 
+## `gsc-report.ts`
+
+The Search Console worksheet: which queries show one of our pages just off page one, and
+what that page currently says. Pulls query and page together from the Search Console API for
+the last 90 final days (Search Console finalises a day about three days later), keeps the pairs
+at position 11 to 20 with ten or more impressions, groups them by page with the page's overall
+numbers, looks up each page's source file, `title:` and `description:` in `_posts`, `_comedians`,
+`pages` and `index.html`, and writes a Markdown worksheet plus the raw rows into gitignored
+`script/gsc-out/` (`<date>-pos11-20.md`, `.json`, and `latest.md`). Prints the top pages with
+their three biggest queries. Never touches git. Pure logic and its tests:
+`script/lib/gsc-report-lib.ts`.
+
+```
+bun script/gsc-report.ts [--dry-run] [--days 90] [--band 11-20] [--min-impressions 10] [--page /comedybrew/] [--country che]
+```
+
+`--band 8-11 --min-impressions 30` is the second target: queries at the bottom of page one.
+`--page` takes a site path and asks Google for that page only; `--country` an ISO 3166-1 alpha-3
+code. Auth is the `ga-report.ts` service account (`GA_REPORTS_CREDENTIALS`), which must be a
+user on the property (Restricted is enough; added 2026-09-18) with the Search Console API enabled
+on its project (`inyourface-ga-mcp`). `GSC_SITE` overrides the property
+(default `sc-domain:inyourfacecomedy.ch`); `GSC_HEALTHCHECKS_URL`, if set, gets the summary or
+`/fail`. The worksheet is the input to the title and text rewrites; run it again a few weeks
+after an edit to see whether the query moved.
+
 ## `build-gallery-data.rb` and `build-gallery-card.rb`
 
 macOS-only authoring tools for the `/moments/` gallery; the Linux build only reads what they commit.
