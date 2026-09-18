@@ -5,8 +5,8 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-09-18T07:00:01+00:00'
-event_count: 47
+generated_at: '2026-09-18T12:15:53+00:00'
+event_count: 49
 events:
 - show: filippo-spreafico
   name: Filippo Spreafico
@@ -51,20 +51,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831017073974511.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-09-24'
-  start: '2026-09-24T20:00:00+02:00'
-  end: '2026-09-24T22:00:00+02:00'
-  venue: yaman-caf-bar
-  venue_name: YAMAN Café-Bar
-  location: YAMAN Café-Bar
-  price_chf: 13
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7502459982580842189.html
-  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: nerdycomedyshow
   name: The NERDY COMEDY Show
   title: The NERDY COMEDY Show - English Standup Comedy in ZURICH
@@ -293,6 +279,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7501966354213278689.html
   eventfrog_name: Jackpot Comedy
+- show: promessi-spassi
+  name: PROMESSI SPASSI
+  title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
+  url: "/promessi-spassi/"
+  date: '2026-10-21'
+  start: '2026-10-21T20:00:00+02:00'
+  end: '2026-10-21T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081081924070.html
+  eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -437,6 +437,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831890344846441.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: promessi-spassi
+  name: PROMESSI SPASSI
+  title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
+  url: "/promessi-spassi/"
+  date: '2026-11-18'
+  start: '2026-11-18T21:00:00+02:00'
+  end: '2026-11-18T23:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081128061415.html
+  eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -494,20 +508,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726988168437.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-11-26'
-  start: '2026-11-26T20:30:00+02:00'
-  end: '2026-11-26T22:30:00+02:00'
-  venue: goldfisch-club
-  venue_name: Goldfisch Club
-  location: Goldfisch Club
-  price_chf: 13
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472021574628952076.html
-  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -523,6 +523,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466832108633224028.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-11-26'
+  start: '2026-11-26T20:30:00+02:00'
+  end: '2026-11-26T22:30:00+02:00'
+  venue: goldfisch-club
+  venue_name: Goldfisch Club
+  location: Goldfisch Club
+  price_chf: 13
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472021574628952076.html
+  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: nerdycomedyshow
   name: The NERDY COMEDY Show
   title: The NERDY COMEDY Show - English Standup Comedy in ZURICH
@@ -622,6 +636,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472022011318929691.html
   eventfrog_name: La Tarima - Comedia en Español - ZURICH
+- show: promessi-spassi
+  name: PROMESSI SPASSI
+  title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
+  url: "/promessi-spassi/"
+  date: '2026-12-16'
+  start: '2026-12-16T21:00:00+02:00'
+  end: '2026-12-16T23:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081170004456.html
+  eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
@@ -681,9 +709,4 @@ events:
   ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7501658845556549750.html
   eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
 unresolved: []
-no_upcoming:
-- show: promessi-spassi
-  ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478863182670358596.html
-  resolved_to: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478863182670358596.html
-  reason: resolved but 0 future events — ticket_url may point at one past event instead
-    of the series
+no_upcoming: []
