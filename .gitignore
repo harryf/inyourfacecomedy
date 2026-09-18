@@ -71,3 +71,6 @@ script/meta-out/
 
 # Eventfrog sales snapshots, order rows (no buyer fields, but order numbers), guard log, reviews. Never commit.
 script/eventfrog-out/
+
+# ROBINs staff calendar sync: state and the compiled EventKit helper
+script/robins-out/

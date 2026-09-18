@@ -613,3 +613,47 @@ Tests: `script/__tests__/eventfrog-sales.test.ts` (the client's refusals and hea
 capacity with the student sub-category, Zürich time across the October change, the window,
 slots, the curve, the projection, the pace, the guard table, blended net, profit, the ramp
 verdict with hysteresis, the site click join).
+
+## `robins-calendar.ts`
+
+Mirrors the website calendar (`_data/calendar.yml`, venue `robins` only) into the Apple calendar
+shared with the ROBIN's bar staff. It writes to the local Calendar store through
+`script/lib/ekcal.swift` (EventKit, compiled on first run into the gitignored `script/robins-out/`);
+iCloud carries the events to the staff. Whatever runs it needs the Calendars permission
+(System Settings, Privacy & Security, Calendars). The calendar is `ROBINS_CALENDAR` in `.env`, its
+exact title in Calendar.app; there is no password or id to store.
+
+```
+bun script/robins-calendar.ts --dry-run                       # the plan, nothing written
+bun script/robins-calendar.ts                                 # writes to the calendar named in .env
+bun script/robins-calendar.ts --calendar "Test Calendar"      # a one-off run against another calendar
+```
+
+One event per show date: title `🎤 Comedy Brew [Back]` (microphone, show name, room tag; the room is
+in the title only), notes with the host line (the post's `hosts:` and `hosts_label:`) and, in the
+last three days before a show, a `Tickets: 12` line from the read-only Eventfrog client. The
+organiser key sees our own events only (Comedy Brew today); every other show gets no Tickets line.
+The url is the show page plus `#<date>`, which is also the key that finds the event again.
+
+Room: `room: front` or `room: back` in a post's front matter wins; otherwise Front (the small room,
+30) in July and August and Back (the bar room, 120) the rest of the year.
+
+Humans win. `script/robins-out/state.json` remembers what the script last wrote, per field. A field
+that no longer holds that value was edited by a person and is never written again; in edited notes
+only the line that starts `Tickets:` is kept fresh. An event a person deleted is not recreated. A
+hand-made event within two hours of a show's start (no `#<date>` key in its url) is left alone and
+no twin is made. A show that leaves the website is reported, never deleted: the helper has no
+delete at all. `--force` is the way back: every field of the script's own events counts as ours
+again and is reset to the website's version (hand-made events stay untouched).
+
+`--first-load` (with `--dry-run` first) is the one-time takeover of a calendar people filled by hand:
+every repeating series is ended from its next occurrence on (history stays), a hand-made one-off in
+the slot of a website show is replaced by ours, "front" in its title or notes carries over as
+`[Front]` and is recorded as a human edit so it sticks, and hand-made events that match no website
+show stay untouched. `--keep-dates 2026-12-31` keeps a plain copy of a series occurrence. It refuses
+to run on a calendar the script has already written to. The helper's `remove` op exists only for
+this: it needs the event id, exact start and exact title. "Comedy @ ROBINs" was taken over on
+2026-09-18 (backups in `script/robins-out/`); the daily run for it is plain
+`bun script/robins-calendar.ts` with `ROBINS_CALENDAR="Comedy @ ROBINs"` in `.env`.
+
+Tests: `script/__tests__/robins-calendar.test.ts` (room rule, title, key, notes, the human-edit rules, `--force`).
