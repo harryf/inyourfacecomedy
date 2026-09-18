@@ -1,7 +1,11 @@
 # Creative bank plan: Cold, Warm, Intent (2026-09-13)
 
-Status: DRAFT, waiting for Harry's approval. Nothing on Meta changes until the questions at
-the end are answered. The readout this plan rests on is `script/meta-out/old-adset-readout.md`
+Status: approved and built on 13 September 2026; kept as the record of the reasoning. Two
+things changed on 18 September after the first readout (`docs/meta-ads.md`, Status): six ads at
+once was too many for these budgets (Meta fed one ad and starved the rest), so two or three
+run per set and the others carry `status: resting` until their round; and Cold carries two
+video ads (`meta-ads/video-plan.md`). Written before approval, the rest reads as a proposal:
+nothing on Meta changes until the questions at the end are answered. The readout this plan rests on is `script/meta-out/old-adset-readout.md`
 (gitignored, regenerate with `bun script/meta-insights.ts --adset old` once that exists).
 
 ## What the old ad set taught us

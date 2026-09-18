@@ -19,6 +19,7 @@ Linux box without work (the Jekyll build and `check-site.rb` are; CI proves it o
 |---|---|---|
 | Ruby 3.2.4 via rbenv, Bundler | every `.rb` script, the Jekyll build | `.ruby-version` pins it. The scripts are stdlib only; Bundler is for Jekyll and html-proofer (`bundle install`) |
 | bun (1.3 or newer) | every `.ts` script, `bun test` | `bun install` once for the test dependency. Never npm |
+| ffmpeg and ffprobe | rendering the video ads in `video/` (`bun scripts/Render.ts`) | Homebrew `ffmpeg`. `video/` also wants its own `bun install` (Remotion, which fetches a headless browser on first render). Not needed by any scheduled job |
 | git with push access to `origin` over SSH, no passphrase prompt | every job that commits | cron cannot answer a prompt. The key must be usable without one (agent or keychain) |
 | `.env` at the repo root | almost everything | `cp .env.example .env`, then fill in. Gitignored. Each script loads it itself, so a cron line never sources it |
 | `sips` (ships with macOS) | `sync-comedians.rb`, the gallery scripts, the email images | |
@@ -74,7 +75,7 @@ Run by hand when needed:
 | `build-gallery-data.rb`, `build-gallery-card.rb` | The `/moments/` gallery data (Apple Vision) and its share card |
 | `ga-setup.ts` | The GA property's configuration as code (`analytics.md`) |
 | `email-monthly.ts`, `email-thankyou.ts`, `email-promo.ts` | Build a Mailchimp draft and open it; they never send (`emails.md`) |
-| `meta-lists.ts`, `meta-adsets.ts`, `meta-bank.ts`, `meta-insights.ts` | Meta ads: customer lists, ad set targeting, the creative bank, the Friday readout (`meta-ads.md`) |
+| `meta-lists.ts`, `meta-adsets.ts`, `meta-bank.ts`, `meta-insights.ts` | Meta ads: customer lists, ad set targeting and budgets, the creative bank (image ads, video ads with `--push-video`, which ads are on with `--sync`), the Friday readout (`meta-ads.md`) |
 
 Shared code lives in `script/lib/` (TypeScript helpers, the Swift calendar bridge), tests in
 `script/__tests__/` (`bun test`), the launchd plist in `script/launchd/`, the email prompts in

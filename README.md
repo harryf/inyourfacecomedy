@@ -15,6 +15,7 @@ Type-on-Strap) is baked into the project, so there is no theme gem and nothing o
 - `admin/` Decap CMS, for editing show text in a browser at `/admin/`.
 - `docs/` the internal documentation. Not published.
 - `gbp/`, `meta-ads/` working files for the Google Business Profile posts and the Meta ads. Not published.
+- `video/` a small Remotion project that renders the video ads for Instagram and Facebook Stories and Reels. Its own `package.json` and README. Not published.
 
 ## Run it locally
 

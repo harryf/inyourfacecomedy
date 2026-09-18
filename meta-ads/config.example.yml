@@ -35,11 +35,11 @@ custom_conversion_id: ""              # phase 2 step 2, "Ticket click" on Ticket
 # Budgets in CHF per day. Base is the always-on figure; ramp is the figure during the
 # Tuesday 06:00 to show day 23:00 window that script/meta-schedule.ts writes (never on cold).
 budgets:
-  cold:   { base: 3 }
-  warm:   { base: 3, ramp: 10 }
+  cold:   { base: 6 }                 # 3 until 2026-09-18
+  warm:   { base: 5, ramp: 10 }       # 3 until 2026-09-18
   intent: { base: 2, ramp: 5 }
-  buyers: { base: 2, ramp: 8 }
-monthly_cap_chf: 500
+  buyers: { base: 0 }                 # parked 2026-09-18 (was base 2, ramp 8): the ad set never delivered
+monthly_cap_chf: 600                  # the experiment's cap to 2026-10-31 (docs/meta-ads.md); 500 before
 
 # Which shows get a ramp. Dates always come from _data/calendar.yml, never from here.
 ramp_shows: [comedybrew]

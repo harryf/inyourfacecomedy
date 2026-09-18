@@ -18,7 +18,7 @@ Claude Code, [`CLAUDE.md`](../CLAUDE.md) (the rules that bite). Then:
 | [`show-promo-links.md`](show-promo-links.md) | You touch the `/comedians/` promo links, Lineup Maker 2000 or the Week Story |
 | [`flyer-design.md`](flyer-design.md) | You touch the flyer generator: which design decisions are fixed and which are free |
 | [`emails.md`](emails.md) | You send a Mailchimp campaign: the three email scripts and the review-and-send flow |
-| [`meta-ads.md`](meta-ads.md) | You work on the Meta ads: the runbook, status table first. Working plans sit beside the data in `meta-ads/` |
+| [`meta-ads.md`](meta-ads.md) | You work on the Meta ads: the runbook, status first. Working plans sit beside the data in `meta-ads/` (creative bank, video plan); the video ads are rendered in `video/`, which has its own README |
 | [`google-business-profile-api-setup.md`](google-business-profile-api-setup.md) | The Google listing job misbehaves: API access, OAuth, moderation history |
 | [`google-preferred-source.md`](google-preferred-source.md) | You wonder about the "preferred source" link on `/follow/` and the footer |
 | [`writing-guide.md`](writing-guide.md) | You write any visitor-facing copy, doc or commit message: house style |

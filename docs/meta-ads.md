@@ -94,6 +94,10 @@ stages from the report:
 Plus: a bank of six specific ads rotated fortnightly, the Monday lineup flyer landing in
 Buyers by itself, and five small bun scripts that keep audiences, budgets and reports fresh.
 
+That was the plan of 13 September. What runs now differs in three ways, all in Status above:
+Buyers is parked, two or three ads run per set at a time with the others resting, and Cold
+carries two video ads.
+
 ## Where things live
 
 | Thing | Where | In git? |
@@ -310,8 +314,9 @@ link. In `/reports/comedybrew/` the next day, clicks appear under `utm_content` 
    against the readout). Action: turn off the ad set. Schedule: daily. Notify by email.
 3. The cap: a notify rule does not stop spend. Set the account spending limit instead: Business
    settings, Ad accounts, your account, "Set spending limit" (may sit under Payment settings in
-   Ads Manager), CHF 500 a month, or whatever the month's figure is. Meta pauses everything at
-   the limit and you raise it by hand.
+   Ads Manager). It is set to CHF 600 and stays there. It is a running total, not a monthly
+   figure: Meta pauses everything in the account when the count reaches it, and Harry resets
+   the counter on the same page, about once a month at the experiment's spend.
 3a. Frequency: there is no frequency cap on Traffic ad sets (it exists only for the Reach
    objective), so the Frequency column in the weekly readout is the check; over 5 on Buyers in
    a week means rotate its creative.
@@ -342,9 +347,10 @@ bun script/meta-adsets.ts --apply    # write it (asks per ad set)
 ```
 
 Run the diff first and read it; then apply. Expect "Learning" on each set once ads go in. The
-old ad set and Buyers are never written by this script. With the old ad set kept at CHF 5 a
-day, the projected month is about CHF 650 against the CHF 500 cap in config; either raise
-`monthly_cap_chf` and the account spending limit, or trim the bases.
+old ad set and Buyers are never written by this script. On 18 September 2026 the
+bases went to Cold 6 and Warm 5 with Buyers at 0 and `monthly_cap_chf` at 600; the script then
+projected CHF 522 for the month with the old ad set at CHF 1 a day (Harry's show-week boosts of
+the old set come on top and are not in that figure).
 
 Result types in Ads Manager (checked on the API 2026-09-14): the Results column follows the ad set's conversion location (`destination_type`) and goal, not the ad's link. Cold, Warm and Intent report Landing Page Views because their goal is landing page views (a link click that loaded the page: the stricter count, chosen on purpose); Buyers reports Link Clicks (goal link clicks, destination website; the buyer lists are too small to learn on page views); the old 2024 set reports Link Clicks with the 2024 default destination. Until 2026-09-14 Buyers still carried the hand-made shell's "Instagram profile and Facebook page" destination, so Ads Manager counted Instagram Profile Visits and optimised for them; `meta-lineup-ad.ts` now writes and checks destination WEBSITE on every run. The weekly readout counts inline link clicks and landing page views for every ad set whatever the goal, so the rows stay comparable.
 
@@ -462,7 +468,20 @@ commit `meta-ads/config.yml`, anything under `meta-ads/lists/`, `script/meta-out
 
 ## For the next session
 
-Ticket sales against the ads: the strategy is at `~/Documents/2026-09-13-comedy-brew-sales-tracking-strategy.md` (read-only Eventfrog poll on a cron, capacity projection on Tuesday, ramp guard on the blended ticket margin, Saturday review; section 11 is the build list, section 12 the questions Harry answers first). Nothing from it is built yet.
+Start with the Status section at the top: it says what is running, what is parked and what the
+experiment is judged on. Things waiting, in order:
+
+1. The audience "IYF Video viewers 50%" is made by hand in Ads Manager (`bun script/meta-bank.ts --video-audience` says which videos it must hold and what config needs afterwards); then `video_viewers` goes into Warm's include and Cold's exclude lists and `meta-adsets.ts` writes it.
+2. The Friday readout (`bun script/meta-insights.ts`): check that it lists the two video ads (`cold-C4v`, `cold-C12v`) and compare `cold-C4v` with `cold-C4`.
+3. Round two of the ad rotation, about 2 October: swap `live` and `resting` in the bank files, `meta-bank.ts --sync --apply`. A good moment to narrow Warm and Intent from all of Switzerland to Zürich plus about 50 km (in the first week only 54 percent of Warm's and 36 percent of Intent's impressions fell in canton Zürich; Cold's 30 km gave 81 percent), so the ad sets re-learn once.
+4. Thursday's show: an applause take for the closing logo, and a word with the venue about the room recording. More video concepts are in `meta-ads/video-plan.md`.
+5. 31 October: the experiment's review.
+
+Location targeting holds: 99 to 100 percent of every ad set's impressions were in Switzerland in the first week, the rest Germany. Followers abroad are in the Warm audience but never served, because every ad set is limited to people living in or recently in its area.
+
+How people move between ad sets, with nothing done by hand: a like, comment, save or follow puts someone among the Instagram or Facebook engagers, which Cold excludes and Warm includes; a click lands on `/go/`, which puts them among Site visitors and Show clickers, which Cold and Warm exclude and Intent includes. Known gap, left open on purpose: the buyer lists were uploaded once on 13 September, so someone who bought since still sees Intent ads.
+
+Ticket sales against the ads: the strategy is at `~/Documents/2026-09-13-comedy-brew-sales-tracking-strategy.md`. It is built as `script/eventfrog-sales.ts` (`scripts.md`), run by hand for now; the cron lines in `automation.md` are not installed.
 
 Read the status table above first, then `meta-ads/config.example.yml` for the keys, then the
 report sections the current phase names. The pixel and the `TicketRedirect` event on `/go/`
