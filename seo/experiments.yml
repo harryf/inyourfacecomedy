@@ -13,3 +13,9 @@
   queries: ["open mic zürich", "open mic zurich", "open mic comedy zürich", "open mic comedy", "comedy open mic zurich"]
   change: "Title now 'Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday'; description states Thursday, doors 19:30, CHF 10; 'The essentials' facts list and 'What's a comedy open mic?' moved to the top of the body, price stated in text for the first time"
   status: open
+- id: exp-2026-09-18-3
+  date: 2026-09-18
+  page: /switzerland/
+  queries: ["swiss comedians", "swiss stand up comedians", "swiss comedian"]
+  change: "New section 'Swiss comedians on our stages' listing the comedians from Switzerland with a profile (front matter swiss_comedians), linking to their pages and to /comedians/"
+  status: open

@@ -7,6 +7,11 @@ subtitle: "Comedy Tips and Guide for Visiting Comedians"
 description: "A practical guide for English comedians performing in Switzerland: audiences, promoters, and cultural tips from the IN YOUR FACE Comedy team in Zürich."
 last_modified_at: 2026-05-25T12:00:00+00:00
 permalink: /switzerland/
+# Comedians from Switzerland with a profile here, listed in the "Swiss comedians on our stages" section (slugs).
+swiss_comedians:
+  - andrea-ramirez
+  - emir-tonbul
+  - roza-nazar
 hide: true                                                # off the nav; still linked from /perform/ + in sitemap
 feature-img: "assets/img/pages/comedy_in_switzerland_banner.png"
 thumbnail: "assets/img/thumbs/comedy_in_switzerland.png"
@@ -52,6 +57,13 @@ Banking, pharma, and IT are practically a way of life here. The student crowd is
 "Don’t be afraid." It's ironic because, well, you've chosen to do stand-up in Switzerland, the land known for peace and neutrality. Here's the twist: they've been waiting for someone to disrupt the peace with laughter. Break a leg!
 
 _Remember, in Switzerland, the laughter is as rich as the chocolate, and your comedy? It could just be the secret ingredient._
+
+## Swiss comedians on our stages
+
+Looking for Swiss comedians rather than tips on performing for them? These comedians from Switzerland have a profile with us; the full list of everyone who performs at IN YOUR FACE is on the [comedians page](/comedians/).
+
+{% for slug in page.swiss_comedians %}{% assign c = site.comedians | where: "slug", slug | first %}{% if c %}- [{{ c.title }}]({{ c.url }})
+{% endif %}{% endfor %}
 
 {% include hosts-to-talk-to.liquid %}
 
