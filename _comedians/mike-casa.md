@@ -2,7 +2,7 @@
 layout: comedian
 title: "Mike Casa"
 description: "Comedian on IN YOUR FACE Comedy stages in Zürich. Originally from Lugano, Mike began performing stand-up comedy in Sydney in 2016, where he reached the semi-finals of the Sydney Comedy Court Contest…"
-last_modified_at: "2026-09-19T16:40:40+00:00"
+last_modified_at: "2026-09-19T16:41:50+00:00"
 slug: "mike-casa"
 photo: "/assets/img/comedians/mike-casa.jpg"
 instagram: "https://instagram.com/mikecasacomedy"
@@ -11,6 +11,7 @@ facebook_page: "https://facebook.com/mikecasacomedy"
 x: ""
 youtube_channel: "https://youtube.com/@mikecasacomedy"
 website: "https://mikecasacomedy.ch/"
+priority: "High"
 image: "/assets/img/comedians/mike-casa.jpg"
 bio: |
   Originally from Lugano, Mike began performing stand-up comedy in Sydney in 2016, where he reached the semi-finals of the Sydney Comedy Court Contest.
