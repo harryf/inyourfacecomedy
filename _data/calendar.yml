@@ -5,7 +5,7 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-09-18T12:15:53+00:00'
+generated_at: '2026-09-19T07:00:02+00:00'
 event_count: 49
 events:
 - show: filippo-spreafico
@@ -38,8 +38,7 @@ events:
   eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-09-24'
   start: '2026-09-24T19:30:00+02:00'
@@ -95,8 +94,7 @@ events:
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-10-01'
   start: '2026-10-01T19:30:00+02:00'
@@ -167,8 +165,7 @@ events:
   eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-10-08'
   start: '2026-10-08T19:30:00+02:00'
@@ -224,8 +221,7 @@ events:
   eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-10-15'
   start: '2026-10-15T19:30:00+02:00'
@@ -295,8 +291,7 @@ events:
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-10-22'
   start: '2026-10-22T19:30:00+02:00'
@@ -324,8 +319,7 @@ events:
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-10-29'
   start: '2026-10-29T20:30:00+02:00'
@@ -381,8 +375,7 @@ events:
   eventfrog_name: Pulp Non-Fiction Storytelling Open Mic Zurich
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-11-05'
   start: '2026-11-05T20:30:00+02:00'
@@ -424,8 +417,7 @@ events:
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-11-12'
   start: '2026-11-12T20:30:00+02:00'
@@ -453,8 +445,7 @@ events:
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-11-19'
   start: '2026-11-19T20:30:00+02:00'
@@ -510,8 +501,7 @@ events:
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-11-26'
   start: '2026-11-26T20:30:00+02:00'
@@ -566,8 +556,7 @@ events:
   eventfrog_name: Random Facts Exchange 22 Museum Edition
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-12-03'
   start: '2026-12-03T20:30:00+02:00'
@@ -609,8 +598,7 @@ events:
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-12-10'
   start: '2026-12-10T20:30:00+02:00'
@@ -652,8 +640,7 @@ events:
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-12-17'
   start: '2026-12-17T20:30:00+02:00'
@@ -681,8 +668,7 @@ events:
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-12-24'
   start: '2026-12-24T20:30:00+02:00'
