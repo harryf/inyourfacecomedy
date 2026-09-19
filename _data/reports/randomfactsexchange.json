@@ -3,34 +3,26 @@
  "title": "Random Facts Exchange",
  "ticket_url": "https://eventfrog.ch/en/p/groups/random-facts-exchange-7434337254674303477.html",
  "event_type": "series",
- "generated_at": "2026-09-18T08:20:02.485Z",
+ "generated_at": "2026-09-19T08:20:02.194Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-20",
- "through": "2026-09-18",
- "complete_through": "2026-09-16",
+ "pages_since": "2026-08-21",
+ "through": "2026-09-19",
+ "complete_through": "2026-09-17",
  "totals": {
-  "clicks": 27,
+  "clicks": 25,
   "redirect": 0,
-  "click": 27,
-  "clicks_30d": 27,
+  "click": 25,
+  "clicks_30d": 25,
   "redirect_30d": 0,
-  "click_30d": 27,
+  "click_30d": 25,
   "views": 37,
   "views_30d": 37,
-  "sessions": 37,
-  "sessions_30d": 37,
+  "sessions": 31,
+  "sessions_30d": 31,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-20",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-21",
    "redirect": 0,
@@ -250,13 +242,21 @@
   {
    "date": "2026-09-17",
    "redirect": 0,
-   "click": 14,
+   "click": 12,
    "views": 12,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-18",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-19",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -268,16 +268,30 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 16,
-   "views": 20,
-   "sessions": 19
+   "clicks": 17,
+   "views": 23,
+   "sessions": 20
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 10,
-   "views": 7,
-   "sessions": 11
+   "clicks": 3,
+   "views": 5,
+   "sessions": 4
+  },
+  {
+   "source": "ecosia.org",
+   "medium": "organic",
+   "clicks": 2,
+   "views": 2,
+   "sessions": 2
+  },
+  {
+   "source": "eventfrog.ch",
+   "medium": "referral",
+   "clicks": 1,
+   "views": 5,
+   "sessions": 3
   },
   {
    "source": "guidle",
@@ -287,18 +301,11 @@
    "sessions": 1
   },
   {
-   "source": "eventfrog.ch",
-   "medium": "referral",
-   "clicks": 0,
-   "views": 6,
-   "sessions": 3
-  },
-  {
-   "source": "ecosia.org",
-   "medium": "organic",
-   "clicks": 0,
-   "views": 2,
-   "sessions": 2
+   "source": "chatgpt.com",
+   "medium": "ai-assistant",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
   },
   {
    "source": "instagram",

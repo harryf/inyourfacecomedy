@@ -3,34 +3,26 @@
  "title": "Filippo Spreafico",
  "ticket_url": "https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/filippo-spreafico-italian-rhapsody-comedy-in-english-7487867600443024331.html",
  "event_type": "one-off",
- "generated_at": "2026-09-18T08:20:02.485Z",
+ "generated_at": "2026-09-19T08:20:02.194Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-20",
- "through": "2026-09-18",
- "complete_through": "2026-09-16",
+ "pages_since": "2026-08-21",
+ "through": "2026-09-19",
+ "complete_through": "2026-09-17",
  "totals": {
-  "clicks": 39,
+  "clicks": 51,
   "redirect": 7,
-  "click": 32,
-  "clicks_30d": 39,
+  "click": 44,
+  "clicks_30d": 51,
   "redirect_30d": 7,
-  "click_30d": 32,
-  "views": 142,
-  "views_30d": 142,
-  "sessions": 120,
-  "sessions_30d": 120,
+  "click_30d": 44,
+  "views": 159,
+  "views_30d": 159,
+  "sessions": 143,
+  "sessions_30d": 143,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-20",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-21",
    "redirect": 0,
@@ -251,15 +243,23 @@
    "date": "2026-09-17",
    "redirect": 0,
    "click": 2,
-   "views": 7,
-   "provisional": true,
+   "views": 9,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-18",
    "redirect": 0,
-   "click": 0,
-   "views": 0,
+   "click": 8,
+   "views": 13,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-19",
+   "redirect": 0,
+   "click": 4,
+   "views": 2,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -268,9 +268,16 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 17,
-   "views": 36,
-   "sessions": 31
+   "clicks": 18,
+   "views": 41,
+   "sessions": 36
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 11,
+   "views": 26,
+   "sessions": 30
   },
   {
    "source": "instagram",
@@ -282,23 +289,16 @@
   {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
-   "clicks": 6,
-   "views": 29,
-   "sessions": 25
-  },
-  {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 2,
-   "views": 18,
-   "sessions": 16
+   "clicks": 7,
+   "views": 32,
+   "sessions": 28
   },
   {
    "source": "guidle",
    "medium": "referral",
    "clicks": 1,
-   "views": 9,
-   "sessions": 9
+   "views": 10,
+   "sessions": 10
   },
   {
    "source": "eventfrog.ch",
@@ -306,6 +306,13 @@
    "clicks": 1,
    "views": 2,
    "sessions": 2
+  },
+  {
+   "source": "chatgpt.com",
+   "medium": "ai-assistant",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
   },
   {
    "source": "meta",

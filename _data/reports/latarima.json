@@ -3,34 +3,26 @@
  "title": "La Tarima",
  "ticket_url": "https://eventfrog.ch/en/p/groups/la-tarima-open-mic-7487916867123691072.html",
  "event_type": "monthly",
- "generated_at": "2026-09-18T08:20:02.485Z",
+ "generated_at": "2026-09-19T08:20:02.194Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-20",
- "through": "2026-09-18",
- "complete_through": "2026-09-16",
+ "pages_since": "2026-08-21",
+ "through": "2026-09-19",
+ "complete_through": "2026-09-17",
  "totals": {
-  "clicks": 11,
+  "clicks": 12,
   "redirect": 1,
-  "click": 10,
-  "clicks_30d": 11,
+  "click": 11,
+  "clicks_30d": 12,
   "redirect_30d": 1,
-  "click_30d": 10,
-  "views": 18,
-  "views_30d": 18,
-  "sessions": 17,
-  "sessions_30d": 17,
+  "click_30d": 11,
+  "views": 17,
+  "views_30d": 17,
+  "sessions": 16,
+  "sessions_30d": 16,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-20",
-   "redirect": 0,
-   "click": 0,
-   "views": 1,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-21",
    "redirect": 0,
@@ -250,13 +242,21 @@
   {
    "date": "2026-09-17",
    "redirect": 0,
-   "click": 0,
+   "click": 1,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-18",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-19",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -269,8 +269,8 @@
    "source": "google",
    "medium": "organic",
    "clicks": 5,
-   "views": 3,
-   "sessions": 3
+   "views": 2,
+   "sessions": 2
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -283,8 +283,15 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 2,
-   "views": 8,
-   "sessions": 8
+   "views": 7,
+   "sessions": 7
+  },
+  {
+   "source": "Spanish Audience",
+   "medium": "email",
+   "clicks": 1,
+   "views": 1,
+   "sessions": 1
   },
   {
    "source": "VA LBHE ABDF Dbzfel",
