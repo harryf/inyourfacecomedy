@@ -5,8 +5,8 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-09-19T07:00:02+00:00'
-event_count: 49
+generated_at: '2026-09-19T10:16:03+00:00'
+event_count: 50
 events:
 - show: filippo-spreafico
   name: Filippo Spreafico
@@ -261,20 +261,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/gratis-comedy-zum-mitnehmen-free-entry-stand-up-comedy-7492504634877050139.html
   eventfrog_name: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
-- show: jackpotcomedy
-  name: Jackpot Comedy
-  title: Jackpot Comedy - downstairs @ OTRO
-  url: "/jackpotcomedy/"
-  date: '2026-10-21'
-  start: '2026-10-21T20:00:00+02:00'
-  end: '2026-10-21T22:00:00+02:00'
-  venue: otro
-  venue_name: Bar OTRO
-  location: OTRO - Cocktailbar Zürich
-  price_chf: 0
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7501966354213278689.html
-  eventfrog_name: Jackpot Comedy
 - show: promessi-spassi
   name: PROMESSI SPASSI
   title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
@@ -289,6 +275,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081081924070.html
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
+- show: jackpotcomedy
+  name: Jackpot Comedy
+  title: Jackpot Comedy - downstairs @ OTRO
+  url: "/jackpotcomedy/"
+  date: '2026-10-21'
+  start: '2026-10-21T20:00:00+02:00'
+  end: '2026-10-21T22:00:00+02:00'
+  venue: otro
+  venue_name: Bar OTRO
+  location: OTRO - Cocktailbar Zürich
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7501966354213278689.html
+  eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
@@ -541,6 +541,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7501658632838204314.html
   eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
+- show: mike-casa
+  name: Mike Casa
+  title: Mike Casa • Stand-up Comedy Show at ROBIN's Zürich • 2 December 2026
+  url: "/mike-casa/"
+  date: '2026-12-02'
+  start: '2026-12-02T20:30:00+02:00'
+  end: '2026-12-02T22:30:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN'S Coffee
+  price_chf: 39
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/2-dec-mike-casa-stand-up-comedy-show-robin-s-zurich-7507006161725486601.html
+  eventfrog_name: '2 DEC: Mike Casa Stand-up Comedy Show @ROBIN''S ZURICH!'
 - show: randomfactsexchange
   name: Random Facts Exchange
   title: Random Facts Exchange - the Science Comedy Show in Zürich

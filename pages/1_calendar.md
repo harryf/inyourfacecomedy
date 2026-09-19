@@ -5,7 +5,7 @@ nav_title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
 description: "Every IN YOUR FACE comedy show in Zürich, month by month through 2026: dates, venues and ticket links for English stand-up nights and open mics. Comedy Veranstaltungen in Zürich auf Englisch. Updated weekly."
-last_modified_at: 2026-09-19T09:00:01+00:00
+last_modified_at: 2026-09-19T10:16:25+00:00
 permalink: /calendar/
 feature-img: "assets/img/pages/follow.png"
 image: "/assets/img/pages/follow.png"
@@ -59,8 +59,8 @@ Auf Deutsch: alle Comedy Veranstaltungen und Auftritte von IN YOUR FACE in Züri
 | Oct 15 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | English open mic where the awkward becomes gold 😂 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831420029175587.html) |
 | Oct 15 | Thu | [La Tarima](https://inyourfacecomedy.ch/latarima/) | Chistes con acento y sin pedir perdón 🔥 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7502460776000545380.html) |
 | Oct 18 | Sun | [Gratis Comedy Zum Mitnehmen](https://inyourfacecomedy.ch/gratis-zum-mitnehmen/) | It costs money to breathe in Zürich, not to laugh here 😂 | [Get Tickets](https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/gratis-comedy-zum-mitnehmen-free-entry-stand-up-comedy-7492504634877050139.html) |
-| Oct 21 | Wed | [Jackpot Comedy](https://inyourfacecomedy.ch/jackpotcomedy/) | New material, real risk, maximum crowd energy ⚡ | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7501966354213278689.html) |
 | Oct 21 | Wed | [PROMESSI SPASSI](https://inyourfacecomedy.ch/promessi-spassi/) | Finalmente una serata di risate in italiano 🇮🇹 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081081924070.html) |
+| Oct 21 | Wed | [Jackpot Comedy](https://inyourfacecomedy.ch/jackpotcomedy/) | New material, real risk, maximum crowd energy ⚡ | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7501966354213278689.html) |
 | Oct 22 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | New in town? These comedians will adopt you 🤗 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831545136883325.html) |
 | Oct 27 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | Comedy that zigs where every other night zags 😏 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726887505113.html) |
 | Oct 29 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Martina proves Thursdays are underrated 💫 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831682483568140.html) |
@@ -99,6 +99,7 @@ Auf Deutsch: alle Comedy Veranstaltungen und Auftritte von IN YOUR FACE in Züri
 
 | Date | Day | Show | Info | Tickets |
 |------|-----|------|------|---------|
+| Dec 2 | Wed | [Mike Casa](https://inyourfacecomedy.ch/mike-casa/) | Mike Casa brings his hit English show to ROBIN's 🎤 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/2-dec-mike-casa-stand-up-comedy-show-robin-s-zurich-7507006161725486601.html) |
 | Dec 3 | Thu | [Random Facts Exchange](https://inyourfacecomedy.ch/randomfactsexchange/) | Real science, real obsessions, real funny humans 🔬 | [Get Tickets](https://eventfrog.ch/en/p/science-and-technology/random-facts-exchange-22-museum-edition-7434316315886666767.html) |
 | Dec 3 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Comedy Brew: fresh pint of funny, every single week 🍻 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466832257447133527.html) |
 | Dec 6 | Sun | [Pulp Non-Fiction](https://inyourfacecomedy.ch/pulpnonfiction/) | Free entry, priceless stories: what's not to love 💛 | [Get Tickets](https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-7480253427534024794.html) |
