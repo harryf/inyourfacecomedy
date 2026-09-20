@@ -3,34 +3,26 @@
  "title": "Gratis Comedy Zum Mitnehmen",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/gratis-zurich-7495107963884945951.html",
  "event_type": "series",
- "generated_at": "2026-09-19T08:20:02.194Z",
+ "generated_at": "2026-09-20T08:20:02.091Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-21",
- "through": "2026-09-19",
- "complete_through": "2026-09-17",
+ "pages_since": "2026-08-22",
+ "through": "2026-09-20",
+ "complete_through": "2026-09-18",
  "totals": {
-  "clicks": 7,
+  "clicks": 8,
   "redirect": 0,
-  "click": 7,
-  "clicks_30d": 7,
+  "click": 8,
+  "clicks_30d": 8,
   "redirect_30d": 0,
-  "click_30d": 7,
-  "views": 8,
-  "views_30d": 8,
-  "sessions": 6,
-  "sessions_30d": 6,
+  "click_30d": 8,
+  "views": 11,
+  "views_30d": 11,
+  "sessions": 10,
+  "sessions_30d": 10,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-21",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-22",
    "redirect": 0,
@@ -250,13 +242,21 @@
   {
    "date": "2026-09-18",
    "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": true,
+   "click": 1,
+   "views": 1,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-19",
+   "redirect": 0,
+   "click": 0,
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-20",
    "redirect": 0,
    "click": 0,
    "views": 1,
@@ -268,16 +268,16 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 3,
-   "views": 2,
-   "sessions": 2
+   "clicks": 4,
+   "views": 3,
+   "sessions": 3
   },
   {
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 2,
-   "views": 1,
-   "sessions": 1
+   "views": 2,
+   "sessions": 3
   },
   {
    "source": "test",
@@ -292,6 +292,13 @@
    "clicks": 1,
    "views": 0,
    "sessions": 0
+  },
+  {
+   "source": "chatgpt.com",
+   "medium": "ai-assistant",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
   },
   {
    "source": "debug",

@@ -3,34 +3,26 @@
  "title": "Filippo Spreafico",
  "ticket_url": "https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/filippo-spreafico-italian-rhapsody-comedy-in-english-7487867600443024331.html",
  "event_type": "one-off",
- "generated_at": "2026-09-19T08:20:02.194Z",
+ "generated_at": "2026-09-20T08:20:02.091Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-21",
- "through": "2026-09-19",
- "complete_through": "2026-09-17",
+ "pages_since": "2026-08-22",
+ "through": "2026-09-20",
+ "complete_through": "2026-09-18",
  "totals": {
-  "clicks": 51,
-  "redirect": 7,
-  "click": 44,
-  "clicks_30d": 51,
-  "redirect_30d": 7,
-  "click_30d": 44,
-  "views": 159,
-  "views_30d": 159,
-  "sessions": 143,
-  "sessions_30d": 143,
+  "clicks": 75,
+  "redirect": 10,
+  "click": 65,
+  "clicks_30d": 75,
+  "redirect_30d": 10,
+  "click_30d": 65,
+  "views": 183,
+  "views_30d": 183,
+  "sessions": 169,
+  "sessions_30d": 169,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-21",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-22",
    "redirect": 0,
@@ -250,34 +242,42 @@
   {
    "date": "2026-09-18",
    "redirect": 0,
-   "click": 8,
-   "views": 13,
-   "provisional": true,
+   "click": 11,
+   "views": 18,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-19",
+   "redirect": 3,
+   "click": 22,
+   "views": 21,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-20",
    "redirect": 0,
-   "click": 4,
-   "views": 2,
+   "click": 0,
+   "views": 0,
    "provisional": true,
    "clicks_tracked": true
   }
  ],
  "by_source": [
   {
-   "source": "google",
-   "medium": "organic",
-   "clicks": 18,
-   "views": 41,
-   "sessions": 36
-  },
-  {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 11,
-   "views": 26,
-   "sessions": 30
+   "clicks": 27,
+   "views": 42,
+   "sessions": 48
+  },
+  {
+   "source": "google",
+   "medium": "organic",
+   "clicks": 20,
+   "views": 47,
+   "sessions": 42
   },
   {
    "source": "instagram",
@@ -289,9 +289,23 @@
   {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
-   "clicks": 7,
-   "views": 32,
-   "sessions": 28
+   "clicks": 9,
+   "views": 34,
+   "sessions": 30
+  },
+  {
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 3,
+   "views": 0,
+   "sessions": 0
+  },
+  {
+   "source": "chatgpt.com",
+   "medium": "ai-assistant",
+   "clicks": 2,
+   "views": 0,
+   "sessions": 0
   },
   {
    "source": "guidle",
@@ -306,13 +320,6 @@
    "clicks": 1,
    "views": 2,
    "sessions": 2
-  },
-  {
-   "source": "chatgpt.com",
-   "medium": "ai-assistant",
-   "clicks": 1,
-   "views": 0,
-   "sessions": 0
   },
   {
    "source": "meta",
@@ -337,6 +344,15 @@
    "clicks": 7,
    "first": "2026-09-11",
    "last": "2026-09-16",
+   "content": []
+  },
+  {
+   "campaign": "filippo-spreafico",
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 3,
+   "first": "2026-09-19",
+   "last": "2026-09-19",
    "content": []
   }
  ],
