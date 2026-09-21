@@ -49,28 +49,31 @@ datetime,event,source,medium,campaign,content,page
 2026-09-18 22:20,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/filippo-spreafico/
 2026-09-18 22:20,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/filippo-spreafico/
 2026-09-18 22:32,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/calendar/
+2026-09-19 00:58,ticket_click,guidle,referral,filippo-spreafico,,https://inyourfacecomedy.ch/filippo-spreafico/
 2026-09-19 02:12,ticket_click,google,organic,,,https://inyourfacecomedy.ch/filippo-spreafico/
-2026-09-19 03:22,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/filippo-spreafico/
+2026-09-19 03:22,ticket_click,google,organic,,,https://inyourfacecomedy.ch/filippo-spreafico/
 2026-09-19 08:18,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
 2026-09-19 08:30,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/calendar/
-2026-09-19 09:53,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-09-19 10:34,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/filippo-spreafico/
-2026-09-19 10:34,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/filippo-spreafico/
+2026-09-19 09:53,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/calendar/
+2026-09-19 10:34,ticket_click,google,organic,,,https://inyourfacecomedy.ch/filippo-spreafico/
+2026-09-19 10:34,ticket_click,google,organic,,,https://inyourfacecomedy.ch/filippo-spreafico/
 2026-09-19 11:00,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/filippo-spreafico/
-2026-09-19 11:22,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/filippo-spreafico/
+2026-09-19 11:22,ticket_click,google,organic,,,https://inyourfacecomedy.ch/filippo-spreafico/
 2026-09-19 11:23,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
 2026-09-19 11:37,ticket_redirect,meetup,referral,filippo-spreafico,,Ticket Redirect
-2026-09-19 12:15,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/filippo-spreafico/
+2026-09-19 12:15,ticket_click,guidle,referral,filippo-spreafico,,https://inyourfacecomedy.ch/filippo-spreafico/
 2026-09-19 12:38,ticket_redirect,meetup,referral,filippo-spreafico,,Ticket Redirect
 2026-09-19 14:42,ticket_redirect,meetup,referral,filippo-spreafico,,Ticket Redirect
-2026-09-19 14:58,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-09-19 14:58,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
+2026-09-19 14:59,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
 2026-09-19 16:50,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-09-19 17:02,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/filippo-spreafico/
+2026-09-19 17:02,ticket_click,google,organic,,,https://inyourfacecomedy.ch/filippo-spreafico/
 2026-09-19 17:08,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
 2026-09-19 17:08,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-09-19 17:20,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
-2026-09-19 17:37,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-09-19 17:43,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/filippo-spreafico/
-2026-09-19 17:47,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/filippo-spreafico/
-2026-09-19 20:03,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-09-19 20:41,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/filippo-spreafico/
+2026-09-19 17:10,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/filippo-spreafico/
+2026-09-19 17:20,ticket_click,duckduckgo,organic,,,https://inyourfacecomedy.ch/
+2026-09-19 17:37,ticket_click,duckduckgo,organic,,,https://inyourfacecomedy.ch/calendar/
+2026-09-19 17:43,ticket_click,google,organic,,,https://inyourfacecomedy.ch/filippo-spreafico/
+2026-09-19 17:47,ticket_click,google,organic,,,https://inyourfacecomedy.ch/filippo-spreafico/
+2026-09-19 20:03,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
+2026-09-19 20:41,ticket_click,guidle,referral,filippo-spreafico,,https://inyourfacecomedy.ch/filippo-spreafico/

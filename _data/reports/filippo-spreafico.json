@@ -3,34 +3,26 @@
  "title": "Filippo Spreafico",
  "ticket_url": "https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/filippo-spreafico-italian-rhapsody-comedy-in-english-7487867600443024331.html",
  "event_type": "one-off",
- "generated_at": "2026-09-20T08:20:02.091Z",
+ "generated_at": "2026-09-21T08:20:02.908Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-22",
- "through": "2026-09-20",
- "complete_through": "2026-09-18",
+ "pages_since": "2026-08-23",
+ "through": "2026-09-21",
+ "complete_through": "2026-09-19",
  "totals": {
-  "clicks": 75,
+  "clicks": 78,
   "redirect": 10,
-  "click": 65,
-  "clicks_30d": 75,
+  "click": 68,
+  "clicks_30d": 78,
   "redirect_30d": 10,
-  "click_30d": 65,
-  "views": 183,
-  "views_30d": 183,
-  "sessions": 169,
-  "sessions_30d": 169,
+  "click_30d": 68,
+  "views": 189,
+  "views_30d": 189,
+  "sessions": 165,
+  "sessions_30d": 165,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-22",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-23",
    "redirect": 0,
@@ -250,13 +242,21 @@
   {
    "date": "2026-09-19",
    "redirect": 3,
-   "click": 22,
-   "views": 21,
-   "provisional": true,
+   "click": 25,
+   "views": 26,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-20",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-21",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -266,18 +266,18 @@
  ],
  "by_source": [
   {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 27,
-   "views": 42,
-   "sessions": 48
-  },
-  {
    "source": "google",
    "medium": "organic",
-   "clicks": 20,
-   "views": 47,
-   "sessions": 42
+   "clicks": 30,
+   "views": 57,
+   "sessions": 52
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 14,
+   "views": 32,
+   "sessions": 29
   },
   {
    "source": "instagram",
@@ -290,8 +290,22 @@
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
    "clicks": 9,
-   "views": 34,
-   "sessions": 30
+   "views": 35,
+   "sessions": 31
+  },
+  {
+   "source": "guidle",
+   "medium": "referral",
+   "clicks": 4,
+   "views": 15,
+   "sessions": 14
+  },
+  {
+   "source": "chatgpt.com",
+   "medium": "ai-assistant",
+   "clicks": 3,
+   "views": 0,
+   "sessions": 0
   },
   {
    "source": "meetup",
@@ -301,18 +315,11 @@
    "sessions": 0
   },
   {
-   "source": "chatgpt.com",
-   "medium": "ai-assistant",
+   "source": "duckduckgo",
+   "medium": "organic",
    "clicks": 2,
    "views": 0,
    "sessions": 0
-  },
-  {
-   "source": "guidle",
-   "medium": "referral",
-   "clicks": 1,
-   "views": 10,
-   "sessions": 10
   },
   {
    "source": "eventfrog.ch",

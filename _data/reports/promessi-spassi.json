@@ -3,17 +3,17 @@
  "title": "PROMESSI SPASSI",
  "ticket_url": "https://eventfrog.ch/en/p/groups/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081056758243.html",
  "event_type": "monthly",
- "generated_at": "2026-09-20T08:20:02.091Z",
+ "generated_at": "2026-09-21T08:20:02.908Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-22",
- "through": "2026-09-20",
- "complete_through": "2026-09-18",
+ "pages_since": "2026-08-23",
+ "through": "2026-09-21",
+ "complete_through": "2026-09-19",
  "totals": {
-  "clicks": 2136,
-  "redirect": 2114,
+  "clicks": 2153,
+  "redirect": 2131,
   "click": 22,
-  "clicks_30d": 2136,
-  "redirect_30d": 2114,
+  "clicks_30d": 2153,
+  "redirect_30d": 2131,
   "click_30d": 22,
   "views": 68,
   "views_30d": 68,
@@ -23,14 +23,6 @@
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-22",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-23",
    "redirect": 0,
@@ -249,15 +241,23 @@
   },
   {
    "date": "2026-09-19",
-   "redirect": 11,
+   "redirect": 14,
    "click": 1,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-20",
-   "redirect": 1,
+   "redirect": 13,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-21",
+   "redirect": 2,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -268,7 +268,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 2052,
+   "clicks": 2069,
    "views": 1,
    "sessions": 1
   },
@@ -289,7 +289,7 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 10,
+   "clicks": 9,
    "views": 25,
    "sessions": 23
   },
@@ -303,7 +303,7 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 3,
+   "clicks": 4,
    "views": 6,
    "sessions": 6
   },
@@ -404,9 +404,9 @@
    "campaign": "promessi-spassi",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 2052,
+   "clicks": 2068,
    "first": "2026-08-30",
-   "last": "2026-09-20",
+   "last": "2026-09-21",
    "content": [
     {
      "content": "52672614093400",
@@ -417,12 +417,12 @@
      "clicks": 51
     },
     {
-     "content": "52673618076600",
-     "clicks": 16
+     "content": "52676472901800",
+     "clicks": 18
     },
     {
-     "content": "52676472901800",
-     "clicks": 4
+     "content": "52673618076600",
+     "clicks": 16
     }
    ]
   },
@@ -474,6 +474,15 @@
    "clicks": 1,
    "first": "2026-09-16",
    "last": "2026-09-16",
+   "content": []
+  },
+  {
+   "campaign": "promessi-spassi-20261021",
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 1,
+   "first": "2026-09-20",
+   "last": "2026-09-20",
    "content": []
   }
  ],
