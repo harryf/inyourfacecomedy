@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Miguel"
-description: "Miguel performs English stand-up comedy with IN YOUR FACE in Zürich, Switzerland."
-last_modified_at: "2026-09-11T21:29:10+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. Miguel is a stand-up comedian performing in English and Italian, mixing personal disasters with the chaos of being a tall Italian engineer navigating…"
+last_modified_at: "2026-09-21T08:05:05+00:00"
 slug: "miguel"
 photo: "/assets/img/comedians/miguel.jpg"
 instagram: "https://instagram.com/miguelvitaliicomedy"
@@ -13,6 +13,7 @@ youtube_channel: ""
 website: ""
 priority: "High"
 image: "/assets/img/comedians/miguel.jpg"
-bio: ""
+bio: |
+  Miguel is a stand-up comedian performing in English and Italian, mixing personal disasters with the chaos of being a tall Italian engineer navigating life in Zurich, with the energy of a friend who really needs to tell you something.
 ---
 
