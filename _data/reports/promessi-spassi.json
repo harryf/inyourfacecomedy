@@ -3,17 +3,17 @@
  "title": "PROMESSI SPASSI",
  "ticket_url": "https://eventfrog.ch/en/p/groups/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081056758243.html",
  "event_type": "monthly",
- "generated_at": "2026-09-21T08:20:02.908Z",
+ "generated_at": "2026-09-22T08:20:02.186Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-23",
- "through": "2026-09-21",
- "complete_through": "2026-09-19",
+ "pages_since": "2026-08-24",
+ "through": "2026-09-22",
+ "complete_through": "2026-09-20",
  "totals": {
-  "clicks": 2153,
-  "redirect": 2131,
+  "clicks": 2169,
+  "redirect": 2147,
   "click": 22,
-  "clicks_30d": 2153,
-  "redirect_30d": 2131,
+  "clicks_30d": 2169,
+  "redirect_30d": 2147,
   "click_30d": 22,
   "views": 68,
   "views_30d": 68,
@@ -23,14 +23,6 @@
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-23",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-24",
    "redirect": 0,
@@ -249,6 +241,14 @@
   },
   {
    "date": "2026-09-20",
+   "redirect": 15,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-21",
    "redirect": 13,
    "click": 0,
    "views": 0,
@@ -256,8 +256,8 @@
    "clicks_tracked": true
   },
   {
-   "date": "2026-09-21",
-   "redirect": 2,
+   "date": "2026-09-22",
+   "redirect": 3,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -268,7 +268,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 2069,
+   "clicks": 2085,
    "views": 1,
    "sessions": 1
   },
@@ -404,9 +404,9 @@
    "campaign": "promessi-spassi",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 2068,
+   "clicks": 2084,
    "first": "2026-08-30",
-   "last": "2026-09-21",
+   "last": "2026-09-22",
    "content": [
     {
      "content": "52672614093400",
@@ -418,7 +418,7 @@
     },
     {
      "content": "52676472901800",
-     "clicks": 18
+     "clicks": 34
     },
     {
      "content": "52673618076600",

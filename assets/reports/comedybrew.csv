@@ -896,9 +896,9 @@ datetime,event,source,medium,campaign,content,page
 2026-09-20 00:04,ticket_redirect,meta,paid_social,cold,cold-C4,Ticket Redirect
 2026-09-20 00:34,ticket_redirect,meta,paid_social,cold,cold-C4,Ticket Redirect
 2026-09-20 00:51,ticket_redirect,meta,paid_social,cold,cold-C4,Ticket Redirect
-2026-09-20 00:52,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/comedybrew/
+2026-09-20 00:52,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/comedybrew/
 2026-09-20 00:54,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/comedybrew/
-2026-09-20 00:58,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/comedybrew/
+2026-09-20 00:58,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/comedybrew/
 2026-09-20 03:56,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
 2026-09-20 04:36,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
 2026-09-20 07:49,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
@@ -909,7 +909,7 @@ datetime,event,source,medium,campaign,content,page
 2026-09-20 10:44,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
 2026-09-20 11:30,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
 2026-09-20 11:45,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
-2026-09-20 12:54,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
+2026-09-20 12:54,ticket_click,guidle,referral,home,,https://inyourfacecomedy.ch/
 2026-09-20 13:04,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
 2026-09-20 14:02,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
 2026-09-20 14:10,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
@@ -922,12 +922,46 @@ datetime,event,source,medium,campaign,content,page
 2026-09-20 18:37,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
 2026-09-20 19:24,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
 2026-09-20 20:14,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-09-20 22:26,ticket_redirect,meta,paid_social,cold,cold-C4v,Ticket Redirect
+2026-09-20 22:39,ticket_redirect,meta,paid_social,cold,cold-C4v,Ticket Redirect
+2026-09-20 23:52,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
 2026-09-21 00:02,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
 2026-09-21 00:56,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
 2026-09-21 00:57,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-09-21 01:17,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
 2026-09-21 01:24,ticket_redirect,meta,paid_social,cold,cold-C4v,Ticket Redirect
 2026-09-21 03:27,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
 2026-09-21 05:30,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
 2026-09-21 06:34,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
 2026-09-21 06:55,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
 2026-09-21 08:31,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-09-21 09:30,ticket_redirect,meta,paid_social,cold,cold-C4v,Ticket Redirect
+2026-09-21 09:47,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-09-21 10:36,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-09-21 10:38,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-09-21 10:59,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/comedybrew/
+2026-09-21 12:29,ticket_redirect,meta,paid_social,cold,cold-C4v,Ticket Redirect
+2026-09-21 13:50,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-09-21 15:53,ticket_redirect,meta,paid_social,cold,cold-C4v,Ticket Redirect
+2026-09-21 18:39,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-09-21 18:42,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-09-21 19:45,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-09-21 19:56,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-09-21 19:58,ticket_redirect,meta,paid_social,cold,cold-C4v,Ticket Redirect
+2026-09-21 19:58,ticket_redirect,meta,paid_social,cold,cold-C4v,Ticket Redirect
+2026-09-21 21:54,ticket_redirect,meta,paid_social,cold,cold-C4v,Ticket Redirect
+2026-09-21 23:02,ticket_redirect,meta,paid_social,cold,cold-C4v,Ticket Redirect
+2026-09-21 23:05,ticket_redirect,meta,paid_social,cold,cold-C4v,Ticket Redirect
+2026-09-21 23:17,ticket_redirect,meta,paid_social,cold,cold-C4v,Ticket Redirect
+2026-09-22 00:24,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-09-22 00:26,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-09-22 00:26,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-09-22 01:18,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-09-22 01:19,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-09-22 02:31,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-09-22 02:32,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-09-22 06:39,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
+2026-09-22 07:05,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-09-22 07:33,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
+2026-09-22 07:51,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-09-22 08:49,ticket_redirect,meta,paid_social,cold,cold-C4v,Ticket Redirect

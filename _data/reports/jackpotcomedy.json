@@ -3,34 +3,26 @@
  "title": "Jackpot Comedy",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jackpot-comedy-7413646370706339342.html",
  "event_type": "series",
- "generated_at": "2026-09-21T08:20:02.908Z",
+ "generated_at": "2026-09-22T08:20:02.186Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-23",
- "through": "2026-09-21",
- "complete_through": "2026-09-19",
+ "pages_since": "2026-08-24",
+ "through": "2026-09-22",
+ "complete_through": "2026-09-20",
  "totals": {
-  "clicks": 441,
-  "redirect": 411,
-  "click": 30,
-  "clicks_30d": 441,
-  "redirect_30d": 411,
-  "click_30d": 30,
-  "views": 104,
-  "views_30d": 104,
-  "sessions": 99,
-  "sessions_30d": 99,
+  "clicks": 453,
+  "redirect": 420,
+  "click": 33,
+  "clicks_30d": 453,
+  "redirect_30d": 420,
+  "click_30d": 33,
+  "views": 103,
+  "views_30d": 103,
+  "sessions": 98,
+  "sessions_30d": 98,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-23",
-   "redirect": 0,
-   "click": 0,
-   "views": 2,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-24",
    "redirect": 0,
@@ -249,15 +241,23 @@
   },
   {
    "date": "2026-09-20",
-   "redirect": 14,
-   "click": 0,
+   "redirect": 19,
+   "click": 1,
    "views": 2,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-21",
-   "redirect": 10,
+   "redirect": 14,
+   "click": 2,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-22",
+   "redirect": 0,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -268,7 +268,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 380,
+   "clicks": 389,
    "views": 3,
    "sessions": 2
   },
@@ -282,9 +282,16 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 13,
-   "views": 22,
-   "sessions": 21
+   "clicks": 14,
+   "views": 21,
+   "sessions": 20
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 10,
+   "views": 46,
+   "sessions": 46
   },
   {
    "source": "facebook",
@@ -292,13 +299,6 @@
    "clicks": 10,
    "views": 0,
    "sessions": 0
-  },
-  {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 8,
-   "views": 47,
-   "sessions": 47
   },
   {
    "source": "guidle",
@@ -318,8 +318,8 @@
    "source": "chatgpt.com",
    "medium": "ai-assistant",
    "clicks": 2,
-   "views": 6,
-   "sessions": 5
+   "views": 7,
+   "sessions": 6
   },
   {
    "source": "test",
@@ -362,13 +362,13 @@
    "campaign": "jackpotcomedy",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 380,
+   "clicks": 389,
    "first": "2026-08-30",
    "last": "2026-09-21",
    "content": [
     {
      "content": "6964168949947",
-     "clicks": 372
+     "clicks": 381
     }
    ]
   },

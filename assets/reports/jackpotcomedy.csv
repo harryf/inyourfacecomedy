@@ -418,14 +418,20 @@ datetime,event,source,medium,campaign,content,page
 2026-09-19 23:32,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-20 00:15,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-20 01:19,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-20 01:55,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-20 02:51,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-20 05:35,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-20 06:42,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-20 15:21,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-20 17:30,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-20 19:01,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-20 19:40,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-20 19:50,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-20 19:57,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-20 20:06,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-20 20:10,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-20 21:29,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-20 21:31,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
 2026-09-20 22:53,ticket_redirect,meta,paid_social,jackpotcomedy,,Ticket Redirect
 2026-09-20 22:53,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-20 22:54,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
@@ -440,3 +446,9 @@ datetime,event,source,medium,campaign,content,page
 2026-09-21 04:31,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-21 05:56,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-09-21 05:58,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-21 10:35,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/jackpotcomedy/
+2026-09-21 10:37,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-09-21 10:37,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-21 11:10,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-21 11:21,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-09-21 12:54,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect

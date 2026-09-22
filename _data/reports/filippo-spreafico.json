@@ -3,34 +3,26 @@
  "title": "Filippo Spreafico",
  "ticket_url": "https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/filippo-spreafico-italian-rhapsody-comedy-in-english-7487867600443024331.html",
  "event_type": "one-off",
- "generated_at": "2026-09-21T08:20:02.908Z",
+ "generated_at": "2026-09-22T08:20:02.186Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-23",
- "through": "2026-09-21",
- "complete_through": "2026-09-19",
+ "pages_since": "2026-08-24",
+ "through": "2026-09-22",
+ "complete_through": "2026-09-20",
  "totals": {
-  "clicks": 78,
+  "clicks": 79,
   "redirect": 10,
-  "click": 68,
-  "clicks_30d": 78,
+  "click": 69,
+  "clicks_30d": 79,
   "redirect_30d": 10,
-  "click_30d": 68,
-  "views": 189,
-  "views_30d": 189,
-  "sessions": 165,
-  "sessions_30d": 165,
+  "click_30d": 69,
+  "views": 191,
+  "views_30d": 191,
+  "sessions": 167,
+  "sessions_30d": 167,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-23",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-24",
    "redirect": 0,
@@ -250,13 +242,21 @@
   {
    "date": "2026-09-20",
    "redirect": 0,
-   "click": 0,
+   "click": 1,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-21",
+   "redirect": 0,
+   "click": 0,
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-22",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -276,8 +276,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 14,
-   "views": 32,
-   "sessions": 29
+   "views": 34,
+   "sessions": 31
   },
   {
    "source": "instagram",
@@ -315,18 +315,18 @@
    "sessions": 0
   },
   {
+   "source": "eventfrog.ch",
+   "medium": "referral",
+   "clicks": 2,
+   "views": 2,
+   "sessions": 2
+  },
+  {
    "source": "duckduckgo",
    "medium": "organic",
    "clicks": 2,
    "views": 0,
    "sessions": 0
-  },
-  {
-   "source": "eventfrog.ch",
-   "medium": "referral",
-   "clicks": 1,
-   "views": 2,
-   "sessions": 2
   },
   {
    "source": "meta",
