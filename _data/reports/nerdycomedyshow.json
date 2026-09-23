@@ -3,34 +3,26 @@
  "title": "The NERDY COMEDY Show",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/nerdy-stand-up-comedy-en-7284304661632248367.html",
  "event_type": "series",
- "generated_at": "2026-09-22T08:20:02.186Z",
+ "generated_at": "2026-09-23T08:20:02.471Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-24",
- "through": "2026-09-22",
- "complete_through": "2026-09-20",
+ "pages_since": "2026-08-25",
+ "through": "2026-09-23",
+ "complete_through": "2026-09-21",
  "totals": {
-  "clicks": 19,
+  "clicks": 20,
   "redirect": 7,
-  "click": 12,
-  "clicks_30d": 19,
+  "click": 13,
+  "clicks_30d": 20,
   "redirect_30d": 7,
-  "click_30d": 12,
-  "views": 37,
-  "views_30d": 37,
-  "sessions": 36,
-  "sessions_30d": 36,
+  "click_30d": 13,
+  "views": 36,
+  "views_30d": 36,
+  "sessions": 37,
+  "sessions_30d": 37,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-24",
-   "redirect": 0,
-   "click": 0,
-   "views": 2,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-25",
    "redirect": 0,
@@ -250,13 +242,21 @@
   {
    "date": "2026-09-21",
    "redirect": 0,
-   "click": 2,
+   "click": 3,
+   "views": 1,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-22",
+   "redirect": 0,
+   "click": 0,
    "views": 1,
    "provisional": true,
    "clicks_tracked": true
   },
   {
-   "date": "2026-09-22",
+   "date": "2026-09-23",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -266,18 +266,18 @@
  ],
  "by_source": [
   {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 6,
-   "views": 10,
-   "sessions": 10
-  },
-  {
    "source": "google",
    "medium": "organic",
-   "clicks": 4,
+   "clicks": 6,
    "views": 12,
    "sessions": 12
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 4,
+   "views": 9,
+   "sessions": 11
   },
   {
    "source": "instagram",
@@ -287,18 +287,18 @@
    "sessions": 1
   },
   {
+   "source": "chatgpt.com",
+   "medium": "ai-assistant",
+   "clicks": 2,
+   "views": 0,
+   "sessions": 0
+  },
+  {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
    "clicks": 1,
    "views": 6,
    "sessions": 5
-  },
-  {
-   "source": "chatgpt.com",
-   "medium": "ai-assistant",
-   "clicks": 1,
-   "views": 0,
-   "sessions": 0
   },
   {
    "source": "google-business",

@@ -3,18 +3,18 @@
  "title": "Jackpot Comedy",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jackpot-comedy-7413646370706339342.html",
  "event_type": "series",
- "generated_at": "2026-09-22T08:20:02.186Z",
+ "generated_at": "2026-09-23T08:20:02.471Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-24",
- "through": "2026-09-22",
- "complete_through": "2026-09-20",
+ "pages_since": "2026-08-25",
+ "through": "2026-09-23",
+ "complete_through": "2026-09-21",
  "totals": {
-  "clicks": 453,
-  "redirect": 420,
-  "click": 33,
-  "clicks_30d": 453,
-  "redirect_30d": 420,
-  "click_30d": 33,
+  "clicks": 455,
+  "redirect": 419,
+  "click": 36,
+  "clicks_30d": 455,
+  "redirect_30d": 419,
+  "click_30d": 36,
   "views": 103,
   "views_30d": 103,
   "sessions": 98,
@@ -23,14 +23,6 @@
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-24",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-25",
    "redirect": 0,
@@ -249,14 +241,22 @@
   },
   {
    "date": "2026-09-21",
-   "redirect": 14,
+   "redirect": 13,
    "click": 2,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-22",
+   "redirect": 0,
+   "click": 3,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-23",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -268,7 +268,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 389,
+   "clicks": 388,
    "views": 3,
    "sessions": 2
   },
@@ -289,9 +289,9 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 10,
-   "views": 46,
-   "sessions": 46
+   "clicks": 11,
+   "views": 45,
+   "sessions": 45
   },
   {
    "source": "facebook",
@@ -308,18 +308,18 @@
    "sessions": 8
   },
   {
+   "source": "chatgpt.com",
+   "medium": "ai-assistant",
+   "clicks": 4,
+   "views": 8,
+   "sessions": 7
+  },
+  {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
    "clicks": 3,
    "views": 8,
    "sessions": 7
-  },
-  {
-   "source": "chatgpt.com",
-   "medium": "ai-assistant",
-   "clicks": 2,
-   "views": 7,
-   "sessions": 6
   },
   {
    "source": "test",
@@ -362,13 +362,13 @@
    "campaign": "jackpotcomedy",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 389,
+   "clicks": 388,
    "first": "2026-08-30",
    "last": "2026-09-21",
    "content": [
     {
      "content": "6964168949947",
-     "clicks": 381
+     "clicks": 380
     }
    ]
   },

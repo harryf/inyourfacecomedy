@@ -3,34 +3,26 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-09-22T08:20:02.186Z",
+ "generated_at": "2026-09-23T08:20:02.471Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-24",
- "through": "2026-09-22",
- "complete_through": "2026-09-20",
+ "pages_since": "2026-08-25",
+ "through": "2026-09-23",
+ "complete_through": "2026-09-21",
  "totals": {
-  "clicks": 966,
-  "redirect": 858,
-  "click": 108,
-  "clicks_30d": 966,
-  "redirect_30d": 858,
-  "click_30d": 108,
-  "views": 321,
-  "views_30d": 321,
-  "sessions": 304,
-  "sessions_30d": 304,
+  "clicks": 1028,
+  "redirect": 917,
+  "click": 111,
+  "clicks_30d": 1028,
+  "redirect_30d": 917,
+  "click_30d": 111,
+  "views": 324,
+  "views_30d": 324,
+  "sessions": 305,
+  "sessions_30d": 305,
   "broken_links": 0,
-  "untagged": 0
+  "untagged": 2
  },
  "by_day": [
-  {
-   "date": "2026-08-24",
-   "redirect": 0,
-   "click": 0,
-   "views": 9,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-25",
    "redirect": 0,
@@ -249,16 +241,24 @@
   },
   {
    "date": "2026-09-21",
-   "redirect": 25,
+   "redirect": 30,
    "click": 3,
+   "views": 12,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-22",
+   "redirect": 48,
+   "click": 5,
    "views": 10,
    "provisional": true,
    "clicks_tracked": true
   },
   {
-   "date": "2026-09-22",
-   "redirect": 10,
-   "click": 2,
+   "date": "2026-09-23",
+   "redirect": 16,
+   "click": 0,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
@@ -268,37 +268,37 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 807,
+   "clicks": 862,
    "views": 2,
    "sessions": 2
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 49,
-   "views": 126,
-   "sessions": 114
-  },
-  {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 38,
-   "views": 146,
-   "sessions": 139
+   "clicks": 50,
+   "views": 125,
+   "sessions": 113
   },
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 36,
-   "views": 13,
-   "sessions": 13
+   "clicks": 40,
+   "views": 14,
+   "sessions": 14
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 37,
+   "views": 150,
+   "sessions": 141
   },
   {
    "source": "chatgpt.com",
    "medium": "ai-assistant",
-   "clicks": 10,
-   "views": 6,
-   "sessions": 6
+   "clicks": 11,
+   "views": 5,
+   "sessions": 5
   },
   {
    "source": "guidle",
@@ -324,6 +324,13 @@
   {
    "source": "hellozurich.ch",
    "medium": "referral",
+   "clicks": 2,
+   "views": 0,
+   "sessions": 0
+  },
+  {
+   "source": "meta",
+   "medium": "untagged",
    "clicks": 2,
    "views": 0,
    "sessions": 0
@@ -383,13 +390,39 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 372,
+   "clicks": 389,
    "first": "2026-08-26",
-   "last": "2026-09-22",
+   "last": "2026-09-23",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 315
+     "clicks": 331
+    }
+   ]
+  },
+  {
+   "campaign": "warm",
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 201,
+   "first": "2026-09-13",
+   "last": "2026-09-23",
+   "content": [
+    {
+     "content": "warm-W6",
+     "clicks": 153
+    },
+    {
+     "content": "warm-W2",
+     "clicks": 19
+    },
+    {
+     "content": "warm-W1",
+     "clicks": 10
+    },
+    {
+     "content": "{{ad.name}}",
+     "clicks": 1
     }
    ]
   },
@@ -397,9 +430,9 @@
    "campaign": "cold",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 184,
+   "clicks": 196,
    "first": "2026-09-13",
-   "last": "2026-09-22",
+   "last": "2026-09-23",
    "content": [
     {
      "content": "cold-C7",
@@ -407,11 +440,11 @@
     },
     {
      "content": "cold-C4v",
-     "clicks": 32
+     "clicks": 38
     },
     {
      "content": "cold-C4",
-     "clicks": 20
+     "clicks": 26
     },
     {
      "content": "cold-C1",
@@ -436,46 +469,20 @@
    ]
   },
   {
-   "campaign": "warm",
-   "source": "meta",
-   "medium": "paid_social",
-   "clicks": 177,
-   "first": "2026-09-13",
-   "last": "2026-09-22",
-   "content": [
-    {
-     "content": "warm-W6",
-     "clicks": 129
-    },
-    {
-     "content": "warm-W2",
-     "clicks": 19
-    },
-    {
-     "content": "warm-W1",
-     "clicks": 10
-    },
-    {
-     "content": "{{ad.name}}",
-     "clicks": 1
-    }
-   ]
-  },
-  {
    "campaign": "intent",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 51,
+   "clicks": 53,
    "first": "2026-09-13",
-   "last": "2026-09-19",
+   "last": "2026-09-23",
    "content": [
+    {
+     "content": "intent-I1",
+     "clicks": 13
+    },
     {
      "content": "intent-I3",
      "clicks": 12
-    },
-    {
-     "content": "intent-I1",
-     "clicks": 11
     },
     {
      "content": "intent-I5",
@@ -540,6 +547,15 @@
    "clicks": 5,
    "first": "2026-08-28",
    "last": "2026-09-20",
+   "content": []
+  },
+  {
+   "campaign": "comedybrew-20260924",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 4,
+   "first": "2026-09-22",
+   "last": "2026-09-22",
    "content": []
   },
   {

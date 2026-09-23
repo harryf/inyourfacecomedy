@@ -2160,6 +2160,7 @@ datetime,event,source,medium,campaign,content,page
 2026-09-21 12:15,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
 2026-09-21 12:16,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
 2026-09-21 13:34,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
+2026-09-21 16:03,ticket_redirect,instagram,social,promessi-spassi,link_in_bio,Ticket Redirect
 2026-09-21 16:23,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
 2026-09-21 17:06,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
 2026-09-21 19:48,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
@@ -2168,3 +2169,16 @@ datetime,event,source,medium,campaign,content,page
 2026-09-22 02:45,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
 2026-09-22 02:47,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
 2026-09-22 08:28,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
+2026-09-22 10:56,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
+2026-09-22 12:44,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
+2026-09-22 15:00,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
+2026-09-22 15:12,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
+2026-09-22 17:05,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
+2026-09-22 17:18,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
+2026-09-22 18:35,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
+2026-09-22 19:45,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
+2026-09-22 20:08,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
+2026-09-22 20:21,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
+2026-09-22 21:15,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
+2026-09-23 05:42,ticket_redirect,meta,paid_social,promessi-spassi,52676472901800,Ticket Redirect
+2026-09-23 05:42,ticket_redirect,meta,paid_social,promessi-spassi,,Ticket Redirect

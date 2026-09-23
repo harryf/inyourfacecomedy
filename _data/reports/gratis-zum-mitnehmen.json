@@ -3,34 +3,26 @@
  "title": "Gratis Comedy Zum Mitnehmen",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/gratis-zurich-7495107963884945951.html",
  "event_type": "series",
- "generated_at": "2026-09-22T08:20:02.186Z",
+ "generated_at": "2026-09-23T08:20:02.471Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-24",
- "through": "2026-09-22",
- "complete_through": "2026-09-20",
+ "pages_since": "2026-08-25",
+ "through": "2026-09-23",
+ "complete_through": "2026-09-21",
  "totals": {
-  "clicks": 9,
+  "clicks": 10,
   "redirect": 0,
-  "click": 9,
-  "clicks_30d": 9,
+  "click": 10,
+  "clicks_30d": 10,
   "redirect_30d": 0,
-  "click_30d": 9,
-  "views": 11,
-  "views_30d": 11,
-  "sessions": 9,
-  "sessions_30d": 9,
+  "click_30d": 10,
+  "views": 13,
+  "views_30d": 13,
+  "sessions": 12,
+  "sessions_30d": 12,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-24",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-25",
    "redirect": 0,
@@ -251,12 +243,20 @@
    "date": "2026-09-21",
    "redirect": 0,
    "click": 0,
-   "views": 0,
-   "provisional": true,
+   "views": 1,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-22",
+   "redirect": 0,
+   "click": 1,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-23",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -275,9 +275,9 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 2,
-   "views": 1,
-   "sessions": 1
+   "clicks": 3,
+   "views": 2,
+   "sessions": 3
   },
   {
    "source": "test",
@@ -287,15 +287,15 @@
    "sessions": 2
   },
   {
-   "source": "eventfrog.ch",
-   "medium": "referral",
-   "clicks": 1,
-   "views": 0,
-   "sessions": 0
-  },
-  {
    "source": "instagram",
    "medium": "social",
+   "clicks": 1,
+   "views": 1,
+   "sessions": 1
+  },
+  {
+   "source": "eventfrog.ch",
+   "medium": "referral",
    "clicks": 1,
    "views": 0,
    "sessions": 0
