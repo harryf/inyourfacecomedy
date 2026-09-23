@@ -58,6 +58,74 @@ test: land one Cold ad on the show page, so a ticket click becomes a real choice
 optimise for. Unexplained: the site counts 4 to 11 `/go/` clicks on ads where Meta reports 0 to
 3, so per-ad site counts are not yet safe for ranking small ads.
 
+**Second readout, 12 to 21 September (written 21 September, read-only; raw files
+`script/meta-out/insights-2026-09-21.md` for the four days since the budget change,
+`insights-2026-09-21-10d.md`, `weekly-2026-09-21.md` and `audience-2026-09-21.md`).**
+
+What the ten days say:
+
+| Ad set | Spend CHF | Landing page views | CHF per view | People reached | Frequency |
+|---|---|---|---|---|---|
+| Cold (CHF 6 a day since 18 Sep) | 32 | 112 | 0.29 | 4,819 | 1.3 |
+| Warm (CHF 5) | 30 | 114 | 0.26 | 2,386 | 2.2 |
+| Intent (CHF 2) | 10 | 7 | 1.38 | 135 | 4.5 |
+| Old 2024 set (CHF 1, hand boost 15 to 17 Sep) | 49 | 166 | 0.30 | 7,287 | 1.5 |
+
+- A view costs the same from the bank ads as from the 2024 carousel (weekly 0.25 to 0.34 all
+  year, 0.27 in September). Creative is not the lever. Meta runs one ad per set: `cold-C7`
+  (0.18, 69 views) and `warm-W6` (0.27, 105 views); the rest are under the 30-view floor.
+- Since the doubling, Cold's extra money went to the video `cold-C4v` (CHF 12.53 of 19.59 in four
+  days, 0.74 per view on 17 views, its still twin `cold-C4` at 0.29 to 0.40). Cold's daily cost per
+  view went 0.20, 0.45, 0.78, 0.81. Judge the video on cost per ThruPlay, not views, by 2 October.
+- Intent is dead on audience size: 553 impressions at frequency 4.5 is about 120 people.
+- The old set ran CHF 5 a day flat through August (about 110 views a week); at CHF 1 a day it now
+  gives 0 to 4 views a day, so it is close to off.
+- Tickets did not move: 17 September sold 23 of a 30-seat night (the three August 30-seat nights
+  sold out on CHF 31 of ads), ads per ticket 3.24 against 1.0 to 1.5, profit CHF 125. Site
+  ticket clicks tripled. 16 of the 23 came within 24 hours of the show. 24 September stood at 9 of
+  60 three days out against a median pace of 7.
+
+Reach (Harry's hypothesis, confirmed as "different people", not yet "buyers"): over 2026 the old
+set reached 68,898 people; of Cold's 4,819, only 516 had ever seen it. Cold is 61 percent under 35
+(old set 23 percent) and 85 percent Instagram Reels (old set 58 percent Facebook feed); people per
+franc are the same, 150 against 148. The old set recycles mildly: 131k monthly reaches add up to
+69k distinct people, frequency 4.9 a year, 1.5 to 1.7 a week. Part of the low overlap is targeting
+(Cold 21 to 50 with exclusions, old 21 to 65 Advantage+). Warm and Intent are by construction
+people who already engaged. GA's new-versus-returning is useless on `/go/` (it reads 100 percent
+new for every source, WhatsApp shares included: in-app browsers keep no cookies), and the
+Eventfrog order rows carry no buyer key, so first-time buyers per show cannot be counted yet.
+
+Can the 31 October test be decided? Not on ticket counts. On 60-seat nights the last three sold
+20, 24 and 26 (spread about 3 to 4); the 30-seat sellouts are censored and say nothing about
+demand; telling 22 from 28 needs about seven shows per arm, and six Thursdays remain. So: judge by
+sales curves (the daily poll prints pace against the median at that distance, and a curve is
+readable on a 30-seat night until the ceiling bites), and by a decision rule on 60-seat nights:
+if none beats 26 and the median stays under 25, drop to CHF 200 a month.
+
+Not ours: 1,950 `/go/` clicks between 31 August and 17 September tagged meta with
+`utm_content` 52672614093400 on Promessi Spassi come from an ad that is not in this ad account
+(the only campaign with spend is Comedy Brew). Ignore it for Brew readings.
+
+Decided for this week (nothing applied yet; Harry runs the writes):
+
+1. Reset the account spending limit on the billing page. About CHF 414 was left on 21 September;
+   at CHF 14 to 15 a day every ad in the account stops around 18 October.
+2. Saturday: pause Intent and move its CHF 2 to Warm (`budgets.warm.base: 7`, `budgets.intent.base: 0`
+   in config, then `meta-adsets.ts --apply`; pause the Intent ad set in Ads Manager or set its three
+   ads to `resting` and `meta-bank.ts --sync --apply`).
+3. By 2 October: read `cold-C4v` on cost per ThruPlay against `cold-C4`; if it loses on both, rest it.
+4. Land `warm-W6` on `/comedybrew/` instead of `/go/` (creative link only, no targeting change). The
+   page's ticket button already goes through `/go/` with the pixel event, so the pixel's ticket
+   click becomes a choice made after reading, at hundreds a week, and Meta gets something closer
+   to a sale to optimise on.
+5. Keep running the daily poll and compare curves, not final counts.
+6. No hand boosts on the old set (the 15 to 17 September boost bought clicks at the usual price
+   and no tickets).
+7. If real attribution is wanted: a no-discount ticket code shown only in ads, or a "how did you
+   hear" purchase question (Eventfrog personalization fields), or purchase events to Meta's
+   Conversions API from the order rows with hashed emails (a build and a privacy decision).
+
+
 Tick as you go. A future session reads this table first.
 
 | Phase | What | Done | Date | Notes |
@@ -470,6 +538,8 @@ commit `meta-ads/config.yml`, anything under `meta-ads/lists/`, `script/meta-out
 
 Start with the Status section at the top: it says what is running, what is parked and what the
 experiment is judged on. Things waiting, in order:
+
+The week of 21 September: the "Decided for this week" list in the second readout (Status) comes first.
 
 1. The audience "IYF Video viewers 50%" is made by hand in Ads Manager (`bun script/meta-bank.ts --video-audience` says which videos it must hold and what config needs afterwards); then `video_viewers` goes into Warm's include and Cold's exclude lists and `meta-adsets.ts` writes it.
 2. The Friday readout (`bun script/meta-insights.ts`): check that it lists the two video ads (`cold-C4v`, `cold-C12v`) and compare `cold-C4v` with `cold-C4`.
