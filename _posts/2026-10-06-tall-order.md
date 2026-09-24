@@ -28,7 +28,7 @@ An English stand-up open mic hosted by Prak and Miguel, who between them have mo
 
 <!--more-->
 
-Get ready to scroll a lot.
+Get ready to scroll. A lot.
 
 ![Tall Order: Prak and Miguel on stage at ROBIN's](/assets/img/uploads/tall-order_story.png "Tall Order: English Stand-up Comedy Open Mic")
 
