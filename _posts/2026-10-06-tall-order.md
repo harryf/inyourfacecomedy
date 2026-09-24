@@ -24,7 +24,7 @@ next_event_date: 2026-10-06T20:00:00+02:00
 next_event_end_date: 2026-10-06T22:00:00+02:00
 price_chf: 10
 ---
-An English stand-up open mic hosted by Prak and Miguel, who between them have more height than most lineups. New comedians and experienced ones try out fresh jokes at ROBIN's every second Tuesday, alternating with [Jokes, Jokes, Jokes](/jokesjokesjokes/).
+An English stand-up open mic hosted by Prak and Miguel, who between them have more height than most lineups. New comedians and experienced ones try out fresh jokes at ROBIN's every second Tuesday.
 
 <!--more-->
 
