@@ -5,23 +5,9 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-09-20T07:00:02+00:00'
-event_count: 49
+generated_at: '2026-09-24T07:00:01+00:00'
+event_count: 48
 events:
-- show: jackpotcomedy
-  name: Jackpot Comedy
-  title: Jackpot Comedy - downstairs @ OTRO
-  url: "/jackpotcomedy/"
-  date: '2026-09-23'
-  start: '2026-09-23T20:00:00+02:00'
-  end: '2026-09-23T22:00:00+02:00'
-  venue: otro
-  venue_name: Bar OTRO
-  location: OTRO - Cocktailbar Zürich
-  price_chf: 0
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7497205573772945090.html
-  eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
@@ -695,9 +681,4 @@ events:
   ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7501658845556549750.html
   eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
 unresolved: []
-no_upcoming:
-- show: filippo-spreafico
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/filippo-spreafico-italian-rhapsody-comedy-in-english-7487867600443024331.html
-  resolved_to: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/filippo-spreafico-italian-rhapsody-comedy-in-english-7487867600443024331.html
-  reason: resolved but 0 future events — ticket_url may point at one past event instead
-    of the series
+no_upcoming: []
