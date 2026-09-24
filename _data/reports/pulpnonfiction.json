@@ -3,11 +3,11 @@
  "title": "Pulp Non-Fiction",
  "ticket_url": "https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html",
  "event_type": "monthly",
- "generated_at": "2026-09-23T15:18:43.992Z",
+ "generated_at": "2026-09-24T08:20:01.886Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-25",
- "through": "2026-09-23",
- "complete_through": "2026-09-21",
+ "pages_since": "2026-08-26",
+ "through": "2026-09-24",
+ "complete_through": "2026-09-22",
  "totals": {
   "clicks": 20,
   "redirect": 9,
@@ -15,22 +15,14 @@
   "clicks_30d": 20,
   "redirect_30d": 9,
   "click_30d": 11,
-  "views": 29,
-  "views_30d": 29,
-  "sessions": 27,
-  "sessions_30d": 27,
+  "views": 20,
+  "views_30d": 20,
+  "sessions": 18,
+  "sessions_30d": 18,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-25",
-   "redirect": 0,
-   "click": 0,
-   "views": 9,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-26",
    "redirect": 1,
@@ -252,11 +244,19 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-23",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-24",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -269,8 +269,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 5,
-   "views": 8,
-   "sessions": 8
+   "views": 5,
+   "sessions": 5
   },
   {
    "source": "meetup",
@@ -308,22 +308,15 @@
    "sessions": 0
   },
   {
-   "source": "VA LBHE ABDF Dbzfel",
-   "medium": "email",
+   "source": "guidle",
+   "medium": "referral",
    "clicks": 0,
-   "views": 5,
-   "sessions": 5
+   "views": 1,
+   "sessions": 1
   },
   {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
-   "clicks": 0,
-   "views": 2,
-   "sessions": 2
-  },
-  {
-   "source": "guidle",
-   "medium": "referral",
    "clicks": 0,
    "views": 1,
    "sessions": 1

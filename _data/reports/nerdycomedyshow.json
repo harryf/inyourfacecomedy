@@ -3,34 +3,26 @@
  "title": "The NERDY COMEDY Show",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/nerdy-stand-up-comedy-en-7284304661632248367.html",
  "event_type": "series",
- "generated_at": "2026-09-23T15:18:43.992Z",
+ "generated_at": "2026-09-24T08:20:01.886Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-25",
- "through": "2026-09-23",
- "complete_through": "2026-09-21",
+ "pages_since": "2026-08-26",
+ "through": "2026-09-24",
+ "complete_through": "2026-09-22",
  "totals": {
-  "clicks": 20,
+  "clicks": 21,
   "redirect": 7,
-  "click": 13,
-  "clicks_30d": 20,
+  "click": 14,
+  "clicks_30d": 21,
   "redirect_30d": 7,
-  "click_30d": 13,
-  "views": 37,
-  "views_30d": 37,
-  "sessions": 38,
-  "sessions_30d": 38,
+  "click_30d": 14,
+  "views": 27,
+  "views_30d": 27,
+  "sessions": 28,
+  "sessions_30d": 28,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-25",
-   "redirect": 0,
-   "click": 0,
-   "views": 11,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-26",
    "redirect": 1,
@@ -252,14 +244,22 @@
    "redirect": 0,
    "click": 0,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-23",
    "redirect": 0,
+   "click": 1,
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-24",
+   "redirect": 0,
    "click": 0,
-   "views": 1,
+   "views": 0,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -275,16 +275,16 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 4,
-   "views": 9,
-   "sessions": 11
+   "clicks": 5,
+   "views": 6,
+   "sessions": 7
   },
   {
    "source": "instagram",
    "medium": "social",
    "clicks": 4,
-   "views": 1,
-   "sessions": 1
+   "views": 2,
+   "sessions": 2
   },
   {
    "source": "chatgpt.com",
@@ -297,8 +297,8 @@
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
    "clicks": 1,
-   "views": 6,
-   "sessions": 5
+   "views": 3,
+   "sessions": 3
   },
   {
    "source": "google-business",
@@ -320,13 +320,6 @@
    "clicks": 1,
    "views": 0,
    "sessions": 0
-  },
-  {
-   "source": "VA LBHE ABDF Dbzfel",
-   "medium": "email",
-   "clicks": 0,
-   "views": 5,
-   "sessions": 5
   },
   {
    "source": "duckduckgo",

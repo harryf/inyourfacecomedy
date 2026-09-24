@@ -3,11 +3,11 @@
  "title": "Jackpot Comedy",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jackpot-comedy-7413646370706339342.html",
  "event_type": "series",
- "generated_at": "2026-09-23T15:18:43.992Z",
+ "generated_at": "2026-09-24T08:20:01.886Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-25",
- "through": "2026-09-23",
- "complete_through": "2026-09-21",
+ "pages_since": "2026-08-26",
+ "through": "2026-09-24",
+ "complete_through": "2026-09-22",
  "totals": {
   "clicks": 457,
   "redirect": 419,
@@ -15,22 +15,14 @@
   "clicks_30d": 457,
   "redirect_30d": 419,
   "click_30d": 38,
-  "views": 104,
-  "views_30d": 104,
-  "sessions": 99,
-  "sessions_30d": 99,
+  "views": 95,
+  "views_30d": 95,
+  "sessions": 90,
+  "sessions_30d": 90,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-25",
-   "redirect": 0,
-   "click": 0,
-   "views": 12,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-26",
    "redirect": 3,
@@ -252,13 +244,21 @@
    "redirect": 0,
    "click": 4,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-23",
    "redirect": 0,
    "click": 1,
+   "views": 3,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-24",
+   "redirect": 0,
+   "click": 0,
    "views": 1,
    "provisional": true,
    "clicks_tracked": true
@@ -290,8 +290,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 12,
-   "views": 46,
-   "sessions": 46
+   "views": 45,
+   "sessions": 45
   },
   {
    "source": "facebook",
@@ -318,8 +318,8 @@
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
    "clicks": 3,
-   "views": 8,
-   "sessions": 7
+   "views": 6,
+   "sessions": 5
   },
   {
    "source": "test",
@@ -334,13 +334,6 @@
    "clicks": 1,
    "views": 0,
    "sessions": 0
-  },
-  {
-   "source": "VA LBHE ABDF Dbzfel",
-   "medium": "email",
-   "clicks": 0,
-   "views": 6,
-   "sessions": 6
   },
   {
    "source": "duckduckgo",

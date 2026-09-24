@@ -3,34 +3,26 @@
  "title": "Random Facts Exchange",
  "ticket_url": "https://eventfrog.ch/en/p/groups/random-facts-exchange-7434337254674303477.html",
  "event_type": "series",
- "generated_at": "2026-09-23T15:18:43.992Z",
+ "generated_at": "2026-09-24T08:20:01.886Z",
  "since": "2026-08-26",
- "pages_since": "2026-08-25",
- "through": "2026-09-23",
- "complete_through": "2026-09-21",
+ "pages_since": "2026-08-26",
+ "through": "2026-09-24",
+ "complete_through": "2026-09-22",
  "totals": {
-  "clicks": 27,
+  "clicks": 28,
   "redirect": 0,
-  "click": 27,
-  "clicks_30d": 27,
+  "click": 28,
+  "clicks_30d": 28,
   "redirect_30d": 0,
-  "click_30d": 27,
-  "views": 40,
-  "views_30d": 40,
-  "sessions": 35,
-  "sessions_30d": 35,
+  "click_30d": 28,
+  "views": 42,
+  "views_30d": 42,
+  "sessions": 37,
+  "sessions_30d": 37,
   "broken_links": 0,
   "untagged": 0
  },
  "by_day": [
-  {
-   "date": "2026-08-25",
-   "redirect": 0,
-   "click": 0,
-   "views": 0,
-   "provisional": false,
-   "clicks_tracked": false
-  },
   {
    "date": "2026-08-26",
    "redirect": 0,
@@ -251,8 +243,8 @@
    "date": "2026-09-22",
    "redirect": 0,
    "click": 0,
-   "views": 1,
-   "provisional": true,
+   "views": 2,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
@@ -262,6 +254,14 @@
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-24",
+   "redirect": 0,
+   "click": 1,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
   }
  ],
  "by_source": [
@@ -269,15 +269,15 @@
    "source": "google",
    "medium": "organic",
    "clicks": 19,
-   "views": 26,
-   "sessions": 23
+   "views": 28,
+   "sessions": 25
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 3,
-   "views": 5,
-   "sessions": 5
+   "clicks": 4,
+   "views": 4,
+   "sessions": 4
   },
   {
    "source": "ecosia.org",
@@ -306,6 +306,13 @@
    "clicks": 1,
    "views": 0,
    "sessions": 0
+  },
+  {
+   "source": "bing",
+   "medium": "organic",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
   },
   {
    "source": "instagram",
