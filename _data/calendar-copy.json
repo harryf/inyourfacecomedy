@@ -368,7 +368,6 @@
         "Wednesday's most thrilling gamble, no poker face required 🃏"
       ],
       "assigned": {
-        "2026-09-23": "Low expectations welcome. High laughs guaranteed 😂",
         "2026-10-07": "Fresh jokes, zero safety net: pure comedy gold 🃏",
         "2026-10-14": "Jack Roberts bets his dignity you'll love this 🤑",
         "2026-10-21": "New material, real risk, maximum crowd energy ⚡"
@@ -813,6 +812,39 @@
       "assigned": {
         "2026-10-12": "Vasilis fell into Wikipedia and made it a show 🕳️",
         "2026-12-03": "Real science, real obsessions, real funny humans 🔬"
+      }
+    },
+    "tall-order": {
+      "pool": [
+        "Two very tall hosts, one very short walk to ROBIN's 📏",
+        "Prak and Miguel look down on you, kindly 👀",
+        "New jokes tested at altitude, laughs at ground level 🏔️",
+        "An open mic where the hosts block the spotlight 🔦",
+        "Bring a neck pillow, you will be looking up all night 🦒",
+        "Fresh comics, fresh jokes, hosts of unreasonable height 📐",
+        "The only Zürich open mic with its own weather system ☁️",
+        "First timers and old hands, two giants on the door 🚪",
+        "Punchlines from above, delivered by the tallest men in comedy 🎤",
+        "Every second Tuesday the ceiling at ROBIN's feels lower 🏠",
+        "Comedy tall enough to duck under the doorframe 🙇",
+        "Miguel and Prak host, everyone else is the short set 📏",
+        "New material night, seen from a great height 🔭",
+        "The bar is high, literally, the hosts set it 🏋️",
+        "Open mic on stilts: new jokes with a long way to fall 🎪",
+        "Tuesday laughs from two men who never need a stool 🪑",
+        "Comedians try new bits, the hosts try fitting on stage 🎭",
+        "Come for the jokes, stay because you cannot see past Miguel 🙈",
+        "Height requirement to attend: none, to host: absurd 🎢",
+        "Fresh voices, big laughs, hosts you can spot from Central 🚋",
+        "A tall order for the comics, an easy night for you 🍻"
+      ],
+      "assigned": {
+        "2026-10-06": "Two very tall hosts, one very short walk to ROBIN's 📏",
+        "2026-10-20": "Prak and Miguel look down on you, kindly 👀",
+        "2026-11-03": "New jokes tested at altitude, laughs at ground level 🏔️",
+        "2026-11-17": "An open mic where the hosts block the spotlight 🔦",
+        "2026-12-01": "Bring a neck pillow, you will be looking up all night 🦒",
+        "2026-12-15": "Fresh comics, fresh jokes, hosts of unreasonable height 📐"
       }
     }
   }

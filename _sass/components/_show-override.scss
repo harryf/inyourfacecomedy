@@ -96,3 +96,13 @@
   --show-cta:      #FFD54F;
   --show-cta-text: #0E0F10;
 }
+
+.show-banner[data-show="tall-order"] {
+  // Stage curtain and brush lettering from the Tall Order flyer: near-black
+  // stage, cream brush text, the red underline as accent and CTA.
+  --show-accent:   #E63946;
+  --show-bg:       #14100E;
+  --show-text:     #F3E9D2;
+  --show-cta:      #E63946;
+  --show-cta-text: #F3E9D2;
+}
