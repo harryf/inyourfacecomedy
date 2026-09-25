@@ -4,7 +4,7 @@ editable: "true"
 title: "Tall Order"
 tagline: "English stand-up comedy open mic, every second Tuesday at ROBIN's"
 description: "English stand-up open mic in Zürich hosted by Prak and Miguel, the two tallest comedians in town. Every second Tuesday at ROBIN's: new comics, new jokes."
-last_modified_at: 2026-09-24T09:35:32+00:00
+last_modified_at: 2026-09-25T08:50:02+00:00
 feature-img: "/assets/img/uploads/tall-order_feature.png"
 image: "/assets/img/uploads/tall-order_card.png"
 thumbnail: "/assets/img/thumbs/tall-order.png"
