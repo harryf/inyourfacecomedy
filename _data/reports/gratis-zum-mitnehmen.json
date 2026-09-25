@@ -3,22 +3,22 @@
  "title": "Gratis Comedy Zum Mitnehmen",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/gratis-zurich-7495107963884945951.html",
  "event_type": "series",
- "generated_at": "2026-09-24T08:20:01.886Z",
+ "generated_at": "2026-09-25T07:36:14.494Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-09-24",
- "complete_through": "2026-09-22",
+ "through": "2026-09-25",
+ "complete_through": "2026-09-23",
  "totals": {
-  "clicks": 10,
-  "redirect": 0,
+  "clicks": 11,
+  "redirect": 1,
   "click": 10,
-  "clicks_30d": 10,
-  "redirect_30d": 0,
+  "clicks_30d": 11,
+  "redirect_30d": 1,
   "click_30d": 10,
-  "views": 14,
-  "views_30d": 14,
-  "sessions": 12,
-  "sessions_30d": 12,
+  "views": 15,
+  "views_30d": 15,
+  "sessions": 14,
+  "sessions_30d": 14,
   "broken_links": 0,
   "untagged": 0
  },
@@ -252,11 +252,19 @@
    "redirect": 0,
    "click": 0,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-24",
+   "redirect": 1,
+   "click": 0,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-25",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -277,7 +285,7 @@
    "medium": "(none)",
    "clicks": 2,
    "views": 2,
-   "sessions": 2
+   "sessions": 3
   },
   {
    "source": "instagram",
@@ -295,6 +303,13 @@
   },
   {
    "source": "eventfrog.ch",
+   "medium": "referral",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
+  },
+  {
+   "source": "meetup",
    "medium": "referral",
    "clicks": 1,
    "views": 0,
@@ -320,8 +335,25 @@
    "clicks": 0,
    "views": 1,
    "sessions": 1
+  },
+  {
+   "source": "guidle",
+   "medium": "referral",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
   }
  ],
- "by_campaign": [],
+ "by_campaign": [
+  {
+   "campaign": "gratis-zum-mitnehmen",
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 1,
+   "first": "2026-09-24",
+   "last": "2026-09-24",
+   "content": []
+  }
+ ],
  "csv": "/assets/reports/gratis-zum-mitnehmen.csv"
 }
