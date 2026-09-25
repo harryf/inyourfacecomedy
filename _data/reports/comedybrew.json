@@ -3,22 +3,22 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-09-25T07:36:14.494Z",
+ "generated_at": "2026-09-25T08:20:02.689Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
  "through": "2026-09-25",
  "complete_through": "2026-09-23",
  "totals": {
-  "clicks": 1184,
-  "redirect": 1044,
-  "click": 140,
-  "clicks_30d": 1161,
-  "redirect_30d": 1024,
-  "click_30d": 137,
+  "clicks": 1188,
+  "redirect": 1047,
+  "click": 141,
+  "clicks_30d": 1165,
+  "redirect_30d": 1027,
+  "click_30d": 138,
   "views": 341,
   "views_30d": 327,
-  "sessions": 328,
-  "sessions_30d": 314,
+  "sessions": 329,
+  "sessions_30d": 315,
   "broken_links": 0,
   "untagged": 1
  },
@@ -257,15 +257,15 @@
   },
   {
    "date": "2026-09-24",
-   "redirect": 55,
-   "click": 16,
+   "redirect": 57,
+   "click": 17,
    "views": 18,
    "provisional": true,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-25",
-   "redirect": 15,
+   "redirect": 16,
    "click": 1,
    "views": 2,
    "provisional": true,
@@ -276,7 +276,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 979,
+   "clicks": 982,
    "views": 2,
    "sessions": 2
   },
@@ -297,9 +297,9 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 49,
+   "clicks": 50,
    "views": 159,
-   "sessions": 155
+   "sessions": 156
   },
   {
    "source": "guidle",
@@ -419,13 +419,13 @@
    "campaign": "cold",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 242,
+   "clicks": 243,
    "first": "2026-09-13",
    "last": "2026-09-25",
    "content": [
     {
      "content": "cold-C7",
-     "clicks": 119
+     "clicks": 120
     },
     {
      "content": "cold-C4v",
@@ -461,17 +461,17 @@
    "campaign": "warm",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 240,
+   "clicks": 242,
    "first": "2026-09-13",
    "last": "2026-09-25",
    "content": [
     {
      "content": "warm-W6",
-     "clicks": 184
+     "clicks": 185
     },
     {
      "content": "warm-W2",
-     "clicks": 27
+     "clicks": 28
     },
     {
      "content": "warm-W1",
