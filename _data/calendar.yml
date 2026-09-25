@@ -5,23 +5,9 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-09-24T09:35:33+00:00'
-event_count: 54
+generated_at: '2026-09-25T07:00:01+00:00'
+event_count: 53
 events:
-- show: comedybrew
-  name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
-  url: "/comedybrew/"
-  date: '2026-09-24'
-  start: '2026-09-24T19:30:00+02:00'
-  end: '2026-09-24T22:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 10
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831017073974511.html
-  eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: nerdycomedyshow
   name: The NERDY COMEDY Show
   title: The NERDY COMEDY Show - English Standup Comedy in ZURICH
@@ -123,7 +109,7 @@ events:
   eventfrog_name: Pulp Non-Fiction Storytelling Open Mic Zurich
 - show: tall-order
   name: Tall Order
-  title: 'Tall Order: English Stand-up Comedy Open Mic'
+  title: Tall Order
   url: "/tall-order/"
   date: '2026-10-06'
   start: '2026-10-06T20:00:00+02:00'
@@ -249,7 +235,7 @@ events:
   eventfrog_name: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
 - show: tall-order
   name: Tall Order
-  title: 'Tall Order: English Stand-up Comedy Open Mic'
+  title: Tall Order
   url: "/tall-order/"
   date: '2026-10-20'
   start: '2026-10-20T20:00:00+02:00'
@@ -375,7 +361,7 @@ events:
   eventfrog_name: Pulp Non-Fiction Storytelling Open Mic Zurich
 - show: tall-order
   name: Tall Order
-  title: 'Tall Order: English Stand-up Comedy Open Mic'
+  title: Tall Order
   url: "/tall-order/"
   date: '2026-11-03'
   start: '2026-11-03T21:00:00+02:00'
@@ -445,7 +431,7 @@ events:
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: tall-order
   name: Tall Order
-  title: 'Tall Order: English Stand-up Comedy Open Mic'
+  title: Tall Order
   url: "/tall-order/"
   date: '2026-11-17'
   start: '2026-11-17T21:00:00+02:00'
@@ -571,7 +557,7 @@ events:
   eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
 - show: tall-order
   name: Tall Order
-  title: 'Tall Order: English Stand-up Comedy Open Mic'
+  title: Tall Order
   url: "/tall-order/"
   date: '2026-12-01'
   start: '2026-12-01T21:00:00+02:00'
@@ -682,7 +668,7 @@ events:
   eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: tall-order
   name: Tall Order
-  title: 'Tall Order: English Stand-up Comedy Open Mic'
+  title: Tall Order
   url: "/tall-order/"
   date: '2026-12-15'
   start: '2026-12-15T21:00:00+02:00'
