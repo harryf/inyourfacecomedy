@@ -5,23 +5,9 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-09-25T07:00:01+00:00'
-event_count: 53
+generated_at: '2026-09-26T07:00:01+00:00'
+event_count: 49
 events:
-- show: nerdycomedyshow
-  name: The NERDY COMEDY Show
-  title: The NERDY COMEDY Show - English Standup Comedy in ZURICH
-  url: "/nerdycomedyshow/"
-  date: '2026-09-26'
-  start: '2026-09-26T19:30:00+02:00'
-  end: '2026-09-26T22:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 8
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7501657784498320265.html
-  eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
 - show: gratis-zum-mitnehmen
   name: Gratis Comedy Zum Mitnehmen
   title: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
@@ -331,20 +317,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472020241897238206.html
   eventfrog_name: La Tarima - Comedia en Español - ZURICH
-- show: nerdycomedyshow
-  name: The NERDY COMEDY Show
-  title: The NERDY COMEDY Show - English Standup Comedy in ZURICH
-  url: "/nerdycomedyshow/"
-  date: '2026-10-31'
-  start: '2026-10-31T20:30:00+02:00'
-  end: '2026-10-31T23:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 8
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7501658372279695641.html
-  eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
 - show: pulpnonfiction
   name: Pulp Non-Fiction
   title: Pulp Non-Fiction - Storytelling Open Mic Zürich
@@ -541,20 +513,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466832108633224028.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
-- show: nerdycomedyshow
-  name: The NERDY COMEDY Show
-  title: The NERDY COMEDY Show - English Standup Comedy in ZURICH
-  url: "/nerdycomedyshow/"
-  date: '2026-11-28'
-  start: '2026-11-28T20:30:00+02:00'
-  end: '2026-11-28T23:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 8
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7501658632838204314.html
-  eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
 - show: tall-order
   name: Tall Order
   title: Tall Order
@@ -736,19 +694,10 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466832589996740615.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
-- show: nerdycomedyshow
-  name: The NERDY COMEDY Show
-  title: The NERDY COMEDY Show - English Standup Comedy in ZURICH
-  url: "/nerdycomedyshow/"
-  date: '2026-12-26'
-  start: '2026-12-26T20:30:00+02:00'
-  end: '2026-12-26T23:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 8
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7501658845556549750.html
-  eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
 unresolved: []
-no_upcoming: []
+no_upcoming:
+- show: nerdycomedyshow
+  ticket_url: https://eventfrog.ch/de/p/gruppen/nerdy-stand-up-comedy-en-7284304661632248367.html
+  resolved_to: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/nerdy-stand-up-comedy-en-7284304661632248367.html
+  reason: resolved but 0 future events — ticket_url may point at one past event instead
+    of the series

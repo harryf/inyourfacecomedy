@@ -13,6 +13,7 @@ hosts:
   - "pavel-zborik"
   - "sussmancomedy"
 ticket_url: https://eventfrog.ch/de/p/gruppen/nerdy-stand-up-comedy-en-7284304661632248367.html
+ticket_url_resolved: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/nerdy-stand-up-comedy-en-7284304661632248367.html
 event_type: series
 default_duration_minutes: 150
 venue_slug: robins
