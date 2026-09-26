@@ -22,7 +22,8 @@ Linux box without work (the Jekyll build and `check-site.rb` are; CI proves it o
 | ffmpeg and ffprobe | rendering the video ads in `video/` (`bun scripts/Render.ts`) | Homebrew `ffmpeg`. `video/` also wants its own `bun install` (Remotion, which fetches a headless browser on first render). Not needed by any scheduled job |
 | git with push access to `origin` over SSH, no passphrase prompt | every job that commits | cron cannot answer a prompt. The key must be usable without one (agent or keychain) |
 | `.env` at the repo root | almost everything | `cp .env.example .env`, then fill in. Gitignored. Each script loads it itself, so a cron line never sources it |
-| `sips` (ships with macOS) | `sync-comedians.rb`, the gallery scripts, the email images | |
+| `sips` (ships with macOS) | `sync-comedians.rb`, `build-gallery-card.rb`, the email images | |
+| ImageMagick (`magick`, Homebrew `imagemagick`) | `build-gallery-data.rb import` and its HEIC conversion | reads HEIC, bakes in orientation, measures and adjusts, writes the web JPEGs. Looked up as `MAGICK` in the environment, then `/opt/homebrew/bin/magick`, then PATH. Not needed by any scheduled job |
 | Xcode command line tools (`swiftc`) | `robins-calendar.ts` | compiles `script/lib/ekcal.swift` on first run. `xcode-select --install` |
 | Calendar.app signed in to the iCloud account that owns the staff calendar | `robins-calendar.ts` | plus the Calendars permission, see "launchd" below |
 | Brave or Google Chrome | `meta-lineup-ad.ts`, `meta-bank.ts`, `email-monthly.ts`, `build-gallery-card.rb` | run headless to render images through the site's own pages |

@@ -67,6 +67,20 @@ OVERRIDE_FILE = File.join(REPO_ROOT, "_data", "gallery_date_overrides.yml")
 IMAGE_EXTS    = %w[.jpg .jpeg .png .webp .gif].freeze
 HEIC_EXTS     = %w[.heic .heif].freeze # iPhone formats: converted to JPEG on import
 
+# The web pipeline (see "Web pipeline" below). Every photo that enters the gallery
+# through `import` or as a HEIC dropped into the folder goes through it.
+IMPORT_EXTS  = (%w[.jpg .jpeg .png] + HEIC_EXTS).freeze # what `import <dir>` picks up
+WEB_MAX_EDGE = 1600  # px, long edge; a featured tile is about 960 device px, the lightbox shows the file
+JPEG_QUALITY = 80    # progressive, 4:2:0: about 200 to 250 KB for a 1600 px bar photo
+HAZE_P05     = 24    # 0.5th percentile (0..255) at or above this reads as lifted blacks (a milky frame)
+DARK_MEAN    = 0.20  # mean (0..1) below this earns a gamma lift; a comic against a black backdrop sits at 0.20 to 0.25 and must stay
+GAMMA_MAX    = 1.3   # cap on that lift, so a black frame never turns grey
+PROXY_EDGE   = 600   # px; measurements run on a small proxy, same decision in a fraction of the time
+# iPhone photos are Display P3. Stripping the profile without converting would make browsers
+# read P3 pixels as sRGB (duller, shifted reds and magentas), so the pixels are converted to
+# sRGB first. macOS ships the profile; without it the conversion is skipped with a warning.
+SRGB_ICC     = "/System/Library/ColorSync/Profiles/sRGB Profile.icc"
+
 # IndexNow — push-notify Bing/Yandex/Seznam/Naver (not Google) when a page
 # changes. Mirrors sync-comedians.rb; the key file lives at the site root.
 SITE_URL          = "https://inyourfacecomedy.ch"
@@ -169,30 +183,216 @@ def unique_jpg(base)
   "#{base}_#{i}.jpg"
 end
 
-# Convert every HEIC dropped into the gallery to a web JPEG before the scan: resize to
-# a sane max (HEICs are ~4000px / 1MB+), keep the EXIF, and stamp the capture date into
-# the filename so dating stays correct even if sips drops metadata; then delete the
-# HEIC. macOS-only (sips), same as auge. Returns the new JPEG names.
+# --- Web pipeline: any photo -> oriented, adjusted, stripped, 1600 px JPEG -------
+# One path for everything that enters the gallery: a folder handed to `import`, or
+# a HEIC dropped straight into assets/img/gallery/. ImageMagick (`magick`) reads
+# HEIC, bakes the EXIF orientation into the pixels (sips left landscape pixels
+# behind an orientation tag, at twice the bytes), and lets us measure a frame
+# before touching it:
+#
+#   haze  the 0.5th percentile of the grey histogram sits at or above HAZE_P05:
+#         the blacks are lifted (a milky frame). Fix: map that level to black.
+#         An honestly dark bar photo has its p05 near 0 and is left alone.
+#   dark  the mean (after any black point) is below DARK_MEAN: lift gamma just far
+#         enough to reach it, capped at GAMMA_MAX. Rescues an under-exposed frame
+#         without turning the room's dimness into daylight.
+#
+# No white balance, saturation or crop: the warm light is the look of the wall.
+# Metadata is stripped (iPhone HEICs carry GPS); the capture date lives in the
+# filename, which the dating logic reads first.
+def magick_bin
+  return @magick_bin if defined?(@magick_bin)
+  @magick_bin = [ENV["MAGICK"], "/opt/homebrew/bin/magick", "/usr/local/bin/magick"].compact
+                  .find { |p| File.executable?(p) }
+  if @magick_bin.nil?
+    out, st = Open3.capture2("which", "magick")
+    @magick_bin = out.strip if st.success? && !out.strip.empty?
+  end
+  @magick_bin
+end
+
+def require_magick!
+  abort "ImageMagick is needed for the web pipeline and `magick` was not found (brew install imagemagick)." unless magick_bin
+end
+
+def magick(*args)
+  out, st = Open3.capture2(magick_bin, *args)
+  st.success? ? out : nil
+end
+
+# { p05: 0..255, mean: 0.0..1.0 } measured on a small oriented proxy, or nil if unreadable.
+def photo_stats(src)
+  proxy = [src, "-auto-orient", "-resize", "#{PROXY_EDGE}x#{PROXY_EDGE}>"]
+  hist = magick(*proxy, "-colorspace", "gray", "-depth", "8", "-format", "%c", "histogram:info:-")
+  return nil unless hist
+  counts = Hash.new(0)
+  total  = 0
+  hist.each_line do |l|
+    next unless l =~ /^\s*(\d+):.*?\((\d+)/
+    counts[$2.to_i] += $1.to_i
+    total += $1.to_i
+  end
+  return nil if total.zero?
+  seen = 0
+  p05  = 255
+  (0..255).each do |i|
+    seen += counts[i]
+    if seen >= total * 0.005
+      p05 = i
+      break
+    end
+  end
+  mean = magick(*proxy, "-format", "%[fx:mean]", "info:").to_f
+  { p05: p05, mean: mean }
+end
+
+# magick operators to apply plus human notes for the log; both empty when a frame is fine.
+def plan_adjustments(stats)
+  ops   = []
+  notes = []
+  mean  = stats[:mean]
+  if stats[:p05] >= HAZE_P05
+    black = stats[:p05] / 255.0
+    ops  += ["-level", "#{(black * 100).round(1)}%,100%"]
+    notes << "black point #{(black * 100).round(1)}%"
+    mean  = [(mean - black) / (1 - black), 0.01].max # the level op is linear: predict the new mean
+  end
+  if mean < DARK_MEAN
+    g = [Math.log(mean) / Math.log(DARK_MEAN), GAMMA_MAX].min.round(2)
+    if g > 1.01
+      ops += ["-gamma", g.to_s]
+      notes << "gamma #{g}"
+    end
+  end
+  [ops, notes]
+end
+
+# Write the web JPEG. Returns the adjustment notes ([] when none), or nil on failure.
+# The file is written under a temporary name and renamed into place only after magick
+# can read it back, so an interrupted run never leaves a truncated .jpg that a later
+# import would take for done.
+def web_jpeg(src, dst)
+  stats = photo_stats(src)
+  return nil unless stats
+  ops, notes = plan_adjustments(stats)
+  colour = File.exist?(SRGB_ICC) ? ["-profile", SRGB_ICC] : []
+  if colour.empty? && !@srgb_warned
+    @srgb_warned = true
+    warn "  ! #{SRGB_ICC} not found: colours left unconverted"
+  end
+  tmp = dst.sub(/\.jpg\z/, ".part.jpg")
+  ok = system(magick_bin, src, "-auto-orient", "-background", "white", "-alpha", "remove", "-alpha", "off",
+              *ops, *colour, "-resize", "#{WEB_MAX_EDGE}x#{WEB_MAX_EDGE}>", "-strip",
+              "-sampling-factor", "4:2:0", "-interlace", "JPEG",
+              "-quality", JPEG_QUALITY.to_s, tmp, out: File::NULL, err: File::NULL)
+  readable = ok && File.exist?(tmp) && File.size(tmp).positive? && magick(tmp, "-format", "%w", "info:").to_i.positive?
+  unless readable
+    File.delete(tmp) if File.exist?(tmp)
+    return nil
+  end
+  File.rename(tmp, dst)
+  notes
+end
+
+# Capture date for a file we are about to import, with where it came from: EXIF
+# DateTimeOriginal read by magick (HEIC, JPEG and PNG alike), then a date in the
+# name (WhatsApp, most cameras), then the Spotlight content date, then the file
+# time (weak: a copy or an AirDrop resets it, so the log says when that happened).
+def import_capture_date(abs, name)
+  raw = magick(abs, "-format", "%[EXIF:DateTimeOriginal]", "info:").to_s.strip
+  cap = (Date.strptime(raw[0, 10], "%Y:%m:%d") rescue nil) unless raw.empty?
+  return [cap, "exif"] if cap && cap >= SITE_EPOCH && cap <= Date.today
+  named = filename_date(name)
+  return [named, "name"] if named
+  date = heic_capture_date(abs, name)
+  [date, date == File.mtime(abs).to_date ? "file time, check it" : "spotlight"]
+end
+
+# Convert every HEIC dropped into the gallery before the scan: through the web
+# pipeline, capture date stamped into the filename, then the HEIC is deleted (this
+# path owns its files; `import` never deletes a source). Returns the new JPEG names.
 def convert_heics!(quiet:)
   heics = Dir.children(GALLERY_DIR).select { |f| HEIC_EXTS.include?(File.extname(f).downcase) }.sort
   return [] if heics.empty?
+  require_magick!
   warn "Converting #{heics.size} HEIC file(s) to JPEG…" unless quiet
   heics.filter_map do |name|
     abs  = File.join(GALLERY_DIR, name)
-    date = heic_capture_date(abs, name)
+    date, = import_capture_date(abs, name)
     jpg  = unique_jpg("#{File.basename(name, File.extname(name))}_#{date.strftime('%Y%m%d')}")
     out  = File.join(GALLERY_DIR, jpg)
-    ok = system("sips", "-s", "format", "jpeg", "-s", "formatOptions", "82",
-                "-Z", "1600", abs, "--out", out, out: File::NULL, err: File::NULL)
-    if ok && File.exist?(out)
+    notes = web_jpeg(abs, out)
+    if notes
       File.delete(abs)
-      warn format("  ⤳ %-24s → %s  (%s)", name, jpg, date) unless quiet
+      extra = notes.empty? ? "" : "; #{notes.join(', ')}"
+      warn format("  ⤳ %-24s → %s  (%s%s)", name, jpg, date, extra) unless quiet
       jpg
     else
-      warn "  ! sips could not convert #{name} — left in place"
+      warn "  ! magick could not convert #{name}: left in place"
       nil
     end
   end
+end
+
+# =============================================================================
+# import: a folder of photos -> the gallery, through the web pipeline, then build
+# =============================================================================
+# Point it at the folder the photos were exported to (HEIC, JPEG or PNG). Each one
+# is oriented, measured and adjusted where needed, resized, stripped and written as
+# <name>_<YYYYMMDD>.jpg into assets/img/gallery/. A name already in the gallery is
+# skipped, so re-running on the same folder adds nothing twice. The source folder
+# is never written to. When anything was imported the normal incremental build
+# runs (analyse, rewrite gallery.yml, commit + push + ping unless --no-git/--no-ping).
+def cmd_import(dir, dry_run:, ping:, git:, quiet:)
+  abort "Usage: import <directory> [--dry-run] [--no-git] [--no-ping] [--quiet]" if dir.nil? || dir.empty?
+  dir = File.expand_path(dir)
+  abort "Not a directory: #{dir}" unless File.directory?(dir)
+  require_magick!
+  files = Dir.children(dir).reject { |f| f.start_with?(".") }
+             .select { |f| IMPORT_EXTS.include?(File.extname(f).downcase) }.sort
+  abort "No photos (#{IMPORT_EXTS.join(' ')}) in #{dir}" if files.empty?
+  warn "#{dry_run ? 'Would import' : 'Importing'} #{files.size} photo(s) from #{dir}"
+
+  imported = []
+  skipped  = 0
+  failed   = 0
+  files.each do |name|
+    abs  = File.join(dir, name)
+    date, date_from = import_capture_date(abs, name)
+    jpg  = "#{File.basename(name, File.extname(name))}_#{date.strftime('%Y%m%d')}.jpg"
+    dst  = File.join(GALLERY_DIR, jpg)
+    when_s = date_from == "exif" ? date.to_s : "#{date} (date from #{date_from})"
+    if File.exist?(dst)
+      # Same name, same day: normally the same photo on a re-run. If it is really a
+      # different frame (two phones on one night, a HEIC and a JPEG of the same shot),
+      # rename the source and run again.
+      warn format("  = %-28s already in the gallery as %s, skipped", name, jpg) unless quiet
+      skipped += 1
+      next
+    end
+    before = File.size(abs)
+    if dry_run
+      stats = photo_stats(abs)
+      notes = stats ? plan_adjustments(stats).last : ["unreadable"]
+      warn format("  ~ %-28s %s  → %s  (%s; %d KB source)", name, when_s, jpg,
+                  notes.empty? ? "no adjustment" : notes.join(", "), before / 1024)
+      next
+    end
+    notes = web_jpeg(abs, dst)
+    if notes.nil?
+      warn "  ! could not convert #{name}: skipped"
+      failed += 1
+      next
+    end
+    warn format("  + %-28s %s  → %s  (%s; %d KB → %d KB)", name, when_s, jpg,
+                notes.empty? ? "no adjustment" : notes.join(", "), before / 1024, File.size(dst) / 1024) unless quiet
+    imported << jpg
+  end
+
+  return if dry_run
+  warn "#{imported.size} imported, #{skipped} already present, #{failed} failed. Source folder untouched."
+  return if imported.empty?
+  cmd_build(rebuild: false, ping: ping, git: git, quiet: quiet)
 end
 
 # --- Apple Vision via auge ----------------------------------------------------
@@ -1003,13 +1203,26 @@ USAGE = <<~TXT
     ./script/build-gallery-data.rb reclassify [<image> …] [options]
     ./script/build-gallery-data.rb delete <image> [<image> …] [options]
     ./script/build-gallery-data.rb enrich [--limit N] [options]
+    ./script/build-gallery-data.rb import <directory> [--dry-run] [options]
 
   COMMANDS
     build         (default) Incrementally scan assets/img/gallery/: analyse NEW
                   images with Apple Vision (auge), drop deleted ones, reuse the rest
                   (and any comedian slug), and rewrite _data/gallery.yml. Commits
                   the data + new/removed images and pushes, then pings IndexNow for
-                  /moments/ (+ affected comedian pages) when data changes.
+                  /moments/ (+ affected comedian pages) when data changes. A HEIC
+                  dropped into the folder goes through the web pipeline first (below)
+                  and the HEIC is deleted.
+    import        Bring a folder of photos (HEIC, JPEG, PNG) into the gallery through
+                  the web pipeline, then run build. Each photo is oriented, measured
+                  and fixed only where needed (lifted blacks: black point set at the
+                  0.5th percentile when it is at or above #{HAZE_P05}/255; very dark:
+                  gamma up to #{GAMMA_MAX} when the mean is under #{DARK_MEAN}), resized
+                  to #{WEB_MAX_EDGE} px on the long edge, stripped of metadata (GPS included)
+                  and written as <name>_<YYYYMMDD>.jpg (capture date from EXIF). Names
+                  already in the gallery are skipped, so re-running adds nothing twice.
+                  The source folder is never touched. Needs ImageMagick (`magick`).
+                  e.g. import "~/Downloads/Comedy Brew 2026-09-26"
     tag           Walk performer images with no comedian slug, open each in Preview,
                   and prompt for the comedian's slug (validated against _comedians/).
                   Saves it, commits + pushes _data/gallery.yml, and pings IndexNow
@@ -1058,6 +1271,11 @@ USAGE = <<~TXT
       --no-git    Don't commit/push; leave changes in the working tree.
       --no-ping   Don't submit to IndexNow.
       --quiet     Suppress per-image logging.
+    import:
+      --dry-run   Show the date, name and adjustment per photo; write nothing, no build.
+      --no-git    Don't commit/push; leave changes in the working tree.
+      --no-ping   Don't submit to IndexNow.
+      --quiet     Suppress per-image logging.
     -h, --help    Show this help.
 
   EXAMPLES
@@ -1098,6 +1316,9 @@ if __FILE__ == $PROGRAM_NAME
     li = ARGV.index("--limit")
     limit = li ? ARGV[li + 1].to_i : nil
     cmd_enrich(limit: (limit if limit&.positive?), ping: ping, git: git, quiet: quiet)
+  when "import"
+    cmd_import(ARGV.reject { |a| a.start_with?("-") }.first,
+               dry_run: ARGV.include?("--dry-run"), ping: ping, git: git, quiet: quiet)
   else
     warn "Unknown command '#{command}'.\n\n"
     abort USAGE

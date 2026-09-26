@@ -276,16 +276,38 @@ printed and ignored; only a git failure exits non-zero. Pure logic and tests:
 macOS-only authoring tools for the `/moments/` gallery; the Linux build only reads what they commit.
 
 ```
+ruby script/build-gallery-data.rb import <dir> [--dry-run]         # a folder of photos (HEIC, JPEG, PNG) through the web pipeline, then build
 ruby script/build-gallery-data.rb build [--rebuild] [--no-ping]   # scan assets/img/gallery/, analyse NEW images, rewrite _data/gallery.yml
 ruby script/build-gallery-data.rb tag                              # prompt for a comedian slug per untagged performer photo
 ruby script/build-gallery-card.rb                                  # the 1080x1080 share card, assets/img/thumbs/gallery_card.png
 ```
 
-`build` needs `auge` (Apple Vision on the command line, `/opt/homebrew/bin/auge`) and `sips`; it
-types each photo as performer, audience or moment, picks the featured ones, dates them (EXIF or
-filename date when it predates the git add, else the git add) and pings IndexNow. A slug set with
-`tag` lives in `gallery.yml` and survives rebuilds; the comedian's page then shows the photo. The
-card script renders through headless Google Chrome and downscales with `sips`. Neither commits.
+`import <dir>` is the way photos get in. Export them from Photos (or drop the WhatsApp files) into
+a folder and point the script at it; `--dry-run` first shows what each frame would get. Every photo
+goes through the same web pipeline (ImageMagick, `magick`): orientation baked into the pixels,
+measured on a small proxy and fixed only where a number says so (blacks lifted so the 0.5th
+percentile sits at or above 24/255, as in a hazy frame: black point set there; mean under 0.20:
+gamma lift capped at 1.3, so a comic against a black backdrop at 0.20 to 0.25 stays as shot),
+converted from the iPhone's Display P3 to sRGB, resized to 1600 px on the long edge, all metadata
+stripped (iPhone files carry GPS), written as a progressive JPEG at quality 80 named
+`<name>_<YYYYMMDD>.jpg` from the EXIF capture date (then a date in the file name, then Spotlight,
+then the file time, and the log says which when it was not EXIF). About 140 to 260 KB per frame.
+A name already in the gallery is skipped, so re-running on the same folder adds nothing; if the
+skipped file is really a different photo with the same name and day (two phones at one show),
+rename the source and run again. The source folder is never written to. A JPEG source is
+re-encoded like everything else (one generation at quality 80), and a PNG loses its transparency
+to white. The constants sit at the top of the script (`HAZE_P05`, `DARK_MEAN`, `GAMMA_MAX`,
+`WEB_MAX_EDGE`, `JPEG_QUALITY`). No white balance, saturation or crop: the warm light is the look
+of the wall. A HEIC dropped straight into `assets/img/gallery/` goes through the same pipeline on
+the next `build` and the HEIC is then deleted (that path owns its files; `import` never deletes).
+
+`build` needs `auge` (Apple Vision on the command line, `/opt/homebrew/bin/auge`); it types each
+photo as performer, audience or moment, picks the featured ones, dates them (EXIF or filename date
+when it predates the git add, else the git add) and pings IndexNow. A slug set with `tag` lives in
+`gallery.yml` and survives rebuilds; the comedian's page then shows the photo. `build` (and so
+`import`) commits the data plus the new images and pushes unless `--no-git`; `tag`, `reclassify`,
+`delete` and `enrich` commit their data change the same way. The card script renders through
+headless Google Chrome and downscales with `sips`; it does not commit.
 
 ## `ga-setup.ts` and `ga-annotations.ts`
 

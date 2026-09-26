@@ -30,7 +30,7 @@ Run the build and the health check after every change and before saying you are 
 | `_data/calendar.yml`, `calendar_past.yml`, `venues.yml` | Eventfrog | `refresh-calendar-data.rb`, spawned by the daily job |
 | `pages/1_calendar.md` | `calendar.yml` + copy pools in `_data/calendar-copy.json` (also read by `/week/` for the Info lines) | `refresh-calendar-page.rb`; the markup is a contract, see `docs/calendar-structure.md` |
 | `_comedians/*.md` | Grist | `sync-comedians.rb`. Never hand-edit; change Grist, run the sync |
-| `_data/gallery.yml` | `assets/img/gallery/` + Apple Vision | `build-gallery-data.rb` (macOS only). `tag` mode attributes a photo to a comedian; the slug lives in `gallery.yml`, never in `_comedians/` |
+| `_data/gallery.yml` | `assets/img/gallery/` + Apple Vision | `build-gallery-data.rb` (macOS only). New photos come in with `import <dir>` (orient, fix haze or a very dark frame by measurement, 1600 px, strip metadata, progressive JPEG, dated name, then build); never copy originals into the folder by hand. `tag` mode attributes a photo to a comedian; the slug lives in `gallery.yml`, never in `_comedians/` |
 | `_data/reports/`, `assets/reports/`, `pages/reports/` | Google Analytics | `ga-report.ts`. Edit `script/lib/ga-report-lib.ts` or `_layouts/report.liquid` instead |
 | Google Business Profile event posts | `gbp/<slug>.txt` + the posts | `post-events-to-google.rb` |
 | Show to comedian links | `hosts:` (+ `hosts_label:`) on the post: regular hosts, not the per-night lineup | hand. Drives host cards, the hosted shows at the front of the comedian page's related-shows row (`_includes/related-shows.liquid`) and Event JSON-LD performers; unknown slugs render nothing |
