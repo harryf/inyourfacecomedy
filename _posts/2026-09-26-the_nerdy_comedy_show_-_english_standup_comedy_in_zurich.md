@@ -20,7 +20,7 @@ venue_slug: robins
 next_event_date: 2026-09-26T19:30:00+02:00
 next_event_end_date: 2026-09-26T22:00:00+02:00
 price_chf: 8
-last_modified_at: 2026-09-08T15:05:00+00:00
+last_modified_at: 2026-09-26T08:50:01+00:00
 ---
 **STAND-UP FOR PEOPLE WHO'VE ARGUED ABOUT ALIGNMENT CHARTS**
 
