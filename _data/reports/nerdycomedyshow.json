@@ -3,22 +3,22 @@
  "title": "The NERDY COMEDY Show",
  "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/nerdy-stand-up-comedy-en-7284304661632248367.html",
  "event_type": "series",
- "generated_at": "2026-09-26T08:20:01.347Z",
+ "generated_at": "2026-09-27T08:20:02.173Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-09-26",
- "complete_through": "2026-09-24",
+ "through": "2026-09-27",
+ "complete_through": "2026-09-25",
  "totals": {
-  "clicks": 24,
-  "redirect": 9,
-  "click": 15,
-  "clicks_30d": 19,
-  "redirect_30d": 6,
-  "click_30d": 13,
-  "views": 32,
-  "views_30d": 23,
-  "sessions": 33,
-  "sessions_30d": 24,
+  "clicks": 43,
+  "redirect": 17,
+  "click": 26,
+  "clicks_30d": 34,
+  "redirect_30d": 11,
+  "click_30d": 23,
+  "views": 48,
+  "views_30d": 34,
+  "sessions": 55,
+  "sessions_30d": 41,
   "broken_links": 0,
   "untagged": 0
  },
@@ -266,16 +266,24 @@
   {
    "date": "2026-09-25",
    "redirect": 1,
-   "click": 1,
+   "click": 2,
    "views": 4,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-26",
+   "redirect": 8,
+   "click": 10,
+   "views": 15,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-27",
    "redirect": 0,
    "click": 0,
-   "views": 0,
+   "views": 1,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -284,21 +292,42 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 7,
-   "views": 16,
-   "sessions": 16
+   "clicks": 14,
+   "views": 20,
+   "sessions": 20
   },
   {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 5,
-   "views": 7,
-   "sessions": 8
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 8,
+   "views": 0,
+   "sessions": 0
   },
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 5,
+   "clicks": 7,
+   "views": 2,
+   "sessions": 2
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 6,
+   "views": 18,
+   "sessions": 25
+  },
+  {
+   "source": "IN YOUR FACE Comedy",
+   "medium": "email",
+   "clicks": 2,
+   "views": 3,
+   "sessions": 3
+  },
+  {
+   "source": "guidle",
+   "medium": "referral",
+   "clicks": 2,
    "views": 2,
    "sessions": 2
   },
@@ -308,20 +337,6 @@
    "clicks": 2,
    "views": 1,
    "sessions": 1
-  },
-  {
-   "source": "meetup",
-   "medium": "referral",
-   "clicks": 2,
-   "views": 0,
-   "sessions": 0
-  },
-  {
-   "source": "IN YOUR FACE Comedy",
-   "medium": "email",
-   "clicks": 1,
-   "views": 3,
-   "sessions": 3
   },
   {
    "source": "google-business",
@@ -345,13 +360,6 @@
    "sessions": 1
   },
   {
-   "source": "guidle",
-   "medium": "referral",
-   "clicks": 0,
-   "views": 1,
-   "sessions": 1
-  },
-  {
    "source": "microsite.guidle.com",
    "medium": "referral",
    "clicks": 0,
@@ -361,12 +369,21 @@
  ],
  "by_campaign": [
   {
+   "campaign": "nerdycomedyshow-20260926",
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 7,
+   "first": "2026-09-25",
+   "last": "2026-09-26",
+   "content": []
+  },
+  {
    "campaign": "nerdycomedyshow",
    "source": "instagram",
    "medium": "social",
-   "clicks": 3,
+   "clicks": 5,
    "first": "2026-08-28",
-   "last": "2026-08-28",
+   "last": "2026-09-26",
    "content": [
     {
      "content": "inyourface-story",
@@ -408,15 +425,6 @@
    "clicks": 1,
    "first": "2026-09-24",
    "last": "2026-09-24",
-   "content": []
-  },
-  {
-   "campaign": "nerdycomedyshow-20260926",
-   "source": "meetup",
-   "medium": "referral",
-   "clicks": 1,
-   "first": "2026-09-25",
-   "last": "2026-09-25",
    "content": []
   }
  ],

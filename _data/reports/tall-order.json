@@ -3,18 +3,18 @@
  "title": "Tall Order",
  "ticket_url": "https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-7507743592338740411.html",
  "event_type": "series",
- "generated_at": "2026-09-26T08:20:01.347Z",
+ "generated_at": "2026-09-27T08:20:02.173Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-09-26",
- "complete_through": "2026-09-24",
+ "through": "2026-09-27",
+ "complete_through": "2026-09-25",
  "totals": {
-  "clicks": 0,
+  "clicks": 1,
   "redirect": 0,
-  "click": 0,
-  "clicks_30d": 0,
+  "click": 1,
+  "clicks_30d": 1,
   "redirect_30d": 0,
-  "click_30d": 0,
+  "click_30d": 1,
   "views": 2,
   "views_30d": 2,
   "sessions": 2,
@@ -268,11 +268,19 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-26",
+   "redirect": 0,
+   "click": 1,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-27",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -282,11 +290,25 @@
  ],
  "by_source": [
   {
+   "source": "IN YOUR FACE Comedy",
+   "medium": "email",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
+  },
+  {
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 0,
-   "views": 2,
-   "sessions": 2
+   "views": 1,
+   "sessions": 1
+  },
+  {
+   "source": "eventfrog.ch",
+   "medium": "referral",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
   }
  ],
  "by_campaign": [],

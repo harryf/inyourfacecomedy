@@ -21,5 +21,24 @@ datetime,event,source,medium,campaign,content,page
 2026-09-21 17:59,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
 2026-09-23 22:33,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
 2026-09-24 09:43,ticket_redirect,instagram,social,nerdycomedyshow-20260926,,Ticket Redirect
-2026-09-25 00:45,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-09-25 00:45,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
+2026-09-25 15:20,ticket_click,google,organic,,,https://inyourfacecomedy.ch/nerdycomedyshow/
 2026-09-25 18:31,ticket_redirect,meetup,referral,nerdycomedyshow-20260926,,Ticket Redirect
+2026-09-26 12:26,ticket_redirect,meetup,referral,nerdycomedyshow-20260926,,Ticket Redirect
+2026-09-26 13:24,ticket_redirect,meetup,referral,nerdycomedyshow-20260926,,Ticket Redirect
+2026-09-26 13:41,ticket_redirect,instagram,social,nerdycomedyshow,,Ticket Redirect
+2026-09-26 13:43,ticket_redirect,instagram,social,nerdycomedyshow,,Ticket Redirect
+2026-09-26 16:05,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/nerdycomedyshow/
+2026-09-26 16:19,ticket_redirect,meetup,referral,nerdycomedyshow-20260926,,Ticket Redirect
+2026-09-26 16:42,ticket_click,google,organic,,,https://inyourfacecomedy.ch/nerdycomedyshow/
+2026-09-26 16:45,ticket_click,google,organic,,,https://inyourfacecomedy.ch/nerdycomedyshow/
+2026-09-26 16:59,ticket_click,google,organic,,,https://inyourfacecomedy.ch/nerdycomedyshow/
+2026-09-26 17:27,ticket_redirect,meetup,referral,nerdycomedyshow-20260926,,Ticket Redirect
+2026-09-26 18:22,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/nerdycomedyshow/
+2026-09-26 18:31,ticket_click,guidle,referral,nerdycomedyshow,,https://inyourfacecomedy.ch/nerdycomedyshow/
+2026-09-26 18:51,ticket_click,IN YOUR FACE Comedy,email,7ea6a7d246-XMas_2025_COPY_01,,https://inyourfacecomedy.ch/nerdycomedyshow/
+2026-09-26 18:51,ticket_click,guidle,referral,nerdycomedyshow,,https://inyourfacecomedy.ch/nerdycomedyshow/
+2026-09-26 18:56,ticket_redirect,meetup,referral,nerdycomedyshow-20260926,,Ticket Redirect
+2026-09-26 19:12,ticket_redirect,meetup,referral,nerdycomedyshow-20260926,,Ticket Redirect
+2026-09-26 19:36,ticket_click,google,organic,,,https://inyourfacecomedy.ch/nerdycomedyshow/
+2026-09-26 19:36,ticket_click,google,organic,,,https://inyourfacecomedy.ch/nerdycomedyshow/

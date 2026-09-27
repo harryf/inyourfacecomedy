@@ -3,22 +3,22 @@
  "title": "Gratis Comedy Zum Mitnehmen",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/gratis-zurich-7495107963884945951.html",
  "event_type": "series",
- "generated_at": "2026-09-26T08:20:01.347Z",
+ "generated_at": "2026-09-27T08:20:02.173Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-09-26",
- "complete_through": "2026-09-24",
+ "through": "2026-09-27",
+ "complete_through": "2026-09-25",
  "totals": {
-  "clicks": 11,
-  "redirect": 1,
-  "click": 10,
-  "clicks_30d": 11,
-  "redirect_30d": 1,
-  "click_30d": 10,
-  "views": 15,
-  "views_30d": 15,
-  "sessions": 14,
-  "sessions_30d": 14,
+  "clicks": 13,
+  "redirect": 2,
+  "click": 11,
+  "clicks_30d": 13,
+  "redirect_30d": 2,
+  "click_30d": 11,
+  "views": 19,
+  "views_30d": 19,
+  "sessions": 17,
+  "sessions_30d": 17,
   "broken_links": 0,
   "untagged": 0
  },
@@ -268,14 +268,22 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-26",
    "redirect": 0,
+   "click": 1,
+   "views": 3,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-27",
+   "redirect": 1,
    "click": 0,
-   "views": 0,
+   "views": 1,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -284,7 +292,7 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 4,
+   "clicks": 5,
    "views": 3,
    "sessions": 3
   },
@@ -292,8 +300,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 2,
-   "views": 2,
-   "sessions": 3
+   "views": 6,
+   "sessions": 6
   },
   {
    "source": "instagram",
@@ -301,6 +309,13 @@
    "clicks": 2,
    "views": 2,
    "sessions": 2
+  },
+  {
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 2,
+   "views": 0,
+   "sessions": 0
   },
   {
    "source": "test",
@@ -311,13 +326,6 @@
   },
   {
    "source": "eventfrog.ch",
-   "medium": "referral",
-   "clicks": 1,
-   "views": 0,
-   "sessions": 0
-  },
-  {
-   "source": "meetup",
    "medium": "referral",
    "clicks": 1,
    "views": 0,
@@ -357,9 +365,9 @@
    "campaign": "gratis-zum-mitnehmen",
    "source": "meetup",
    "medium": "referral",
-   "clicks": 1,
+   "clicks": 2,
    "first": "2026-09-24",
-   "last": "2026-09-24",
+   "last": "2026-09-27",
    "content": []
   }
  ],

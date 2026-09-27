@@ -3,17 +3,17 @@
  "title": "PROMESSI SPASSI",
  "ticket_url": "https://eventfrog.ch/en/p/groups/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081056758243.html",
  "event_type": "monthly",
- "generated_at": "2026-09-26T08:20:01.347Z",
+ "generated_at": "2026-09-27T08:20:02.173Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-09-26",
- "complete_through": "2026-09-24",
+ "through": "2026-09-27",
+ "complete_through": "2026-09-25",
  "totals": {
-  "clicks": 2227,
-  "redirect": 2205,
+  "clicks": 2238,
+  "redirect": 2216,
   "click": 22,
-  "clicks_30d": 2214,
-  "redirect_30d": 2192,
+  "clicks_30d": 2223,
+  "redirect_30d": 2201,
   "click_30d": 22,
   "views": 61,
   "views_30d": 53,
@@ -265,15 +265,23 @@
   },
   {
    "date": "2026-09-25",
-   "redirect": 9,
+   "redirect": 11,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-26",
+   "redirect": 12,
    "click": 0,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
   },
   {
-   "date": "2026-09-26",
-   "redirect": 6,
+   "date": "2026-09-27",
+   "redirect": 3,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -284,14 +292,14 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 2140,
+   "clicks": 2150,
    "views": 1,
    "sessions": 1
   },
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 33,
+   "clicks": 34,
    "views": 0,
    "sessions": 0
   },
@@ -420,9 +428,9 @@
    "campaign": "promessi-spassi",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 2139,
+   "clicks": 2149,
    "first": "2026-08-30",
-   "last": "2026-09-26",
+   "last": "2026-09-27",
    "content": [
     {
      "content": "52672614093400",
@@ -430,7 +438,7 @@
     },
     {
      "content": "52676472901800",
-     "clicks": 88
+     "clicks": 97
     },
     {
      "content": "52672431580800",
@@ -446,13 +454,13 @@
    "campaign": "promessi-spassi",
    "source": "instagram",
    "medium": "social",
-   "clicks": 33,
+   "clicks": 34,
    "first": "2026-08-27",
    "last": "2026-09-26",
    "content": [
     {
      "content": "link_in_bio",
-     "clicks": 26
+     "clicks": 27
     }
    ]
   },
