@@ -916,10 +916,13 @@
       im.src = src;
     });
   }
-  function drawCover(ctx, img, x, y, w, h) {
+  // Cover-crop img into the box. fx, fy (0 to 1) name the point of the photo to keep in frame
+  // (a face, for the ad cards); without them the crop is centred, as before.
+  function drawCover(ctx, img, x, y, w, h, fx, fy) {
     var ir = img.width / img.height, rr = w / h, sw, sh, sx, sy;
-    if (ir > rr) { sh = img.height; sw = sh * rr; sx = (img.width - sw) / 2; sy = 0; }
-    else { sw = img.width; sh = sw / rr; sx = 0; sy = (img.height - sh) / 2; }
+    var px = typeof fx === 'number' ? Math.min(1, Math.max(0, fx)) : 0.5, py = typeof fy === 'number' ? Math.min(1, Math.max(0, fy)) : 0.5;
+    if (ir > rr) { sh = img.height; sw = sh * rr; sx = (img.width - sw) * px; sy = 0; }
+    else { sw = img.width; sh = sw / rr; sx = 0; sy = (img.height - sh) * py; }
     ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
   }
   function roundRect(ctx, x, y, w, h, r) {
@@ -4137,10 +4140,13 @@
     return w;
   }
   // 1. Photo: the room, a dark scrim from the middle down, the headline in Anton on it.
+  // The rule for these ads (meta-ads/creative-bank-plan.md): one laughing audience face, large,
+  // and a headline that reads as that person's caption. m.focus = [x, y] (0 to 1, from the top
+  // left of the photo) keeps the face in frame when the 4:5 and 9:16 crops cut the sides.
   function paintAdPhoto(ctx, spec, m) {
     var W = spec.w, H = spec.h, story = spec.format === 'story', pad = spec.keySide + 30, maxW = W - pad * 2;
     ctx.fillStyle = AD_INK; ctx.fillRect(0, 0, W, H);
-    if (m.photo) drawCover(ctx, m.photo, 0, 0, W, H);
+    if (m.photo) drawCover(ctx, m.photo, 0, 0, W, H, m.focus ? m.focus[0] : undefined, m.focus ? m.focus[1] : undefined);
     var g = ctx.createLinearGradient(0, H * 0.3, 0, H);
     g.addColorStop(0, 'rgba(15,15,16,0)'); g.addColorStop(0.45, 'rgba(15,15,16,0.72)'); g.addColorStop(1, 'rgba(15,15,16,0.95)');
     ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
@@ -4290,7 +4296,16 @@
   }
   var AD_STYLES = { photo: paintAdPhoto, swiss: paintAdSwiss, type: paintAdType, chalk: paintAdChalk, station: paintAdStation, logo: paintAdLogo };
 
-  // ad = { headline, sub, style, photo } (photo a root-relative gallery path or empty).
+  // "0.3,0.4" or [0.3, 0.4] to a clamped pair; anything else is no focus (centre crop).
+  function parseFocus(v) {
+    var a = typeof v === 'string' ? v.split(',') : Array.isArray(v) ? v : null;
+    if (!a || a.length !== 2) return null;
+    var x = parseFloat(a[0]), y = parseFloat(a[1]);
+    if (isNaN(x) || isNaN(y)) return null;
+    return [Math.min(1, Math.max(0, x)), Math.min(1, Math.max(0, y))];
+  }
+  // ad = { headline, sub, style, photo, focus } (photo a root-relative gallery path or empty;
+  // focus "x,y" or [x, y], the point of the photo to keep in frame, photo look only).
   function drawAdCard(canvas, ad, format, done) {
     var paint = AD_STYLES[ad.style] || paintAdPhoto;
     // Ad cards also run on Reels, whose own controls cover the bottom third and the top strip:
@@ -4303,7 +4318,7 @@
     loadBrandFonts()
       .then(function () { return Promise.all(srcs.map(function (s) { return s ? loadImg(s) : Promise.resolve(null); })); })
       .then(function (imgs) {
-        paint(ctx, spec, { headline: stripEmoji(ad.headline || ''), sub: stripEmoji(ad.sub || ''), logo: imgs[0], photo: imgs[1], bg: imgs[2] });
+        paint(ctx, spec, { headline: stripEmoji(ad.headline || ''), sub: stripEmoji(ad.sub || ''), logo: imgs[0], photo: imgs[1], bg: imgs[2], focus: parseFocus(ad.focus) });
         if (done) done(null);
       })
       .catch(function (e) { if (done) done(e); });
@@ -4313,11 +4328,11 @@
   function renderAdcard() {
     ensureFlyerCss(); ensureWeekCss();
     var p = new URLSearchParams(window.location.search);
-    var ad = { headline: (p.get('headline') || 'Lost in Zürich? Find your funny.').trim(), sub: (p.get('sub') || '').trim(), style: (p.get('style') || 'photo').trim().toLowerCase(), photo: (p.get('photo') || '').trim(), bg: p.has('bg') ? (p.get('bg') || '').trim() : undefined, format: (p.get('format') || 'post').trim().toLowerCase() };
+    var ad = { headline: (p.get('headline') || 'Lost in Zürich? Find your funny.').trim(), sub: (p.get('sub') || '').trim(), style: (p.get('style') || 'photo').trim().toLowerCase(), photo: (p.get('photo') || '').trim(), focus: (p.get('focus') || '').trim(), bg: p.has('bg') ? (p.get('bg') || '').trim() : undefined, format: (p.get('format') || 'post').trim().toLowerCase() };
     if (!AD_STYLES[ad.style]) ad.style = 'photo';
     if (ad.format !== 'story') ad.format = 'post';
     function sync() {
-      var q = 'headline=' + enc(ad.headline) + '&sub=' + enc(ad.sub) + '&style=' + enc(ad.style) + '&photo=' + enc(ad.photo) + (ad.bg !== undefined ? '&bg=' + enc(ad.bg) : '') + '&format=' + enc(ad.format);
+      var q = 'headline=' + enc(ad.headline) + '&sub=' + enc(ad.sub) + '&style=' + enc(ad.style) + '&photo=' + enc(ad.photo) + (ad.focus ? '&focus=' + enc(ad.focus) : '') + (ad.bg !== undefined ? '&bg=' + enc(ad.bg) : '') + '&format=' + enc(ad.format);
       try { window.history.replaceState(null, '', window.location.pathname + '?' + q); } catch (e) { /* sandbox */ }
     }
     function build() {
@@ -4331,7 +4346,7 @@
         var lab = el('label', '', label); var inp = document.createElement('input'); inp.type = 'text'; inp.value = ad[key]; inp.style.minWidth = wide ? '320px' : '200px';
         inp.addEventListener('change', function () { ad[key] = inp.value.trim(); paint(); }); lab.appendChild(inp); form.appendChild(lab);
       }
-      field('Headline', 'headline', true); field('Sub', 'sub', true); field('Photo path', 'photo', true);
+      field('Headline', 'headline', true); field('Sub', 'sub', true); field('Photo path', 'photo', true); field('Focus x,y (0 to 1, the face)', 'focus', false);
       adRoot.appendChild(form);
       var styles = el('div', 'iyf-week__actions');
       adcardStyles().forEach(function (s) { var b = el('button', 'lineup-lab__copy' + (s === ad.style ? ' is-active' : ''), s); b.type = 'button'; b.addEventListener('click', function () { ad.style = s; paint(); }); styles.appendChild(b); });

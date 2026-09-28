@@ -11,7 +11,7 @@ describe("the bank files", () => {
     for (const g of GROUPS) {
       const b = loadBank(g, BANK_DIR);
       expect(b.adset).toBe(g);
-      expect(b.concepts.length).toBeGreaterThanOrEqual(8);
+      expect(b.concepts.length).toBeGreaterThanOrEqual(3);
       for (const x of b.concepts) { expect(x.id).toMatch(/^[CWI]\d+$/); expect(x.title.length).toBeLessThanOrEqual(40); expect(x.body).not.toMatch(/CHF|\u2014/); }
     }
   });
@@ -145,5 +145,30 @@ describe("video ads: names, lists and the creative", () => {
     const e = (ad_id: string) => ({ ad_id, creative_id: "c", image_hash: "h", pushed: "x" });
     const rested = { cold: { ...bank, concepts: [c("C4", "resting", { composition: "FifthLanguage" })] } } as any;
     expect(syncPlan({ "cold-C4v": e("4"), "cold-C12v": e("") }, rested, { "4": "ACTIVE" }).map((p: any) => `${p.name}>${p.to}`)).toEqual(["cold-C4v>PAUSED"]);
+  });
+  test("video.status retires the video ad while the still twin stays live, and keeps it out of --push-video", () => {
+    const e = (ad_id: string) => ({ ad_id, creative_id: "c", image_hash: "h", pushed: "x" });
+    const split = { cold: { ...bank, concepts: [c("C4", "live", { composition: "FifthLanguage", status: "retired" })] } } as any;
+    expect(syncPlan({ "cold-C4": e("40"), "cold-C4v": e("4") }, split, { "40": "ACTIVE", "4": "ACTIVE" }).map((p: any) => `${p.name} ${p.concept_status}>${p.to}`)).toEqual(["cold-C4v retired>PAUSED"]);
+    expect(videoList(split.cold, []).map((x: Concept) => x.id)).toEqual([]);
+    expect(pushList(split.cold, []).map((x: Concept) => x.id)).toEqual(["C4"]);
+  });
+});
+
+describe("the photo look's focus point", () => {
+  test("focus travels in the card url as x,y and is absent when the concept has none", () => {
+    const u = new URL(adcardUrl("http://x", c({ image: { style: "photo", photo: "/p.jpg", focus: [0.35, 0.4] } }), "post"));
+    expect(u.searchParams.get("focus")).toBe("0.35,0.4");
+    expect(new URL(adcardUrl("http://x", c({ image: { style: "photo", photo: "/p.jpg" } }), "post")).searchParams.has("focus")).toBe(false);
+  });
+  test("a focus outside 0 to 1, or not a pair, is refused by name", () => {
+    const dir = mkdtempSync(join(tmpdir(), "bank-"));
+    const head = "adset: cold\nlink: { show: comedybrew, utm_campaign: cold }\ndescription: d\nconcepts:\n";
+    writeFileSync(join(dir, "cold.yml"), head + "  - { id: C1, person: p, body: b, title: t, image: { style: photo, focus: [1.2, 0.4] }, status: bench }\n");
+    expect(() => loadBank("cold", dir)).toThrow(/cold C1: image.focus/);
+    writeFileSync(join(dir, "cold.yml"), head + "  - { id: C2, person: p, body: b, title: t, image: { style: photo, focus: [0.4] }, status: bench }\n");
+    expect(() => loadBank("cold", dir)).toThrow(/cold C2: image.focus/);
+    writeFileSync(join(dir, "cold.yml"), head + "  - { id: C3, person: p, body: b, title: t, image: { style: photo, focus: [0, 1] }, status: bench }\n  - { id: C4, person: p, body: b, title: t, image: { style: photo }, status: bench }\n");
+    expect(loadBank("cold", dir).concepts.map((x) => x.image.focus)).toEqual([[0, 1], undefined]);
   });
 });

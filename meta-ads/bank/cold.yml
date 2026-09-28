@@ -4,6 +4,13 @@
 # that names a person, nothing that reads as "we watched you", no em dashes.
 # image.style is an /adcard/ look (photo, swiss, type, chalk, station, logo); image.photo a
 # gallery path for the photo look; image.headline and image.sub are what the card paints.
+# THE RULE (2026-09-26, from the two ads that work, C7 and W6): every new concept is the photo
+# look with ONE LAUGHING AUDIENCE FACE, large, and a headline that reads as the caption of that
+# picture. image.focus: [x, y] (0 to 1 from the photo's top left) names the face so the 4:5 and
+# 9:16 crops keep it; a face below 0.5 of the photo's height ends up under the headline, pick
+# another photo. The crowd has to be visible behind the face (a lone laugher on a plain
+# background is out). The other looks (swiss, type, chalk, station, logo) were removed from the
+# bank on 2026-09-26 with their ads; only C1, C2, C6 keep an older photo card.
 # status: live (has an ad, on), resting (has an ad, paused for this round, comes back), bench
 # (no ad yet, waiting for a slot), retired (paused by the readout). `meta-bank.ts --sync` makes Meta match.
 adset: cold
@@ -23,26 +30,6 @@ concepts:
     title: "New in Zürich? Start here."
     image: { style: photo, photo: /assets/img/gallery/canape_PXXX8284.jpg, headline: "New in Zürich? Start here.", sub: "Thursday nights, English stand-up, near Central" }
     status: resting      # round one (2026-09-18): paused so C7, C4 and C8 get fed; back in round two
-  - id: C3
-    person: The Swiss person (in German)
-    body: "Live-Comedy auf Englisch, jeden Donnerstag in Zürich. Dein Englisch reicht, versprochen."
-    title: "Dein Englisch reicht. Versprochen."
-    description: "Jeden Donnerstag, 19:30"
-    image: { style: swiss, headline: "Dein Englisch reicht. Versprochen.", sub: "Live-Comedy auf Englisch, jeden Donnerstag" }
-    status: resting      # round one (2026-09-18): paused so C7, C4 and C8 get fed; back in round two
-  - id: C4
-    person: Anyone who likes the joke
-    body: "Switzerland has four official languages and one everyone actually speaks. Stand-up in it, every Thursday in Zürich."
-    title: "Comedy in Switzerland's fifth language"
-    image: { style: swiss, headline: "Deutsch. Français. Italiano. Rumantsch. English.", sub: "Stand-up in the fifth language, every Thursday" }
-    video: { composition: FifthLanguage }      # the twin ad cold-C4v: same words, the video on Stories and Reels
-    status: live
-  - id: C5
-    person: The student
-    body: "Student in Zürich? Ten comedians, one Thursday, walking distance from ETH and Uni. Bring the flatmate."
-    title: "Thursday, ten acts, near ETH"
-    image: { style: chalk, headline: "Ten comedians. One Thursday.", sub: "Walking distance from ETH and Uni" }
-    status: bench
   - id: C6
     person: The visitor
     body: "In Zürich this week? There is English stand-up on Thursday, two minutes from the main station. The locals go."
@@ -55,34 +42,24 @@ concepts:
     title: "Where Zürich's expats laugh"
     image: { style: photo, photo: /assets/img/gallery/canape_PXXX8030.jpg, headline: "Where Zürich's expats laugh", sub: "Thursdays, ten acts, in English" }
     status: live
-  - id: C8
-    person: The native English speaker
-    body: "Missing a proper comedy night? Zürich has one every Thursday. Ten acts, all in English, near Central."
-    title: "A proper comedy night. In Zürich."
-    image: { style: photo, photo: /assets/img/gallery/kafi_PXXX3234.jpg, headline: "A proper comedy night. In Zürich.", sub: "Every Thursday, ten acts, all in English" }
-    status: resting      # 2026-09-18: made room for the two video ads (it was the weakest of round one); back in round two
-  - id: C9
-    person: The person who does not want to socialise
-    body: "Want to be around people without talking to anyone? Sit in the dark and laugh. Thursdays, Zürich, in English."
-    title: "A night out with no small talk"
-    image: { style: type, headline: "A night out. No small talk.", sub: "English stand-up, Thursdays in Zürich" }
-    status: bench
-  - id: C10
-    person: The doubter
-    body: "Yes, there is English stand-up in Zürich. Every Thursday since 2021, ten comedians, one room near Central."
-    title: "English stand-up in Zürich. Really."
-    image: { style: logo, headline: "English stand-up in Zürich. Really.", sub: "Every Thursday since 2021" }
-    status: bench
-  - id: C11
-    person: The regional commuter
-    body: "Winterthur, Baden, Zug: it is 25 minutes and the last train home is after the show. Thursdays, English stand-up."
-    title: "25 minutes and a late train home"
-    image: { style: station, headline: "The last train home is after the show.", sub: "Winterthur 25 min | Baden 20 min | Zug 25 min" }
-    status: bench
-  - id: C12
-    person: Anyone who has waited under a departures board
-    body: "English stand-up departs every Thursday from ROBIN's, two minutes from Central. Ten acts. All aboard."
-    title: "Next departure: Thursday"
-    image: { style: station, headline: "English stand-up. Every Thursday.", sub: "ROBIN's | 2 min from Central" }
-    video: { composition: Departures, twin: false }   # the video ad cold-C12v only: no still ad beside it
+  # --- Round two, 2026-09-26: the laugh set. One laughing face, the line as its caption. ---
+  - id: C13
+    person: New in town, evenings still quiet (the woman in white, laughing with the row behind her)
+    body: "New in Zürich and your evenings are quiet? Thursday night, English stand-up two minutes from Central. Come as you are."
+    title: "New in Zürich? This is Thursday."
+    image: { style: photo, photo: /assets/img/gallery/IMG_5295_20260924.jpg, focus: [0.24, 0.36], headline: "New in Zürich? This is Thursday.", sub: "English stand-up, two minutes from Central" }
+    status: live
+  # C14 (two men, dark behind) and C15 (one woman, foliage) were dropped the same evening: Harry
+  # wants the crowd in the background of every card. Ids not reused.
+  - id: C16
+    person: The relocated worker (the man in the yellow football shirt laughing hardest, the row around him)
+    body: "Moved to Zürich for work? English stand-up every Thursday near Central: ten acts and a room full of people who did the same."
+    title: "Moved here for work? Come Thursday."
+    image: { style: photo, photo: "/assets/img/gallery/IMG_4476 Large.jpeg", focus: [0.2, 0.3], headline: "Stayed for Thursdays.", sub: "Moved here for work? Stand-up in English" }
+    status: live
+  - id: C17
+    person: The native English speaker (the woman in denim laughing in the middle of a full room)
+    body: "Laughed a beat late at a show in German? Thursdays in Zürich there is stand-up in English. Ten acts, all in your language."
+    title: "Comedy you get every word of"
+    image: { style: photo, photo: /assets/img/gallery/IMG_5275_20260924.jpg, focus: [0.48, 0.42], headline: "She got every word.", sub: "English stand-up, Thursdays in Zürich" }
     status: live

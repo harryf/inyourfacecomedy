@@ -22,6 +22,11 @@
 // retired). Meta feeds one or two ads per ad set and starves the rest, so at small budgets only
 // two or three run at a time: `resting` is an ad that exists, is paused on purpose and comes
 // back in a later round; --sync makes Meta match.
+//
+// The rule since 2026-09-26 (the two ads that work, cold-C7 and warm-W6, share it): every new
+// ad is the photo look with one laughing audience face, large, and a headline that reads as
+// the caption of that picture. `image.focus: [x, y]` (0 to 1 from the photo's top left) names
+// the face so the 4:5 and 9:16 crops keep it; the page's Focus field shows the same thing.
 
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
@@ -61,15 +66,22 @@ export type Group = typeof GROUPS[number];
 export const BANK_DIR = join(REPO_ROOT, "meta-ads", "bank");
 export const CREATIVE_DIR = join(REPO_ROOT, "meta-ads", "creative", "bank");   // gitignored
 
+export type Status = "live" | "resting" | "bench" | "retired";
 export interface Concept {
   id: string; person: string; body: string; title: string; description?: string;
-  image: { style: string; photo?: string; bg?: string; headline?: string; sub?: string; week_style?: string; note?: string };
+  // The photo look is the bank's rule since 2026-09-26: one laughing audience face, large, and a
+  // headline that reads as that person's caption. `focus` is [x, y], 0 to 1 from the photo's top
+  // left, the point the 4:5 and 9:16 crops keep in frame (the face); without it the crop is centred.
+  image: { style: string; photo?: string; focus?: [number, number]; bg?: string; headline?: string; sub?: string; week_style?: string; note?: string };
   // A Remotion composition in video/ (rendered to video/out/<composition>.mp4). `twin: true`
   // (the default): the still ad <group>-<id> runs beside the video ad <group>-<id>v with the
-  // same words, so the two can be compared. `twin: false`: the video ad only.
-  video?: { composition: string; twin?: boolean };
-  status: "live" | "resting" | "bench" | "retired";
+  // same words, so the two can be compared. `twin: false`: the video ad only. `status` is the
+  // video ad's own status when it differs from the still's (a retired video beside a live still).
+  video?: { composition: string; twin?: boolean; status?: Status };
+  status: Status;
 }
+// The status that governs the video ad <group>-<id>v: its own when it has one, else the concept's.
+export function videoStatus(c: Concept): Status { return c.video?.status || c.status; }
 export const VIDEO_OUT = join(REPO_ROOT, "video", "out");   // gitignored
 export interface Bank { adset: Group; link: { show: string; utm_campaign: string }; description: string; concepts: Concept[] }
 
@@ -80,6 +92,8 @@ export function loadBank(group: Group, dir = BANK_DIR): Bank {
   for (const c of b.concepts) {
     if ([...c.body].length > 125) throw new Error(`${group} ${c.id}: body is ${[...c.body].length} characters (125 max)`);
     if (!c.image?.style) throw new Error(`${group} ${c.id}: image.style missing`);
+    const f = c.image.focus;
+    if (f !== undefined && !(Array.isArray(f) && f.length === 2 && f.every((n) => typeof n === "number" && n >= 0 && n <= 1))) throw new Error(`${group} ${c.id}: image.focus must be [x, y] with both between 0 and 1`);
   }
   return b;
 }
@@ -87,6 +101,7 @@ export function loadBank(group: Group, dir = BANK_DIR): Bank {
 // The card's URL on the page (the page reads these fields; state lives in the URL).
 export function adcardUrl(base: string, c: Concept, format: "post" | "story"): string {
   const q = new URLSearchParams({ headline: c.image.headline || c.title, sub: c.image.sub || "", style: c.image.style, photo: c.image.photo || "", format });
+  if (c.image.focus) q.set("focus", c.image.focus.join(","));
   if (c.image.bg !== undefined) q.set("bg", c.image.bg);
   return `${base}/adcard/?${q}`;
 }
@@ -94,6 +109,7 @@ export function adcardUrl(base: string, c: Concept, format: "post" | "story"): s
 // Runs inside the page: wait for the draw hook, draw the card off screen, return a PNG.
 function adcardExpression(c: Concept, format: "post" | "story"): string {
   const ad: Record<string, string> = { headline: c.image.headline || c.title, sub: c.image.sub || "", style: c.image.style, photo: c.image.photo || "" };
+  if (c.image.focus) ad.focus = c.image.focus.join(",");
   if (c.image.bg !== undefined) ad.bg = c.image.bg;   // absent: the page's default per style (the station board's show photo)
   return `(async () => {
     const wait = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -174,7 +190,7 @@ export function pushList(bank: Bank, only: string[]): Concept[] {
 // The video ads: every concept with a `video:` block, named <group>-<id>v.
 export function videoAdName(group: Group, c: Pick<Concept, "id">): string { return `${adName(group, c)}v`; }
 export function videoList(bank: Bank, only: string[]): Concept[] {
-  return bank.concepts.filter((c) => c.video && (only.length ? only.includes(c.id) : c.status === "live"));
+  return bank.concepts.filter((c) => c.video && (only.length ? only.includes(c.id) : videoStatus(c) === "live"));
 }
 // An ad name's id part back to its concept: <id>, or <id>v for a concept with a video.
 export function conceptFor(bank: Bank | undefined, id: string): Concept | undefined {
@@ -284,8 +300,11 @@ export function syncPlan(state: PushState, banks: Partial<Record<Group, Bank>>, 
     const concept = conceptFor(banks[group], id);
     const from = statuses[entry.ad_id];
     if (!concept || !from) continue;
-    const to = concept.status === "live" ? "ACTIVE" : "PAUSED";
-    if (from !== to) out.push({ name, ad_id: entry.ad_id, concept_status: concept.status, from, to } as const);
+    // The video ad <id>v follows video.status when the concept has one, so a video can retire
+    // while its still twin keeps running.
+    const status = concept.id !== id ? videoStatus(concept) : concept.status;
+    const to = status === "live" ? "ACTIVE" : "PAUSED";
+    if (from !== to) out.push({ name, ad_id: entry.ad_id, concept_status: status, from, to } as const);
   }
   return out;
 }

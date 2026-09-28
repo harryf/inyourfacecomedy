@@ -76,6 +76,21 @@ nobody clicked.
 ## The bank: Cold (never heard of us)
 
 Each ad names one person. Bodies at most 125 characters, headline under 40, one description.
+
+**The rule since 26 September 2026, for every set:** a new concept is the photo look with one
+laughing audience face, large, and a headline that reads as the caption of that picture. The two
+ads that work (`cold-C7`, `warm-W6`) share that composition; the other looks were removed from the
+bank on 26 September 2026 with their ads. `image.focus: [x, y]` (0 to 1 from the photo's top left) names the
+face so the 4:5 and 9:16 crops keep it; without it the crop is centred. The crowd has to be
+visible behind the face: a lone laugher on a plain background is out. Pick photos with the
+face in the upper half (the headline block covers the lower third of the post and, on the story
+card, sits above the Reels controls, so a face below about 0.5 of the photo's height ends up under
+the words); when the face sits around 0.4 to 0.5, keep the story headline to one line. Photos are
+the gallery's `type: audience` frames at 900 px or more on the long edge; the face positions come
+from `auge --faces`. The line should carry a feeling the picture backs up, not a fact about the
+show: the warm room against a dark, cold evening (seasonal, marked in the bank file and rested in
+April), or a row of strangers who end up laughing together; the facts (day, time, place) go in the
+sub and the body.
 The link for all Cold ads: `/go/?show=comedybrew&utm_source=meta&utm_medium=paid_social&utm_campaign=cold`
 with `utm_content={{ad.name}}` set in the ad's URL parameters so the site report lists
 clicks per ad.
