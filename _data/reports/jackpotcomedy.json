@@ -3,22 +3,22 @@
  "title": "Jackpot Comedy",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jackpot-comedy-7413646370706339342.html",
  "event_type": "series",
- "generated_at": "2026-09-27T08:20:02.173Z",
+ "generated_at": "2026-09-28T08:20:01.400Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-09-27",
- "complete_through": "2026-09-25",
+ "through": "2026-09-28",
+ "complete_through": "2026-09-26",
  "totals": {
-  "clicks": 458,
-  "redirect": 420,
+  "clicks": 463,
+  "redirect": 425,
   "click": 38,
-  "clicks_30d": 455,
-  "redirect_30d": 417,
+  "clicks_30d": 459,
+  "redirect_30d": 421,
   "click_30d": 38,
-  "views": 96,
-  "views_30d": 93,
-  "sessions": 91,
-  "sessions_30d": 88,
+  "views": 121,
+  "views_30d": 117,
+  "sessions": 116,
+  "sessions_30d": 112,
   "broken_links": 0,
   "untagged": 0
  },
@@ -276,11 +276,19 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-27",
+   "redirect": 5,
+   "click": 0,
+   "views": 25,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-28",
    "redirect": 1,
    "click": 0,
    "views": 0,
@@ -292,7 +300,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 389,
+   "clicks": 394,
    "views": 3,
    "sessions": 2
   },
@@ -314,8 +322,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 12,
-   "views": 43,
-   "sessions": 43
+   "views": 65,
+   "sessions": 65
   },
   {
    "source": "facebook",
@@ -360,6 +368,13 @@
    "sessions": 0
   },
   {
+   "source": "VA LBHE ABDF Dbzfel",
+   "medium": "email",
+   "clicks": 0,
+   "views": 3,
+   "sessions": 3
+  },
+  {
    "source": "duckduckgo",
    "medium": "organic",
    "clicks": 0,
@@ -379,13 +394,13 @@
    "campaign": "jackpotcomedy",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 389,
+   "clicks": 394,
    "first": "2026-08-30",
-   "last": "2026-09-27",
+   "last": "2026-09-28",
    "content": [
     {
      "content": "6964168949947",
-     "clicks": 380
+     "clicks": 385
     }
    ]
   },

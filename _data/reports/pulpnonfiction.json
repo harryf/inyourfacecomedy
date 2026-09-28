@@ -3,11 +3,11 @@
  "title": "Pulp Non-Fiction",
  "ticket_url": "https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html",
  "event_type": "monthly",
- "generated_at": "2026-09-27T08:20:02.173Z",
+ "generated_at": "2026-09-28T08:20:01.400Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-09-27",
- "complete_through": "2026-09-25",
+ "through": "2026-09-28",
+ "complete_through": "2026-09-26",
  "totals": {
   "clicks": 22,
   "redirect": 10,
@@ -15,10 +15,10 @@
   "clicks_30d": 18,
   "redirect_30d": 8,
   "click_30d": 10,
-  "views": 21,
-  "views_30d": 15,
-  "sessions": 20,
-  "sessions_30d": 14,
+  "views": 44,
+  "views_30d": 38,
+  "sessions": 45,
+  "sessions_30d": 38,
   "broken_links": 0,
   "untagged": 0
  },
@@ -276,13 +276,21 @@
    "redirect": 1,
    "click": 0,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-27",
    "redirect": 0,
    "click": 1,
+   "views": 23,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-28",
+   "redirect": 0,
+   "click": 0,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
@@ -293,15 +301,15 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 6,
-   "views": 6,
-   "sessions": 6
+   "views": 17,
+   "sessions": 19
   },
   {
    "source": "meetup",
    "medium": "referral",
    "clicks": 6,
-   "views": 1,
-   "sessions": 1
+   "views": 2,
+   "sessions": 2
   },
   {
    "source": "instagram",
@@ -332,15 +340,22 @@
    "sessions": 0
   },
   {
-   "source": "guidle",
-   "medium": "referral",
+   "source": "VA LBHE ABDF Dbzfel",
+   "medium": "email",
    "clicks": 0,
-   "views": 1,
-   "sessions": 1
+   "views": 10,
+   "sessions": 10
   },
   {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
+   "clicks": 0,
+   "views": 2,
+   "sessions": 2
+  },
+  {
+   "source": "guidle",
+   "medium": "referral",
    "clicks": 0,
    "views": 1,
    "sessions": 1

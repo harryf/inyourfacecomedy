@@ -1,24 +1,24 @@
 {
  "slug": "nerdycomedyshow",
  "title": "The NERDY COMEDY Show",
- "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/nerdy-stand-up-comedy-en-7284304661632248367.html",
+ "ticket_url": "https://eventfrog.ch/de/p/gruppen/nerdy-stand-up-comedy-en-7284304661632248367.html",
  "event_type": "series",
- "generated_at": "2026-09-27T08:20:02.173Z",
+ "generated_at": "2026-09-28T08:20:01.400Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-09-27",
- "complete_through": "2026-09-25",
+ "through": "2026-09-28",
+ "complete_through": "2026-09-26",
  "totals": {
   "clicks": 43,
   "redirect": 17,
   "click": 26,
-  "clicks_30d": 34,
-  "redirect_30d": 11,
-  "click_30d": 23,
-  "views": 48,
-  "views_30d": 34,
+  "clicks_30d": 28,
+  "redirect_30d": 10,
+  "click_30d": 18,
+  "views": 56,
+  "views_30d": 38,
   "sessions": 55,
-  "sessions_30d": 41,
+  "sessions_30d": 37,
   "broken_links": 0,
   "untagged": 0
  },
@@ -275,15 +275,23 @@
    "date": "2026-09-26",
    "redirect": 8,
    "click": 10,
-   "views": 15,
-   "provisional": true,
+   "views": 21,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-27",
    "redirect": 0,
    "click": 0,
-   "views": 1,
+   "views": 3,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-28",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -293,15 +301,15 @@
    "source": "google",
    "medium": "organic",
    "clicks": 14,
-   "views": 20,
-   "sessions": 20
+   "views": 30,
+   "sessions": 30
   },
   {
    "source": "meetup",
    "medium": "referral",
    "clicks": 8,
-   "views": 0,
-   "sessions": 0
+   "views": 1,
+   "sessions": 1
   },
   {
    "source": "instagram",
@@ -314,22 +322,22 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 6,
-   "views": 18,
-   "sessions": 25
-  },
-  {
-   "source": "IN YOUR FACE Comedy",
-   "medium": "email",
-   "clicks": 2,
-   "views": 3,
-   "sessions": 3
+   "views": 10,
+   "sessions": 10
   },
   {
    "source": "guidle",
    "medium": "referral",
    "clicks": 2,
-   "views": 2,
-   "sessions": 2
+   "views": 6,
+   "sessions": 5
+  },
+  {
+   "source": "IN YOUR FACE Comedy",
+   "medium": "email",
+   "clicks": 2,
+   "views": 4,
+   "sessions": 4
   },
   {
    "source": "chatgpt.com",
