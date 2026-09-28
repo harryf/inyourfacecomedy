@@ -72,6 +72,7 @@ $x-sm-break: 320px;
   --link-hover:       var(--brand-red-deep);
 
   --badge-tonight:    var(--brand-yellow-hot);
+  --star:             #A15C00;             // review stars on light surfaces (4.9:1 on --surface-elev)
   --badge-tonight-text: var(--brand-ink);
   --badge-soldout:    var(--brand-ink);
   --badge-soldout-text: var(--brand-cream);
@@ -164,6 +165,7 @@ html[data-theme="dark"] {
   --surface-elev:     var(--surface-dark-2);
   --ink-on-cream:     var(--brand-cream);
   --muted:            rgba(255, 243, 224, 0.65);   // soft cream — readable on dark surfaces
+  --star:             var(--brand-yellow-hot);     // review stars (9.7:1 on --surface-elev)
   --border-soft:      rgba(255, 243, 224, 0.16);
   --border-strong:    rgba(255, 243, 224, 0.4);
 }

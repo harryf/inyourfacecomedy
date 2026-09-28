@@ -36,6 +36,7 @@ Run the build and the health check after every change and before saying you are 
 | Show to comedian links | `hosts:` (+ `hosts_label:`) on the post: regular hosts, not the per-night lineup | hand. Drives host cards, the hosted shows at the front of the comedian page's related-shows row (`_includes/related-shows.liquid`) and Event JSON-LD performers; unknown slugs render nothing |
 | Apple calendar "Comedy @ ROBINs" shared with the bar staff (name in `.env` as `ROBINS_CALENDAR`) | `_data/calendar.yml`, venue `robins` only, plus the post's `hosts:` for the notes and Eventfrog for the ticket count | `bun script/robins-calendar.ts` daily. A field a person edited in the calendar is theirs for good (state in gitignored `script/robins-out/state.json`); `--force` hands it back to the website. A per-date room change is made by editing the title in Calendar.app, a per-show one with `room: front` on the post |
 | Show language | `language: it` / `es` on the post (absent = English) | hand. The monthly email lists non-English shows only when they are at ROBIN's (`docs/emails.md`) |
+| Review quotes on home, calendar and show pages, `/reviews/` | Google reviews, five stars with text only, performers left out | `reviews-from-google.rb` into `_data/reviews.yml`. Never hand-edit it; hide a review with `script/reviews-exclude.txt`. Never add Review or AggregateRating structured data (self-serving on our own site) |
 
 ## Scheduled jobs (Harry's Mac, rbenv 3.2.4 by absolute path, logs in `script/*.log`)
 
@@ -43,7 +44,8 @@ Run the build and the health check after every change and before saying you are 
 |---|---|---|
 | 09:00 daily | `refresh-next-event-dates.rb`: calendar data, next dates into posts, homepage lastmod, commit, push, IndexNow | `refresh.log` |
 | 09:30 daily | `post-events-to-google.rb`: GBP event posts for ROBIN's shows in the next 7 days | `gbp.log` |
-| 09:35 daily (line documented, not yet installed) | `hours-to-google.rb`: GBP opening hours from the ROBIN's show calendar, 30 min either side of each show, writes only on a difference | `gbp-hours.log` |
+| 09:35 daily | `hours-to-google.rb`: GBP opening hours from the ROBIN's show calendar, 30 min either side of each show, writes only on a difference | `gbp-hours.log` |
+| 09:40 daily (line documented, not yet installed) | `reviews-from-google.rb`: five-star Google reviews (no performers) into `_data/reviews.yml`, commit, push | `gbp-reviews.log` |
 | 10:05 daily | `sync-comedians.rb`: Grist to `_comedians/`, commit, push, IndexNow | `sync-comedians.log` |
 | 10:20 daily | `bun script/ga-report.ts`: GA to `/reports/`, commit, push | `ga-report.log` |
 | 11:00 Sat, Sun | `refresh-calendar-page.rb --no-refresh`: regenerate `/calendar/`, commit, push | `refresh.log` |

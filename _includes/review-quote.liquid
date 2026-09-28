@@ -1,0 +1,45 @@
+{%- comment -%}
+  "What people are saying": one five-star Google review as a scroll break.
+  Data: _data/reviews.yml, written by script/reviews-from-google.rb (five stars with text,
+  no performers). Styles: _sass/components/_review-quote.scss (design system
+  components/review-quote.scss).
+
+  Parameters:
+    show    optional show slug; only reviews tagged with it (e.g. "comedybrew"). No
+            tagged review means nothing renders.
+    offset  "half" picks from the other half of the pool, so two placements on the
+            same build never show the same review (home uses none, calendar "half").
+
+  Rotation: day of the year of the build plus the offset, modulo the pool. The site
+  rebuilds daily, so the quote changes about once a day. No JavaScript.
+
+  Never add Review or AggregateRating structured data here: Google treats a business's
+  own reviews as self-serving and asks sites not to aggregate reviews from other sites.
+  The output must start at column 0: a four-space indent turns it into a code block
+  inside a markdown page (the calendar).
+{%- endcomment -%}
+{%- assign rq_data = site.data.reviews -%}
+{%- if rq_data and rq_data.reviews and rq_data.reviews.size > 0 -%}
+{%- assign rq_show = include.show -%}
+{%- if rq_show -%}
+{%- assign rq_pool = rq_data.reviews | where_exp: "r", "r.shows contains rq_show" -%}
+{%- else -%}
+{%- assign rq_pool = rq_data.reviews -%}
+{%- endif -%}
+{%- if rq_pool.size > 0 -%}
+{%- assign rq_offset = 0 -%}
+{%- if include.offset == "half" -%}{%- assign rq_offset = rq_pool.size | divided_by: 2 -%}{%- endif -%}
+{%- assign rq_index = site.time | date: "%j" | plus: rq_offset | modulo: rq_pool.size -%}
+{%- assign rq = rq_pool[rq_index] -%}
+{%- assign rq_anchor = rq.id | slice: 0, 12 -%}
+<figure class="iyf-review" data-review="{{ rq_anchor }}">
+<p class="iyf-review__eyebrow">What people are saying</p>
+<blockquote class="iyf-review__quote" cite="{{ rq_data.google_url }}"><p>{{ rq.excerpt | escape }}</p></blockquote>
+<figcaption class="iyf-review__meta">
+<span class="iyf-review__stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+<span class="iyf-review__who">{{ rq.author | escape }}, {{ rq.month }}, on Google</span>
+<span class="iyf-review__links"><a href="{{ '/reviews/' | relative_url }}#review-{{ rq_anchor }}">{% if rq.truncated %}Read it all{% else %}More reviews{% endif %}</a><a href="{{ rq_data.google_url }}" rel="noopener" target="_blank">See it on Google</a></span>
+</figcaption>
+</figure>
+{%- endif -%}
+{%- endif -%}

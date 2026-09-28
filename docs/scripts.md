@@ -241,6 +241,42 @@ Needs `client_secret_*.json` and `gbp-token.json` at the repo root, shared with
 `post-events-to-google.rb` (its `--authorize` consent covers this script too). Pings
 `GBP_HEALTHCHECKS_URL` when set, else `HEALTHCHECKS_URL`. No state file, no git.
 
+## `reviews-from-google.rb`
+
+Copies Google reviews of the listing into `_data/reviews.yml` for the "What people are saying"
+quote and the `/reviews/` page. Only five-star reviews with text are kept. Reviews by performers
+are left out: the author's first and last name match a comedian profile, or the text says they
+perform. A review id in `script/reviews-exclude.txt` is left out too. Each entry keeps the first
+name and last initial, the month, the text as paragraphs, a card excerpt (whole sentences up to
+170 characters) and show tags (`comedybrew` for reviews about the open mic or Thursdays; the
+patterns are `SHOW_TAGS` in the script). The file also holds the true average and count over all
+reviews and the Google links. No surname, no photo, no reply.
+
+Where it shows:
+
+- `_includes/review-quote.liquid` renders one review. The home page shows it between the
+  upcoming shows and "All Our Shows", the calendar after the first month (written by
+  `refresh-calendar-page.rb`, see `calendar-structure.md`), and a show page under its ticket
+  button when a review is tagged with that show's slug. The pick rotates with the build day;
+  the calendar uses the other half of the pool, so home and calendar differ.
+- `pages/reviews.md` (`/reviews/`) lists every kept review under "4.8 out of 5 from 24 reviews
+  on Google". Off the nav (`hide: true`), in the sitemap, indexable. Every quote links to its
+  card there.
+- Never add Review or AggregateRating structured data: Google calls a business's own reviews
+  self-serving and asks sites not to aggregate reviews from elsewhere. `check-site.rb` fails on it.
+
+The file is rewritten only when the reviews change; then the job commits that one file, pushes,
+and pings IndexNow for `/reviews/`. Reads only, GET only, on the v4 host the posts job uses.
+
+```
+ruby script/reviews-from-google.rb --dry-run      # kept and dropped reviews with reasons, no write
+ruby script/reviews-from-google.rb --no-git       # write the file, no commit, no push
+ruby script/reviews-from-google.rb                # live (what cron runs)
+```
+
+Needs `client_secret_*.json` and `gbp-token.json`, shared with `post-events-to-google.rb`.
+Pings `GBP_HEALTHCHECKS_URL` when set, else `HEALTHCHECKS_URL`.
+
 ## `ga-report.ts`
 
 Daily per-show ticket-click reports from Google Analytics 4 into `/reports/<slug>/` (design:

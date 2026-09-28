@@ -94,6 +94,7 @@ CACHE_FILE  = File.join(ROOT, "_data", "calendar-copy.json")   # under _data so 
 POSTS_DIR   = File.join(ROOT, "_posts")
 SITE_URL    = "https://inyourfacecomedy.ch"
 SCRIPT_NAME = File.basename(__FILE__)
+REVIEW_QUOTE_INCLUDE = %({% include review-quote.liquid offset="half" %})
 
 # ---------- .env + Healthchecks.io reporting (shared single endpoint) ----------
 # This script had no .env loader; it needs one to see HEALTHCHECKS_URL under cron
@@ -777,6 +778,10 @@ month_flavor   = assign_month_flavor(cache, groups.map { |(y, m), _| month_key(y
 blocks = groups.map do |(year, month), evs|
   build_block(MONTHS_FULL[month - 1], year, month_flavor[month_key(year, month)], evs, event_info)
 end
+# "What people are saying": one five-star review after the first month, as a scroll
+# break (_includes/review-quote.liquid, offset "half" so it differs from the home
+# page's quote). Contract: docs/calendar-structure.md, "The review quote".
+blocks.insert(1, REVIEW_QUOTE_INCLUDE) if blocks.size > 1
 new_body = bump_last_modified(intro, now) + blocks.join("\n\n") + outro
 
 say("\n#{events.size} event(s) across #{groups.size} month(s).")

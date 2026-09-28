@@ -36,6 +36,8 @@ Auf Deutsch: alle Comedy Veranstaltungen und Auftritte von IN YOUR FACE in Züri
 
 </div>
 
+{% include review-quote.liquid offset="half" %}
+
 <h2 class="iyf-month-heading">October 2026</h2>
 <p class="iyf-month-flavor">October in Zürich: the clocks change, the temperature drops, and the only reliable warmth left is a punchline landing exactly on time.</p>
 

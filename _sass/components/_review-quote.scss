@@ -1,0 +1,241 @@
+// =============================================================================
+// Review quote: "What people are saying"
+// =============================================================================
+// Mirrors inyourface_design_system/components/review-quote.scss. Tokens only.
+//
+// .iyf-review        one five-star Google review as a scroll break
+//                    (_includes/review-quote.liquid: home, calendar, show pages)
+// .iyf-review--full  the same card with every paragraph, on /reviews/
+// .iyf-reviews       the /reviews/ page: score header plus a grid of full cards
+//
+// A big Permanent Marker quote mark in brand red hangs over the top-left corner;
+// the text stays in the body face so a long review is still easy to read. The
+// card is quieter than an event card on purpose: the ticket button stays the
+// loudest thing on the page.
+// -----------------------------------------------------------------------------
+
+.iyf-review {
+  position: relative;
+  max-width: 44rem;
+  margin: var(--space-10) auto;
+  padding: var(--space-8) var(--space-6) var(--space-6);
+  background: var(--surface-elev);
+  border: 1px solid var(--border-soft);   // the card must read as raised, not as a hole
+  border-left: 4px solid var(--brand-red);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0; // square left edge keeps the red bar straight
+  color: var(--ink-on-cream);
+
+  // The hanging quote mark. Decorative: the blockquote carries the meaning.
+  &::before {
+    content: "\201C";
+    position: absolute;
+    top: calc(-1 * var(--space-6));
+    left: var(--space-4);
+    font-family: var(--font-accent);
+    font-size: 5.5rem;
+    line-height: 1;
+    color: var(--brand-red);
+    pointer-events: none;
+  }
+
+  &__eyebrow {
+    margin: 0 0 var(--space-3);
+    font-family: var(--font-display);
+    font-size: var(--fs-sm);
+    letter-spacing: var(--ls-extra);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  // Reset the theme's blockquote box: this card is the box.
+  &__quote {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none; // the theme gives every blockquote a drop shadow
+    font-style: normal;
+
+    p {
+      display: block; // the theme sets li p { display: inline }, and /reviews/ cards sit in list items
+      margin: 0 0 var(--space-3);
+      font-family: var(--font-body);
+      font-size: var(--fs-md);   // a scroll break, quieter than the ticket button
+      font-weight: 500;
+      line-height: var(--lh-snug);
+      color: var(--ink-on-cream);   // one white: cream on dark, ink on light
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2) var(--space-4);
+    margin-top: var(--space-5);
+    font-size: var(--fs-sm);
+    color: var(--muted);
+  }
+
+  &__stars {
+    color: var(--star);
+    letter-spacing: 0.1em;
+    font-size: var(--fs-base);
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-left: auto;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      min-height: var(--space-9); // touch floor
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: underline;
+      text-decoration-color: var(--brand-red);
+      text-underline-offset: 0.2em;
+
+      // Red text on the card is only 4:1, so hover thickens the red underline instead.
+      &:hover {
+        text-decoration-thickness: 3px;
+      }
+
+      &:focus-visible {
+        outline: 3px solid var(--cta-focus-ring);
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  // On /reviews/ every paragraph shows, a little smaller, in a grid.
+  &--full {
+    margin: 0;
+
+    .iyf-review__quote p {
+      font-size: var(--fs-base);
+      font-weight: 400;
+      line-height: var(--lh-normal);
+    }
+  }
+
+  // Deep link from a quote card lands here: make it obvious which one.
+  &:target {
+    outline: 3px solid var(--brand-yellow-hot);
+    outline-offset: 4px;
+  }
+
+  @media (max-width: 599px) {
+    margin: var(--space-9) 0; // the page already has its gutter
+    padding: var(--space-7) var(--space-5) var(--space-5);
+
+    &::before {
+      font-size: 4.5rem;
+    }
+
+    &--full {
+      margin: 0;
+    }
+
+    &__links {
+      margin-left: 0;
+    }
+  }
+}
+
+// ---- /reviews/ page -----------------------------------------------------------
+
+.iyf-reviews {
+  max-width: 1100px;
+  margin: 0 auto;
+
+  &__score {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-5);
+    margin: 0 0 var(--space-9);
+    padding: var(--space-6);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+  }
+
+  &__number {
+    font-family: var(--font-display);
+    font-size: var(--fs-3xl);
+    line-height: var(--lh-tight);
+    color: var(--text);
+  }
+
+  &__summary {
+    margin: 0;
+    flex: 1 1 16rem;
+    color: var(--text);
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-5); // each link is already a 48 px touch target
+    margin: 0;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      min-height: var(--space-9);
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: underline;
+      text-decoration-color: var(--brand-red);
+      text-underline-offset: 0.2em;
+
+      &:hover {
+        text-decoration-thickness: 3px;
+      }
+
+      &:focus-visible {
+        outline: 3px solid var(--cta-focus-ring);
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  // Masonry by CSS columns: short and long reviews pack without ragged holes.
+  &__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    column-gap: var(--space-6);
+
+    @media (min-width: 800px) {
+      columns: 2;
+    }
+  }
+
+  &__item {
+    list-style: none;
+    min-width: 0;
+    break-inside: avoid;
+    margin-bottom: var(--space-7);
+    // room for the hanging quote mark
+    padding-top: var(--space-6);
+  }
+
+  &__note {
+    margin: var(--space-9) 0 0;
+    font-size: var(--fs-sm);
+    color: var(--muted);
+  }
+
+  &__cta {
+    margin: var(--space-9) 0 0;
+    text-align: center;
+  }
+}

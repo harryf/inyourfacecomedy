@@ -52,6 +52,9 @@ layout: default
     {{ content }}
     {% if page.ticket_url %}
       <p class="iyf-show-cta"><a href="{{ page.ticket_url }}" class="btn-ticket btn-ticket--xl" data-show="{{ page.url | remove: "/" }}" data-venue="{{ page.venue_slug }}" data-date="{{ page.next_event_date | date: "%Y-%m-%d" }}" data-price="{{ page.price_chf | default: 0 }}" rel="noopener" target="_blank">Get Tickets</a></p>
+      {%- comment -%} A review about THIS show, under the ticket button. Renders only when a review is tagged with the show's slug (script/reviews-from-google.rb SHOW_TAGS). {%- endcomment -%}
+      {%- assign review_show = page.url | remove: "/" -%}
+{% include review-quote.liquid show=review_show %}
     {% endif %}
 
     {%- comment -%}

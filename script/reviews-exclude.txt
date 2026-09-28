@@ -1,0 +1,3 @@
+# Google review ids that reviews-from-google.rb must never put on the site, one per line.
+# The id is the first column of the job's "Kept" list (the full id is in _data/reviews.yml).
+# Five-star-only and the performer rule are applied by the script; this list is for anything else.

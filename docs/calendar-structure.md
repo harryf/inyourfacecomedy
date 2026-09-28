@@ -63,6 +63,13 @@ Top to bottom, the body is:
    - a month **heading** (`<h2 class="iyf-month-heading">`),
    - a month **flavor** line (`<p class="iyf-month-flavor">`),
    - a **calendar table** wrapped in `<div class="iyf-calendar" markdown="1">`.
+
+   **The review quote.** Between the first and the second month block sits one line,
+   `{% include review-quote.liquid offset="half" %}`, at column 0 with a blank line either
+   side. It renders one five-star Google review ("What people are saying"). `refresh-calendar-page.rb`
+   writes it (`REVIEW_QUOTE_INCLUDE`) whenever the page has two or more months; the
+   validator ignores it. Never indent it: four spaces turn the quote into a code block.
+   `offset="half"` keeps it different from the home page's quote on the same build.
 3. A `---` rule and a closing call-to-action paragraph.
 4. The `jump-to-next-show.js` `<script>` tag (see §7).
 

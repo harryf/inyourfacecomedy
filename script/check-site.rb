@@ -697,6 +697,93 @@ check("calendar Info copy uses real comedian names, not slugs") do
   [bad.empty?, bad.uniq.first(4).join(", ")]
 end
 
+# ── review quotes ─────────────────────────────────────────────────────────────
+# "What people are saying": five-star Google reviews from _data/reviews.yml
+# (script/reviews-from-google.rb). One quote on the home page, the calendar and the
+# Comedy Brew page, every one linking to /reviews/. Only five-star, non-performer
+# reviews ever reach the file, so the built pages may only carry ids from it. No
+# Review or AggregateRating structured data: Google calls a business's own reviews
+# self-serving.
+section "Review quotes"
+
+reviews_data = (YAML.safe_load(File.read(File.join(ROOT, "_data", "reviews.yml")), permitted_classes: [Date, Time]) rescue nil)
+review_ids = reviews_data ? reviews_data["reviews"].map { |r| r["id"][0, 12] } : []
+review_home = (read_site("index.html") rescue "")
+review_cal  = (read_site(File.join("calendar", "index.html")) rescue "")
+review_brew = (read_site(File.join("comedybrew", "index.html")) rescue "")
+review_page = (read_site(File.join("reviews", "index.html")) rescue "")
+quote_id = ->(html) { html[/<figure class="iyf-review" data-review="([^"]+)"/, 1] }
+
+check("reviews data: file present with reviews, average and total") do
+  ok = reviews_data && review_ids.any? && reviews_data["average"].is_a?(Numeric) && reviews_data["total"].to_i >= review_ids.size
+  [ok ? true : false, "missing or incomplete _data/reviews.yml"]
+end
+
+check("review quote on home, calendar and Comedy Brew, one each") do
+  counts = { home: review_home, calendar: review_cal, comedybrew: review_brew }
+           .transform_values { |h| h.scan(/<figure class="iyf-review"/).size }
+  [counts.values.all?(1), counts.inspect]
+end
+
+check("home and calendar show different reviews") do
+  a = quote_id.(review_home)
+  b = quote_id.(review_cal)
+  [review_ids.size < 2 || (a && b && a != b) ? true : false, "both show #{a}"]
+end
+
+check("home quote sits between the upcoming shows and All Our Shows") do
+  i_grid = review_home.index("iyf-event-grid")
+  i_q    = review_home.index('<figure class="iyf-review"')
+  i_all  = review_home.index("all-shows-heading")
+  [i_grid && i_q && i_all && i_grid < i_q && i_q < i_all ? true : false, "order grid #{i_grid} quote #{i_q} all #{i_all}"]
+end
+
+check("calendar quote sits after the first month and is not a code block") do
+  first_table_end = review_cal.index("</table>")
+  i_q = review_cal.index('<figure class="iyf-review"')
+  first_month = review_cal.index("iyf-month-heading")
+  second_month = first_month && review_cal.index("iyf-month-heading", first_month + 1)
+  escaped = review_cal.include?("&lt;figure class=")
+  ok = first_table_end && i_q && second_month && first_table_end < i_q && i_q < second_month && !escaped
+  [ok ? true : false, "position or escaping wrong"]
+end
+
+check("every quote links to /reviews/ with an anchor that exists there") do
+  bad = [review_home, review_cal, review_brew].filter_map do |h|
+    id = quote_id.(h)
+    next "none" unless id
+    id unless h.include?(%(href="/reviews/#review-#{id}")) && review_page.include?(%(id="review-#{id}"))
+  end
+  [bad.empty?, "broken anchors: #{bad.join(", ")}"]
+end
+
+check("/reviews/ lists every review in the data file") do
+  shown = review_page.scan(/id="review-([^"]+)"/).flatten
+  [shown.sort == review_ids.sort, "page #{shown.size}, data #{review_ids.size}"]
+end
+
+check("/reviews/ states the true average and count") do
+  line = reviews_data && "#{reviews_data["average"]} out of 5 from #{reviews_data["total"]} reviews on Google"
+  [line && review_page.include?(line) ? true : false, "score line missing"]
+end
+
+check("/reviews/ is off the nav but indexable and in the sitemap") do
+  nav = review_home[%r{<nav.*?</nav>}m].to_s
+  sitemap = (read_site("sitemap.xml") rescue "")
+  noindex = review_page =~ /name=["']robots["'][^>]*noindex/i
+  [!nav.include?("/reviews/") && sitemap.include?("/reviews/") && !noindex ? true : false, "nav, sitemap or robots wrong"]
+end
+
+check("Anti: only ids from the data file appear in built pages") do
+  stray = [review_home, review_cal, review_brew].filter_map { |h| quote_id.(h) } - review_ids
+  [stray.empty?, "stray ids: #{stray.join(", ")}"]
+end
+
+check("Anti: no Review or AggregateRating structured data anywhere") do
+  hits = Dir[File.join(SITE, "**", "*.html")].select { |f| File.read(f) =~ /"@type"\s*:\s*"(Review|AggregateRating)"/ }
+  [hits.empty?, "found in: #{hits.first(3).map { |f| f.sub(SITE + "/", "") }.join(", ")}"]
+end
+
 # ── html-proofer ──────────────────────────────────────────────────────────────
 section "Link + image integrity (html-proofer)"
 if NO_PROOFER
