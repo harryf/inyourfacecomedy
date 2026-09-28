@@ -43,6 +43,7 @@ Run the build and the health check after every change and before saying you are 
 |---|---|---|
 | 09:00 daily | `refresh-next-event-dates.rb`: calendar data, next dates into posts, homepage lastmod, commit, push, IndexNow | `refresh.log` |
 | 09:30 daily | `post-events-to-google.rb`: GBP event posts for ROBIN's shows in the next 7 days | `gbp.log` |
+| 09:35 daily (line documented, not yet installed) | `hours-to-google.rb`: GBP opening hours from the ROBIN's show calendar, 30 min either side of each show, writes only on a difference | `gbp-hours.log` |
 | 10:05 daily | `sync-comedians.rb`: Grist to `_comedians/`, commit, push, IndexNow | `sync-comedians.log` |
 | 10:20 daily | `bun script/ga-report.ts`: GA to `/reports/`, commit, push | `ga-report.log` |
 | 11:00 Sat, Sun | `refresh-calendar-page.rb --no-refresh`: regenerate `/calendar/`, commit, push | `refresh.log` |
@@ -88,6 +89,7 @@ The invariant shared by `go-redirect.js`, `link-builder.js`, `comedian-lineup.js
 - Rejected posts are quarantined on purpose. To resubmit, edit the txt; the next run does the rest. Never bypass the quarantine.
 - The script only deletes posts that are EVENT type, CTA-link to our domain and match a managed slug. If the CTA shape changes, teach `our_post_slug` first and confirm with `--dry-run`.
 - Never hand-edit `gbp/gbp-state.json`. Full API and OAuth background: `docs/google-business-profile-api-setup.md`. `probe-gbp-v4.rb` is the read-only "is the API alive" check.
+- Opening hours on the listing are derived by `hours-to-google.rb` from `_data/calendar.yml` (ROBIN's shows only, 30 minutes either side). Never set hours by hand in Business Profile Manager: the next run writes them back. A show at the wrong time on Google is a wrong time on Eventfrog.
 
 ## Things that bite
 

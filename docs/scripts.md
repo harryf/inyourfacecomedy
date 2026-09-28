@@ -209,6 +209,38 @@ default `http://127.0.0.1:8080`, the `com.pmai.llama-server` LaunchAgent) and do
 read it, then commit it yourself. State lives in gitignored `gbp/gbp-state.json`; never hand-edit
 it. Pings `GBP_HEALTHCHECKS_URL` when set, else `HEALTHCHECKS_URL`. No git.
 
+## `hours-to-google.rb`
+
+Keeps the opening hours on the Google listing in step with the ROBIN's shows in
+`_data/calendar.yml` (the listing's address is ROBIN's, so shows elsewhere never count). Every
+period runs from 30 minutes before the show starts to 30 minutes after it ends (`GBP_HOURS_PAD`),
+in Zurich wall clock (the calendar carries a fixed +02:00 offset all year, so times go through
+the zone, never the digits). Two things are written through the Business Information API,
+`PATCH locations/{id}?updateMask=regularHours,specialHours`:
+
+- Regular hours, the weekly pattern: a weekday is regular when it has a show in at least three
+  quarters of the weeks the data covers, up to eight weeks ahead (six of eight; Tuesday and
+  Thursday at the time of writing). Its period is the envelope of that weekday's shows, so
+  alternating Tuesday shows with different start times share one period.
+- Special hours, per-date exceptions for the next 42 days: a one-off Friday or a monthly Sunday
+  is an open date, a regular weekday with no show is closed. Both look-aheads stop at the last
+  ROBIN's date on record, because a Thursday past the published Eventfrog dates is unknown, not
+  closed. No pattern at all (the data ends too soon) keeps the live hours untouched and says so.
+
+The run reads the live hours first and compares (past dates ignored on both sides); equal means
+no write. Different means a `validateOnly` PATCH, the real PATCH, then a read-back that must
+equal the plan. So a normal day is one GET. First live run 2026-09-28 by hand.
+
+```
+ruby script/hours-to-google.rb --dry-run [-v]          # read-only: the plan and the diff (-v lists the shows)
+ruby script/hours-to-google.rb --from 2026-12-14 --dry-run   # the plan as if today were that date
+ruby script/hours-to-google.rb                          # live (what cron runs)
+```
+
+Needs `client_secret_*.json` and `gbp-token.json` at the repo root, shared with
+`post-events-to-google.rb` (its `--authorize` consent covers this script too). Pings
+`GBP_HEALTHCHECKS_URL` when set, else `HEALTHCHECKS_URL`. No state file, no git.
+
 ## `ga-report.ts`
 
 Daily per-show ticket-click reports from Google Analytics 4 into `/reports/<slug>/` (design:

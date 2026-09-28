@@ -45,7 +45,7 @@ All gitignored, all at the repo root, none ever committed. Names only here; valu
 | `META_ACCESS_TOKEN`, `META_ADS_HEALTHCHECKS_URL` | the `meta-*.ts` scripts, plus ids and budgets in gitignored `meta-ads/config.yml` (from `config.example.yml`) |
 | `MC_API_KEY` | the three email scripts |
 | `ROBINS_CALENDAR` | `robins-calendar.ts`: the exact title of the calendar in Calendar.app |
-| `client_secret_*.json`, `gbp-token.json` | `post-events-to-google.rb`, `probe-gbp-v4.rb`. The token acts as the listing owner |
+| `client_secret_*.json`, `gbp-token.json` | `post-events-to-google.rb`, `hours-to-google.rb`, `probe-gbp-v4.rb`. The token acts as the listing owner |
 
 ## The scripts at a glance
 
@@ -56,6 +56,7 @@ Scheduled jobs first. "Git" says whether the script commits and pushes by itself
 | `refresh-next-event-dates.rb` | Spawns `refresh-calendar-data.rb`, then writes each show's next date, venue and price into its post, bumps the home page's lastmod, pings IndexNow | cron, 09:00 daily | yes |
 | `refresh-calendar-data.rb` | The one Eventfrog extractor: every upcoming instance of every show into `_data/calendar.yml`, past ones into `calendar_past.yml`, new venues into `venues.yml` | spawned by the 09:00 job | no |
 | `post-events-to-google.rb` | Google Business Profile event posts for ROBIN's shows in the next 7 days, managed as a stack | cron, 09:30 daily | no |
+| `hours-to-google.rb` | Google Business Profile opening hours from the ROBIN's show calendar: a weekly pattern plus per-date exceptions, 30 minutes either side of each show; writes only when the listing differs | cron line below, 09:35 daily, not yet installed (first live run by hand 2026-09-28) | no |
 | `sync-comedians.rb` | Grist to `_comedians/` with resized photos; unpublishes who is no longer Live | cron, 10:05 daily | yes |
 | `ga-report.ts` | Google Analytics to the per-show `/reports/` pages | cron, 10:20 daily | yes |
 | `gsc-report.ts` | The Search Console learning loop: weekly snapshot, every page's search opportunities priced in clicks, verdicts on logged page changes, into `seo/` (`seo/README.md`) | cron, 10:40 Monday | yes |
@@ -95,6 +96,7 @@ bun script/ga-report.ts --dry-run
 bun script/gsc-report.ts --dry-run
 bun script/reindex.ts --dry-run
 ruby script/post-events-to-google.rb --dry-run --verbose
+ruby script/hours-to-google.rb --dry-run --verbose
 ruby script/sync-comedians.rb --dry-run
 ```
 
@@ -122,6 +124,8 @@ job lines as installed (comments shortened here):
 0 9 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.rbenv/versions/3.2.4/bin/ruby script/refresh-next-event-dates.rb >> script/refresh.log 2>&1
 # IYF: Google Business Profile event posts, after the 09:00 refresh
 30 9 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.rbenv/versions/3.2.4/bin/ruby script/post-events-to-google.rb >> script/gbp.log 2>&1
+# IYF: Google Business Profile opening hours from the show calendar (not yet installed, see hours-to-google.rb in scripts.md)
+35 9 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.rbenv/versions/3.2.4/bin/ruby script/hours-to-google.rb >> script/gbp-hours.log 2>&1
 # IYF: Grist to _comedians/, clear of the other git jobs so two pushes never race
 5 10 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.rbenv/versions/3.2.4/bin/ruby script/sync-comedians.rb >> script/sync-comedians.log 2>&1
 # IYF: GA reports
@@ -232,7 +236,7 @@ script whose variable is unset skips the ping silently; nothing else changes.
 
 | Variable in `.env` | Check covers | Pings from |
 |---|---|---|
-| `HEALTHCHECKS_URL` | the four Ruby cron jobs, sharing one check | `refresh-next-event-dates.rb`, `refresh-calendar-page.rb`, `sync-comedians.rb`, `post-events-to-google.rb` (which prefers `GBP_HEALTHCHECKS_URL` if that is ever set) |
+| `HEALTHCHECKS_URL` | the four Ruby cron jobs, sharing one check | `refresh-next-event-dates.rb`, `refresh-calendar-page.rb`, `sync-comedians.rb`, `post-events-to-google.rb` and `hours-to-google.rb` (both prefer `GBP_HEALTHCHECKS_URL` if that is ever set) |
 | `GA_REPORTS_HEALTHCHECKS_URL` | the reports job | `ga-report.ts`. Also `/fail` when GA shows a new broken `/go/` link, so a typo in a campaign link alerts |
 | `GSC_HEALTHCHECKS_URL` | the Search Console loop, check "IYF gsc-report" (created 2026-09-18) | `gsc-report.ts`, weekly: `/start`, the page summary on success, `/fail` with the error (period 7 days, grace 1 day, so a missed Monday alerts Tuesday) |
 | `EVENTFROG_HEALTHCHECKS_URL` | Comedy Brew sales | `eventfrog-sales.ts`: success per run, readout lines to `/log` (recorded, no alarm), `/fail` on a guard action, a sold-out show or a rejected key |
@@ -274,9 +278,10 @@ show by hand can never report a fake green for the weekend job.
 | "calendar access denied" in `robins-calendar.log` | the helper was rebuilt or the grant was reset: `launchctl kickstart ...` at the screen, click Allow |
 | The staff calendar did not update but the log is clean | a person edited that field, so it is theirs now (`scripts.md`, "Humans win"); `--force` hands it back |
 | Google listing not updating | `script/gbp.log`; a quarantined post waits for an edit to its `gbp/<slug>.txt`; `ruby script/probe-gbp-v4.rb` for the API itself |
+| Google shows the wrong opening hours | `script/gbp-hours.log`, then `ruby script/hours-to-google.rb --dry-run -v`: the plan comes from `_data/calendar.yml`, so a wrong hour is a wrong Eventfrog time; "keeping the live hours untouched" means the calendar data ends too soon for a weekly pattern |
 | A job has not run for days, no alert | was the Mac awake at that time; is the shared check masking it (above) |
 
-Logs: `script/refresh.log` (the 09:00 job and the weekend calendar page), `gbp.log`,
+Logs: `script/refresh.log` (the 09:00 job and the weekend calendar page), `gbp.log`, `gbp-hours.log`,
 `sync-comedians.log`, `ga-report.log`, `gsc-report.log`, `reindex.log`, `robins-calendar.log`.
 
 ## Rules for writing a new script
