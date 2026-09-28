@@ -13,6 +13,27 @@ laptop. The phone app hides most of these settings.
 
 ## Status
 
+**28 September: Intent folded into Warm, Cold to CHF 8.** The review of 28 September (read-only
+API readout) found Intent saturated (207 people reached in 16 days, frequency 7, CPM 15, CHF 1.20
+per landing page view; Meta sizes both its audiences under 1,000) and Warm starting to repeat
+(3,303 of about 10,000 reached, frequency 3.5 over 16 days, cost per view flat at 0.26). It also
+found that the funnel never fed Warm: every bank ad lands on `/go/`, which makes a cold clicker a
+Site visitor and a Show clicker in the same second, and Warm excluded both, so clickers went Cold
+to Intent, never to Warm; the only path into Warm was a like or save (20 in 16 days). Done the
+same afternoon: Warm now includes IG engagers, FB engagers, Site visitors and Show clickers and
+excludes only the buyer lists (a cold clicker lands in Warm); the Intent ad set is PAUSED (its
+five ads untouched, `budgets.intent.base: 0`, which `meta-adsets.ts` skips); Cold CHF 8 (Intent's
+2 moved over), Warm CHF 5, CHF 13 a day for the bank sets as before. The 2024 set is untouched, as
+always; it carries one-time budget schedules of CHF 8 a day from Tuesday 06:00 to Thursday 18:00
+for every show week through 17 December, which is what its show-week spend of CHF 9 to 13 a day
+is. Open from the same review: the pixel logged 2,762 PageViews and 691 TicketRedirects since
+13 September, yet the two website audiences stay under 1,000 people, so most ad traffic is not
+matched into them; the pixel has automatic advanced matching off and the landing page is a
+redirect. The Event Match Quality reading and what was done about it are under "Pixel matching"
+below. Warm cut rule: CHF 4 when its 7-day frequency passes 3.5 or its cost per landing page view
+passes CHF 0.35 for a week; raise Cold further only once the pools fill, and note that Cold's cost
+per view rose from 0.22 to about 0.30 when it went from CHF 3 to 6.
+
 **The experiment, 18 September to 31 October 2026.** After the first week's readout (below)
 Harry decided: keep going and spend more so the ad sets learn. Cold CHF 6 a day (was 3), Warm
 CHF 5 (was 3), Intent CHF 2 (its audience is the limit, not the money), the 2024 set as Harry
@@ -30,18 +51,45 @@ from about 22 tickets to 28 or more? If not, drop to about CHF 200 a month.
 Applied on Meta on 18 September 2026: the two budgets, the four resting ads paused (`meta-bank.ts
 --sync` reads back in sync), Buyers paused.
 
-**Video ads, live since 18 September 2026.** `video/` is a Remotion project (its README says how
-to render). Two video ads run in Cold, made by `meta-bank.ts --push-video` from the `video:`
-block on a bank concept: `cold-C4v` (Fifth language), the twin of the still ad `cold-C4` with the
-same words, and `cold-C12v` (Departures), which has no still beside it. Each shows the video on
-Stories and Reels and the 4:5 image on feeds. C8 rests to make room, so Cold runs C7, C4, C4v
-and C12v. How to judge them: compare `cold-C4v` with `cold-C4` on Stories and Reels only, cost per
-landing page view, past the 30-view floor, after two to three weeks; the video wins at 25
-percent cheaper (`meta-ads/video-plan.md`, "How we will know"). Following up on a video: someone who watches half of
-one without tapping joins the hand-made audience "IYF Video viewers 50%" (`meta-bank.ts
---video-audience` says which videos it must hold); Warm includes it and Cold excludes it once
-its id is in config as `audiences.video_viewers`. Harry kept the flap sound in
-Departures, to be licensed later if needed (`meta-ads/creative/audio/SOURCES.md`, not in git).
+**Round two is the laugh set (26 September 2026).** The 14-day readout of 26 September says
+which ads work: `cold-C7` at CHF 0.20 per landing page view (125 views) and `warm-W6` at 0.25
+(178 views). Both are the photo look with one laughing audience face large in the frame and a
+headline that reads as the caption of that picture. Harry's rule from that day: every new ad is
+made this way and no other. The bank files say so in their headers, and the photo look gained
+`image.focus: [x, y]` (0 to 1 from the photo's top left) so the 4:5 and 9:16 crops keep the
+face (`/adcard/` has the same Focus field). Nine concepts were written from the gallery's
+audience photos, three per set, with the new-in-town and expat angles that C7 proved: cold C13,
+C16, C17; warm W9, W10, W11; intent I10, I11, I12 (C14, C15 and I9 were dropped the same evening:
+Harry wants the crowd visible behind every face, so a lone laugher on a plain background is out;
+the same photo may serve two sets, since the audiences exclude each other). They are rendered (`meta-ads/creative/bank/index.html`)
+and were CREATED ON META, switched on, the same evening (`bun script/meta-bank.ts --push --activate`,
+ids in `meta-ads/creative/bank/state.json`; Meta reviews new ads, usually under a day). Two of
+the lines were rewritten on Harry's note before the push: W9 "Warmer in here." (the warm room
+against a dark, cold evening, seasonal, rest it in April) and the bench concept I7 "Strangers at
+19:30. This by 21:00." (a row of strangers laughing together; set it live to push it). Photos with
+the face below about half the photo's height put it under the headline, so the story card wants
+a one-line headline or another photo; that is in the bank file comments. Intent keeps its three
+new concepts because Harry asked for three per set, but the audience is about 120 people (second
+readout); if Intent is paused as decided on 21 September, they simply wait.
+
+**The bank was pruned the same evening (26 September 2026).** Harry removed sixteen concepts for
+good, from the bank files, the contact sheet and Meta: cold C3, C4, C5, C8, C9, C10, C11, C12; warm
+W1, W3, W5, W7; intent I3, I4, I6, I8. The five that had ads (`cold-C3`, `cold-C4`, `cold-C8`,
+`warm-W1`, `intent-I3`) were set DELETED through the API and read back. What runs now: cold C7,
+C13, C16, C17 (C1 and C2 resting, C6 bench; C5 went the same way a minute later); warm W2, W6, W9, W10, W11 (W4 and W8 bench);
+intent I1, I5, I10, I11, I12 (I2 and I7 bench). Every live ad is the photo look. `state.json`
+keeps the deleted ads' entries for the record; `--sync` ignores ads Meta no longer lists.
+
+**Video ads stopped (26 September 2026).** `cold-C4v` cost CHF 0.62 per landing page view over 12
+to 26 September against 0.41 for its still twin `cold-C4` (retire verdict in the readout), and
+`cold-C12v` was never fed (CHF 0.18 in eight days). Both were paused and then DELETED on Meta on
+26 September (Harry: "we just go with the still images"; status DELETED written through the API,
+read back; their entries stay in `state.json` for the record and `--sync` ignores ads Meta no
+longer lists). A `video:` block now takes its own `status`, so a future video can retire while
+the still runs on. `video/` (Remotion) and `--push-video` stay as built for a later try;
+the "IYF Video viewers 50%" audience is no longer needed. Judging rule that was set before launch:
+`meta-ads/video-plan.md`, "How we will know". Harry kept the flap sound in Departures, to be
+licensed later if needed (`meta-ads/creative/audio/SOURCES.md`, not in git).
 
 **Buyers is parked (2026-09-18).** The ad set never delivered one impression in its life
 (active, approved, no error on the API); the matched buyer lists are too small. It is paused,
@@ -513,6 +561,12 @@ ad set only. Never compare Cold with Intent. Never touch targeting or the perfor
 a running ad set; retire and replace in one batch at the fortnight boundary. Ads Manager still
 works for a glance: Amount spent, Link clicks, Landing page views, Frequency, last 7 days.
 
+Warm's cut rule (28 September): Warm is a pool of about 10,000 people and repeats within weeks,
+so when the readout shows its 7-day frequency above 3.5 (`insights.frequency_flag`) or its cost
+per landing page view above CHF 0.35 for a week, set `budgets.warm.base: 4` and run
+`meta-adsets.ts --apply`; the freed franc goes to Cold. Intent is paused since 28 September and
+its audiences sit in Warm; the readout still lists it with zeros.
+
 After four Comedy Brews with all four ad sets live, compare cost per link click per ad set.
 If Warm and Intent are not clearly cheaper than Cold, collapse them into Cold (report section
 11: two ad sets, Everyone and Buyers) and keep the bank. Buyers stays in either case.
@@ -541,15 +595,40 @@ experiment is judged on. Things waiting, in order:
 
 The week of 21 September: the "Decided for this week" list in the second readout (Status) comes first.
 
-1. The audience "IYF Video viewers 50%" is made by hand in Ads Manager (`bun script/meta-bank.ts --video-audience` says which videos it must hold and what config needs afterwards); then `video_viewers` goes into Warm's include and Cold's exclude lists and `meta-adsets.ts` writes it.
-2. The Friday readout (`bun script/meta-insights.ts`): check that it lists the two video ads (`cold-C4v`, `cold-C12v`) and compare `cold-C4v` with `cold-C4`.
-3. Round two of the ad rotation, about 2 October: swap `live` and `resting` in the bank files, `meta-bank.ts --sync --apply`. A good moment to narrow Warm and Intent from all of Switzerland to Zürich plus about 50 km (in the first week only 54 percent of Warm's and 36 percent of Intent's impressions fell in canton Zürich; Cold's 30 km gave 81 percent), so the ad sets re-learn once.
+1. The laugh set is live since the evening of 26 September (Status, "Round two is the laugh set"); adding nine ads put every set back into learning, and the Warm targeting change of 28 September did it again for Warm, so read nothing into the first few days. Intent was paused on 28 September (Status).
+2. The Friday readout (`bun script/meta-insights.ts`): the new ads reach the 30-view floor after a week or two; read them against C7 and W6, and expect Meta to feed one or two per set.
+3. About 2 October, also: narrow Warm from all of Switzerland to Zürich plus about 50 km (in the first week only 54 percent of Warm's and 36 percent of Intent's impressions fell in canton Zürich; Cold's 30 km gave 81 percent), so the ad sets re-learn once.
 4. Thursday's show: an applause take for the closing logo, and a word with the venue about the room recording. More video concepts are in `meta-ads/video-plan.md`.
 5. 31 October: the experiment's review.
 
 Location targeting holds: 99 to 100 percent of every ad set's impressions were in Switzerland in the first week, the rest Germany. Followers abroad are in the Warm audience but never served, because every ad set is limited to people living in or recently in its area.
 
-How people move between ad sets, with nothing done by hand: a like, comment, save or follow puts someone among the Instagram or Facebook engagers, which Cold excludes and Warm includes; a click lands on `/go/`, which puts them among Site visitors and Show clickers, which Cold and Warm exclude and Intent includes. Known gap, left open on purpose: the buyer lists were uploaded once on 13 September, so someone who bought since still sees Intent ads.
+How people move between ad sets, with nothing done by hand (wiring of 28 September): a like, comment, save or follow puts someone among the Instagram or Facebook engagers, and a click lands on `/go/`, which puts them among Site visitors and Show clickers; Cold excludes all four audiences and Warm includes all four, so anyone who touched an ad or the site moves from Cold to Warm. Intent (Site visitors plus Show clickers on their own) is paused since 28 September: under 1,000 people, frequency 7. Until 28 September Warm excluded the two website audiences, so a cold clicker skipped Warm and landed in Intent. Known gap, left open on purpose: the buyer lists were uploaded once on 13 September, so someone who bought since still sees Warm ads.
+
+### Pixel matching (read 28 September)
+
+The two website audiences (Site visitors, Show clickers) stay under 1,000 people while the pixel
+receives about 4,500 PageViews and 700 TicketRedirects a month, and Events Manager shows no
+Event Match Quality score for either event. Read in Events Manager on 28 September: the pixel
+sends no customer information parameters at all (automatic advanced matching off, every
+parameter off, no Conversions API, dataset category none, first-party cookies on), so matching
+rests on the browser cookie and the click id alone, and Meta only scores match quality when
+customer parameters arrive. The likely main cause is not the pixel but Apple's App Tracking
+Transparency: pixel events from iOS users who declined tracking (most of them) are not used to
+build website audiences (secondary sources, not Meta's own text: thread-transfer.com and
+peripherydigital.com iOS 14 guides). An Instagram Reels funnel in Zürich is mostly iOS, so the
+website pools will stay small whatever the pixel does.
+
+Not done, on purpose: automatic advanced matching was left off. It only ever reads customer
+fields (email, phone, name) from forms on the page, the ad path (`/go/`) has no such form, and
+turning it on would send hashed newsletter form data to Meta for no gain on this problem. What
+does carry a cold clicker into Warm is the Instagram engagers audience: Meta counts a button tap
+or link tap on an ad as engagement (secondary sources: jonloomer.com, keepersdigital.com), and
+that audience is built on the platform, so App Tracking Transparency does not thin it. That is
+why IG engagers sits at 5,300 to 6,300 people while Site visitors stays under 1,000. If a fuller
+website pool is ever wanted, the route is the Conversions API from the `/go/` redirect or from the
+Eventfrog order rows (a build and a privacy decision, see the 21 September next-step notes).
+
 
 Ticket sales against the ads: the strategy is at `~/Documents/2026-09-13-comedy-brew-sales-tracking-strategy.md`. It is built as `script/eventfrog-sales.ts` (`scripts.md`), run by hand for now; the cron lines in `automation.md` are not installed.
 

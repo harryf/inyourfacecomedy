@@ -179,6 +179,8 @@ async function main() {
   for (const key of keys) {
     const spec = config.targeting[key];
     if (!spec) { warn(`${key}: no targeting spec in config, skipped`); continue; }
+    // A base of 0 means the set is paused by hand (Meta refuses a zero daily budget): nothing to diff or write.
+    if (!((config.budgets[key]?.base ?? 0) > 0)) { log(`\n${key}: base budget 0 in config (paused by hand), skipped`); continue; }
     const id = config.adsets[key];
     if (!id) { warn(`${key}: config.adsets.${key} is empty, skipped`); continue; }
     if (id === config.old_adset_id || id === config.adsets.buyers) fail(`${key} points at a protected ad set (${id})`);

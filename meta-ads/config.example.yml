@@ -35,9 +35,9 @@ custom_conversion_id: ""              # phase 2 step 2, "Ticket click" on Ticket
 # Budgets in CHF per day. Base is the always-on figure; ramp is the figure during the
 # Tuesday 06:00 to show day 23:00 window that script/meta-schedule.ts writes (never on cold).
 budgets:
-  cold:   { base: 6 }                 # 3 until 2026-09-18
+  cold:   { base: 8 }                 # 6 until 2026-09-28, 3 until 2026-09-18
   warm:   { base: 5, ramp: 10 }       # 3 until 2026-09-18
-  intent: { base: 2, ramp: 5 }
+  intent: { base: 0 }                 # paused 2026-09-28 (its audiences moved into Warm); a base of 0 is skipped by meta-adsets.ts
   buyers: { base: 0 }                 # parked 2026-09-18 (was base 2, ramp 8): the ad set never delivered
 monthly_cap_chf: 600                  # the experiment's cap to 2026-10-31 (docs/meta-ads.md); 500 before
 
@@ -69,8 +69,8 @@ targeting:
   warm:
     location: { countries: [CH], location_types: [home, recent] }
     ages: [18, 65]
-    include: [ig_engagers, fb_engagers]
-    exclude: [site_visitors, show_clickers, buyers_recent, buyers_lapsed]
+    include: [ig_engagers, fb_engagers, site_visitors, show_clickers]   # 2026-09-28: visitors and clickers moved in from Intent
+    exclude: [buyers_recent, buyers_lapsed]
     optimization: LANDING_PAGE_VIEWS
   intent:
     location: { countries: [CH], location_types: [home, recent] }
