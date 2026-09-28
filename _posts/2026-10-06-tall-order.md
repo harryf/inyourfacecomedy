@@ -10,6 +10,7 @@ image: "/assets/img/uploads/tall-order_card.png"
 thumbnail: "/assets/img/thumbs/tall-order.png"
 excerpt_separator: <!--more-->
 ticket_url: "https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-7507743592338740411.html"
+ticket_url_resolved: https://eventfrog.ch/en/p/groups/tall-order-english-stand-up-comedy-open-mic-7507743592338740411.html
 permalink: /tall-order/
 hosts:
   - "prak-the-comedian"

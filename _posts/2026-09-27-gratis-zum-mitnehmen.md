@@ -4,7 +4,7 @@ editable: "true"
 title: "Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy"
 tagline: "Free entry stand-up comedy at ROBIN's"
 description: "It costs money to breathe in Zürich, but it shouldn't cost any to laugh. A free new material night at ROBIN's where Teddy Hall and his funniest friends try out their newest jokes."
-last_modified_at: 2026-09-05T09:25:30+00:00
+last_modified_at: 2026-09-28T07:00:01+00:00
 feature-img: "/assets/img/uploads/gratis-zum-mitnehmen_feature.png"
 image: "/assets/img/uploads/gratis-zum-mitnehmen_card.png"
 thumbnail: "/assets/img/thumbs/gratis-zum-mitnehmen.png"
@@ -18,8 +18,8 @@ event_type: series
 venue: "ROBIN's"
 venue_slug: robins
 default_duration_minutes: 150
-next_event_date: 2026-09-27T20:00:00+02:00
-next_event_end_date: 2026-09-27T22:00:00+02:00
+next_event_date: 2026-10-18T20:00:00+02:00
+next_event_end_date: 2026-10-18T22:00:00+02:00
 price_chf: 0
 ---
 ## Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
