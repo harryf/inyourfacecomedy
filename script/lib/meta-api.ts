@@ -41,11 +41,16 @@ export interface AdsetSpec {
 
 export interface InsightsRules {
   ticket_floor: number; lpv_floor: number; retire_factor: number; max_retire_per_adset: number; starved_after_days: number; frequency_flag: number;
+  // The creative floor: once an ad has ctr_floor_impressions impressions in the window, a link
+  // click rate (percent) under ctr_floor means the creative is being ignored: "change" verdict.
+  // Sized from the 2024 carousel (1.8 percent over 348k impressions in 2026, 2.0 to 2.2 since
+  // June): half of that, 1.0, at 500 impressions is fewer than 5 clicks.
+  ctr_floor_impressions: number; ctr_floor: number;
   // Meta recommendations the Saturday review has decided on: matched by type and the object's
   // readout name ("adset cold", "ad cold-C3"); they print with the reason and sort last.
   accepted_recommendations?: { type: string; object: string; reason: string }[];
 }
-export const DEFAULT_RULES: InsightsRules = { ticket_floor: 10, lpv_floor: 30, retire_factor: 1.5, max_retire_per_adset: 2, starved_after_days: 28, frequency_flag: 3.5 };
+export const DEFAULT_RULES: InsightsRules = { ticket_floor: 10, lpv_floor: 30, retire_factor: 1.5, max_retire_per_adset: 2, starved_after_days: 28, frequency_flag: 3.5, ctr_floor_impressions: 500, ctr_floor: 1.0 };
 
 // .env at the repo root, KEY=value lines, never overriding a real environment variable.
 export function loadEnv(): void {

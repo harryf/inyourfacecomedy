@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { DEFAULT_RULES } from "../lib/meta-api";
-import { actionCount, collectRecommendations, median, rankingMetric, renderRecommendations, showsInWindow, siteClicksByContent, siteFor, verdicts, type AdRow } from "../meta-insights";
+import { actionCount, collectRecommendations, ctr, median, rankingMetric, renderRecommendations, showsInWindow, siteClicksByContent, siteFor, verdicts, type AdRow } from "../meta-insights";
 import { capAllows, desiredFor, diffFields, postBody, projectedMonthChf, showsInNext30Days } from "../meta-adsets";
 
 const row = (p: Partial<AdRow>): AdRow => ({
@@ -56,6 +56,28 @@ describe("verdicts", () => {
     expect(v.find((r) => r.ad_name === "old")!.verdict).toBe("starved");
     expect(v.find((r) => r.ad_name === "new")!.verdict).toBe("untested");
   });
+  test("the creative floor: enough impressions and too few clicks is 'change'; young ads, protected sets and retire verdicts are left as they are", () => {
+    const rows = [
+      withCosts({ ad_name: "fine", spend: 20, impressions: 2000, link_clicks: 40, lpv: 38 }),
+      withCosts({ ad_name: "ignored", spend: 10, impressions: 741, link_clicks: 7, lpv: 6 }),
+      withCosts({ ad_name: "young", created: "2026-09-26", spend: 1, impressions: 271, link_clicks: 1, lpv: 1 }),
+      withCosts({ ad_name: "paused", status: "PAUSED", spend: 10, impressions: 900, link_clicks: 2, lpv: 2 }),
+    ];
+    const v = verdicts(rows, DEFAULT_RULES, "2026-09-29");
+    expect(v.find((r) => r.ad_name === "fine")!.verdict).toBe("keep");
+    const ig = v.find((r) => r.ad_name === "ignored")!;
+    expect(ig.verdict).toBe("change");
+    expect(ig.note).toMatch(/0\.94% at 741 impressions, floor 1%/);
+    expect(ig.note).toMatch(/8 clicks, got 7/);
+    expect(v.find((r) => r.ad_name === "young")!.verdict).toBe("untested");
+    expect(v.find((r) => r.ad_name === "paused")!.verdict).toBe("keep");
+    expect(verdicts(rows, DEFAULT_RULES, "2026-09-29", true).every((r) => r.verdict === "protected")).toBe(true);
+    // Retire outranks change: an ad ranked on lpv that is both dear and ignored is retired, not "changed".
+    const dear = [withCosts({ ad_name: "a", spend: 10, impressions: 1000, link_clicks: 40, lpv: 40 }), withCosts({ ad_name: "b", spend: 10, impressions: 1000, link_clicks: 40, lpv: 40 }), withCosts({ ad_name: "c", spend: 10, impressions: 1000, link_clicks: 40, lpv: 40 }), withCosts({ ad_name: "d", spend: 40, impressions: 5000, link_clicks: 35, lpv: 35 })];
+    expect(verdicts(dear, DEFAULT_RULES, "2026-09-29").find((r) => r.ad_name === "d")!.verdict).toBe("retire");
+    expect(ctr({ impressions: 0, link_clicks: 0 })).toBeNull();
+  });
+
   test("nobody is starved when no sibling passed the floor", () => {
     const v = verdicts([withCosts({ ad_name: "a", lpv: 1, created: "2026-01-01" })], DEFAULT_RULES, "2026-08-10");
     expect(v[0].verdict).toBe("untested");

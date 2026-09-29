@@ -87,6 +87,8 @@ insights:
   max_retire_per_adset: 2
   starved_after_days: 28      # under the floor this long while a sibling passed it: starved
   frequency_flag: 3.5         # 7-day frequency above this flags the ad set
+  ctr_floor_impressions: 500  # from this many impressions in the window an ad is held to the click floor
+  ctr_floor: 1.0              # link clicks per hundred impressions; under it: "change" the creative (the 2024 carousel runs 1.8 to 2.2)
   # Meta recommendations already decided on the Saturday review (type as the API names it, the
   # object as the readout names it). They still print, marked accepted, after the open ones.
   accepted_recommendations:

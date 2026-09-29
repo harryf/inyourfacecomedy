@@ -549,7 +549,10 @@ per ticket click when at least two of its live ads have `ticket_floor` (10) tick
 else on cost per landing page view for ads with `lpv_floor` (30) views; an ad under both
 floors is `untested`, or `starved` when it has been under for `starved_after_days` (28) while
 a sibling passed; a ranked ad worse than `retire_factor` (1.5) times the ad set's median is
-`retire`, at most `max_retire_per_adset` (2) per run, never below two live ads. Buyers and the
+`retire`, at most `max_retire_per_adset` (2) per run, never below two live ads; an ACTIVE ad
+with `ctr_floor_impressions` (500) impressions and under `ctr_floor` (1.0) link clicks per
+hundred is `change` (redo the card, `meta-bank.ts --refresh`; never paused by `--apply`, and an
+ad refreshed inside the window is counted from its refresh date). Buyers and the
 old ad set are `protected`: reported, never paused. Flags: 7-day frequency over
 `frequency_flag` (3.5), or an ad set over CHF 3 per ticket click. Ranking is inside one ad set
 only; never compare Cold with Intent, because Cold sends the visitors Intent later converts.
@@ -645,6 +648,21 @@ was uploaded to the ad account (error 2654, "isn't associated with a Page"), so 
 created in Ads Manager; the helper prints the video ids to pick, finds the audience by its exact
 name, and says what `meta-ads/config.yml` still needs. Run it after every new `--push-video` and
 add the new video to the audience in Ads Manager.
+
+```
+bun script/meta-bank.ts --refresh --only C17 --dry-run   # what would move: the ad, its creative, the bank's current headline
+bun script/meta-bank.ts --refresh --only C17 --validate  # uploads the images, Meta checks the creative, writes nothing
+bun script/meta-bank.ts --refresh --only C17             # new creative from the bank, the SAME ad moves onto it
+```
+
+`--refresh` is for an ad whose text or picture changed in the bank after it was pushed (first
+use: cold-C17's headline, 29 September). It re-uses the push creative spec with the current
+bank entry and the rendered images (run `--render --only <id>` first), creates the creative,
+changes the ad's creative in place (same id, name, url_tags and history; Meta reviews it
+again and it re-enters learning) and writes `previous_creative_id` and `refreshed` to
+state.json. Nothing is refreshed without `--only` or `--group`. `meta-insights.ts` reads the
+`refreshed` date and counts that ad from there, so the old creative's numbers do not sit in its
+verdict.
 
 ```
 bun script/meta-bank.ts --restory --dry-run       # ads in state.json still on the first push's one-image creative

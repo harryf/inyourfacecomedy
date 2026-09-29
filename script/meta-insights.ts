@@ -20,6 +20,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import { join } from "node:path";
 import { confirm, fail, flagBool, flagString, log, parseArgs, todayISO, warn } from "./lib/email/cli";
 import { DEFAULT_RULES, OUT_DIR, REPO_ROOT, healthcheck, loadConfig, metaFromEnv, minorToChf, type InsightsRules, type MetaConfig } from "./lib/meta-api";
+import { readState } from "./meta-bank";
 
 const USAGE = `usage: bun script/meta-insights.ts [--days N] [--adset KEY] [--apply] [--yes] [--dry-run]
 
@@ -38,7 +39,8 @@ export interface AdRow {
   ad_id: string;
   ad_name: string;
   status: string;
-  created: string;          // ISO date
+  created: string;          // ISO date; after a creative refresh (meta-bank.ts --refresh) the refresh date, and the numbers count from there
+  refreshed?: string;       // ISO date of the last creative refresh inside the window, when there was one
   spend: number;
   impressions: number;
   reach: number;
@@ -50,9 +52,12 @@ export interface AdRow {
   cost_per_ticket: number | null;
   cost_per_lpv: number | null;
   metric: "ticket" | "lpv" | null;
-  verdict: "keep" | "retire" | "untested" | "starved" | "protected";
+  verdict: "keep" | "retire" | "untested" | "starved" | "protected" | "change";
   note: string;
 }
+
+// Link clicks per hundred impressions, the figure Ads Manager calls CTR (link click-through rate).
+export function ctr(r: Pick<AdRow, "impressions" | "link_clicks">): number | null { return r.impressions ? (100 * r.link_clicks) / r.impressions : null; }
 
 export function actionCount(actions: { action_type: string; value: string }[] | undefined, type: string): number {
   return Number((actions || []).find((a) => a.action_type === type)?.value || 0);
@@ -79,7 +84,10 @@ export function rankingMetric(r: Pick<AdRow, "ticket" | "lpv">, rules: InsightsR
 // ticket if at least two ads clear the ticket floor, else lpv. An ad is "retire" when its cost is
 // worse than retire_factor times the median of the ranked ads, at most max_retire per ad set,
 // never the last two ads; "starved" when it has been under the floor for starved_after_days
-// while a sibling passed; "protected" when the ad set is not the script's to touch.
+// while a sibling passed; "protected" when the ad set is not the script's to touch; "change"
+// when the ad has ctr_floor_impressions impressions and a link click rate under ctr_floor (the
+// creative is being scrolled past: a new line or picture, not a pause). Retire outranks change;
+// change does not count against the retire cap.
 export function verdicts(rows: AdRow[], rules: InsightsRules, today: string, protectedSet = false): AdRow[] {
   const active = rows.filter((r) => r.status === "ACTIVE");
   const ticketRanked = active.filter((r) => r.ticket >= rules.ticket_floor);
@@ -103,6 +111,15 @@ export function verdicts(rows: AdRow[], rules: InsightsRules, today: string, pro
     const c = cost(r);
     if (Number.isFinite(med) && c > med * rules.retire_factor) { r.verdict = "retire"; r.note = `${useTicket ? "cost/ticket" : "cost/lpv"} ${c.toFixed(2)} vs median ${med.toFixed(2)} x ${rules.retire_factor}`; }
     else { r.verdict = "keep"; r.note = `${useTicket ? "cost/ticket" : "cost/lpv"} ${c.toFixed(2)}, median ${Number.isFinite(med) ? med.toFixed(2) : "n/a"}`; }
+  }
+  // The creative floor, on the ranked and the unranked alike: enough impressions, too few clicks.
+  for (const r of out) {
+    if (protectedSet || r.status !== "ACTIVE" || r.verdict === "retire") continue;
+    const rate = ctr(r);
+    if (r.impressions >= rules.ctr_floor_impressions && rate !== null && rate < rules.ctr_floor) {
+      r.verdict = "change";
+      r.note = `click rate ${rate.toFixed(2)}% at ${r.impressions} impressions, floor ${rules.ctr_floor}% (${Math.ceil((rules.ctr_floor * r.impressions) / 100)} clicks, got ${r.link_clicks}): change the creative`;
+    }
   }
   // Cap the retirements: worst first, at most max_retire, and never below two live ads.
   const retiring = out.filter((r) => r.verdict === "retire").sort((a, b) => cost(b) - cost(a));
@@ -216,19 +233,20 @@ export function renderRecommendations(recs: Recommendation[], error = ""): strin
 // ---------- markdown ----------
 
 const chf = (n: number | null) => (n === null || !Number.isFinite(n) ? "" : n.toFixed(2));
+const pct = (n: number | null) => (n === null || !Number.isFinite(n) ? "" : n.toFixed(2));
 
-export function renderMarkdown(rowsByAdset: Map<string, AdRow[]>, meta: { since: string; until: string; shows: number; siteWindow: string; adsetInfo: Map<string, string>; flags: string[]; recommendations?: Recommendation[]; recommendationsError?: string }): string {
+export function renderMarkdown(rowsByAdset: Map<string, AdRow[]>, meta: { since: string; until: string; shows: number; siteWindow: string; adsetInfo: Map<string, string>; flags: string[]; rules: InsightsRules; recommendations?: Recommendation[]; recommendationsError?: string }): string {
   const L: string[] = [];
   L.push(`# Meta ads readout, ${meta.since} to ${meta.until}`, "");
-  L.push(`${meta.shows} Comedy Brew date(s) in the window. Site /go/ counts cover ${meta.siteWindow} (the report's own window). Meta ticket clicks are the custom conversion, 1-day click; the site count is the ground truth for ranking. Verdicts rank inside one ad set only.`, "");
+  L.push(`${meta.shows} Comedy Brew date(s) in the window. Site /go/ counts cover ${meta.siteWindow} (the report's own window). Meta ticket clicks are the custom conversion, 1-day click; the site count is the ground truth for ranking. Verdicts rank inside one ad set only. CTR is link clicks per hundred impressions; the creative floor is ${meta.rules.ctr_floor}% once an ad has ${meta.rules.ctr_floor_impressions} impressions (the 2024 carousel runs 1.8 to 2.2).`, "");
   if (meta.flags.length) { L.push("**Flags**", ""); for (const f of meta.flags) L.push(`- ${f}`); L.push(""); }
   if (meta.recommendations || meta.recommendationsError) L.push(...renderRecommendations(meta.recommendations || [], meta.recommendationsError || ""));
   for (const [key, rows] of rowsByAdset) {
     L.push(`## ${key}${meta.adsetInfo.get(key) ? `: ${meta.adsetInfo.get(key)}` : ""}`, "");
-    L.push("| Ad | Status | Spend | Impr. | Freq. | Link clicks | LPV | Ticket (Meta) | /go/ (site) | CHF/ticket | CHF/LPV | Verdict | Note |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|");
-    for (const r of [...rows].sort((a, b) => b.spend - a.spend)) L.push(`| ${r.ad_name} | ${r.status} | ${r.spend.toFixed(2)} | ${r.impressions} | ${r.frequency.toFixed(1)} | ${r.link_clicks} | ${r.lpv} | ${r.ticket} | ${r.site ?? ""} | ${chf(r.cost_per_ticket)} | ${chf(r.cost_per_lpv)} | ${r.verdict} | ${r.note} |`);
-    const t = rows.reduce((s, r) => ({ spend: s.spend + r.spend, lpv: s.lpv + r.lpv, ticket: s.ticket + r.ticket, site: s.site + (r.site || 0) }), { spend: 0, lpv: 0, ticket: 0, site: 0 });
-    L.push(`| total | | ${t.spend.toFixed(2)} | | | | ${t.lpv} | ${t.ticket} | ${t.site} | ${chf(t.ticket ? t.spend / t.ticket : null)} | ${chf(t.lpv ? t.spend / t.lpv : null)} | | |`, "");
+    L.push("| Ad | Status | Spend | Impr. | Freq. | Link clicks | CTR % | LPV | Ticket (Meta) | /go/ (site) | CHF/ticket | CHF/LPV | Verdict | Note |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|");
+    for (const r of [...rows].sort((a, b) => b.spend - a.spend)) L.push(`| ${r.ad_name} | ${r.status} | ${r.spend.toFixed(2)} | ${r.impressions} | ${r.frequency.toFixed(1)} | ${r.link_clicks} | ${pct(ctr(r))} | ${r.lpv} | ${r.ticket} | ${r.site ?? ""} | ${chf(r.cost_per_ticket)} | ${chf(r.cost_per_lpv)} | ${r.verdict} | ${r.note}${r.refreshed ? ` (creative refreshed ${r.refreshed}, counted from there)` : ""} |`);
+    const t = rows.reduce((s, r) => ({ spend: s.spend + r.spend, impressions: s.impressions + r.impressions, link_clicks: s.link_clicks + r.link_clicks, lpv: s.lpv + r.lpv, ticket: s.ticket + r.ticket, site: s.site + (r.site || 0) }), { spend: 0, impressions: 0, link_clicks: 0, lpv: 0, ticket: 0, site: 0 });
+    L.push(`| total | | ${t.spend.toFixed(2)} | ${t.impressions} | | ${t.link_clicks} | ${pct(ctr(t))} | ${t.lpv} | ${t.ticket} | ${t.site} | ${chf(t.ticket ? t.spend / t.ticket : null)} | ${chf(t.lpv ? t.spend / t.lpv : null)} | | |`, "");
   }
   return L.join("\n");
 }
@@ -290,6 +308,19 @@ async function main() {
   }
   for (const key of wanted) if (!rowsByAdset.has(key)) rowsByAdset.set(key, []);
 
+  // An ad whose creative was refreshed inside the window (meta-bank.ts --refresh) is judged on
+  // the new creative only: its numbers are re-read from the refresh date and it counts as new.
+  const bankState = readState();
+  const refreshedOn = new Map<string, string>();
+  for (const e of Object.values(bankState)) if (e.ad_id && e.refreshed && e.refreshed.slice(0, 10) > since) refreshedOn.set(e.ad_id, e.refreshed.slice(0, 10));
+  for (const rows of rowsByAdset.values()) for (const row of rows) {
+    const day = refreshedOn.get(row.ad_id);
+    if (!day) continue;
+    const r: any = (await meta.get(`${row.ad_id}/insights`, { time_range: { since: day, until }, action_attribution_windows: ["1d_click"], fields: "spend,impressions,reach,frequency,inline_link_clicks,actions" })).data?.[0] || {};
+    const spend = Number(r.spend || 0), lpv = actionCount(r.actions, "landing_page_view"), ticket = actionCount(r.actions, ticketType);
+    Object.assign(row, { created: day, refreshed: day, spend, impressions: Number(r.impressions || 0), reach: Number(r.reach || 0), frequency: Number(r.frequency || 0), link_clicks: Number(r.inline_link_clicks || 0), lpv, ticket, cost_per_ticket: ticket ? spend / ticket : null, cost_per_lpv: lpv ? spend / lpv : null });
+  }
+
   const flags: string[] = [];
   const adsetInfo = new Map<string, string>();
   // Names for the recommendations section, and the per-object items collected on the way.
@@ -332,7 +363,7 @@ async function main() {
     warn(`recommendations could not be read: ${recommendationsError.slice(0, 200)}`);
     flags.push("Meta recommendations could not be read this run (see the section)");
   }
-  const md = renderMarkdown(rowsByAdset, { since, until, shows, siteWindow: site.window, adsetInfo, flags, recommendations: recommendations || [], recommendationsError });
+  const md = renderMarkdown(rowsByAdset, { since, until, shows, siteWindow: site.window, adsetInfo, flags, rules, recommendations: recommendations || [], recommendationsError });
   mkdirSync(OUT_DIR, { recursive: true });
   const base = join(OUT_DIR, `insights-${today}`);
   writeFileSync(`${base}.md`, md);

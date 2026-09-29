@@ -97,6 +97,24 @@ describe("push: names, links and the creative", () => {
   });
 });
 
+describe("refresh: only the ads asked for by name", () => {
+  const { refreshList } = require("../meta-bank");
+  const bank = { adset: "cold", link: { show: "comedybrew", utm_campaign: "cold" }, description: "d", concepts: [c({ id: "C1", status: "live" })] };
+  const state = {
+    "cold-C1": { ad_id: "1", creative_id: "c1", image_hash: "h", pushed: "x", story_hash: "s" },
+    "cold-C9": { ad_id: "9", creative_id: "c9", image_hash: "h", pushed: "x" },
+    "warm-W1": { ad_id: "5", creative_id: "c5", image_hash: "h", pushed: "x" },
+    "warm-W2": { ad_id: "", creative_id: "", image_hash: "", pushed: "" },
+  };
+  const warm = { ...bank, adset: "warm", concepts: [c({ id: "W1", status: "live" }), c({ id: "W2", status: "live" })] };
+  test("nothing without --only or --group; --only picks by id, --group by ad set; a concept gone from the bank or an entry without an ad is skipped", () => {
+    expect(refreshList(state, { cold: bank, warm })).toEqual([]);
+    expect(refreshList(state, { cold: bank, warm }, undefined, ["C1", "C9", "W2"]).map((r: any) => r.name)).toEqual(["cold-C1"]);
+    expect(refreshList(state, { cold: bank, warm }, "warm").map((r: any) => r.name)).toEqual(["warm-W1"]);
+    expect(refreshList(state, { cold: bank, warm }, "warm", ["C1"])).toEqual([]);
+  });
+});
+
 describe("sync: the bank files' status against Meta's on/off state", () => {
   const { syncPlan } = require("../meta-bank");
   const concept = (id: string, status: Concept["status"]) => ({ id, person: "p", body: "b", title: "t", image: { style: "type" }, status }) as Concept;

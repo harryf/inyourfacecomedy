@@ -13,6 +13,20 @@ laptop. The phone app hides most of these settings.
 
 ## Status
 
+**29 September: cold-C17 reworded, and a creative floor in the readout.** Harry read the C17
+headline "She got every word." as a possible dig at people who do not, and asked for no gender
+pronouns in ad copy; the card now says "Every word landed." on the same photo. It was done with
+the new `meta-bank.ts --refresh --only C17`: a new creative from the bank's text and the
+re-rendered images, and the same ad moved onto it (id, name and `utm_content` unchanged, Meta
+reviews it again). Rule for copy from now on: no he, she, her, his in headline or body; the line
+is about the room or the show, never about a person's ability. The readout gained a creative
+floor sized from the 2024 carousel (details under "Weekly readout"): once an ad has 500
+impressions in the window, fewer than 1.0 link clicks per hundred means "change" the creative.
+On the 14 days to 29 September nothing else was under it: C7 2.7, C13 2.1, W6 2.1, W2 2.1, W9
+3.6 (223 impressions), the carousel 2.1; W10 1.4 and W11 1.3 sit under the carousel but above
+the floor and stay on watch; C17's old creative ran 0.9 on 741 impressions, which is what the
+rule is for, and its count restarts today.
+
 **28 September: Intent folded into Warm, Cold to CHF 8.** The review of 28 September (read-only
 API readout) found Intent saturated (207 people reached in 16 days, frequency 7, CPM 15, CHF 1.20
 per landing page view; Meta sizes both its audiences under 1,000) and Warm starting to repeat
@@ -556,10 +570,27 @@ The readout (`script/meta-out/insights-<date>.md`) puts Meta's spend, link click
 page views and ticket clicks beside the site's `/go/` count for the same `utm_content`, and
 gives each ad a verdict: untested (under the floors: 10 ticket clicks, else 30 landing page
 views), keep, retire (worse than 1.5 times the ad set's median), starved (under the floor for
-four weeks while siblings passed). The site count is the ground truth; ranking is inside one
+four weeks while siblings passed), change (the creative floor, next paragraph). The site count is the ground truth; ranking is inside one
 ad set only. Never compare Cold with Intent. Never touch targeting or the performance goal on
 a running ad set; retire and replace in one batch at the fortnight boundary. Ads Manager still
 works for a glance: Amount spent, Link clicks, Landing page views, Frequency, last 7 days.
+
+The creative floor (29 September): the question "after this many impressions, how many clicks
+should an ad have made?" is answered from the 2024 carousel, the one creative with a year of
+data in this account. Over 2026 it made 6,204 link clicks on 347,797 impressions, 1.8 per
+hundred, and since June it runs 2.0 to 2.2 a month (its Reels placements 1.9, so the placement
+mix does not excuse a bank ad). The bank's own ads that work sit at 2.1 to 2.7. The floor is
+half the carousel: `insights.ctr_floor_impressions: 500` and `insights.ctr_floor: 1.0`, so an
+ACTIVE ad with 500 or more impressions in the window and under 1.0 link clicks per hundred
+(fewer than 5 clicks at 500, fewer than 10 at 1,000) gets the verdict "change": the picture or
+the line is being scrolled past, and a pause fixes nothing, a new card does. Why 500 and 1.0:
+at the carousel's 2.0 an ad expects 10 clicks per 500 impressions, and a healthy ad falls to 5
+or fewer about one time in fifteen, so the verdict is rarely wrong and becomes safe by 1,000.
+Retire outranks change, the change verdict never counts against the retire cap, and `--apply`
+does not act on it: the answer is a new concept in the bank (or a new headline on the same
+photo) and `meta-bank.ts --refresh --only <id>`, after which the readout counts that ad from the
+refresh date. Between the floor and the carousel (1.0 to 1.8) an ad is on watch, not condemned:
+read it again with 1,000 impressions.
 
 Warm's cut rule (28 September): Warm is a pool of about 10,000 people and repeats within weeks,
 so when the readout shows its 7-day frequency above 3.5 (`insights.frequency_flag`) or its cost
@@ -596,7 +627,7 @@ experiment is judged on. Things waiting, in order:
 The week of 21 September: the "Decided for this week" list in the second readout (Status) comes first.
 
 1. The laugh set is live since the evening of 26 September (Status, "Round two is the laugh set"); adding nine ads put every set back into learning, and the Warm targeting change of 28 September did it again for Warm, so read nothing into the first few days. Intent was paused on 28 September (Status).
-2. The Friday readout (`bun script/meta-insights.ts`): the new ads reach the 30-view floor after a week or two; read them against C7 and W6, and expect Meta to feed one or two per set.
+2. The Friday readout (`bun script/meta-insights.ts`): the new ads reach the 30-view floor after a week or two; read them against C7 and W6, and expect Meta to feed one or two per set. The CTR column and the "change" verdict (creative floor, Weekly readout) say which card to redo; W10 and W11 are the ones to watch, C17 restarted on 29 September.
 3. About 2 October, also: narrow Warm from all of Switzerland to Zürich plus about 50 km (in the first week only 54 percent of Warm's and 36 percent of Intent's impressions fell in canton Zürich; Cold's 30 km gave 81 percent), so the ad sets re-learn once.
 4. Thursday's show: an applause take for the closing logo, and a word with the venue about the room recording. More video concepts are in `meta-ads/video-plan.md`.
 5. 31 October: the experiment's review.

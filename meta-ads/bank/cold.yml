@@ -1,7 +1,7 @@
 # The Cold bank: people who have never heard of us (meta-ads/creative-bank-plan.md).
 # One ad per concept: one body (125 characters or fewer), one headline (under 40), one
 # description, one image. Evergreen: no dates, no comedian names, no prices, one sentence
-# that names a person, nothing that reads as "we watched you", no em dashes.
+# that names a person, nothing that reads as "we watched you", no he, she, her or his (2026-09-29), no em dashes.
 # image.style is an /adcard/ look (photo, swiss, type, chalk, station, logo); image.photo a
 # gallery path for the photo look; image.headline and image.sub are what the card paints.
 # THE RULE (2026-09-26, from the two ads that work, C7 and W6): every new concept is the photo
@@ -61,5 +61,5 @@ concepts:
     person: The native English speaker (the woman in denim laughing in the middle of a full room)
     body: "Laughed a beat late at a show in German? Thursdays in Zürich there is stand-up in English. Ten acts, all in your language."
     title: "Comedy you get every word of"
-    image: { style: photo, photo: /assets/img/gallery/IMG_5275_20260924.jpg, focus: [0.48, 0.42], headline: "She got every word.", sub: "English stand-up, Thursdays in Zürich" }
+    image: { style: photo, photo: /assets/img/gallery/IMG_5275_20260924.jpg, focus: [0.48, 0.42], headline: "Every word landed.", sub: "English stand-up, Thursdays in Zürich" }
     status: live

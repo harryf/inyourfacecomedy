@@ -8,6 +8,9 @@
 //   bun script/meta-bank.ts --push --activate                # upload, one single-text creative and one ad per concept, on
 //   bun script/meta-bank.ts --restory --validate             # Meta checks the two-image creative for ads pushed with one image
 //   bun script/meta-bank.ts --restory                        # and moves them onto it
+//   bun script/meta-bank.ts --refresh --only C17 --dry-run   # an ad whose text or picture changed in the bank: what would move
+//   bun script/meta-bank.ts --refresh --only C17 --validate  # Meta checks the new creative, nothing written
+//   bun script/meta-bank.ts --refresh --only C17             # new creative from the bank, the SAME ad moves onto it
 //   bun script/meta-bank.ts --push-video --dry-run           # the video ads that would be made (concepts with a `video:` block)
 //   bun script/meta-bank.ts --push-video --validate          # upload the video, have Meta check the creative, make no ad
 //   bun script/meta-bank.ts --push-video --activate          # upload, creative, one ad per concept named <group>-<id>v, on
@@ -35,7 +38,7 @@ import { confirm, fail, flagBool, flagString, log, parseArgs, warn } from "./lib
 import { REPO_ROOT, loadConfig, metaFromEnv, type MetaConfig } from "./lib/meta-api";
 import { evaluate, navigate, openBrowser, pngBytes } from "./lib/headless";
 
-const USAGE = `usage: bun script/meta-bank.ts (--render | --push | --push-video | --restory | --sync) [options]
+const USAGE = `usage: bun script/meta-bank.ts (--render | --push | --push-video | --restory | --refresh | --sync) [options]
 
   --render       render the bank's images
     --local        serve _site/ on a local port for the render (build the site first)
@@ -50,6 +53,9 @@ const USAGE = `usage: bun script/meta-bank.ts (--render | --push | --push-video 
   --video-audience   the audience of people who watched half of any bank video (made by hand in Ads Manager):
                  lists the videos it has to hold, finds it by name, says what config still needs
   --restory      move ads pushed with one image onto the two-image creative (post for feeds, story for Stories and Reels)
+  --refresh      the ads named with --only (or --group): a new creative from the bank's current text and rendered
+                 images, and the existing ad moves onto it (same id, name and url_tags; Meta reviews it again;
+                 the readout counts the ad from the refresh date). --dry-run lists, --validate asks Meta only
     --validate     ask Meta to check each new creative (validate_only), write nothing
     --dry-run      list the ads that would move
   --sync         compare each pushed ad's on/off state with its concept's status (live = on, anything else = off)
@@ -179,7 +185,7 @@ export function bankLink(bank: Pick<Bank, "link">): string {
 export const URL_TAGS = "utm_content={{ad.name}}";
 export function adName(group: Group, c: Pick<Concept, "id">): string { return `${group}-${c.id}`; }
 
-export interface PushState { [adName: string]: { video_id?: string; video_sha?: string; ad_id: string; creative_id: string; image_hash: string; pushed: string; story_hash?: string; previous_creative_id?: string; pending_creative_id?: string; restoried?: string } }
+export interface PushState { [adName: string]: { video_id?: string; video_sha?: string; ad_id: string; creative_id: string; image_hash: string; pushed: string; story_hash?: string; previous_creative_id?: string; pending_creative_id?: string; restoried?: string; refreshed?: string } }
 const STATE_FILE = join(CREATIVE_DIR, "state.json");
 export function readState(file = STATE_FILE): PushState { try { return JSON.parse(readFileSync(file, "utf8")); } catch { return {}; } }
 
@@ -288,6 +294,24 @@ export function restoryList(state: PushState, banks: Partial<Record<Group, Bank>
   return out;
 }
 
+// --refresh, pure part: the pushed still ads named by --only or --group whose concept is in the
+// bank. Nothing is refreshed by default: a refresh puts the ad back into review and learning,
+// so it is always asked for by name.
+export function refreshList(state: PushState, banks: Partial<Record<Group, Bank>>, onlyGroup?: Group, only: string[] = []): { name: string; group: Group; concept: Concept; entry: PushState[string] }[] {
+  if (!onlyGroup && !only.length) return [];
+  const out = [];
+  for (const [name, entry] of Object.entries(state)) {
+    const [group, id] = name.split("-") as [Group, string];
+    if (onlyGroup && group !== onlyGroup) continue;
+    if (only.length && !only.includes(id)) continue;
+    if (!entry.ad_id) continue;
+    const concept = banks[group]?.concepts.find((c) => c.id === id);
+    if (!concept || concept.image.style === "clip") continue;
+    out.push({ name, group, concept, entry });
+  }
+  return out;
+}
+
 // --sync, pure part: which pushed ads are on when their concept is not live, or off when it
 // is. `statuses` is each ad's configured status on Meta (ACTIVE or PAUSED); an ad missing from
 // it (deleted on Meta) and a concept dropped from the bank are left alone.
@@ -385,6 +409,60 @@ async function restory(args: ReturnType<typeof parseArgs>, onlyGroup: Group | un
     done++;
   }
   log(validate ? `\n${accepted}/${list.length} accepted by Meta, nothing written` : `\n${done} ad(s) moved onto the two-image creative (Meta reviews them again)`);
+}
+
+// --refresh: the bank's text or picture changed for an ad that already runs. A new creative is
+// made from the current bank entry and rendered images and the SAME ad moves onto it, so the
+// ad keeps its id, name, url_tags and history; Meta reviews it again. The old creative id is
+// kept in state.json (previous_creative_id) and the refresh date lets the readout count the
+// ad from the new creative only.
+async function refresh(args: ReturnType<typeof parseArgs>, onlyGroup: Group | undefined, only: string[]) {
+  const dryRun = flagBool(args, "dry-run");
+  const validate = flagBool(args, "validate");
+  if (!onlyGroup && !only.length) fail("--refresh needs --only IDS or --group: nothing is refreshed by default");
+  const config = loadConfig();
+  const act = config.ad_account_id;
+  const state = readState();
+  const banks: Partial<Record<Group, Bank>> = {};
+  for (const g of GROUPS) banks[g] = loadBank(g);
+  const list = refreshList(state, banks, onlyGroup, only);
+  if (!list.length) { log("nothing to do: no pushed ad matches --only/--group"); return; }
+  log(`${list.length} ad(s) to refresh: ${list.map((r) => `${r.name} (ad ${r.entry.ad_id}, creative ${r.entry.creative_id}, headline "${r.concept.image.headline || r.concept.title}")`).join(", ")}`);
+  for (const { name, group, concept } of list) {
+    const files = imageFiles(group, concept);
+    const missing = (["post", "story"] as const).filter((f) => !existsSync(files[f]));
+    if (missing.length) fail(`${name}: no image at ${missing.map((f) => files[f]).join(" and ")}; run --render first`);
+  }
+  if (dryRun) { log("dry run, nothing written"); return; }
+  const meta = metaFromEnv(config);
+  let done = 0, accepted = 0;
+  for (const { name, group, concept, entry } of list) {
+    const files = imageFiles(group, concept);
+    const post = await uploadImage(meta, act, name, files.post);
+    const story = await uploadImage(meta, act, name, files.story);
+    const spec = creativeSpec(config, group, banks[group]!, concept, { post, story });
+    if (validate) {
+      try { const r = await patient(`${name} creative`, () => meta.post(`${act}/adcreatives`, { ...spec, execution_options: ["validate_only"] })); log(`${name}: validate_only accepted (${JSON.stringify(r)})`); accepted++; }
+      catch (e: any) { warn(`${name}: validate_only REJECTED: ${e.message}`); }
+      continue;
+    }
+    let creativeId = entry.pending_creative_id;
+    if (creativeId) log(`${name}: creative ${creativeId} from an earlier run, attaching it`);
+    else {
+      const creative = await patient(`${name} creative`, () => meta.post(`${act}/adcreatives`, spec));
+      creativeId = String(creative.id);
+      state[name] = { ...entry, pending_creative_id: creativeId };
+      saveState(state);
+    }
+    await patient(`${name} ad`, () => meta.post(entry.ad_id, { creative: { creative_id: creativeId } }));
+    state[name] = { ...entry, previous_creative_id: entry.creative_id, creative_id: creativeId, image_hash: post, story_hash: story, refreshed: new Date().toISOString() };
+    delete state[name].pending_creative_id;
+    saveState(state);
+    const back = await meta.get(entry.ad_id, { fields: "name,status,effective_status,creative{id}" });
+    log(`${name}: images ${post} and ${story}, creative ${entry.creative_id} -> ${creativeId}, ad ${entry.ad_id} ${back.status}/${back.effective_status} on creative ${back.creative?.id}`);
+    done++;
+  }
+  log(validate ? `\n${accepted}/${list.length} accepted by Meta, nothing written` : `\n${done} ad(s) moved onto a fresh creative (Meta reviews them again)`);
 }
 
 async function push(args: ReturnType<typeof parseArgs>, onlyGroup: Group | undefined, only: string[]) {
@@ -575,6 +653,7 @@ async function main() {
   if (flagBool(args, "video-audience")) return videoAudience();
   if (flagBool(args, "push")) return push(args, onlyGroup, only);
   if (flagBool(args, "restory")) return restory(args, onlyGroup, only);
+  if (flagBool(args, "refresh")) return refresh(args, onlyGroup, only);
   if (flagBool(args, "sync")) return sync(args, onlyGroup, only);
   if (flagBool(args, "help") || !flagBool(args, "render")) { console.log(USAGE); return; }
   const local = flagBool(args, "local") ? serveSite(join(REPO_ROOT, "_site")) : null;
