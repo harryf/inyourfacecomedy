@@ -3,24 +3,24 @@
  "title": "Gratis Comedy Zum Mitnehmen",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/gratis-zurich-7495107963884945951.html",
  "event_type": "series",
- "generated_at": "2026-09-28T08:20:01.400Z",
+ "generated_at": "2026-09-29T08:20:01.752Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-09-28",
- "complete_through": "2026-09-26",
+ "through": "2026-09-29",
+ "complete_through": "2026-09-27",
  "totals": {
-  "clicks": 22,
-  "redirect": 3,
-  "click": 19,
-  "clicks_30d": 22,
-  "redirect_30d": 3,
-  "click_30d": 19,
-  "views": 37,
-  "views_30d": 37,
-  "sessions": 39,
-  "sessions_30d": 39,
+  "clicks": 25,
+  "redirect": 5,
+  "click": 20,
+  "clicks_30d": 25,
+  "redirect_30d": 5,
+  "click_30d": 20,
+  "views": 41,
+  "views_30d": 41,
+  "sessions": 37,
+  "sessions_30d": 37,
   "broken_links": 0,
-  "untagged": 1
+  "untagged": 0
  },
  "by_day": [
   {
@@ -281,14 +281,22 @@
   },
   {
    "date": "2026-09-27",
-   "redirect": 2,
-   "click": 8,
-   "views": 19,
-   "provisional": true,
+   "redirect": 4,
+   "click": 9,
+   "views": 21,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-28",
+   "redirect": 0,
+   "click": 0,
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-29",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -298,30 +306,37 @@
  ],
  "by_source": [
   {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 9,
-   "views": 21,
-   "sessions": 23
-  },
-  {
    "source": "google",
    "medium": "organic",
+   "clicks": 6,
+   "views": 7,
+   "sessions": 7
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
    "clicks": 5,
-   "views": 4,
-   "sessions": 5
+   "views": 15,
+   "sessions": 15
   },
   {
    "source": "meetup",
    "medium": "referral",
-   "clicks": 3,
+   "clicks": 5,
    "views": 0,
    "sessions": 0
   },
   {
+   "source": "chatgpt.com",
+   "medium": "ai-assistant",
+   "clicks": 4,
+   "views": 9,
+   "sessions": 7
+  },
+  {
    "source": "instagram",
    "medium": "social",
-   "clicks": 2,
+   "clicks": 3,
    "views": 2,
    "sessions": 2
   },
@@ -338,20 +353,6 @@
    "clicks": 1,
    "views": 0,
    "sessions": 0
-  },
-  {
-   "source": "meta",
-   "medium": "untagged",
-   "clicks": 1,
-   "views": 0,
-   "sessions": 0
-  },
-  {
-   "source": "chatgpt.com",
-   "medium": "ai-assistant",
-   "clicks": 0,
-   "views": 2,
-   "sessions": 3
   },
   {
    "source": "debug",
@@ -387,7 +388,7 @@
    "campaign": "gratis-zum-mitnehmen",
    "source": "meetup",
    "medium": "referral",
-   "clicks": 3,
+   "clicks": 5,
    "first": "2026-09-24",
    "last": "2026-09-27",
    "content": []

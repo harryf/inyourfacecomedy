@@ -3,11 +3,11 @@
  "title": "La Tarima",
  "ticket_url": "https://eventfrog.ch/en/p/groups/la-tarima-open-mic-7487916867123691072.html",
  "event_type": "monthly",
- "generated_at": "2026-09-28T08:20:01.400Z",
+ "generated_at": "2026-09-29T08:20:01.752Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-09-28",
- "complete_through": "2026-09-26",
+ "through": "2026-09-29",
+ "complete_through": "2026-09-27",
  "totals": {
   "clicks": 13,
   "redirect": 1,
@@ -284,11 +284,19 @@
    "redirect": 0,
    "click": 0,
    "views": 2,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-28",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-29",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -301,8 +309,8 @@
    "source": "google",
    "medium": "organic",
    "clicks": 6,
-   "views": 1,
-   "sessions": 1
+   "views": 2,
+   "sessions": 2
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -315,8 +323,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 2,
-   "views": 6,
-   "sessions": 6
+   "views": 5,
+   "sessions": 5
   },
   {
    "source": "Spanish Audience",

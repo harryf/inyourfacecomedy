@@ -3,22 +3,22 @@
  "title": "Double Shot",
  "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/double-shot-english-comedy-with-harry-and-martina-7461804081197142415.html",
  "event_type": "single",
- "generated_at": "2026-09-28T08:20:01.400Z",
+ "generated_at": "2026-09-29T08:20:01.752Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-09-28",
- "complete_through": "2026-09-26",
+ "through": "2026-09-29",
+ "complete_through": "2026-09-27",
  "totals": {
-  "clicks": 7,
+  "clicks": 9,
   "redirect": 0,
-  "click": 7,
-  "clicks_30d": 7,
+  "click": 9,
+  "clicks_30d": 5,
   "redirect_30d": 0,
-  "click_30d": 7,
-  "views": 45,
-  "views_30d": 44,
-  "sessions": 49,
-  "sessions_30d": 48,
+  "click_30d": 5,
+  "views": 55,
+  "views_30d": 53,
+  "sessions": 55,
+  "sessions_30d": 53,
   "broken_links": 0,
   "untagged": 0
  },
@@ -282,16 +282,24 @@
   {
    "date": "2026-09-27",
    "redirect": 0,
-   "click": 0,
-   "views": 25,
-   "provisional": true,
+   "click": 2,
+   "views": 33,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-28",
    "redirect": 0,
    "click": 0,
-   "views": 1,
+   "views": 3,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-29",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -300,23 +308,30 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 5,
-   "views": 5,
-   "sessions": 5
+   "clicks": 6,
+   "views": 6,
+   "sessions": 6
   },
   {
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 2,
-   "views": 28,
-   "sessions": 30
+   "views": 17,
+   "sessions": 17
+  },
+  {
+   "source": "IN YOUR FACE Comedy",
+   "medium": "email",
+   "clicks": 1,
+   "views": 2,
+   "sessions": 2
   },
   {
    "source": "VA LBHE ABDF Dbzfel",
    "medium": "email",
    "clicks": 0,
-   "views": 8,
-   "sessions": 9
+   "views": 27,
+   "sessions": 26
   },
   {
    "source": "test",
@@ -328,13 +343,6 @@
   {
    "source": "chatgpt.com",
    "medium": "ai-assistant",
-   "clicks": 0,
-   "views": 1,
-   "sessions": 1
-  },
-  {
-   "source": "IN YOUR FACE Comedy",
-   "medium": "email",
    "clicks": 0,
    "views": 1,
    "sessions": 1

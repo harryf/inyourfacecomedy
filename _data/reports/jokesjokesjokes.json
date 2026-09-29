@@ -3,24 +3,24 @@
  "title": "Jokes, Jokes, Jokes",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726681983598.html",
  "event_type": "series",
- "generated_at": "2026-09-28T08:20:01.400Z",
+ "generated_at": "2026-09-29T08:20:01.752Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-09-28",
- "complete_through": "2026-09-26",
+ "through": "2026-09-29",
+ "complete_through": "2026-09-27",
  "totals": {
-  "clicks": 30,
-  "redirect": 11,
-  "click": 19,
-  "clicks_30d": 27,
-  "redirect_30d": 9,
-  "click_30d": 18,
-  "views": 65,
-  "views_30d": 62,
-  "sessions": 63,
-  "sessions_30d": 60,
+  "clicks": 37,
+  "redirect": 14,
+  "click": 23,
+  "clicks_30d": 34,
+  "redirect_30d": 12,
+  "click_30d": 22,
+  "views": 74,
+  "views_30d": 71,
+  "sessions": 69,
+  "sessions_30d": 66,
   "broken_links": 0,
-  "untagged": 0
+  "untagged": 1
  },
  "by_day": [
   {
@@ -283,14 +283,22 @@
    "date": "2026-09-27",
    "redirect": 0,
    "click": 1,
-   "views": 25,
-   "provisional": true,
+   "views": 30,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-28",
-   "redirect": 1,
-   "click": 0,
+   "redirect": 4,
+   "click": 1,
+   "views": 4,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-29",
+   "redirect": 0,
+   "click": 3,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
@@ -300,16 +308,16 @@
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 7,
+   "clicks": 10,
    "views": 2,
    "sessions": 2
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 6,
-   "views": 35,
-   "sessions": 35
+   "clicks": 8,
+   "views": 22,
+   "sessions": 20
   },
   {
    "source": "guidle",
@@ -322,8 +330,8 @@
    "source": "google",
    "medium": "organic",
    "clicks": 4,
-   "views": 9,
-   "sessions": 10
+   "views": 10,
+   "sessions": 11
   },
   {
    "source": "chatgpt.com",
@@ -347,8 +355,22 @@
    "sessions": 2
   },
   {
+   "source": "IN YOUR FACE Comedy",
+   "medium": "email",
+   "clicks": 1,
+   "views": 2,
+   "sessions": 1
+  },
+  {
    "source": "eventfrog.ch",
    "medium": "referral",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
+  },
+  {
+   "source": "meta",
+   "medium": "untagged",
    "clicks": 1,
    "views": 0,
    "sessions": 0
@@ -357,15 +379,8 @@
    "source": "VA LBHE ABDF Dbzfel",
    "medium": "email",
    "clicks": 0,
-   "views": 3,
-   "sessions": 3
-  },
-  {
-   "source": "IN YOUR FACE Comedy",
-   "medium": "email",
-   "clicks": 0,
-   "views": 2,
-   "sessions": 1
+   "views": 24,
+   "sessions": 23
   }
  ],
  "by_campaign": [
@@ -376,6 +391,15 @@
    "clicks": 4,
    "first": "2026-09-14",
    "last": "2026-09-15",
+   "content": []
+  },
+  {
+   "campaign": "jokesjokesjokes-20260929",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 3,
+   "first": "2026-09-28",
+   "last": "2026-09-28",
    "content": []
   },
   {

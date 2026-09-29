@@ -12,12 +12,15 @@ datetime,event,source,medium,campaign,content,page
 2026-09-24 17:05,ticket_redirect,meetup,referral,gratis-zum-mitnehmen,,Ticket Redirect
 2026-09-26 11:47,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
 2026-09-27 08:12,ticket_redirect,meetup,referral,gratis-zum-mitnehmen,,Ticket Redirect
-2026-09-27 10:47,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
-2026-09-27 11:00,ticket_click,meta,untagged,,,https://inyourfacecomedy.ch/calendar/
+2026-09-27 10:47,ticket_click,google,organic,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
+2026-09-27 11:00,ticket_click,instagram,social,calendar,,https://inyourfacecomedy.ch/calendar/
 2026-09-27 11:16,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
 2026-09-27 11:24,ticket_redirect,meetup,referral,gratis-zum-mitnehmen,,Ticket Redirect
 2026-09-27 14:09,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
-2026-09-27 18:34,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
-2026-09-27 18:39,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
-2026-09-27 18:41,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
-2026-09-27 19:07,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
+2026-09-27 14:55,ticket_redirect,meetup,referral,gratis-zum-mitnehmen,,Ticket Redirect
+2026-09-27 14:59,ticket_redirect,meetup,referral,gratis-zum-mitnehmen,,Ticket Redirect
+2026-09-27 18:34,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
+2026-09-27 18:39,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
+2026-09-27 18:41,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
+2026-09-27 18:49,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
+2026-09-27 19:07,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/

@@ -3,11 +3,11 @@
  "title": "Random Facts Exchange",
  "ticket_url": "https://eventfrog.ch/en/p/groups/random-facts-exchange-7434337254674303477.html",
  "event_type": "series",
- "generated_at": "2026-09-28T08:20:01.400Z",
+ "generated_at": "2026-09-29T08:20:01.752Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-09-28",
- "complete_through": "2026-09-26",
+ "through": "2026-09-29",
+ "complete_through": "2026-09-27",
  "totals": {
   "clicks": 29,
   "redirect": 0,
@@ -15,8 +15,8 @@
   "clicks_30d": 29,
   "redirect_30d": 0,
   "click_30d": 29,
-  "views": 67,
-  "views_30d": 66,
+  "views": 70,
+  "views_30d": 69,
   "sessions": 65,
   "sessions_30d": 64,
   "broken_links": 0,
@@ -283,12 +283,20 @@
    "date": "2026-09-27",
    "redirect": 0,
    "click": 1,
-   "views": 23,
-   "provisional": true,
+   "views": 26,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-28",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-29",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -308,8 +316,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 4,
-   "views": 21,
-   "sessions": 25
+   "views": 7,
+   "sessions": 6
   },
   {
    "source": "ecosia.org",
@@ -343,8 +351,8 @@
    "source": "VA LBHE ABDF Dbzfel",
    "medium": "email",
    "clicks": 0,
-   "views": 8,
-   "sessions": 7
+   "views": 25,
+   "sessions": 26
   },
   {
    "source": "bing",
