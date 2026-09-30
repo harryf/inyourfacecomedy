@@ -3,22 +3,22 @@
  "title": "PROMESSI SPASSI",
  "ticket_url": "https://eventfrog.ch/en/p/groups/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081056758243.html",
  "event_type": "monthly",
- "generated_at": "2026-09-29T08:20:01.752Z",
+ "generated_at": "2026-09-30T08:20:02.351Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-09-29",
- "complete_through": "2026-09-27",
+ "through": "2026-09-30",
+ "complete_through": "2026-09-28",
  "totals": {
-  "clicks": 2263,
-  "redirect": 2239,
+  "clicks": 2272,
+  "redirect": 2248,
   "click": 24,
-  "clicks_30d": 2233,
-  "redirect_30d": 2209,
-  "click_30d": 24,
+  "clicks_30d": 2177,
+  "redirect_30d": 2156,
+  "click_30d": 21,
   "views": 64,
-  "views_30d": 56,
+  "views_30d": 54,
   "sessions": 64,
-  "sessions_30d": 56,
+  "sessions_30d": 53,
   "broken_links": 0,
   "untagged": 0
  },
@@ -289,15 +289,23 @@
   },
   {
    "date": "2026-09-28",
-   "redirect": 11,
+   "redirect": 12,
    "click": 1,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-29",
-   "redirect": 2,
+   "redirect": 9,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-09-30",
+   "redirect": 1,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -308,7 +316,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 2172,
+   "clicks": 2181,
    "views": 1,
    "sessions": 1
   },
@@ -329,7 +337,7 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 10,
+   "clicks": 9,
    "views": 25,
    "sessions": 23
   },
@@ -343,7 +351,7 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 4,
+   "clicks": 5,
    "views": 6,
    "sessions": 6
   },
@@ -444,9 +452,9 @@
    "campaign": "promessi-spassi",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 2171,
+   "clicks": 2180,
    "first": "2026-08-30",
-   "last": "2026-09-29",
+   "last": "2026-09-30",
    "content": [
     {
      "content": "52672614093400",
@@ -454,7 +462,7 @@
     },
     {
      "content": "52676472901800",
-     "clicks": 119
+     "clicks": 128
     },
     {
      "content": "52672431580800",
