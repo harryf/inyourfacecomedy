@@ -3,22 +3,22 @@
  "title": "Jokes, Jokes, Jokes",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726681983598.html",
  "event_type": "series",
- "generated_at": "2026-09-30T08:20:02.351Z",
+ "generated_at": "2026-10-01T08:20:02.290Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-09-30",
- "complete_through": "2026-09-28",
+ "through": "2026-10-01",
+ "complete_through": "2026-09-29",
  "totals": {
-  "clicks": 41,
+  "clicks": 40,
   "redirect": 17,
-  "click": 24,
-  "clicks_30d": 35,
-  "redirect_30d": 14,
-  "click_30d": 21,
-  "views": 76,
-  "views_30d": 70,
-  "sessions": 71,
-  "sessions_30d": 65,
+  "click": 23,
+  "clicks_30d": 27,
+  "redirect_30d": 12,
+  "click_30d": 15,
+  "views": 77,
+  "views_30d": 58,
+  "sessions": 72,
+  "sessions_30d": 55,
   "broken_links": 0,
   "untagged": 0
  },
@@ -298,13 +298,21 @@
   {
    "date": "2026-09-29",
    "redirect": 0,
-   "click": 3,
+   "click": 2,
    "views": 2,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-30",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-01",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -323,7 +331,7 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 8,
+   "clicks": 6,
    "views": 21,
    "sessions": 19
   },
@@ -337,9 +345,9 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 4,
-   "views": 13,
-   "sessions": 14
+   "clicks": 5,
+   "views": 14,
+   "sessions": 15
   },
   {
    "source": "chatgpt.com",

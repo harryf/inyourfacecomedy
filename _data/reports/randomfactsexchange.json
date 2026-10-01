@@ -3,11 +3,11 @@
  "title": "Random Facts Exchange",
  "ticket_url": "https://eventfrog.ch/en/p/groups/random-facts-exchange-7434337254674303477.html",
  "event_type": "series",
- "generated_at": "2026-09-30T08:20:02.351Z",
+ "generated_at": "2026-10-01T08:20:02.290Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-09-30",
- "complete_through": "2026-09-28",
+ "through": "2026-10-01",
+ "complete_through": "2026-09-29",
  "totals": {
   "clicks": 29,
   "redirect": 0,
@@ -15,10 +15,10 @@
   "clicks_30d": 28,
   "redirect_30d": 0,
   "click_30d": 28,
-  "views": 70,
-  "views_30d": 69,
-  "sessions": 65,
-  "sessions_30d": 64,
+  "views": 71,
+  "views_30d": 70,
+  "sessions": 66,
+  "sessions_30d": 65,
   "broken_links": 0,
   "untagged": 0
  },
@@ -300,11 +300,19 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-30",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-01",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -324,8 +332,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 4,
-   "views": 7,
-   "sessions": 6
+   "views": 8,
+   "sessions": 7
   },
   {
    "source": "ecosia.org",

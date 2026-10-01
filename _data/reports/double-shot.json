@@ -3,11 +3,11 @@
  "title": "Double Shot",
  "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/double-shot-english-comedy-with-harry-and-martina-7461804081197142415.html",
  "event_type": "single",
- "generated_at": "2026-09-30T08:20:02.351Z",
+ "generated_at": "2026-10-01T08:20:02.290Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-09-30",
- "complete_through": "2026-09-28",
+ "through": "2026-10-01",
+ "complete_through": "2026-09-29",
  "totals": {
   "clicks": 12,
   "redirect": 0,
@@ -15,10 +15,10 @@
   "clicks_30d": 8,
   "redirect_30d": 0,
   "click_30d": 8,
-  "views": 60,
-  "views_30d": 58,
-  "sessions": 59,
-  "sessions_30d": 57,
+  "views": 71,
+  "views_30d": 69,
+  "sessions": 66,
+  "sessions_30d": 64,
   "broken_links": 0,
   "untagged": 0
  },
@@ -300,14 +300,22 @@
    "redirect": 0,
    "click": 3,
    "views": 4,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-30",
    "redirect": 0,
    "click": 0,
-   "views": 0,
+   "views": 10,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-01",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -316,23 +324,23 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 6,
+   "clicks": 9,
    "views": 7,
    "sessions": 7
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 5,
-   "views": 18,
-   "sessions": 17
+   "clicks": 2,
+   "views": 20,
+   "sessions": 19
   },
   {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
    "clicks": 1,
-   "views": 5,
-   "sessions": 5
+   "views": 14,
+   "sessions": 10
   },
   {
    "source": "VA LBHE ABDF Dbzfel",

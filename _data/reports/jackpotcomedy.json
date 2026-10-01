@@ -3,22 +3,22 @@
  "title": "Jackpot Comedy",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jackpot-comedy-7413646370706339342.html",
  "event_type": "series",
- "generated_at": "2026-09-30T08:20:02.351Z",
+ "generated_at": "2026-10-01T08:20:02.290Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-09-30",
- "complete_through": "2026-09-28",
+ "through": "2026-10-01",
+ "complete_through": "2026-09-29",
  "totals": {
-  "clicks": 479,
-  "redirect": 440,
-  "click": 39,
-  "clicks_30d": 428,
-  "redirect_30d": 391,
+  "clicks": 494,
+  "redirect": 453,
+  "click": 41,
+  "clicks_30d": 423,
+  "redirect_30d": 386,
   "click_30d": 37,
-  "views": 125,
-  "views_30d": 117,
-  "sessions": 119,
-  "sessions_30d": 111,
+  "views": 126,
+  "views_30d": 114,
+  "sessions": 121,
+  "sessions_30d": 108,
   "broken_links": 0,
   "untagged": 0
  },
@@ -297,15 +297,23 @@
   },
   {
    "date": "2026-09-29",
-   "redirect": 3,
+   "redirect": 11,
    "click": 1,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-09-30",
-   "redirect": 0,
+   "redirect": 3,
+   "click": 2,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-01",
+   "redirect": 2,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -316,9 +324,16 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 409,
+   "clicks": 422,
    "views": 3,
    "sessions": 2
+  },
+  {
+   "source": "google",
+   "medium": "organic",
+   "clicks": 17,
+   "views": 24,
+   "sessions": 24
   },
   {
    "source": "instagram",
@@ -328,18 +343,11 @@
    "sessions": 0
   },
   {
-   "source": "google",
-   "medium": "organic",
-   "clicks": 15,
-   "views": 24,
-   "sessions": 23
-  },
-  {
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 13,
-   "views": 46,
-   "sessions": 46
+   "views": 47,
+   "sessions": 47
   },
   {
    "source": "facebook",
@@ -410,13 +418,13 @@
    "campaign": "jackpotcomedy",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 409,
+   "clicks": 422,
    "first": "2026-08-30",
-   "last": "2026-09-29",
+   "last": "2026-10-01",
    "content": [
     {
      "content": "6964168949947",
-     "clicks": 400
+     "clicks": 411
     }
    ]
   },
