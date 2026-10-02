@@ -3,11 +3,11 @@
  "title": "Pulp Non-Fiction",
  "ticket_url": "https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html",
  "event_type": "monthly",
- "generated_at": "2026-10-01T08:20:02.290Z",
+ "generated_at": "2026-10-02T08:20:01.404Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-01",
- "complete_through": "2026-09-29",
+ "through": "2026-10-02",
+ "complete_through": "2026-09-30",
  "totals": {
   "clicks": 25,
   "redirect": 10,
@@ -15,10 +15,10 @@
   "clicks_30d": 20,
   "redirect_30d": 8,
   "click_30d": 12,
-  "views": 52,
-  "views_30d": 46,
-  "sessions": 54,
-  "sessions_30d": 47,
+  "views": 59,
+  "views_30d": 53,
+  "sessions": 61,
+  "sessions_30d": 54,
   "broken_links": 0,
   "untagged": 0
  },
@@ -299,7 +299,7 @@
    "date": "2026-09-29",
    "redirect": 0,
    "click": 1,
-   "views": 2,
+   "views": 4,
    "provisional": false,
    "clicks_tracked": true
   },
@@ -307,15 +307,23 @@
    "date": "2026-09-30",
    "redirect": 0,
    "click": 1,
-   "views": 0,
-   "provisional": true,
+   "views": 1,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-01",
    "redirect": 0,
    "click": 0,
-   "views": 2,
+   "views": 6,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-02",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -324,9 +332,9 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 7,
-   "views": 9,
-   "sessions": 12
+   "clicks": 6,
+   "views": 14,
+   "sessions": 17
   },
   {
    "source": "meetup",
@@ -338,7 +346,7 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 4,
+   "clicks": 5,
    "views": 6,
    "sessions": 7
   },
@@ -360,8 +368,8 @@
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
    "clicks": 1,
-   "views": 3,
-   "sessions": 3
+   "views": 4,
+   "sessions": 4
   },
   {
    "source": "google-business",
@@ -376,6 +384,13 @@
    "clicks": 0,
    "views": 25,
    "sessions": 25
+  },
+  {
+   "source": "duckduckgo",
+   "medium": "organic",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
   },
   {
    "source": "guidle",

@@ -3,18 +3,18 @@
  "title": "Tall Order",
  "ticket_url": "https://eventfrog.ch/en/p/groups/tall-order-english-stand-up-comedy-open-mic-7507743592338740411.html",
  "event_type": "series",
- "generated_at": "2026-10-01T08:20:02.290Z",
+ "generated_at": "2026-10-02T08:20:01.404Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-01",
- "complete_through": "2026-09-29",
+ "through": "2026-10-02",
+ "complete_through": "2026-09-30",
  "totals": {
-  "clicks": 2,
+  "clicks": 5,
   "redirect": 0,
-  "click": 2,
-  "clicks_30d": 2,
+  "click": 5,
+  "clicks_30d": 5,
   "redirect_30d": 0,
-  "click_30d": 2,
+  "click_30d": 5,
   "views": 35,
   "views_30d": 35,
   "sessions": 34,
@@ -308,11 +308,19 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-01",
+   "redirect": 0,
+   "click": 3,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-02",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -322,11 +330,18 @@
  ],
  "by_source": [
   {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 3,
+   "views": 2,
+   "sessions": 3
+  },
+  {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
    "clicks": 1,
-   "views": 4,
-   "sessions": 3
+   "views": 5,
+   "sessions": 4
   },
   {
    "source": "google",
@@ -341,13 +356,6 @@
    "clicks": 0,
    "views": 27,
    "sessions": 26
-  },
-  {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 0,
-   "views": 3,
-   "sessions": 4
   },
   {
    "source": "eventfrog.ch",

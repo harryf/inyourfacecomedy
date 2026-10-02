@@ -3,22 +3,22 @@
  "title": "Jackpot Comedy",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jackpot-comedy-7413646370706339342.html",
  "event_type": "series",
- "generated_at": "2026-10-01T08:20:02.290Z",
+ "generated_at": "2026-10-02T08:20:01.404Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-01",
- "complete_through": "2026-09-29",
+ "through": "2026-10-02",
+ "complete_through": "2026-09-30",
  "totals": {
-  "clicks": 494,
-  "redirect": 453,
-  "click": 41,
-  "clicks_30d": 423,
-  "redirect_30d": 386,
+  "clicks": 501,
+  "redirect": 459,
+  "click": 42,
+  "clicks_30d": 413,
+  "redirect_30d": 376,
   "click_30d": 37,
-  "views": 126,
-  "views_30d": 114,
+  "views": 127,
+  "views_30d": 104,
   "sessions": 121,
-  "sessions_30d": 108,
+  "sessions_30d": 99,
   "broken_links": 0,
   "untagged": 0
  },
@@ -305,14 +305,22 @@
   },
   {
    "date": "2026-09-30",
-   "redirect": 3,
+   "redirect": 2,
    "click": 2,
-   "views": 1,
-   "provisional": true,
+   "views": 2,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-01",
+   "redirect": 7,
+   "click": 1,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-02",
    "redirect": 2,
    "click": 0,
    "views": 0,
@@ -324,15 +332,15 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 422,
+   "clicks": 428,
    "views": 3,
    "sessions": 2
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 17,
-   "views": 24,
+   "clicks": 18,
+   "views": 25,
    "sessions": 24
   },
   {
@@ -346,8 +354,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 13,
-   "views": 47,
-   "sessions": 47
+   "views": 46,
+   "sessions": 46
   },
   {
    "source": "facebook",
@@ -406,6 +414,13 @@
    "sessions": 1
   },
   {
+   "source": "eventfrog.ch",
+   "medium": "referral",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
+  },
+  {
    "source": "kagi.com",
    "medium": "referral",
    "clicks": 0,
@@ -418,13 +433,13 @@
    "campaign": "jackpotcomedy",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 422,
+   "clicks": 428,
    "first": "2026-08-30",
-   "last": "2026-10-01",
+   "last": "2026-10-02",
    "content": [
     {
      "content": "6964168949947",
-     "clicks": 411
+     "clicks": 418
     }
    ]
   },

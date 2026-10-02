@@ -3,24 +3,24 @@
  "title": "Double Shot",
  "ticket_url": "https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/double-shot-english-comedy-with-harry-and-martina-7461804081197142415.html",
  "event_type": "single",
- "generated_at": "2026-10-01T08:20:02.290Z",
+ "generated_at": "2026-10-02T08:20:01.404Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-01",
- "complete_through": "2026-09-29",
+ "through": "2026-10-02",
+ "complete_through": "2026-09-30",
  "totals": {
-  "clicks": 12,
+  "clicks": 16,
   "redirect": 0,
-  "click": 12,
-  "clicks_30d": 8,
+  "click": 16,
+  "clicks_30d": 12,
   "redirect_30d": 0,
-  "click_30d": 8,
-  "views": 71,
-  "views_30d": 69,
-  "sessions": 66,
-  "sessions_30d": 64,
+  "click_30d": 12,
+  "views": 80,
+  "views_30d": 77,
+  "sessions": 77,
+  "sessions_30d": 74,
   "broken_links": 0,
-  "untagged": 0
+  "untagged": 1
  },
  "by_day": [
   {
@@ -307,15 +307,23 @@
    "date": "2026-09-30",
    "redirect": 0,
    "click": 0,
-   "views": 10,
-   "provisional": true,
+   "views": 11,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-01",
    "redirect": 0,
-   "click": 0,
-   "views": 1,
+   "click": 2,
+   "views": 7,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-02",
+   "redirect": 0,
+   "click": 2,
+   "views": 2,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -325,22 +333,29 @@
    "source": "google",
    "medium": "organic",
    "clicks": 9,
-   "views": 7,
-   "sessions": 7
+   "views": 9,
+   "sessions": 8
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 2,
-   "views": 20,
-   "sessions": 19
+   "clicks": 5,
+   "views": 21,
+   "sessions": 24
   },
   {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
    "clicks": 1,
-   "views": 14,
-   "sessions": 10
+   "views": 18,
+   "sessions": 13
+  },
+  {
+   "source": "meta",
+   "medium": "untagged",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
   },
   {
    "source": "VA LBHE ABDF Dbzfel",
@@ -348,6 +363,13 @@
    "clicks": 0,
    "views": 27,
    "sessions": 26
+  },
+  {
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 0,
+   "views": 3,
+   "sessions": 3
   },
   {
    "source": "test",
@@ -359,13 +381,6 @@
   {
    "source": "chatgpt.com",
    "medium": "ai-assistant",
-   "clicks": 0,
-   "views": 1,
-   "sessions": 1
-  },
-  {
-   "source": "instagram",
-   "medium": "social",
    "clicks": 0,
    "views": 1,
    "sessions": 1
