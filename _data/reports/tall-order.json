@@ -3,11 +3,11 @@
  "title": "Tall Order",
  "ticket_url": "https://eventfrog.ch/en/p/groups/tall-order-english-stand-up-comedy-open-mic-7507743592338740411.html",
  "event_type": "series",
- "generated_at": "2026-10-02T08:20:01.404Z",
+ "generated_at": "2026-10-03T08:20:01.865Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-02",
- "complete_through": "2026-09-30",
+ "through": "2026-10-03",
+ "complete_through": "2026-10-01",
  "totals": {
   "clicks": 5,
   "redirect": 0,
@@ -316,7 +316,7 @@
    "redirect": 0,
    "click": 3,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
@@ -326,15 +326,23 @@
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-03",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
   }
  ],
  "by_source": [
   {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 3,
-   "views": 2,
-   "sessions": 3
+   "source": "google",
+   "medium": "organic",
+   "clicks": 4,
+   "views": 0,
+   "sessions": 0
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -344,18 +352,18 @@
    "sessions": 4
   },
   {
-   "source": "google",
-   "medium": "organic",
-   "clicks": 1,
-   "views": 0,
-   "sessions": 0
-  },
-  {
    "source": "VA LBHE ABDF Dbzfel",
    "medium": "email",
    "clicks": 0,
    "views": 27,
    "sessions": 26
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 0,
+   "views": 2,
+   "sessions": 3
   },
   {
    "source": "eventfrog.ch",

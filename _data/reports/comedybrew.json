@@ -3,22 +3,22 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-10-02T08:20:01.404Z",
+ "generated_at": "2026-10-03T08:20:01.865Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-02",
- "complete_through": "2026-09-30",
+ "through": "2026-10-03",
+ "complete_through": "2026-10-01",
  "totals": {
-  "clicks": 1732,
-  "redirect": 1557,
-  "click": 175,
-  "clicks_30d": 1587,
-  "redirect_30d": 1440,
-  "click_30d": 147,
-  "views": 436,
-  "views_30d": 377,
-  "sessions": 412,
-  "sessions_30d": 357,
+  "clicks": 1791,
+  "redirect": 1615,
+  "click": 176,
+  "clicks_30d": 1600,
+  "redirect_30d": 1458,
+  "click_30d": 142,
+  "views": 444,
+  "views_30d": 354,
+  "sessions": 421,
+  "sessions_30d": 338,
   "broken_links": 0,
   "untagged": 1
  },
@@ -313,17 +313,25 @@
   },
   {
    "date": "2026-10-01",
-   "redirect": 64,
+   "redirect": 86,
    "click": 11,
-   "views": 14,
-   "provisional": true,
+   "views": 18,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-02",
-   "redirect": 18,
+   "redirect": 42,
+   "click": 1,
+   "views": 3,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-03",
+   "redirect": 12,
    "click": 0,
-   "views": 0,
+   "views": 1,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -332,35 +340,35 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 1483,
+   "clicks": 1540,
    "views": 2,
    "sessions": 2
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 71,
-   "views": 146,
-   "sessions": 137
+   "clicks": 77,
+   "views": 151,
+   "sessions": 142
   },
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 59,
-   "views": 23,
-   "sessions": 22
+   "clicks": 61,
+   "views": 25,
+   "sessions": 24
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 55,
+   "clicks": 47,
    "views": 197,
-   "sessions": 183
+   "sessions": 184
   },
   {
    "source": "guidle",
    "medium": "referral",
-   "clicks": 20,
+   "clicks": 21,
    "views": 4,
    "sessions": 4
   },
@@ -456,6 +464,13 @@
    "sessions": 0
   },
   {
+   "source": "ronorp.net",
+   "medium": "referral",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
+  },
+  {
    "source": "VA LBHE ABDF Dbzfel",
    "medium": "email",
    "clicks": 0,
@@ -466,8 +481,8 @@
    "source": "duckduckgo",
    "medium": "organic",
    "clicks": 0,
-   "views": 2,
-   "sessions": 2
+   "views": 3,
+   "sessions": 3
   },
   {
    "source": "facebook.com",
@@ -482,13 +497,13 @@
    "campaign": "cold",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 514,
+   "clicks": 548,
    "first": "2026-09-13",
-   "last": "2026-10-02",
+   "last": "2026-10-03",
    "content": [
     {
      "content": "cold-C13",
-     "clicks": 190
+     "clicks": 224
     },
     {
      "content": "cold-C7",
@@ -536,13 +551,13 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 485,
+   "clicks": 491,
    "first": "2026-08-26",
-   "last": "2026-10-01",
+   "last": "2026-10-02",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 427
+     "clicks": 433
     }
    ]
   },
@@ -550,13 +565,13 @@
    "campaign": "warm",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 382,
+   "clicks": 399,
    "first": "2026-09-13",
-   "last": "2026-10-02",
+   "last": "2026-10-03",
    "content": [
     {
      "content": "warm-W6",
-     "clicks": 246
+     "clicks": 263
     },
     {
      "content": "warm-W2",
@@ -678,21 +693,21 @@
    "content": []
   },
   {
+   "campaign": "comedybrew-20261001",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 7,
+   "first": "2026-09-28",
+   "last": "2026-10-01",
+   "content": []
+  },
+  {
    "campaign": "comedybrew-20260903",
    "source": "instagram",
    "medium": "social",
    "clicks": 6,
    "first": "2026-09-02",
    "last": "2026-09-03",
-   "content": []
-  },
-  {
-   "campaign": "comedybrew-20261001",
-   "source": "instagram",
-   "medium": "social",
-   "clicks": 6,
-   "first": "2026-09-28",
-   "last": "2026-09-28",
    "content": []
   },
   {

@@ -3,22 +3,22 @@
  "title": "Pulp Non-Fiction",
  "ticket_url": "https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html",
  "event_type": "monthly",
- "generated_at": "2026-10-02T08:20:01.404Z",
+ "generated_at": "2026-10-03T08:20:01.865Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-02",
- "complete_through": "2026-09-30",
+ "through": "2026-10-03",
+ "complete_through": "2026-10-01",
  "totals": {
-  "clicks": 25,
-  "redirect": 10,
-  "click": 15,
-  "clicks_30d": 20,
-  "redirect_30d": 8,
-  "click_30d": 12,
-  "views": 59,
-  "views_30d": 53,
-  "sessions": 61,
-  "sessions_30d": 54,
+  "clicks": 29,
+  "redirect": 11,
+  "click": 18,
+  "clicks_30d": 24,
+  "redirect_30d": 9,
+  "click_30d": 15,
+  "views": 65,
+  "views_30d": 59,
+  "sessions": 68,
+  "sessions_30d": 61,
   "broken_links": 0,
   "untagged": 0
  },
@@ -313,16 +313,24 @@
   },
   {
    "date": "2026-10-01",
-   "redirect": 0,
-   "click": 0,
-   "views": 6,
-   "provisional": true,
+   "redirect": 1,
+   "click": 1,
+   "views": 8,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-02",
    "redirect": 0,
    "click": 0,
+   "views": 4,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-03",
+   "redirect": 0,
+   "click": 2,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
@@ -332,14 +340,14 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 6,
-   "views": 14,
-   "sessions": 17
+   "clicks": 8,
+   "views": 16,
+   "sessions": 19
   },
   {
    "source": "meetup",
    "medium": "referral",
-   "clicks": 6,
+   "clicks": 7,
    "views": 2,
    "sessions": 2
   },
@@ -348,7 +356,7 @@
    "medium": "organic",
    "clicks": 5,
    "views": 6,
-   "sessions": 7
+   "sessions": 8
   },
   {
    "source": "instagram",
@@ -358,18 +366,18 @@
    "sessions": 0
   },
   {
+   "source": "IN YOUR FACE Comedy",
+   "medium": "email",
+   "clicks": 2,
+   "views": 8,
+   "sessions": 8
+  },
+  {
    "source": "test",
    "medium": "verify",
    "clicks": 2,
    "views": 5,
    "sessions": 2
-  },
-  {
-   "source": "IN YOUR FACE Comedy",
-   "medium": "email",
-   "clicks": 1,
-   "views": 4,
-   "sessions": 4
   },
   {
    "source": "google-business",
@@ -419,9 +427,9 @@
    "campaign": "pulpnonfiction",
    "source": "meetup",
    "medium": "referral",
-   "clicks": 4,
+   "clicks": 5,
    "first": "2026-08-27",
-   "last": "2026-09-26",
+   "last": "2026-10-01",
    "content": []
   },
   {

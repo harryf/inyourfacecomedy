@@ -1,6 +1,6 @@
 datetime,event,source,medium,campaign,content,page
 2026-09-26 18:28,ticket_click,IN YOUR FACE Comedy,email,15782ab3d4-EMAIL_CAMPAIGN_2026_09_25_11_48,,https://inyourfacecomedy.ch/
 2026-09-27 15:10,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-10-01 13:59,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
-2026-10-01 22:19,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-10-01 22:21,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-10-01 13:59,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
+2026-10-01 22:19,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
+2026-10-01 22:21,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
