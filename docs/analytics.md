@@ -143,10 +143,14 @@ show, which is the show-night check.
 
 ## Data-quality caveats
 
-- **`/go/` inflates sessions and sinks engagement rate.** Every campaign click is a one-page
-  session that bounces by design. Read Meta's 678 sessions / 29 engaged (90 days to
-  2026-09-05) as clicks delivered, not as disinterest. Filter on `content_group` = `go` to
-  separate them, or use the Shows report which counts the redirect as a ticket event.
+- **`/go/` inflates sessions, and since the ticket key events also engagement rate.** Every
+  campaign click is a one-page session on `/go/`. Before the key events it read as a bounce
+  (Meta 678 sessions, 29 engaged, 90 days to 2026-09-05); since `ticket_redirect` became a
+  key event the same session counts as engaged, so the property-wide rate jumped to 80% (28
+  days to 2026-10-03) while the site itself sat at 45%. To read the site, apply the saved
+  comparison **Site only (no /go/)** (Landing page + query string does not contain `/go/`,
+  added 2026-10-04) from "Add comparison" on any report, or filter on `content_group` =
+  `go`. The Shows report counts the redirect as a ticket event either way.
 - **Bots and odd geography.** Singapore (248 sessions, 248 users, zero engagement in the same
   90 days) and a cluster of small Swiss towns with unusually high session counts (Bulle,
   Fiesch, Lyss, Langenthal) look like crawler or carrier-NAT traffic, not comedy fans. GA's
