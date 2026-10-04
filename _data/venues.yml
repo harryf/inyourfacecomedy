@@ -4,6 +4,7 @@
 #
 # Keep keys lowercase ascii (a-z, 0-9, underscore) so they slot cleanly into front-matter.
 # When adding a venue, fill all required fields (name, street, postal_code, city, country).
+# instagram: the bare handle (no @); the Lineup Maker and Week Story copy it with the comedians.
 # latitude/longitude are optional but boost Google Event eligibility — fill when known.
 
 robins:
@@ -12,6 +13,7 @@ robins:
   postal_code: "8001"
   city: "Zürich"
   country: "CH"
+  instagram: "robinsbarandcoffee"
   latitude: 47.3757403
   longitude: 8.5444532
   website: "https://robins-coffee.ch/"
@@ -23,6 +25,7 @@ otro:
   postal_code: "8004"
   city: "Zürich"
   country: "CH"
+  instagram: "bar.otro"
   website: "https://otro.bar/"
   google_maps_url: "https://maps.app.goo.gl/LiX9rDWX6ZmY3cKKA"
 
@@ -41,6 +44,7 @@ ambossrampe:
   postal_code: "8005"
   city: "Zürich"
   country: "CH"
+  instagram: "ambossrampe"
   website: "https://www.ambossrampe.ch/"
   google_maps_url: "https://maps.app.goo.gl/ZoqB8ogCUyZMXNLf6"
 
@@ -59,6 +63,7 @@ piranha-zurich:
   postal_code: "8004"
   city: "Zürich"
   country: "CH"
+  instagram: "piranha_zh"
   website: "https://www.instagram.com/piranha_zh/"
   # website + google_maps_url: add by hand (not in EventFrog data)
 
@@ -68,6 +73,7 @@ the-beast-basel-comedy-club:
   postal_code: "4001"
   city: "Basel"
   country: "CH"
+  instagram: "thebeastcomedyclub"
   website: "https://www.thebeastbasel.com/"
   google_maps_url: "https://maps.app.goo.gl/joakm79JUHJSS2gZ9"
 
@@ -85,4 +91,5 @@ yaman-caf-bar:
   postal_code: "8001"
   city: "Zürich"
   country: "CH"
+  instagram: "yaman_cafebar"
   # website + google_maps_url: add by hand (not in EventFrog data)
