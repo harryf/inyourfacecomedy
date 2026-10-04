@@ -42,7 +42,7 @@ All gitignored, all at the repo root, none ever committed. Names only here; valu
 | `GSC_SITE` (optional), `GSC_HEALTHCHECKS_URL` | `gsc-report.ts`, which reads Search Console with the `GA_REPORTS_CREDENTIALS` account (a Restricted user on the property; `search-console.md`) |
 | `GRIST_API_KEY` | `sync-comedians.rb`, `meta-lineup-ad.ts` |
 | `EVENTFROG_ORGANIZER`, `EVENTFROG_HEALTHCHECKS_URL` | `eventfrog-sales.ts`, the ticket count in `robins-calendar.ts`. The key can write; the code cannot: `script/lib/eventfrog-api.ts` has one verb, GET, over a whitelist of paths |
-| `META_ACCESS_TOKEN`, `META_ADS_HEALTHCHECKS_URL` | the `meta-*.ts` scripts, plus ids and budgets in gitignored `meta-ads/config.yml` (from `config.example.yml`) |
+| `META_ACCESS_TOKEN`, `META_ADS_HEALTHCHECKS_URL`, `META_MOMENTS_HEALTHCHECKS_URL` | the `meta-*.ts` scripts (the last one is `meta-moments.ts`'s own check), plus ids and budgets in gitignored `meta-ads/config.yml` (from `config.example.yml`) |
 | `MC_API_KEY` | the three email scripts |
 | `ROBINS_CALENDAR` | `robins-calendar.ts`: the exact title of the calendar in Calendar.app |
 | `client_secret_*.json`, `gbp-token.json` | `post-events-to-google.rb`, `hours-to-google.rb`, `reviews-from-google.rb`, `probe-gbp-v4.rb`. The token acts as the listing owner |

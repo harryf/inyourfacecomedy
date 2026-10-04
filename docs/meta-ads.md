@@ -13,6 +13,22 @@ laptop. The phone app hides most of these settings.
 
 ## Status
 
+**4 October: the moment scheduler is live.** `script/meta-moments.ts` runs from cron at 07:30 and
+12:30 (installed 4 October, Healthchecks `META_MOMENTS_HEALTHCHECKS_URL`). Six moment ad sets sit
+beside the evergreen ones: `cold-planner`, `cold-tomorrow`, `cold-tonight` and the same for
+Warm, with 18 ads (C18 to C26, W12 to W20). Planner runs Saturday to Monday before a Comedy Brew,
+tomorrow on the Wednesday, tonight on show day until 19:30; each run picks the any, wet or long
+weekend ad from the MeteoSwiss forecast and the Zürich holidays and sets the budgets: 70% Cold,
+split planner 20, evergreen 20, tomorrow 20, tonight 40 of a CHF 91 week, boosts 1.5 for rain
+or a long weekend. It owns the Cold and Warm daily budgets now (Cold CHF 1.80, Warm CHF 1.00 on
+the evergreen ads), so `meta-adsets.ts` leaves them alone. The plan and its reasons:
+`meta-ads/moments-plan.md`; the reference: `docs/scripts.md`. Running on 4 October: evergreen
+C7, C13, W6, W9; planner C18, C19, W12, W13 until Monday 23:59; queued for this week's rain:
+C22 and W16 on Wednesday, C25 and W19 on Thursday. Retired the same day (paused on Meta, kept
+for their data): C16, C17, W2, W10, W11; the Intent ads are resting with their ad set.
+The local board (`meta-ads/creative/bank/index.html`) lists only running and planned ads, each
+with its ad set and its state on Meta; every scheduler run rebuilds it, or `meta-bank.ts --board`.
+
 **4 October: W10 and W11 rested, the carousel cards go through /go/.** The ad-level review
 (old carousel as the baseline: CTR 2.23, CHF 0.17 per link click over 39 days) left W10 (1.42 on
 848 impressions) and W11 (1.18 on 423) under the carousel, so both are `status: resting` and
@@ -33,7 +49,8 @@ resting to retired, and the Intent concepts to resting (their ad set has been pa
 (live) and planned (bench) concepts, in sections. Eighteen moment concepts were added, C18 to
 C26 and W12 to W20: planner, tomorrow and tonight lines, each in an any, wet and long weekend
 version, with a `moment:` block in the bank. `--push` refuses them; they run only through the
-moment scheduler described in `meta-ads/moments-plan.md`, which is planned, not built.
+moment scheduler described in `meta-ads/moments-plan.md` (built the same morning, see above).
+Later the same morning, on Harry's correction: W6 back on, W2 retired.
 
 **29 September: cold-C17 reworded, and a creative floor in the readout.** Harry read the C17
 headline "She got every word." as a possible dig at people who do not, and asked for no gender
@@ -645,6 +662,12 @@ commit `meta-ads/config.yml`, anything under `meta-ads/lists/`, `script/meta-out
 
 Start with the Status section at the top: it says what is running, what is parked and what the
 experiment is judged on. Things waiting, in order:
+
+From 4 October, first:
+
+- Wednesday 7 October: check that the 07:30 run opened `cold-tomorrow` and `warm-tomorrow` with the rain ads (C22, W16) in `script/meta-moments.log` or on the board; Thursday the same for `cold-tonight` and `warm-tonight` (C25, W19). An ad set whose window ended last week taking a new end date is the open question (`moments-plan.md`, section 3).
+- The readout (`meta-insights.ts`) does not list the six moment ad sets yet; until it does, read them in Ads Manager or `/reports/` (`utm_campaign` is the ad set name, `utm_content` the ad name).
+- Still to build: the weather backtest before the rain boost is trusted, and a sold-out check before tonight opens. Meta may spend up to 75% over a daily budget on one day, which matters for the one-day tonight ad sets.
 
 The week of 21 September: the "Decided for this week" list in the second readout (Status) comes first.
 

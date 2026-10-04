@@ -694,6 +694,12 @@ contact sheet is rebuilt from every image on disk after each render, so a `--onl
 shrinks it. Contrast pairs for the six looks sit in `newStylePairs()` and `bun test` holds them
 at the WCAG floors like every other style.
 
+### Moment ads and the board
+
+A concept with a `moment: { phase, when }` block (planner, tomorrow or tonight; any, wet or long_weekend) says "tonight" or "tomorrow", so it may only run inside its window: `--push` skips it and refuses it with `--only`, and `meta-moments.ts --setup` puts it in its moment ad set instead. Its ads are recorded in `meta-ads/creative/bank/moments-state.json`, apart from `state.json`, so `--sync` never touches them.
+
+The board (`meta-ads/creative/bank/index.html`) lists only live and bench concepts: resting and retired ones stay paused on Meta for their data but leave the board. Sections run evergreen first, then each moment by condition; every card names its ad set (`adset_cold`, `cold-tomorrow`, ...) and its state as Meta reports it: running now, in review, picked and waiting for its window, standby (a moment ad whose condition did not hold), off, or a problem. `--board` rebuilds it from Meta (read only); `--render` and every real `meta-moments.ts` run rebuild it too.
+
 ## `meta-moments.ts`
 
 The moment scheduler (plan and reasons: `meta-ads/moments-plan.md`). Six ad sets in the Comedy Brew campaign, `cold-planner`, `cold-tomorrow`, `cold-tonight` and the same for warm, copy the targeting and goal of `adset_cold` and `adset_warm` and hold the bank's moment ads (concepts with a `moment:` block; `meta-bank.ts --push` refuses them). Each run puts Meta in the state this moment needs and changes nothing that is already right:
