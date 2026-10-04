@@ -3,22 +3,22 @@
  "title": "Pulp Non-Fiction",
  "ticket_url": "https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html",
  "event_type": "monthly",
- "generated_at": "2026-10-03T08:20:01.865Z",
+ "generated_at": "2026-10-04T08:20:02.507Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-03",
- "complete_through": "2026-10-01",
+ "through": "2026-10-04",
+ "complete_through": "2026-10-02",
  "totals": {
-  "clicks": 29,
-  "redirect": 11,
-  "click": 18,
-  "clicks_30d": 24,
-  "redirect_30d": 9,
-  "click_30d": 15,
-  "views": 65,
-  "views_30d": 59,
-  "sessions": 68,
-  "sessions_30d": 61,
+  "clicks": 35,
+  "redirect": 12,
+  "click": 23,
+  "clicks_30d": 29,
+  "redirect_30d": 10,
+  "click_30d": 19,
+  "views": 74,
+  "views_30d": 68,
+  "sessions": 79,
+  "sessions_30d": 72,
   "broken_links": 0,
   "untagged": 0
  },
@@ -324,14 +324,22 @@
    "redirect": 0,
    "click": 0,
    "views": 4,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-03",
    "redirect": 0,
+   "click": 5,
+   "views": 6,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-04",
+   "redirect": 1,
    "click": 2,
-   "views": 0,
+   "views": 3,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -340,14 +348,14 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 8,
-   "views": 16,
-   "sessions": 19
+   "clicks": 13,
+   "views": 22,
+   "sessions": 28
   },
   {
    "source": "meetup",
    "medium": "referral",
-   "clicks": 7,
+   "clicks": 8,
    "views": 2,
    "sessions": 2
   },
@@ -355,7 +363,7 @@
    "source": "google",
    "medium": "organic",
    "clicks": 5,
-   "views": 6,
+   "views": 7,
    "sessions": 8
   },
   {
@@ -369,8 +377,8 @@
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
    "clicks": 2,
-   "views": 8,
-   "sessions": 8
+   "views": 10,
+   "sessions": 10
   },
   {
    "source": "test",
@@ -427,9 +435,9 @@
    "campaign": "pulpnonfiction",
    "source": "meetup",
    "medium": "referral",
-   "clicks": 5,
+   "clicks": 6,
    "first": "2026-08-27",
-   "last": "2026-10-01",
+   "last": "2026-10-04",
    "content": []
   },
   {
