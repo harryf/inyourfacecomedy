@@ -33,31 +33,31 @@
   var WEEK_CAL_LINK = 'https://inyourfacecomedy.ch/calendar/?utm_source=instagram&utm_medium=social&utm_campaign=week';
   var MO = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-// UTM tags for every link the Lineup Maker hands out (docs/campaign-links.md vocabulary).
-// The tool cannot know where a link gets pasted (WhatsApp, a story, a group chat), so the
-// source is the tool itself; the campaign is the Link Builder's per-night `{show}-{yyyymmdd}`
-// (just `{show}` when there is no upcoming date), and utm_content says which link it was:
-// tickets, promo or thankyou. Pure; exported. `today` is YYYY-MM-DD, injected for tests.
-function nextYmd(nextIso, today) {
-  var d = String(nextIso || '').slice(0, 10);
-  return (/^\d{4}-\d{2}-\d{2}$/.test(d) && d >= today) ? d : '';
-}
-function lineupUtm(slug, nextIso, content, today) {
-  var d = nextYmd(nextIso, today);
-  var campaign = String(slug || '').toLowerCase() + (d ? '-' + d.replace(/-/g, '') : '');
-  return 'utm_source=lineup-maker&utm_medium=social&utm_campaign=' + encodeURIComponent(campaign) +
-    '&utm_content=' + encodeURIComponent(content);
-}
-// The /go/ query for the Direct ticket link: the show, its next date when it is still ahead
-// (/go/ then lands on that night's Eventfrog page), and the tags. Pure; exported.
-function ticketQuery(slug, nextIso, today) {
-  var d = nextYmd(nextIso, today);
-  return 'show=' + encodeURIComponent(slug) + (d ? '&date=' + d : '') + '&' + lineupUtm(slug, nextIso, 'tickets', today);
-}
-function todayYmd() {
-  var n = new Date();
-  return n.getFullYear() + '-' + ('0' + (n.getMonth() + 1)).slice(-2) + '-' + ('0' + n.getDate()).slice(-2);
-}
+  // UTM tags for every link the Lineup Maker hands out (docs/campaign-links.md vocabulary).
+  // Source instagram: that is where these links get posted most (Harry, 2026-10-04). The
+  // campaign is the Link Builder's per-night `{show}-{yyyymmdd}`
+  // (just `{show}` when there is no upcoming date), and utm_content says which link it was:
+  // tickets, promo or thankyou. Pure; exported. `today` is YYYY-MM-DD, injected for tests.
+  function nextYmd(nextIso, today) {
+    var d = String(nextIso || '').slice(0, 10);
+    return (/^\d{4}-\d{2}-\d{2}$/.test(d) && d >= today) ? d : '';
+  }
+  function lineupUtm(slug, nextIso, content, today) {
+    var d = nextYmd(nextIso, today);
+    var campaign = String(slug || '').toLowerCase() + (d ? '-' + d.replace(/-/g, '') : '');
+    return 'utm_source=instagram&utm_medium=social&utm_campaign=' + encodeURIComponent(campaign) +
+      '&utm_content=' + encodeURIComponent(content);
+  }
+  // The /go/ query for the Direct ticket link: the show, its next date when it is still ahead
+  // (/go/ then lands on that night's Eventfrog page), and the tags. Pure; exported.
+  function ticketQuery(slug, nextIso, today) {
+    var d = nextYmd(nextIso, today);
+    return 'show=' + encodeURIComponent(slug) + (d ? '&date=' + d : '') + '&' + lineupUtm(slug, nextIso, 'tickets', today);
+  }
+  function todayYmd() {
+    var n = new Date();
+    return n.getFullYear() + '-' + ('0' + (n.getMonth() + 1)).slice(-2) + '-' + ('0' + n.getDate()).slice(-2);
+  }
 
   // --- test seam --------------------------------------------------------------
   // In a CommonJS/test context (bun test) `module` exists: export the stateless

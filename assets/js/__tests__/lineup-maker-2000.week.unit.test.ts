@@ -101,19 +101,19 @@ describe("handles and caption", () => {
     // jackpot (Jack has no instagram), filippo (no hosts), brew (Harry, Martina), jackpot again
     expect(lm.weekHandles(evs, SHOWS, ROSTER)).toEqual(["harryf.cks", "martinadoescomedy", "inyourfacecomedy"]);
   });
-test("venues follow the hosts, once each; the date's own venue wins over the show's", () => {
-  const shows = [...SHOWS.slice(0, 2), { slug: "latarima", title: "La Tarima", hosts: null, venue_ig: "yaman_cafebar" }];
-  const evs2: Ev[] = [
-    { show: "comedybrew", date: "2026-09-14", venue_ig: "robinsbarandcoffee" },
-    { show: "latarima", date: "2026-09-15" },                                  // no date venue: the show's
-    { show: "latarima", date: "2026-09-16", venue_ig: "goldfisch_tmp" },      // touring date: its own room
-    { show: "comedybrew", date: "2026-09-17", venue_ig: "robinsbarandcoffee" },
-  ];
-  expect(lm.weekHandles(evs2, shows, ROSTER)).toEqual(["harryf.cks", "martinadoescomedy", "robinsbarandcoffee", "yaman_cafebar", "goldfisch_tmp", "inyourfacecomedy"]);
-    // a host who lists our own account does not repeat it at the end
-    const roster = [...ROSTER, { slug: "iyf", name: "IYF", instagram: "https://instagram.com/inyourfacecomedy" }];
-    expect(lm.weekHandles([{ show: "x", date: "2026-09-14" }], [{ slug: "x", title: "X", hosts: ["iyf"] }], roster)).toEqual(["inyourfacecomedy"]);
-});
+  test("venues follow the hosts, once each; the date's own venue wins over the show's", () => {
+    const shows = [...SHOWS.slice(0, 2), { slug: "latarima", title: "La Tarima", hosts: null, venue_ig: "yaman_cafebar" }];
+    const evs2: Ev[] = [
+      { show: "comedybrew", date: "2026-09-14", venue_ig: "robinsbarandcoffee" },
+      { show: "latarima", date: "2026-09-15" },                                  // no date venue: the show's
+      { show: "latarima", date: "2026-09-16", venue_ig: "goldfisch_tmp" },      // touring date: its own room
+      { show: "comedybrew", date: "2026-09-17", venue_ig: "robinsbarandcoffee" },
+    ];
+    expect(lm.weekHandles(evs2, shows, ROSTER)).toEqual(["harryf.cks", "martinadoescomedy", "robinsbarandcoffee", "yaman_cafebar", "goldfisch_tmp", "inyourfacecomedy"]);
+      // a host who lists our own account does not repeat it at the end
+      const roster = [...ROSTER, { slug: "iyf", name: "IYF", instagram: "https://instagram.com/inyourfacecomedy" }];
+      expect(lm.weekHandles([{ show: "x", date: "2026-09-14" }], [{ slug: "x", title: "X", hosts: ["iyf"] }], roster)).toEqual(["inyourfacecomedy"]);
+  });
   test("handles text is one @handle per line, empty when none", () => {
     expect(lm.weekHandlesText(evs, SHOWS, ROSTER)).toBe("@harryf.cks \n@martinadoescomedy \n@inyourfacecomedy \n");
     expect(lm.weekHandlesText([], SHOWS, ROSTER)).toBe("");

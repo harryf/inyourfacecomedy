@@ -184,7 +184,7 @@ and you share the work.
 | 📣 Promo link | The `/comedians/?show=…` show-promo link (features the headliner). |
 | 🙏 Thank-you link | The same promo link + `&thankyou` for after the show. |
 
-The three shareable links carry UTM tags: `utm_source=lineup-maker`, `utm_medium=social`, `utm_campaign=<show>-<yyyymmdd>` (the next date; just `<show>` when none is ahead) and `utm_content=tickets`, `promo` or `thankyou`. The tool cannot know where a link gets pasted, so the source is the tool; `docs/campaign-links.md` has the vocabulary. The editing link carries no tags (it is a tool link, not a visit).
+The three shareable links carry UTM tags: `utm_source=instagram`, `utm_medium=social`, `utm_campaign=<show>-<yyyymmdd>` (the next date; just `<show>` when none is ahead) and `utm_content=tickets`, `promo` or `thankyou`. Instagram is the source because that is where these links get posted most; `docs/campaign-links.md` has the vocabulary. The editing link carries no tags (it is a tool link, not a visit).
 | 💬 Running order | Plain text — host first, numbered acts, headliner ⭐, halves + interval — to paste straight into WhatsApp. |
 
 **Implementation:** `assets/js/lineup-maker-2000.js` (the tool) and `pages/lineup.md` (the page + its two

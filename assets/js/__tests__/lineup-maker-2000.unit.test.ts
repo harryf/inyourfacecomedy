@@ -108,17 +108,17 @@ describe("UTM tags on the links the Lineup Maker hands out", () => {
     lineupUtm: (slug: string, nextIso: string, content: string, today: string) => string;
     ticketQuery: (slug: string, nextIso: string, today: string) => string;
   };
-  test("source is the tool, medium social, campaign per night, content names the link", () => {
+  test("source instagram, medium social, campaign per night, content names the link", () => {
     expect(m.lineupUtm("ComedyBrew", "2026-10-08T19:30:00+02:00", "promo", "2026-10-04"))
-      .toBe("utm_source=lineup-maker&utm_medium=social&utm_campaign=comedybrew-20261008&utm_content=promo");
+      .toBe("utm_source=instagram&utm_medium=social&utm_campaign=comedybrew-20261008&utm_content=promo");
   });
   test("a past or missing next date gives the series campaign and no date on /go/", () => {
     expect(m.lineupUtm("comedybrew", "2026-09-01T19:30:00+02:00", "thankyou", "2026-10-04")).toContain("utm_campaign=comedybrew&");
     expect(m.ticketQuery("comedybrew", "", "2026-10-04"))
-      .toBe("show=comedybrew&utm_source=lineup-maker&utm_medium=social&utm_campaign=comedybrew&utm_content=tickets");
+      .toBe("show=comedybrew&utm_source=instagram&utm_medium=social&utm_campaign=comedybrew&utm_content=tickets");
   });
   test("the ticket query carries the night's date while it is today or ahead", () => {
     expect(m.ticketQuery("tall-order", "2026-10-06T20:00:00+02:00", "2026-10-06"))
-      .toBe("show=tall-order&date=2026-10-06&utm_source=lineup-maker&utm_medium=social&utm_campaign=tall-order-20261006&utm_content=tickets");
+      .toBe("show=tall-order&date=2026-10-06&utm_source=instagram&utm_medium=social&utm_campaign=tall-order-20261006&utm_content=tickets");
   });
 });

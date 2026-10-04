@@ -269,7 +269,7 @@ the builder is the enforcement: if links only ever come from the builder, the ta
 clean.
 
 One other tool tags its own links: the Lineup Maker (`/lineup/`) stamps its direct ticket,
-promo and thank-you links with `utm_source=lineup-maker&utm_medium=social`, the per-night
+promo and thank-you links with `utm_source=instagram&utm_medium=social` (where they get posted most), the per-night
 campaign `<show>-<yyyymmdd>` and `utm_content` `tickets`, `promo` or `thankyou`
 (`lineupUtm()` in `assets/js/lineup-maker-2000.js`; `docs/show-promo-links.md`). The Week
 Story's calendar link is `utm_source=instagram&utm_medium=social&utm_campaign=week`.
