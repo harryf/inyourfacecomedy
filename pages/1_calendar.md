@@ -7,9 +7,58 @@ subtitle: Upcoming English Stand Up Comedy Shows in Zurich
 description: "Every IN YOUR FACE comedy show in Zürich, month by month through 2026: dates, venues and ticket links for English stand-up nights and open mics. Comedy Veranstaltungen in Zürich auf Englisch. Updated weekly."
 last_modified_at: 2026-10-04T09:24:20+00:00
 permalink: /calendar/
-redirect_from:   # old URLs of removed shows that still get visits (GA, Oct 2026)
+redirect_from:   # every removed show lands here (CLAUDE.md, Removing a show)
+  # Balkan Baddie (removed 2026-01-04)
   - /balkan-baddie/
+  # Cracking Time (removed 2025-02-09)
   - /2025/01/06/cracking_time_the_premiere.html
+  # Filippo Spreafico (removed 2026-09-23)
+  - /filippo-spreafico/
+  # Offside Comedy (removed 2026-07-29)
+  - /offsidecomedy/
+  # Down Under Comedy (removed 2026-07-06)
+  - /downunder/
+  # Brexiles (removed 2026-07-06)
+  - /brexiles/
+  - /2025/01/22/brexiles_-_english_comedy_night_in_zurich_kreis_4/
+  - /2025/01/22/brexiles_-_english_comedy_night_in_zurich_kreis_4.html
+  # Nicholas De Santo (removed 2026-05-23)
+  - /nicholas-de-santo/
+  # Zúrich en Español (removed 2026-05-02)
+  - /zurich-en-espanol/
+  - /zurichenespanol/
+  # BUNKER BUDDIES (removed 2025-10-17)
+  - /bunker-buddies/
+  # Surf and the City (removed 2025-09-18)
+  - /surf-and-the-city/
+  # Tapas of Terror (removed 2025-05-08)
+  - /ricdiez/
+  # Salt & Pepper Comedy (removed 2025-05-07)
+  - /saltandpepper/
+  # Comedy Cocktails at BRICK (removed 2025-04-21)
+  - /comedy_cocktails_at_brick/
+  # Zfescht Integriert (removed 2025-03-30)
+  - /zfescht-integriert/
+  # Ü40 Comedy with Jack Roberts and Harry Fücks (removed 2025-01-12)
+  - /2024/09/28/u40_comedy_with_jack_roberts_and_harry_fucks.html
+  # ADULT CONTENT: Yoshi’s Tales from Hollywood to Cornhub (removed 2025-01-06)
+  - /2024/11/26/adult_games_yoshi_s_tales_from_hollywood_to_cornhub.html
+  # Chris Darwa (removed 2024-11-26)
+  - /2024/11/20/chris-darwa.html
+  # Miami Vibes: Zürich Comedy Meets Miami Heat (removed 2024-10-28)
+  - /2024/10/29/miami_vibes_zurich_comedy_meets_miami_heat.html
+  # WürenLOL Comedy Night (removed 2024-10-25)
+  - /2024/10/24/wurenlol_comedy_night_something_s_actually_happening_in_wurenlos.html
+  # Daddy's Gone Wild with Harry Fücks (removed 2024-09-21)
+  - /2024/09/20/daddys_gone_wild_with_harry_fucks.html
+  # An Evening with Matt Jenkins (removed 2024-08-24)
+  - /2024/06/29/matt-jenkins.html
+  # Prime Punch (removed 2024-06-29)
+  - /2024/04/22/primepunch.html
+  # Jack Roberts (removed 2024-06-24)
+  - /2024/06/22/jack-roberts.html
+  # Stand up Comedy in broken English (removed 2024-06-03)
+  - /2024/06/01/victor-patrascan.html
 feature-img: "assets/img/pages/follow.png"
 image: "/assets/img/pages/follow.png"
 thumbnail: "assets/img/thumbs/inyourface_thumb.png"

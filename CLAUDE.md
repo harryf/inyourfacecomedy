@@ -97,6 +97,7 @@ The invariant shared by `go-redirect.js`, `link-builder.js`, `comedian-lineup.js
 
 ## Things that bite
 
+- Removing a show: add its URL (the `permalink`, plus any `redirect_from` it carried) to `redirect_from:` in `pages/1_calendar.md` under a `# <Show> (removed <date>)` comment, so old links, ads and search results land on the calendar instead of a 404. The calendar script keeps the front matter as it is. If a show comes back on the same permalink, delete its line there first: two pages cannot share one URL.
 - Case matters on the live Linux build; a wrongly-cased image path works on the Mac and 404s live. html-proofer catches it.
 - Every collection document gets a `date`, and jekyll-seo-tag then emits a `BlogPosting` with a `mainEntityOfPage` whose `@id` swallows any JSON-LD node of ours with the same `@id`. Any new collection that emits its own JSON-LD needs a `seo.type` default in `_config.yml`. Full story and the validator recipe in `docs/comedian-seo.md`.
 - Markdown inside an `.html` include is still processed when the including page is `.md`.
