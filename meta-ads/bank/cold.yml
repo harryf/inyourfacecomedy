@@ -35,7 +35,7 @@ concepts:
     body: "In Zürich this week? There is English stand-up on Thursday, two minutes from the main station. The locals go."
     title: "In Zürich on a Thursday?"
     image: { style: photo, photo: /assets/img/gallery/canape_PXXX8895.jpg, headline: "In Zürich on a Thursday?", sub: "English stand-up, two minutes from the main station" }
-    status: bench
+    status: retired      # 2026-10-04: predates the laugh rule, not planned
   - id: C7
     person: The relocated European
     body: "Moved to Zürich for work? Your colleagues laugh here on Thursdays. English stand-up, ten acts, near Central."
@@ -56,10 +56,77 @@ concepts:
     body: "Moved to Zürich for work? English stand-up every Thursday near Central: ten acts and a room full of people who did the same."
     title: "Moved here for work? Come Thursday."
     image: { style: photo, photo: "/assets/img/gallery/IMG_4476 Large.jpeg", focus: [0.2, 0.3], headline: "Stayed for Thursdays.", sub: "Moved here for work? Stand-up in English" }
-    status: live
+    status: retired      # retired 2026-10-04 (Harry): not working, paused on Meta, kept there for its data
   - id: C17
     person: The native English speaker (the woman in denim laughing in the middle of a full room)
     body: "Laughed a beat late at a show in German? Thursdays in Zürich there is stand-up in English. Ten acts, all in your language."
     title: "Comedy you get every word of"
     image: { style: photo, photo: /assets/img/gallery/IMG_5275_20260924.jpg, focus: [0.48, 0.42], headline: "Every word landed.", sub: "English stand-up, Thursdays in Zürich" }
-    status: live
+    status: retired      # retired 2026-10-04 (Harry): not working, paused on Meta, kept there for its data
+  # --- Moments, 2026-10-04 (meta-ads/moments-plan.md). Same laugh rule, but each line belongs to a
+  # window, so these may say "tonight", "tomorrow" or "long weekend": the moment scheduler runs
+  # them only inside their window, and --push refuses them. Cold names what and where every time:
+  # these people have never heard of us. ---
+  - id: C18
+    person: The planner who sorts the week on Sunday (the woman in black laughing hardest, friends around her, a full row behind)
+    body: "Plan the week before it plans you. Thursday: English stand-up at ROBIN's, two minutes from Central. Ten acts, 19:30."
+    title: "Plan Thursday now"
+    image: { style: photo, photo: "/assets/img/gallery/IMG_4475 Large.jpeg", focus: [0.45, 0.3], headline: "Booked it on Sunday. Best call all week.", sub: "English stand-up, Thursdays near Central" }
+    moment: { phase: planner, when: any }
+    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+  - id: C19
+    person: The host with friends visiting (three friends laughing in a row)
+    body: "Friends visiting Zürich? Give them the Thursday they will talk about: English stand-up at ROBIN's, near Central. 19:30."
+    title: "Friends visiting? Thursday."
+    image: { style: photo, photo: "/assets/img/gallery/IMG_5160 Large.jpeg", focus: [0.35, 0.5], headline: "Friends in town? Show them this.", sub: "English stand-up, Thursdays in Zürich" }
+    moment: { phase: planner, when: any }
+    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+  - id: C20
+    person: The planner with a long weekend ahead (the woman in glasses laughing out loud in a packed room)
+    body: "Friday off? Start the long weekend a night early: English stand-up on Thursday at ROBIN's, two minutes from Central."
+    title: "The long weekend starts Thursday"
+    image: { style: photo, photo: "/assets/img/gallery/IMG_4460 Large.png", focus: [0.66, 0.4], headline: "Long weekend? It starts Thursday.", sub: "English stand-up, the night before the day off" }
+    moment: { phase: planner, when: long_weekend }
+    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+  - id: C21
+    person: Midweek and running low (the man in the white tee laughing under the stage light, the row beside him)
+    body: "Halfway through the week and running low? Tomorrow night: English stand-up at ROBIN's, two minutes from Central. Ten acts."
+    title: "Comedy tomorrow night"
+    image: { style: photo, photo: /assets/img/gallery/IMG_5294_20260924.jpg, focus: [0.55, 0.35], headline: "Need a boost to make it to Friday?", sub: "English stand-up tomorrow, 19:30, near Central" }
+    moment: { phase: tomorrow, when: any }
+    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+  - id: C22
+    person: The one dreading the weather turn (the woman in denim and the man beside her laughing in the red bar light)
+    body: "Rain and a cold snap tomorrow? Spend the evening laughing: English stand-up at ROBIN's, two minutes from Central. 19:30."
+    title: "Rain tomorrow? Laugh anyway"
+    image: { style: photo, photo: /assets/img/gallery/IMG_5278_20260924.jpg, focus: [0.45, 0.43], headline: "Rain tomorrow. Laughing anyway.", sub: "English stand-up, tomorrow 19:30 near Central" }
+    moment: { phase: tomorrow, when: wet }
+    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+  - id: C23
+    person: The long weekend starts early (three friends laughing in a row)
+    body: "Friday off? Tomorrow night is the night out: English stand-up at ROBIN's, two minutes from Central. Ten acts, 19:30."
+    title: "Long weekend starts tomorrow"
+    image: { style: photo, photo: "/assets/img/gallery/IMG_5160 Large.jpeg", focus: [0.35, 0.5], headline: "Friday's off. Tomorrow's on.", sub: "English stand-up, tomorrow 19:30 near Central" }
+    moment: { phase: tomorrow, when: long_weekend }
+    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+  - id: C24
+    person: No plan for tonight, Harry's line (the woman in glasses laughing out loud in a packed room)
+    body: "No idea what to do tonight? Do this: English stand-up at ROBIN's, two minutes from Central. Doors 19:00, tickets on the door."
+    title: "No plans tonight? Do this."
+    image: { style: photo, photo: "/assets/img/gallery/IMG_4460 Large.png", focus: [0.66, 0.4], headline: "No idea what to do tonight? Do this.", sub: "English stand-up, two minutes from Central" }
+    moment: { phase: tonight, when: any }
+    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+  - id: C25
+    person: Grim weather, staying in by default (two friends grinning, the room behind them)
+    body: "Cold, wet and grey out there? Tonight is warm and loud: English stand-up at ROBIN's, two minutes from Central. 19:30."
+    title: "Grim out there. Not in here."
+    image: { style: photo, photo: "/assets/img/gallery/IMG_5153 Large.jpeg", focus: [0.15, 0.45], headline: "The weather turned. Tonight didn't.", sub: "English stand-up, 19:30, near Central" }
+    moment: { phase: tonight, when: wet }
+    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+  - id: C26
+    person: No work tomorrow (the man in the white tee laughing under the stage light)
+    body: "Day off tomorrow? Start the long weekend tonight: English stand-up at ROBIN's, two minutes from Central. Doors 19:00."
+    title: "Long weekend starts tonight"
+    image: { style: photo, photo: /assets/img/gallery/IMG_5294_20260924.jpg, focus: [0.55, 0.35], headline: "No alarm tomorrow.", sub: "English stand-up tonight, 19:30, near Central" }
+    moment: { phase: tonight, when: long_weekend }
+    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it

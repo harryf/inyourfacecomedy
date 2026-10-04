@@ -116,3 +116,19 @@ comedybrew:
   ramp_restore_share: 0.6           # a cut ramp comes back only under this, two clean weeks in a row
   weekly_envelope_chf: 115          # the monthly cap spread over the weeks (review line only)
   student_title: student            # ticket category title fragment that marks the student sub-category
+
+# The moment scheduler (script/meta-moments.ts, plan meta-ads/moments-plan.md). It owns the daily
+# budgets of the evergreen cold and warm ad sets as well as the six moment ad sets, so the
+# budgets.cold and budgets.warm bases above are only read by meta-adsets.ts for its cap check.
+moments:
+  weekly_envelope_chf: 91         # Cold plus Warm per show week, the old carousel apart (13 a day before)
+  cold_share: 0.7                 # Harry 2026-10-04: most buyers come once, Cold clicks are cheaper
+  split: { planner: 0.2, evergreen: 0.2, tomorrow: 0.2, tonight: 0.4 }   # follows the sales curve
+  wet_boost: 1.5                  # tomorrow and tonight when show day turns wet or cold
+  long_weekend_boost: 1.5         # all three moments when the Friday after is a Zürich holiday
+  max_boost: 1.75
+  floor_chf: 1                    # smallest daily budget written (Meta's minimum is CHF 0.83)
+  old_set_month_chf: 130          # the 2024 carousel's month, CHF 1 a day plus its show-week schedules
+  wet_rule: { rain_mm: 3, chance_pct: 60, drop_c: 5 }
+  postcode_point: "800100"        # MeteoSwiss local forecast point for postcode 8001 Zürich
+  station_point: "71"             # Zürich / Fluntern, for the daily high

@@ -694,6 +694,31 @@ contact sheet is rebuilt from every image on disk after each render, so a `--onl
 shrinks it. Contrast pairs for the six looks sit in `newStylePairs()` and `bun test` holds them
 at the WCAG floors like every other style.
 
+## `meta-moments.ts`
+
+The moment scheduler (plan and reasons: `meta-ads/moments-plan.md`). Six ad sets in the Comedy Brew campaign, `cold-planner`, `cold-tomorrow`, `cold-tonight` and the same for warm, copy the targeting and goal of `adset_cold` and `adset_warm` and hold the bank's moment ads (concepts with a `moment:` block; `meta-bank.ts --push` refuses them). Each run puts Meta in the state this moment needs and changes nothing that is already right:
+
+| Today (Zürich) | Moment ad sets |
+|---|---|
+| Saturday to Monday before a Comedy Brew | planner on, ends Monday 23:59 |
+| Wednesday | tomorrow on, ends 23:59 |
+| Thursday, show day | tonight on, ends 19:30 |
+| otherwise, or no Brew within six days | all six paused |
+
+Inside the open ad set it switches on the ad for the condition and pauses the others: `long_weekend` when the Friday after the show is a Zürich public holiday (OpenHolidays API, a computed list if it is down), else `wet` on tomorrow and tonight when the MeteoSwiss local forecast for show day has 3 mm of rain or more at postcode 8001, a 60% evening chance of rain, or a high 5 °C below the two days before (station Zürich Fluntern), else `any`. The weather is read fresh on every run. Budgets come from `moments:` in `meta-ads/config.yml`: the weekly envelope, 70% Cold, split planner 20, evergreen 20, tomorrow 20, tonight 40, wet and long weekend boosts of 1.5 capped at 1.75, dropped when the month would pass `monthly_cap_chf`. It also writes the evergreen `adset_cold` and `adset_warm` daily budgets. Never touches the old carousel.
+
+The window's end is written on the ad set, so Meta stops "tonight" at 19:30 even if this Mac sleeps; a missed run means no moment ads that day, never the wrong line. Meta requires a daily-budget ad set to be scheduled for 24 hours or more counted from its start time, which the ad sets meet because they start on the day `--setup` made them.
+
+```
+bun script/meta-moments.ts --setup --validate     # Meta checks the six ad sets, writes nothing
+bun script/meta-moments.ts --setup                # once: the six ad sets (paused) and their ads (reviewed at once)
+bun script/meta-moments.ts --dry-run              # what now needs, nothing written
+bun script/meta-moments.ts --dry-run --at 2026-10-08T08:00:00+02:00   # pretend it is then
+bun script/meta-moments.ts                        # the cron run
+```
+
+Ids live in `meta-ads/creative/bank/moments-state.json` (gitignored); each run appends to `script/meta-out/moments-<date>.md` and rebuilds the local board. A new moment concept: add it to the bank, render it, run `--setup` again (it only makes what is missing). Pure logic in `script/lib/moments-lib.ts`, tests in `script/__tests__/moments-lib.test.ts`.
+
 ## `eventfrog-sales.ts`
 
 Comedy Brew ticket sales from the Eventfrog Organizer API beside the Meta spend: snapshots, the

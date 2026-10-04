@@ -12,19 +12,19 @@ concepts:
     body: "Following is nice. Sitting in the room is better. Thursday, 19:30, ROBIN's, ten acts."
     title: "Have you actually been?"
     image: { style: photo, photo: /assets/img/gallery/dalis_In_Your_Face_Nov_7_2021_wide_20211107_2713.jpeg, headline: "Have you actually been?", sub: "Thursday, 19:30, ROBIN's" }
-    status: live
+    status: retired      # retired 2026-10-04 (Harry): paused on Meta, kept there for its data
   - id: W4
     person: The friend
     body: "Know someone who needs a laugh? Thursday at ROBIN's. Two tickets, one good deed."
     title: "Bring the one who needs it"
     image: { style: photo, photo: /assets/img/gallery/dalis_011A0435.jpeg, headline: "Bring the one who needs it.", sub: "Thursday at ROBIN's, two tickets, one good deed" }
-    status: bench
+    status: retired      # 2026-10-04: predates the laugh rule, not planned
   - id: W6
     person: The visual doubter
     body: "This is what a Thursday looks like. Comedy Brew, ROBIN's, two minutes from Central."
     title: "This is what Thursday looks like"
     image: { style: photo, photo: /assets/img/gallery/canape_PXXX8895.jpg, headline: "This is what Thursday looks like.", sub: "" }
-    status: live
+    status: live      # back on 2026-10-04 (Harry: it is working; retired by mistake earlier the same morning)
   - id: W8
     person: The person who saw a clip
     body: "You have seen the clips. Now hear the room. Thursday at ROBIN's, doors 19:00."
@@ -43,10 +43,75 @@ concepts:
     body: "New in Zürich and following from the sofa? This is where Thursday goes. Comedy Brew at ROBIN's, 19:30, ten acts in English."
     title: "New in town? Thursday is sorted"
     image: { style: photo, photo: "/assets/img/gallery/IMG_5156 Large.jpeg", focus: [0.6, 0.43], headline: "Where Thursday goes.", sub: "New in town? Thursdays at ROBIN's" }
-    status: live
+    status: retired      # retired 2026-10-04 (Harry): not working, paused on Meta, kept there for its data; CTR 1.42 on 848 impressions
   - id: W11
     person: The one with flatmates (three friends laughing in a row)
     body: "Three friends, one Thursday. Comedy Brew at ROBIN's, doors 19:00, show 19:30, ten comedians, in English. Bring yours."
     title: "Bring the flatmates"
     image: { style: photo, photo: "/assets/img/gallery/IMG_5160 Large.jpeg", focus: [0.35, 0.5], headline: "Bring the flatmates.", sub: "Thursdays at ROBIN's, doors 19:00" }
-    status: live
+    status: retired      # retired 2026-10-04 (Harry): not working, paused on Meta, kept there for its data; CTR 1.18 on 423 impressions
+  # --- Moments, 2026-10-04 (meta-ads/moments-plan.md): see the note in cold.yml. Warm knows us,
+  # so the lines are shorter and say Comedy Brew. ---
+  - id: W12
+    person: Meaning to come one Thursday (two friends grinning, the room behind them)
+    body: "Meaning to come one Thursday? Put this one in the diary now. Comedy Brew at ROBIN's, 19:30, ten acts."
+    title: "Put Thursday in the diary"
+    image: { style: photo, photo: "/assets/img/gallery/IMG_5153 Large.jpeg", focus: [0.15, 0.45], headline: "Thursday's in the diary.", sub: "Comedy Brew, 19:30 at ROBIN's" }
+    moment: { phase: planner, when: any }
+    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+  - id: W13
+    person: The organiser of the group (three friends laughing in a row)
+    body: "The group chat needs a plan. Here it is: Comedy Brew, Thursday at ROBIN's, 19:30. Book for everyone, sort the rest later."
+    title: "The group chat needs a plan"
+    image: { style: photo, photo: "/assets/img/gallery/IMG_5160 Large.jpeg", focus: [0.35, 0.5], headline: "The group chat needed a plan.", sub: "Comedy Brew, Thursday at ROBIN's" }
+    moment: { phase: planner, when: any }
+    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+  - id: W14
+    person: Long weekend coming (the woman in glasses laughing out loud in a packed room)
+    body: "Friday off? Make Thursday the first night of it: Comedy Brew at ROBIN's, 19:30, ten acts."
+    title: "Long weekend? Thursday first"
+    image: { style: photo, photo: "/assets/img/gallery/IMG_4460 Large.png", focus: [0.66, 0.4], headline: "Long weekend. Thursday first.", sub: "Comedy Brew at ROBIN's, 19:30" }
+    moment: { phase: planner, when: long_weekend }
+    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+  - id: W15
+    person: Midweek and flagging (the woman in black laughing hardest, friends around her)
+    body: "Need a boost to make it to the weekend? Comedy Brew is tomorrow at ROBIN's: ten acts, 19:30. Bring someone who needs it too."
+    title: "Comedy tomorrow"
+    image: { style: photo, photo: "/assets/img/gallery/IMG_4475 Large.jpeg", focus: [0.45, 0.3], headline: "Need a boost to make it to the weekend?", sub: "Comedy Brew tomorrow, 19:30 at ROBIN's" }
+    moment: { phase: tomorrow, when: any }
+    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+  - id: W16
+    person: Rain on the way (a woman laughing behind her hand in a row of women laughing)
+    body: "The weather turns tomorrow. Comedy Brew doesn't: ROBIN's, 19:30, ten acts and a warm room. Come in from the rain."
+    title: "Rain tomorrow? Comedy Brew"
+    image: { style: photo, photo: "/assets/img/gallery/IMG_4468 Large.jpeg", focus: [0.78, 0.32], headline: "Rain tomorrow. Comedy Brew anyway.", sub: "Tomorrow, 19:30 at ROBIN's" }
+    moment: { phase: tomorrow, when: wet }
+    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+  - id: W17
+    person: Day off on Friday (two friends grinning, the room behind them)
+    body: "Day off on Friday? Then tomorrow is the night out: Comedy Brew at ROBIN's, 19:30, ten acts."
+    title: "Friday off? Tomorrow, then"
+    image: { style: photo, photo: "/assets/img/gallery/IMG_5153 Large.jpeg", focus: [0.15, 0.45], headline: "Long weekend? Tomorrow, then.", sub: "Comedy Brew, tomorrow 19:30 at ROBIN's" }
+    moment: { phase: tomorrow, when: long_weekend }
+    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+  - id: W18
+    person: On tonight (the man in the white tee laughing under the stage light)
+    body: "Comedy Brew is on tonight. Doors 19:00, ten acts from 19:30, two minutes from Central. Tickets on the door too."
+    title: "Comedy Brew tonight"
+    image: { style: photo, photo: /assets/img/gallery/IMG_5294_20260924.jpg, focus: [0.55, 0.35], headline: "Tonight. 19:30. ROBIN's.", sub: "Comedy Brew, doors 19:00" }
+    moment: { phase: tonight, when: any }
+    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+  - id: W19
+    person: Wet and dark already (the man in the yellow football shirt laughing hardest, the row around him)
+    body: "Wet, cold and dark already? Tonight the room at ROBIN's is warm and loud. Comedy Brew, 19:30, ten acts."
+    title: "Warm room tonight"
+    image: { style: photo, photo: "/assets/img/gallery/IMG_4476 Large.jpeg", focus: [0.2, 0.3], headline: "Grim out there. Not in here.", sub: "Comedy Brew tonight, 19:30 at ROBIN's" }
+    moment: { phase: tonight, when: wet }
+    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+  - id: W20
+    person: No alarm tomorrow (the woman in black laughing hardest, friends around her)
+    body: "Day off tomorrow? Then tonight is the night: Comedy Brew at ROBIN's, doors 19:00, ten acts from 19:30."
+    title: "Long weekend starts tonight"
+    image: { style: photo, photo: "/assets/img/gallery/IMG_4475 Large.jpeg", focus: [0.45, 0.3], headline: "No alarm tomorrow.", sub: "Comedy Brew tonight, 19:30 at ROBIN's" }
+    moment: { phase: tonight, when: long_weekend }
+    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it

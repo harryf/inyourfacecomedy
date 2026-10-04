@@ -13,6 +13,28 @@ laptop. The phone app hides most of these settings.
 
 ## Status
 
+**4 October: W10 and W11 rested, the carousel cards go through /go/.** The ad-level review
+(old carousel as the baseline: CTR 2.23, CHF 0.17 per link click over 39 days) left W10 (1.42 on
+848 impressions) and W11 (1.18 on 423) under the carousel, so both are `status: resting` and
+paused by `meta-bank.ts --sync --apply`. The 2024 carousel sent its five cards to
+`https://bit.ly/iyfcb`, straight to Eventfrog, so about half its clicks never reached /go/ or GA.
+At Harry's request the ad moved onto creative 1893804351591051 (previous 1419930283398312): the
+same cards, texts, video and enhancements, every link now
+`/go/?show=comedybrew&utm_source=meta&utm_medium=paid_social&utm_campaign=comedybrew&utm_content=120203748201470314`
+(the ad id, the content value its main link already carried in GA, so the readout row continues).
+Per-card clicks come from Meta's carousel card breakdown, not from GA. The ad set, budget and
+schedules are untouched; the swap makes a new post, so the old post's likes and comments stay
+behind, and Meta reviews the ad again.
+
+**4 October, later: moment ads planned, three more ads retired.** On Harry's call cold-C16,
+cold-C17 and warm-W6 are retired (paused on Meta, kept for their data), W10 and W11 moved from
+resting to retired, and the Intent concepts to resting (their ad set has been paused since
+28 September). The local board (`meta-ads/creative/bank/index.html`) now lists only running
+(live) and planned (bench) concepts, in sections. Eighteen moment concepts were added, C18 to
+C26 and W12 to W20: planner, tomorrow and tonight lines, each in an any, wet and long weekend
+version, with a `moment:` block in the bank. `--push` refuses them; they run only through the
+moment scheduler described in `meta-ads/moments-plan.md`, which is planned, not built.
+
 **29 September: cold-C17 reworded, and a creative floor in the readout.** Harry read the C17
 headline "She got every word." as a possible dig at people who do not, and asked for no gender
 pronouns in ad copy; the card now says "Every word landed." on the same photo. It was done with

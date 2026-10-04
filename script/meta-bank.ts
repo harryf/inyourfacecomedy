@@ -60,6 +60,8 @@ const USAGE = `usage: bun script/meta-bank.ts (--render | --push | --push-video 
     --dry-run      list the ads that would move
   --sync         compare each pushed ad's on/off state with its concept's status (live = on, anything else = off)
     --apply        write the differences (asks first; --yes skips the question)
+  --board        rebuild the local board (meta-ads/creative/bank/index.html) with each ad's ad set and its
+                 on/off state read from Meta now (read only); --render and meta-moments.ts rebuild it too
   --group KEY    one group (default all three)
   --only IDS     comma-separated concept ids (with --push: pushed even when status is bench)
 `;
@@ -73,6 +75,16 @@ export const BANK_DIR = join(REPO_ROOT, "meta-ads", "bank");
 export const CREATIVE_DIR = join(REPO_ROOT, "meta-ads", "creative", "bank");   // gitignored
 
 export type Status = "live" | "resting" | "bench" | "retired";
+// A moment ad says "tonight", "tomorrow" or "long weekend", so it may only run inside its window
+// (meta-ads/moments-plan.md): planner = Saturday to Monday before the show, tomorrow = the
+// Wednesday, tonight = show day until doors. `when` is the condition that picks it: any, wet
+// (a wet or cold turn in the forecast) or long_weekend (the Friday after the show is a holiday
+// in Zürich). These ads belong to the moment scheduler; --push refuses them, so one can never
+// land in an evergreen ad set and say "tonight" all week.
+export const PHASES = ["planner", "tomorrow", "tonight"] as const;
+export type Phase = typeof PHASES[number];
+export const WHENS = ["any", "wet", "long_weekend"] as const;
+export type When = typeof WHENS[number];
 export interface Concept {
   id: string; person: string; body: string; title: string; description?: string;
   // The photo look is the bank's rule since 2026-09-26: one laughing audience face, large, and a
@@ -84,6 +96,7 @@ export interface Concept {
   // same words, so the two can be compared. `twin: false`: the video ad only. `status` is the
   // video ad's own status when it differs from the still's (a retired video beside a live still).
   video?: { composition: string; twin?: boolean; status?: Status };
+  moment?: { phase: Phase; when: When };
   status: Status;
 }
 // The status that governs the video ad <group>-<id>v: its own when it has one, else the concept's.
@@ -99,6 +112,8 @@ export function loadBank(group: Group, dir = BANK_DIR): Bank {
     if ([...c.body].length > 125) throw new Error(`${group} ${c.id}: body is ${[...c.body].length} characters (125 max)`);
     if (!c.image?.style) throw new Error(`${group} ${c.id}: image.style missing`);
     const f = c.image.focus;
+    const m = c.moment;
+    if (m !== undefined && !(PHASES.includes(m?.phase) && WHENS.includes(m?.when))) throw new Error(`${group} ${c.id}: moment must be { phase: ${PHASES.join("|")}, when: ${WHENS.join("|")} }`);
     if (f !== undefined && !(Array.isArray(f) && f.length === 2 && f.every((n) => typeof n === "number" && n >= 0 && n <= 1))) throw new Error(`${group} ${c.id}: image.focus must be [x, y] with both between 0 and 1`);
   }
   return b;
@@ -156,23 +171,82 @@ export function serveSite(root: string): { base: string; stop: () => void } {
   return { base: `http://127.0.0.1:${server.port}`, stop: () => server.stop(true) };
 }
 
-// Every concept whose images exist on disk, across all groups, so a partial render (--only)
-// never shrinks the sheet.
-export function sheetRows(dir = CREATIVE_DIR, bankDir = BANK_DIR): { group: string; id: string; person: string; body: string; title: string; post: string; story: string }[] {
-  const rows = [];
+// The board: the concepts that run or are planned (live and bench) whose images exist on disk,
+// across all groups, so a partial render (--only) never shrinks it. Resting and retired concepts
+// stay in the bank files and on Meta (paused, for their data) but leave the board. Order:
+// evergreen first, then the moments by phase and condition, cold before warm inside each.
+export interface SheetRow { group: string; id: string; person: string; body: string; title: string; post: string; story: string; status: Status; section: string; adset: string; state?: LiveState }
+// What Meta says about an ad right now (from liveStates); without it the board falls back to the
+// bank's status, which --sync keeps in step for the evergreen ads.
+export interface LiveState { label: string; kind: "on" | "waiting" | "off" | "review" | "problem"; adset: string }
+// The ad set an ad is used in: evergreen ads in the group's own ad set, moment ads in
+// <group>-<phase> (script/meta-moments.ts).
+export function adsetLabel(group: string, c: Pick<Concept, "moment">): string { return c.moment ? `${group}-${c.moment.phase}` : `adset_${group}`; }
+export function sectionOf(c: Pick<Concept, "moment">): string {
+  if (!c.moment) return "Evergreen (running all week)";
+  const when = { any: "", wet: ", wet or cold turn", long_weekend: ", long weekend" }[c.moment.when];
+  return { planner: "Planner (Saturday to Monday)", tomorrow: "Tomorrow (the Wednesday)", tonight: "Tonight (show day until doors)" }[c.moment.phase] + when;
+}
+export function sheetRows(dir = CREATIVE_DIR, bankDir = BANK_DIR): SheetRow[] {
+  const rows: (SheetRow & { order: number })[] = [];
   for (const group of GROUPS) {
     if (!existsSync(join(bankDir, `${group}.yml`))) continue;
     for (const c of loadBank(group, bankDir).concepts) {
+      if (c.status !== "live" && c.status !== "bench") continue;
       const post = `${group}/${c.id}-post.png`, story = `${group}/${c.id}-story.png`;
-      if (existsSync(join(dir, post)) && existsSync(join(dir, story))) rows.push({ group, id: c.id, person: c.person, body: c.body, title: c.title, post, story });
+      const order = c.moment ? 1 + PHASES.indexOf(c.moment.phase) * 3 + WHENS.indexOf(c.moment.when) : 0;
+      if (existsSync(join(dir, post)) && existsSync(join(dir, story))) rows.push({ group, id: c.id, person: c.person, body: c.body, title: c.title, post, story, status: c.status, section: sectionOf(c), adset: adsetLabel(group, c), order: order * 10 + GROUPS.indexOf(group) });
     }
   }
-  return rows;
+  return rows.sort((a, b) => a.order - b.order).map(({ order, ...r }) => r);
 }
 
-export function contactSheet(rows: { group: string; id: string; person: string; body: string; title: string; post: string; story: string }[]): string {
-  const card = (r: typeof rows[number]) => `<figure><img src="${r.post}" alt=""><img src="${r.story}" alt="" class="story"><figcaption><b>${r.group} ${r.id}</b> ${r.person}<br><i>${r.title}</i><br>${r.body}</figcaption></figure>`;
-  return `<!doctype html><meta charset="utf-8"><title>IYF ads bank</title><style>body{font:14px/1.4 system-ui;margin:20px;background:#eee}figure{display:inline-block;vertical-align:top;width:440px;margin:0 16px 24px 0;background:#fff;padding:8px}img{width:260px;display:inline-block;vertical-align:top;margin-right:6px}img.story{width:150px}figcaption{margin-top:6px}</style><h1>IYF ads bank, rendered ${new Date().toISOString().slice(0, 16)}</h1>${rows.map(card).join("\n")}`;
+const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+export function contactSheet(rows: SheetRow[]): string {
+  const pill = (r: SheetRow) => r.state ? `<span class="pill ${r.state.kind}">${esc(r.state.label)}</span>` : `<span class="pill ${r.status === "live" ? "on" : "waiting"}">${r.status === "live" ? "running" : "planned"}</span>`;
+  const card = (r: SheetRow) => `<figure><img src="${r.post}" alt=""><img src="${r.story}" alt="" class="story"><figcaption><b>${r.group} ${r.id}</b> ${pill(r)}<br><span class="adset">Ad set: ${esc(r.state?.adset || r.adset)}</span><br>${esc(r.person)}<br><i>${esc(r.title)}</i><br>${esc(r.body)}</figcaption></figure>`;
+  let html = "", section = "";
+  for (const r of rows) { if (r.section !== section) { section = r.section; html += `\n<h2>${section}</h2>\n`; } html += card(r) + "\n"; }
+  return `<!doctype html><meta charset="utf-8"><title>IYF ads bank</title><style>body{font:14px/1.4 system-ui;margin:20px;background:#eee}h2{margin:28px 0 10px}figure{display:inline-block;vertical-align:top;width:440px;margin:0 16px 24px 0;background:#fff;padding:8px}img{width:260px;display:inline-block;vertical-align:top;margin-right:6px}img.story{width:150px}figcaption{margin-top:6px}.pill{font-size:12px;padding:1px 6px;border-radius:8px}.on{background:#bdf0bd}.waiting{background:#fde9b8}.off{background:#ddd}.review{background:#cfe3ff}.problem{background:#ffc9c9}.adset{font:12px ui-monospace,monospace;color:#555}</style><h1>IYF ads bank, ${new Date().toISOString().slice(0, 16)} UTC</h1><p>Running and planned ads only; resting and retired ones stay paused on Meta. ${rows.some((r) => r.state) ? "On/off states read from Meta when this page was built." : "States from the bank files (Meta not read)."}</p>${html}`;
+}
+
+// Every pushed ad's state on Meta, by ad name, across the bank's state.json and the moment
+// scheduler's moments-state.json. Read only.
+export async function liveStates(meta: ReturnType<typeof metaFromEnv>): Promise<Map<string, LiveState>> {
+  const ids = new Map<string, { id: string; moment: boolean }>();
+  for (const [name, e] of Object.entries(readState())) ids.set(name, { id: e.ad_id, moment: false });
+  try { for (const [name, e] of Object.entries(JSON.parse(readFileSync(join(CREATIVE_DIR, "moments-state.json"), "utf8")).ads || {}) as [string, any][]) ids.set(name, { id: e.ad_id, moment: true }); } catch { /* no moment ads yet */ }
+  const out = new Map<string, LiveState>();
+  for (const [name, { id, moment }] of ids) {
+    const a = await meta.get(id, { fields: "status,effective_status,adset{name,status,effective_status,end_time}" });
+    out.set(name, liveLabel(a, moment));
+  }
+  return out;
+}
+// A moment ad the scheduler paused is not off for good: its condition (wet, long weekend) did not
+// hold at the last run, so it stands by.
+export function liveLabel(a: { status: string; effective_status: string; adset?: { name: string; status: string; effective_status: string; end_time?: string } }, moment = false): LiveState {
+  const adset = a.adset?.name || "?";
+  if (a.effective_status === "DISAPPROVED" || a.effective_status === "WITH_ISSUES") return { label: a.effective_status.toLowerCase().replace("_", " "), kind: "problem", adset };
+  if (a.status !== "ACTIVE") return moment ? { label: "standby, its condition is not met", kind: "waiting", adset } : { label: "off", kind: "off", adset };
+  if (a.effective_status === "PENDING_REVIEW" || a.effective_status === "IN_PROCESS") return { label: "in review", kind: "review", adset };
+  if (a.effective_status === "ACTIVE") return { label: "running now", kind: "on", adset };
+  return { label: "picked, waits for its window", kind: "waiting", adset };
+}
+// The board with Meta's states when the token works, the bank's otherwise.
+export async function writeBoard(withMeta = true): Promise<{ file: string; rows: number; live: boolean }> {
+  const rows = sheetRows();
+  let live = false;
+  if (withMeta) {
+    try {
+      const states = await liveStates(metaFromEnv(loadConfig()));
+      for (const r of rows) { const s = states.get(`${r.group}-${r.id}`); if (s) r.state = s; else if (r.status === "bench") r.state = { label: "planned, not on Meta yet", kind: "waiting", adset: r.adset }; }
+      live = true;
+    } catch (e: any) { warn(`board: Meta not read (${e.message}); states from the bank files`); }
+  }
+  const file = join(CREATIVE_DIR, "index.html");
+  writeFileSync(file, contactSheet(rows));
+  return { file, rows: rows.length, live };
 }
 
 // ---------- push: one single-text ad per concept ----------
@@ -191,7 +265,9 @@ export function readState(file = STATE_FILE): PushState { try { return JSON.pars
 
 // Which concepts a push touches: status live, or the ids named with --only whatever their status.
 export function pushList(bank: Bank, only: string[]): Concept[] {
-  return bank.concepts.filter((c) => c.video?.twin !== false && (only.length ? only.includes(c.id) : c.status === "live"));
+  const moment = bank.concepts.filter((c) => c.moment && only.includes(c.id)).map((c) => c.id);
+  if (moment.length) throw new Error(`${moment.join(", ")}: moment ads run only through the moment scheduler (meta-ads/moments-plan.md), never --push`);
+  return bank.concepts.filter((c) => !c.moment && c.video?.twin !== false && (only.length ? only.includes(c.id) : c.status === "live"));
 }
 // The video ads: every concept with a `video:` block, named <group>-<id>v.
 export function videoAdName(group: Group, c: Pick<Concept, "id">): string { return `${adName(group, c)}v`; }
@@ -335,7 +411,7 @@ export function syncPlan(state: PushState, banks: Partial<Record<Group, Bank>>, 
 
 // Meta's per-account request limit (code 17) trips after about ten creations in a row; wait
 // and try again rather than leaving the run half done.
-async function patient<T>(what: string, fn: () => Promise<T>, waits = [60, 120, 180]): Promise<T> {
+export async function patient<T>(what: string, fn: () => Promise<T>, waits = [60, 120, 180]): Promise<T> {
   for (let i = 0; ; i++) {
     try { return await fn(); } catch (e: any) {
       if (e?.detail?.code !== 17 || i >= waits.length) throw e;
@@ -345,14 +421,14 @@ async function patient<T>(what: string, fn: () => Promise<T>, waits = [60, 120, 
   }
 }
 
-function imageFiles(group: Group, c: Pick<Concept, "id">): { post: string; story: string } {
+export function imageFiles(group: Group, c: Pick<Concept, "id">): { post: string; story: string } {
   return { post: join(CREATIVE_DIR, group, `${c.id}-post.png`), story: join(CREATIVE_DIR, group, `${c.id}-story.png`) };
 }
 function saveState(state: PushState) {
   mkdirSync(CREATIVE_DIR, { recursive: true });
   writeFileSync(STATE_FILE, JSON.stringify(state, null, 2) + "\n");
 }
-async function uploadImage(meta: ReturnType<typeof metaFromEnv>, act: string, name: string, file: string): Promise<string> {
+export async function uploadImage(meta: ReturnType<typeof metaFromEnv>, act: string, name: string, file: string): Promise<string> {
   const png = readFileSync(file);
   const key = createHash("sha256").update(png).digest("hex").slice(0, 16);
   const up = await patient(`${name} image`, () => meta.post(`${act}/adimages`, { bytes: png.toString("base64"), name: `${name}-${key}.png` }));
@@ -655,6 +731,7 @@ async function main() {
   if (flagBool(args, "restory")) return restory(args, onlyGroup, only);
   if (flagBool(args, "refresh")) return refresh(args, onlyGroup, only);
   if (flagBool(args, "sync")) return sync(args, onlyGroup, only);
+  if (flagBool(args, "board")) { const b = await writeBoard(); log(`board ${b.file}: ${b.rows} ads, states ${b.live ? "read from Meta" : "from the bank files"}`); return; }
   if (flagBool(args, "help") || !flagBool(args, "render")) { console.log(USAGE); return; }
   const local = flagBool(args, "local") ? serveSite(join(REPO_ROOT, "_site")) : null;
   const base = local ? local.base : (flagString(args, "base") || "https://inyourfacecomedy.ch").replace(/\/$/, "");
@@ -689,8 +766,8 @@ async function main() {
     }
     mkdirSync(CREATIVE_DIR, { recursive: true });
     const sheet = join(CREATIVE_DIR, "index.html");
-    const rows = sheetRows();
-    writeFileSync(sheet, contactSheet(rows));
+    const board = await writeBoard();
+    const rows = { length: board.rows };
     log(`\n${rendered} concept(s) rendered, ${skipped} skipped; contact sheet ${sheet} lists ${rows.length}`);
   } finally { kill(); local?.stop(); }
 }

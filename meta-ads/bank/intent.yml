@@ -13,7 +13,7 @@ concepts:
     body: "Two minutes from Central, less than a cocktail, ten comedians. Thursday. Tickets on the door too."
     title: "Two minutes from Central"
     image: { style: photo, photo: /assets/img/gallery/dalis_011A0435.jpeg, headline: "Two minutes from Central. Less than a cocktail.", sub: "Ten comedians, every Thursday" }
-    status: live
+    status: resting      # 2026-10-04: the Intent ad set is paused (folded into Warm on 28 Sep)
   - id: I2
     person: The one who needs proof
     body: "This is what it sounds like."
@@ -25,13 +25,13 @@ concepts:
     body: "Solo is fine. Half the room came alone. Thursday, English stand-up, near Central."
     title: "Half the room came alone"
     image: { style: photo, photo: /assets/img/gallery/canape_PXXX8414.jpg, headline: "Half the room came alone.", sub: "Solo is fine. Thursday, near Central." }
-    status: live
+    status: resting      # 2026-10-04: the Intent ad set is paused
   - id: I7
     person: The one who would come if they knew anyone (a whole row laughing together, C7's photo)
     body: "Nobody in this row knew each other at 19:30. Ten comedians later they did. Thursday at ROBIN's, 19:30, near Central."
     title: "Strangers at 19:30"
     image: { style: photo, photo: /assets/img/gallery/canape_PXXX8030.jpg, headline: "Strangers at 19:30. This by 21:00.", sub: "Ten comedians in between. Thursdays at ROBIN's" }
-    status: bench        # was "It is indoors" (the weather excuse); rewritten 2026-09-26 on Harry's note. Set live to push it.
+    status: retired      # 2026-10-04: the Intent ad set is paused; never pushed
   # --- Round two, 2026-09-26: the laugh set. One laughing face, the line as its caption. ---
   # I9 (a woman at the bar, nobody behind her) was dropped the same evening: the crowd has to be
   # in the background. Id not reused.
@@ -40,16 +40,16 @@ concepts:
     body: "Worth the tram ride: ten comedians in English, Thursday 19:30 at ROBIN's, two minutes from Central. Tickets on the door too."
     title: "Worth the tram ride"
     image: { style: photo, photo: /assets/img/gallery/IMG_5291_20260924.jpg, focus: [0.8, 0.41], headline: "Glad she came.", sub: "Worth the tram ride. Thursdays at ROBIN's" }
-    status: live
+    status: resting      # 2026-10-04: the Intent ad set is paused
   - id: I10
     person: New in town, unsure about going alone (the woman laughing behind her hand, in a row of women laughing)
     body: "New in town and not sure about going alone? Nobody will make you talk. Sit down, laugh, leave. Thursday at ROBIN's, 19:30."
     title: "Nobody will make you talk"
     image: { style: photo, photo: "/assets/img/gallery/IMG_4468 Large.jpeg", focus: [0.78, 0.32], headline: "Nobody will make you talk.", sub: "Sit down, laugh, leave. Thursdays at ROBIN's" }
-    status: live
+    status: resting      # 2026-10-04: the Intent ad set is paused
   - id: I11
     person: The expat with an empty Thursday (the man in the yellow football shirt, laughing hardest in the room)
     body: "Expat calendar empty on Thursday? Ten comedians in English at ROBIN's, 19:30, near Central. Tickets take a minute."
     title: "Thursday, sorted. In English."
     image: { style: photo, photo: "/assets/img/gallery/IMG_4476 Large.jpeg", focus: [0.2, 0.3], headline: "Thursday, sorted.", sub: "Ten comedians in English at ROBIN's" }
-    status: live
+    status: resting      # 2026-10-04: the Intent ad set is paused

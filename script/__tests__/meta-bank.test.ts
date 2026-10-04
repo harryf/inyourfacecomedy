@@ -41,7 +41,7 @@ describe("urls and the contact sheet", () => {
     expect(sheetRows(dir, bank).map((r) => r.id)).toEqual(["C2"]);
   });
   test("the contact sheet lists every row with both images", () => {
-    const html = contactSheet([{ group: "cold", id: "C1", person: "p", body: "b", title: "t", post: "cold/C1-post.png", story: "cold/C1-story.png" }]);
+    const html = contactSheet([{ group: "cold", id: "C1", person: "p", body: "b", title: "t", post: "cold/C1-post.png", story: "cold/C1-story.png", status: "live", section: "Evergreen (running all week)", adset: "adset_cold" }]);
     expect(html).toContain("cold/C1-post.png"); expect(html).toContain("cold/C1-story.png"); expect(html).toContain("<b>cold C1</b>");
   });
 });
@@ -189,4 +189,61 @@ describe("the photo look's focus point", () => {
     writeFileSync(join(dir, "cold.yml"), head + "  - { id: C3, person: p, body: b, title: t, image: { style: photo, focus: [0, 1] }, status: bench }\n  - { id: C4, person: p, body: b, title: t, image: { style: photo }, status: bench }\n");
     expect(loadBank("cold", dir).concepts.map((x) => x.image.focus)).toEqual([[0, 1], undefined]);
   });
+});
+
+describe("moments and the board", () => {
+  const { pushList, sectionOf } = require("../meta-bank");
+  const yml = (rows: string) => { const d = mkdtempSync(join(tmpdir(), "bank-")); writeFileSync(join(d, "cold.yml"), `adset: cold\nlink: { show: comedybrew, utm_campaign: cold }\ndescription: d\nconcepts:\n${rows}`); return d; };
+  test("a moment needs a known phase and condition", () => {
+    expect(() => loadBank("cold", yml(`  - { id: C1, person: p, body: b, title: t, image: { style: photo }, status: bench, moment: { phase: tonight, when: any } }\n`))).not.toThrow();
+    expect(() => loadBank("cold", yml(`  - { id: C1, person: p, body: b, title: t, image: { style: photo }, status: bench, moment: { phase: monday, when: any } }\n`))).toThrow(/cold C1: moment/);
+    expect(() => loadBank("cold", yml(`  - { id: C1, person: p, body: b, title: t, image: { style: photo }, status: bench, moment: { phase: tonight } }\n`))).toThrow(/cold C1: moment/);
+  });
+  test("--push never takes a moment ad: skipped by default, refused by --only", () => {
+    const bank = { adset: "cold", link: { show: "comedybrew", utm_campaign: "cold" }, description: "d", concepts: [c({ id: "C1", status: "live" }), c({ id: "C2", status: "live", moment: { phase: "tonight", when: "any" } })] };
+    expect(pushList(bank, []).map((x: Concept) => x.id)).toEqual(["C1"]);
+    expect(() => pushList(bank, ["C2"])).toThrow(/C2: moment ads run only through the moment scheduler/);
+  });
+  test("the board shows live and bench only, evergreen first, then moments by phase and condition", () => {
+    const dir = mkdtempSync(join(tmpdir(), "creative-"));
+    const bank = yml([
+      `  - { id: C1, person: p, body: b, title: t, image: { style: photo }, status: bench, moment: { phase: tonight, when: wet } }`,
+      `  - { id: C2, person: p, body: b, title: t, image: { style: photo }, status: retired }`,
+      `  - { id: C3, person: p, body: b, title: t, image: { style: photo }, status: resting }`,
+      `  - { id: C4, person: p, body: b, title: t, image: { style: photo }, status: bench, moment: { phase: planner, when: any } }`,
+      `  - { id: C5, person: p, body: b, title: t, image: { style: photo }, status: live }`,
+    ].join("\n") + "\n");
+    const { mkdirSync } = require("node:fs");
+    mkdirSync(join(dir, "cold"), { recursive: true });
+    for (const id of ["C1", "C2", "C3", "C4", "C5"]) { writeFileSync(join(dir, "cold", `${id}-post.png`), ""); writeFileSync(join(dir, "cold", `${id}-story.png`), ""); }
+    const rows = sheetRows(dir, bank);
+    expect(rows.map((r) => r.id)).toEqual(["C5", "C4", "C1"]);
+    expect(rows.map((r) => r.section)).toEqual(["Evergreen (running all week)", "Planner (Saturday to Monday)", "Tonight (show day until doors), wet or cold turn"]);
+    const html = contactSheet(rows);
+    expect(html).toContain("<h2>Planner (Saturday to Monday)</h2>"); expect(html).not.toContain("C2-post"); expect(html).toContain(">planned<");
+    expect(sectionOf({ moment: { phase: "tomorrow", when: "long_weekend" } })).toBe("Tomorrow (the Wednesday), long weekend");
+  });
+});
+
+describe("the board labels", () => {
+  const { adsetLabel, liveLabel } = require("../meta-bank");
+  test("each ad names the ad set it runs in", () => {
+    expect(adsetLabel("cold", {})).toBe("adset_cold");
+    expect(adsetLabel("cold", { moment: { phase: "tomorrow", when: "long_weekend" } })).toBe("cold-tomorrow");
+    const html = contactSheet([{ group: "cold", id: "C23", person: "p", body: "b", title: "t", post: "a", story: "b", status: "live", section: "s", adset: "cold-tomorrow", state: { label: "picked, waits for its window", kind: "waiting", adset: "cold-tomorrow" } }]);
+    expect(html).toContain("Ad set: cold-tomorrow"); expect(html).toContain("picked, waits for its window");
+  });
+  test("Meta's states read as running, waiting, off, review or a problem", () => {
+    const set = (effective: string) => ({ name: "cold-tonight", status: effective === "ACTIVE" ? "ACTIVE" : "PAUSED", effective_status: effective });
+    expect(liveLabel({ status: "ACTIVE", effective_status: "ACTIVE", adset: set("ACTIVE") }).kind).toBe("on");
+    expect(liveLabel({ status: "ACTIVE", effective_status: "ADSET_PAUSED", adset: set("PAUSED") })).toEqual({ label: "picked, waits for its window", kind: "waiting", adset: "cold-tonight" });
+    expect(liveLabel({ status: "PAUSED", effective_status: "PAUSED", adset: set("ACTIVE") }).kind).toBe("off");
+    expect(liveLabel({ status: "ACTIVE", effective_status: "PENDING_REVIEW", adset: set("PAUSED") }).kind).toBe("review");
+    expect(liveLabel({ status: "ACTIVE", effective_status: "DISAPPROVED", adset: set("PAUSED") }).kind).toBe("problem");
+  });
+});
+
+test("a paused moment ad stands by rather than reading off", () => {
+  const { liveLabel } = require("../meta-bank");
+  expect(liveLabel({ status: "PAUSED", effective_status: "PAUSED", adset: { name: "cold-planner", status: "ACTIVE", effective_status: "ACTIVE" } }, true)).toEqual({ label: "standby, its condition is not met", kind: "waiting", adset: "cold-planner" });
 });

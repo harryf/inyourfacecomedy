@@ -79,6 +79,7 @@ Run by hand when needed:
 | `build-gallery-data.rb`, `build-gallery-card.rb` | The `/moments/` gallery data (Apple Vision) and its share card |
 | `ga-setup.ts` | The GA property's configuration as code (`analytics.md`) |
 | `email-monthly.ts`, `email-thankyou.ts`, `email-promo.ts` | Build a Mailchimp draft and open it; they never send (`emails.md`) |
+| `meta-moments.ts` | Meta moment ads: opens the planner (Sat to Mon), tomorrow (Wed) and tonight (Thu to 19:30) ad sets, picks the any, wet or long weekend ad from the MeteoSwiss forecast and the Zürich holidays, sets the moment and evergreen budgets (`meta-ads/moments-plan.md`) | cron line below, 07:30 and 12:30 daily | no |
 | `meta-lists.ts`, `meta-adsets.ts`, `meta-bank.ts`, `meta-insights.ts` | Meta ads: customer lists, ad set targeting and budgets, the creative bank (image ads, video ads with `--push-video`, which ads are on with `--sync`), the Friday readout (`meta-ads.md`) |
 
 Shared code lives in `script/lib/` (TypeScript helpers, the Swift calendar bridge), tests in
@@ -93,6 +94,7 @@ Always from the repo root, always `--dry-run` first on anything that writes:
 cd ~/Code/personal/inyourfacecomedy
 ruby script/refresh-next-event-dates.rb --dry-run --verbose
 bun script/robins-calendar.ts --dry-run
+bun script/meta-moments.ts --dry-run
 bun script/ga-report.ts --dry-run
 bun script/gsc-report.ts --dry-run
 bun script/reindex.ts --dry-run
@@ -130,6 +132,8 @@ job lines as installed (comments shortened here):
 35 9 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.rbenv/versions/3.2.4/bin/ruby script/hours-to-google.rb >> script/gbp-hours.log 2>&1
 # IYF: five-star Google reviews into _data/reviews.yml, commit, push (not yet installed, see reviews-from-google.rb in scripts.md)
 40 9 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.rbenv/versions/3.2.4/bin/ruby script/reviews-from-google.rb >> script/gbp-reviews.log 2>&1
+# IYF: Meta moment ads (meta-ads/moments-plan.md): planner, tomorrow and tonight ad sets, weather and holidays re-read every run. No git. Twice a day so a sleeping Mac at 07:30 is caught at 12:30; a second run changes nothing unless the forecast did. Installed 2026-10-04
+30 7,12 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/meta-moments.ts >> script/meta-moments.log 2>&1
 # IYF: Grist to _comedians/, clear of the other git jobs so two pushes never race
 5 10 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.rbenv/versions/3.2.4/bin/ruby script/sync-comedians.rb >> script/sync-comedians.log 2>&1
 # IYF: GA reports
@@ -245,6 +249,7 @@ script whose variable is unset skips the ping silently; nothing else changes.
 | `GSC_HEALTHCHECKS_URL` | the Search Console loop, check "IYF gsc-report" (created 2026-09-18) | `gsc-report.ts`, weekly: `/start`, the page summary on success, `/fail` with the error (period 7 days, grace 1 day, so a missed Monday alerts Tuesday) |
 | `EVENTFROG_HEALTHCHECKS_URL` | Comedy Brew sales | `eventfrog-sales.ts`: success per run, readout lines to `/log` (recorded, no alarm), `/fail` on a guard action, a sold-out show or a rejected key |
 | `META_ADS_HEALTHCHECKS_URL` | the Meta jobs, one check to start | `meta-lineup-ad.ts`, `meta-adsets.ts`, `meta-insights.ts` |
+| `META_MOMENTS_HEALTHCHECKS_URL` | the moment scheduler, its own check (it writes to Meta twice a day) | `meta-moments.ts`; schedule `30 7,12 * * *`, grace 6 hours |
 | none yet | the staff calendar | `robins-calendar.ts` does not ping. Its failures are only in `script/robins-calendar.log` |
 
 The signals in use: the bare URL is success, `/start` marks the beginning of a run (so a job that

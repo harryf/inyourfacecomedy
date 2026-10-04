@@ -186,6 +186,9 @@ async function main() {
     if (id === config.old_adset_id || id === config.adsets.buyers) fail(`${key} points at a protected ad set (${id})`);
     const cur = await meta.get(id, { fields: "name,effective_status,daily_budget,optimization_goal,billing_event,destination_type,promoted_object,attribution_spec,targeting" });
     const desired = desiredFor(spec, config.audiences, config.pixel_id, config.budgets[key].base);
+    // The moment scheduler owns the Cold and Warm daily budgets once config has a moments: block
+    // (script/meta-moments.ts); this script keeps their targeting and goal and leaves the money.
+    if ((config as any).moments && (key === "cold" || key === "warm")) desired.daily_budget = Number(cur.daily_budget);
     const diffs = diffFields(cur, desired);
     log(`\n${key}: ${cur.name} (${id}) ${cur.effective_status}`);
     if (!diffs.length) { log(`  in sync`); continue; }
