@@ -5,8 +5,8 @@ title: "PROMESSI SPASSI - Stand-up comedy italiana a Zurigo"
 tagline: "Stand-up comedy italiana a Zurigo"
 description: "PROMESSI SPASSI - Stand-up comedy italiana a Zurigo Vivi una serata di puro divertimento con lo spettacolo open-mic di stand-up comedy italiana (e ticinese) a Zurigo, presentato…"
 last_modified_at: 2026-09-18T12:15:53+00:00
-feature-img: "/assets/img/uploads/promessi-spassi_feature.png"
-image: "/assets/img/uploads/promessi-spassi_card.jpeg"
+feature-img: "/assets/img/uploads/promessi-spassi_wide.jpeg"
+image: "/assets/img/uploads/promessi-spassi_square.jpeg"
 thumbnail: "/assets/img/thumbs/promessi-spassi.jpeg"
 excerpt_separator: <!--more-->
 ticket_url: "https://eventfrog.ch/en/p/groups/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081056758243.html"
@@ -28,7 +28,7 @@ price_chf: 10
 
 PROMESSI SPASSI - Stand-up comedy italiana a Zurigo Vivi una serata di puro divertimento con lo spettacolo open-mic di stand-up comedy italiana (e ticinese) a Zurigo, presentato da Miguel e Nik!
 
-![PROMESSI SPASSI - Stand-up comedy italiana a Zurigo](/assets/img/uploads/promessi-spassi_card.jpeg "PROMESSI SPASSI - Stand-up comedy italiana a Zurigo")
+![PROMESSI SPASSI - Stand-up comedy italiana a Zurigo](/assets/img/uploads/promessi-spassi_wide.jpeg "PROMESSI SPASSI - Stand-up comedy italiana a Zurigo")
 
 Al Robin's, potrai assistere a una line-up unica che mescola comici esperti e talenti emergenti, garantendo risate a non finire. Non perdere l'occasione di scoprire nuove voci della comicità italiana in un'atmosfera accogliente e informale. Preparati a ridere, applaudire e passare una serata indimenticabile all'insegna dell'umorismo! Ti aspettiamo al Robin's per una serata di stand-up comedy tutta da gustare! Spassi...Promessi! Puoi dare un'occhiata a [@miguelvitaliicomedy](https://instagram.com/miguelvitaliicomedy), [@cooper_nik](https://instagram.com/cooper_nik) e [@inyourfacecomedy](https://instagram.com/inyourfacecomedy) per vederci in azione
 
