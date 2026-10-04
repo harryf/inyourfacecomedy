@@ -29,6 +29,7 @@ redirect_from:
   - /2024/01/18/comedybrew
   - /2024/01/18/comedybrew.html
   - /double-shot/   # Double Shot (2 Oct 2026, the two Comedy Brew hosts) was removed 2026-10-04
+  - /shows/open-mic/   # old open mic URL, still visited (GA, Oct 2026)
 ---
 
 Is looking for friends in Zurich harder than finding affordable rent? Tired of getting up at 5am on Saturday just to hike? Do meetup groups start to feel like a cult? We've got you! With IN YOUR FACE Comedy Brew...

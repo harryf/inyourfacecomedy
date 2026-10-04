@@ -7,6 +7,9 @@ subtitle: Upcoming English Stand Up Comedy Shows in Zurich
 description: "Every IN YOUR FACE comedy show in Zürich, month by month through 2026: dates, venues and ticket links for English stand-up nights and open mics. Comedy Veranstaltungen in Zürich auf Englisch. Updated weekly."
 last_modified_at: 2026-10-04T09:24:20+00:00
 permalink: /calendar/
+redirect_from:   # old URLs of removed shows that still get visits (GA, Oct 2026)
+  - /balkan-baddie/
+  - /2025/01/06/cracking_time_the_premiere.html
 feature-img: "assets/img/pages/follow.png"
 image: "/assets/img/pages/follow.png"
 thumbnail: "assets/img/thumbs/inyourface_thumb.png"
