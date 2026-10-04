@@ -18,6 +18,7 @@ export type ShowCat = {
   tickets?: string;
   img?: string;
   next?: string;
+  venue_ig?: string;
 };
 
 /** Read a script from assets/js once; the returned source is re-runnable. */
@@ -52,6 +53,7 @@ function showsCatalogJSON(shows: ShowCat[]): string {
       tickets: s.tickets ?? "",
       img: s.img ?? "",
       next: s.next ?? "",
+      venue_ig: s.venue_ig ?? "",
     })),
   );
 }
@@ -83,14 +85,14 @@ export function buildComediansDOM(opts: { shows?: ShowCat[]; comedians?: string[
 /** Build the /lineup/ page DOM: #lineup-lab root + shows catalog + comedians catalog. */
 export function buildLineupDOM(opts: {
   shows?: ShowCat[];
-  comedians?: { slug: string; name: string; url?: string }[];
+  comedians?: { slug: string; name: string; url?: string; instagram?: string }[];
   origin?: string;
 } = {}): void {
   const shows = opts.shows ?? [];
   const comedians = opts.comedians ?? [];
   const origin = opts.origin ?? "https://inyourfacecomedy.ch";
   const comediansJSON = JSON.stringify(
-    comedians.map((c) => ({ slug: c.slug, name: c.name, url: c.url ?? "/comedians/" + c.slug + "/" })),
+    comedians.map((c) => ({ slug: c.slug, name: c.name, url: c.url ?? "/comedians/" + c.slug + "/", instagram: c.instagram ?? "" })),
   );
   document.body.innerHTML =
     `<div id="lineup-lab" class="lineup-lab" data-origin="${origin}"></div>` +

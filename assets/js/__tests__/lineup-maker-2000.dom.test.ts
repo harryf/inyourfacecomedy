@@ -242,4 +242,60 @@ describe("lineup-maker-2000 • guest (off-catalog) acts", () => {
     copyBtn.click();
     expect(copied).toContain("Zoe Newcomer");
   });
+test("order stage: Copy Insta handles tags the comedians, then the venue once", () => {
+  const shows: ShowCat[] = [{ slug: "soonshow", title: "Soon Show", next: "2030-06-01T19:00:00+00:00", tickets: "https://t.example/s", venue_ig: "robinsbarandcoffee" }];
+  const roster = [
+    { slug: "aaa", name: "Aaa Comedian", instagram: "https://www.instagram.com/aaa.ig/" },
+    { slug: "bbb", name: "Bbb Comedian" },
+    { slug: "ccc", name: "Ccc Comedian", instagram: "@RobinsBarAndCoffee" },
+  ];
+  buildLineupDOM({ shows, comedians: roster });
+  setURL("?show=soonshow&type=flat&lineup=aaa,bbb,ccc&stage=order", "/lineup/");
+  runScript(SRC);
+  let copied = "";
+  const spy = (t: string) => { copied = t; return Promise.resolve(); };
+  const clip = (navigator as unknown as { clipboard?: { writeText?: (t: string) => Promise<void> } }).clipboard;
+  if (clip) clip.writeText = spy;
+  else (navigator as unknown as { clipboard: { writeText: (t: string) => Promise<void> } }).clipboard = { writeText: spy };
+  const btn = Array.from(document.querySelectorAll(".lineup-lab__copy")).find((b) => /Insta handles/.test(b.textContent || "")) as HTMLElement;
+  expect(btn).not.toBeNull();
+  btn.click();
+  // bbb has no instagram; ccc carries the venue handle already, so the venue is not repeated
+  expect(copied).toBe("@aaa.ig \n@RobinsBarAndCoffee \n@inyourfacecomedy \n");
+});
+
+test("order stage: a show with a venue handle and a plain bill copies the venue last", () => {
+  const shows: ShowCat[] = [{ slug: "soonshow", title: "Soon Show", next: "2030-06-01T19:00:00+00:00", tickets: "https://t.example/s", venue_ig: "bar.otro" }];
+  buildLineupDOM({ shows, comedians: [{ slug: "aaa", name: "Aaa Comedian", instagram: "aaa.ig" }] });
+  setURL("?show=soonshow&type=flat&lineup=aaa&stage=order", "/lineup/");
+  runScript(SRC);
+  let copied = "";
+  const spy = (t: string) => { copied = t; return Promise.resolve(); };
+  const clip = (navigator as unknown as { clipboard?: { writeText?: (t: string) => Promise<void> } }).clipboard;
+  if (clip) clip.writeText = spy;
+  else (navigator as unknown as { clipboard: { writeText: (t: string) => Promise<void> } }).clipboard = { writeText: spy };
+  (Array.from(document.querySelectorAll(".lineup-lab__copy")).find((b) => /Insta handles/.test(b.textContent || "")) as HTMLElement).click();
+  expect(copied).toBe("@aaa.ig \n@bar.otro \n@inyourfacecomedy \n");
+    // the paste hint about underlined handles sits next to the button
+    expect(document.body.textContent).toContain("check every handle is underlined");
+});
+test("order stage: direct ticket link sits above promo and thank-you, all three UTM-tagged", () => {
+  buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+  setURL("?show=soonshow&type=flat&lineup=aaa,bbb&stage=order", "/lineup/");
+  runScript(SRC);
+  const labels = Array.from(document.querySelectorAll(".lineup-lab__copy")).map((b) => (b.textContent || "").trim());
+  const iT = labels.findIndex((l) => /direct ticket link/i.test(l));
+  const iP = labels.findIndex((l) => /promo link/i.test(l));
+  const iY = labels.findIndex((l) => /thank-you link/i.test(l));
+  expect(iT).toBeGreaterThan(-1);
+  expect(iT).toBeLessThan(iP);
+  expect(iP).toBeLessThan(iY);
+  const links = Array.from(document.querySelectorAll("a.lineup-lab__preview")).map((a) => (a as HTMLAnchorElement).href);
+  const ticket = links.find((h) => h.includes("/go/"))!;
+  expect(ticket).toBe("https://inyourfacecomedy.ch/go/?show=soonshow&date=2030-06-01&utm_source=lineup-maker&utm_medium=social&utm_campaign=soonshow-20300601&utm_content=tickets");
+  const promos = links.filter((h) => h.includes("/comedians/"));
+  expect(promos[0]).toContain("utm_source=lineup-maker&utm_medium=social&utm_campaign=soonshow-20300601&utm_content=promo");
+  expect(promos[1]).toContain("&thankyou&utm_source=lineup-maker");
+  expect(promos[1]).toContain("utm_content=thankyou");
+});
 });

@@ -23,7 +23,7 @@ A **client-side, zero-server PNG generator**. From the lineup the user has assem
 - **Post (4:5):** treat the central 1080 × 1080 as fully safe. The outer ~135 px at the top and bottom are fine in the feed but may be trimmed elsewhere. Keep ~50 px side margins so nothing sits on the frame edge.
 - `safeTop` / `safeBottom` are the **legacy** insets the polaroid painter (and the older alternates) were tuned against. They are deliberately unchanged so those layouts do not move. New styles position against the key-content fields.
 
-The whole pipeline is `openFlyer()` → `drawFlyer()` (resolve lineup → load assets → `paintFlyer()`) → `downloadCanvas()`. A sibling button copies every on-flyer comedian's Instagram `@handle` for tagging.
+The whole pipeline is `openFlyer()` → `drawFlyer()` (resolve lineup → load assets → `paintFlyer()`) → `downloadCanvas()`. A sibling button copies every on-flyer comedian's Instagram `@handle` for tagging, then the venue's (`venue_ig` in `#iyf-shows`: the `instagram:` in `_data/venues.yml` of the venue of the show's next date, else of its `venue_slug`), then `@inyourfacecomedy` (`IYF_IG`). The hint beside it (`IG_PASTE_HINT`) says to check each handle is underlined in Instagram and to type a space at the end of a line that is not.
 
 **Why it matters for variants:** every new style is a different `paintFlyer()` (the compositor), drawing into the *same* `spec` (the canvas + safe insets) from the *same* `m` model (show, bg, logo, host, bill). The data contract and the canvas contract are the stable spine; the painting is the variable part.
 

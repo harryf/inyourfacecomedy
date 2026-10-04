@@ -175,13 +175,16 @@ and you share the work.
    the **Interval** divider splits the bill into two halves. Hit **Update lineup** to bake the new
    order into the URL.
 
-**Four copy buttons at the bottom:**
+**Copy buttons at the bottom:**
 
 | Button | Copies |
 |--------|--------|
 | 📋 Editing link | A `/lineup/?…` URL that re-opens the tool with every choice preserved — to keep tweaking or hand to a co-organizer. |
+| 🎟️ Direct ticket link | `/go/?show=…&date=<next date>` straight to that night's Eventfrog page, the same link the Link Builder makes. |
 | 📣 Promo link | The `/comedians/?show=…` show-promo link (features the headliner). |
 | 🙏 Thank-you link | The same promo link + `&thankyou` for after the show. |
+
+The three shareable links carry UTM tags: `utm_source=lineup-maker`, `utm_medium=social`, `utm_campaign=<show>-<yyyymmdd>` (the next date; just `<show>` when none is ahead) and `utm_content=tickets`, `promo` or `thankyou`. The tool cannot know where a link gets pasted, so the source is the tool; `docs/campaign-links.md` has the vocabulary. The editing link carries no tags (it is a tool link, not a visit).
 | 💬 Running order | Plain text — host first, numbered acts, headliner ⭐, halves + interval — to paste straight into WhatsApp. |
 
 **Implementation:** `assets/js/lineup-maker-2000.js` (the tool) and `pages/lineup.md` (the page + its two
@@ -200,6 +203,6 @@ crafted Lab link can no more inject a fake performer than a promo link can.
 1. **Week starting** date picker, plus the list of shows in the window as a sanity check.
 2. **Style** (Polaroid, Ticket, Swiss, Bold Type, Lava, Comic, Departures, Station, Chalkboard, Menu) and **format** toggles, the preview, **Download PNG** (`week-<from>-<format>.png`). Styles with room for a selling line print the calendar's Info line for each show (the same line as on `/calendar/`, from `_data/calendar-copy.json`): Station, Menu, Chalkboard, Ticket, Bold Type, Lava and the Comic's splash panel; the caption carries it too.
 3. **Other words**: a different headline for the same shows. Every fresh load of the page rolls a new one too (reload to try again); the URL then carries `v`, so a copied link re-opens the same words. The image carries no call to action and no faces: each row shows the show's own artwork (the post's `thumbnail`, else `image`), and the link sticker you add in Instagram is the call to action.
-4. **Copy Insta handles**: the @handles of the regular hosts of every show in the window, one per line, for tagging in the story. **Copy calendar link**: `/calendar/` tagged `utm_source=instagram&utm_medium=social&utm_campaign=week`, for the link sticker. **Copy caption**: a plain-text list of the shows plus the link, for a post.
+4. **Copy Insta handles**: the @handles of the regular hosts of every show in the window, then each venue once (the `instagram:` of that date's venue in `_data/venues.yml`, so a touring show tags the room it plays that night), then `@inyourfacecomedy` (other organisers use the tool too), one per line, for tagging in the story. The hint under the buttons tells people to check every pasted handle is underlined in Instagram and, if one is not, to put the cursor at the end of that line and type a space. **Copy calendar link**: `/calendar/` tagged `utm_source=instagram&utm_medium=social&utm_campaign=week`, for the link sticker. **Copy caption**: a plain-text list of the shows plus the link, for a post.
 
 **Implementation:** the same `assets/js/lineup-maker-2000.js` (root `#iyf-week`), `pages/week.md` (page, events JSON from `_data/calendar.yml`) and `_includes/iyf-catalogs.liquid` (shows with `hosts` and `thumb`, comedians, backdrops; shared with `/lineup/`). Pure helpers (`weekWindow`, `weekEvents`, `weekCopy`, `weekHandles`, `weekCaption`) are unit-tested in `assets/js/__tests__/lineup-maker-2000.week.unit.test.ts`. Design notes: `flyer-design.md` section 6e.

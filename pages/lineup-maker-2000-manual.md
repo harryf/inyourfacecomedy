@@ -123,12 +123,14 @@ Second half:
 
 ### The three links and the flyer
 
-Scroll down a touch and you get three links to copy, plus a red button for the flyer.
+Scroll down a touch and you get four links to copy, plus a red button for the flyer.
 
 ![Lineup Maker 2000, Stage 4: the show promo link, the thank-you link, the save-for-later link, and the red flyer button.](/assets/img/lineup-manual/8_lineup_maker_2000.png){:.lm__shot}
 
+- **Direct ticket link.** Straight to the ticket page on Eventfrog for the next show, for people who are ready to buy.
 - **Show promo link.** Share this before the show, on an Instagram story or anywhere. It sends people to a page that shows the lineup, names the host, and lets them buy a ticket. Not sure what it shows? Tap the yellow link to see it first.
 - **Thank-you link.** Send this after the show, by email or DM, to the crowd or to the comedians who turned up.
+  These three links are tagged, so the reports show how many people came through the Lineup Maker.
 - **Save lineup for later.** This is the smart one. The whole lineup lives inside this link. Get pulled away halfway through? Copy it and come back later, right where you stopped. Or hand it to another comedian and let them finish the lineup for you. The link is the save file.
 - **Make a flyer** (the red button) builds an image for Instagram stories and posts.
 
@@ -150,7 +152,7 @@ So open the Files app, tap the flyer, and in the preview tap **Save Image** to s
 
 ### Tag everyone in one go
 
-Below the download button is a button that copies all the Instagram handles of the comedians on the flyer. Paste them into a story or a post to tag the whole lineup at once.
+Below the download button is a button that copies all the Instagram handles of the comedians on the flyer. The venue's handle and @inyourfacecomedy come last, so the room and IN YOUR FACE get tagged too. After pasting, check that every handle is underlined: one that is not tags nobody. Put the cursor at the end of that line and type one space, and Instagram picks it up. Paste them into a story or a post to tag the whole lineup at once.
 
 ![Lineup Maker 2000, Stage 4: copy every comedian's Instagram handle in one tap.](/assets/img/lineup-manual/12_lineup_maker_2000.png){:.lm__shot}
 

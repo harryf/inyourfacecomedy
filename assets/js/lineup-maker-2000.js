@@ -24,10 +24,40 @@
   var INTERVAL = '::interval::';
   var GUEST_PREFIX = 'guest:';   // off-catalog "guest" acts ride in the URL as guest:Their Name
   var WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  // Every handle list ends with our own account: other organisers use these tools too.
+  var IYF_IG = 'inyourfacecomedy';
+  // Instagram only tags a pasted handle once it shows underlined; a space after it makes it re-read.
+  var IG_PASTE_HINT = 'On Instagram, check every handle is underlined: if one is not, it tags nobody. Put the cursor at the end of that line and type one space.';
   // Where the week story sends people: the calendar, tagged so the reports see the story traffic
   // (docs/campaign-links.md vocabulary). Defined above the test seam because exported helpers read it.
   var WEEK_CAL_LINK = 'https://inyourfacecomedy.ch/calendar/?utm_source=instagram&utm_medium=social&utm_campaign=week';
   var MO = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+// UTM tags for every link the Lineup Maker hands out (docs/campaign-links.md vocabulary).
+// The tool cannot know where a link gets pasted (WhatsApp, a story, a group chat), so the
+// source is the tool itself; the campaign is the Link Builder's per-night `{show}-{yyyymmdd}`
+// (just `{show}` when there is no upcoming date), and utm_content says which link it was:
+// tickets, promo or thankyou. Pure; exported. `today` is YYYY-MM-DD, injected for tests.
+function nextYmd(nextIso, today) {
+  var d = String(nextIso || '').slice(0, 10);
+  return (/^\d{4}-\d{2}-\d{2}$/.test(d) && d >= today) ? d : '';
+}
+function lineupUtm(slug, nextIso, content, today) {
+  var d = nextYmd(nextIso, today);
+  var campaign = String(slug || '').toLowerCase() + (d ? '-' + d.replace(/-/g, '') : '');
+  return 'utm_source=lineup-maker&utm_medium=social&utm_campaign=' + encodeURIComponent(campaign) +
+    '&utm_content=' + encodeURIComponent(content);
+}
+// The /go/ query for the Direct ticket link: the show, its next date when it is still ahead
+// (/go/ then lands on that night's Eventfrog page), and the tags. Pure; exported.
+function ticketQuery(slug, nextIso, today) {
+  var d = nextYmd(nextIso, today);
+  return 'show=' + encodeURIComponent(slug) + (d ? '&date=' + d : '') + '&' + lineupUtm(slug, nextIso, 'tickets', today);
+}
+function todayYmd() {
+  var n = new Date();
+  return n.getFullYear() + '-' + ('0' + (n.getMonth() + 1)).slice(-2) + '-' + ('0' + n.getDate()).slice(-2);
+}
 
   // --- test seam --------------------------------------------------------------
   // In a CommonJS/test context (bun test) `module` exists: export the stateless
@@ -50,7 +80,8 @@
       weekWindow: weekWindow, weekEvents: weekEvents, weekHeadlines: weekHeadlines, weekCopy: weekCopy,
       weekHandles: weekHandles, weekHandlesText: weekHandlesText, weekCaption: weekCaption, weekCalLink: function () { return WEEK_CAL_LINK; },
       weekIsoWeek: weekIsoWeek, weekComicLayout: weekComicLayout, flapLines: flapLines, weekComicWeight: weekComicWeight, weekMenuPrice: weekMenuPrice, showTagline: showTagline, weekDateBoard: weekDateBoard, weekInfoFor: weekInfoFor, stripEmoji: stripEmoji, weekInfoLines: weekInfoLines, weekVenueShort: weekVenueShort,
-      isGuest: isGuest, guestName: guestName, guestToken: guestToken, instaHandle: instaHandle
+      isGuest: isGuest, guestName: guestName, guestToken: guestToken, instaHandle: instaHandle,
+      lineupUtm: lineupUtm, ticketQuery: ticketQuery
     };
     return;
   }
@@ -222,7 +253,16 @@
     return parts.join('&');
   }
   function absLab(st) { return origin() + '/lineup/?' + labQuery(st, 'order'); }
-  function absPromo(st, thankyou) { return origin() + '/comedians/?' + promoQuery(st) + (thankyou ? '&thankyou' : ''); }
+  function absPromo(st, thankyou) {
+    var s = findShow(st.show);
+    var tags = s ? '&' + lineupUtm(s.slug, s.next, thankyou ? 'thankyou' : 'promo', todayYmd()) : '';
+    return origin() + '/comedians/?' + promoQuery(st) + (thankyou ? '&thankyou' : '') + tags;
+  }
+  // Straight to the show's Eventfrog page through /go/, so GA and the Meta pixel count the click.
+  function absTicket(st) {
+    var s = findShow(st.show);
+    return s ? origin() + '/go/?' + ticketQuery(s.slug, s.next, todayYmd()) : '';
+  }
 
   // Reload-driven stage transition. Exposes the target on window for tests.
   function go(st, stage) {
@@ -775,7 +815,8 @@
       // Running order is what organizers reach for most - make it the loud, full-width one.
       addCopy('💬 Copy running order', 'Plain text - paste straight into WhatsApp.', function () { return plainText(workToState()); }, { primary: true });
       // Instagram handles of everyone on the bill, always available here (and again under the flyer).
-      addCopy('＠ Copy Insta handles', 'One @handle per line - paste into your story or post to tag everyone on the bill.', function () { return flyerHandlesText(workToState()); }, { quiet: true, empty: 'No Instagram handles on this lineup.' });
+      addCopy('＠ Copy Insta handles', 'One @handle per line, the venue and @' + IYF_IG + ' included - paste into your story or post to tag everyone. ' + IG_PASTE_HINT, function () { return flyerHandlesText(workToState()); }, { quiet: true, empty: 'No Instagram handles on this lineup.' });
+      addCopy('🎟️ Copy direct ticket link', 'Straight to the tickets on Eventfrog, for anyone ready to buy.', function () { return absTicket(workToState()); }, { preview: true, empty: 'Pick a show first.' });
       addCopy('📣 Copy promo link', 'For posting the show - features the headliner.', function () { return absPromo(workToState(), false); }, { preview: true });
       addCopy('🙏 Copy thank-you link', 'For after the show.', function () { return absPromo(workToState(), true); }, { preview: true });
       addCopy('🔖 Save lineup for later', 'Re-open this tool with everything as it is now - keep tweaking, or hand to a co-organizer.', function () { return absLab(workToState()); }, { quiet: true, preview: true });
@@ -2673,7 +2714,7 @@
     } catch (e) { fail(e); }
   }
 
-  // Instagram handles for everyone ON the flyer (host + catalog bill), resolved with the SAME
+  // Instagram handles for everyone ON the flyer (host + catalog bill), the venue and IYF_IG, resolved with the SAME
   // resolveSlugs the flyer draws with - so the list always matches the faces shown and guests
   // (off-catalog, no instagram) are excluded for free. De-dupes case-insensitively, drops blanks.
   function flyerHandles(st) {
@@ -2688,6 +2729,10 @@
     if (hostSlug) add(hostSlug);
     var raw = (st.type === 'split') ? st.first.concat(st.second) : st.lineup.slice();
     resolveSlugs(raw).filter(function (x) { return norm(x) !== norm(hostSlug); }).forEach(add);
+    // Then the venue, last, so the room is tagged too (#iyf-shows venue_ig: the venue of the next date).
+    var s = findShow(st.show), v = s ? instaHandle(s.venue_ig) : '';
+    if (v && !seen[v.toLowerCase()]) { seen[v.toLowerCase()] = 1; out.push(v); }
+    if (!seen[IYF_IG]) out.push(IYF_IG);
     return out;
   }
   // Clipboard payload: one "@handle " per comedian, each on its own line (space + newline),
@@ -2772,7 +2817,7 @@
     igRow.appendChild(ig);
     igRow.appendChild(igStatus);
     panel.appendChild(igRow);
-    panel.appendChild(el('p', 'lineup-lab__copy-hint', 'Paste into your story to tag everyone on the bill.'));
+    panel.appendChild(el('p', 'lineup-lab__copy-hint', 'Paste into your story to tag everyone on the bill, the venue and @' + IYF_IG + '. ' + IG_PASTE_HINT));
 
     container.appendChild(panel);
 
@@ -2885,6 +2930,14 @@
         seen[hk] = 1; out.push(h);
       });
     });
+    // Then each venue once, after every host: the event's own venue (a touring show changes room), else the show's.
+    (events || []).forEach(function (e) {
+      var s = weekShowFor(e, shows), h = instaHandle(e.venue_ig || (s && s.venue_ig));
+      if (!h) return;
+      var hk = h.toLowerCase(); if (seen[hk]) return;
+      seen[hk] = 1; out.push(h);
+    });
+    if ((events || []).length && !seen[IYF_IG]) out.push(IYF_IG);   // an empty week tags nobody
     return out;
   }
   function weekHandlesText(events, shows, comedians) {
@@ -4093,11 +4146,11 @@
         });
         actions.appendChild(b);
       }
-      addCopy('＠ Copy Insta handles', function () { return weekHandlesText(evs, SHOWS, COMEDIANS); }, 'No Instagram handles for these hosts.');
+      addCopy('＠ Copy Insta handles', function () { return weekHandlesText(evs, SHOWS, COMEDIANS); }, 'No Instagram handles for these hosts or venues.');
       addCopy('🔗 Copy calendar link', function () { return WEEK_CAL_LINK; });
       addCopy('💬 Copy caption', function () { return weekCaption(evs, SHOWS, win.from, WEEK_INFO); });
       panel.appendChild(actions);
-      panel.appendChild(el('p', 'lineup-lab__copy-hint', 'Handles tag the hosts in the story; the calendar link goes in the link sticker (that is the call to action); the caption is for a post.'));
+      panel.appendChild(el('p', 'lineup-lab__copy-hint', 'Handles tag the hosts, venues and @' + IYF_IG + ' in the story; the calendar link goes in the link sticker (that is the call to action); the caption is for a post. ' + IG_PASTE_HINT));
       weekRoot.appendChild(panel);
 
       drawWeek(canvas, wk, wk.format, wk.style, function (err) {
