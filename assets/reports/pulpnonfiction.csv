@@ -29,8 +29,24 @@ datetime,event,source,medium,campaign,content,page
 2026-10-03 00:14,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
 2026-10-03 00:24,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
 2026-10-03 11:23,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-10-03 16:26,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-10-03 17:16,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
+2026-10-03 16:26,ticket_click,google,organic,,,https://inyourfacecomedy.ch/pulpnonfiction/
+2026-10-03 17:16,ticket_click,IN YOUR FACE Comedy,email,e0df6575a9-EMAIL_CAMPAIGN_2026_09_27_07_47,,https://inyourfacecomedy.ch/pulpnonfiction/
 2026-10-04 09:05,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
 2026-10-04 09:05,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
 2026-10-04 09:14,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
+2026-10-04 09:41,ticket_redirect,instagram,social,pulpnonfiction-20261004,,Ticket Redirect
+2026-10-04 11:09,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
+2026-10-04 11:11,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
+2026-10-04 11:26,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
+2026-10-04 13:04,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
+2026-10-04 14:05,ticket_click,meta,untagged,,,https://inyourfacecomedy.ch/calendar/
+2026-10-04 14:44,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
+2026-10-04 16:04,ticket_redirect,instagram,social,pulpnonfiction-20261004,,Ticket Redirect
+2026-10-04 16:39,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
+2026-10-04 17:15,ticket_click,meta,untagged,,,https://inyourfacecomedy.ch/calendar/
+2026-10-04 17:16,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
+2026-10-04 18:21,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
+2026-10-04 18:28,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
+2026-10-04 18:30,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
+2026-10-04 18:42,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
+2026-10-04 19:54,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/

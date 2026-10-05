@@ -3,22 +3,22 @@
  "title": "Tall Order",
  "ticket_url": "https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-7507743592338740411.html",
  "event_type": "series",
- "generated_at": "2026-10-04T08:20:02.507Z",
+ "generated_at": "2026-10-05T08:20:02.790Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-04",
- "complete_through": "2026-10-02",
+ "through": "2026-10-05",
+ "complete_through": "2026-10-03",
  "totals": {
-  "clicks": 6,
-  "redirect": 0,
-  "click": 6,
-  "clicks_30d": 6,
-  "redirect_30d": 0,
-  "click_30d": 6,
-  "views": 37,
-  "views_30d": 37,
-  "sessions": 36,
-  "sessions_30d": 36,
+  "clicks": 26,
+  "redirect": 17,
+  "click": 9,
+  "clicks_30d": 26,
+  "redirect_30d": 17,
+  "click_30d": 9,
+  "views": 41,
+  "views_30d": 41,
+  "sessions": 41,
+  "sessions_30d": 41,
   "broken_links": 0,
   "untagged": 0
  },
@@ -332,12 +332,20 @@
    "redirect": 0,
    "click": 1,
    "views": 2,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-04",
-   "redirect": 0,
+   "redirect": 15,
+   "click": 3,
+   "views": 4,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-05",
+   "redirect": 2,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -346,18 +354,25 @@
  ],
  "by_source": [
   {
-   "source": "google",
-   "medium": "organic",
-   "clicks": 4,
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 17,
    "views": 0,
    "sessions": 0
   },
   {
+   "source": "google",
+   "medium": "organic",
+   "clicks": 5,
+   "views": 1,
+   "sessions": 1
+  },
+  {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 1,
-   "views": 4,
-   "sessions": 5
+   "clicks": 3,
+   "views": 7,
+   "sessions": 9
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -381,6 +396,29 @@
    "sessions": 1
   }
  ],
- "by_campaign": [],
+ "by_campaign": [
+  {
+   "campaign": "tall-order",
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 17,
+   "first": "2026-10-04",
+   "last": "2026-10-05",
+   "content": [
+    {
+     "content": "52679182997200",
+     "clicks": 3
+    },
+    {
+     "content": "52679185461400",
+     "clicks": 2
+    },
+    {
+     "content": "52679184892000",
+     "clicks": 2
+    }
+   ]
+  }
+ ],
  "csv": "/assets/reports/tall-order.csv"
 }
