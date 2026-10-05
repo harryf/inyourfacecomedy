@@ -52,9 +52,9 @@ require "json"
 require "yaml"
 require "optparse"
 
-# Wall clock in Zurich whatever the cron environment says. calendar.yml carries a fixed
-# +02:00 offset all year (correct instants, cosmetic offset), so every time goes through
-# the zone, never through the digits in the string.
+# Wall clock in Zurich whatever the cron environment says. Every time goes through the
+# zone, never through the digits in the string (calendar.yml carried a fixed +02:00
+# offset all year until 2026-10-05; it now carries the real Zürich offset per date).
 ENV["TZ"] = "Europe/Zurich"
 
 # ---------- Paths & constants ----------

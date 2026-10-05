@@ -68,7 +68,12 @@ VENUES     = File.join(ROOT, "_data", "venues.yml")
 # into calendar_past.yml (kept separate so calendar.yml stays lean). Consumed by
 # the crowdwork tool's `thanks` workflow to find the just-finished show.
 PAST_WINDOW_DAYS = 35
-ZURICH_OFFSET = "+02:00"   # CEST. Off by 1h in winter; cosmetic — sorting/dates unaffected.
+# Every time is written as Zürich wall-clock time with the offset Zürich has on
+# that day (+02:00 in summer, +01:00 in winter). Consumers read the clock time
+# straight out of the string (home cards, /calendar/, Week Story, emails), so a
+# fixed +02:00 would show winter shows one hour late. Setting TZ makes
+# Time#getlocal use the Zürich rules wherever the script runs.
+ENV["TZ"] = "Europe/Zurich"
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) " \
              "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 GROUP_PATH_RE = %r{/p/(?:groups|gruppen|groupes|groupes)/}i
@@ -475,7 +480,7 @@ end
 
 # ---------- Serialization ----------
 
-def iso(t) = t.is_a?(Time) ? t.getlocal(ZURICH_OFFSET).strftime("%Y-%m-%dT%H:%M:%S%:z") : nil
+def iso(t) = t.is_a?(Time) ? t.getlocal.strftime("%Y-%m-%dT%H:%M:%S%:z") : nil
 
 def to_record(show, inst)
   vslug = resolve_venue(inst["location"], inst["address"]) || show[:venue]
@@ -484,7 +489,7 @@ def to_record(show, inst)
     "name"           => show[:name],
     "title"          => show[:title],
     "url"            => show[:url],
-    "date"           => inst["start"].getlocal(ZURICH_OFFSET).strftime("%Y-%m-%d"),
+    "date"           => inst["start"].getlocal.strftime("%Y-%m-%d"),
     "start"          => iso(inst["start"]),
     "end"            => iso(inst["end"]),
     "venue"          => vslug,

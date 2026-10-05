@@ -28,6 +28,7 @@ Encoding.default_external = Encoding::UTF_8
 require "json"
 require "yaml"
 require "date"
+require "time"
 require "rexml/document"
 require "open3"
 require "rbconfig"
@@ -520,6 +521,33 @@ check("_data/calendar.yml: no past-dated events (refresh cron health)") do
   today = Date.today
   past = cal_events.select { |e| (Date.parse(e["date"].to_s) < today rescue false) }
   [past.empty?, "stale: #{past.first(3).map { |e| "#{e["show"]} #{e["date"]}" }.join(", ")} — re-run script/refresh-calendar-data.rb"]
+end
+
+# Start times are read as text out of the `start` string (home cards, /calendar/,
+# Week Story, emails), so the string must carry Zürich wall-clock time with the
+# offset Zürich has on that day. A fixed +02:00 shows winter shows an hour late.
+check("_data/calendar.yml: every start carries the real Zürich offset for its date") do
+  old_tz = ENV["TZ"]
+  ENV["TZ"] = "Europe/Zurich"
+  bad = cal_events.reject do |e|
+    t = (Time.parse(e["start"].to_s) rescue nil)
+    t && t.getlocal.strftime("%Y-%m-%dT%H:%M:%S%:z") == e["start"].to_s
+  end
+  ENV["TZ"] = old_tz
+  [bad.empty?, bad.first(3).map { |e| "#{e["show"]} #{e["start"]}" }.join(", ") + " — re-run script/refresh-calendar-data.rb"]
+end
+# The home cards once printed the post's hand-typed recurrence_time (Pulp
+# Non-Fiction at 19:30 for a 19:00 show). The time on a card must be the start
+# time of that show's next event in calendar.yml.
+check("home upcoming cards show the Eventfrog start time of the show's next event") do
+  cards = home.scan(%r{<article class="iyf-event-card[^"]*" data-show="([^"]+)">(.*?)</article>}m)
+  bad = cards.filter_map do |slug, html|
+    shown = html[%r{iyf-event-card__weekday-time">\s*\w+ · (\d{2}:\d{2})}m, 1]
+    ev = cal_events.find { |e| e["url"].to_s == "/#{slug}/" }
+    want = ev && ev["start"].to_s[11, 5]
+    (shown == want) ? nil : "#{slug}: card #{shown.inspect}, calendar #{want.inspect}"
+  end
+  [!cards.empty? && bad.empty?, cards.empty? ? "no cards found on the home page" : bad.join(", ")]
 end
 
 # ── related shows row ─────────────────────────────────────────────────────────

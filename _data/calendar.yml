@@ -5,8 +5,8 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-10-05T07:00:02+00:00'
-event_count: 46
+generated_at: '2026-10-05T09:18:42+00:00'
+event_count: 50
 events:
 - show: tall-order
   name: Tall Order
@@ -195,8 +195,8 @@ events:
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
   url: "/jokesjokesjokes/"
   date: '2026-10-27'
-  start: '2026-10-27T20:30:00+02:00'
-  end: '2026-10-27T22:30:00+02:00'
+  start: '2026-10-27T19:30:00+01:00'
+  end: '2026-10-27T21:30:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -209,8 +209,8 @@ events:
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-10-29'
-  start: '2026-10-29T20:30:00+02:00'
-  end: '2026-10-29T23:00:00+02:00'
+  start: '2026-10-29T19:30:00+01:00'
+  end: '2026-10-29T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -223,8 +223,8 @@ events:
   title: La Tarima - Comedia en Español
   url: "/latarima/"
   date: '2026-10-29'
-  start: '2026-10-29T21:00:00+02:00'
-  end: '2026-10-29T23:00:00+02:00'
+  start: '2026-10-29T20:00:00+01:00'
+  end: '2026-10-29T22:00:00+01:00'
   venue: yaman-caf-bar
   venue_name: YAMAN Café-Bar
   location: YAMAN Café-Bar
@@ -237,8 +237,8 @@ events:
   title: The NERDY COMEDY Show - English Standup Comedy in ZURICH
   url: "/nerdycomedyshow/"
   date: '2026-10-31'
-  start: '2026-10-31T20:30:00+02:00'
-  end: '2026-10-31T23:00:00+02:00'
+  start: '2026-10-31T19:30:00+01:00'
+  end: '2026-10-31T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -251,8 +251,8 @@ events:
   title: Pulp Non-Fiction - Storytelling Open Mic Zürich
   url: "/pulpnonfiction/"
   date: '2026-11-01'
-  start: '2026-11-01T20:00:00+02:00'
-  end: '2026-11-01T22:00:00+02:00'
+  start: '2026-11-01T19:00:00+01:00'
+  end: '2026-11-01T21:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -265,8 +265,8 @@ events:
   title: Tall Order
   url: "/tall-order/"
   date: '2026-11-03'
-  start: '2026-11-03T21:00:00+02:00'
-  end: '2026-11-03T23:00:00+02:00'
+  start: '2026-11-03T20:00:00+01:00'
+  end: '2026-11-03T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -279,8 +279,8 @@ events:
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-11-05'
-  start: '2026-11-05T20:30:00+02:00'
-  end: '2026-11-05T23:00:00+02:00'
+  start: '2026-11-05T19:30:00+01:00'
+  end: '2026-11-05T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -293,8 +293,8 @@ events:
   title: La Tarima - Comedia en Español
   url: "/latarima/"
   date: '2026-11-05'
-  start: '2026-11-05T21:00:00+02:00'
-  end: '2026-11-05T23:00:00+02:00'
+  start: '2026-11-05T20:00:00+01:00'
+  end: '2026-11-05T22:00:00+01:00'
   venue: yaman-caf-bar
   venue_name: YAMAN Café-Bar
   location: YAMAN Café-Bar
@@ -307,8 +307,8 @@ events:
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
   url: "/jokesjokesjokes/"
   date: '2026-11-10'
-  start: '2026-11-10T20:30:00+02:00'
-  end: '2026-11-10T22:30:00+02:00'
+  start: '2026-11-10T19:30:00+01:00'
+  end: '2026-11-10T21:30:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -316,13 +316,27 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726937836762.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
+- show: jackpotcomedy
+  name: Jackpot Comedy
+  title: Jackpot Comedy - downstairs @ OTRO
+  url: "/jackpotcomedy/"
+  date: '2026-11-11'
+  start: '2026-11-11T20:00:00+01:00'
+  end: '2026-11-11T22:00:00+01:00'
+  venue: otro
+  venue_name: Bar OTRO
+  location: OTRO - Cocktailbar Zürich
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7512798019957299982.html
+  eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-11-12'
-  start: '2026-11-12T20:30:00+02:00'
-  end: '2026-11-12T23:00:00+02:00'
+  start: '2026-11-12T19:30:00+01:00'
+  end: '2026-11-12T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -335,8 +349,8 @@ events:
   title: Tall Order
   url: "/tall-order/"
   date: '2026-11-17'
-  start: '2026-11-17T21:00:00+02:00'
-  end: '2026-11-17T23:00:00+02:00'
+  start: '2026-11-17T20:00:00+01:00'
+  end: '2026-11-17T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -349,8 +363,8 @@ events:
   title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
   url: "/promessi-spassi/"
   date: '2026-11-18'
-  start: '2026-11-18T21:00:00+02:00'
-  end: '2026-11-18T23:00:00+02:00'
+  start: '2026-11-18T20:00:00+01:00'
+  end: '2026-11-18T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -358,13 +372,27 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081128061415.html
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
+- show: jackpotcomedy
+  name: Jackpot Comedy
+  title: Jackpot Comedy - downstairs @ OTRO
+  url: "/jackpotcomedy/"
+  date: '2026-11-18'
+  start: '2026-11-18T20:00:00+01:00'
+  end: '2026-11-18T22:00:00+01:00'
+  venue: otro
+  venue_name: Bar OTRO
+  location: OTRO - Cocktailbar Zürich
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7512798260639068110.html
+  eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-11-19'
-  start: '2026-11-19T20:30:00+02:00'
-  end: '2026-11-19T23:00:00+02:00'
+  start: '2026-11-19T19:30:00+01:00'
+  end: '2026-11-19T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -377,8 +405,8 @@ events:
   title: La Tarima - Comedia en Español
   url: "/latarima/"
   date: '2026-11-19'
-  start: '2026-11-19T21:00:00+02:00'
-  end: '2026-11-19T23:00:00+02:00'
+  start: '2026-11-19T20:00:00+01:00'
+  end: '2026-11-19T22:00:00+01:00'
   venue: yaman-caf-bar
   venue_name: YAMAN Café-Bar
   location: YAMAN Café-Bar
@@ -391,8 +419,8 @@ events:
   title: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
   url: "/gratis-zum-mitnehmen/"
   date: '2026-11-22'
-  start: '2026-11-22T21:00:00+02:00'
-  end: '2026-11-22T23:00:00+02:00'
+  start: '2026-11-22T20:00:00+01:00'
+  end: '2026-11-22T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -405,8 +433,8 @@ events:
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
   url: "/jokesjokesjokes/"
   date: '2026-11-24'
-  start: '2026-11-24T20:30:00+02:00'
-  end: '2026-11-24T22:30:00+02:00'
+  start: '2026-11-24T19:30:00+01:00'
+  end: '2026-11-24T21:30:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -414,27 +442,13 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726988168437.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-11-26'
-  start: '2026-11-26T20:30:00+02:00'
-  end: '2026-11-26T22:30:00+02:00'
-  venue: goldfisch-club
-  venue_name: Goldfisch Club
-  location: Goldfisch Club
-  price_chf: 13
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472021574628952076.html
-  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-11-26'
-  start: '2026-11-26T20:30:00+02:00'
-  end: '2026-11-26T23:00:00+02:00'
+  start: '2026-11-26T19:30:00+01:00'
+  end: '2026-11-26T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -442,13 +456,27 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466832108633224028.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-11-26'
+  start: '2026-11-26T19:30:00+01:00'
+  end: '2026-11-26T21:30:00+01:00'
+  venue: goldfisch-club
+  venue_name: Goldfisch Club
+  location: Goldfisch Club
+  price_chf: 13
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472021574628952076.html
+  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: nerdycomedyshow
   name: The NERDY COMEDY Show
   title: The NERDY COMEDY Show - English Standup Comedy in ZURICH
   url: "/nerdycomedyshow/"
   date: '2026-11-28'
-  start: '2026-11-28T20:30:00+02:00'
-  end: '2026-11-28T23:00:00+02:00'
+  start: '2026-11-28T19:30:00+01:00'
+  end: '2026-11-28T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -461,8 +489,8 @@ events:
   title: Tall Order
   url: "/tall-order/"
   date: '2026-12-01'
-  start: '2026-12-01T21:00:00+02:00'
-  end: '2026-12-01T23:00:00+02:00'
+  start: '2026-12-01T20:00:00+01:00'
+  end: '2026-12-01T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -475,8 +503,8 @@ events:
   title: Mike Casa • Stand-up Comedy Show at ROBIN's Zürich • 2 December 2026
   url: "/mike-casa/"
   date: '2026-12-02'
-  start: '2026-12-02T20:30:00+02:00'
-  end: '2026-12-02T22:30:00+02:00'
+  start: '2026-12-02T19:30:00+01:00'
+  end: '2026-12-02T21:30:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN'S Coffee
@@ -484,13 +512,27 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/2-dec-mike-casa-stand-up-comedy-show-robin-s-zurich-7507006161725486601.html
   eventfrog_name: '2 DEC: Mike Casa Stand-up Comedy Show @ROBIN''S ZURICH!'
+- show: jackpotcomedy
+  name: Jackpot Comedy
+  title: Jackpot Comedy - downstairs @ OTRO
+  url: "/jackpotcomedy/"
+  date: '2026-12-02'
+  start: '2026-12-02T20:00:00+01:00'
+  end: '2026-12-02T22:00:00+01:00'
+  venue: otro
+  venue_name: Bar OTRO
+  location: OTRO - Cocktailbar Zürich
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7512798497231377139.html
+  eventfrog_name: Jackpot Comedy
 - show: randomfactsexchange
   name: Random Facts Exchange
   title: Random Facts Exchange - the Science Comedy Show in Zürich
   url: "/randomfactsexchange/"
   date: '2026-12-03'
-  start: '2026-12-03T19:00:00+02:00'
-  end: '2026-12-03T20:00:00+02:00'
+  start: '2026-12-03T18:00:00+01:00'
+  end: '2026-12-03T19:00:00+01:00'
   venue: natural-history-museum-of-the-university-of-zurich
   venue_name: Natural History Museum of the University of Zurich
   location: Natural History Museum of the University of Zurich
@@ -502,8 +544,8 @@ events:
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-12-03'
-  start: '2026-12-03T20:30:00+02:00'
-  end: '2026-12-03T23:00:00+02:00'
+  start: '2026-12-03T19:30:00+01:00'
+  end: '2026-12-03T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -516,8 +558,8 @@ events:
   title: Pulp Non-Fiction - Storytelling Open Mic Zürich
   url: "/pulpnonfiction/"
   date: '2026-12-06'
-  start: '2026-12-06T20:00:00+02:00'
-  end: '2026-12-06T22:00:00+02:00'
+  start: '2026-12-06T19:00:00+01:00'
+  end: '2026-12-06T21:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -530,8 +572,8 @@ events:
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
   url: "/jokesjokesjokes/"
   date: '2026-12-08'
-  start: '2026-12-08T20:30:00+02:00'
-  end: '2026-12-08T22:30:00+02:00'
+  start: '2026-12-08T19:30:00+01:00'
+  end: '2026-12-08T21:30:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -539,13 +581,27 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208727042694424.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
+- show: jackpotcomedy
+  name: Jackpot Comedy
+  title: Jackpot Comedy - downstairs @ OTRO
+  url: "/jackpotcomedy/"
+  date: '2026-12-09'
+  start: '2026-12-09T20:00:00+01:00'
+  end: '2026-12-09T22:00:00+01:00'
+  venue: otro
+  venue_name: Bar OTRO
+  location: OTRO - Cocktailbar Zürich
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7512798703465316750.html
+  eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-12-10'
-  start: '2026-12-10T20:30:00+02:00'
-  end: '2026-12-10T23:00:00+02:00'
+  start: '2026-12-10T19:30:00+01:00'
+  end: '2026-12-10T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -558,8 +614,8 @@ events:
   title: La Tarima - Comedia en Español
   url: "/latarima/"
   date: '2026-12-10'
-  start: '2026-12-10T21:00:00+02:00'
-  end: '2026-12-10T23:00:00+02:00'
+  start: '2026-12-10T20:00:00+01:00'
+  end: '2026-12-10T22:00:00+01:00'
   venue: yaman-caf-bar
   venue_name: YAMAN Café-Bar
   location: YAMAN Café-Bar
@@ -572,8 +628,8 @@ events:
   title: Tall Order
   url: "/tall-order/"
   date: '2026-12-15'
-  start: '2026-12-15T21:00:00+02:00'
-  end: '2026-12-15T23:00:00+02:00'
+  start: '2026-12-15T20:00:00+01:00'
+  end: '2026-12-15T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -586,8 +642,8 @@ events:
   title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
   url: "/promessi-spassi/"
   date: '2026-12-16'
-  start: '2026-12-16T21:00:00+02:00'
-  end: '2026-12-16T23:00:00+02:00'
+  start: '2026-12-16T20:00:00+01:00'
+  end: '2026-12-16T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -600,8 +656,8 @@ events:
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-12-17'
-  start: '2026-12-17T20:30:00+02:00'
-  end: '2026-12-17T23:00:00+02:00'
+  start: '2026-12-17T19:30:00+01:00'
+  end: '2026-12-17T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -614,8 +670,8 @@ events:
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
   url: "/jokesjokesjokes/"
   date: '2026-12-22'
-  start: '2026-12-22T20:30:00+02:00'
-  end: '2026-12-22T22:30:00+02:00'
+  start: '2026-12-22T19:30:00+01:00'
+  end: '2026-12-22T21:30:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -628,8 +684,8 @@ events:
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
   url: "/comedybrew/"
   date: '2026-12-24'
-  start: '2026-12-24T20:30:00+02:00'
-  end: '2026-12-24T23:00:00+02:00'
+  start: '2026-12-24T19:30:00+01:00'
+  end: '2026-12-24T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -642,8 +698,8 @@ events:
   title: The NERDY COMEDY Show - English Standup Comedy in ZURICH
   url: "/nerdycomedyshow/"
   date: '2026-12-26'
-  start: '2026-12-26T20:30:00+02:00'
-  end: '2026-12-26T23:00:00+02:00'
+  start: '2026-12-26T19:30:00+01:00'
+  end: '2026-12-26T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee

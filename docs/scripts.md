@@ -214,8 +214,8 @@ it. Pings `GBP_HEALTHCHECKS_URL` when set, else `HEALTHCHECKS_URL`. No git.
 Keeps the opening hours on the Google listing in step with the ROBIN's shows in
 `_data/calendar.yml` (the listing's address is ROBIN's, so shows elsewhere never count). Every
 period runs from 30 minutes before the show starts to 30 minutes after it ends (`GBP_HOURS_PAD`),
-in Zurich wall clock (the calendar carries a fixed +02:00 offset all year, so times go through
-the zone, never the digits). Two things are written through the Business Information API,
+in Zurich wall clock (times go through the zone, never the digits; the calendar has carried the
+real Zürich offset per date since 2026-10-05, before that a fixed +02:00). Two things are written through the Business Information API,
 `PATCH locations/{id}?updateMask=regularHours,specialHours`:
 
 - Regular hours, the weekly pattern: a weekday is regular when it has a show in at least three

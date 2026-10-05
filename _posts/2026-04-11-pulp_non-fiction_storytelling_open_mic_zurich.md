@@ -15,7 +15,7 @@ ticket_url: https://eventfrog.ch/pulpnonfiction/
 ticket_url_resolved: https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html
 event_type: monthly
 venue_slug: robins
-recurrence_time: "19:30"
+recurrence_time: "19:00"
 default_duration_minutes: 150
 next_event_date: 2026-11-01T20:00:00+02:00
 next_event_end_date: 2026-11-01T22:00:00+02:00
