@@ -5,7 +5,7 @@ nav_title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
 description: "Every IN YOUR FACE comedy show in Zürich, month by month through 2026: dates, venues and ticket links for English stand-up nights and open mics. Comedy Veranstaltungen in Zürich auf Englisch. Updated weekly."
-last_modified_at: 2026-10-05T09:19:13+00:00
+last_modified_at: 2026-10-06T08:50:01+00:00
 permalink: /calendar/
 redirect_from:   # every removed show lands here (CLAUDE.md, Removing a show)
   # Balkan Baddie (removed 2026-01-04)
