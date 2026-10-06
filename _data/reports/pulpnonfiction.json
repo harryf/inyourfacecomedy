@@ -3,24 +3,24 @@
  "title": "Pulp Non-Fiction",
  "ticket_url": "https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html",
  "event_type": "monthly",
- "generated_at": "2026-10-05T08:20:02.790Z",
+ "generated_at": "2026-10-06T08:20:01.174Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-05",
- "complete_through": "2026-10-03",
+ "through": "2026-10-06",
+ "complete_through": "2026-10-04",
  "totals": {
-  "clicks": 51,
+  "clicks": 53,
   "redirect": 19,
-  "click": 32,
-  "clicks_30d": 37,
-  "redirect_30d": 13,
-  "click_30d": 24,
-  "views": 93,
+  "click": 34,
+  "clicks_30d": 33,
+  "redirect_30d": 10,
+  "click_30d": 23,
+  "views": 96,
   "views_30d": 80,
-  "sessions": 98,
-  "sessions_30d": 87,
+  "sessions": 95,
+  "sessions_30d": 81,
   "broken_links": 0,
-  "untagged": 2
+  "untagged": 0
  },
  "by_day": [
   {
@@ -338,13 +338,21 @@
   {
    "date": "2026-10-04",
    "redirect": 8,
-   "click": 11,
-   "views": 19,
-   "provisional": true,
+   "click": 13,
+   "views": 22,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-05",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-06",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -356,9 +364,9 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 18,
-   "views": 36,
-   "sessions": 42
+   "clicks": 14,
+   "views": 33,
+   "sessions": 33
   },
   {
    "source": "meetup",
@@ -368,25 +376,25 @@
    "sessions": 2
   },
   {
-   "source": "google",
-   "medium": "organic",
-   "clicks": 6,
-   "views": 11,
-   "sessions": 12
-  },
-  {
    "source": "instagram",
    "medium": "social",
-   "clicks": 6,
+   "clicks": 9,
    "views": 0,
    "sessions": 0
   },
   {
+   "source": "google",
+   "medium": "organic",
+   "clicks": 8,
+   "views": 14,
+   "sessions": 15
+  },
+  {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
-   "clicks": 3,
-   "views": 11,
-   "sessions": 11
+   "clicks": 6,
+   "views": 14,
+   "sessions": 14
   },
   {
    "source": "test",
@@ -394,13 +402,6 @@
    "clicks": 2,
    "views": 5,
    "sessions": 2
-  },
-  {
-   "source": "meta",
-   "medium": "untagged",
-   "clicks": 2,
-   "views": 0,
-   "sessions": 0
   },
   {
    "source": "google-business",

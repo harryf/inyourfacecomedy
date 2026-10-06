@@ -3,22 +3,22 @@
  "title": "Tall Order",
  "ticket_url": "https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-7507743592338740411.html",
  "event_type": "series",
- "generated_at": "2026-10-05T08:20:02.790Z",
+ "generated_at": "2026-10-06T08:20:01.174Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-05",
- "complete_through": "2026-10-03",
+ "through": "2026-10-06",
+ "complete_through": "2026-10-04",
  "totals": {
-  "clicks": 26,
-  "redirect": 17,
-  "click": 9,
-  "clicks_30d": 26,
-  "redirect_30d": 17,
-  "click_30d": 9,
-  "views": 41,
-  "views_30d": 41,
-  "sessions": 41,
-  "sessions_30d": 41,
+  "clicks": 36,
+  "redirect": 24,
+  "click": 12,
+  "clicks_30d": 36,
+  "redirect_30d": 24,
+  "click_30d": 12,
+  "views": 44,
+  "views_30d": 44,
+  "sessions": 43,
+  "sessions_30d": 43,
   "broken_links": 0,
   "untagged": 0
  },
@@ -337,15 +337,23 @@
   },
   {
    "date": "2026-10-04",
-   "redirect": 15,
-   "click": 3,
+   "redirect": 17,
+   "click": 4,
    "views": 4,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-05",
-   "redirect": 2,
+   "redirect": 7,
+   "click": 2,
+   "views": 3,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-06",
+   "redirect": 0,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -356,30 +364,30 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 17,
+   "clicks": 24,
    "views": 0,
    "sessions": 0
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 5,
-   "views": 1,
-   "sessions": 1
-  },
-  {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 3,
-   "views": 7,
-   "sessions": 9
+   "clicks": 7,
+   "views": 2,
+   "sessions": 2
   },
   {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
-   "clicks": 1,
-   "views": 5,
-   "sessions": 4
+   "clicks": 3,
+   "views": 7,
+   "sessions": 6
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 2,
+   "views": 6,
+   "sessions": 7
   },
   {
    "source": "VA LBHE ABDF Dbzfel",
@@ -394,6 +402,13 @@
    "clicks": 0,
    "views": 1,
    "sessions": 1
+  },
+  {
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
   }
  ],
  "by_campaign": [
@@ -401,21 +416,25 @@
    "campaign": "tall-order",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 17,
+   "clicks": 24,
    "first": "2026-10-04",
    "last": "2026-10-05",
    "content": [
     {
      "content": "52679182997200",
-     "clicks": 3
+     "clicks": 6
     },
     {
      "content": "52679185461400",
-     "clicks": 2
+     "clicks": 4
     },
     {
      "content": "52679184892000",
      "clicks": 2
+    },
+    {
+     "content": "52679186122600",
+     "clicks": 1
     }
    ]
   }
