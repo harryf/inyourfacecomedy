@@ -5,7 +5,7 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-10-05T09:18:42+00:00'
+generated_at: '2026-10-06T07:00:01+00:00'
 event_count: 50
 events:
 - show: tall-order
@@ -256,7 +256,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 0
+  price_chf: 10
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-7480253293014302537.html
   eventfrog_name: Pulp Non-Fiction Storytelling Open Mic Zurich
@@ -563,7 +563,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 0
+  price_chf: 10
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-7480253427534024794.html
   eventfrog_name: Pulp Non-Fiction Storytelling Open Mic Zurich

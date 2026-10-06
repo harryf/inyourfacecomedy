@@ -16,10 +16,10 @@ ticket_url: https://eventfrog.ch/de/p/gruppen/nerdy-stand-up-comedy-en-728430466
 event_type: series
 default_duration_minutes: 150
 venue_slug: robins
-next_event_date: 2026-10-31T20:30:00+02:00
-next_event_end_date: 2026-10-31T23:00:00+02:00
+next_event_date: 2026-10-31T19:30:00+01:00
+next_event_end_date: 2026-10-31T22:00:00+01:00
 price_chf: 8
-last_modified_at: 2026-09-28T07:00:01+00:00
+last_modified_at: 2026-10-06T07:00:01+00:00
 ---
 **STAND-UP FOR PEOPLE WHO'VE ARGUED ABOUT ALIGNMENT CHARTS**
 
