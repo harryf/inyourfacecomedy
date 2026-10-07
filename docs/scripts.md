@@ -708,12 +708,12 @@ The moment scheduler (plan and reasons: `meta-ads/moments-plan.md`). Six ad sets
 |---|---|
 | Saturday to Monday before a Comedy Brew | planner on, ends Monday 23:59 |
 | Wednesday | tomorrow on, ends 23:59 |
-| Thursday, show day | tonight on, ends 19:30 |
+| Thursday, show day | tonight on, ends 18:00 |
 | otherwise, or no Brew within six days | all six paused |
 
 Inside the open ad set it switches on the ad for the condition and pauses the others: `long_weekend` when the Friday after the show is a Zürich public holiday (OpenHolidays API, a computed list if it is down), else `wet` on tomorrow and tonight when the MeteoSwiss local forecast for show day has 3 mm of rain or more at postcode 8001, a 60% evening chance of rain, or a high 5 °C below the two days before (station Zürich Fluntern), else `any`. The weather is read fresh on every run. Budgets come from `moments:` in `meta-ads/config.yml`: the weekly envelope, 70% Cold, split planner 20, evergreen 20, tomorrow 20, tonight 40, wet and long weekend boosts of 1.5 capped at 1.75, dropped when the month would pass `monthly_cap_chf`. It also writes the evergreen `adset_cold` and `adset_warm` daily budgets. Never touches the old carousel.
 
-The window's end is written on the ad set, so Meta stops "tonight" at 19:30 even if this Mac sleeps; a missed run means no moment ads that day, never the wrong line. Meta requires a daily-budget ad set to be scheduled for 24 hours or more counted from its start time, which the ad sets meet because they start on the day `--setup` made them.
+The window's end is written on the ad set, so Meta stops "tonight" at 18:00 even if this Mac sleeps; a missed run means no moment ads that day, never the wrong line. Meta requires a daily-budget ad set to be scheduled for 24 hours or more counted from its start time, which the ad sets meet because they start on the day `--setup` made them.
 
 ```
 bun script/meta-moments.ts --setup --validate     # Meta checks the six ad sets, writes nothing

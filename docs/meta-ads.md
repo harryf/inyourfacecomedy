@@ -17,7 +17,7 @@ laptop. The phone app hides most of these settings.
 12:30 (installed 4 October, Healthchecks `META_MOMENTS_HEALTHCHECKS_URL`). Six moment ad sets sit
 beside the evergreen ones: `cold-planner`, `cold-tomorrow`, `cold-tonight` and the same for
 Warm, with 18 ads (C18 to C26, W12 to W20). Planner runs Saturday to Monday before a Comedy Brew,
-tomorrow on the Wednesday, tonight on show day until 19:30; each run picks the any, wet or long
+tomorrow on the Wednesday, tonight on show day until 18:00; each run picks the any, wet or long
 weekend ad from the MeteoSwiss forecast and the Zürich holidays and sets the budgets: 70% Cold,
 split planner 20, evergreen 20, tomorrow 20, tonight 40 of a CHF 91 week, boosts 1.5 for rain
 or a long weekend. It owns the Cold and Warm daily budgets now (Cold CHF 1.80, Warm CHF 1.00 on

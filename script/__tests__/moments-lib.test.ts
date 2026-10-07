@@ -9,12 +9,12 @@ describe("windows", () => {
     expect(zurichIso("2026-10-08", "19:30")).toBe("2026-10-08T19:30:00+02:00");
     expect(zurichIso("2026-11-05", "19:30")).toBe("2026-11-05T19:30:00+01:00");
   });
-  test("planner Saturday to Monday, tomorrow Wednesday, tonight Thursday until 19:30", () => {
+  test("planner Saturday to Monday, tomorrow Wednesday, tonight Thursday until 18:00", () => {
     const w = windowsFor("2026-10-08");
     expect(w.map((x) => [x.phase, x.from, x.until, x.endIso])).toEqual([
       ["planner", "2026-10-03", "2026-10-05", "2026-10-05T23:59:00+02:00"],
       ["tomorrow", "2026-10-07", "2026-10-07", "2026-10-07T23:59:00+02:00"],
-      ["tonight", "2026-10-08", "2026-10-08", "2026-10-08T19:30:00+02:00"],
+      ["tonight", "2026-10-08", "2026-10-08", "2026-10-08T18:00:00+02:00"],
     ]);
   });
   test("the open window at a given moment, and none on Tuesday or after doors", () => {
@@ -24,11 +24,11 @@ describe("windows", () => {
     expect(openWindow("2026-10-08", at("2026-10-08T07:30:00+02:00"))?.phase).toBe("tonight");
     expect(openWindow("2026-10-08", at("2026-10-08T19:45:00+02:00"))).toBeNull();
   });
-  test("next show: today's counts until doors close, nothing further than six days", () => {
+  test("next show: today's counts until 18:00, nothing further than six days", () => {
     const ev = [{ show: "comedybrew", date: "2026-10-08" }, { show: "comedybrew", date: "2026-10-15" }, { show: "other", date: "2026-10-06" }];
     expect(nextShow(ev, at("2026-10-04T09:00:00+02:00"))).toBe("2026-10-08");
-    expect(nextShow(ev, at("2026-10-08T18:00:00+02:00"))).toBe("2026-10-08");
-    expect(nextShow(ev, at("2026-10-08T20:00:00+02:00"))).toBeNull();     // the 15th is seven days out
+    expect(nextShow(ev, at("2026-10-08T17:30:00+02:00"))).toBe("2026-10-08");
+    expect(nextShow(ev, at("2026-10-08T18:00:00+02:00"))).toBeNull();     // the window has ended and the 15th is seven days out
     expect(nextShow(ev, at("2026-10-09T09:00:00+02:00"))).toBe("2026-10-15");
     expect(nextShow([{ show: "comedybrew", date: "2026-10-15" }], at("2026-10-04T09:00:00+02:00"))).toBeNull();
   });

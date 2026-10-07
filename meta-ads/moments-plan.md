@@ -37,7 +37,7 @@ reached before.
 | planner | Saturday (first run) to Monday 23:59 before the show | plan it, book for the group, friends visiting |
 | (evergreen) | always, at a low base | the live laugh ads, C7, C13, W2, W9 |
 | tomorrow | Wednesday 00:00 to 23:59 | need a boost to make it to the weekend |
-| tonight | Thursday, first run to 19:30 | tonight, doors 19:00, tickets on the door too |
+| tonight | Thursday, first run to 18:00 | tonight, doors 19:00, tickets on the door too |
 
 Each moment has a condition: `any`, `wet` (a wet or cold turn) or `long_weekend` (the Friday
 after the show is a holiday in Zürich). Weather lines exist only for tomorrow and tonight, because a

@@ -37,9 +37,9 @@ export function zurichIso(date: string, time: string): string {
 
 // The show is a Thursday. Planner: Saturday to Monday before it (the Saturday run opens it; a
 // missed Saturday is caught by Sunday's or Monday's run). Tomorrow: the Wednesday. Tonight: show
-// day until doors close for online sales (19:30). The end is what Meta enforces.
+// day until 18:00, ninety minutes before the show (Harry, 7 October 2026; online sales close at 19:30). The end is what Meta enforces.
 export interface Window { phase: MomentPhase; from: string; until: string; endIso: string }
-export const TONIGHT_ENDS = "19:30";
+export const TONIGHT_ENDS = "18:00";
 export function windowsFor(show: string): Window[] {
   return [
     { phase: "planner", from: addDays(show, -5), until: addDays(show, -3), endIso: zurichIso(addDays(show, -3), "23:59") },

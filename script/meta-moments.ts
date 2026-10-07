@@ -5,12 +5,12 @@
 //
 //   Saturday to Monday before a show   the planner ad sets run, until Monday 23:59
 //   Wednesday                          the tomorrow ad sets run, until 23:59
-//   Thursday (show day)                the tonight ad sets run, until 19:30
+//   Thursday (show day)                the tonight ad sets run, until 18:00
 //   any other time                     all six paused; the evergreen Cold and Warm keep running
 //
 // Inside an open ad set one condition picks the ads: long weekend (the Friday after the show is a
 // Zürich holiday), wet (MeteoSwiss forecast for show day, read fresh on every run), or any. The
-// end of each window is written on the ad set itself, so Meta stops "tonight" at 19:30 even when
+// end of each window is written on the ad set itself, so Meta stops "tonight" at 18:00 even when
 // this Mac is asleep. A run that does not happen means no moment ads that day, never wrong ones.
 // Budgets: meta-ads/config.yml `moments:` (envelope, Cold share, split by moment, boosts), the
 // evergreen Cold and Warm daily budgets included. The old carousel is never touched.
@@ -79,7 +79,7 @@ async function setup(validate: boolean, dryRun: boolean) {
       if (validate) {
         // Meta wants a daily-budget ad set scheduled for 24 hours or more, counted from its
         // start_time. The ad sets start the day they are made, so the daily run's short windows
-        // (tonight is 07:00 to 19:30) are always days after the start; creation is checked with 25 h.
+        // (tonight is 07:00 to 18:00) are always days after the start; creation is checked with 25 h.
         const end = new Date(Date.now() + 25 * 3600_000).toISOString();
         const r = await patient(`${key} validate`, () => meta.post(`${act}/adsets`, { ...body, end_time: end, execution_options: ["validate_only"] }));
         log(`${key}: validate_only ${JSON.stringify(r)}`);
