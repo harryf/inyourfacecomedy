@@ -7,7 +7,7 @@
  *    show=slug        the show (resolved against the build-time #iyf-shows catalog)
  *    type=flat|split  one set, or two halves with an interval        (Lab-only helper)
  *    stage=show|format|pick|order   which wizard step to render      (Lab-only helper)
- *    host=slug        the MC (its own slot - not numbered in the running order)
+ *    host=slug[,slug] the MC or MCs (their own slot - never numbered in the running order)
  *    headliner=slug   the closer (kept IN the running order, just flagged)
  *    lineup=slug,…    running order for a one-set show
  *    first=slug,…     } running order for a two-half show
@@ -76,7 +76,7 @@
       ticketSerial: ticketSerial, ticketPalettes: ticketPalettes, ticketPalette: ticketPalette,
       lavaSeeds: lavaSeeds, caseNumber: caseNumber, contrastRatio: contrastRatio, newStylePairs: newStylePairs,
       showCode: showCode, chargeLines: chargeLines, chargeLine: chargeLine, firstName: firstName, adcardStyles: adcardStyles,
-      stubLines: stubLines, stubLine: stubLine,
+      stubLines: stubLines, stubLine: stubLine, hostLine: hostLine, hostsOf: hostsOf,
       weekWindow: weekWindow, weekEvents: weekEvents, weekHeadlines: weekHeadlines, weekCopy: weekCopy,
       weekHandles: weekHandles, weekHandlesText: weekHandlesText, weekCaption: weekCaption, weekCalLink: function () { return WEEK_CAL_LINK; },
       weekIsoWeek: weekIsoWeek, weekComicLayout: weekComicLayout, flapLines: flapLines, weekComicWeight: weekComicWeight, weekMenuPrice: weekMenuPrice, showTagline: showTagline, weekDateBoard: weekDateBoard, weekInfoFor: weekInfoFor, stripEmoji: stripEmoji, weekInfoLines: weekInfoLines, weekVenueShort: weekVenueShort,
@@ -202,7 +202,7 @@
   var state = {
     show: (params.get('show') || '').trim(),
     type: (params.get('type') || '').trim().toLowerCase(),
-    host: (params.get('host') || '').trim(),
+    host: listParam('host'),
     headliner: listParam('headliner'),
     lineup: listParam('lineup'),
     first: listParam('first'),
@@ -238,7 +238,7 @@
     var parts = [];
     if (st.show) parts.push('show=' + enc(st.show));
     if (st.type) parts.push('type=' + enc(st.type));
-    if (st.host) parts.push('host=' + enc(st.host));
+    if (st.host.length) parts.push('host=' + st.host.map(enc).join(','));
     if (st.headliner.length) parts.push('headliner=' + st.headliner.map(enc).join(','));
     parts = parts.concat(billParts(st));
     if (stage) parts.push('stage=' + enc(stage));
@@ -248,7 +248,7 @@
     var parts = [];
     if (st.show) parts.push('show=' + enc(st.show));
     if (st.headliner.length) parts.push('headliner=' + st.headliner.map(enc).join(','));
-    if (st.host) parts.push('host=' + enc(st.host));
+    if (st.host.length) parts.push('host=' + st.host.map(enc).join(','));
     parts = parts.concat(billParts(st));
     return parts.join('&');
   }
@@ -277,7 +277,7 @@
     var title = s ? splitTitle(s.title) : (st.show || 'Lineup');
     var when = s ? showDate(s.next) : '';
     lines.push('🎤 ' + title + (when ? (' - ' + when) : ''));
-    if (st.host) lines.push('Host: ' + nameOf(st.host));
+    if (st.host.length) lines.push(hostLine(st.host.map(nameOf)));
     lines.push('');
     var n = 0;
     function actLine(slug) {
@@ -385,7 +385,7 @@
       var when = showDate(s.next);
       if (when) b.appendChild(el('span', 'lineup-lab__show-date', when));
       b.addEventListener('click', function () {
-        go({ show: s.slug, type: '', host: '', headliner: '', lineup: [], first: [], second: [] }, 'format');
+        go({ show: s.slug, type: '', host: [], headliner: '', lineup: [], first: [], second: [] }, 'format');
       });
       li.appendChild(b);
       ul.appendChild(li);
@@ -409,7 +409,7 @@
       b.appendChild(el('span', 'lineup-lab__format-name', o.t));
       b.appendChild(el('span', 'lineup-lab__format-desc', o.d));
       b.addEventListener('click', function () {
-        go({ show: state.show, type: o.type, host: '', headliner: '', lineup: [], first: [], second: [] }, 'pick');
+        go({ show: state.show, type: o.type, host: [], headliner: '', lineup: [], first: [], second: [] }, 'pick');
       });
       wrap.appendChild(b);
     });
@@ -427,7 +427,7 @@
     root.appendChild(stepper('pick'));
 
     var initial = state.type === 'split' ? state.first.concat(state.second) : state.lineup.slice();
-    if (state.host && initial.indexOf(state.host) < 0) initial.unshift(state.host);
+    state.host.slice().reverse().forEach(function (h) { if (initial.indexOf(h) < 0) initial.unshift(h); });
     state.headliner.forEach(function (h) { if (initial.indexOf(h) < 0) initial.unshift(h); });
     var selected = resolveBill(initial);   // keeps guest:Name tokens alongside catalog slugs
 
@@ -545,11 +545,10 @@
       if (!selected.length) return;
       // Resolve to CANONICAL slugs before comparing - a hand-built link may carry a host/
       // headliner in a different separator form (harryf.cks vs harryf-cks); compare like-for-like.
-      var ch = canonical(state.host);
       var st = {
         show: state.show,
         type: state.type === 'split' ? 'split' : 'flat',
-        host: (ch && selected.indexOf(ch) >= 0) ? ch : '',
+        host: resolveBill(state.host).filter(function (s) { return selected.indexOf(s) >= 0; }),
         headliner: resolveBill(state.headliner).filter(function (s) { return selected.indexOf(s) >= 0; }),
         lineup: [], first: [], second: []
       };
@@ -571,7 +570,7 @@
     // Loud-not-silent: if a shared link references a comedian who's since been unpublished or
     // re-slugged, they're dropped (anti-spam) - but say so rather than quietly shrinking the bill.
     var requested = (state.type === 'split' ? state.first.concat(state.second) : state.lineup.slice());
-    if (state.host) requested.push(state.host);
+    state.host.forEach(function (h) { if (requested.indexOf(h) < 0) requested.push(h); });
     state.headliner.forEach(function (h) { if (requested.indexOf(h) < 0) requested.push(h); });
     var dropped = requested.filter(function (s) { return !isGuest(s) && !findComedian(s); }).length;  // guests aren't "dropped"
     if (dropped > 0) {
@@ -591,15 +590,15 @@
     }
     var work = {
       type: state.type,
-      host: canonical(state.host) || '',
+      hosts: resolveBill(state.host),             // 0+ hosts (co-hosts allowed)
       headliner: resolveBill(state.headliner),   // 0+ headliners (co-headliners allowed)
       order: order
     };
-    // The host lives in its own slot, never in the numbered order.
-    if (work.host) work.order = work.order.filter(function (t) { return t === INTERVAL || norm(t) !== norm(work.host); });
+    // The hosts live in their own slot, never in the numbered order.
+    if (work.hosts.length) work.order = work.order.filter(function (t) { return t === INTERVAL || !hasNorm(work.hosts, t); });
 
     var performers = work.order.filter(function (t) { return t !== INTERVAL; });
-    if (!performers.length && !work.host) {
+    if (!performers.length && !work.hosts.length) {
       root.appendChild(el('p', 'lineup-lab__empty', 'No acts yet - go back and add some comedians.'));
       var a0 = el('div', 'lineup-lab__actions');
       a0.appendChild(backLink('pick'));
@@ -608,7 +607,7 @@
     }
 
     function workToState() {
-      var st = { show: state.show, type: work.type, host: work.host, headliner: [], lineup: [], first: [], second: [] };
+      var st = { show: state.show, type: work.type, host: work.hosts.slice(), headliner: [], lineup: [], first: [], second: [] };
       if (work.type === 'split') {
         var afterInterval = false;
         work.order.forEach(function (t) {
@@ -658,11 +657,18 @@
       });
     }
 
+    // Toggle an act in and out of the host slot. More than one host is fine (co-hosted
+    // nights): setting a second host keeps the first. Unsetting puts that act back at the
+    // top of the running order.
+    function unsetHost(token) {
+      work.hosts = dropNorm(work.hosts, token);
+      work.order.unshift(token);
+      rerender();
+    }
     function setHost(token) {
-      if (norm(work.host) === norm(token)) { work.order.unshift(work.host); work.host = ''; rerender(); return; }
+      if (hasNorm(work.hosts, token)) { unsetHost(token); return; }
       work.order = work.order.filter(function (t) { return t === INTERVAL || norm(t) !== norm(token); });
-      if (work.host) work.order.unshift(work.host);
-      work.host = token;
+      work.hosts = work.hosts.concat(token);
       work.headliner = dropNorm(work.headliner, token); // the MC isn't a headliner in the order
       rerender();
     }
@@ -701,7 +707,7 @@
       var up = button('lineup-lab__move', '↑'); up.setAttribute('aria-label', 'Move up'); up.addEventListener('click', function () { move(idx, -1); });
       var dn = button('lineup-lab__move', '↓'); dn.setAttribute('aria-label', 'Move down'); dn.addEventListener('click', function () { move(idx, 1); });
       ctr.appendChild(up); ctr.appendChild(dn);
-      var isHost = norm(token) === norm(work.host);
+      var isHost = hasNorm(work.hosts, token);
       var hb = button('lineup-lab__tag lineup-lab__tag--icon' + (isHost ? ' is-on' : ''), '🎤');
       hb.setAttribute('aria-pressed', isHost ? 'true' : 'false');
       hb.setAttribute('aria-label', isHost ? 'Unset host' : 'Set as host');
@@ -760,16 +766,18 @@
 
     function buildHostSlot() {
       var slot = el('div', 'lineup-lab__hostslot');
-      slot.appendChild(el('span', 'lineup-lab__hostslot-label', 'Host'));
-      if (work.host) {
-        var pill = el('span', 'lineup-lab__hostpill', nameOf(work.host));
-        var rm = button('lineup-lab__chip-x', '✕');
-        rm.setAttribute('aria-label', 'Remove host');
-        rm.addEventListener('click', function () { work.order.unshift(work.host); work.host = ''; rerender(); });
-        pill.appendChild(rm);
-        slot.appendChild(pill);
+      slot.appendChild(el('span', 'lineup-lab__hostslot-label', work.hosts.length > 1 ? 'Hosts' : 'Host'));
+      if (work.hosts.length) {
+        work.hosts.forEach(function (h) {
+          var pill = el('span', 'lineup-lab__hostpill', nameOf(h));
+          var rm = button('lineup-lab__chip-x', '✕');
+          rm.setAttribute('aria-label', 'Remove host ' + nameOf(h));
+          rm.addEventListener('click', function () { unsetHost(h); });
+          pill.appendChild(rm);
+          slot.appendChild(pill);
+        });
       } else {
-        slot.appendChild(el('span', 'lineup-lab__hostslot-empty', 'No host - tap “Host” on an act to set one.'));
+        slot.appendChild(el('span', 'lineup-lab__hostslot-empty', 'No host - tap “Host” on an act to set one. Tap it on a second act for co-hosts.'));
       }
       return slot;
     }
@@ -842,7 +850,7 @@
       dynamic.appendChild(buildFormatToggle());
       dynamic.appendChild(buildHostSlot());
       var legend = el('p', 'lineup-lab__legend');
-      legend.appendChild(el('span', 'lineup-lab__legend-item', '🎤 = Host (the MC)'));
+      legend.appendChild(el('span', 'lineup-lab__legend-item', '🎤 = Host (the MC; more than one is fine)'));
       legend.appendChild(el('span', 'lineup-lab__legend-item', '⭐ = Headliner (you can star more than one)'));
       dynamic.appendChild(legend);
       dynamic.appendChild(buildList());
@@ -978,6 +986,21 @@
   }
   // Caption name under a face: the whole name when it is short enough to always fit (8
   // characters or fewer, so "Dr Val" stays "Dr Val"), otherwise the first word. Pure; exported.
+  // The host list of a state object. The URL and the maker carry a list, but drawFlyer is a
+  // public window API (script/meta-lineup-ad.ts calls it) and older callers hand over one slug
+  // as a string, so a string is split like the URL param would be.
+  function hostsOf(st) {
+    var h = st && st.host;
+    if (Array.isArray(h)) return h;
+    return String(h || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+  }
+  // "Host: A", "Hosts: A & B", "Hosts: A, B & C" - the running-order text line for the MCs.
+  function hostLine(names) {
+    var n = names.length;
+    if (!n) return '';
+    if (n === 1) return 'Host: ' + names[0];
+    return 'Hosts: ' + names.slice(0, -1).join(', ') + ' & ' + names[n - 1];
+  }
   function firstName(name) {
     var full = String(name || '').trim();
     if (full.length <= 8) return full;
@@ -1155,6 +1178,30 @@
     return nameY + nameSize * 0.5; // bottom edge of the whole host block (ring + pill + name)
   }
 
+  // Lay the hosts' rings on one row centred on cx. One host draws exactly where it always did;
+  // co-hosts sit side by side, and the ring shrinks when the row would not fit maxW. drawOne
+  // paints one host at (hx, hcy) with radius hr and returns the bottom edge of what it drew.
+  function drawHostRow(ctx, hosts, cx, topY, r, maxW, drawOne) {
+    var n = hosts.length;
+    var gap = Math.round(r * 0.6), outer = r + 9;
+    var total = n * 2 * outer + (n - 1) * gap;
+    if (total > maxW) {
+      var k = maxW / total;
+      r = Math.round(r * k); gap = Math.round(gap * k); outer = r + 9;
+      total = n * 2 * outer + (n - 1) * gap;
+    }
+    var x = cx - total / 2 + outer, bottom = topY;
+    hosts.forEach(function (h) {
+      bottom = Math.max(bottom, drawOne(ctx, h, x, topY + r, r));
+      x += 2 * outer + gap;
+    });
+    return bottom;
+  }
+  // The hosts as grid prints for the painters that keep the host inside the face grid.
+  function hostPrints(m) {
+    return m.hosts.map(function (h) { return { slug: h.slug, name: h.name, img: h.img, priority: 'high', isHost: true }; });
+  }
+
   // --- compositor ------------------------------------------------------------
   function paintFlyer(ctx, spec, m) {
     var W = spec.w, H = spec.h, top = spec.safeTop, bottom = spec.safeBottom, pad = 64;
@@ -1217,9 +1264,11 @@
     // further when crowded. Its TOP stays put so the grid still starts below the host name.
     var hostR = Math.round((spec.format === 'story' ? 138 : 124) * (crowded ? 0.82 : 1));
     var rowTop;
-    if (m.host && m.host.slug) {
-      var hostCy = facesTop + hostR + 10;                 // ring top stays at facesTop + 10
-      var hostBottom = drawHost(ctx, m.host.img, cx, hostCy, hostR, m.host.name);
+    if (m.hosts.length) {
+      // ring top stays at facesTop + 10; co-hosts sit side by side on one row
+      var hostBottom = drawHostRow(ctx, m.hosts, cx, facesTop + 10, hostR, W - pad * 2, function (ctx, h, hx, hcy, hr) {
+        return drawHost(ctx, h.img, hx, hcy, hr, h.name);
+      });
       rowTop = hostBottom + (crowded ? 22 : 40);          // grid starts clear of the host name
     } else {
       rowTop = facesTop + 20;
@@ -1769,7 +1818,7 @@
 
     // 6. faces: host rides in the grid as its own print (centred, tagged), every act shown
     var bill = m.bill.slice();
-    if (m.host && m.host.slug) bill.unshift({ slug: m.host.slug, name: m.host.name, img: m.host.img, priority: 'high', isHost: true });
+    bill = hostPrints(m).concat(bill);
     faceGrid(ctx, spec, bill, ix, bandTop, iw, bandH, 1.32, story ? 240 : 210, function (ctx, it, ccx, ty2, w) {
       drawTicketFace(ctx, it, ccx, ty2, w, P);
     });
@@ -1850,8 +1899,9 @@
     ctx.restore();
   }
 
-  function drawRisoHost(ctx, cx, topY, host) {
-    var r = 118, cy = topY + r;
+  function drawRisoHost(ctx, cx, topY, host, r) {
+    r = r || 118;
+    var cy = topY + r;
     ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.clip();
     if (host.img) {
       drawDuotone(ctx, host.img, cx - r, cy - r, 2 * r, 2 * r);
@@ -1865,14 +1915,14 @@
     ctx.restore();
     ctx.lineWidth = 6; ctx.strokeStyle = '#0F0F10';
     ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
-    var pillH = 46, pillW = 150, pillY = cy + r - pillH * 0.4;
+    var pillH = 46, pillW = Math.min(150, Math.round(r * 1.27)), pillY = cy + r - pillH * 0.4;
     roundRect(ctx, cx - pillW / 2, pillY, pillW, pillH, pillH / 2);
     ctx.fillStyle = '#E53935'; ctx.fill();
     ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.font = '700 26px ' + FONT_BODY; ctx.fillText('H O S T', cx, pillY + pillH / 2 + 1);
     var nameY = pillY + pillH + 30, hostCap = firstName(host.name).toUpperCase();
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    fitFont(ctx, hostCap, 320, 40, 20, '', FONT_ACCENT);
+    fitFont(ctx, hostCap, Math.min(320, Math.round(r * 2.7)), 40, 20, '', FONT_ACCENT);
     ctx.fillStyle = '#0F0F10'; ctx.fillText(hostCap, cx + 2, nameY + 2);   // ink offset, like a misregistered second pass
     ctx.fillStyle = '#FFF3E0'; ctx.fillText(hostCap, cx, nameY);
     return nameY + 26;
@@ -1904,7 +1954,11 @@
     var titleTop = drawRisoTitle(ctx, spec, m, metaBaseY - 86);
     drawMeta(ctx, spec, m, metaBaseY, '#0F0F10', '#FFF3E0', '#FFF3E0');
     var rowTop = facesTop;
-    if (m.host && m.host.slug) { rowTop = drawRisoHost(ctx, cx, facesTop, m.host) + 22; }
+    if (m.hosts.length) {
+      rowTop = drawHostRow(ctx, m.hosts, cx, facesTop, 118, W - pad * 2, function (ctx, h, hx, hcy, hr) {
+        return drawRisoHost(ctx, hx, hcy - hr, h, hr);
+      }) + 22;
+    }
     faceGrid(ctx, spec, m.bill, pad, rowTop, W - pad * 2, (titleTop - 36) - rowTop, 1.20,
       spec.format === 'story' ? 220 : 200, function (ctx, it, ccx, ty, w) {
         drawRisoFace(ctx, it.img, ccx, ty, w, it.name, it.headliner);
@@ -1987,9 +2041,10 @@
     var titleTop = drawNeonTitle(ctx, spec, m, metaBaseY - 84);
     drawMeta(ctx, spec, m, metaBaseY, '#E53935', '#FFF3E0', '#FFD54F');
     var rowTop = facesTop;
-    if (m.host && m.host.slug) {
-      var hr = 140;
-      rowTop = drawHost(ctx, m.host.img, cx, facesTop + hr + 10, hr, m.host.name) + 22;
+    if (m.hosts.length) {
+      rowTop = drawHostRow(ctx, m.hosts, cx, facesTop + 10, 140, W - pad * 2, function (ctx, h, hx, hcy, hr) {
+        return drawHost(ctx, h.img, hx, hcy, hr, h.name);
+      }) + 22;
     }
     faceGrid(ctx, spec, m.bill, pad, rowTop, W - pad * 2, (titleTop - 36) - rowTop, 1.26,
       spec.format === 'story' ? 210 : 195, function (ctx, it, ccx, ty, w) {
@@ -2094,7 +2149,7 @@
     var friendsH = m.hasGuests ? 60 : 0;
     var facesTop = bandY + bandH + 28, facesBottom = ruleY - 28 - friendsH;
     var bill = m.bill.slice();
-    if (m.host && m.host.slug) bill.unshift({ slug: m.host.slug, name: m.host.name, img: m.host.img, priority: 'high', isHost: true });
+    bill = hostPrints(m).concat(bill);
     faceGrid(ctx, spec, bill, pad, facesTop, W - pad * 2, facesBottom - facesTop, 1.24, story ? 240 : 200,
       function (ctx, it, ccx, ty, w) { drawTypeFace(ctx, it, ccx, ty, w); });
     if (m.hasGuests) {
@@ -2339,7 +2394,7 @@
     var friendsH = m.hasGuests ? 60 : 0;
     var facesTop = headerBottom + 16, facesBottom = titleTop - 30 - friendsH;
     var bill = m.bill.slice();
-    if (m.host && m.host.slug) bill.unshift({ slug: m.host.slug, name: m.host.name, img: m.host.img, priority: 'high', isHost: true });
+    bill = hostPrints(m).concat(bill);
     faceGrid(ctx, spec, bill, pad, facesTop, W - pad * 2, facesBottom - facesTop, 1.28, story ? 240 : 200,
       function (ctx, it, ccx, ty, w) { drawLavaFace(ctx, it, ccx, ty, w); });
     if (m.hasGuests) {
@@ -2470,7 +2525,7 @@
     var friendsH = m.hasGuests ? 56 : 0;
     var facesTop = ruleY + 36, facesBottom = titleTop - 20 - friendsH;
     var bill = m.bill.slice();
-    if (m.host && m.host.slug) bill.unshift({ slug: m.host.slug, name: m.host.name, img: m.host.img, priority: 'high', isHost: true });
+    bill = hostPrints(m).concat(bill);
     faceGrid(ctx, spec, bill, x, facesTop, colW, facesBottom - facesTop, 1.36, story ? 300 : 240,
       function (ctx, it, ccx, ty, w) { drawSwissFace(ctx, it, ccx, ty, w); });
     if (m.hasGuests) {
@@ -2594,7 +2649,7 @@
     var friendsH = m.hasGuests ? 56 : 0;
     var facesTop = stripY + stripH + 30, facesBottom = labelY - 40 - friendsH;
     var bill = m.bill.slice();
-    if (m.host && m.host.slug) bill.unshift({ slug: m.host.slug, name: m.host.name, img: m.host.img, priority: 'high', isHost: true });
+    bill = hostPrints(m).concat(bill);
     faceGrid(ctx, spec, bill, pad, facesTop, W - pad * 2, facesBottom - facesTop, 1.34, story ? 250 : 210,
       function (ctx, it, ccx, ty, w, idx) { drawLineupFace(ctx, it, ccx, ty, w, code, idx); });
     if (m.hasGuests) {
@@ -2646,16 +2701,18 @@
     canvas.height = spec.h;
     var ctx = canvas.getContext('2d');
     var s = findShow(st.show);
-    var hostSlug = (st.host && findComedian(st.host)) ? canonical(st.host) : '';
+    var hostSlugs = resolveSlugs(hostsOf(st));
     var raw = (st.type === 'split') ? st.first.concat(st.second) : st.lineup.slice();
-    var billSlugs = resolveSlugs(raw).filter(function (x) { return norm(x) !== norm(hostSlug); });
-    var hostC = hostSlug ? findComedian(hostSlug) : null;
+    var billSlugs = resolveSlugs(raw).filter(function (x) { return !hasNorm(hostSlugs, x); });
     // Guests ride in the URL as guest:Name and are deliberately NOT pictured on the flyer.
-    // If any are on the bill, the flyer shows fewer faces than the real lineup - flag it so
-    // paintFlyer can add an "… and friends" line under the photos.
-    var hasGuests = raw.some(function (t) { return isGuest(t); });
+    // If any are on the bill (or hosting), the flyer shows fewer faces than the real lineup -
+    // flag it so paintFlyer can add an "… and friends" line under the photos.
+    var hasGuests = raw.concat(hostsOf(st)).some(function (t) { return isGuest(t); });
 
-    var srcs = [assetURL(s && s.img), '/assets/img/inyourface.png', hostC ? assetURL(hostC.photo) : ''];
+    // Image order: show art, logo, every host, every act, backdrop. The offsets below follow it.
+    var srcs = [assetURL(s && s.img), '/assets/img/inyourface.png'];
+    hostSlugs.forEach(function (sl) { var c = findComedian(sl); srcs.push(c ? assetURL(c.photo) : ''); });
+    var billAt = srcs.length;
     billSlugs.forEach(function (sl) { var c = findComedian(sl); srcs.push(c ? assetURL(c.photo) : ''); });
     // Last: the audience backdrop for the ticket style (other painters ignore m.backdrop).
     srcs.push(assetURL(pickBackdrop()));
@@ -2665,11 +2722,15 @@
       .then(function (imgs) {
         var bill = billSlugs.map(function (sl, i) {
           var c = findComedian(sl) || {};
-          return { slug: sl, name: c.name || sl, priority: c.priority, img: imgs[3 + i], headliner: hasNorm(st.headliner, sl) };
+          return { slug: sl, name: c.name || sl, priority: c.priority, img: imgs[billAt + i], headliner: hasNorm(st.headliner, sl) };
+        });
+        var hosts = hostSlugs.map(function (sl, i) {
+          var c = findComedian(sl) || {};
+          return { slug: sl, name: c.name || sl, img: imgs[2 + i] };
         });
         paint(ctx, spec, {
           show: s, st: st, bg: imgs[0], logo: imgs[1],
-          host: hostSlug ? { slug: hostSlug, name: (hostC && hostC.name) || hostSlug, img: imgs[2] } : null,
+          hosts: hosts,
           bill: bill, hasGuests: hasGuests, nowMs: Date.now(),
           backdrop: imgs[imgs.length - 1]
         });
@@ -2714,7 +2775,7 @@
     } catch (e) { fail(e); }
   }
 
-  // Instagram handles for everyone ON the flyer (host + catalog bill), the venue and IYF_IG, resolved with the SAME
+  // Instagram handles for everyone ON the flyer (hosts + catalog bill), the venue and IYF_IG, resolved with the SAME
   // resolveSlugs the flyer draws with - so the list always matches the faces shown and guests
   // (off-catalog, no instagram) are excluded for free. De-dupes case-insensitively, drops blanks.
   function flyerHandles(st) {
@@ -2725,10 +2786,10 @@
       var k = h.toLowerCase(); if (seen[k]) return;
       seen[k] = 1; out.push(h);
     }
-    var hostSlug = (st.host && findComedian(st.host)) ? canonical(st.host) : '';
-    if (hostSlug) add(hostSlug);
+    var hostSlugs = resolveSlugs(hostsOf(st));
+    hostSlugs.forEach(add);
     var raw = (st.type === 'split') ? st.first.concat(st.second) : st.lineup.slice();
-    resolveSlugs(raw).filter(function (x) { return norm(x) !== norm(hostSlug); }).forEach(add);
+    resolveSlugs(raw).filter(function (x) { return !hasNorm(hostSlugs, x); }).forEach(add);
     // Then the venue, last, so the room is tagged too (#iyf-shows venue_ig: the venue of the next date).
     var s = findShow(st.show), v = s ? instaHandle(s.venue_ig) : '';
     if (v && !seen[v.toLowerCase()]) { seen[v.toLowerCase()] = 1; out.push(v); }

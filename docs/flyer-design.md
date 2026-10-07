@@ -25,7 +25,7 @@ A **client-side, zero-server PNG generator**. From the lineup the user has assem
 
 The whole pipeline is `openFlyer()` → `drawFlyer()` (resolve lineup → load assets → `paintFlyer()`) → `downloadCanvas()`. A sibling button copies every on-flyer comedian's Instagram `@handle` for tagging, then the venue's (`venue_ig` in `#iyf-shows`: the `instagram:` in `_data/venues.yml` of the venue of the show's next date, else of its `venue_slug`), then `@inyourfacecomedy` (`IYF_IG`). The hint beside it (`IG_PASTE_HINT`) says to check each handle is underlined in Instagram and to type a space at the end of a line that is not.
 
-**Why it matters for variants:** every new style is a different `paintFlyer()` (the compositor), drawing into the *same* `spec` (the canvas + safe insets) from the *same* `m` model (show, bg, logo, host, bill). The data contract and the canvas contract are the stable spine; the painting is the variable part.
+**Why it matters for variants:** every new style is a different `paintFlyer()` (the compositor), drawing into the *same* `spec` (the canvas + safe insets) from the *same* `m` model (show, bg, logo, hosts, bill). The data contract and the canvas contract are the stable spine; the painting is the variable part.
 
 ---
 
@@ -70,7 +70,7 @@ All three load in a **single Google Fonts request** — the exact same URL the d
 2. **Brand overlays** — a vertical blue wash for cohesion + a bottom ink scrim for legibility behind text.
 3. **Logo + tagline** — IYF logo centered at top inside the safe-top inset; *"English stand-up comedy"* in Permanent Marker below it.
 4. **Faces zone** — the heart of the flyer:
-   - **Host** (optional): a circular portrait with a red ring, a `HOST` pill straddling the bottom of the ring, and the host's first name beneath.
+   - **Hosts** (optional): a circular portrait with a red ring, a `HOST` pill straddling the bottom of the ring, and the host's first name beneath. Co-hosts sit side by side on one row (`drawHostRow`), the ring shrinking only when the row would not fit the width; the grid painters (ticket, type, lava, swiss, lineup) put every host into the face grid as its own tagged print, first.
    - **Bill grid**: every other performer as a tilted **polaroid** (cream frame, photo, first-name caption). Headliners get a red **star badge**.
 5. **Show title** — the show name in Anton, uppercase, auto-fit to ≤3 lines, drawn up from a baseline anchored above the safe bottom.
 6. **Meta line** — a red **date pill** + the **venue** in yellow.
@@ -113,7 +113,7 @@ Borrowing a first-principles split: **hard** constraints are physics/brand-immov
 | S1 | Logo + tagline anchored top-centre | A variant could move/resize the lockup — as long as the logo is present and clear. |
 | S2 | Title at the bottom, date pill + venue beneath it | Re-positionable; the *information* (title, date, venue) must remain, the *placement* is style. |
 | S3 | Polaroid treatment (cream frame, tilt, caption) | The face-card *visual* is the most style-bearing element — a variant can reskin it entirely (ticket-stub, halftone, neon outline…) while keeping one card per act. |
-| S4 | Host as a ringed circle with a HOST pill | Host emphasis is required; the *form* of that emphasis is open. |
+| S4 | Host as a ringed circle with a HOST pill; co-hosts on one row | Host emphasis is required for every host; the *form* of that emphasis is open. |
 | S5 | Priority → centre-out + size scaling | The "most important act is most prominent" rule should hold; the geometry that expresses it can change. |
 | S6 | Blue wash + bottom ink scrim | The legibility mechanism (H9) is required; *this particular* wash is a style choice. |
 | S7 | Short-name captions, uppercase: `firstName()` keeps the whole name when it is 8 characters or fewer (so "Dr Val" is not cut to "Dr"), otherwise the first word | Readable density choice; a variant could show full names if it has room. |
@@ -149,7 +149,7 @@ When we build "different flyer styles for more variety," each new style is free 
 **Contract (inherited, do not break):**
 - canvas size + safe insets per format (H2, H3) — keep using `flyerSpec()`
 - same-origin asset loading + untaint guarantee (H1, H8) — reuse `loadImg`/`drawCover`/`assetURL`
-- the `m` model (show, bg, logo, host, bill with priority/headliner) — reuse `drawFlyer`'s resolution
+- the `m` model (show, bg, logo, hosts, bill with priority/headliner): reuse `drawFlyer`'s resolution
 - brand fonts loaded before draw (H5) — reuse `loadBrandFonts`
 - every act shown (H6) and priority-respecting prominence (S5)
 - brand palette + legibility floor (H4, H9)

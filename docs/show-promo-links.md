@@ -157,7 +157,7 @@ date, title. Two things switch:
 The links above are produced for you by **Lineup Maker 2000**: `https://inyourfacecomedy.ch/lineup/`.
 It's a phone-first power tool for whoever is building a show. No login, no saving — the **entire
 lineup lives in the URL**, using the exact same params documented above (`show`, `headliner`,
-`host`, `first`, `second`, `lineup`) plus two helpers (`type=flat|split`, `stage`). Share the link
+`host` (one slug or a comma list for co-hosts), `first`, `second`, `lineup`) plus two helpers (`type=flat|split`, `stage`). Share the link
 and you share the work.
 
 > **Not crawled / not indexed.** `/lineup/` carries `<meta robots noindex,nofollow>`, is excluded
@@ -171,7 +171,8 @@ and you share the work.
 2. **Pick the format** — straight line-up, hosted, or two halves.
 3. **Add the comedians** — type to search the roster by name, tap to add/remove.
 4. **Set the running order** — drag (on a laptop) or use the ↑/↓ buttons (rock-solid on a phone)
-   to reorder. Tap **Host** to pull someone into the MC slot, **Headliner** to ⭐ the closer, and
+   to reorder. Tap **Host** to pull someone into the MC slot (tap it on a second act too for a
+   co-hosted night: the link then carries `host=a,b`), **Headliner** to ⭐ the closer, and
    the **Interval** divider splits the bill into two halves. Hit **Update lineup** to bake the new
    order into the URL.
 
@@ -185,7 +186,7 @@ and you share the work.
 | 🙏 Thank-you link | The same promo link + `&thankyou` for after the show. |
 
 The three shareable links carry UTM tags: `utm_source=instagram`, `utm_medium=social`, `utm_campaign=<show>-<yyyymmdd>` (the next date; just `<show>` when none is ahead) and `utm_content=tickets`, `promo` or `thankyou`. Instagram is the source because that is where these links get posted most; `docs/campaign-links.md` has the vocabulary. The editing link carries no tags (it is a tool link, not a visit).
-| 💬 Running order | Plain text — host first, numbered acts, headliner ⭐, halves + interval — to paste straight into WhatsApp. |
+| 💬 Running order | Plain text: host or hosts first (`Hosts: A & B`), numbered acts, headliner ⭐, halves + interval, to paste straight into WhatsApp. |
 
 **Implementation:** `assets/js/lineup-maker-2000.js` (the tool) and `pages/lineup.md` (the page + its two
 build-time catalogs: shows and the full comedian roster). Copy/labels are plain strings near the

@@ -59,13 +59,13 @@ export function pickRow(rows: LineupRow[], show: string, fromDate: string, exact
   return mine.find((r) => r.date >= fromDate) || null;
 }
 
-export interface LinkState { show: string; type: "split" | "flat"; host: string; first: string[]; second: string[]; lineup: string[]; headliner: string[] }
+export interface LinkState { show: string; type: "split" | "flat"; host: string[]; first: string[]; second: string[]; lineup: string[]; headliner: string[] }
 
 export function parseLineupLink(link: string): LinkState {
   const u = new URL(link, SITE);
   const list = (k: string) => (u.searchParams.get(k) || "").split(",").map((s) => s.trim()).filter(Boolean);
   const st: LinkState = {
-    show: (u.searchParams.get("show") || "").trim(), type: "flat", host: (u.searchParams.get("host") || "").trim(),
+    show: (u.searchParams.get("show") || "").trim(), type: "flat", host: list("host"),
     first: list("first"), second: list("second"), lineup: list("lineup"), headliner: list("headliner"),
   };
   const t = (u.searchParams.get("type") || "").toLowerCase();
@@ -92,7 +92,8 @@ export function comedianName(slug: string, root = REPO_ROOT): string {
 
 export function runningOrder(st: LinkState): string[] {
   const raw = st.type === "split" ? [...st.first, ...st.second] : [...st.lineup];
-  return raw.filter((s) => s.toLowerCase() !== st.host.toLowerCase());
+  const hosts = st.host.map((h) => h.toLowerCase());
+  return raw.filter((s) => !hosts.includes(s.toLowerCase()));
 }
 
 // ---------- copy ----------
@@ -181,7 +182,7 @@ function drawExpression(format: string, style: string, stamp: string): string {
     if (typeof window.__iyfDrawFlyer !== "function") throw new Error("page did not expose __iyfDrawFlyer");
     const p = new URLSearchParams(location.search);
     const list = (n) => (p.get(n) || "").split(",").map((s) => s.trim()).filter(Boolean);
-    const st = { show: (p.get("show") || "").trim(), type: (p.get("type") || "").trim().toLowerCase(), host: (p.get("host") || "").trim(),
+    const st = { show: (p.get("show") || "").trim(), type: (p.get("type") || "").trim().toLowerCase(), host: list("host"),
       headliner: list("headliner"), lineup: list("lineup"), first: list("first"), second: list("second") };
     if (st.type !== "flat" && st.type !== "split") st.type = (st.first.length || st.second.length) ? "split" : "flat";
     const c = document.createElement("canvas");
@@ -272,7 +273,7 @@ async function main() {
   const order = runningOrder(st);
   if (!order.length) fail("the lineup link has no acts on it");
   const names = order.map((s) => comedianName(s));
-  const host = st.host ? comedianName(st.host) : "";
+  const host = st.host.map((h) => comedianName(h)).join(" & ");
   const copy = loadCopy(cal);
   const link = goLink(row.show, row.date);
   log(`show:      ${cal.name}, ${longDate(cal.date)} ${timeOf(cal.start)}, ${cal.location || cal.venue_name}, CHF ${cal.price_chf ?? "?"}`);

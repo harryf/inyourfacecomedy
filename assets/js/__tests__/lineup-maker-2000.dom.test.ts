@@ -299,3 +299,109 @@ describe("lineup-maker-2000 • guest (off-catalog) acts", () => {
     expect(promos[1]).toContain("utm_content=thankyou");
   });
 });
+
+describe("lineup-maker-2000 • co-hosts (host=slug,slug)", () => {
+  function previews(): string[] {
+    return Array.from(document.querySelectorAll("a.lineup-lab__preview")).map((a) => a.getAttribute("href") || "");
+  }
+  function pills(): string[] {
+    return Array.from(document.querySelectorAll(".lineup-lab__hostpill")).map((p) => (p.textContent || "").replace("✕", "").trim());
+  }
+  function orderSlugs(): string[] {
+    return Array.from(document.querySelectorAll(".lineup-lab__rows .lineup-lab__row[data-slug]")).map((el) => el.getAttribute("data-slug") || "");
+  }
+  function copyRunningOrder(): string {
+    let copied = "";
+    const spy = (t: string) => { copied = t; return Promise.resolve(); };
+    const clip = (navigator as unknown as { clipboard?: { writeText?: (t: string) => Promise<void> } }).clipboard;
+    if (clip) clip.writeText = spy;
+    else (navigator as unknown as { clipboard: { writeText: (t: string) => Promise<void> } }).clipboard = { writeText: spy };
+    (Array.from(document.querySelectorAll(".lineup-lab__copy--primary")).find((b) => /running order/i.test(b.textContent || "")) as HTMLElement).click();
+    return copied;
+  }
+
+  test("a link with two hosts renders two pills, a Hosts label, and neither host in the numbered order", () => {
+    buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+    setURL("?show=soonshow&type=flat&host=aaa,bbb&lineup=aaa,bbb,ccc&stage=order", "/lineup/");
+    runScript(SRC);
+    expect(pills()).toEqual(["Aaa Comedian", "Bbb Comedian"]);
+    expect(document.querySelector(".lineup-lab__hostslot-label")?.textContent).toBe("Hosts");
+    expect(orderSlugs()).toEqual(["ccc"]);
+    const links = previews();
+    expect(links.length).toBeGreaterThan(0);
+    const share = links.filter((h) => /\/(comedians|lineup)\//.test(h));
+    expect(share.every((h) => /[?&]host=aaa,bbb(&|$)/.test(h))).toBe(true);
+    expect(share.every((h) => !/[?&](lineup|first|second)=[^&]*(aaa|bbb)/.test(h))).toBe(true);
+    expect(copyRunningOrder()).toContain("Hosts: Aaa Comedian & Bbb Comedian");
+  });
+
+  test("tapping 🎤 on a second act keeps the first host and adds the second", () => {
+    buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+    setURL("?show=soonshow&type=flat&host=aaa&lineup=bbb,ccc&stage=order", "/lineup/");
+    runScript(SRC);
+    expect(pills()).toEqual(["Aaa Comedian"]);
+    (document.querySelector('.lineup-lab__row[data-slug="bbb"] button[aria-label="Set as host"]') as HTMLElement).click();
+    expect(pills()).toEqual(["Aaa Comedian", "Bbb Comedian"]);
+    expect(orderSlugs()).toEqual(["ccc"]);
+    expect(previews().filter((h) => h.includes("/comedians/")).every((h) => /[?&]host=aaa,bbb(&|$)/.test(h))).toBe(true);
+  });
+
+  test("removing one host from the slot keeps the other and puts the removed act back at the top of the order", () => {
+    buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+    setURL("?show=soonshow&type=flat&host=aaa,bbb&lineup=ccc&stage=order", "/lineup/");
+    runScript(SRC);
+    (document.querySelector('button[aria-label="Remove host Bbb Comedian"]') as HTMLElement).click();
+    expect(pills()).toEqual(["Aaa Comedian"]);
+    expect(document.querySelector(".lineup-lab__hostslot-label")?.textContent).toBe("Host");
+    expect(orderSlugs()).toEqual(["bbb", "ccc"]);
+    // one host serialises exactly as before: no list separator
+    expect(previews().filter((h) => h.includes("/comedians/")).every((h) => /[?&]host=aaa(&|$)/.test(h))).toBe(true);
+    expect(copyRunningOrder()).toContain("Host: Aaa Comedian");
+  });
+
+  test("stage 3 Continue keeps every host that is still selected, in order", () => {
+    buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+    setURL("?show=soonshow&type=flat&host=aaa,bbb&lineup=ccc&stage=pick", "/lineup/");
+    runScript(SRC);
+    const cont = Array.from(document.querySelectorAll("button.btn-ticket")).find((b) => /Continue/.test(b.textContent || "")) as HTMLElement;
+    expect(cont).not.toBeNull();
+    cont.click();
+    const last = (window as unknown as { __lineupMakerLastURL?: string }).__lineupMakerLastURL || "";
+    expect(last).toMatch(/[?&]host=aaa,bbb(&|$)/);
+    expect(last).toMatch(/stage=order/);
+  });
+
+  test("Copy Insta handles tags every host first, then the bill, the venue and @inyourfacecomedy", () => {
+    const shows: ShowCat[] = [{ slug: "soonshow", title: "Soon Show", next: "2030-06-01T19:00:00+00:00", tickets: "https://t.example/s", venue_ig: "bar.otro" }];
+    const roster = [
+      { slug: "aaa", name: "Aaa Comedian", instagram: "aaa.ig" },
+      { slug: "bbb", name: "Bbb Comedian", instagram: "bbb.ig" },
+      { slug: "ccc", name: "Ccc Comedian", instagram: "ccc.ig" },
+    ];
+    buildLineupDOM({ shows, comedians: roster });
+    setURL("?show=soonshow&type=flat&host=bbb,aaa&lineup=ccc&stage=order", "/lineup/");
+    runScript(SRC);
+    let copied = "";
+    const spy = (t: string) => { copied = t; return Promise.resolve(); };
+    const clip = (navigator as unknown as { clipboard?: { writeText?: (t: string) => Promise<void> } }).clipboard;
+    if (clip) clip.writeText = spy;
+    else (navigator as unknown as { clipboard: { writeText: (t: string) => Promise<void> } }).clipboard = { writeText: spy };
+    (Array.from(document.querySelectorAll(".lineup-lab__copy")).find((b) => /Insta handles/.test(b.textContent || "")) as HTMLElement).click();
+    expect(copied).toBe("@bbb.ig \n@aaa.ig \n@ccc.ig \n@bar.otro \n@inyourfacecomedy \n");
+  });
+});
+
+describe("lineup-maker-2000 • window.__iyfDrawFlyer keeps accepting a string host (script/meta-lineup-ad.ts calls it that way)", () => {
+  test("a string host or an empty string does not throw before the draw starts", () => {
+    buildLineupDOM({ shows: SHOWS, comedians: ROSTER });
+    setURL("?show=soonshow&type=flat&host=aaa&lineup=bbb&stage=order", "/lineup/");
+    runScript(SRC);
+    const draw = (window as unknown as { __iyfDrawFlyer?: (c: HTMLCanvasElement, st: unknown, f: string, s: string, cb: (e: unknown) => void) => void }).__iyfDrawFlyer;
+    expect(typeof draw).toBe("function");
+    const base = { show: "soonshow", type: "flat", headliner: [], lineup: ["bbb"], first: [], second: [] };
+    for (const host of ["aaa", "", "aaa,bbb"]) {
+      const c = document.createElement("canvas");
+      expect(() => draw!(c, { ...base, host }, "post", "polaroid", () => {})).not.toThrow();
+    }
+  });
+});

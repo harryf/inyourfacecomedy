@@ -184,3 +184,15 @@ describe("comedian-lineup • a card listed twice is placed once (first mention 
     expect(slugs.sort()).toEqual(["joana", "woocash"]);
   });
 });
+
+describe("comedian-lineup • co-hosts on the thank-you page", () => {
+  test("?show=&host=a,b&thankyou renders a Hosts section with both cards first", () => {
+    buildComediansDOM({ shows: SHOWS, comedians: ROSTER });
+    setURL("?show=brexiles&host=harryf.cks,joana&first=nik&second=omar&thankyou");
+    runScript(SRC);
+    const titles = Array.from(document.querySelectorAll(".iyf-lineup-section__title")).map((h) => h.textContent);
+    expect(titles).toEqual(["Hosts", "First Half", "Second Half"]);
+    expect(renderedSlugs()).toEqual(["harryf.cks", "joana", "nik", "omar"]);
+    expect(document.querySelector(".iyf-lineup-leadin")?.textContent).toBe("Go give your favourites a follow");
+  });
+});

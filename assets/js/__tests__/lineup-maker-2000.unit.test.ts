@@ -122,3 +122,24 @@ describe("UTM tags on the links the Lineup Maker hands out", () => {
       .toBe("show=tall-order&date=2026-10-06&utm_source=instagram&utm_medium=social&utm_campaign=tall-order-20261006&utm_content=tickets");
   });
 });
+
+describe("lineup-maker-2000 • hostLine (the MCs' line in the running-order text)", () => {
+  const hl = (require("../lineup-maker-2000.js") as { hostLine: (names: string[]) => string }).hostLine;
+  test("one host, two hosts, three hosts, none", () => {
+    expect(hl(["Martina"])).toBe("Host: Martina");
+    expect(hl(["Prak", "Miguel"])).toBe("Hosts: Prak & Miguel");
+    expect(hl(["Ann", "Ben", "Cat"])).toBe("Hosts: Ann, Ben & Cat");
+    expect(hl([])).toBe("");
+  });
+});
+
+describe("lineup-maker-2000 • hostsOf (host as a list, or one slug as a string from an older caller)", () => {
+  const hostsOf = (require("../lineup-maker-2000.js") as { hostsOf: (st: unknown) => string[] }).hostsOf;
+  test("accepts a list, a single string, a comma string and nothing", () => {
+    expect(hostsOf({ host: ["a", "b"] })).toEqual(["a", "b"]);
+    expect(hostsOf({ host: "martinadoescomedy" })).toEqual(["martinadoescomedy"]);
+    expect(hostsOf({ host: "a, b" })).toEqual(["a", "b"]);
+    expect(hostsOf({ host: "" })).toEqual([]);
+    expect(hostsOf({})).toEqual([]);
+  });
+});

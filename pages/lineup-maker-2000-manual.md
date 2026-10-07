@@ -82,7 +82,7 @@ The one thing a guest like this does not get is a spot on the flyer, because we 
 
 Here is where the work pays off. The comedians show up in the order you added them. To shuffle the order, tap the little up or down arrow next to a name, or press and hold the three dots and drag them up or down the list.
 
-Two more handles sit on each name. The little **microphone** makes that comedian the host of the show. The little **star** makes them a headliner, which gives them a bigger spot on the share links and the flyer. A night like Comedy Brew has no headliner, so you would skip the star. A show with one big name and some openers is where the star earns its keep.
+Two more handles sit on each name. The little **microphone** makes that comedian the host of the show. Tap it on a second comedian and the night has two hosts, both in the host box and both on the flyer. The little **star** makes them a headliner, which gives them a bigger spot on the share links and the flyer. A night like Comedy Brew has no headliner, so you would skip the star. A show with one big name and some openers is where the star earns its keep.
 
 ![Lineup Maker 2000, Stage 4: reorder with arrows or drag, microphone sets the host, star sets a headliner.](/assets/img/lineup-manual/5_lineup_maker_2000.png){:.lm__shot}
 
