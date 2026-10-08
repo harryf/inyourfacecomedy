@@ -32,4 +32,5 @@ datetime,event,source,medium,campaign,content,page
 2026-10-03 22:35,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/randomfactsexchange/
 2026-10-03 23:31,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/randomfactsexchange/
 2026-10-04 19:55,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-10-05 21:17,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
+2026-10-05 21:17,ticket_click,reddit.com,referral,,,https://inyourfacecomedy.ch/
+2026-10-06 21:04,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
