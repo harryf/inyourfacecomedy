@@ -3,9 +3,37 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-10-06T07:00:01+00:00'
+generated_at: '2026-10-08T07:00:02+00:00'
 past_count: 21
 events:
+- show: jackpotcomedy
+  name: Jackpot Comedy
+  title: Jackpot Comedy - downstairs @ OTRO
+  url: "/jackpotcomedy/"
+  date: '2026-10-07'
+  start: '2026-10-07T20:00:00+02:00'
+  end: '2026-10-07T22:00:00+02:00'
+  venue: otro
+  venue_name: Bar OTRO
+  location: OTRO - Cocktailbar Zürich
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7501965911726808268.html
+  eventfrog_name: Jackpot Comedy
+- show: tall-order
+  name: Tall Order
+  title: Tall Order
+  url: "/tall-order/"
+  date: '2026-10-06'
+  start: '2026-10-06T20:00:00+02:00'
+  end: '2026-10-06T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-7507743349933126581.html
+  eventfrog_name: 'TALL ORDER:  english stand-up comedy open mic'
 - show: pulpnonfiction
   name: Pulp Non-Fiction
   title: Pulp Non-Fiction - Storytelling Open Mic Zürich
@@ -146,20 +174,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/science-and-technology/random-facts-exchange-20-museum-edition-7434315326727157500.html
   eventfrog_name: Random Facts Exchange 20 Museum Edition
-- show: promessi-spassi
-  name: PROMESSI SPASSI
-  title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
-  url: "/promessi-spassi/"
-  date: '2026-09-16'
-  start: '2026-09-16T20:00:00+02:00'
-  end: '2026-09-16T22:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 10
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478863182670358596.html
-  eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: jackpotcomedy
   name: Jackpot Comedy
   title: Jackpot Comedy - downstairs @ OTRO
@@ -174,6 +188,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7497204037504263969.html
   eventfrog_name: Jackpot Comedy
+- show: promessi-spassi
+  name: PROMESSI SPASSI
+  title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
+  url: "/promessi-spassi/"
+  date: '2026-09-16'
+  start: '2026-09-16T20:00:00+02:00'
+  end: '2026-09-16T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 10
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478863182670358596.html
+  eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
@@ -274,31 +302,3 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472016921266786731.html
   eventfrog_name: La Tarima - Comedia en Español - ZURICH
-- show: jackpotcomedy
-  name: Jackpot Comedy
-  title: Jackpot Comedy - downstairs @ OTRO
-  url: "/jackpotcomedy/"
-  date: '2026-09-02'
-  start: '2026-09-02T20:00:00+02:00'
-  end: '2026-09-02T22:00:00+02:00'
-  venue: otro
-  venue_name: Bar OTRO
-  location: OTRO - Cocktailbar Zürich
-  price_chf: 0
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7477788098660674961.html
-  eventfrog_name: Jackpot Comedy
-- show: jokesjokesjokes
-  name: Jokes, Jokes, Jokes
-  title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
-  url: "/jokesjokesjokes/"
-  date: '2026-09-01'
-  start: '2026-09-01T19:30:00+02:00'
-  end: '2026-09-01T21:30:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 10
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208138476981536.html
-  eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show

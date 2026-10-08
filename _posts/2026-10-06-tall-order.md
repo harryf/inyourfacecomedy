@@ -4,12 +4,13 @@ editable: "true"
 title: "Tall Order"
 tagline: "English stand-up comedy open mic, every second Tuesday at ROBIN's"
 description: "English stand-up open mic in Zürich hosted by Prak and Miguel, the two tallest comedians in town. Every second Tuesday at ROBIN's: new comics, new jokes."
-last_modified_at: 2026-10-04T08:50:01+00:00
+last_modified_at: 2026-10-08T07:00:02+00:00
 feature-img: "/assets/img/uploads/tall-order_feature.png"
 image: "/assets/img/uploads/tall-order_card.png"
 thumbnail: "/assets/img/thumbs/tall-order.png"
 excerpt_separator: <!--more-->
 ticket_url: "https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-7507743592338740411.html"
+ticket_url_resolved: https://eventfrog.ch/en/p/groups/tall-order-english-stand-up-comedy-open-mic-7507743592338740411.html
 permalink: /tall-order/
 hosts:
   - "prak-the-comedian"
@@ -20,8 +21,8 @@ venue_slug: robins
 recurrence_day: Tuesday
 recurrence_time: "20:00"
 default_duration_minutes: 150
-next_event_date: 2026-10-06T20:00:00+02:00
-next_event_end_date: 2026-10-06T22:00:00+02:00
+next_event_date: 2026-10-20T20:00:00+02:00
+next_event_end_date: 2026-10-20T22:00:00+02:00
 price_chf: 10
 ---
 An English stand-up open mic hosted by Prak and Miguel, who between them have more height than most lineups. New comedians and experienced ones try out fresh jokes at ROBIN's every second Tuesday.

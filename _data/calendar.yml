@@ -5,37 +5,9 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-10-06T07:00:01+00:00'
-event_count: 50
+generated_at: '2026-10-08T07:00:02+00:00'
+event_count: 48
 events:
-- show: tall-order
-  name: Tall Order
-  title: Tall Order
-  url: "/tall-order/"
-  date: '2026-10-06'
-  start: '2026-10-06T20:00:00+02:00'
-  end: '2026-10-06T22:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 10
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-7507743349933126581.html
-  eventfrog_name: 'TALL ORDER:  english stand-up comedy open mic'
-- show: jackpotcomedy
-  name: Jackpot Comedy
-  title: Jackpot Comedy - downstairs @ OTRO
-  url: "/jackpotcomedy/"
-  date: '2026-10-07'
-  start: '2026-10-07T20:00:00+02:00'
-  end: '2026-10-07T22:00:00+02:00'
-  venue: otro
-  venue_name: Bar OTRO
-  location: OTRO - Cocktailbar Zürich
-  price_chf: 0
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7501965911726808268.html
-  eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
@@ -46,9 +18,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831316161423428.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-zuerich-7466831316161423428.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: randomfactsexchange
   name: Random Facts Exchange
@@ -60,9 +31,8 @@ events:
   venue: ambossrampe
   venue_name: Amboss Rampe
   location: Amboss Rampe
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/science-and-technology/random-facts-exchange-21th-edition-amboss-rampe-7434312734643117655.html
+  ticket_url: https://eventfrog.ch/en/p/science-technology/random-facts-exchange-21th-edition-amboss-rampe-zuerich-7434312734643117655.html
   eventfrog_name: Random Facts Exchange 21th Edition - Amboss Rampe
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
@@ -74,9 +44,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726832979064.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7496208726832979064.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: jackpotcomedy
   name: Jackpot Comedy
@@ -88,9 +57,8 @@ events:
   venue: otro
   venue_name: Bar OTRO
   location: OTRO - Cocktailbar Zürich
-  price_chf: 0
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7501966162084778324.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7501966162084778324.html
   eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
@@ -102,9 +70,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831420029175587.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-zuerich-7466831420029175587.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: latarima
   name: La Tarima
@@ -116,9 +83,8 @@ events:
   venue: yaman-caf-bar
   venue_name: YAMAN Café-Bar
   location: YAMAN Café-Bar
-  price_chf: 13
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7502460776000545380.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-zuerich-7502460776000545380.html
   eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: gratis-zum-mitnehmen
   name: Gratis Comedy Zum Mitnehmen
@@ -130,9 +96,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 0
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/gratis-comedy-zum-mitnehmen-free-entry-stand-up-comedy-7492504634877050139.html
+  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/gratis-comedy-zum-mitnehmen-free-entry-stand-up-comedy-zuerich-7492504634877050139.html
   eventfrog_name: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
 - show: tall-order
   name: Tall Order
@@ -144,9 +109,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-7507743592422627036.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-zuerich-7507743592422627036.html
   eventfrog_name: 'TALL ORDER: english stand-up comedy open mic'
 - show: promessi-spassi
   name: PROMESSI SPASSI
@@ -158,9 +122,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081081924070.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081081924070.html
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: jackpotcomedy
   name: Jackpot Comedy
@@ -172,9 +135,8 @@ events:
   venue: otro
   venue_name: Bar OTRO
   location: OTRO - Cocktailbar Zürich
-  price_chf: 0
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7501966354213278689.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7501966354213278689.html
   eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
@@ -186,9 +148,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831545136883325.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-zuerich-7466831545136883325.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
@@ -200,9 +161,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726887505113.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7496208726887505113.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: comedybrew
   name: Comedy Brew
@@ -214,9 +174,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831682483568140.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-zuerich-7466831682483568140.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: latarima
   name: La Tarima
@@ -228,9 +187,8 @@ events:
   venue: yaman-caf-bar
   venue_name: YAMAN Café-Bar
   location: YAMAN Café-Bar
-  price_chf: 13
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472020241897238206.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-zuerich-7472020241897238206.html
   eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: nerdycomedyshow
   name: The NERDY COMEDY Show
@@ -242,9 +200,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 8
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7501658372279695641.html
+  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-en-zurich-zuerich-7501658372279695641.html
   eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
 - show: pulpnonfiction
   name: Pulp Non-Fiction
@@ -256,9 +213,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-7480253293014302537.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-zuerich-7480253293014302537.html
   eventfrog_name: Pulp Non-Fiction Storytelling Open Mic Zurich
 - show: tall-order
   name: Tall Order
@@ -270,9 +226,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-7507743592472958685.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-zuerich-7507743592472958685.html
   eventfrog_name: 'TALL ORDER: english stand-up comedy open mic'
 - show: comedybrew
   name: Comedy Brew
@@ -284,9 +239,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831792680472322.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-zuerich-7466831792680472322.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: latarima
   name: La Tarima
@@ -298,9 +252,8 @@ events:
   venue: yaman-caf-bar
   venue_name: YAMAN Café-Bar
   location: YAMAN Café-Bar
-  price_chf: 13
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472021157165665385.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-zuerich-7472021157165665385.html
   eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
@@ -312,9 +265,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726937836762.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7496208726937836762.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: jackpotcomedy
   name: Jackpot Comedy
@@ -326,9 +278,8 @@ events:
   venue: otro
   venue_name: Bar OTRO
   location: OTRO - Cocktailbar Zürich
-  price_chf: 0
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7512798019957299982.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798019957299982.html
   eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
@@ -340,9 +291,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831890344846441.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-zuerich-7466831890344846441.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: tall-order
   name: Tall Order
@@ -354,9 +304,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-7507743592519096030.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-zuerich-7507743592519096030.html
   eventfrog_name: 'TALL ORDER: english stand-up comedy open mic'
 - show: promessi-spassi
   name: PROMESSI SPASSI
@@ -368,9 +317,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081128061415.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081128061415.html
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: jackpotcomedy
   name: Jackpot Comedy
@@ -382,9 +330,8 @@ events:
   venue: otro
   venue_name: Bar OTRO
   location: OTRO - Cocktailbar Zürich
-  price_chf: 0
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7512798260639068110.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798260639068110.html
   eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
@@ -396,9 +343,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466831998151048185.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-zuerich-7466831998151048185.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: latarima
   name: La Tarima
@@ -410,9 +356,8 @@ events:
   venue: yaman-caf-bar
   venue_name: YAMAN Café-Bar
   location: YAMAN Café-Bar
-  price_chf: 13
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7502463051880252299.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-zuerich-7502463051880252299.html
   eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: gratis-zum-mitnehmen
   name: Gratis Comedy Zum Mitnehmen
@@ -424,9 +369,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 0
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/gratis-comedy-zum-mitnehmen-free-entry-stand-up-comedy-7492505145781047015.html
+  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/gratis-comedy-zum-mitnehmen-free-entry-stand-up-comedy-zuerich-7492505145781047015.html
   eventfrog_name: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
@@ -438,24 +382,9 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726988168437.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7496208726988168437.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
-- show: comedybrew
-  name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
-  url: "/comedybrew/"
-  date: '2026-11-26'
-  start: '2026-11-26T19:30:00+01:00'
-  end: '2026-11-26T22:00:00+01:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 10
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466832108633224028.html
-  eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: latarima
   name: La Tarima
   title: La Tarima - Comedia en Español
@@ -466,10 +395,22 @@ events:
   venue: goldfisch-club
   venue_name: Goldfisch Club
   location: Goldfisch Club
-  price_chf: 13
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472021574628952076.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-zuerich-7472021574628952076.html
   eventfrog_name: La Tarima - Comedia en Español - ZURICH
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2026-11-26'
+  start: '2026-11-26T19:30:00+01:00'
+  end: '2026-11-26T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-zuerich-7466832108633224028.html
+  eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: nerdycomedyshow
   name: The NERDY COMEDY Show
   title: The NERDY COMEDY Show - English Standup Comedy in ZURICH
@@ -480,9 +421,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 8
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7501658632838204314.html
+  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-en-zurich-zuerich-7501658632838204314.html
   eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
 - show: tall-order
   name: Tall Order
@@ -494,9 +434,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-7507743592569427786.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-zuerich-7507743592569427786.html
   eventfrog_name: 'TALL ORDER: english stand-up comedy open mic'
 - show: mike-casa
   name: Mike Casa
@@ -508,9 +447,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN'S Coffee
-  price_chf: 39
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/2-dec-mike-casa-stand-up-comedy-show-robin-s-zurich-7507006161725486601.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/2-dec-mike-casa-stand-up-comedy-show-robin-s-zurich-zuerich-7507006161725486601.html
   eventfrog_name: '2 DEC: Mike Casa Stand-up Comedy Show @ROBIN''S ZURICH!'
 - show: jackpotcomedy
   name: Jackpot Comedy
@@ -522,9 +460,8 @@ events:
   venue: otro
   venue_name: Bar OTRO
   location: OTRO - Cocktailbar Zürich
-  price_chf: 0
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7512798497231377139.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798497231377139.html
   eventfrog_name: Jackpot Comedy
 - show: randomfactsexchange
   name: Random Facts Exchange
@@ -537,7 +474,7 @@ events:
   venue_name: Natural History Museum of the University of Zurich
   location: Natural History Museum of the University of Zurich
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/science-and-technology/random-facts-exchange-22-museum-edition-7434316315886666767.html
+  ticket_url: https://eventfrog.ch/en/p/science-technology/random-facts-exchange-22-museum-edition-zuerich-7434316315886666767.html
   eventfrog_name: Random Facts Exchange 22 Museum Edition
 - show: comedybrew
   name: Comedy Brew
@@ -549,9 +486,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466832257447133527.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-zuerich-7466832257447133527.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: pulpnonfiction
   name: Pulp Non-Fiction
@@ -563,9 +499,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-7480253427534024794.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-zuerich-7480253427534024794.html
   eventfrog_name: Pulp Non-Fiction Storytelling Open Mic Zurich
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
@@ -577,9 +512,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208727042694424.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7496208727042694424.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: jackpotcomedy
   name: Jackpot Comedy
@@ -591,9 +525,8 @@ events:
   venue: otro
   venue_name: Bar OTRO
   location: OTRO - Cocktailbar Zürich
-  price_chf: 0
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7512798703465316750.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798703465316750.html
   eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
@@ -605,9 +538,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466832348371257785.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-zuerich-7466832348371257785.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: latarima
   name: La Tarima
@@ -619,9 +551,8 @@ events:
   venue: yaman-caf-bar
   venue_name: YAMAN Café-Bar
   location: YAMAN Café-Bar
-  price_chf: 13
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-7472022011318929691.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-zuerich-7472022011318929691.html
   eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: tall-order
   name: Tall Order
@@ -633,9 +564,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-7507743592611370827.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-zuerich-7507743592611370827.html
   eventfrog_name: 'TALL ORDER: english stand-up comedy open mic'
 - show: promessi-spassi
   name: PROMESSI SPASSI
@@ -647,9 +577,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081170004456.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081170004456.html
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: comedybrew
   name: Comedy Brew
@@ -661,9 +590,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466832472350693337.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-zuerich-7466832472350693337.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
@@ -675,9 +603,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-7496208727088831779.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7496208727088831779.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: comedybrew
   name: Comedy Brew
@@ -689,9 +616,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 10
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466832589996740615.html
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-zuerich-7466832589996740615.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
 - show: nerdycomedyshow
   name: The NERDY COMEDY Show
@@ -703,9 +629,8 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
-  price_chf: 8
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/de/p/theater-buehne/comedy-kabarett/the-nerdy-comedy-show-en-zurich-7501658845556549750.html
+  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-en-zurich-zuerich-7501658845556549750.html
   eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
 unresolved: []
 no_upcoming: []
