@@ -3,11 +3,11 @@
  "title": "Tall Order",
  "ticket_url": "https://eventfrog.ch/en/p/groups/tall-order-english-stand-up-comedy-open-mic-7507743592338740411.html",
  "event_type": "series",
- "generated_at": "2026-10-08T08:20:02.261Z",
+ "generated_at": "2026-10-09T08:20:01.925Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-08",
- "complete_through": "2026-10-06",
+ "through": "2026-10-09",
+ "complete_through": "2026-10-07",
  "totals": {
   "clicks": 40,
   "redirect": 26,
@@ -364,11 +364,19 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-08",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-09",
    "redirect": 0,
    "click": 0,
    "views": 0,

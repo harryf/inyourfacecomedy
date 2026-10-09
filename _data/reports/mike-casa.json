@@ -3,11 +3,11 @@
  "title": "Mike Casa",
  "ticket_url": "https://eventfrog.ch/en/p/comedy/comedy-cabaret/2-dec-mike-casa-stand-up-comedy-show-robin-s-zurich-zuerich-7507006161725486601.html",
  "event_type": "one-off",
- "generated_at": "2026-10-08T08:20:02.261Z",
+ "generated_at": "2026-10-09T08:20:01.925Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-08",
- "complete_through": "2026-10-06",
+ "through": "2026-10-09",
+ "complete_through": "2026-10-07",
  "totals": {
   "clicks": 1,
   "redirect": 0,
@@ -364,11 +364,19 @@
    "redirect": 0,
    "click": 0,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-08",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-09",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -381,15 +389,15 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 1,
-   "views": 8,
-   "sessions": 8
+   "views": 7,
+   "sessions": 7
   },
   {
    "source": "google",
    "medium": "organic",
    "clicks": 0,
-   "views": 3,
-   "sessions": 4
+   "views": 4,
+   "sessions": 5
   },
   {
    "source": "bing",

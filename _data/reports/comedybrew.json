@@ -3,24 +3,24 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-10-08T08:20:02.261Z",
+ "generated_at": "2026-10-09T08:20:01.925Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-08",
- "complete_through": "2026-10-06",
+ "through": "2026-10-09",
+ "complete_through": "2026-10-07",
  "totals": {
-  "clicks": 2287,
-  "redirect": 2090,
-  "click": 197,
-  "clicks_30d": 2029,
-  "redirect_30d": 1878,
-  "click_30d": 151,
-  "views": 491,
-  "views_30d": 376,
-  "sessions": 470,
-  "sessions_30d": 362,
+  "clicks": 2417,
+  "redirect": 2201,
+  "click": 216,
+  "clicks_30d": 2122,
+  "redirect_30d": 1960,
+  "click_30d": 162,
+  "views": 531,
+  "views_30d": 400,
+  "sessions": 520,
+  "sessions_30d": 397,
   "broken_links": 0,
-  "untagged": 1
+  "untagged": 3
  },
  "by_day": [
   {
@@ -361,17 +361,25 @@
   },
   {
    "date": "2026-10-07",
-   "redirect": 94,
-   "click": 6,
-   "views": 15,
-   "provisional": true,
+   "redirect": 113,
+   "click": 9,
+   "views": 19,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-08",
-   "redirect": 23,
+   "redirect": 112,
+   "click": 16,
+   "views": 30,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-09",
+   "redirect": 3,
    "click": 0,
-   "views": 0,
+   "views": 6,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -380,37 +388,44 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 2009,
+   "clicks": 2115,
    "views": 2,
    "sessions": 2
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 85,
-   "views": 169,
-   "sessions": 160
+   "clicks": 93,
+   "views": 192,
+   "sessions": 179
   },
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 69,
-   "views": 28,
-   "sessions": 27
+   "clicks": 71,
+   "views": 33,
+   "sessions": 32
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 54,
-   "views": 219,
-   "sessions": 207
+   "clicks": 61,
+   "views": 230,
+   "sessions": 232
   },
   {
    "source": "guidle",
    "medium": "referral",
-   "clicks": 21,
-   "views": 4,
-   "sessions": 4
+   "clicks": 22,
+   "views": 5,
+   "sessions": 5
+  },
+  {
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 17,
+   "views": 3,
+   "sessions": 3
   },
   {
    "source": "chatgpt.com",
@@ -418,13 +433,6 @@
    "clicks": 14,
    "views": 8,
    "sessions": 9
-  },
-  {
-   "source": "meetup",
-   "medium": "referral",
-   "clicks": 13,
-   "views": 3,
-   "sessions": 3
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -439,6 +447,13 @@
    "clicks": 3,
    "views": 3,
    "sessions": 3
+  },
+  {
+   "source": "meta",
+   "medium": "untagged",
+   "clicks": 3,
+   "views": 0,
+   "sessions": 0
   },
   {
    "source": "reddit.com",
@@ -504,13 +519,6 @@
    "sessions": 0
   },
   {
-   "source": "meta",
-   "medium": "untagged",
-   "clicks": 1,
-   "views": 0,
-   "sessions": 0
-  },
-  {
    "source": "ronorp.net",
    "medium": "referral",
    "clicks": 1,
@@ -544,13 +552,13 @@
    "campaign": "cold",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 638,
+   "clicks": 650,
    "first": "2026-09-13",
-   "last": "2026-10-08",
+   "last": "2026-10-09",
    "content": [
     {
      "content": "cold-C13",
-     "clicks": 305
+     "clicks": 317
     },
     {
      "content": "cold-C7",
@@ -598,13 +606,13 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 603,
+   "clicks": 623,
    "first": "2026-08-26",
    "last": "2026-10-08",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 545
+     "clicks": 565
     }
    ]
   },
@@ -612,13 +620,13 @@
    "campaign": "warm",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 433,
+   "clicks": 441,
    "first": "2026-09-13",
-   "last": "2026-10-08",
+   "last": "2026-10-09",
    "content": [
     {
      "content": "warm-W6",
-     "clicks": 293
+     "clicks": 301
     },
     {
      "content": "warm-W2",
@@ -681,16 +689,38 @@
    ]
   },
   {
+   "campaign": "cold-tonight",
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 76,
+   "first": "2026-10-04",
+   "last": "2026-10-08",
+   "content": [
+    {
+     "content": "cold-C25",
+     "clicks": 47
+    },
+    {
+     "content": "cold-C24",
+     "clicks": 9
+    },
+    {
+     "content": "cold-C26",
+     "clicks": 7
+    }
+   ]
+  },
+  {
    "campaign": "cold-tomorrow",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 55,
+   "clicks": 60,
    "first": "2026-10-04",
    "last": "2026-10-07",
    "content": [
     {
      "content": "cold-C22",
-     "clicks": 42
+     "clicks": 47
     },
     {
      "content": "cold-C23",
@@ -699,6 +729,28 @@
     {
      "content": "cold-C21",
      "clicks": 4
+    }
+   ]
+  },
+  {
+   "campaign": "warm-tonight",
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 51,
+   "first": "2026-10-04",
+   "last": "2026-10-08",
+   "content": [
+    {
+     "content": "warm-W19",
+     "clicks": 25
+    },
+    {
+     "content": "warm-W20",
+     "clicks": 7
+    },
+    {
+     "content": "warm-W18",
+     "clicks": 7
     }
    ]
   },
@@ -725,38 +777,16 @@
    ]
   },
   {
-   "campaign": "cold-tonight",
-   "source": "meta",
-   "medium": "paid_social",
-   "clicks": 35,
-   "first": "2026-10-04",
-   "last": "2026-10-04",
-   "content": [
-    {
-     "content": "cold-C24",
-     "clicks": 9
-    },
-    {
-     "content": "cold-C26",
-     "clicks": 7
-    },
-    {
-     "content": "cold-C25",
-     "clicks": 6
-    }
-   ]
-  },
-  {
    "campaign": "warm-tomorrow",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 35,
+   "clicks": 36,
    "first": "2026-10-04",
    "last": "2026-10-07",
    "content": [
     {
      "content": "warm-W16",
-     "clicks": 15
+     "clicks": 16
     },
     {
      "content": "warm-W15",
@@ -765,28 +795,6 @@
     {
      "content": "warm-W17",
      "clicks": 5
-    }
-   ]
-  },
-  {
-   "campaign": "warm-tonight",
-   "source": "meta",
-   "medium": "paid_social",
-   "clicks": 32,
-   "first": "2026-10-04",
-   "last": "2026-10-04",
-   "content": [
-    {
-     "content": "warm-W20",
-     "clicks": 7
-    },
-    {
-     "content": "warm-W18",
-     "clicks": 7
-    },
-    {
-     "content": "warm-W19",
-     "clicks": 6
     }
    ]
   },
@@ -836,21 +844,21 @@
    "content": []
   },
   {
+   "campaign": "comedybrew",
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 14,
+   "first": "2026-08-27",
+   "last": "2026-10-08",
+   "content": []
+  },
+  {
    "campaign": "comedybrew-20260924",
    "source": "instagram",
    "medium": "social",
    "clicks": 11,
    "first": "2026-09-22",
    "last": "2026-09-24",
-   "content": []
-  },
-  {
-   "campaign": "comedybrew",
-   "source": "meetup",
-   "medium": "referral",
-   "clicks": 10,
-   "first": "2026-08-27",
-   "last": "2026-10-01",
    "content": []
   },
   {
@@ -881,21 +889,21 @@
    "content": []
   },
   {
+   "campaign": "comedybrew-20261008",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 7,
+   "first": "2026-10-05",
+   "last": "2026-10-08",
+   "content": []
+  },
+  {
    "campaign": "comedybrew-20260903",
    "source": "instagram",
    "medium": "social",
    "clicks": 6,
    "first": "2026-09-02",
    "last": "2026-09-03",
-   "content": []
-  },
-  {
-   "campaign": "comedybrew-20261008",
-   "source": "instagram",
-   "medium": "social",
-   "clicks": 6,
-   "first": "2026-10-05",
-   "last": "2026-10-08",
    "content": []
   },
   {
