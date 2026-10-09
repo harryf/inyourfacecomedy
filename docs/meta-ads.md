@@ -13,6 +13,14 @@ laptop. The phone app hides most of these settings.
 
 ## Status
 
+**9 October: the tomorrow and tonight ad sets are made fresh per show.** On 7 and 8 October the
+cron-unpaused sets delivered from 17:00 and 12:00 and spent 42 to 52 percent of their budgets
+(Meta's three-hour ramp plus daily pacing over the calendar day; the ads themselves cost CHF 0.24
+to 0.30 per landing page view, next to the evergreen's 0.22). Now the Friday run creates
+`cold-tomorrow <show>`, `cold-tonight <show>` and the warm pair as lifetime-budget ad sets with
+start and end on Meta, ads reviewed days ahead; Meta starts them at midnight and paces the whole
+budget to 23:59 or 18:00. The planner sets are unchanged. Reference: `docs/scripts.md`.
+
 **4 October: the moment scheduler is live.** `script/meta-moments.ts` runs from cron at 07:30 and
 12:30 (installed 4 October, Healthchecks `META_MOMENTS_HEALTHCHECKS_URL`). Six moment ad sets sit
 beside the evergreen ones: `cold-planner`, `cold-tomorrow`, `cold-tonight` and the same for

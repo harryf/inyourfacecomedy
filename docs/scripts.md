@@ -702,23 +702,25 @@ The board (`meta-ads/creative/bank/index.html`) lists only live and bench concep
 
 ## `meta-moments.ts`
 
-The moment scheduler (plan and reasons: `meta-ads/moments-plan.md`). Six ad sets in the Comedy Brew campaign, `cold-planner`, `cold-tomorrow`, `cold-tonight` and the same for warm, copy the targeting and goal of `adset_cold` and `adset_warm` and hold the bank's moment ads (concepts with a `moment:` block; `meta-bank.ts --push` refuses them). Each run puts Meta in the state this moment needs and changes nothing that is already right:
+The moment scheduler (plan and reasons: `meta-ads/moments-plan.md`). Moment ad sets in the Comedy Brew campaign copy the targeting and goal of `adset_cold` and `adset_warm` and hold the bank's moment ads (concepts with a `moment:` block; `meta-bank.ts --push` refuses them). Two kinds: the persistent planner sets `cold-planner` and `warm-planner` (daily budget, switched by status), and a fresh pair per show for tomorrow and tonight, named `cold-tonight 2026-10-15` and so on, with a lifetime budget and the window's start and end written on Meta. Each run puts Meta in the state this moment needs and changes nothing that is already right:
 
 | Today (Zürich) | Moment ad sets |
 |---|---|
-| Saturday to Monday before a Comedy Brew | planner on, ends Monday 23:59 |
-| Wednesday | tomorrow on, ends 23:59 |
-| Thursday, show day | tonight on, ends 18:00 |
-| otherwise, or no Brew within six days | all six paused |
+| Friday, six days before a Comedy Brew (or the first run after) | the show's four tomorrow and tonight sets are created, ACTIVE, with their start, end and lifetime budget; their twelve ads go into review at once |
+| Saturday to Monday before the show | planner on, ends Monday 23:59 |
+| Wednesday | Meta runs the tomorrow sets 00:00 to 23:59 by itself |
+| Thursday, show day | Meta runs the tonight sets 00:00 to 18:00 by itself |
+| otherwise, or no Brew within six days | planner paused; the week's sets wait for their start or are over |
 
-Inside the open ad set it switches on the ad for the condition and pauses the others: `long_weekend` when the Friday after the show is a Zürich public holiday (OpenHolidays API, a computed list if it is down), else `wet` on tomorrow and tonight when the MeteoSwiss local forecast for show day has 3 mm of rain or more at postcode 8001, a 60% evening chance of rain, or a high 5 °C below the two days before (station Zürich Fluntern), else `any`. The weather is read fresh on every run. Budgets come from `moments:` in `meta-ads/config.yml`: the weekly envelope, 70% Cold, split planner 20, evergreen 20, tomorrow 20, tonight 40, wet and long weekend boosts of 1.5 capped at 1.75, dropped when the month would pass `monthly_cap_chf`. It also writes the evergreen `adset_cold` and `adset_warm` daily budgets. Never touches the old carousel.
+Inside every ad set of the coming show it switches on the ad for the condition and pauses the others, on every run from the Friday on (so a sleeping Mac leaves the last pick, never a wrong line): `long_weekend` when the Friday after the show is a Zürich public holiday (OpenHolidays API, a computed list if it is down), else `wet` on tomorrow and tonight when the MeteoSwiss local forecast for show day has 3 mm of rain or more at postcode 8001, a 60% evening chance of rain, or a high 5 °C below the two days before (station Zürich Fluntern), else `any`. The weather is read fresh on every run. Budgets come from `moments:` in `meta-ads/config.yml`: the weekly envelope, 70% Cold, split planner 20, evergreen 20, tomorrow 20, tonight 40, wet and long weekend boosts of 1.5 capped at 1.75, dropped when the month would pass `monthly_cap_chf`. It also writes the evergreen `adset_cold` and `adset_warm` daily budgets. Never touches the old carousel.
 
-The window's end is written on the ad set, so Meta stops "tonight" at 18:00 even if this Mac sleeps; a missed run means no moment ads that day, never the wrong line. Meta requires a daily-budget ad set to be scheduled for 24 hours or more counted from its start time, which the ad sets meet because they start on the day `--setup` made them.
+Why a fresh pair per show (9 October 2026): on 7 and 8 October the daily-budget tomorrow and tonight sets were unpaused by cron at 11:15 and 07:30, Meta's delivery ramp took three hours, and a daily budget is paced over the calendar day, so each window spent 42 to 52 percent of its money. Meta refuses to move `start_time` on an ad set that has run (error 1487057) and refuses a daily-budget ad set scheduled under 24 hours (1487793), but accepts a lifetime-budget ad set with a Thursday 00:00 to 18:00 window. So the week's sets are made days ahead with start and end on Meta; Meta starts them at midnight and paces the whole lifetime budget into the window. The lifetime budget follows the forecast on every run (the wet boost), and so does the end. Creatives are made once and reused every week (`creatives` in the state file; `utm_campaign` stays the bare key, so reports keep grouping by moment); the ads are new each week and reviewed days before they run. The 4 October `cold-tomorrow`, `cold-tonight`, `warm-tomorrow` and `warm-tonight` sets are retired in the state file (`retired_adsets`), paused on Meta, never deleted. A show that leaves the calendar while its window is ahead has its sets paused by the next run. Old week sets stay on Meta for their data.
 
 ```
-bun script/meta-moments.ts --setup --validate     # Meta checks the six ad sets, writes nothing
-bun script/meta-moments.ts --setup                # once: the six ad sets (paused) and their ads (reviewed at once)
+bun script/meta-moments.ts --setup --validate     # Meta checks the planner ad sets, writes nothing
+bun script/meta-moments.ts --setup                # once: the planner ad sets (paused) and their ads (reviewed at once)
 bun script/meta-moments.ts --dry-run              # what now needs, nothing written
+bun script/meta-moments.ts --dry-run --validate   # the same, and Meta checks the week's ad set bodies (validate_only)
 bun script/meta-moments.ts --dry-run --at 2026-10-08T08:00:00+02:00   # pretend it is then
 bun script/meta-moments.ts                        # the cron run
 ```

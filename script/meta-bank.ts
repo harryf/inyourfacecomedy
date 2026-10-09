@@ -218,18 +218,23 @@ export async function liveStates(meta: ReturnType<typeof metaFromEnv>): Promise<
   try { for (const [name, e] of Object.entries(JSON.parse(readFileSync(join(CREATIVE_DIR, "moments-state.json"), "utf8")).ads || {}) as [string, any][]) ids.set(name, { id: e.ad_id, moment: true }); } catch { /* no moment ads yet */ }
   const out = new Map<string, LiveState>();
   for (const [name, { id, moment }] of ids) {
-    const a = await meta.get(id, { fields: "status,effective_status,adset{name,status,effective_status,end_time}" });
+    const a = await meta.get(id, { fields: "status,effective_status,adset{name,status,effective_status,start_time,end_time}" });
     out.set(name, liveLabel(a, moment));
   }
   return out;
 }
 // A moment ad the scheduler paused is not off for good: its condition (wet, long weekend) did not
 // hold at the last run, so it stands by.
-export function liveLabel(a: { status: string; effective_status: string; adset?: { name: string; status: string; effective_status: string; end_time?: string } }, moment = false): LiveState {
+// A week's tomorrow or tonight ad set is ACTIVE days before its start (Meta waits for the
+// start_time), so an active ad in it is picked, not running, until then.
+export function liveLabel(a: { status: string; effective_status: string; adset?: { name: string; status: string; effective_status: string; start_time?: string; end_time?: string } }, moment = false, now = new Date()): LiveState {
   const adset = a.adset?.name || "?";
   if (a.effective_status === "DISAPPROVED" || a.effective_status === "WITH_ISSUES") return { label: a.effective_status.toLowerCase().replace("_", " "), kind: "problem", adset };
+  const scheduled = a.adset?.status === "ACTIVE";
+  if (scheduled && a.adset?.end_time && Date.parse(a.adset.end_time) <= now.getTime()) return { label: "window over", kind: "off", adset };
   if (a.status !== "ACTIVE") return moment ? { label: "standby, its condition is not met", kind: "waiting", adset } : { label: "off", kind: "off", adset };
   if (a.effective_status === "PENDING_REVIEW" || a.effective_status === "IN_PROCESS") return { label: "in review", kind: "review", adset };
+  if (scheduled && a.adset?.start_time && Date.parse(a.adset.start_time) > now.getTime()) return { label: `picked, starts ${a.adset.start_time.slice(0, 16).replace("T", " ")}`, kind: "waiting", adset };
   if (a.effective_status === "ACTIVE") return { label: "running now", kind: "on", adset };
   return { label: "picked, waits for its window", kind: "waiting", adset };
 }

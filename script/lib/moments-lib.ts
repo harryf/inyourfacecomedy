@@ -4,6 +4,12 @@
 
 export const MOMENT_PHASES = ["planner", "tomorrow", "tonight"] as const;
 export type MomentPhase = typeof MOMENT_PHASES[number];
+// The planner ad sets live on (three days of window, Meta's ramp does not matter); tomorrow and
+// tonight are made fresh for every show as lifetime-budget ad sets with their start and end on
+// Meta, because a daily-budget ad set cannot be scheduled under 24 hours and its start cannot
+// move once it has run (Meta errors 1487793 and 1487057, probed 2026-10-09).
+export const PERSISTENT_PHASES: MomentPhase[] = ["planner"];
+export const WINDOWED_PHASES: MomentPhase[] = ["tomorrow", "tonight"];
 export type MomentWhen = "any" | "wet" | "long_weekend";
 export type Audience = "cold" | "warm";
 export const AUDIENCES: Audience[] = ["cold", "warm"];
@@ -38,14 +44,64 @@ export function zurichIso(date: string, time: string): string {
 // The show is a Thursday. Planner: Saturday to Monday before it (the Saturday run opens it; a
 // missed Saturday is caught by Sunday's or Monday's run). Tomorrow: the Wednesday. Tonight: show
 // day until 18:00, ninety minutes before the show (Harry, 7 October 2026; online sales close at 19:30). The end is what Meta enforces.
-export interface Window { phase: MomentPhase; from: string; until: string; endIso: string }
+export interface Window { phase: MomentPhase; from: string; until: string; startIso: string; endIso: string }
 export const TONIGHT_ENDS = "18:00";
 export function windowsFor(show: string): Window[] {
+  const w = (phase: MomentPhase, from: string, until: string, ends: string): Window => ({ phase, from, until, startIso: zurichIso(from, "00:00"), endIso: zurichIso(until, ends) });
   return [
-    { phase: "planner", from: addDays(show, -5), until: addDays(show, -3), endIso: zurichIso(addDays(show, -3), "23:59") },
-    { phase: "tomorrow", from: addDays(show, -1), until: addDays(show, -1), endIso: zurichIso(addDays(show, -1), "23:59") },
-    { phase: "tonight", from: show, until: show, endIso: zurichIso(show, TONIGHT_ENDS) },
+    w("planner", addDays(show, -5), addDays(show, -3), "23:59"),
+    w("tomorrow", addDays(show, -1), addDays(show, -1), "23:59"),
+    w("tonight", show, show, TONIGHT_ENDS),
   ];
+}
+export function windowFor(show: string, phase: MomentPhase): Window { return windowsFor(show).find((w) => w.phase === phase)!; }
+
+// ---------- per-week window ad sets ----------
+
+export const adsetKey = (aud: Audience, phase: MomentPhase) => `${aud}-${phase}`;
+// The name on Meta: "cold-tonight 2026-10-15". utm_campaign stays the bare key.
+export function windowAdsetName(aud: Audience, phase: MomentPhase, show: string): string { return `${adsetKey(aud, phase)} ${show}`; }
+// What Meta is told about the window's start: the window's own start when it is still ahead,
+// nothing (Meta starts it now) when the start has passed, and "ended" when there is nothing left
+// to run, so no ad set is made for a window that is over.
+export function windowStart(w: Pick<Window, "startIso" | "endIso">, now: Date): { start_time?: string } | "ended" {
+  if (now.getTime() >= Date.parse(w.endIso)) return "ended";
+  return now.getTime() < Date.parse(w.startIso) ? { start_time: w.startIso } : {};
+}
+
+export interface WindowAd { ad_id: string; when: MomentWhen }
+export interface WindowSet { adset_id: string; name: string; start: string; end: string; ads: Record<string, WindowAd> }
+export interface MomentsState {
+  adsets: Record<string, string>;                          // persistent sets: "cold-planner" -> id
+  retired_adsets?: Record<string, string>;                 // the daily-budget tomorrow and tonight sets of 4 October, kept for their data
+  retired_ads?: Record<string, { ad_id: string; adset: string }>;   // their ads, before the weekly ones took the names
+  creatives?: Record<string, string>;                      // "cold-C22" -> creative id, reused every week
+  ads: Record<string, { ad_id: string; creative_id: string; adset: string; phase: MomentPhase; when: MomentWhen }>;   // planner ads plus the newest window ad per concept (the board reads this)
+  windows?: Record<string, Record<string, WindowSet>>;     // show date -> key -> the week's ad set
+}
+// The 4 October state file to the per-week shape: the tomorrow and tonight ad sets retire (never
+// deleted), every ad's creative is kept for reuse. Returns whether anything moved.
+export function migrateState(s: MomentsState): boolean {
+  let moved = false;
+  s.retired_adsets ||= {}; s.creatives ||= {}; s.windows ||= {};
+  for (const key of Object.keys(s.adsets)) {
+    if (!WINDOWED_PHASES.some((p) => key.endsWith(`-${p}`))) continue;
+    s.retired_adsets[key] = s.adsets[key]; delete s.adsets[key]; moved = true;
+    s.retired_ads ||= {};
+    for (const [name, a] of Object.entries(s.ads)) if (a.adset === key && !s.retired_ads[name]) s.retired_ads[name] = { ad_id: a.ad_id, adset: key };
+  }
+  for (const [name, a] of Object.entries(s.ads)) if (a.creative_id && !s.creatives[name]) { s.creatives[name] = a.creative_id; moved = true; }
+  return moved;
+}
+// Window sets whose show date left the calendar while their window is still ahead or open: they
+// must be paused, or a line about a night that no longer exists would run.
+export function orphanWindows(s: MomentsState, calendarDates: string[], now: Date): { show: string; key: string; set: WindowSet }[] {
+  const out: { show: string; key: string; set: WindowSet }[] = [];
+  for (const [show, sets] of Object.entries(s.windows || {})) {
+    if (calendarDates.includes(show)) continue;
+    for (const [key, set] of Object.entries(sets)) if (now.getTime() < Date.parse(set.end)) out.push({ show, key, set });
+  }
+  return out;
 }
 // The window open at this instant, if any.
 export function openWindow(show: string, now: Date): Window | null {
@@ -165,6 +221,10 @@ export interface MomentsConfig {
 export const DAYS: Record<MomentPhase | "evergreen", number> = { planner: 3, evergreen: 7, tomorrow: 1, tonight: 1 };
 
 export interface BudgetPlan { daily: Record<string, number>; week_chf: number; boost: { planner: number; tomorrow: number; tonight: number }; note: string }
+// A window ad set's lifetime budget: the plan's daily amount over the window's days.
+export function windowBudgetChf(plan: Pick<BudgetPlan, "daily">, aud: Audience, phase: MomentPhase): number {
+  return Math.round(plan.daily[adsetKey(aud, phase)] * DAYS[phase] * 100) / 100;
+}
 // Daily budgets per ad set key (cold, warm, cold-planner, ...), rounded to 5 Rappen, never under
 // the floor. Boosts multiply the moment shares. The cap check: this week as planned plus 3.35
 // plain weeks plus the old carousel's month; over the cap, the boosts go back to 1 (the base

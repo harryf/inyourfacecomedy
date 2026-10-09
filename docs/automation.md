@@ -79,7 +79,7 @@ Run by hand when needed:
 | `build-gallery-data.rb`, `build-gallery-card.rb` | The `/moments/` gallery data (Apple Vision) and its share card |
 | `ga-setup.ts` | The GA property's configuration as code (`analytics.md`) |
 | `email-monthly.ts`, `email-thankyou.ts`, `email-promo.ts` | Build a Mailchimp draft and open it; they never send (`emails.md`) |
-| `meta-moments.ts` | Meta moment ads: opens the planner (Sat to Mon), tomorrow (Wed) and tonight (Thu to 18:00) ad sets, picks the any, wet or long weekend ad from the MeteoSwiss forecast and the Zürich holidays, sets the moment and evergreen budgets (`meta-ads/moments-plan.md`) | cron line below, 07:30 and 12:30 daily | no |
+| `meta-moments.ts` | Meta moment ads: opens the planner (Sat to Mon) ad sets, makes the week's tomorrow (Wed) and tonight (Thu to 18:00) ad sets ahead with their times on Meta, picks the any, wet or long weekend ad from the MeteoSwiss forecast and the Zürich holidays, sets the moment and evergreen budgets (`meta-ads/moments-plan.md`) | cron line below, 07:30 and 12:30 daily | no |
 | `meta-lists.ts`, `meta-adsets.ts`, `meta-bank.ts`, `meta-insights.ts` | Meta ads: customer lists, ad set targeting and budgets, the creative bank (image ads, video ads with `--push-video`, which ads are on with `--sync`), the Friday readout (`meta-ads.md`) |
 
 Shared code lives in `script/lib/` (TypeScript helpers, the Swift calendar bridge), tests in

@@ -247,3 +247,21 @@ test("a paused moment ad stands by rather than reading off", () => {
   const { liveLabel } = require("../meta-bank");
   expect(liveLabel({ status: "PAUSED", effective_status: "PAUSED", adset: { name: "cold-planner", status: "ACTIVE", effective_status: "ACTIVE" } }, true)).toEqual({ label: "standby, its condition is not met", kind: "waiting", adset: "cold-planner" });
 });
+
+test("an active ad in a week's ad set that has not started yet is picked, not running; after the end it is over", () => {
+  const { liveLabel } = require("../meta-bank");
+  const now = new Date("2026-10-09T12:30:00+02:00");
+  const set = { name: "cold-tonight 2026-10-15", status: "ACTIVE", effective_status: "ACTIVE", start_time: "2026-10-15T00:00:00+0200", end_time: "2026-10-15T18:00:00+0200" };
+  expect(liveLabel({ status: "ACTIVE", effective_status: "ACTIVE", adset: set }, true, now)).toEqual({ label: "picked, starts 2026-10-15 00:00", kind: "waiting", adset: "cold-tonight 2026-10-15" });
+  expect(liveLabel({ status: "ACTIVE", effective_status: "ACTIVE", adset: set }, true, new Date("2026-10-15T12:00:00+02:00")).kind).toBe("on");
+  expect(liveLabel({ status: "ACTIVE", effective_status: "ACTIVE", adset: set }, true, new Date("2026-10-15T18:00:00+02:00"))).toEqual({ label: "window over", kind: "off", adset: "cold-tonight 2026-10-15" });
+  expect(liveLabel({ status: "PAUSED", effective_status: "PAUSED", adset: set }, true, now).label).toBe("standby, its condition is not met");
+  expect(liveLabel({ status: "PAUSED", effective_status: "PAUSED", adset: set }, true, new Date("2026-10-16T09:00:00+02:00")).label).toBe("window over");
+});
+
+test("a paused planner set with last week's end is not 'window over': its ads wait for the window", () => {
+  const { liveLabel } = require("../meta-bank");
+  const now = new Date("2026-10-09T12:30:00+02:00");
+  const planner = { name: "cold-planner", status: "PAUSED", effective_status: "PAUSED", start_time: "2026-10-04T09:18:34+0200", end_time: "2026-10-05T23:59:00+0200" };
+  expect(liveLabel({ status: "ACTIVE", effective_status: "ADSET_PAUSED", adset: planner }, true, now)).toEqual({ label: "picked, waits for its window", kind: "waiting", adset: "cold-planner" });
+});

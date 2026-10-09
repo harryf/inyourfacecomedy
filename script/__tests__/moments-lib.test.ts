@@ -110,3 +110,48 @@ describe("Harry's 2026-10-04 rule: the long weekend 'tomorrow' line runs on the 
     expect(pickWhen("tomorrow", isLongWeekend("2026-10-08", ["2027-01-01"]), false)).toBe("any");
   });
 });
+
+describe("per-week window ad sets (lifetime budget, scheduled on Meta; 2026-10-09)", () => {
+  const { windowFor, windowAdsetName, windowStart, windowBudgetChf, migrateState, orphanWindows, PERSISTENT_PHASES, WINDOWED_PHASES } = require("../lib/moments-lib");
+  test("every window carries its start at 00:00 Zürich time", () => {
+    expect(windowsFor("2026-10-15").map((w) => [w.phase, w.startIso])).toEqual([
+      ["planner", "2026-10-10T00:00:00+02:00"], ["tomorrow", "2026-10-14T00:00:00+02:00"], ["tonight", "2026-10-15T00:00:00+02:00"],
+    ]);
+    expect(windowFor("2026-11-05", "tonight").startIso).toBe("2026-11-05T00:00:00+01:00");
+    expect(PERSISTENT_PHASES).toEqual(["planner"]);
+    expect(WINDOWED_PHASES).toEqual(["tomorrow", "tonight"]);
+  });
+  test("the name on Meta carries the show date; the lifetime budget is the plan's day", () => {
+    expect(windowAdsetName("cold", "tonight", "2026-10-15")).toBe("cold-tonight 2026-10-15");
+    const plan = budgetPlan(CFG, false, true, 600);
+    expect(windowBudgetChf(plan, "cold", "tonight")).toBe(38.2);
+    expect(windowBudgetChf(plan, "warm", "tomorrow")).toBe(8.2);
+  });
+  test("start_time only while the start is ahead; nothing for an ended window", () => {
+    const w = windowFor("2026-10-15", "tonight");
+    expect(windowStart(w, at("2026-10-09T12:30:00+02:00"))).toEqual({ start_time: "2026-10-15T00:00:00+02:00" });
+    expect(windowStart(w, at("2026-10-15T07:30:00+02:00"))).toEqual({});
+    expect(windowStart(w, at("2026-10-15T18:00:00+02:00"))).toBe("ended");
+    expect(windowStart(w, at("2026-10-16T07:30:00+02:00"))).toBe("ended");
+  });
+  test("the 4 October state migrates once: tomorrow and tonight sets retire, creatives are kept, planner stays", () => {
+    const s = {
+      adsets: { "cold-planner": "p1", "cold-tomorrow": "t1", "cold-tonight": "n1", "warm-planner": "p2" },
+      ads: { "cold-C18": { ad_id: "a1", creative_id: "c1", adset: "cold-planner", phase: "planner", when: "any" }, "cold-C22": { ad_id: "a2", creative_id: "c2", adset: "cold-tomorrow", phase: "tomorrow", when: "wet" } },
+    };
+    expect(migrateState(s)).toBe(true);
+    expect(s.adsets).toEqual({ "cold-planner": "p1", "warm-planner": "p2" });
+    expect(s.retired_adsets).toEqual({ "cold-tomorrow": "t1", "cold-tonight": "n1" });
+    expect(s.retired_ads).toEqual({ "cold-C22": { ad_id: "a2", adset: "cold-tomorrow" } });
+    expect(s.creatives).toEqual({ "cold-C18": "c1", "cold-C22": "c2" });
+    expect(s.windows).toEqual({});
+    expect(migrateState(s)).toBe(false);
+  });
+  test("window sets of a show that left the calendar are orphans until their window ends", () => {
+    const set = (end: string) => ({ adset_id: "x", name: "n", start: "s", end, ads: {} });
+    const s = { adsets: {}, ads: {}, windows: { "2026-10-15": { "cold-tonight": set("2026-10-15T18:00:00+02:00") }, "2026-10-08": { "cold-tonight": set("2026-10-08T18:00:00+02:00") } } };
+    expect(orphanWindows(s, ["2026-10-15"], at("2026-10-09T12:30:00+02:00"))).toEqual([]);
+    expect(orphanWindows(s, ["2026-10-22"], at("2026-10-09T12:30:00+02:00")).map((o) => o.show)).toEqual(["2026-10-15"]);
+    expect(orphanWindows(s, [], at("2026-10-15T18:00:00+02:00"))).toEqual([]);
+  });
+});

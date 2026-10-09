@@ -36,8 +36,8 @@ reached before.
 |---|---|---|
 | planner | Saturday (first run) to Monday 23:59 before the show | plan it, book for the group, friends visiting |
 | (evergreen) | always, at a low base | the live laugh ads, C7, C13, W2, W9 |
-| tomorrow | Wednesday 00:00 to 23:59 | need a boost to make it to the weekend |
-| tonight | Thursday, first run to 18:00 | tonight, doors 19:00, tickets on the door too |
+| tomorrow | Wednesday 00:00 to 23:59, started by Meta | need a boost to make it to the weekend |
+| tonight | Thursday 00:00 to 18:00, started by Meta | tonight, doors 19:00, tickets on the door too |
 
 Each moment has a condition: `any`, `wet` (a wet or cold turn) or `long_weekend` (the Friday
 after the show is a holiday in Zürich). Weather lines exist only for tomorrow and tonight, because a
@@ -50,19 +50,26 @@ even if the Mac is asleep when a job should have switched it off. So the time li
 not in cron:
 
 - **Two evergreen ad sets stay as they are**, Cold and Warm, with the laugh ads at a low base.
-- **Six moment ad sets** are added to the Comedy Brew campaign: `cold-planner`, `cold-tomorrow`,
-  `cold-tonight` and the same three for Warm. Same targeting as their evergreen parent,
-  optimised for landing page views like them. The run that opens a window writes its `end_time`
-  and switches the ad set on, so Meta stops it on time by itself; a run that never happens leaves
-  it off. Meta wants 24 hours or more between an ad set's start and end; the ad sets started on
-  4 October, so every later window qualifies (a fresh ad set could not be opened for one evening).
+- **Two planner ad sets** (`cold-planner`, `warm-planner`, daily budget) live on. The run that
+  opens the window writes its `end_time` and switches the ad set on, so Meta stops it on time by
+  itself; a run that never happens leaves it off.
+- **A fresh tomorrow and tonight pair per show** (`cold-tomorrow 2026-10-15`, `cold-tonight
+  2026-10-15`, the same for Warm), made by the first run that sees the show within six days (the
+  Friday before): lifetime budget for the window, `start_time` and `end_time` on Meta, ACTIVE
+  from creation. Meta starts them at midnight and paces the whole budget into the window. Changed
+  9 October 2026 after the first week: unpausing a daily-budget set by cron lost three hours to
+  Meta's ramp and left half the budget unspent, Meta refuses to move a started set's `start_time`
+  and refuses a daily-budget set under 24 hours, but takes a lifetime-budget set from 00:00 to
+  18:00. Same targeting as the evergreen parent, optimised for landing page views like it.
 - **Inside each moment ad set** sit its three ads (any, wet, long weekend). The job switches on the
   one the conditions pick and pauses the other two.
 - **Tracking:** `utm_campaign` is the ad set name (`cold-tonight`), `utm_content` the ad name, so
   `/reports/` and the readout show clicks per moment and per ad.
-- **To prove on the first weeks:** an ad set whose window has ended taking a new `end_time` the
-  next week. The run's read-back shows it; if Meta refuses, the fallback is a fresh ad set per
-  window with the three ads copied in.
+- **Proven 7 and 8 October:** a daily-budget ad set whose window has ended takes a new
+  `end_time` the next week. Moot since 9 October: the tomorrow and tonight sets are fresh per show.
+- **To prove on the first lifetime week (15 October):** the paused lines in a scheduled set are
+  reviewed before the window (the read-back shows each ad's effective status), and the lifetime
+  budget is spent in full by the end.
 
 ## 4. The conditions
 
