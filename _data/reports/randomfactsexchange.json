@@ -3,24 +3,24 @@
  "title": "Random Facts Exchange",
  "ticket_url": "https://eventfrog.ch/en/p/groups/random-facts-exchange-7434337254674303477.html",
  "event_type": "series",
- "generated_at": "2026-10-10T08:20:01.453Z",
+ "generated_at": "2026-10-11T08:20:02.281Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-10",
- "complete_through": "2026-10-08",
+ "through": "2026-10-11",
+ "complete_through": "2026-10-09",
  "totals": {
-  "clicks": 38,
+  "clicks": 42,
   "redirect": 0,
-  "click": 38,
-  "clicks_30d": 31,
+  "click": 42,
+  "clicks_30d": 35,
   "redirect_30d": 0,
-  "click_30d": 31,
-  "views": 89,
-  "views_30d": 76,
-  "sessions": 87,
-  "sessions_30d": 76,
+  "click_30d": 35,
+  "views": 98,
+  "views_30d": 84,
+  "sessions": 93,
+  "sessions_30d": 81,
   "broken_links": 0,
-  "untagged": 1
+  "untagged": 2
  },
  "by_day": [
   {
@@ -379,12 +379,20 @@
    "date": "2026-10-09",
    "redirect": 0,
    "click": 3,
-   "views": 1,
-   "provisional": true,
+   "views": 2,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-10",
+   "redirect": 0,
+   "click": 4,
+   "views": 8,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-11",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -396,15 +404,15 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 22,
-   "views": 45,
-   "sessions": 42
+   "clicks": 24,
+   "views": 49,
+   "sessions": 46
   },
   {
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 9,
-   "views": 9,
+   "views": 12,
    "sessions": 11
   },
   {
@@ -415,11 +423,25 @@
    "sessions": 2
   },
   {
+   "source": "meta",
+   "medium": "untagged",
+   "clicks": 2,
+   "views": 0,
+   "sessions": 0
+  },
+  {
    "source": "eventfrog.ch",
    "medium": "referral",
    "clicks": 1,
    "views": 5,
    "sessions": 3
+  },
+  {
+   "source": "chatgpt.com",
+   "medium": "ai-assistant",
+   "clicks": 1,
+   "views": 2,
+   "sessions": 2
   },
   {
    "source": "guidle",
@@ -429,18 +451,11 @@
    "sessions": 1
   },
   {
-   "source": "chatgpt.com",
-   "medium": "ai-assistant",
+   "source": "instagram",
+   "medium": "social",
    "clicks": 1,
-   "views": 0,
-   "sessions": 0
-  },
-  {
-   "source": "meta",
-   "medium": "untagged",
-   "clicks": 1,
-   "views": 0,
-   "sessions": 0
+   "views": 1,
+   "sessions": 1
   },
   {
    "source": "reddit.com",
@@ -459,13 +474,6 @@
   {
    "source": "bing",
    "medium": "organic",
-   "clicks": 0,
-   "views": 1,
-   "sessions": 1
-  },
-  {
-   "source": "instagram",
-   "medium": "social",
    "clicks": 0,
    "views": 1,
    "sessions": 1

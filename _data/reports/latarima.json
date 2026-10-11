@@ -3,11 +3,11 @@
  "title": "La Tarima",
  "ticket_url": "https://eventfrog.ch/en/p/groups/la-tarima-open-mic-7487916867123691072.html",
  "event_type": "monthly",
- "generated_at": "2026-10-10T08:20:01.453Z",
+ "generated_at": "2026-10-11T08:20:02.281Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-10",
- "complete_through": "2026-10-08",
+ "through": "2026-10-11",
+ "complete_through": "2026-10-09",
  "totals": {
   "clicks": 16,
   "redirect": 1,
@@ -380,11 +380,19 @@
    "redirect": 0,
    "click": 1,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-10",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-11",
    "redirect": 0,
    "click": 0,
    "views": 0,
