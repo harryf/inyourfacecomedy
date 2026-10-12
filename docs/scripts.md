@@ -229,7 +229,10 @@ real Zürich offset per date since 2026-10-05, before that a fixed +02:00). Two 
 
 The run reads the live hours first and compares (past dates ignored on both sides); equal means
 no write. Different means a `validateOnly` PATCH, the real PATCH, then a read-back that must
-equal the plan. So a normal day is one GET. First live run 2026-09-28 by hand.
+equal the plan. So a normal day is one GET. A 502, 503 or 504 from Google, or a dropped
+connection, is retried twice after 30 seconds (`GBP_RETRY_WAIT`); the PATCH replaces both hour
+fields whole, so a repeat is harmless. First live run 2026-09-28 by hand; a one-off 503 on the
+validateOnly PATCH on 2026-10-12 is what the retry is for.
 
 ```
 ruby script/hours-to-google.rb --dry-run [-v]          # read-only: the plan and the diff (-v lists the shows)

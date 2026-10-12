@@ -32,7 +32,9 @@ Encoding.default_external = Encoding::UTF_8
 # Every run GETs the live hours first and compares them with the plan (special periods
 # before today are ignored on both sides). Equal means no write, so a normal day makes no
 # request beyond the read. Different means one validateOnly PATCH, then the real PATCH,
-# then a read-back that must equal the plan.
+# then a read-back that must equal the plan. A 502, 503 or 504 from Google, or a dropped
+# connection, is retried after RETRY_WAIT seconds, up to RETRIES times: the PATCH replaces both
+# hour fields whole, so a repeat is harmless, and the read-back still has the last word.
 #
 # Usage:
 #   ruby script/hours-to-google.rb --dry-run       # read-only: prints the plan and the diff
@@ -74,6 +76,9 @@ REGULAR_WEEKS = (ENV["GBP_REGULAR_WEEKS"] || "8").to_i    # look-ahead for the w
 REGULAR_SHARE = (ENV["GBP_REGULAR_SHARE"] || "0.75").to_f # share of covered weeks with a show (6 of 8)
 REGULAR_MIN_WEEKS = 2                                     # never call a weekday regular on less data
 SPECIAL_DAYS  = (ENV["GBP_SPECIAL_DAYS"] || "42").to_i    # per-date overrides this far ahead
+RETRIES       = 2                                         # extra tries on a 5xx or a dropped connection
+RETRY_WAIT    = (ENV["GBP_RETRY_WAIT"] || "30").to_i      # seconds between them
+RETRY_CODES   = [502, 503, 504].freeze
 DEFAULT_DURATION = 2 * 3600                              # when an event has no end
 
 DAY_NAMES = %w[SUNDAY MONDAY TUESDAY WEDNESDAY THURSDAY FRIDAY SATURDAY].freeze   # Date#wday order
@@ -177,7 +182,21 @@ def api_request(method, url, token, body = nil)
     req["Content-Type"] = "application/json"
     req.body = JSON.generate(body)
   end
-  do_request(uri, req, raw_code: true)
+  tries = 0
+  loop do
+    tries += 1
+    begin
+      code, parsed = do_request(uri, req, raw_code: true)
+    rescue SocketError, Timeout::Error, Errno::ECONNRESET, OpenSSL::SSL::SSLError => e
+      raise if tries > RETRIES
+      log "#{method.to_s.upcase} #{e.class}: #{e.message[0, 120]}; retry #{tries} of #{RETRIES} in #{RETRY_WAIT}s"
+      sleep RETRY_WAIT
+      next
+    end
+    return [code, parsed] unless RETRY_CODES.include?(code) && tries <= RETRIES
+    log "#{method.to_s.upcase} HTTP #{code}: #{api_error(parsed)}; retry #{tries} of #{RETRIES} in #{RETRY_WAIT}s"
+    sleep RETRY_WAIT
+  end
 end
 
 def do_request(uri, req, raw_code: false)
