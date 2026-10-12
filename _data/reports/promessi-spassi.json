@@ -3,18 +3,18 @@
  "title": "PROMESSI SPASSI",
  "ticket_url": "https://eventfrog.ch/en/p/groups/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081056758243.html",
  "event_type": "monthly",
- "generated_at": "2026-10-11T08:20:02.281Z",
+ "generated_at": "2026-10-12T08:20:02.107Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-11",
- "complete_through": "2026-10-09",
+ "through": "2026-10-12",
+ "complete_through": "2026-10-10",
  "totals": {
-  "clicks": 2469,
-  "redirect": 2441,
+  "clicks": 2501,
+  "redirect": 2473,
   "click": 28,
-  "clicks_30d": 1331,
-  "redirect_30d": 1312,
-  "click_30d": 19,
+  "clicks_30d": 1254,
+  "redirect_30d": 1237,
+  "click_30d": 17,
   "views": 79,
   "views_30d": 53,
   "sessions": 75,
@@ -385,15 +385,23 @@
   },
   {
    "date": "2026-10-10",
-   "redirect": 27,
+   "redirect": 29,
    "click": 1,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-11",
+   "redirect": 39,
+   "click": 0,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
   },
   {
-   "date": "2026-10-11",
-   "redirect": 16,
+   "date": "2026-10-12",
+   "redirect": 7,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -404,7 +412,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 2364,
+   "clicks": 2396,
    "views": 2,
    "sessions": 2
   },
@@ -425,7 +433,7 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 10,
+   "clicks": 9,
    "views": 34,
    "sessions": 28
   },
@@ -439,7 +447,7 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 6,
+   "clicks": 7,
    "views": 10,
    "sessions": 10
   },
@@ -547,9 +555,9 @@
    "campaign": "promessi-spassi",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 2363,
+   "clicks": 2395,
    "first": "2026-08-30",
-   "last": "2026-10-11",
+   "last": "2026-10-12",
    "content": [
     {
      "content": "52672614093400",
@@ -557,7 +565,7 @@
     },
     {
      "content": "52676472901800",
-     "clicks": 307
+     "clicks": 339
     },
     {
      "content": "52672431580800",

@@ -39,3 +39,7 @@ datetime,event,source,medium,campaign,content,page
 2026-10-06 17:15,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
 2026-10-06 19:40,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
 2026-10-06 22:34,ticket_redirect,meta,paid_social,tall-order,52679182997200,Ticket Redirect
+2026-10-11 20:41,ticket_redirect,meta,paid_social,tall-order,52679185461400,Ticket Redirect
+2026-10-11 21:00,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-10-12 06:23,ticket_redirect,meta,paid_social,tall-order,52679182997200,Ticket Redirect
+2026-10-12 07:10,ticket_redirect,meta,paid_social,tall-order,52679182997200,Ticket Redirect

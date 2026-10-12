@@ -3,18 +3,18 @@
  "title": "Tall Order",
  "ticket_url": "https://eventfrog.ch/en/p/groups/tall-order-english-stand-up-comedy-open-mic-7507743592338740411.html",
  "event_type": "series",
- "generated_at": "2026-10-11T08:20:02.281Z",
+ "generated_at": "2026-10-12T08:20:02.107Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-11",
- "complete_through": "2026-10-09",
+ "through": "2026-10-12",
+ "complete_through": "2026-10-10",
  "totals": {
-  "clicks": 40,
-  "redirect": 26,
-  "click": 14,
-  "clicks_30d": 40,
-  "redirect_30d": 26,
-  "click_30d": 14,
+  "clicks": 44,
+  "redirect": 29,
+  "click": 15,
+  "clicks_30d": 44,
+  "redirect_30d": 29,
+  "click_30d": 15,
   "views": 46,
   "views_30d": 46,
   "sessions": 45,
@@ -388,12 +388,20 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-11",
-   "redirect": 0,
+   "redirect": 1,
+   "click": 1,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-12",
+   "redirect": 2,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -404,7 +412,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 26,
+   "clicks": 29,
    "views": 0,
    "sessions": 0
   },
@@ -423,6 +431,13 @@
    "sessions": 6
   },
   {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 1,
+   "views": 6,
+   "sessions": 7
+  },
+  {
    "source": "chatgpt.com",
    "medium": "ai-assistant",
    "clicks": 1,
@@ -435,13 +450,6 @@
    "clicks": 0,
    "views": 27,
    "sessions": 26
-  },
-  {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 0,
-   "views": 6,
-   "sessions": 7
   },
   {
    "source": "eventfrog.ch",
@@ -463,17 +471,17 @@
    "campaign": "tall-order",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 26,
+   "clicks": 29,
    "first": "2026-10-04",
-   "last": "2026-10-06",
+   "last": "2026-10-12",
    "content": [
     {
      "content": "52679182997200",
-     "clicks": 8
+     "clicks": 10
     },
     {
      "content": "52679185461400",
-     "clicks": 4
+     "clicks": 5
     },
     {
      "content": "52679184892000",

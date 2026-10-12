@@ -3,22 +3,22 @@
  "title": "Random Facts Exchange",
  "ticket_url": "https://eventfrog.ch/en/p/groups/random-facts-exchange-7434337254674303477.html",
  "event_type": "series",
- "generated_at": "2026-10-11T08:20:02.281Z",
+ "generated_at": "2026-10-12T08:20:02.107Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-11",
- "complete_through": "2026-10-09",
+ "through": "2026-10-12",
+ "complete_through": "2026-10-10",
  "totals": {
-  "clicks": 42,
+  "clicks": 49,
   "redirect": 0,
-  "click": 42,
-  "clicks_30d": 35,
+  "click": 49,
+  "clicks_30d": 42,
   "redirect_30d": 0,
-  "click_30d": 35,
-  "views": 98,
-  "views_30d": 84,
-  "sessions": 93,
-  "sessions_30d": 81,
+  "click_30d": 42,
+  "views": 100,
+  "views_30d": 83,
+  "sessions": 96,
+  "sessions_30d": 82,
   "broken_links": 0,
   "untagged": 2
  },
@@ -386,15 +386,23 @@
   {
    "date": "2026-10-10",
    "redirect": 0,
-   "click": 4,
+   "click": 6,
    "views": 8,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-11",
    "redirect": 0,
-   "click": 0,
+   "click": 4,
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-12",
+   "redirect": 0,
+   "click": 1,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
@@ -404,16 +412,23 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 24,
-   "views": 49,
-   "sessions": 46
+   "clicks": 26,
+   "views": 53,
+   "sessions": 49
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 9,
-   "views": 12,
+   "clicks": 12,
+   "views": 10,
    "sessions": 11
+  },
+  {
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 3,
+   "views": 1,
+   "sessions": 1
   },
   {
    "source": "ecosia.org",
@@ -446,13 +461,6 @@
   {
    "source": "guidle",
    "medium": "referral",
-   "clicks": 1,
-   "views": 1,
-   "sessions": 1
-  },
-  {
-   "source": "instagram",
-   "medium": "social",
    "clicks": 1,
    "views": 1,
    "sessions": 1
