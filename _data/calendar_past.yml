@@ -3,9 +3,22 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-10-12T07:00:01+00:00'
-past_count: 19
+generated_at: '2026-10-13T07:00:01+00:00'
+past_count: 20
 events:
+- show: randomfactsexchange
+  name: Random Facts Exchange
+  title: Random Facts Exchange - the Science Comedy Show in Zürich
+  url: "/randomfactsexchange/"
+  date: '2026-10-12'
+  start: '2026-10-12T19:00:00+02:00'
+  end: '2026-10-12T21:00:00+02:00'
+  venue: ambossrampe
+  venue_name: Amboss Rampe
+  location: Amboss Rampe
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/science-technology/random-facts-exchange-21th-edition-amboss-rampe-zuerich-7434312734643117655.html
+  eventfrog_name: Random Facts Exchange 21th Edition - Amboss Rampe
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
