@@ -3,22 +3,22 @@
  "title": "Jackpot Comedy",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jackpot-comedy-7413646370706339342.html",
  "event_type": "series",
- "generated_at": "2026-10-12T08:20:02.107Z",
+ "generated_at": "2026-10-13T12:24:31.686Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-12",
- "complete_through": "2026-10-10",
+ "through": "2026-10-13",
+ "complete_through": "2026-10-11",
  "totals": {
-  "clicks": 719,
-  "redirect": 658,
-  "click": 61,
-  "clicks_30d": 449,
-  "redirect_30d": 406,
-  "click_30d": 43,
-  "views": 160,
-  "views_30d": 97,
-  "sessions": 155,
-  "sessions_30d": 97,
+  "clicks": 737,
+  "redirect": 674,
+  "click": 63,
+  "clicks_30d": 445,
+  "redirect_30d": 400,
+  "click_30d": 45,
+  "views": 168,
+  "views_30d": 105,
+  "sessions": 162,
+  "sessions_30d": 104,
   "broken_links": 0,
   "untagged": 0
  },
@@ -393,15 +393,23 @@
   },
   {
    "date": "2026-10-11",
-   "redirect": 17,
+   "redirect": 18,
    "click": 1,
-   "views": 1,
-   "provisional": true,
+   "views": 2,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-12",
-   "redirect": 5,
+   "redirect": 14,
+   "click": 2,
+   "views": 7,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-13",
+   "redirect": 6,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -412,16 +420,16 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 624,
+   "clicks": 640,
    "views": 3,
    "sessions": 2
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 30,
-   "views": 45,
-   "sessions": 43
+   "clicks": 33,
+   "views": 51,
+   "sessions": 49
   },
   {
    "source": "instagram",
@@ -433,9 +441,9 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 15,
-   "views": 57,
-   "sessions": 59
+   "clicks": 14,
+   "views": 59,
+   "sessions": 60
   },
   {
    "source": "facebook",
@@ -520,13 +528,13 @@
    "campaign": "jackpotcomedy",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 624,
+   "clicks": 640,
    "first": "2026-08-30",
-   "last": "2026-10-12",
+   "last": "2026-10-13",
    "content": [
     {
      "content": "6964168949947",
-     "clicks": 611
+     "clicks": 627
     }
    ]
   },
