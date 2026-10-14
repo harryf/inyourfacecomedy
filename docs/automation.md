@@ -41,7 +41,8 @@ All gitignored, all at the repo root, none ever committed. Names only here; valu
 | `GA_REPORTS_CREDENTIALS` (path to `ga-reports-sa.json`), `GA_REPORTS_HEALTHCHECKS_URL` | `ga-report.ts`; `ga-setup.ts` and `ga-annotations.ts` use the same key but need the Editor role on the property |
 | `GSC_SITE` (optional), `GSC_HEALTHCHECKS_URL` | `gsc-report.ts`, which reads Search Console with the `GA_REPORTS_CREDENTIALS` account (a Restricted user on the property; `search-console.md`) |
 | `GRIST_API_KEY` | `sync-comedians.rb`, `meta-lineup-ad.ts` |
-| `EVENTFROG_ORGANIZER`, `EVENTFROG_HEALTHCHECKS_URL` | `eventfrog-sales.ts`, the ticket count in `robins-calendar.ts`. The key can write; the code cannot: `script/lib/eventfrog-api.ts` has one verb, GET, over a whitelist of paths |
+| `EVENTFROG_ORGANIZER`, `EVENTFROG_HEALTHCHECKS_URL` | `eventfrog-sales.ts`, the ticket count in `robins-calendar.ts`, the reads in `eventfrog-content.ts`. A read-only Organiser key since October 2026; `script/lib/eventfrog-api.ts` has one verb, GET, over a whitelist of paths |
+| `EVENTFROG_ORGANIZER_WRITE`, `EVENTFROG_CONTENT_HEALTHCHECKS_URL` (optional) | `eventfrog-content.ts` writes titles and descriptions with it through `script/lib/eventfrog-write.ts` (PATCH on an event or a group, the three copy fields only). An Organiser key of the read/write type from the Cockpit, Settings, API keys |
 | `META_ACCESS_TOKEN`, `META_ADS_HEALTHCHECKS_URL`, `META_MOMENTS_HEALTHCHECKS_URL` | the `meta-*.ts` scripts (the last one is `meta-moments.ts`'s own check), plus ids and budgets in gitignored `meta-ads/config.yml` (from `config.example.yml`) |
 | `MC_API_KEY` | the three email scripts |
 | `ROBINS_CALENDAR` | `robins-calendar.ts`: the exact title of the calendar in Calendar.app |
@@ -65,6 +66,7 @@ Scheduled jobs first. "Git" says whether the script commits and pushes by itself
 | `refresh-calendar-page.rb` | Regenerates `pages/1_calendar.md` from `calendar.yml` and the copy pools, validates it | cron, 11:00 Saturday and Sunday | yes |
 | `robins-calendar.ts` | ROBIN's shows into the Apple calendar shared with the bar staff, with a ticket count in the last three days | launchd, 11:05 daily | no |
 | `eventfrog-sales.ts` | Comedy Brew sales snapshots, the capacity guard, the Saturday review | by hand for now; cron lines below | no |
+| `eventfrog-content.ts` | Comedy Brew titles and descriptions on Eventfrog: the series page and every upcoming date, hooks from `_data/eventfrog-copy.json`; writes only differences | cron line below, 09:20 daily, not yet installed (needs `EVENTFROG_ORGANIZER_WRITE`) | no |
 | `meta-lineup-ad.ts` | The weekly lineup ad in the Buyers ad set | parked since 2026-09-18 (the ad set is paused; see `meta-ads.md`), not run | no |
 | `ga-annotations.ts` | Show dates as annotations on GA charts | by hand; cron line below | no |
 
@@ -176,6 +178,8 @@ what for):
 0 13,17,20 * * 2,3 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/eventfrog-sales.ts --poll --slot midday --guard >> script/eventfrog-sales.log 2>&1
 0 10-20 * * 4 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/eventfrog-sales.ts --poll --slot showday --guard >> script/eventfrog-sales.log 2>&1
 30 9 * * 6 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/eventfrog-sales.ts --review >> script/eventfrog-sales.log 2>&1
+# Comedy Brew copy on Eventfrog (series page and every upcoming date): writes only what differs, after the 09:00 refresh
+20 9 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/eventfrog-content.ts --apply >> script/eventfrog-content.log 2>&1
 ```
 
 Install a line with `crontab -e`, check with `crontab -l | grep inyourfacecomedy`, and keep a copy

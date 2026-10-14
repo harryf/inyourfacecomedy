@@ -788,6 +788,49 @@ capacity with the student sub-category, Zürich time across the October change, 
 slots, the curve, the projection, the pace, the guard table, blended net, profit, the ramp
 verdict with hysteresis, the site click join).
 
+## `eventfrog-content.ts`
+
+Keeps the Comedy Brew pages on Eventfrog in one state: the series page (the event group) and
+every upcoming date get a title, a short description and a description built from one
+template, a hook line per date from `_data/eventfrog-copy.json`, and the show's history read
+from the organiser account (first night February 2022, nights so far, rounded down to tens).
+Built 2026-10-14 after the group page turned out to have no price and no buy button and the
+per-date pages carried the old copy (694 clicks, 13 orders on 8 October).
+
+```
+bun script/eventfrog-content.ts                           # dry run: what would change, per page
+bun script/eventfrog-content.ts --apply                   # write the differences, read each back
+bun script/eventfrog-content.ts --apply --only 2026-10-22 # one date
+bun script/eventfrog-content.ts --group-only | --events-only | --verbose
+```
+
+The title is a fixed prefix, `Comedy Brew: English Stand-Up Open Mic`, a separator, then the
+hook. Three things depend on the prefix: the Eventfrog page title is our title plus
+"in Zürich | Comedy & Cabaret" (so no city in ours), the thank-you email finds the Mailchimp
+tag by the words "Comedy Brew", and Google weighs the front of a title. The hook is the pool
+walked one line per week from the first night, so a date keeps its line, consecutive
+Thursdays never repeat, and editing the pool shifts future dates once. The description
+leads with the hook, then the night, then the buy-now line (seats, sell-outs, door sales),
+then the calendar link and the FAQ link with UTM tags (`utm_source=eventfrog`,
+`utm_medium=referral`, `utm_campaign=comedybrew`, `utm_content=event-<date>` or `series`),
+and harry@inyourfacecomedy.ch as the contact. No price in the text: the ticket block above
+it shows the price. The series page says how long and how many Thursdays.
+
+Writes go through `lib/eventfrog-write.ts`, the one write path in the repo: one verb, PATCH,
+two paths (an event, an event group), and a body built from the three copy fields only
+(title, shortDescription, description) under the object's existing locale key (events carry
+`de_CH`, the group `en_CH`; the API supports one entry per object). Ticketing, visibility,
+dates and tracking cannot be reached from it. It needs its own key, `EVENTFROG_ORGANIZER_WRITE`
+in `.env` (an Organiser key of the read/write type; the read-only `EVENTFROG_ORGANIZER` answers
+403 on a PATCH), a cap of 20 writes per run, and a read-back after every write that compares
+what the page says (entities decoded, tags dropped, hrefs kept) so Eventfrog's editor
+re-encoding the HTML does not count as a change. A run with nothing to do writes nothing.
+Healthchecks: `EVENTFROG_CONTENT_HEALTHCHECKS_URL`, optional.
+
+Tests: `script/__tests__/eventfrog-content.test.ts` (the writer's refusals, body shape, cap
+and headers; the hook walk; the title rules; the history matcher over the four historical
+names; the copy's contents; the comparison; the plan).
+
 ## `robins-calendar.ts`
 
 Mirrors the website calendar (`_data/calendar.yml`, venue `robins` only) into the Apple calendar

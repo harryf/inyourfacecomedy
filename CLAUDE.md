@@ -38,6 +38,7 @@ Run the build and the health check after every change and before saying you are 
 | Venue Instagram handles | `instagram:` on the venue in `_data/venues.yml` (bare handle, no @) | hand. The daily job only appends new venues, never touches existing ones. The Lineup Maker and Week Story "Copy Insta handles" buttons add the venue after the comedians, then `@inyourfacecomedy` |
 | Show language | `language: it` / `es` on the post (absent = English) | hand. The monthly email lists non-English shows only when they are at ROBIN's (`docs/emails.md`) |
 | Review quotes on home, calendar and show pages, `/reviews/` | Google reviews, five stars with text only, performers left out | `reviews-from-google.rb` into `_data/reviews.yml`. Never hand-edit it; hide a review with `script/reviews-exclude.txt`. Never add Review or AggregateRating structured data (self-serving on our own site) |
+| Comedy Brew titles and descriptions on Eventfrog (series page and every date) | the template in `script/eventfrog-content.ts` plus the hook pool `_data/eventfrog-copy.json` | `eventfrog-content.ts` daily. Never edit them in the Cockpit: the next run writes them back. The title prefix `Comedy Brew: English Stand-Up Open Mic` is fixed (the thank-you email and Google rely on it); hooks carry no city, Eventfrog adds "in Zürich". Writes need `EVENTFROG_ORGANIZER_WRITE`; the only write path is `script/lib/eventfrog-write.ts` (three copy fields, two paths) |
 
 ## Scheduled jobs (Harry's Mac, rbenv 3.2.4 by absolute path, logs in `script/*.log`)
 
@@ -52,6 +53,7 @@ Run the build and the health check after every change and before saying you are 
 | 10:20 daily | `bun script/ga-report.ts`: GA to `/reports/`, commit, push | `ga-report.log` |
 | 11:00 Sat, Sun | `refresh-calendar-page.rb --no-refresh`: regenerate `/calendar/`, commit, push | `refresh.log` |
 | 11:05 daily, **launchd not cron** | `bun script/robins-calendar.ts`: ROBIN's shows into the staff Apple calendar; no git, no Healthchecks ping | `robins-calendar.log` |
+| 09:20 daily (line documented, not yet installed) | `bun script/eventfrog-content.ts --apply`: Comedy Brew titles and descriptions on Eventfrog (series page plus every upcoming date) from one template and the hook pool; writes only differences; no git | `eventfrog-content.log` |
 
 Requirements, the cron and launchd lines, Healthchecks and troubleshooting: `docs/automation.md`. Per-script detail: `docs/scripts.md`. The short version:
 

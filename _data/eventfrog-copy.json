@@ -1,0 +1,19 @@
+{
+  "_comment": "Hook lines for the Comedy Brew Eventfrog pages, written by script/eventfrog-content.ts. One hook per date, picked by the show date so a page keeps its line. Each hook ends up as the title suffix after 'Comedy Brew: English Stand-Up Open Mic | ' and as the first bold sentence of the description. Keep them evergreen (no tonight, no weather, no weekday but Thursday), under 60 characters, no full stop, and no city: Eventfrog appends 'in Zürich' to the title itself. The pool is walked one line per week from the first night in 2022, so consecutive Thursdays never repeat; adding or reordering lines shifts future dates once. Edit freely; the next 09:20 run rewrites the pages that changed.",
+  "hooks": [
+    "Fix your Thursday boredom",
+    "New in town? This is Thursday",
+    "Nobody will make you talk",
+    "Bring the flatmates",
+    "Where Thursday goes",
+    "Thursday, sorted",
+    "Half the room came alone",
+    "Strangers at 19:30, friends by 21:00",
+    "Two minutes from Central, less than a cocktail",
+    "Lost in town? Find your funny",
+    "The group chat needed a plan",
+    "Have you actually been?",
+    "Ten comedians, one Thursday",
+    "Stayed for the Thursdays"
+  ]
+}

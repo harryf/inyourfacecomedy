@@ -802,6 +802,18 @@ check("/reviews/ is off the nav but indexable and in the sitemap") do
   [!nav.include?("/reviews/") && sitemap.include?("/reviews/") && !noindex ? true : false, "nav, sitemap or robots wrong"]
 end
 
+check("/faq/ is off the nav but indexable and in the sitemap (Eventfrog pages link to it)") do
+  faq = (read_site(File.join("faq", "index.html")) rescue "")
+  nav = review_home[%r{<nav.*?</nav>}m].to_s
+  sitemap = (read_site("sitemap.xml") rescue "")
+  noindex = faq =~ /name=["']robots["'][^>]*noindex/i
+  [faq.include?("harry@inyourfacecomedy.ch") && faq.include?('id="filming"') && !nav.include?("/faq/") && sitemap.include?("/faq/") && !noindex ? true : false, "faq page, nav, sitemap or robots wrong"]
+end
+
+check("Comedy Brew page links to /faq/ and carries no FAQ block of its own") do
+  [review_brew.include?('href="/faq/"') && !review_brew.include?("Frequently Asked Questions") && !review_brew.include?("Legal Disclaimer"), "FAQ link or leftover block"]
+end
+
 check("Anti: only ids from the data file appear in built pages") do
   stray = [review_home, review_cal, review_brew].filter_map { |h| quote_id.(h) } - review_ids
   [stray.empty?, "stray ids: #{stray.join(", ")}"]

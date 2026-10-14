@@ -23,6 +23,7 @@ export const READ_PATHS: RegExp[] = [
   /^\/organizer\/v1\/events\/\d+\/tickettransactions$/,
   /^\/organizer\/v1\/events\/\d+\/checkins$/,
   /^\/organizer\/v1\/events\/\d+\/payouts$/,
+  /^\/organizer\/v1\/eventgroups\/\d+$/,        // the series page copy, read by eventfrog-content.ts
 ];
 
 export class EventfrogAuthError extends Error {

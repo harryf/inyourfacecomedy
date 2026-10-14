@@ -673,6 +673,13 @@ commit `meta-ads/config.yml`, anything under `meta-ads/lists/`, `script/meta-out
 Start with the Status section at the top: it says what is running, what is parked and what the
 experiment is judged on. Things waiting, in order:
 
+Landing pages, 2026-10-14: every ad link now lands on the next date's own Eventfrog page (the
+one with the price and the View tickets button; `/go/` picks the date when the link is tapped,
+`campaign-links.md`), and `script/eventfrog-content.ts` writes those pages' titles and copy
+from the hook pool in `_data/eventfrog-copy.json`, which reuses the ad headlines. A new
+headline that works in an ad belongs in that pool too. Judge the change on orders per site
+click against 8 October (694 clicks, 13 orders).
+
 From 4 October, first:
 
 - Wednesday 7 October: check that the 07:30 run opened `cold-tomorrow` and `warm-tomorrow` with the rain ads (C22, W16) in `script/meta-moments.log` or on the board; Thursday the same for `cold-tonight` and `warm-tonight` (C25, W19). An ad set whose window ended last week taking a new end date is the open question (`moments-plan.md`, section 3).

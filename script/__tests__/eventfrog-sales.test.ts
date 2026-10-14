@@ -25,7 +25,7 @@ describe("the client is read-only by construction", () => {
     await expect(ef.get("/organizer/v1/events/1/embedsettings")).rejects.toThrow(/not in the read whitelist/);
     await expect(ef.get("/organizer/v1/addresses")).rejects.toThrow(/whitelist/);
     expect(calls).toBe(0);
-    expect(READ_PATHS.length).toBe(6);
+    expect(READ_PATHS.length).toBe(7);   // six sales paths plus the event group (read by eventfrog-content.ts)
   });
   test("401 and 403 raise the auth error, 429 waits once then throws, and the key never leaks into an error", async () => {
     const auth = new Eventfrog(KEY, { fetchFn: (async () => response(401, "nope")) as any });
