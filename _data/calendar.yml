@@ -5,22 +5,9 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-10-13T07:00:01+00:00'
-event_count: 47
+generated_at: '2026-10-14T07:00:01+00:00'
+event_count: 45
 events:
-- show: jokesjokesjokes
-  name: Jokes, Jokes, Jokes
-  title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
-  url: "/jokesjokesjokes/"
-  date: '2026-10-13'
-  start: '2026-10-13T20:00:00+02:00'
-  end: '2026-10-13T22:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7496208726832979064.html
-  eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: jackpotcomedy
   name: Jackpot Comedy
   title: Jackpot Comedy - downstairs @ OTRO
@@ -47,19 +34,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-zuerich-7466831420029175587.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-10-15'
-  start: '2026-10-15T20:00:00+02:00'
-  end: '2026-10-15T22:00:00+02:00'
-  venue: yaman-caf-bar
-  venue_name: YAMAN Café-Bar
-  location: YAMAN Café-Bar
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-zuerich-7502460776000545380.html
-  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: gratis-zum-mitnehmen
   name: Gratis Comedy Zum Mitnehmen
   title: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
@@ -541,19 +515,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-zuerich-7507743592611370827.html
   eventfrog_name: 'TALL ORDER: english stand-up comedy open mic'
-- show: jackpotcomedy
-  name: Jackpot Comedy
-  title: Jackpot Comedy - downstairs @ OTRO
-  url: "/jackpotcomedy/"
-  date: '2026-12-16'
-  start: '2026-12-16T20:00:00+01:00'
-  end: '2026-12-16T22:00:00+01:00'
-  venue: otro
-  venue_name: Bar OTRO
-  location: OTRO - Cocktailbar Zürich
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7513927110353783017.html
-  eventfrog_name: Jackpot Comedy
 - show: promessi-spassi
   name: PROMESSI SPASSI
   title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
@@ -567,6 +528,19 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081170004456.html
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
+- show: jackpotcomedy
+  name: Jackpot Comedy
+  title: Jackpot Comedy - downstairs @ OTRO
+  url: "/jackpotcomedy/"
+  date: '2026-12-16'
+  start: '2026-12-16T20:00:00+01:00'
+  end: '2026-12-16T22:00:00+01:00'
+  venue: otro
+  venue_name: Bar OTRO
+  location: OTRO - Cocktailbar Zürich
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7513927110353783017.html
+  eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
