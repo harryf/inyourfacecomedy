@@ -66,7 +66,7 @@ Scheduled jobs first. "Git" says whether the script commits and pushes by itself
 | `refresh-calendar-page.rb` | Regenerates `pages/1_calendar.md` from `calendar.yml` and the copy pools, validates it | cron, 11:00 Saturday and Sunday | yes |
 | `robins-calendar.ts` | ROBIN's shows into the Apple calendar shared with the bar staff, with a ticket count in the last three days | launchd, 11:05 daily | no |
 | `eventfrog-sales.ts` | Comedy Brew sales snapshots, the capacity guard, the Saturday review | by hand for now; cron lines below | no |
-| `eventfrog-content.ts` | Comedy Brew titles and descriptions on Eventfrog: the series page and every upcoming date, hooks from `_data/eventfrog-copy.json`; writes only differences | cron line below, 09:20 daily, not yet installed (needs `EVENTFROG_ORGANIZER_WRITE`) | no |
+| `eventfrog-content.ts` | Comedy Brew titles and descriptions on Eventfrog: the series page and every upcoming date, hooks from `_data/eventfrog-copy.json`; writes only differences | cron, 09:20 daily (installed 2026-10-14; needs `EVENTFROG_ORGANIZER_WRITE`) | no |
 | `meta-lineup-ad.ts` | The weekly lineup ad in the Buyers ad set | parked since 2026-09-18 (the ad set is paused; see `meta-ads.md`), not run | no |
 | `ga-annotations.ts` | Show dates as annotations on GA charts | by hand; cron line below | no |
 

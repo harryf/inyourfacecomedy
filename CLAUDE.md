@@ -53,7 +53,7 @@ Run the build and the health check after every change and before saying you are 
 | 10:20 daily | `bun script/ga-report.ts`: GA to `/reports/`, commit, push | `ga-report.log` |
 | 11:00 Sat, Sun | `refresh-calendar-page.rb --no-refresh`: regenerate `/calendar/`, commit, push | `refresh.log` |
 | 11:05 daily, **launchd not cron** | `bun script/robins-calendar.ts`: ROBIN's shows into the staff Apple calendar; no git, no Healthchecks ping | `robins-calendar.log` |
-| 09:20 daily (line documented, not yet installed) | `bun script/eventfrog-content.ts --apply`: Comedy Brew titles and descriptions on Eventfrog (series page plus every upcoming date) from one template and the hook pool; writes only differences; no git | `eventfrog-content.log` |
+| 09:20 daily | `bun script/eventfrog-content.ts --apply`: Comedy Brew titles and descriptions on Eventfrog (series page plus every upcoming date) from one template and the hook pool; writes only differences; no git | `eventfrog-content.log` |
 
 Requirements, the cron and launchd lines, Healthchecks and troubleshooting: `docs/automation.md`. Per-script detail: `docs/scripts.md`. The short version:
 
