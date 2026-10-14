@@ -309,7 +309,7 @@
       built.kind === 'direct' ? '→ ' + sel.obj.url + ' on our site, gclid auto-tagging' :
       built.kind === 'page' ? '→ ' + sel.obj.url + ' on our site, UTM tags on the page' :
       built.kind === 'event' ? '→ Eventfrog: ' + primaryTitle(sel.obj.title) + ' · ' + dateLabel(sel.date) :
-      '→ Eventfrog: ' + primaryTitle(sel.obj.title) + ' (whole series)';
+      '→ Eventfrog: ' + primaryTitle(sel.obj.title) + ' (next date, picked when the link is tapped)';
     el.copy.disabled = false;
   }
 

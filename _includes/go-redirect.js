@@ -7,11 +7,19 @@
  *  same invariant as comedian-lineup.js).
  *
  *  Resolution:
- *    show=slug              → the show's series-level ticket_url
- *    …&date=YYYY-MM-DD      → that date's own Eventfrog event page (calendar.yml);
- *                             a past or unknown date falls back to the series link,
- *                             then to the show's page on this site (stale links
- *                             degrade gracefully, they never 404 on Eventfrog)
+ *    …&date=YYYY-MM-DD      → that date's own Eventfrog event page (calendar.yml)
+ *    show=slug              → the show's NEXT upcoming date's own event page: the
+ *                             earliest calendar date after today, or today's until
+ *                             its `end` time has passed. Resolved at click time, so
+ *                             an evergreen ad link lands on tonight's page until the
+ *                             show ends and on next week's page a minute later, with
+ *                             nothing to edit on Meta. The per-date page opens on the
+ *                             price and the View tickets button; the group page has
+ *                             neither (2026-10-14: 694 clicks, 13 orders).
+ *    nothing upcoming       → the series-level ticket_url (the Eventfrog group page),
+ *                             then the show's page on this site. A past or unknown
+ *                             date takes the same chain from the top, so stale links
+ *                             degrade gracefully and never 404 on Eventfrog
  *    unknown show slug      → /404.html?from=go&show=<slug>&utm_… — deliberately
  *                             loud, so GA can alert on broken campaign links
  *
@@ -45,6 +53,8 @@
       isValidDate: isValidDate,
       localISODate: localISODate,
       primaryTitle: primaryTitle,
+      isUpcoming: isUpcoming,
+      nextEvent: nextEvent,
       resolveTarget: resolveTarget,
       build404: build404,
       linkTag: linkTag,
@@ -90,10 +100,36 @@
     return (t || '').split(/\s+[•·]\s+|\s+-\s+/)[0].trim();
   }
 
-  /** Resolve a show/date pair against the catalogs. Pure; `today` injected for tests.
-   *  Returns {kind: 'event'|'series'|'showpage', url, show} or {kind: 'notfound'}.
+  /** Is this calendar event still worth sending someone to? Dates after today
+   *  always are; today's is until its `end` (ISO with offset, from calendar.yml)
+   *  has passed. No parseable `end` on today's event: treat it as still on, the
+   *  Eventfrog page itself says "sale ended" if not. Pure. */
+  function isUpcoming(e, today, nowMs) {
+    if (!isValidDate(e.date)) return false;
+    if (e.date > today) return true;
+    if (e.date < today) return false;
+    var endMs = Date.parse(e.end || '');
+    if (isNaN(endMs) || typeof nowMs !== 'number') return true;
+    return nowMs < endMs;
+  }
+
+  /** The show's earliest upcoming calendar event with a ticket link, or null. Pure. */
+  function nextEvent(events, show, today, nowMs) {
+    var best = null;
+    for (var j = 0; j < events.length; j++) {
+      var e = events[j];
+      if (norm(e.show) !== norm(show.slug) || !e.tickets) continue;
+      if (!isUpcoming(e, today, nowMs)) continue;
+      if (!best || e.date < best.date) best = e;
+    }
+    return best;
+  }
+
+  /** Resolve a show/date pair against the catalogs. Pure; `today` (YYYY-MM-DD) and
+   *  `nowMs` (epoch ms, for the show-day cut-off) injected for tests.
+   *  Returns {kind: 'event'|'next'|'series'|'showpage', url, show[, event]} or {kind: 'notfound'}.
    *  Every returned url is catalog data or a same-site path — never query-string input. */
-  function resolveTarget(shows, events, showParam, dateParam, today) {
+  function resolveTarget(shows, events, showParam, dateParam, today, nowMs) {
     var want = norm(showParam);
     if (!want) return { kind: 'notfound' };
     var show = null;
@@ -111,6 +147,9 @@
         }
       }
     }
+    // No date, or a stale one → the next upcoming date's own page.
+    var next = nextEvent(events, show, today, nowMs);
+    if (next) return { kind: 'next', url: next.tickets, show: show, event: next };
     if (show.tickets) return { kind: 'series', url: show.tickets, show: show };
     return { kind: 'showpage', url: show.url || '/calendar/', show: show };
   }
@@ -133,12 +172,12 @@
   }
 
   /** Show context for the ticket_redirect event (docs/analytics.md): venue, the date the
-   *  click is for (the picked date, else the show's next date), days to that date,
-   *  and the ticket price as both a custom metric and GA's own value/currency pair.
-   *  Pure; {} when the show is unknown. */
+   *  click is for (the picked or resolved calendar date, else the show's next date from
+   *  its post), days to that date, and the ticket price as both a custom metric and GA's
+   *  own value/currency pair. Pure; {} when the show is unknown. */
   function showParams(res, today) {
     if (!res || !res.show) return {};
-    var ev = res.kind === 'event' ? res.event : null;
+    var ev = (res.kind === 'event' || res.kind === 'next') ? res.event : null;
     var date = ev ? ev.date : (res.show.next || '').slice(0, 10);
     var price = Number(ev && ev.price != null ? ev.price : res.show.price) || 0;
     return {
@@ -206,12 +245,13 @@
   var params = new URLSearchParams(window.location.search);
   var showParam = (params.get('show') || '').trim();
   var dateParam = (params.get('date') || '').trim();
-  var today = localISODate(new Date());
+  var now = new Date();
+  var today = localISODate(now);
 
   var res = resolveTarget(
     readCatalog('iyf-go-shows'),
     readCatalog('iyf-go-events'),
-    showParam, dateParam, today
+    showParam, dateParam, today, now.getTime()
   );
 
   var target = res.kind === 'notfound' ? build404(window.location.search, showParam) : res.url;

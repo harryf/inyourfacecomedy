@@ -449,7 +449,9 @@ tool offers it) and save them under `meta-ads/creative/bank/<hook>/`:
 
 Then:
 
-1. Links: open `/linkbuilder/`, pick the show (Comedy Brew, series link, no date for bank ads),
+1. Links: open `/linkbuilder/`, pick the show (Comedy Brew, series link, no date for bank ads;
+   since 2026-10-14 `/go/` sends that link to the next date's own Eventfrog page, the one with
+   the price and the View tickets button, and moves on by itself when a show ends),
    source `meta`. One link for all bank ads; the Buyers ad uses the date link for the coming
    Thursday. Do not type `utm_content`: in each ad, the "URL parameters" field (under the
    website URL, may sit behind "Show more options") takes `utm_content={{ad.name}}`, and Meta

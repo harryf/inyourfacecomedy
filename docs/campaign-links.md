@@ -28,13 +28,19 @@ https://inyourfacecomedy.ch/go/?show=jackpotcomedy&date=2026-09-16&utm_source=ma
 ```
 
 - `show` (required): the show slug, the same slugs the promo-link scheme already uses
-  (`comedybrew`, `jackpotcomedy`, ...). Resolves to the show's series-level `ticket_url` from
-  its post front matter (for series shows on Eventfrog this is the group page listing all dates).
+  (`comedybrew`, `jackpotcomedy`, ...). Resolves, at click time, to the show's **next upcoming
+  date's own Eventfrog event page** from `_data/calendar.yml`: the earliest date after today, or
+  today's date until its `end` time has passed (then next week's page takes over, with nothing
+  to edit anywhere). Since 2026-10-14; before that it went to the series-level `ticket_url`,
+  which for Eventfrog series is the group page listing all dates, a page with no price and no
+  buy button (694 clicks became 13 orders for the 8 October Comedy Brew). The series link is
+  now only the fallback when the calendar has no upcoming date for the show.
 - `date` (optional, `YYYY-MM-DD`): picks the individual Eventfrog event page for that specific
-  date, resolved from `_data/calendar.yml` (the cron-refreshed, Eventfrog-derived list of every
-  upcoming instance, which already carries each date's own `ticket_url`). A past date skips the
-  exact-match branch entirely and falls through to the series link, so an expired campaign link
-  never dumps anyone on a dead Eventfrog event page.
+  date, resolved from the same calendar (the cron-refreshed, Eventfrog-derived list of every
+  upcoming instance, which carries each date's own `ticket_url` and `end`). A past or unknown
+  date skips the exact-match branch and takes the `show` chain from the top (next upcoming
+  date, then series link), so an expired campaign link never dumps anyone on a dead Eventfrog
+  event page.
 - `utm_*`: passed by the campaign link, read by GA, not interpreted by our code.
 
 Slug matching reuses the case- and separator-insensitive normalization from
@@ -211,9 +217,10 @@ drives the layout:
 1. **Pick the show.** All shows from the embedded catalog (every post with a `ticket_url`),
    shown as tappable cards with name and next date.
 2. **Pick the target.** For `event_type: series` / `monthly` shows, a choice: **whole series**
-   (evergreen link, right for always-on campaigns) or **a specific date** from the upcoming
-   dates in `calendar.yml` (right for a single-show push; the builder warns that date links
-   go stale after the show and fall back to the series page). One-off shows skip this step.
+   (evergreen link, right for always-on campaigns; it lands on whichever date is next when
+   the link is tapped) or **a specific date** from the upcoming dates in `calendar.yml`
+   (right for a single-show push; the builder warns that date links go stale after the show
+   and then behave like the evergreen link). One-off shows skip this step.
 3. **Pick the source.** Tappable chips for the ten organic/paid channels that use `/go/`:
    `meta`, `instagram`, `facebook`, `guidle`, `meetup`, `reddit`, `mailchimp`, `tiktok`,
    `telegram`, `google-business`, plus a free-text field for anything new. The
