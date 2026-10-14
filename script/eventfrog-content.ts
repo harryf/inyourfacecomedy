@@ -113,6 +113,41 @@ export function history(events: EventLite[], nowIso: string): { nights: number; 
   return { nights: past.length, since };
 }
 
+// ---------- pure: Google reviews (from _data/reviews.yml, written by reviews-from-google.rb) ----------
+
+export interface Review { author: string; excerpt: string; truncated?: boolean }
+export interface Reviews { average: number; total: number; google_url: string; reviews: Review[] }
+
+export function loadReviews(path = join(REPO_ROOT, "_data", "reviews.yml")): Reviews {
+  const r = Bun.YAML.parse(readFileSync(path, "utf8")) as Reviews;
+  const reviews = (r.reviews || []).filter((x) => x && typeof x.excerpt === "string" && x.excerpt.trim().length >= 30 && typeof x.author === "string");
+  if (!reviews.length) throw new Error(`${path}: no usable reviews`);
+  if (!/^https:\/\/(search\.google\.com|maps\.google\.com|www\.google\.com)\//.test(r.google_url || "")) throw new Error(`${path}: google_url is not a Google link`);
+  return { average: Number(r.average) || 0, total: Number(r.total) || reviews.length, google_url: r.google_url, reviews };
+}
+
+/** A review excerpt as a quote: whitespace collapsed, an em dash becomes a comma, the
+ *  "IN YOUR FACE COMEDY:" prefix one reviewer typed is dropped, a cut excerpt ends in "...". */
+export function cleanQuote(r: Review): string {
+  let q = r.excerpt.replace(/\s+/g, " ").replace(/\s*—\s*/g, ", ").trim();
+  q = q.replace(/^IN YOUR FACE COMEDY:\s*/i, "");
+  if (r.truncated && !/[.!?…]$/.test(q)) q += "...";
+  return q;
+}
+
+/** The review for a date: the same weekly walk as the hooks, offset so the two pools do not
+ *  move in step. Pure. */
+export function pickReview(date: string, reviews: Review[]): Review {
+  const days = Math.round((Date.parse(date + "T00:00:00Z") - Date.parse(FIRST_NIGHT + "T00:00:00Z")) / 86_400_000);
+  const week = Math.floor(days / 7) + 3;
+  return reviews[((week % reviews.length) + reviews.length) % reviews.length];
+}
+
+function reviewLine(r: Review, data: Reviews): string {
+  const rating = data.average ? `${data.average} stars from ${data.total} Google reviews` : `${data.total} Google reviews`;
+  return `<p>"${esc(cleanQuote(r))}" <em>${esc(r.author)}, on Google.</em> <a href="${data.google_url}">${rating}</a>.</p>`;
+}
+
 export function utmLink(path: string, content: string, slug = COMEDY_BREW.slug): string {
   const p = new URLSearchParams({ utm_source: "eventfrog", utm_medium: "referral", utm_campaign: slug, utm_content: content });
   return `${SITE}${path}?${p.toString()}`;
@@ -143,32 +178,38 @@ export function eventTitle(hook: string, show = COMEDY_BREW): string {
   return t;
 }
 
-export function eventCopy(ev: { beginDate: string }, hook: string, show = COMEDY_BREW): Copy {
+export function eventCopy(ev: { beginDate: string }, hook: string, reviews: Reviews, show = COMEDY_BREW): Copy {
   const date = zurichDate(ev.beginDate);
   const calendar = utmLink("/calendar/", `event-${date}`, show.slug);
   const faq = utmLink("/faq/", `event-${date}`, show.slug);
+  const page = utmLink(`/${show.slug}/`, `event-${date}`, show.slug);
   const shortDescription = `${hook}. About ten comedians, all in English, every Thursday at ROBIN's near Central. Doors 19:30, done by 22:00.`;
   if (shortDescription.length > SHORT_MAX) throw new Error("shortDescription too long");
   const description = [
     `<p><strong>${esc(hook)}.</strong> Comedy Brew is Zürich's weekly English stand-up open mic: about ten comedians a night, pros trying new jokes next to someone's first five minutes.</p>`,
     `<p><strong>${fmtDay(ev.beginDate)}.</strong> Doors 19:30, first comedian 19:50, done by 22:00 with a break in the middle. ROBIN's, Zähringerstrasse 33, two minutes from Central and five from the main station.</p>`,
     `<p><strong>Grab your ticket above.</strong> ${show.capacity} seats, first come first served, and the busy weeks sell out. Door sales hold up the start, so book now and walk straight in.</p>`,
+    reviewLine(pickReview(date, reviews.reviews), reviews),
     `<p>Can't make this one? <a href="${calendar}">Every IN YOUR FACE show, every week</a>.</p>`,
-    `<p>In English. 16 and over recommended. Comedians sometimes film their sets. Food, seating, how to perform and the rest: <a href="${faq}">the FAQ</a>. Questions: ${show.contact}.</p>`,
+    `<p>In English. 16 and over recommended. Comedians sometimes film their sets. Food, seating, how to perform and the rest: <a href="${faq}">the FAQ</a>. The night in full, with photos and the hosts: <a href="${page}">the Comedy Brew page</a>. Questions: ${show.contact}.</p>`,
   ].join("\n");
   return { title: eventTitle(hook, show), shortDescription, description };
 }
 
-export function seriesCopy(h: { nights: number; since: string }, show = COMEDY_BREW): Copy {
+export function seriesCopy(h: { nights: number; since: string }, reviews: Reviews, show = COMEDY_BREW): Copy {
   const calendar = utmLink("/calendar/", "series", show.slug);
   const faq = utmLink("/faq/", "series", show.slug);
+  const page = utmLink(`/${show.slug}/`, "series", show.slug);
   const count = roundDown10(h.nights);
   const since = h.since ? `Running since ${h.since}: more than ${count} Thursdays of new jokes, first-timers and the odd glorious mess.` : `More than ${count} Thursdays of new jokes, first-timers and the odd glorious mess.`;
+  // The two newest reviews (the file is newest first); a new review on Google moves the pair on.
+  const quotes = reviews.reviews.slice(0, 2).map((r) => reviewLine(r, reviews));
   const description = [
     `<p><strong>Zürich's weekly English stand-up open mic, every Thursday at ROBIN's.</strong> ${since}</p>`,
     `<p>About ten comedians a night, pros trying new material next to someone's first five minutes. Doors 19:30, first comedian 19:50, done by 22:00 with a break in the middle. ROBIN's, Zähringerstrasse 33, two minutes from Central and five from the main station.</p>`,
     `<p><strong>Pick a Thursday below for tickets.</strong> ${show.capacity} seats, first come first served. Busy weeks sell out, and door sales slow the start.</p>`,
-    `<p>In English. 16 and over recommended. Comedians sometimes film their sets. Food, seating, how to perform and the rest: <a href="${faq}">the FAQ</a>. Every other IN YOUR FACE show: <a href="${calendar}">the calendar</a>. Questions: ${show.contact}.</p>`,
+    ...quotes,
+    `<p>In English. 16 and over recommended. Comedians sometimes film their sets. Food, seating, how to perform and the rest: <a href="${faq}">the FAQ</a>. The night in full, with photos and the hosts: <a href="${page}">the Comedy Brew page</a>. Every other IN YOUR FACE show: <a href="${calendar}">the calendar</a>. Questions: ${show.contact}.</p>`,
   ].join("\n");
   return { title: show.groupTitle, description };
 }
@@ -215,10 +256,10 @@ export function currentCopy(li: EventLite["localizedInfo"]): { locale: string; c
 
 export interface PageJob { kind: "group" | "event"; path: string; label: string; date?: string; locale: string; current: Copy; wanted: Copy; changed: Field[] }
 
-export function planJobs(group: { id: string; localizedInfo: EventLite["localizedInfo"] }, events: EventLite[], hist: { nights: number; since: string }, hooks: string[], nowIso: string, show = COMEDY_BREW): PageJob[] {
+export function planJobs(group: { id: string; localizedInfo: EventLite["localizedInfo"] }, events: EventLite[], hist: { nights: number; since: string }, hooks: string[], reviews: Reviews, nowIso: string, show = COMEDY_BREW): PageJob[] {
   const jobs: PageJob[] = [];
   const g = currentCopy(group.localizedInfo);
-  const gw = seriesCopy(hist, show);
+  const gw = seriesCopy(hist, reviews, show);
   jobs.push({ kind: "group", path: `/organizer/v1/eventgroups/${group.id}`, label: "series page", locale: g.locale, current: g.copy, wanted: gw, changed: changedFields(g.copy, gw) });
   const upcoming = events
     .filter((e) => !e.cancelled && e.visibility?.published !== false && (e.endDate || e.beginDate) >= nowIso)
@@ -226,7 +267,7 @@ export function planJobs(group: { id: string; localizedInfo: EventLite["localize
   for (const e of upcoming) {
     const c = currentCopy(e.localizedInfo);
     const date = zurichDate(e.beginDate);
-    const w = eventCopy(e, pickHook(date, hooks), show);
+    const w = eventCopy(e, pickHook(date, hooks), reviews, show);
     jobs.push({ kind: "event", path: `/organizer/v1/events/${e.id}`, label: date, date, locale: c.locale, current: c.copy, wanted: w, changed: changedFields(c.copy, w) });
   }
   return jobs;
@@ -247,6 +288,7 @@ async function main(): Promise<void> {
   const nowIso = new Date().toISOString();
   const groupId = groupIdFromPost(show.slug);
   const hooks = loadHooks();
+  const reviews = loadReviews();
 
   let group: { id: string; localizedInfo: EventLite["localizedInfo"] };
   let inGroup: EventLite[];
@@ -262,7 +304,7 @@ async function main(): Promise<void> {
   const hist = history(all, nowIso);
   log(`${show.slug}: group ${groupId}, ${inGroup.length} events in the group, history ${hist.nights} nights since ${hist.since || "?"}`);
 
-  let jobs = planJobs(group, inGroup, hist, hooks, nowIso, show);
+  let jobs = planJobs(group, inGroup, hist, hooks, reviews, nowIso, show);
   if (groupOnly) jobs = jobs.filter((j) => j.kind === "group");
   if (eventsOnly) jobs = jobs.filter((j) => j.kind === "event");
   if (only) jobs = jobs.filter((j) => j.kind === "event" && j.date === only);

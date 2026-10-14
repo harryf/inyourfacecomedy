@@ -810,8 +810,8 @@ hook of at most 29 characters: Eventfrog caps a title at 60 (the spec says 255, 
 tag by the words "Comedy Brew", and Google weighs the front of a title. The hook is the pool
 walked one line per week from the first night, so a date keeps its line, consecutive
 Thursdays never repeat, and editing the pool shifts future dates once. The description
-leads with the hook, then the night, then the buy-now line (seats, sell-outs, door sales),
-then the calendar link and the FAQ link with UTM tags (`utm_source=eventfrog`,
+leads with the hook, then the night, then the buy-now line (seats, sell-outs, door sales), then one five-star Google review for the date (two newest on the series page) from `_data/reviews.yml` with the all-reviews Google link,
+then the calendar, FAQ and Comedy Brew page links with UTM tags (`utm_source=eventfrog`,
 `utm_medium=referral`, `utm_campaign=comedybrew`, `utm_content=event-<date>` or `series`),
 and harry@inyourfacecomedy.ch as the contact. No price in the text: the ticket block above
 it shows the price. The series page says how long and how many Thursdays.

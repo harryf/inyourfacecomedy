@@ -1,7 +1,8 @@
 import { describe, expect, test } from "bun:test";
 import { COPY_FIELDS, EventfrogWriter, WRITE_PATHS, copyBody } from "../lib/eventfrog-write";
 import {
-  COMEDY_BREW, HOOK_MAX, changedFields, essence, eventCopy, eventTitle, fmtDay, history, matchesBrew, pickHook, planJobs, roundDown10, seriesCopy, utmLink, zurichDate,
+  COMEDY_BREW, HOOK_MAX, changedFields, cleanQuote, essence, eventCopy, eventTitle, fmtDay, history, matchesBrew, pickHook, pickReview, planJobs, roundDown10, seriesCopy, utmLink, zurichDate,
+  type Reviews,
   type EventLite,
 } from "../eventfrog-content";
 
@@ -59,6 +60,13 @@ describe("the writer reaches three copy fields on two paths and nothing else", (
     expect(String(err.message)).not.toContain(KEY);
   });
 });
+
+const REVIEWS: Reviews = { average: 4.8, total: 24, google_url: "https://search.google.com/local/reviews?placeid=ChIJtest", reviews: [
+  { author: "Visual D.", excerpt: "IN YOUR FACE COMEDY: Best Comedy in town! Relaxed atmosphere at Robin's Bar & Coffee, refreshing humour." },
+  { author: "Anton B.", excerpt: "The other day my sun was not shining \u2014 I felt a little blue", truncated: true },
+  { author: "T.", excerpt: "They will make you feel welcome. Nicest people around. And funny too" },
+  { author: "Pepijn C.", excerpt: "First time, and definitely not the last. Amazing atmosphere, great crowd work, and excellent jokes too." },
+] };
 
 const HOOKS = ["Fix your Thursday boredom", "Nobody will make you talk", "Bring the flatmates", "Where Thursday goes", "Thursday, sorted", "Half the room came alone", "Have you actually been?"];
 
@@ -129,7 +137,7 @@ describe("the copy", () => {
   });
 
   test("an event page: hook first, the night, buy now, the calendar link, the FAQ link, the contact address", () => {
-    const c = eventCopy(ev, "Nobody will make you talk");
+    const c = eventCopy(ev, "Nobody will make you talk", REVIEWS);
     expect(c.title).toBe("Comedy Brew, English Stand-Up: Nobody will make you talk");
     expect(c.shortDescription!.startsWith("Nobody will make you talk. ")).toBe(true);
     expect(c.shortDescription!.length).toBeLessThanOrEqual(255);
@@ -148,7 +156,7 @@ describe("the copy", () => {
   });
 
   test("the series page names the start month and a rounded-down night count", () => {
-    const c = seriesCopy({ nights: 153, since: "February 2022" });
+    const c = seriesCopy({ nights: 153, since: "February 2022" }, REVIEWS);
     expect(c.title).toBe(COMEDY_BREW.groupTitle);
     expect(c.description).toContain("Running since February 2022: more than 150 Thursdays");
     expect(c.description).toContain("Pick a Thursday below for tickets");
@@ -158,7 +166,7 @@ describe("the copy", () => {
   });
 
   test("a hook with an ampersand is escaped in the HTML, not in the title", () => {
-    const c = eventCopy(ev, "Jokes & drinks");
+    const c = eventCopy(ev, "Jokes & drinks", REVIEWS);
     expect(c.description).toContain("<strong>Jokes &amp; drinks.</strong>");
     expect(c.title).toContain("Jokes & drinks");
   });
@@ -187,7 +195,7 @@ describe("planning a run", () => {
   const hist = { nights: 153, since: "February 2022" };
 
   test("the series page first, then upcoming dates in order; past and cancelled dates are left alone", () => {
-    const jobs = planJobs(group, events, hist, HOOKS, "2026-10-14T12:00:00.000Z");
+    const jobs = planJobs(group, events, hist, HOOKS, REVIEWS, "2026-10-14T12:00:00.000Z");
     expect(jobs.map((j) => j.label)).toEqual(["series page", "2026-10-15", "2026-10-22"]);
     expect(jobs[0].path).toBe("/organizer/v1/eventgroups/7132091334890862636");
     expect(jobs[0].locale).toBe("en_CH");
@@ -197,9 +205,9 @@ describe("planning a run", () => {
   });
 
   test("a page already in the wanted state is in sync and is not written", () => {
-    const jobs = planJobs(group, events, hist, HOOKS, "2026-10-14T12:00:00.000Z");
+    const jobs = planJobs(group, events, hist, HOOKS, REVIEWS, "2026-10-14T12:00:00.000Z");
     const synced = events.map((e) => e.id === "1" ? { ...e, localizedInfo: [{ locale: "de_CH", ...jobs[1].wanted }] } : e);
-    const again = planJobs(group, synced, hist, HOOKS, "2026-10-14T12:00:00.000Z");
+    const again = planJobs(group, synced, hist, HOOKS, REVIEWS, "2026-10-14T12:00:00.000Z");
     expect(again[1].changed).toEqual([]);
     expect(again[2].changed.length).toBe(3);
   });
@@ -214,5 +222,38 @@ describe("the write key is its own variable", () => {
     process.env.EVENTFROG_ORGANIZER = "sk-read-only";
     try { expect(() => eventfrogWriterFromEnv()).toThrow(/EVENTFROG_ORGANIZER_WRITE is not set/); }
     finally { if (saved !== undefined) process.env[WRITE_KEY_ENV] = saved; else delete process.env[WRITE_KEY_ENV]; }
+  });
+});
+
+describe("Google reviews in the copy", () => {
+  const ev = { beginDate: "2026-10-15T19:30:00+02:00" };
+
+  test("cleanQuote drops the shouted prefix, turns an em dash into a comma, marks a cut excerpt", () => {
+    expect(cleanQuote(REVIEWS.reviews[0])).toBe("Best Comedy in town! Relaxed atmosphere at Robin's Bar & Coffee, refreshing humour.");
+    expect(cleanQuote(REVIEWS.reviews[1])).toBe("The other day my sun was not shining, I felt a little blue...");
+    expect(cleanQuote(REVIEWS.reviews[2])).toBe("They will make you feel welcome. Nicest people around. And funny too");
+  });
+
+  test("a date always gets the same review, and neighbouring Thursdays get different ones", () => {
+    expect(pickReview("2026-10-15", REVIEWS.reviews)).toBe(pickReview("2026-10-15", REVIEWS.reviews));
+    expect(pickReview("2026-10-15", REVIEWS.reviews)).not.toBe(pickReview("2026-10-22", REVIEWS.reviews));
+  });
+
+  test("an event page quotes one review with the author, links all reviews on Google, and links the Comedy Brew page", () => {
+    const d = eventCopy(ev, "Thursday, sorted", REVIEWS).description!;
+    const r = pickReview("2026-10-15", REVIEWS.reviews);
+    expect(d).toContain(`"${cleanQuote(r).replace(/&/g, "&amp;")}" <em>${r.author}, on Google.</em>`);
+    expect(d).toContain('<a href="https://search.google.com/local/reviews?placeid=ChIJtest">4.8 stars from 24 Google reviews</a>');
+    expect(d).toContain('href="https://inyourfacecomedy.ch/comedybrew/?utm_source=eventfrog&utm_medium=referral&utm_campaign=comedybrew&utm_content=event-2026-10-15"');
+    expect(d).not.toContain("—");
+    expect(d.indexOf("Grab your ticket above")).toBeLessThan(d.indexOf("on Google"));   // the quote follows the buy line
+  });
+
+  test("the series page quotes the two newest reviews and links the Comedy Brew page", () => {
+    const d = seriesCopy({ nights: 153, since: "February 2022" }, REVIEWS).description!;
+    expect(d).toContain("Visual D., on Google.");
+    expect(d).toContain("Anton B., on Google.");
+    expect(d).not.toContain("T., on Google.");
+    expect(d).toContain("/comedybrew/?utm_source=eventfrog&utm_medium=referral&utm_campaign=comedybrew&utm_content=series");
   });
 });
