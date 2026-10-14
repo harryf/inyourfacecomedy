@@ -804,8 +804,8 @@ bun script/eventfrog-content.ts --apply --only 2026-10-22 # one date
 bun script/eventfrog-content.ts --group-only | --events-only | --verbose
 ```
 
-The title is a fixed prefix, `Comedy Brew: English Stand-Up Open Mic`, a separator, then the
-hook. Three things depend on the prefix: the Eventfrog page title is our title plus
+The title is a fixed prefix, `Comedy Brew, English Stand-Up`, a colon (Eventfrog strips a pipe), then the
+hook of at most 29 characters: Eventfrog caps a title at 60 (the spec says 255, the API says 60), on groups too, which is why the series title is short. Three things depend on the prefix: the Eventfrog page title is our title plus
 "in Zürich | Comedy & Cabaret" (so no city in ours), the thank-you email finds the Mailchimp
 tag by the words "Comedy Brew", and Google weighs the front of a title. The hook is the pool
 walked one line per week from the first night, so a date keeps its line, consecutive

@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { COPY_FIELDS, EventfrogWriter, WRITE_PATHS, copyBody } from "../lib/eventfrog-write";
 import {
-  COMEDY_BREW, changedFields, essence, eventCopy, eventTitle, fmtDay, history, matchesBrew, pickHook, planJobs, roundDown10, seriesCopy, utmLink, zurichDate,
+  COMEDY_BREW, HOOK_MAX, changedFields, essence, eventCopy, eventTitle, fmtDay, history, matchesBrew, pickHook, planJobs, roundDown10, seriesCopy, utmLink, zurichDate,
   type EventLite,
 } from "../eventfrog-content";
 
@@ -25,8 +25,8 @@ describe("the writer reaches three copy fields on two paths and nothing else", (
     expect(() => copyBody("/organizer/v1/events/1", "de_CH", { visibility: { published: false } } as any)).toThrow(/field not allowed/);
     expect(() => copyBody("/organizer/v1/events/1", "de_CH", { beginDate: "2027-01-01" } as any)).toThrow(/field not allowed/);
     expect(() => copyBody("/organizer/v1/events/1", "de_CH", {})).toThrow(/empty copy/);
-    expect(() => copyBody("/organizer/v1/events/1", "de_CH", { title: "ab" })).toThrow(/3 to 255/);
-    expect(() => copyBody("/organizer/v1/events/1", "de_CH", { title: "x".repeat(256) })).toThrow(/3 to 255/);
+    expect(() => copyBody("/organizer/v1/events/1", "de_CH", { title: "ab" })).toThrow(/3 to 60/);
+    expect(() => copyBody("/organizer/v1/events/1", "de_CH", { title: "x".repeat(61) })).toThrow(/3 to 60/);
     expect(() => copyBody("/organizer/v1/events/1", "de_CH", { title: "with an em dash — no" })).toThrow(/em dash/);
     expect(() => copyBody("/organizer/v1/events/1", "../x", { title: "ok title" })).toThrow(/bad locale/);
   });
@@ -76,12 +76,14 @@ describe("hooks and titles", () => {
 
   test("the title keeps the fixed prefix, says Comedy Brew, leaves the city to Eventfrog", () => {
     const t = eventTitle("Fix your Thursday boredom");
-    expect(t).toBe("Comedy Brew: English Stand-Up Open Mic | Fix your Thursday boredom");
+    expect(t).toBe("Comedy Brew, English Stand-Up: Fix your Thursday boredom");
     expect(t.startsWith(COMEDY_BREW.prefix)).toBe(true);
     expect(t).toContain("Comedy Brew");                 // the thank-you email matches the Mailchimp tag on it
     expect(/z[uü]rich/i.test(t)).toBe(false);          // Eventfrog appends "in Zürich" itself
-    expect(t.length).toBeLessThan(80);
-    expect(() => eventTitle("x".repeat(300))).toThrow(/over 255/);
+    expect(t.length).toBeLessThanOrEqual(60);
+    expect(() => eventTitle("x".repeat(30))).toThrow(/over 60/);
+    expect(HOOK_MAX).toBe(29);
+    expect(COMEDY_BREW.groupTitle.length).toBeLessThanOrEqual(60);
   });
 });
 
@@ -92,7 +94,7 @@ describe("history from the organiser's event list", () => {
     ev("IN YOUR FACE Comedy Brew at ROBIN's coffee", "2023-05-04T19:30:00+02:00"),
     ev("IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic ", "2026-10-08T19:30:00+02:00"),
     ev("IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic", "2026-10-15T19:30:00+02:00"),
-    ev("Comedy Brew: English Stand-Up Open Mic | Thursday, sorted", "2026-10-22T19:30:00+02:00"),
+    ev("Comedy Brew, English Stand-Up: Thursday, sorted", "2026-10-22T19:30:00+02:00"),
     ev("TALL ORDER: english stand-up comedy open mic", "2026-10-20T20:00:00+02:00"),
     ev("Pulp Non-Fiction Storytelling Open Mic Zurich", "2026-11-01T19:00:00+01:00"),
     ev("IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic", "2024-01-11T19:30:00+01:00", true),
@@ -128,7 +130,7 @@ describe("the copy", () => {
 
   test("an event page: hook first, the night, buy now, the calendar link, the FAQ link, the contact address", () => {
     const c = eventCopy(ev, "Nobody will make you talk");
-    expect(c.title).toBe("Comedy Brew: English Stand-Up Open Mic | Nobody will make you talk");
+    expect(c.title).toBe("Comedy Brew, English Stand-Up: Nobody will make you talk");
     expect(c.shortDescription!.startsWith("Nobody will make you talk. ")).toBe(true);
     expect(c.shortDescription!.length).toBeLessThanOrEqual(255);
     const d = c.description!;
@@ -208,9 +210,9 @@ describe("the write key is its own variable", () => {
     const { eventfrogWriterFromEnv, WRITE_KEY_ENV } = await import("../lib/eventfrog-write");
     expect(WRITE_KEY_ENV).toBe("EVENTFROG_ORGANIZER_WRITE");
     const saved = process.env[WRITE_KEY_ENV];
-    delete process.env[WRITE_KEY_ENV];
+    process.env[WRITE_KEY_ENV] = "";                 // defined but empty: loadEnv() leaves it alone, so .env cannot fill it in
     process.env.EVENTFROG_ORGANIZER = "sk-read-only";
     try { expect(() => eventfrogWriterFromEnv()).toThrow(/EVENTFROG_ORGANIZER_WRITE is not set/); }
-    finally { if (saved !== undefined) process.env[WRITE_KEY_ENV] = saved; }
+    finally { if (saved !== undefined) process.env[WRITE_KEY_ENV] = saved; else delete process.env[WRITE_KEY_ENV]; }
   });
 });

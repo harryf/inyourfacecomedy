@@ -17,7 +17,9 @@ export const COPY_FIELDS = ["title", "shortDescription", "description"] as const
 export type CopyField = (typeof COPY_FIELDS)[number];
 export type Copy = Partial<Record<CopyField, string>>;
 
-export const TITLE_MAX = 255;
+// The spec says 255 for both; the API answered "exceeds the maximum length of 60 characters"
+// on a title (events and groups alike, 2026-10-14), so 60 is the real limit.
+export const TITLE_MAX = 60;
 export const SHORT_MAX = 255;
 
 export interface WriterOptions {

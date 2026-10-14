@@ -32,10 +32,14 @@ export interface ShowConfig {
   capacity: number;
 }
 
+// Eventfrog enforces 60 characters on a title (the spec says 255; the API said 60 on
+// 2026-10-14), and it appends " in Zürich" on the page. So: a short fixed prefix, a colon,
+// a hook of at most HOOK_MAX characters. "Open mic" lives in the short description and
+// the description; "stand-up" and "Comedy Brew" stay in every title.
 export const COMEDY_BREW: ShowConfig = {
   slug: "comedybrew",
-  prefix: "Comedy Brew: English Stand-Up Open Mic",
-  groupTitle: "Comedy Brew: English Stand-Up Comedy Open Mic, every Thursday at ROBIN's",
+  prefix: "Comedy Brew, English Stand-Up",
+  groupTitle: "Comedy Brew: English Stand-Up Open Mic, every Thursday",
   contact: "harry@inyourfacecomedy.ch",
   capacity: 60,
 };
@@ -71,7 +75,7 @@ export function loadHooks(path = join(REPO_ROOT, "_data", "eventfrog-copy.json")
   if (!hooks.length) throw new Error(`${path}: no hooks`);
   for (const h of hooks) {
     if (/—/.test(h)) throw new Error(`hook has an em dash: ${h}`);
-    if (h.length > 60) throw new Error(`hook over 60 characters: ${h}`);
+    if (h.length > HOOK_MAX) throw new Error(`hook over ${HOOK_MAX} characters (Eventfrog caps the title at ${TITLE_MAX}): ${h}`);
     if (/[.!]$/.test(h)) throw new Error(`hook ends with punctuation (the template adds it): ${h}`);
   }
   return hooks;
@@ -129,8 +133,12 @@ export function zurichDate(beginDate: string): string {
 
 // ---------- pure: copy ----------
 
+// A colon, not a pipe: Eventfrog's title field strips "|" (seen 2026-10-14 on the first write).
+export const TITLE_SEPARATOR = ": ";
+export const HOOK_MAX = TITLE_MAX - COMEDY_BREW.prefix.length - TITLE_SEPARATOR.length;   // 29
+
 export function eventTitle(hook: string, show = COMEDY_BREW): string {
-  const t = `${show.prefix} | ${hook}`;
+  const t = `${show.prefix}${TITLE_SEPARATOR}${hook}`;
   if (t.length > TITLE_MAX) throw new Error(`title over ${TITLE_MAX}: ${t}`);
   return t;
 }
