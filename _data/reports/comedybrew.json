@@ -1,23 +1,23 @@
 {
  "slug": "comedybrew",
  "title": "Comedy Brew",
- "ticket_url": "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html",
+ "ticket_url": "https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-open-mic-every-thursday-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-10-14T08:20:02.581Z",
+ "generated_at": "2026-10-15T08:20:01.163Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-14",
- "complete_through": "2026-10-12",
+ "through": "2026-10-15",
+ "complete_through": "2026-10-13",
  "totals": {
-  "clicks": 2654,
-  "redirect": 2428,
-  "click": 226,
-  "clicks_30d": 2076,
-  "redirect_30d": 1923,
-  "click_30d": 153,
-  "views": 565,
+  "clicks": 2842,
+  "redirect": 2607,
+  "click": 235,
+  "clicks_30d": 2209,
+  "redirect_30d": 2054,
+  "click_30d": 155,
+  "views": 580,
   "views_30d": 370,
-  "sessions": 534,
+  "sessions": 547,
   "sessions_30d": 350,
   "broken_links": 0,
   "untagged": 0
@@ -409,16 +409,24 @@
   },
   {
    "date": "2026-10-13",
-   "redirect": 59,
+   "redirect": 66,
    "click": 2,
-   "views": 13,
-   "provisional": true,
+   "views": 14,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-14",
-   "redirect": 23,
-   "click": 1,
+   "redirect": 104,
+   "click": 8,
+   "views": 14,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-15",
+   "redirect": 91,
+   "click": 2,
    "views": 2,
    "provisional": true,
    "clicks_tracked": true
@@ -428,37 +436,37 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 2337,
+   "clicks": 2516,
    "views": 2,
    "sessions": 2
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 102,
-   "views": 215,
-   "sessions": 202
+   "clicks": 106,
+   "views": 223,
+   "sessions": 207
   },
   {
    "source": "instagram",
    "medium": "social",
    "clicks": 78,
-   "views": 36,
-   "sessions": 35
+   "views": 37,
+   "sessions": 36
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 60,
-   "views": 236,
-   "sessions": 218
+   "clicks": 65,
+   "views": 243,
+   "sessions": 226
   },
   {
    "source": "guidle",
    "medium": "referral",
    "clicks": 23,
-   "views": 7,
-   "sessions": 7
+   "views": 6,
+   "sessions": 6
   },
   {
    "source": "meetup",
@@ -582,20 +590,34 @@
  ],
  "by_campaign": [
   {
+   "campaign": "comedybrew",
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 725,
+   "first": "2026-08-26",
+   "last": "2026-10-15",
+   "content": [
+    {
+     "content": "120203748201470314",
+     "clicks": 667
+    }
+   ]
+  },
+  {
    "campaign": "cold",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 702,
+   "clicks": 717,
    "first": "2026-09-13",
-   "last": "2026-10-14",
+   "last": "2026-10-15",
    "content": [
     {
      "content": "cold-C13",
-     "clicks": 339
+     "clicks": 340
     },
     {
      "content": "cold-C7",
-     "clicks": 207
+     "clicks": 221
     },
     {
      "content": "cold-C4v",
@@ -636,30 +658,16 @@
    ]
   },
   {
-   "campaign": "comedybrew",
-   "source": "meta",
-   "medium": "paid_social",
-   "clicks": 683,
-   "first": "2026-08-26",
-   "last": "2026-10-14",
-   "content": [
-    {
-     "content": "120203748201470314",
-     "clicks": 625
-    }
-   ]
-  },
-  {
    "campaign": "warm",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 459,
+   "clicks": 461,
    "first": "2026-09-13",
-   "last": "2026-10-13",
+   "last": "2026-10-14",
    "content": [
     {
      "content": "warm-W6",
-     "clicks": 316
+     "clicks": 318
     },
     {
      "content": "warm-W2",
@@ -688,6 +696,28 @@
    ]
   },
   {
+   "campaign": "cold-tonight",
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 132,
+   "first": "2026-10-04",
+   "last": "2026-10-15",
+   "content": [
+    {
+     "content": "cold-C24",
+     "clicks": 58
+    },
+    {
+     "content": "cold-C25",
+     "clicks": 54
+    },
+    {
+     "content": "cold-C26",
+     "clicks": 7
+    }
+   ]
+  },
+  {
    "campaign": "cold-planner",
    "source": "meta",
    "medium": "paid_social",
@@ -710,24 +740,24 @@
    ]
   },
   {
-   "campaign": "cold-tonight",
+   "campaign": "cold-tomorrow",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 83,
+   "clicks": 100,
    "first": "2026-10-04",
-   "last": "2026-10-08",
+   "last": "2026-10-14",
    "content": [
     {
-     "content": "cold-C25",
-     "clicks": 54
+     "content": "cold-C22",
+     "clicks": 47
     },
     {
-     "content": "cold-C24",
-     "clicks": 9
+     "content": "cold-C21",
+     "clicks": 44
     },
     {
-     "content": "cold-C26",
-     "clicks": 7
+     "content": "cold-C23",
+     "clicks": 6
     }
    ]
   },
@@ -766,35 +796,17 @@
    ]
   },
   {
-   "campaign": "cold-tomorrow",
-   "source": "meta",
-   "medium": "paid_social",
-   "clicks": 68,
-   "first": "2026-10-04",
-   "last": "2026-10-14",
-   "content": [
-    {
-     "content": "cold-C22",
-     "clicks": 47
-    },
-    {
-     "content": "cold-C21",
-     "clicks": 12
-    },
-    {
-     "content": "cold-C23",
-     "clicks": 6
-    }
-   ]
-  },
-  {
    "campaign": "warm-tonight",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 56,
+   "clicks": 79,
    "first": "2026-10-04",
-   "last": "2026-10-08",
+   "last": "2026-10-15",
    "content": [
+    {
+     "content": "warm-W18",
+     "clicks": 30
+    },
     {
      "content": "warm-W19",
      "clicks": 30
@@ -802,10 +814,28 @@
     {
      "content": "warm-W20",
      "clicks": 7
+    }
+   ]
+  },
+  {
+   "campaign": "warm-tomorrow",
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 56,
+   "first": "2026-10-04",
+   "last": "2026-10-14",
+   "content": [
+    {
+     "content": "warm-W15",
+     "clicks": 27
     },
     {
-     "content": "warm-W18",
-     "clicks": 7
+     "content": "warm-W16",
+     "clicks": 16
+    },
+    {
+     "content": "warm-W17",
+     "clicks": 5
     }
    ]
   },
@@ -828,28 +858,6 @@
     {
      "content": "warm-W14",
      "clicks": 6
-    }
-   ]
-  },
-  {
-   "campaign": "warm-tomorrow",
-   "source": "meta",
-   "medium": "paid_social",
-   "clicks": 40,
-   "first": "2026-10-04",
-   "last": "2026-10-14",
-   "content": [
-    {
-     "content": "warm-W16",
-     "clicks": 16
-    },
-    {
-     "content": "warm-W15",
-     "clicks": 11
-    },
-    {
-     "content": "warm-W17",
-     "clicks": 5
     }
    ]
   },

@@ -3,22 +3,22 @@
  "title": "Jokes, Jokes, Jokes",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726681983598.html",
  "event_type": "series",
- "generated_at": "2026-10-14T08:20:02.581Z",
+ "generated_at": "2026-10-15T08:20:01.163Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-14",
- "complete_through": "2026-10-12",
+ "through": "2026-10-15",
+ "complete_through": "2026-10-13",
  "totals": {
-  "clicks": 147,
-  "redirect": 108,
+  "clicks": 157,
+  "redirect": 118,
   "click": 39,
-  "clicks_30d": 128,
-  "redirect_30d": 100,
-  "click_30d": 28,
-  "views": 94,
-  "views_30d": 63,
+  "clicks_30d": 130,
+  "redirect_30d": 108,
+  "click_30d": 22,
+  "views": 95,
+  "views_30d": 58,
   "sessions": 88,
-  "sessions_30d": 60,
+  "sessions_30d": 54,
   "broken_links": 0,
   "untagged": 0
  },
@@ -409,14 +409,22 @@
   },
   {
    "date": "2026-10-13",
-   "redirect": 91,
+   "redirect": 96,
    "click": 6,
    "views": 6,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-14",
+   "redirect": 5,
+   "click": 0,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-15",
    "redirect": 0,
    "click": 0,
    "views": 1,
@@ -428,7 +436,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 91,
+   "clicks": 101,
    "views": 0,
    "sessions": 0
   },
@@ -440,25 +448,25 @@
    "sessions": 3
   },
   {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 13,
-   "views": 26,
-   "sessions": 23
-  },
-  {
    "source": "google",
    "medium": "organic",
-   "clicks": 9,
-   "views": 20,
-   "sessions": 21
+   "clicks": 14,
+   "views": 21,
+   "sessions": 22
   },
   {
    "source": "guidle",
    "medium": "referral",
-   "clicks": 8,
-   "views": 14,
-   "sessions": 13
+   "clicks": 9,
+   "views": 17,
+   "sessions": 14
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 7,
+   "views": 23,
+   "sessions": 21
   },
   {
    "source": "chatgpt.com",
@@ -508,13 +516,13 @@
    "campaign": "jokesjokesjokes",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 91,
+   "clicks": 101,
    "first": "2026-10-13",
-   "last": "2026-10-13",
+   "last": "2026-10-14",
    "content": [
     {
      "content": "52679097035400",
-     "clicks": 66
+     "clicks": 74
     }
    ]
   },
