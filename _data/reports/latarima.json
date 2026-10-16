@@ -3,20 +3,20 @@
  "title": "La Tarima",
  "ticket_url": "https://eventfrog.ch/en/p/groups/la-tarima-open-mic-7487916867123691072.html",
  "event_type": "monthly",
- "generated_at": "2026-10-15T08:20:01.163Z",
+ "generated_at": "2026-10-16T08:57:00.514Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-15",
- "complete_through": "2026-10-13",
+ "through": "2026-10-16",
+ "complete_through": "2026-10-14",
  "totals": {
-  "clicks": 17,
+  "clicks": 20,
   "redirect": 1,
-  "click": 16,
-  "clicks_30d": 6,
+  "click": 19,
+  "clicks_30d": 9,
   "redirect_30d": 0,
-  "click_30d": 6,
-  "views": 17,
-  "views_30d": 11,
+  "click_30d": 9,
+  "views": 18,
+  "views_30d": 12,
   "sessions": 16,
   "sessions_30d": 10,
   "broken_links": 0,
@@ -418,13 +418,21 @@
   {
    "date": "2026-10-14",
    "redirect": 0,
-   "click": 0,
+   "click": 1,
+   "views": 1,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-15",
+   "redirect": 0,
+   "click": 2,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
   },
   {
-   "date": "2026-10-15",
+   "date": "2026-10-16",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -436,15 +444,15 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 7,
+   "clicks": 8,
    "views": 2,
    "sessions": 2
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 4,
-   "views": 11,
+   "clicks": 6,
+   "views": 12,
    "sessions": 11
   },
   {

@@ -754,21 +754,32 @@ datetime,event,source,medium,campaign,content,page
 2026-10-13 22:28,ticket_click,google,organic,,,https://inyourfacecomedy.ch/jackpotcomedy/
 2026-10-13 23:36,ticket_redirect,meta,paid_social,jackpotcomedy,,Ticket Redirect
 2026-10-13 23:36,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-10-14 07:21,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-10-14 07:36,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
-2026-10-14 09:18,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/jackpotcomedy/
+2026-10-14 09:18,ticket_click,google,organic,,,https://inyourfacecomedy.ch/jackpotcomedy/
+2026-10-14 10:18,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
 2026-10-14 10:20,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
 2026-10-14 10:43,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-10-14 10:54,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-10-14 13:14,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-10-14 13:43,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-10-14 15:16,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-10-14 15:33,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-10-14 18:28,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-10-14 18:47,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
 2026-10-14 19:47,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-10-14 20:04,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-10-14 22:25,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-10-14 23:10,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-10-15 02:59,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-10-15 07:07,ticket_redirect,guidle,referral,jackpotcomedy,,Ticket Redirect
 2026-10-15 07:15,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-10-15 08:08,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
 2026-10-15 08:58,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-10-15 09:27,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-10-15 11:24,ticket_redirect,meetup,referral,jackpotcomedy,,Ticket Redirect
+2026-10-15 13:26,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-10-15 20:02,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-10-15 22:57,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-10-16 05:14,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect
+2026-10-16 07:39,ticket_redirect,meta,paid_social,jackpotcomedy,6964168949947,Ticket Redirect

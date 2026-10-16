@@ -3,22 +3,22 @@
  "title": "Pulp Non-Fiction",
  "ticket_url": "https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html",
  "event_type": "monthly",
- "generated_at": "2026-10-15T08:20:01.163Z",
+ "generated_at": "2026-10-16T08:57:00.514Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-15",
- "complete_through": "2026-10-13",
+ "through": "2026-10-16",
+ "complete_through": "2026-10-14",
  "totals": {
-  "clicks": 53,
-  "redirect": 19,
+  "clicks": 55,
+  "redirect": 21,
   "click": 34,
-  "clicks_30d": 33,
-  "redirect_30d": 10,
+  "clicks_30d": 35,
+  "redirect_30d": 12,
   "click_30d": 23,
-  "views": 97,
-  "views_30d": 80,
-  "sessions": 96,
-  "sessions_30d": 81,
+  "views": 98,
+  "views_30d": 81,
+  "sessions": 97,
+  "sessions_30d": 82,
   "broken_links": 0,
   "untagged": 0
  },
@@ -420,11 +420,19 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-15",
+   "redirect": 2,
+   "click": 0,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-16",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -437,13 +445,13 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 14,
-   "views": 34,
-   "sessions": 34
+   "views": 35,
+   "sessions": 35
   },
   {
    "source": "meetup",
    "medium": "referral",
-   "clicks": 13,
+   "clicks": 14,
    "views": 2,
    "sessions": 2
   },
@@ -476,6 +484,13 @@
    "sessions": 2
   },
   {
+   "source": "guidle",
+   "medium": "referral",
+   "clicks": 1,
+   "views": 1,
+   "sessions": 1
+  },
+  {
    "source": "google-business",
    "medium": "referral",
    "clicks": 1,
@@ -492,13 +507,6 @@
   {
    "source": "duckduckgo",
    "medium": "organic",
-   "clicks": 0,
-   "views": 1,
-   "sessions": 1
-  },
-  {
-   "source": "guidle",
-   "medium": "referral",
    "clicks": 0,
    "views": 1,
    "sessions": 1
@@ -523,9 +531,9 @@
    "campaign": "pulpnonfiction",
    "source": "meetup",
    "medium": "referral",
-   "clicks": 11,
+   "clicks": 12,
    "first": "2026-08-27",
-   "last": "2026-10-04",
+   "last": "2026-10-15",
    "content": []
   },
   {
@@ -553,6 +561,15 @@
    "clicks": 1,
    "first": "2026-09-06",
    "last": "2026-09-06",
+   "content": []
+  },
+  {
+   "campaign": "pulpnonfiction",
+   "source": "guidle",
+   "medium": "referral",
+   "clicks": 1,
+   "first": "2026-10-15",
+   "last": "2026-10-15",
    "content": []
   }
  ],

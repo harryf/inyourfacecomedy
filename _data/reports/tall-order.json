@@ -3,22 +3,22 @@
  "title": "Tall Order",
  "ticket_url": "https://eventfrog.ch/en/p/groups/tall-order-english-stand-up-comedy-open-mic-7507743592338740411.html",
  "event_type": "series",
- "generated_at": "2026-10-15T08:20:01.163Z",
+ "generated_at": "2026-10-16T08:57:00.514Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-15",
- "complete_through": "2026-10-13",
+ "through": "2026-10-16",
+ "complete_through": "2026-10-14",
  "totals": {
-  "clicks": 62,
-  "redirect": 42,
+  "clicks": 77,
+  "redirect": 57,
   "click": 20,
-  "clicks_30d": 62,
-  "redirect_30d": 42,
+  "clicks_30d": 77,
+  "redirect_30d": 57,
   "click_30d": 20,
-  "views": 46,
-  "views_30d": 46,
-  "sessions": 45,
-  "sessions_30d": 45,
+  "views": 48,
+  "views_30d": 48,
+  "sessions": 47,
+  "sessions_30d": 47,
   "broken_links": 0,
   "untagged": 0
  },
@@ -420,14 +420,22 @@
    "redirect": 2,
    "click": 1,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-15",
-   "redirect": 1,
+   "redirect": 2,
    "click": 0,
-   "views": 0,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-16",
+   "redirect": 14,
+   "click": 0,
+   "views": 1,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -436,7 +444,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 42,
+   "clicks": 57,
    "views": 0,
    "sessions": 0
   },
@@ -458,8 +466,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 2,
-   "views": 6,
-   "sessions": 7
+   "views": 8,
+   "sessions": 9
   },
   {
    "source": "chatgpt.com",
@@ -495,17 +503,17 @@
    "campaign": "tall-order",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 42,
+   "clicks": 57,
    "first": "2026-10-04",
-   "last": "2026-10-15",
+   "last": "2026-10-16",
    "content": [
+    {
+     "content": "52677253043600",
+     "clicks": 22
+    },
     {
      "content": "52679182997200",
      "clicks": 11
-    },
-    {
-     "content": "52677253043600",
-     "clicks": 7
     },
     {
      "content": "52679185461400",

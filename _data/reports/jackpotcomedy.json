@@ -3,22 +3,22 @@
  "title": "Jackpot Comedy",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jackpot-comedy-7413646370706339342.html",
  "event_type": "series",
- "generated_at": "2026-10-15T08:20:01.163Z",
+ "generated_at": "2026-10-16T08:57:00.514Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-15",
- "complete_through": "2026-10-13",
+ "through": "2026-10-16",
+ "complete_through": "2026-10-14",
  "totals": {
-  "clicks": 773,
-  "redirect": 705,
-  "click": 68,
-  "clicks_30d": 431,
-  "redirect_30d": 385,
-  "click_30d": 46,
-  "views": 181,
-  "views_30d": 109,
-  "sessions": 174,
-  "sessions_30d": 108,
+  "clicks": 784,
+  "redirect": 715,
+  "click": 69,
+  "clicks_30d": 415,
+  "redirect_30d": 370,
+  "click_30d": 45,
+  "views": 184,
+  "views_30d": 108,
+  "sessions": 175,
+  "sessions_30d": 104,
   "broken_links": 0,
   "untagged": 0
  },
@@ -417,15 +417,23 @@
   },
   {
    "date": "2026-10-14",
-   "redirect": 10,
-   "click": 3,
-   "views": 6,
-   "provisional": true,
+   "redirect": 13,
+   "click": 4,
+   "views": 8,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-15",
-   "redirect": 5,
+   "redirect": 10,
+   "click": 0,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-16",
+   "redirect": 2,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -436,16 +444,16 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 670,
+   "clicks": 679,
    "views": 3,
    "sessions": 2
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 36,
-   "views": 63,
-   "sessions": 59
+   "clicks": 38,
+   "views": 64,
+   "sessions": 60
   },
   {
    "source": "instagram",
@@ -457,9 +465,9 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 16,
-   "views": 58,
-   "sessions": 60
+   "clicks": 15,
+   "views": 57,
+   "sessions": 57
   },
   {
    "source": "facebook",
@@ -479,8 +487,8 @@
    "source": "chatgpt.com",
    "medium": "ai-assistant",
    "clicks": 4,
-   "views": 9,
-   "sessions": 8
+   "views": 11,
+   "sessions": 10
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -499,7 +507,7 @@
   {
    "source": "meetup",
    "medium": "referral",
-   "clicks": 1,
+   "clicks": 2,
    "views": 0,
    "sessions": 0
   },
@@ -514,8 +522,8 @@
    "source": "ecosia.org",
    "medium": "organic",
    "clicks": 0,
-   "views": 2,
-   "sessions": 2
+   "views": 3,
+   "sessions": 3
   },
   {
    "source": "bing",
@@ -551,13 +559,13 @@
    "campaign": "jackpotcomedy",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 670,
+   "clicks": 679,
    "first": "2026-08-30",
-   "last": "2026-10-15",
+   "last": "2026-10-16",
    "content": [
     {
      "content": "6964168949947",
-     "clicks": 656
+     "clicks": 665
     }
    ]
   },
@@ -606,9 +614,9 @@
    "campaign": "jackpotcomedy",
    "source": "meetup",
    "medium": "referral",
-   "clicks": 1,
+   "clicks": 2,
    "first": "2026-09-16",
-   "last": "2026-09-16",
+   "last": "2026-10-15",
    "content": []
   }
  ],

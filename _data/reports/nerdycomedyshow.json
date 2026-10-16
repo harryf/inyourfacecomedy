@@ -3,22 +3,22 @@
  "title": "The NERDY COMEDY Show",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/nerdy-stand-up-comedy-en-7284304661632248367.html",
  "event_type": "series",
- "generated_at": "2026-10-15T08:20:01.163Z",
+ "generated_at": "2026-10-16T08:57:00.514Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-15",
- "complete_through": "2026-10-13",
+ "through": "2026-10-16",
+ "complete_through": "2026-10-14",
  "totals": {
-  "clicks": 43,
-  "redirect": 17,
-  "click": 26,
-  "clicks_30d": 27,
-  "redirect_30d": 10,
-  "click_30d": 17,
-  "views": 61,
-  "views_30d": 39,
-  "sessions": 60,
-  "sessions_30d": 38,
+  "clicks": 45,
+  "redirect": 18,
+  "click": 27,
+  "clicks_30d": 29,
+  "redirect_30d": 11,
+  "click_30d": 18,
+  "views": 62,
+  "views_30d": 40,
+  "sessions": 61,
+  "sessions_30d": 39,
   "broken_links": 0,
   "untagged": 0
  },
@@ -420,13 +420,21 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-15",
-   "redirect": 0,
+   "redirect": 1,
    "click": 0,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-16",
+   "redirect": 0,
+   "click": 1,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
@@ -441,6 +449,13 @@
    "sessions": 33
   },
   {
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 8,
+   "views": 2,
+   "sessions": 2
+  },
+  {
    "source": "meetup",
    "medium": "referral",
    "clicks": 8,
@@ -448,18 +463,11 @@
    "sessions": 1
   },
   {
-   "source": "instagram",
-   "medium": "social",
-   "clicks": 7,
-   "views": 2,
-   "sessions": 2
-  },
-  {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 6,
-   "views": 12,
-   "sessions": 12
+   "clicks": 7,
+   "views": 13,
+   "sessions": 13
   },
   {
    "source": "guidle",
@@ -569,6 +577,15 @@
    "clicks": 1,
    "first": "2026-09-24",
    "last": "2026-09-24",
+   "content": []
+  },
+  {
+   "campaign": "nerdycomedyshow-20261031",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 1,
+   "first": "2026-10-15",
+   "last": "2026-10-15",
    "content": []
   }
  ],
