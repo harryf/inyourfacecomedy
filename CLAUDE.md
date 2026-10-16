@@ -104,7 +104,7 @@ The invariant shared by `go-redirect.js`, `link-builder.js`, `comedian-lineup.js
 - Every collection document gets a `date`, and jekyll-seo-tag then emits a `BlogPosting` with a `mainEntityOfPage` whose `@id` swallows any JSON-LD node of ours with the same `@id`. Any new collection that emits its own JSON-LD needs a `seo.type` default in `_config.yml`. Full story and the validator recipe in `docs/comedian-seo.md`.
 - Markdown inside an `.html` include is still processed when the including page is `.md`.
 - The IndexNow key file `4b04fa2d03884c6794d4ece40fb41a29.txt` at the root must stay; four scripts ping with that key.
-- Show dates on Eventfrog come from server-rendered individual event pages; the group page is a client-rendered SPA. If the scrapers break, that is where to look.
+- Show dates on Eventfrog come from server-rendered individual event pages. The group page links to them (server-rendered) but its own JSON-LD is one Event spanning the whole series, never a night: the scrapers recognise a group page by its event-group ICS link, not by its URL (Eventfrog redirects `/p/groups/` to a category path named after the series title). If the scrapers break, that is where to look.
 
 ## Writing
 

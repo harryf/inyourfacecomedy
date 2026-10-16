@@ -66,7 +66,7 @@ Optionally give the show its own palette with a `.show-banner[data-show="<permal
 
 ### Notes
 
-- Group/series URLs and single-event URLs both work. A group page carries no JSON-LD at all (it renders its instance table client-side), so the script walks it to the individual event pages the same way `refresh-calendar-data.rb` does. More than one upcoming instance sets `event_type: series` and lists the next six dates in the body.
+- Group/series URLs and single-event URLs both work. A group page's own JSON-LD is one Event spanning the whole series, so the script walks it to the individual event pages the same way `refresh-calendar-data.rb` does. More than one upcoming instance sets `event_type: series` and lists the next six dates in the body.
 - Existing permalink → refuses, so you can never clobber a live show. `--force` overrides, `--permalink` picks a different URL.
 - Every input is validated before the first write, so a failed run leaves no half-made show behind.
 - Helpers borrowed from the sibling scripts are copied with a comment naming the source, matching this directory's deliberate one-runnable-file-per-script convention rather than introducing a shared lib.
@@ -127,10 +127,17 @@ routing and the cron line: `automation.md`.
 Builds `_data/calendar.yml` (every upcoming instance of every show), `_data/calendar_past.yml` and
 appends unseen venues to `_data/venues.yml`. For each post with an Eventfrog `ticket_url` it
 resolves the URL, collects the individual event pages behind a group page, and parses each page's
-Event JSON-LD (start, end, status, location, first CHF price). Eventfrog's group page is a
-client-rendered SPA; the individual event pages are still server-rendered, which is why the walk goes
-through them. Cancelled and past events are dropped; ticket URLs that no longer resolve are listed
-under `unresolved:` instead of vanishing. Non-Eventfrog ticket URLs are skipped on purpose.
+Event JSON-LD (start, end, status, location, first CHF price). The walk goes through the individual
+pages because a group page's own JSON-LD is one Event spanning the whole series (`startDate` the next
+date, `endDate` the last), never a night. A group page is recognised by content, not by URL: Eventfrog
+redirects `/p/groups/{id}` to `/p/{category}/{series-slug}-{id}`, and only a group page carries an
+event-group ICS link (`/stream/{lang}/eventgroup/{id}.ics`). That matters because the series title
+need not share a slug stem with the dates' titles (since 2026-10-14 `eventfrog-content.ts` titles the
+Comedy Brew series and its dates differently; on 2026-10-15 the old stem filter dropped every date and
+the series became one ten-week "night" on the calendar and in the staff calendar). As a second guard
+an Event longer than a day is skipped with a `[series]` line in the log. Cancelled and past events are
+dropped; ticket URLs that no longer resolve are listed under `unresolved:` instead of vanishing.
+Non-Eventfrog ticket URLs are skipped on purpose.
 
 ```
 ruby script/refresh-calendar-data.rb [--dry-run] [--verbose | --quiet]

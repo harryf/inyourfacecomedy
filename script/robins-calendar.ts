@@ -78,6 +78,10 @@ export function titleFor(name: string, room: RoomKey): string { return `🎤 ${n
 // null = no line: outside the window, or an event our organiser key cannot see.
 export function ticketsLine(sold: number | null): string | null { return sold === null ? null : `Tickets: ${sold}`; }
 
+// A night never spans more than a day. Anything longer in calendar.yml is a scraper fault (an Eventfrog series page
+// read as one event, 2026-10-15: Comedy Brew ran to 24 December) and must never reach the staff's calendar.
+export function oneNight(e: Pick<SiteEvent, "start" | "end">): boolean { return !e.end || Date.parse(e.end) - Date.parse(e.start) <= 86_400_000; }
+
 export function notesFor(hostsLabel: string, hosts: string[], tickets: string | null): string {
   const lines: string[] = [];
   if (hosts.length) lines.push(`${hostsLabel}: ${hosts.join(", ")}`);
@@ -190,7 +194,8 @@ async function main() {
   const now = new Date();
   const horizon = new Date(now.getTime() + days * 86_400_000);
   const site = ((Bun.YAML.parse(readFileSync(join(REPO_ROOT, "_data", "calendar.yml"), "utf8")) as any)?.events || []) as any[];
-  const shows: SiteEvent[] = site.filter((e) => e.venue === VENUE && e.status !== "EventCancelled" && Date.parse(e.end || e.start) > now.getTime() && Date.parse(e.start) < horizon.getTime());
+  const listed: SiteEvent[] = site.filter((e) => e.venue === VENUE && e.status !== "EventCancelled" && Date.parse(e.end || e.start) > now.getTime() && Date.parse(e.start) < horizon.getTime());
+  const shows = listed.filter(oneNight), refused = listed.filter((e) => !oneNight(e));
   const posts = postsByPermalink(), location = venueAddress();
 
   const soon = shows.filter((e) => Date.parse(e.start) - now.getTime() < SALES_DAYS * 86_400_000);
@@ -206,6 +211,7 @@ async function main() {
   let existing: CalEvent[] = ekcal(["list", calendar, from, to]);
 
   const ops: any[] = [], report: string[] = [], desiredByKey = new Map<string, Written>();
+  for (const e of refused) report.push(`  REFUSED ${zurichParts(e.start).date} ${e.name}: the website says it runs to ${zurichParts(e.end).date}, a series not a night; not written (fix the scraper)`);
   const keyed = (c: CalEvent) => c.url.startsWith(`${SITE}/`) && c.url.includes("#");
   const inSlot = (c: CalEvent, e: SiteEvent) => Math.abs(Date.parse(c.start) - Date.parse(e.start)) <= SLOT_MINUTES * 60_000;
   const frontKeys = new Set<string>(), defaultTitles = new Map<string, string>();

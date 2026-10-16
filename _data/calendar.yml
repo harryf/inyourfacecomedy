@@ -5,8 +5,8 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-10-16T07:00:01+00:00'
-event_count: 34
+generated_at: '2026-10-16T12:11:16+00:00'
+event_count: 43
 events:
 - show: gratis-zum-mitnehmen
   name: Gratis Comedy Zum Mitnehmen
@@ -66,13 +66,13 @@ events:
   url: "/comedybrew/"
   date: '2026-10-22'
   start: '2026-10-22T19:30:00+02:00'
-  end: '2026-12-24T22:00:00+01:00'
+  end: '2026-10-22T22:00:00+02:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-open-mic-every-thursday-7132091334890862636.html
-  eventfrog_name: 'Comedy Brew: English Stand-Up Open Mic, every Thursday'
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-where-thursday-goes-zuerich-7466831545136883325.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Where Thursday goes'
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
@@ -86,6 +86,19 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7496208726887505113.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2026-10-29'
+  start: '2026-10-29T19:30:00+01:00'
+  end: '2026-10-29T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-thursday-sorted-zuerich-7466831682483568140.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Thursday, sorted'
 - show: latarima
   name: La Tarima
   title: La Tarima - Comedia en Español
@@ -138,6 +151,19 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-zuerich-7507743592472958685.html
   eventfrog_name: 'TALL ORDER: english stand-up comedy open mic'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2026-11-05'
+  start: '2026-11-05T19:30:00+01:00'
+  end: '2026-11-05T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-half-the-room-came-alone-zuerich-7466831792680472322.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Half the room came alone'
 - show: latarima
   name: La Tarima
   title: La Tarima - Comedia en Español
@@ -177,6 +203,19 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798019957299982.html
   eventfrog_name: Jackpot Comedy
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2026-11-12'
+  start: '2026-11-12T19:30:00+01:00'
+  end: '2026-11-12T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-come-alone-leave-with-mates-zuerich-7466831890344846441.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Come alone, leave with mates'
 - show: tall-order
   name: Tall Order
   title: Tall Order
@@ -216,6 +255,19 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798260639068110.html
   eventfrog_name: Jackpot Comedy
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2026-11-19'
+  start: '2026-11-19T19:30:00+01:00'
+  end: '2026-11-19T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-two-minutes-from-central-zuerich-7466831998151048185.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Two minutes from Central'
 - show: latarima
   name: La Tarima
   title: La Tarima - Comedia en Español
@@ -255,6 +307,19 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7496208726988168437.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2026-11-26'
+  start: '2026-11-26T19:30:00+01:00'
+  end: '2026-11-26T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-lost-in-town-find-your-funny-zuerich-7466832108633224028.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Lost in town? Find your funny'
 - show: latarima
   name: La Tarima
   title: La Tarima - Comedia en Español
@@ -333,6 +398,19 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/science-technology/random-facts-exchange-22-museum-edition-zuerich-7434316315886666767.html
   eventfrog_name: Random Facts Exchange 22 Museum Edition
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2026-12-03'
+  start: '2026-12-03T19:30:00+01:00'
+  end: '2026-12-03T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-the-group-chat-needed-a-plan-zuerich-7466832257447133527.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: The group chat needed a plan'
 - show: pulpnonfiction
   name: Pulp Non-Fiction
   title: Pulp Non-Fiction - Storytelling Open Mic Zürich
@@ -372,6 +450,19 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798703465316750.html
   eventfrog_name: Jackpot Comedy
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2026-12-10'
+  start: '2026-12-10T19:30:00+01:00'
+  end: '2026-12-10T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-have-you-actually-been-zuerich-7466832348371257785.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Have you actually been?'
 - show: latarima
   name: La Tarima
   title: La Tarima - Comedia en Español
@@ -424,6 +515,19 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7513927110353783017.html
   eventfrog_name: Jackpot Comedy
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2026-12-17'
+  start: '2026-12-17T19:30:00+01:00'
+  end: '2026-12-17T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-ten-comedians-one-thursday-zuerich-7466832472350693337.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Ten comedians, one Thursday'
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
@@ -437,6 +541,19 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7496208727088831779.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2026-12-24'
+  start: '2026-12-24T19:30:00+01:00'
+  end: '2026-12-24T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-stayed-for-the-thursdays-zuerich-7466832589996740615.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Stayed for the Thursdays'
 - show: nerdycomedyshow
   name: The NERDY COMEDY Show
   title: The NERDY COMEDY Show - English Standup Comedy in ZURICH

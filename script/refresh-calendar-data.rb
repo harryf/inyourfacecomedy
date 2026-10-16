@@ -363,16 +363,33 @@ end
 # The page's own {id} self-links are excluded. For a non-group landing page we keep
 # only siblings sharing the landing page's slug stem, so an unrelated "more events"
 # link can't pull a different show in.
-def event_urls_from(final_url, html)
+# A series page is recognised by CONTENT as well as by path: EventFrog redirects
+# /p/groups/{id} to /p/{category}/{series-slug}-{id}, and the series slug is the
+# series TITLE, which need not share a stem with the dates' titles (since
+# 2026-10-14 eventfrog-content.ts titles the Comedy Brew series and its dates
+# differently). Only a group page offers an event-group ICS feed for its own id
+# (/stream/{lang}/eventgroup/{id}.ics); a date page offers /stream/{lang}/event/{id}.ics.
+# Without this, the stem filter dropped every date, the fallback returned the group
+# page itself, and its JSON-LD (ONE Event spanning the whole series, startDate = the
+# next date, endDate = the last) became a ten-week "night" on the calendar and the
+# staff calendar (Comedy Brew, 2026-10-15).
+def group_page?(requested_url, final_url, own_id, html)
+  return true if requested_url.to_s =~ GROUP_PATH_RE || final_url =~ GROUP_PATH_RE
+  !own_id.nil? && html.include?("/eventgroup/#{own_id}.ics")
+end
+
+def event_urls_from(final_url, html, requested_url = nil)
   own_id = final_url[/-(\d{10,})\.html/, 1]
   stem   = final_url[%r{/([^/]+?)-\d{10,}\.html\z}, 1]
-  is_group = (final_url =~ GROUP_PATH_RE)
+  is_group = group_page?(requested_url, final_url, own_id, html)
 
   kids = html.scan(EVENT_LINK_RE).map(&:strip).uniq
              .reject { |l| l =~ GROUP_PATH_RE }
              .reject { |l| own_id && l.include?(own_id) }
   kids = kids.select { |l| stem && l =~ %r{/#{Regexp.escape(stem)}[-/]} } unless is_group
 
+  # A series page without date links has nothing upcoming; it is never a night itself.
+  return [] if is_group && kids.empty?
   kids.empty? ? [final_url] : kids.map { |l| URI.join(final_url, l).to_s }
 end
 
@@ -430,6 +447,13 @@ def future_events(event_urls, now, options)
     inst = parse_event(ev, ev_url)
     next unless inst && inst["start"] > now             # ISC-9 / ISC-18: future only
     next if inst["status"] == "EventCancelled"
+    # A night never spans more than a day. An Event whose end lies further out is a
+    # series page's JSON-LD, and every consumer of calendar.yml treats an entry as
+    # one night, so it must not get through (the second guard behind group_page?).
+    if inst["end"] && inst["end"] - inst["start"] > 86_400
+      say("  [series]     skipped #{ev_url}: spans #{((inst["end"] - inst["start"]) / 86_400.0).ceil} days, a series page not a night", options)
+      next
+    end
     events << inst
   rescue => e
     vsay("      ! #{ev_url} — #{e.class}: #{e.message}", options)
@@ -450,7 +474,7 @@ def extract_show(show, now, options)
     return [[], "unresolved — HTTP #{code} at #{final_url} (vanity slug dead? update ticket_url to the canonical /p/groups/ URL)", final_url]
   end
 
-  event_urls = event_urls_from(final_url, html)
+  event_urls = event_urls_from(final_url, html, url)
   return [[], "resolved but no event links found at #{final_url}", final_url] if event_urls.empty?
   vsay("    #{show[:slug]}: #{event_urls.size} candidate event page(s)", options)
 
@@ -460,7 +484,7 @@ def extract_show(show, now, options)
   if events.empty? && (group_url = group_url_from(final_url, html))
     g_final, g_code, g_html = http_get(group_url)
     if g_code == 200
-      events = future_events(event_urls_from(g_final, g_html), now, options)
+      events = future_events(event_urls_from(g_final, g_html, group_url), now, options)
       unless events.empty?
         say("  [group]      #{show[:slug]}: ticket_url is one past event, #{events.size} upcoming found via its group #{g_final} (point ticket_url at the group)", options)
       end

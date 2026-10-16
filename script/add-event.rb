@@ -297,19 +297,31 @@ def first_chf_price(offers)
 end
 
 # Given a resolved ticket page, return the list of individual event URLs to parse.
-# Classification is by CONTENT, not URL path: a group page carries NO JSON-LD at all
-# (verified — it renders its instance table client-side), only links to the
-# individual pages that do. Copied verbatim from refresh-calendar-data.rb#event_urls_from.
-def event_urls_from(final_url, html)
+# Classification is by CONTENT, not URL path: EventFrog redirects /p/groups/{id} to
+# /p/{category}/{series-slug}-{id}, and the series slug is the series TITLE, which
+# need not share a stem with the dates' titles. Only a group page offers an
+# event-group ICS feed for its own id (/stream/{lang}/eventgroup/{id}.ics). A group
+# page's own JSON-LD is ONE Event spanning the whole series (startDate = the next
+# date, endDate = the last), never a night, so a group page without date links
+# yields nothing. Copied verbatim from refresh-calendar-data.rb#group_page? and
+# #event_urls_from (the 2026-10-16 fix: Comedy Brew became a ten-week "night").
+def group_page?(requested_url, final_url, own_id, html)
+  return true if requested_url.to_s =~ GROUP_PATH_RE || final_url =~ GROUP_PATH_RE
+  !own_id.nil? && html.include?("/eventgroup/#{own_id}.ics")
+end
+
+def event_urls_from(final_url, html, requested_url = nil)
   own_id = final_url[/-(\d{10,})\.html/, 1]
   stem   = final_url[%r{/([^/]+?)-\d{10,}\.html\z}, 1]
-  is_group = (final_url =~ GROUP_PATH_RE)
+  is_group = group_page?(requested_url, final_url, own_id, html)
 
   kids = html.scan(EVENT_LINK_RE).map(&:strip).uniq
              .reject { |l| l =~ GROUP_PATH_RE }
              .reject { |l| own_id && l.include?(own_id) }
   kids = kids.select { |l| stem && l =~ %r{/#{Regexp.escape(stem)}[-/]} } unless is_group
 
+  # A series page without date links has nothing upcoming; it is never a night itself.
+  return [] if is_group && kids.empty?
   kids.empty? ? [final_url] : kids.map { |l| URI.join(final_url, l).to_s }
 end
 
@@ -356,7 +368,7 @@ def fetch_events(url, options)
   end
   vsay("  resolved to #{final_url}", options)
 
-  event_urls = event_urls_from(final_url, html)
+  event_urls = event_urls_from(final_url, html, url)
   abort!("resolved #{final_url} but found no event pages on it") if event_urls.empty?
   vsay("  #{event_urls.size} candidate event page(s)", options)
 
@@ -369,6 +381,11 @@ def fetch_events(url, options)
     inst = parse_event(ev, ev_url)
     next unless inst && inst["start"] > now
     next if inst["status"] == "EventCancelled"
+    # A night never spans more than a day: a longer Event is a series page's JSON-LD.
+    if inst["end"] && inst["end"] - inst["start"] > 86_400
+      vsay("    - #{ev_url}: spans #{((inst["end"] - inst["start"]) / 86_400.0).ceil} days, a series page not a night, skipped", options)
+      next
+    end
     vsay("    + #{inst["start"]} @ #{inst["location"]}", options)
     inst
   rescue => e

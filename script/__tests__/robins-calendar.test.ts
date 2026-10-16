@@ -1,10 +1,16 @@
 import { describe, expect, test } from "bun:test";
-import { keyOf, notesFor, planUpdate, roomFor, ticketsLine, titleFor, withTicketsLine } from "../robins-calendar";
+import { keyOf, notesFor, oneNight, planUpdate, roomFor, ticketsLine, titleFor, withTicketsLine } from "../robins-calendar";
 
 const desired = { title: "🎤 Comedy Brew [Back]", start: "2026-09-24T19:30:00+02:00", end: "2026-09-24T22:00:00+02:00", notes: "Hosted by: A\nTickets: 24", location: "ROBIN's" };
 const cal = (over: any = {}) => ({ id: "x", url: "", all_day: false, ...desired, start: "2026-09-24T17:30:00Z", end: "2026-09-24T20:00:00Z", ...over });
 
 describe("robins-calendar", () => {
+  test("oneNight: a show ends the same night; a series span is refused", () => {
+    expect(oneNight({ start: "2026-10-22T19:30:00+02:00", end: "2026-10-22T22:00:00+02:00" })).toBe(true);
+    expect(oneNight({ start: "2026-10-22T23:30:00+02:00", end: "2026-10-23T01:00:00+02:00" })).toBe(true);
+    expect(oneNight({ start: "2026-10-22T19:30:00+02:00", end: "" })).toBe(true);
+    expect(oneNight({ start: "2026-10-22T19:30:00+02:00", end: "2026-12-24T22:00:00+01:00" })).toBe(false);
+  });
   test("room: Back by default, Front in July and August, front matter wins", () => {
     expect(roomFor("2026-09-24T19:30:00+02:00")).toBe("back");
     expect(roomFor("2026-07-30T19:30:00+02:00")).toBe("front");
