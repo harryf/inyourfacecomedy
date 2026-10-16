@@ -5,22 +5,9 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-10-15T07:00:01+00:00'
+generated_at: '2026-10-16T07:00:01+00:00'
 event_count: 34
 events:
-- show: comedybrew
-  name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
-  url: "/comedybrew/"
-  date: '2026-10-15'
-  start: '2026-10-15T19:30:00+02:00'
-  end: '2026-12-24T22:00:00+01:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-open-mic-every-thursday-7132091334890862636.html
-  eventfrog_name: 'Comedy Brew: English Stand-Up Open Mic, every Thursday'
 - show: gratis-zum-mitnehmen
   name: Gratis Comedy Zum Mitnehmen
   title: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
@@ -73,6 +60,19 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081081924070.html
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2026-10-22'
+  start: '2026-10-22T19:30:00+02:00'
+  end: '2026-12-24T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-open-mic-every-thursday-7132091334890862636.html
+  eventfrog_name: 'Comedy Brew: English Stand-Up Open Mic, every Thursday'
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
@@ -110,8 +110,8 @@ events:
   venue_name: ROBIN's
   location: ROBIN's Coffee
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-en-zurich-zuerich-7501658372279695641.html
-  eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
+  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-halloween-sidequest-en-zurich-zuerich-7501658372279695641.html
+  eventfrog_name: 'The NERDY COMEDY Show: Halloween Sidequest (EN) - ZURICH'
 - show: pulpnonfiction
   name: Pulp Non-Fiction
   title: Pulp Non-Fiction - Storytelling Open Mic Zürich
