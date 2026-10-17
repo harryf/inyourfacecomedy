@@ -3,18 +3,18 @@
  "title": "Tall Order",
  "ticket_url": "https://eventfrog.ch/en/p/groups/tall-order-english-stand-up-comedy-open-mic-7507743592338740411.html",
  "event_type": "series",
- "generated_at": "2026-10-16T08:57:00.514Z",
+ "generated_at": "2026-10-17T08:20:01.936Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-16",
- "complete_through": "2026-10-14",
+ "through": "2026-10-17",
+ "complete_through": "2026-10-15",
  "totals": {
-  "clicks": 77,
-  "redirect": 57,
-  "click": 20,
-  "clicks_30d": 77,
-  "redirect_30d": 57,
-  "click_30d": 20,
+  "clicks": 94,
+  "redirect": 72,
+  "click": 22,
+  "clicks_30d": 94,
+  "redirect_30d": 72,
+  "click_30d": 22,
   "views": 48,
   "views_30d": 48,
   "sessions": 47,
@@ -428,14 +428,22 @@
    "redirect": 2,
    "click": 0,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-16",
-   "redirect": 14,
-   "click": 0,
+   "redirect": 22,
+   "click": 2,
    "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-17",
+   "redirect": 7,
+   "click": 0,
+   "views": 0,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -444,7 +452,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 57,
+   "clicks": 72,
    "views": 0,
    "sessions": 0
   },
@@ -456,18 +464,18 @@
    "sessions": 2
   },
   {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 4,
+   "views": 7,
+   "sessions": 8
+  },
+  {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
    "clicks": 3,
    "views": 7,
    "sessions": 6
-  },
-  {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 2,
-   "views": 8,
-   "sessions": 9
   },
   {
    "source": "chatgpt.com",
@@ -491,6 +499,13 @@
    "sessions": 1
   },
   {
+   "source": "guidle",
+   "medium": "referral",
+   "clicks": 0,
+   "views": 1,
+   "sessions": 1
+  },
+  {
    "source": "instagram",
    "medium": "social",
    "clicks": 0,
@@ -503,13 +518,13 @@
    "campaign": "tall-order",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 57,
+   "clicks": 72,
    "first": "2026-10-04",
-   "last": "2026-10-16",
+   "last": "2026-10-17",
    "content": [
     {
      "content": "52677253043600",
-     "clicks": 22
+     "clicks": 37
     },
     {
      "content": "52679182997200",

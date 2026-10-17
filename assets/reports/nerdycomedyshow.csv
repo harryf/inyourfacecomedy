@@ -42,5 +42,7 @@ datetime,event,source,medium,campaign,content,page
 2026-09-26 19:12,ticket_redirect,meetup,referral,nerdycomedyshow-20260926,,Ticket Redirect
 2026-09-26 19:36,ticket_click,google,organic,,,https://inyourfacecomedy.ch/nerdycomedyshow/
 2026-09-26 19:36,ticket_click,google,organic,,,https://inyourfacecomedy.ch/nerdycomedyshow/
+2026-10-15 18:29,ticket_redirect,instagram,social,nerdycomedyshow-20261031,,Ticket Redirect
+2026-10-15 18:29,ticket_redirect,instagram,social,nerdycomedyshow-20261031,,Ticket Redirect
 2026-10-15 18:30,ticket_redirect,instagram,social,nerdycomedyshow-20261031,,Ticket Redirect
 2026-10-16 03:58,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/

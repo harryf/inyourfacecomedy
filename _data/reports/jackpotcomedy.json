@@ -3,22 +3,22 @@
  "title": "Jackpot Comedy",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jackpot-comedy-7413646370706339342.html",
  "event_type": "series",
- "generated_at": "2026-10-16T08:57:00.514Z",
+ "generated_at": "2026-10-17T08:20:01.936Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-16",
- "complete_through": "2026-10-14",
+ "through": "2026-10-17",
+ "complete_through": "2026-10-15",
  "totals": {
-  "clicks": 784,
-  "redirect": 715,
+  "clicks": 794,
+  "redirect": 725,
   "click": 69,
-  "clicks_30d": 415,
-  "redirect_30d": 370,
-  "click_30d": 45,
+  "clicks_30d": 412,
+  "redirect_30d": 368,
+  "click_30d": 44,
   "views": 184,
-  "views_30d": 108,
+  "views_30d": 107,
   "sessions": 175,
-  "sessions_30d": 104,
+  "sessions_30d": 103,
   "broken_links": 0,
   "untagged": 0
  },
@@ -428,11 +428,19 @@
    "redirect": 10,
    "click": 0,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-16",
+   "redirect": 10,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-17",
    "redirect": 2,
    "click": 0,
    "views": 0,
@@ -444,7 +452,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 679,
+   "clicks": 689,
    "views": 3,
    "sessions": 2
   },
@@ -466,8 +474,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 15,
-   "views": 57,
-   "sessions": 57
+   "views": 56,
+   "sessions": 56
   },
   {
    "source": "facebook",
@@ -480,8 +488,8 @@
    "source": "guidle",
    "medium": "referral",
    "clicks": 7,
-   "views": 8,
-   "sessions": 8
+   "views": 9,
+   "sessions": 9
   },
   {
    "source": "chatgpt.com",
@@ -559,13 +567,13 @@
    "campaign": "jackpotcomedy",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 679,
+   "clicks": 689,
    "first": "2026-08-30",
-   "last": "2026-10-16",
+   "last": "2026-10-17",
    "content": [
     {
      "content": "6964168949947",
-     "clicks": 665
+     "clicks": 675
     }
    ]
   },
