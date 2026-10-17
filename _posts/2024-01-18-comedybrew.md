@@ -3,7 +3,7 @@ layout: post
 editable: false
 title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
 description: "Zürich's weekly English comedy open mic at ROBIN's near Central. Every Thursday, doors 19:30. Ten comedians, new jokes, first-timers, all in English."
-last_modified_at: 2026-10-16T07:00:01+00:00
+last_modified_at: 2026-10-17T07:00:01+00:00
 feature-img: "assets/img/uploads/comedybrew_featured.png"
 image: "/assets/img/uploads/comedybrew_horizontal.png"
 thumbnail: "assets/img/thumbs/comedybrew.png"
@@ -21,7 +21,7 @@ recurrence_day: Thursday
 recurrence_time: "19:30"
 default_duration_minutes: 150
 next_event_date: 2026-10-22T19:30:00+02:00
-next_event_end_date: 2026-12-24T22:00:00+01:00
+next_event_end_date: 2026-10-22T22:00:00+02:00
 price_chf: 10
 performers:
   - "Various local and visiting comedians"
