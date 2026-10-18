@@ -3,21 +3,21 @@
  "title": "Gratis Comedy Zum Mitnehmen",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/gratis-zurich-7495107963884945951.html",
  "event_type": "series",
- "generated_at": "2026-10-17T08:20:01.936Z",
+ "generated_at": "2026-10-18T08:20:01.765Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-17",
- "complete_through": "2026-10-15",
+ "through": "2026-10-18",
+ "complete_through": "2026-10-16",
  "totals": {
-  "clicks": 40,
-  "redirect": 5,
-  "click": 35,
-  "clicks_30d": 33,
-  "redirect_30d": 5,
-  "click_30d": 28,
-  "views": 61,
-  "views_30d": 54,
-  "sessions": 60,
+  "clicks": 46,
+  "redirect": 9,
+  "click": 37,
+  "clicks_30d": 38,
+  "redirect_30d": 9,
+  "click_30d": 29,
+  "views": 64,
+  "views_30d": 56,
+  "sessions": 61,
   "sessions_30d": 55,
   "broken_links": 0,
   "untagged": 0
@@ -435,14 +435,22 @@
    "date": "2026-10-16",
    "redirect": 0,
    "click": 3,
+   "views": 3,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-17",
+   "redirect": 2,
+   "click": 3,
    "views": 2,
    "provisional": true,
    "clicks_tracked": true
   },
   {
-   "date": "2026-10-17",
-   "redirect": 0,
-   "click": 1,
+   "date": "2026-10-18",
+   "redirect": 2,
+   "click": 0,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
@@ -450,18 +458,25 @@
  ],
  "by_source": [
   {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 12,
-   "views": 20,
-   "sessions": 23
-  },
-  {
    "source": "google",
    "medium": "organic",
-   "clicks": 12,
+   "clicks": 15,
+   "views": 23,
+   "sessions": 24
+  },
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 11,
    "views": 20,
    "sessions": 20
+  },
+  {
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 8,
+   "views": 3,
+   "sessions": 3
   },
   {
    "source": "chatgpt.com",
@@ -476,13 +491,6 @@
    "clicks": 5,
    "views": 0,
    "sessions": 0
-  },
-  {
-   "source": "instagram",
-   "medium": "social",
-   "clicks": 4,
-   "views": 3,
-   "sessions": 3
   },
   {
    "source": "test",
@@ -536,6 +544,20 @@
    "first": "2026-09-24",
    "last": "2026-09-27",
    "content": []
+  },
+  {
+   "campaign": "gratis-zum-mitnehmen-20261018",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 4,
+   "first": "2026-10-17",
+   "last": "2026-10-18",
+   "content": [
+    {
+     "content": "tickets",
+     "clicks": 4
+    }
+   ]
   }
  ],
  "csv": "/assets/reports/gratis-zum-mitnehmen.csv"

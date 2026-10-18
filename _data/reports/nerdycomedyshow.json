@@ -3,22 +3,22 @@
  "title": "The NERDY COMEDY Show",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/nerdy-stand-up-comedy-en-7284304661632248367.html",
  "event_type": "series",
- "generated_at": "2026-10-17T08:20:01.936Z",
+ "generated_at": "2026-10-18T08:20:01.765Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-17",
- "complete_through": "2026-10-15",
+ "through": "2026-10-18",
+ "complete_through": "2026-10-16",
  "totals": {
-  "clicks": 47,
-  "redirect": 20,
+  "clicks": 48,
+  "redirect": 21,
   "click": 27,
   "clicks_30d": 31,
-  "redirect_30d": 13,
-  "click_30d": 18,
+  "redirect_30d": 14,
+  "click_30d": 17,
   "views": 62,
-  "views_30d": 40,
+  "views_30d": 39,
   "sessions": 61,
-  "sessions_30d": 39,
+  "sessions_30d": 38,
   "broken_links": 0,
   "untagged": 0
  },
@@ -436,11 +436,19 @@
    "redirect": 0,
    "click": 1,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-17",
+   "redirect": 1,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-18",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -452,14 +460,14 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 14,
+   "clicks": 15,
    "views": 33,
    "sessions": 33
   },
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 10,
+   "clicks": 11,
    "views": 2,
    "sessions": 2
   },
@@ -473,7 +481,7 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 7,
+   "clicks": 6,
    "views": 12,
    "sessions": 12
   },
@@ -555,10 +563,15 @@
    "campaign": "nerdycomedyshow-20261031",
    "source": "instagram",
    "medium": "social",
-   "clicks": 3,
+   "clicks": 4,
    "first": "2026-10-15",
-   "last": "2026-10-15",
-   "content": []
+   "last": "2026-10-17",
+   "content": [
+    {
+     "content": "link_in_bio",
+     "clicks": 1
+    }
+   ]
   },
   {
    "campaign": "nerdycomedyshow",

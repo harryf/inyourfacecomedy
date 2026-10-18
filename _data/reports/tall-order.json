@@ -3,17 +3,17 @@
  "title": "Tall Order",
  "ticket_url": "https://eventfrog.ch/en/p/groups/tall-order-english-stand-up-comedy-open-mic-7507743592338740411.html",
  "event_type": "series",
- "generated_at": "2026-10-17T08:20:01.936Z",
+ "generated_at": "2026-10-18T08:20:01.765Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-17",
- "complete_through": "2026-10-15",
+ "through": "2026-10-18",
+ "complete_through": "2026-10-16",
  "totals": {
-  "clicks": 94,
-  "redirect": 72,
+  "clicks": 119,
+  "redirect": 97,
   "click": 22,
-  "clicks_30d": 94,
-  "redirect_30d": 72,
+  "clicks_30d": 119,
+  "redirect_30d": 97,
   "click_30d": 22,
   "views": 48,
   "views_30d": 48,
@@ -433,15 +433,23 @@
   },
   {
    "date": "2026-10-16",
-   "redirect": 22,
+   "redirect": 25,
    "click": 2,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-17",
-   "redirect": 7,
+   "redirect": 27,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-18",
+   "redirect": 2,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -452,7 +460,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 72,
+   "clicks": 97,
    "views": 0,
    "sessions": 0
   },
@@ -460,15 +468,15 @@
    "source": "google",
    "medium": "organic",
    "clicks": 14,
-   "views": 2,
-   "sessions": 2
+   "views": 3,
+   "sessions": 3
   },
   {
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 4,
-   "views": 7,
-   "sessions": 8
+   "views": 6,
+   "sessions": 7
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -518,13 +526,13 @@
    "campaign": "tall-order",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 72,
+   "clicks": 97,
    "first": "2026-10-04",
-   "last": "2026-10-17",
+   "last": "2026-10-18",
    "content": [
     {
      "content": "52677253043600",
-     "clicks": 37
+     "clicks": 51
     },
     {
      "content": "52679182997200",

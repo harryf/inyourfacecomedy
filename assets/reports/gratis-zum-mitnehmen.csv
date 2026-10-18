@@ -35,7 +35,13 @@ datetime,event,source,medium,campaign,content,page
 2026-10-14 22:41,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
 2026-10-15 15:23,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
 2026-10-15 23:39,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
-2026-10-16 14:54,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
+2026-10-16 14:54,ticket_click,google,organic,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
 2026-10-16 19:31,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
-2026-10-16 21:36,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-10-16 21:36,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
 2026-10-17 09:04,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
+2026-10-17 14:05,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-10-17 14:25,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
+2026-10-17 17:38,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect
+2026-10-17 18:42,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect
+2026-10-18 00:54,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect
+2026-10-18 05:27,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect

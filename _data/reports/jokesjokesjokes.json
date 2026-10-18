@@ -3,17 +3,17 @@
  "title": "Jokes, Jokes, Jokes",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726681983598.html",
  "event_type": "series",
- "generated_at": "2026-10-17T08:20:01.936Z",
+ "generated_at": "2026-10-18T08:20:01.765Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-17",
- "complete_through": "2026-10-15",
+ "through": "2026-10-18",
+ "complete_through": "2026-10-16",
  "totals": {
-  "clicks": 167,
-  "redirect": 128,
+  "clicks": 176,
+  "redirect": 137,
   "click": 39,
-  "clicks_30d": 140,
-  "redirect_30d": 118,
+  "clicks_30d": 149,
+  "redirect_30d": 127,
   "click_30d": 22,
   "views": 98,
   "views_30d": 59,
@@ -433,14 +433,22 @@
   },
   {
    "date": "2026-10-16",
-   "redirect": 3,
+   "redirect": 4,
    "click": 0,
    "views": 2,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-17",
+   "redirect": 8,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-18",
    "redirect": 2,
    "click": 0,
    "views": 0,
@@ -452,7 +460,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 109,
+   "clicks": 118,
    "views": 0,
    "sessions": 0
   },
@@ -474,15 +482,15 @@
    "source": "guidle",
    "medium": "referral",
    "clicks": 10,
-   "views": 19,
-   "sessions": 16
+   "views": 20,
+   "sessions": 17
   },
   {
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 7,
-   "views": 23,
-   "sessions": 21
+   "views": 22,
+   "sessions": 20
   },
   {
    "source": "chatgpt.com",
@@ -532,13 +540,13 @@
    "campaign": "jokesjokesjokes",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 109,
+   "clicks": 118,
    "first": "2026-10-13",
-   "last": "2026-10-17",
+   "last": "2026-10-18",
    "content": [
     {
      "content": "52679097035400",
-     "clicks": 81
+     "clicks": 89
     }
    ]
   },
