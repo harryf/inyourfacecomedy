@@ -3041,7 +3041,8 @@ datetime,event,source,medium,campaign,content,page
 2026-10-17 08:55,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
 2026-10-17 09:05,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-17 09:05,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
-2026-10-17 09:16,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
+2026-10-17 09:05,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-17 09:16,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
 2026-10-17 09:21,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
 2026-10-17 09:22,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-17 09:33,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
@@ -3053,16 +3054,18 @@ datetime,event,source,medium,campaign,content,page
 2026-10-17 10:17,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-17 10:27,ticket_redirect,meta,paid_social,warm-planner,warm-W12,Ticket Redirect
 2026-10-17 10:27,ticket_redirect,meta,paid_social,warm-planner,warm-W12,Ticket Redirect
+2026-10-17 10:40,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-17 12:52,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-17 13:22,ticket_redirect,meta,paid_social,cold-planner,cold-C19,Ticket Redirect
-2026-10-17 13:53,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/comedybrew/
+2026-10-17 13:53,ticket_click,google,organic,,,https://inyourfacecomedy.ch/comedybrew/
 2026-10-17 14:06,ticket_redirect,meta,paid_social,cold-planner,cold-C19,Ticket Redirect
 2026-10-17 14:33,ticket_redirect,meta,paid_social,cold-planner,cold-C19,Ticket Redirect
 2026-10-17 14:56,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-17 15:10,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-17 15:19,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-17 15:20,ticket_click,google,organic,,,https://inyourfacecomedy.ch/comedybrew/
 2026-10-17 15:48,ticket_redirect,meta,paid_social,warm-planner,warm-W12,Ticket Redirect
-2026-10-17 15:58,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-10-17 15:58,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
 2026-10-17 15:59,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-17 16:02,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
 2026-10-17 16:03,ticket_redirect,meta,paid_social,warm-planner,warm-W12,Ticket Redirect
@@ -3070,15 +3073,21 @@ datetime,event,source,medium,campaign,content,page
 2026-10-17 16:51,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
 2026-10-17 17:14,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-17 17:27,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
+2026-10-17 17:30,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
+2026-10-17 17:40,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
 2026-10-17 17:42,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
 2026-10-17 18:11,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-17 18:49,ticket_redirect,meta,paid_social,cold,cold-C7,Ticket Redirect
 2026-10-17 18:51,ticket_redirect,meta,paid_social,cold,cold-C7,Ticket Redirect
 2026-10-17 19:23,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-17 19:29,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-17 19:32,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-17 19:44,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-17 19:56,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-17 20:19,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-17 20:19,ticket_redirect,meta,paid_social,warm-planner,warm-W13,Ticket Redirect
+2026-10-17 20:21,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-17 20:26,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-17 21:00,ticket_redirect,meta,paid_social,warm-planner,warm-W12,Ticket Redirect
 2026-10-17 21:28,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-17 22:20,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
@@ -3086,7 +3095,9 @@ datetime,event,source,medium,campaign,content,page
 2026-10-17 22:43,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-17 22:51,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-17 23:07,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-17 23:16,ticket_redirect,meta,paid_social,warm-planner,warm-W12,Ticket Redirect
 2026-10-17 23:55,ticket_redirect,meta,paid_social,warm-planner,warm-W12,Ticket Redirect
+2026-10-18 00:09,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
 2026-10-18 00:13,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-18 00:25,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-18 00:48,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
@@ -3095,5 +3106,55 @@ datetime,event,source,medium,campaign,content,page
 2026-10-18 05:49,ticket_redirect,meta,paid_social,cold,cold-C7,Ticket Redirect
 2026-10-18 06:29,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-18 06:37,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 06:45,ticket_redirect,meta,paid_social,cold,cold-C7,Ticket Redirect
 2026-10-18 07:01,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
 2026-10-18 08:19,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 08:27,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 09:46,ticket_redirect,meta,paid_social,cold,cold-C7,Ticket Redirect
+2026-10-18 10:25,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 10:34,ticket_redirect,meta,paid_social,warm-planner,warm-W12,Ticket Redirect
+2026-10-18 12:45,ticket_redirect,meta,paid_social,cold,cold-C7,Ticket Redirect
+2026-10-18 13:18,ticket_click,instagram,social,week,,https://inyourfacecomedy.ch/calendar/
+2026-10-18 13:18,ticket_click,instagram,social,week,,https://inyourfacecomedy.ch/calendar/
+2026-10-18 13:54,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 13:55,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 14:03,ticket_redirect,meta,paid_social,warm-planner,warm-W12,Ticket Redirect
+2026-10-18 15:14,ticket_redirect,meta,paid_social,cold,cold-C7,Ticket Redirect
+2026-10-18 15:50,ticket_redirect,meta,paid_social,warm-planner,warm-W12,Ticket Redirect
+2026-10-18 15:54,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
+2026-10-18 16:12,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 16:17,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-10-18 16:48,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 17:05,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-10-18 17:49,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 18:06,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 18:07,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 18:11,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 18:12,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 18:12,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 18:12,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 18:51,ticket_redirect,meta,paid_social,cold,cold-C7,Ticket Redirect
+2026-10-18 18:54,ticket_redirect,meta,paid_social,cold,cold-C7,Ticket Redirect
+2026-10-18 18:54,ticket_redirect,meetup,referral,comedybrew,,Ticket Redirect
+2026-10-18 18:55,ticket_redirect,meetup,referral,comedybrew,,Ticket Redirect
+2026-10-18 19:03,ticket_redirect,meta,paid_social,comedybrew,120203748201470314,Ticket Redirect
+2026-10-18 19:04,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 19:12,ticket_redirect,meta,paid_social,cold,cold-C7,Ticket Redirect
+2026-10-18 19:33,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-10-18 20:01,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 20:12,ticket_redirect,meta,paid_social,cold,cold-C13,Ticket Redirect
+2026-10-18 20:23,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-10-18 20:24,ticket_redirect,meta,paid_social,warm,warm-W6,Ticket Redirect
+2026-10-18 21:10,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 21:33,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 22:00,ticket_click,instagram,social,calendar,inyourface_profile,https://inyourfacecomedy.ch/comedybrew/
+2026-10-18 22:02,ticket_redirect,meta,paid_social,warm-planner,warm-W12,Ticket Redirect
+2026-10-18 22:26,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-18 22:35,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-19 00:21,ticket_redirect,meta,paid_social,warm-planner,warm-W12,Ticket Redirect
+2026-10-19 00:29,ticket_redirect,meta,paid_social,warm,warm-W9,Ticket Redirect
+2026-10-19 00:45,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-19 02:57,ticket_redirect,meta,paid_social,cold,cold-C7,Ticket Redirect
+2026-10-19 02:57,ticket_redirect,meta,paid_social,cold,cold-C7,Ticket Redirect
+2026-10-19 07:27,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-19 08:07,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect

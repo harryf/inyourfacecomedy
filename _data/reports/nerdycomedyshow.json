@@ -3,22 +3,22 @@
  "title": "The NERDY COMEDY Show",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/nerdy-stand-up-comedy-en-7284304661632248367.html",
  "event_type": "series",
- "generated_at": "2026-10-18T08:20:01.765Z",
+ "generated_at": "2026-10-19T08:20:01.680Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-18",
- "complete_through": "2026-10-16",
+ "through": "2026-10-19",
+ "complete_through": "2026-10-17",
  "totals": {
-  "clicks": 48,
-  "redirect": 21,
-  "click": 27,
-  "clicks_30d": 31,
-  "redirect_30d": 14,
-  "click_30d": 17,
-  "views": 62,
-  "views_30d": 39,
-  "sessions": 61,
-  "sessions_30d": 38,
+  "clicks": 53,
+  "redirect": 24,
+  "click": 29,
+  "clicks_30d": 36,
+  "redirect_30d": 17,
+  "click_30d": 19,
+  "views": 63,
+  "views_30d": 40,
+  "sessions": 63,
+  "sessions_30d": 40,
   "broken_links": 0,
   "untagged": 0
  },
@@ -444,14 +444,22 @@
    "redirect": 1,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-18",
-   "redirect": 0,
-   "click": 0,
+   "redirect": 3,
+   "click": 1,
    "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-19",
+   "redirect": 0,
+   "click": 1,
+   "views": 1,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -467,7 +475,7 @@
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 11,
+   "clicks": 12,
    "views": 2,
    "sessions": 2
   },
@@ -481,9 +489,16 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 6,
-   "views": 12,
-   "sessions": 12
+   "clicks": 7,
+   "views": 13,
+   "sessions": 14
+  },
+  {
+   "source": "followers",
+   "medium": "social",
+   "clicks": 3,
+   "views": 0,
+   "sessions": 0
   },
   {
    "source": "guidle",
@@ -572,6 +587,15 @@
      "clicks": 1
     }
    ]
+  },
+  {
+   "campaign": "nerdycomedyshow-20261031",
+   "source": "followers",
+   "medium": "social",
+   "clicks": 3,
+   "first": "2026-10-18",
+   "last": "2026-10-18",
+   "content": []
   },
   {
    "campaign": "nerdycomedyshow",
