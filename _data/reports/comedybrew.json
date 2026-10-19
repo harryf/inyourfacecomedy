@@ -3,22 +3,22 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-open-mic-every-thursday-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-10-19T08:20:01.680Z",
+ "generated_at": "2026-10-19T12:08:59.977Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
  "through": "2026-10-19",
  "complete_through": "2026-10-17",
  "totals": {
-  "clicks": 3159,
-  "redirect": 2905,
+  "clicks": 3161,
+  "redirect": 2907,
   "click": 254,
-  "clicks_30d": 2265,
-  "redirect_30d": 2110,
+  "clicks_30d": 2267,
+  "redirect_30d": 2112,
   "click_30d": 155,
   "views": 629,
   "views_30d": 351,
-  "sessions": 589,
-  "sessions_30d": 327,
+  "sessions": 590,
+  "sessions_30d": 328,
   "broken_links": 0,
   "untagged": 0
  },
@@ -457,7 +457,7 @@
   },
   {
    "date": "2026-10-19",
-   "redirect": 7,
+   "redirect": 9,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -468,7 +468,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 2810,
+   "clicks": 2812,
    "views": 2,
    "sessions": 2
   },
@@ -477,7 +477,7 @@
    "medium": "organic",
    "clicks": 118,
    "views": 241,
-   "sessions": 222
+   "sessions": 223
   },
   {
    "source": "instagram",
@@ -660,7 +660,7 @@
    "campaign": "cold",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 745,
+   "clicks": 746,
    "first": "2026-09-13",
    "last": "2026-10-19",
    "content": [
@@ -670,7 +670,7 @@
     },
     {
      "content": "cold-C7",
-     "clicks": 246
+     "clicks": 247
     },
     {
      "content": "cold-C4v",
@@ -896,13 +896,13 @@
    "campaign": "warm-planner",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 57,
+   "clicks": 58,
    "first": "2026-10-04",
    "last": "2026-10-19",
    "content": [
     {
      "content": "warm-W12",
-     "clicks": 32
+     "clicks": 33
     },
     {
      "content": "warm-W13",

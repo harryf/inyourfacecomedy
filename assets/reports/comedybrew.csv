@@ -3158,3 +3158,5 @@ datetime,event,source,medium,campaign,content,page
 2026-10-19 02:57,ticket_redirect,meta,paid_social,cold,cold-C7,Ticket Redirect
 2026-10-19 07:27,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
 2026-10-19 08:07,ticket_redirect,meta,paid_social,cold-planner,cold-C18,Ticket Redirect
+2026-10-19 08:30,ticket_redirect,meta,paid_social,cold,cold-C7,Ticket Redirect
+2026-10-19 09:57,ticket_redirect,meta,paid_social,warm-planner,warm-W12,Ticket Redirect
