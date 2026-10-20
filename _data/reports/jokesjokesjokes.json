@@ -3,22 +3,22 @@
  "title": "Jokes, Jokes, Jokes",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726681983598.html",
  "event_type": "series",
- "generated_at": "2026-10-19T12:08:59.977Z",
+ "generated_at": "2026-10-20T08:20:01.490Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-19",
- "complete_through": "2026-10-17",
+ "through": "2026-10-20",
+ "complete_through": "2026-10-18",
  "totals": {
-  "clicks": 185,
-  "redirect": 145,
-  "click": 40,
-  "clicks_30d": 157,
-  "redirect_30d": 135,
-  "click_30d": 22,
-  "views": 98,
-  "views_30d": 59,
-  "sessions": 91,
-  "sessions_30d": 55,
+  "clicks": 188,
+  "redirect": 147,
+  "click": 41,
+  "clicks_30d": 160,
+  "redirect_30d": 137,
+  "click_30d": 23,
+  "views": 99,
+  "views_30d": 60,
+  "sessions": 93,
+  "sessions_30d": 57,
   "broken_links": 0,
   "untagged": 0
  },
@@ -449,15 +449,23 @@
   },
   {
    "date": "2026-10-18",
-   "redirect": 8,
+   "redirect": 7,
    "click": 1,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-19",
-   "redirect": 2,
+   "redirect": 4,
+   "click": 1,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-20",
+   "redirect": 1,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -468,7 +476,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 126,
+   "clicks": 128,
    "views": 0,
    "sessions": 0
   },
@@ -496,9 +504,9 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 7,
-   "views": 22,
-   "sessions": 20
+   "clicks": 8,
+   "views": 23,
+   "sessions": 22
   },
   {
    "source": "chatgpt.com",
@@ -548,13 +556,13 @@
    "campaign": "jokesjokesjokes",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 126,
+   "clicks": 128,
    "first": "2026-10-13",
-   "last": "2026-10-19",
+   "last": "2026-10-20",
    "content": [
     {
      "content": "52679097035400",
-     "clicks": 96
+     "clicks": 98
     }
    ]
   },
