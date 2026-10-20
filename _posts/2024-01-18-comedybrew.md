@@ -9,7 +9,7 @@ image: "/assets/img/uploads/comedybrew_horizontal.png"
 thumbnail: "assets/img/thumbs/comedybrew.png"
 excerpt_separator: <!--more-->
 ticket_url: "https://eventfrog.ch/en/p/groups/in-your-face-english-stand-up-comedy-open-mic-in-zurich-7132091334890862636.html"
-ticket_url_resolved: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-open-mic-every-thursday-7132091334890862636.html
+ticket_url_resolved: https://eventfrog.ch/en/p/groups/comedy-brew-english-stand-up-open-mic-every-thursday-7132091334890862636.html
 permalink: /comedybrew/
 hosts_label: "Usually hosted by"
 hosts:
