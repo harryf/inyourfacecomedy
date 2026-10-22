@@ -4,7 +4,7 @@ editable: "true"
 title: "PROMESSI SPASSI - Stand-up comedy italiana a Zurigo"
 tagline: "Stand-up comedy italiana a Zurigo"
 description: "PROMESSI SPASSI - Stand-up comedy italiana a Zurigo Vivi una serata di puro divertimento con lo spettacolo open-mic di stand-up comedy italiana (e ticinese) a Zurigo, presentato…"
-last_modified_at: 2026-10-05T08:50:01+00:00
+last_modified_at: 2026-10-22T07:00:01+00:00
 feature-img: "/assets/img/uploads/promessi-spassi_wide.jpeg"
 image: "/assets/img/uploads/promessi-spassi_square.jpeg"
 thumbnail: "/assets/img/thumbs/promessi-spassi.jpeg"
@@ -20,8 +20,8 @@ language: it
 venue: "ROBIN's"
 venue_slug: robins
 default_duration_minutes: 150
-next_event_date: 2026-10-21T20:00:00+02:00
-next_event_end_date: 2026-10-21T22:00:00+02:00
+next_event_date: 2026-11-18T20:00:00+01:00
+next_event_end_date: 2026-11-18T22:00:00+01:00
 price_chf: 10
 ---
 ## PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
