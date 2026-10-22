@@ -3,22 +3,22 @@
  "title": "Tall Order",
  "ticket_url": "https://eventfrog.ch/en/p/groups/tall-order-english-stand-up-comedy-open-mic-7507743592338740411.html",
  "event_type": "series",
- "generated_at": "2026-10-20T08:20:01.490Z",
+ "generated_at": "2026-10-22T08:20:03.375Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-20",
- "complete_through": "2026-10-18",
+ "through": "2026-10-22",
+ "complete_through": "2026-10-20",
  "totals": {
-  "clicks": 185,
-  "redirect": 161,
-  "click": 24,
-  "clicks_30d": 185,
-  "redirect_30d": 161,
-  "click_30d": 24,
-  "views": 50,
-  "views_30d": 50,
-  "sessions": 50,
-  "sessions_30d": 50,
+  "clicks": 231,
+  "redirect": 206,
+  "click": 25,
+  "clicks_30d": 231,
+  "redirect_30d": 206,
+  "click_30d": 25,
+  "views": 53,
+  "views_30d": 53,
+  "sessions": 52,
+  "sessions_30d": 52,
   "broken_links": 0,
   "untagged": 0
  },
@@ -457,15 +457,31 @@
   },
   {
    "date": "2026-10-19",
-   "redirect": 28,
+   "redirect": 34,
    "click": 1,
-   "views": 2,
-   "provisional": true,
+   "views": 3,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-20",
-   "redirect": 5,
+   "redirect": 35,
+   "click": 1,
+   "views": 2,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-21",
+   "redirect": 8,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-22",
+   "redirect": 1,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -476,23 +492,30 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 161,
+   "clicks": 200,
    "views": 0,
    "sessions": 0
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 15,
-   "views": 3,
-   "sessions": 4
+   "clicks": 14,
+   "views": 5,
+   "sessions": 5
+  },
+  {
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 8,
+   "views": 1,
+   "sessions": 1
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 4,
-   "views": 8,
-   "sessions": 9
+   "clicks": 5,
+   "views": 9,
+   "sessions": 10
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -507,13 +530,6 @@
    "clicks": 1,
    "views": 2,
    "sessions": 2
-  },
-  {
-   "source": "instagram",
-   "medium": "social",
-   "clicks": 1,
-   "views": 1,
-   "sessions": 1
   },
   {
    "source": "VA LBHE ABDF Dbzfel",
@@ -542,29 +558,43 @@
    "campaign": "tall-order",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 161,
+   "clicks": 200,
    "first": "2026-10-04",
-   "last": "2026-10-20",
+   "last": "2026-10-22",
    "content": [
     {
      "content": "52677253043600",
-     "clicks": 106
+     "clicks": 138
     },
     {
      "content": "52679182997200",
-     "clicks": 13
+     "clicks": 15
     },
     {
      "content": "52679185461400",
-     "clicks": 7
+     "clicks": 10
     },
     {
      "content": "52679184892000",
-     "clicks": 5
+     "clicks": 6
     },
     {
      "content": "52679186122600",
      "clicks": 1
+    }
+   ]
+  },
+  {
+   "campaign": "tall-order-20261020",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 6,
+   "first": "2026-10-20",
+   "last": "2026-10-20",
+   "content": [
+    {
+     "content": "tickets",
+     "clicks": 6
     }
    ]
   }

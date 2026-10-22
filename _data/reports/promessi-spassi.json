@@ -3,24 +3,24 @@
  "title": "PROMESSI SPASSI",
  "ticket_url": "https://eventfrog.ch/en/p/groups/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081056758243.html",
  "event_type": "monthly",
- "generated_at": "2026-10-20T08:20:01.490Z",
+ "generated_at": "2026-10-22T08:20:03.375Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-20",
- "complete_through": "2026-10-18",
+ "through": "2026-10-22",
+ "complete_through": "2026-10-20",
  "totals": {
-  "clicks": 2969,
-  "redirect": 2936,
-  "click": 33,
-  "clicks_30d": 816,
-  "redirect_30d": 805,
-  "click_30d": 11,
-  "views": 86,
-  "views_30d": 25,
-  "sessions": 82,
-  "sessions_30d": 21,
+  "clicks": 3153,
+  "redirect": 3113,
+  "click": 40,
+  "clicks_30d": 970,
+  "redirect_30d": 952,
+  "click_30d": 18,
+  "views": 98,
+  "views_30d": 37,
+  "sessions": 95,
+  "sessions_30d": 34,
   "broken_links": 0,
-  "untagged": 0
+  "untagged": 1
  },
  "by_day": [
   {
@@ -457,17 +457,33 @@
   },
   {
    "date": "2026-10-19",
-   "redirect": 54,
-   "click": 1,
+   "redirect": 67,
+   "click": 3,
    "views": 3,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-20",
-   "redirect": 9,
+   "redirect": 76,
+   "click": 2,
+   "views": 9,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-21",
+   "redirect": 90,
+   "click": 3,
+   "views": 4,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-22",
+   "redirect": 7,
    "click": 0,
-   "views": 1,
+   "views": 0,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -476,21 +492,21 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 2828,
+   "clicks": 2990,
    "views": 2,
    "sessions": 2
   },
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 60,
+   "clicks": 73,
    "views": 0,
    "sessions": 0
   },
   {
    "source": "dolcevita",
    "medium": "social",
-   "clicks": 20,
+   "clicks": 22,
    "views": 0,
    "sessions": 0
   },
@@ -504,9 +520,9 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 10,
-   "views": 39,
-   "sessions": 33
+   "clicks": 15,
+   "views": 50,
+   "sessions": 45
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -519,13 +535,13 @@
    "source": "google",
    "medium": "organic",
    "clicks": 8,
-   "views": 11,
-   "sessions": 11
+   "views": 12,
+   "sessions": 12
   },
   {
    "source": "meetup",
    "medium": "referral",
-   "clicks": 4,
+   "clicks": 5,
    "views": 0,
    "sessions": 0
   },
@@ -567,6 +583,13 @@
   {
    "source": "instagram",
    "medium": "bio",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
+  },
+  {
+   "source": "meta",
+   "medium": "untagged",
    "clicks": 1,
    "views": 0,
    "sessions": 0
@@ -626,9 +649,9 @@
    "campaign": "promessi-spassi",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 2827,
+   "clicks": 2989,
    "first": "2026-08-30",
-   "last": "2026-10-20",
+   "last": "2026-10-22",
    "content": [
     {
      "content": "52672614093400",
@@ -636,7 +659,7 @@
     },
     {
      "content": "52676472901800",
-     "clicks": 769
+     "clicks": 929
     },
     {
      "content": "52672431580800",
@@ -652,13 +675,13 @@
    "campaign": "promessi-spassi",
    "source": "instagram",
    "medium": "social",
-   "clicks": 55,
+   "clicks": 67,
    "first": "2026-08-27",
-   "last": "2026-10-19",
+   "last": "2026-10-22",
    "content": [
     {
      "content": "link_in_bio",
-     "clicks": 48
+     "clicks": 60
     }
    ]
   },
@@ -666,9 +689,9 @@
    "campaign": "promessi-spassi-20261021",
    "source": "dolcevita",
    "medium": "social",
-   "clicks": 20,
+   "clicks": 22,
    "first": "2026-10-14",
-   "last": "2026-10-18",
+   "last": "2026-10-20",
    "content": []
   },
   {
@@ -714,6 +737,15 @@
    "clicks": 1,
    "first": "2026-09-20",
    "last": "2026-09-20",
+   "content": []
+  },
+  {
+   "campaign": "promessi-spassi-20261021",
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 1,
+   "first": "2026-10-20",
+   "last": "2026-10-20",
    "content": []
   }
  ],
