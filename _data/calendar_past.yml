@@ -3,22 +3,22 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-10-22T07:00:01+00:00'
-past_count: 20
+generated_at: '2026-10-23T07:00:01+00:00'
+past_count: 19
 events:
-- show: promessi-spassi
-  name: PROMESSI SPASSI
-  title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
-  url: "/promessi-spassi/"
-  date: '2026-10-21'
-  start: '2026-10-21T20:00:00+02:00'
-  end: '2026-10-21T22:00:00+02:00'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2026-10-22'
+  start: '2026-10-22T19:30:00+02:00'
+  end: '2026-10-22T22:00:00+02:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081081924070.html
-  eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-where-thursday-goes-zuerich-7466831545136883325.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Where Thursday goes'
 - show: jackpotcomedy
   name: Jackpot Comedy
   title: Jackpot Comedy - downstairs @ OTRO
@@ -32,6 +32,19 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7501966354213278689.html
   eventfrog_name: Jackpot Comedy
+- show: promessi-spassi
+  name: PROMESSI SPASSI
+  title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
+  url: "/promessi-spassi/"
+  date: '2026-10-21'
+  start: '2026-10-21T20:00:00+02:00'
+  end: '2026-10-21T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081081924070.html
+  eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: tall-order
   name: Tall Order
   title: Tall Order
@@ -250,31 +263,3 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/filippo-spreafico-italian-rhapsody-comedy-in-english-7487867600443024331.html
   eventfrog_name: Filippo Spreafico • Italian Rhapsody • Comedy in English
-- show: comedybrew
-  name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS
-    in Niederdorf Zürich
-  url: "/comedybrew/"
-  date: '2026-09-17'
-  start: '2026-09-17T19:30:00+02:00'
-  end: '2026-09-17T22:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 10
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-7466830849213728090.html
-  eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
-- show: randomfactsexchange
-  name: Random Facts Exchange
-  title: Random Facts Exchange - the Science Comedy Show in Zürich
-  url: "/randomfactsexchange/"
-  date: '2026-09-17'
-  start: '2026-09-17T18:00:00+02:00'
-  end: '2026-09-17T19:00:00+02:00'
-  venue: natural-history-museum-of-the-university-of-zurich
-  venue_name: Natural History Museum of the University of Zurich
-  location: Natural History Museum of the University of Zurich
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/science-and-technology/random-facts-exchange-20-museum-edition-7434315326727157500.html
-  eventfrog_name: Random Facts Exchange 20 Museum Edition
