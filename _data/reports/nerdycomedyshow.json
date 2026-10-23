@@ -3,22 +3,22 @@
  "title": "The NERDY COMEDY Show",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/nerdy-stand-up-comedy-en-7284304661632248367.html",
  "event_type": "series",
- "generated_at": "2026-10-22T08:20:03.375Z",
+ "generated_at": "2026-10-23T08:20:02.464Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-22",
- "complete_through": "2026-10-20",
+ "through": "2026-10-23",
+ "complete_through": "2026-10-21",
  "totals": {
-  "clicks": 138,
-  "redirect": 106,
+  "clicks": 160,
+  "redirect": 128,
   "click": 32,
-  "clicks_30d": 118,
-  "redirect_30d": 99,
-  "click_30d": 19,
+  "clicks_30d": 139,
+  "redirect_30d": 121,
+  "click_30d": 18,
   "views": 63,
-  "views_30d": 38,
+  "views_30d": 35,
   "sessions": 62,
-  "sessions_30d": 37,
+  "sessions_30d": 34,
   "broken_links": 0,
   "untagged": 0
  },
@@ -473,14 +473,22 @@
   },
   {
    "date": "2026-10-21",
-   "redirect": 29,
+   "redirect": 31,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-22",
+   "redirect": 20,
    "click": 0,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
   },
   {
-   "date": "2026-10-22",
+   "date": "2026-10-23",
    "redirect": 5,
    "click": 0,
    "views": 0,
@@ -492,7 +500,7 @@
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 93,
+   "clicks": 115,
    "views": 2,
    "sessions": 2
   },
@@ -579,13 +587,13 @@
    "campaign": "nerdycomedyshow-20261031",
    "source": "instagram",
    "medium": "social",
-   "clicks": 85,
+   "clicks": 107,
    "first": "2026-10-15",
-   "last": "2026-10-22",
+   "last": "2026-10-23",
    "content": [
     {
      "content": "120251288382680219",
-     "clicks": 74
+     "clicks": 96
     },
     {
      "content": "link_in_bio",

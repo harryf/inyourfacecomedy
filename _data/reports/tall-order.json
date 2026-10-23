@@ -3,17 +3,17 @@
  "title": "Tall Order",
  "ticket_url": "https://eventfrog.ch/en/p/groups/tall-order-english-stand-up-comedy-open-mic-7507743592338740411.html",
  "event_type": "series",
- "generated_at": "2026-10-22T08:20:03.375Z",
+ "generated_at": "2026-10-23T08:20:02.464Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-22",
- "complete_through": "2026-10-20",
+ "through": "2026-10-23",
+ "complete_through": "2026-10-21",
  "totals": {
-  "clicks": 231,
-  "redirect": 206,
+  "clicks": 233,
+  "redirect": 208,
   "click": 25,
-  "clicks_30d": 231,
-  "redirect_30d": 206,
+  "clicks_30d": 233,
+  "redirect_30d": 208,
   "click_30d": 25,
   "views": 53,
   "views_30d": 53,
@@ -473,15 +473,23 @@
   },
   {
    "date": "2026-10-21",
-   "redirect": 8,
+   "redirect": 7,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-22",
+   "redirect": 4,
    "click": 0,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
   },
   {
-   "date": "2026-10-22",
-   "redirect": 1,
+   "date": "2026-10-23",
+   "redirect": 0,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -492,7 +500,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 200,
+   "clicks": 202,
    "views": 0,
    "sessions": 0
   },
@@ -558,13 +566,13 @@
    "campaign": "tall-order",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 200,
+   "clicks": 202,
    "first": "2026-10-04",
    "last": "2026-10-22",
    "content": [
     {
      "content": "52677253043600",
-     "clicks": 138
+     "clicks": 140
     },
     {
      "content": "52679182997200",

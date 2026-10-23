@@ -3,22 +3,22 @@
  "title": "Jokes, Jokes, Jokes",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726681983598.html",
  "event_type": "series",
- "generated_at": "2026-10-22T08:20:03.375Z",
+ "generated_at": "2026-10-23T08:20:02.464Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-22",
- "complete_through": "2026-10-20",
+ "through": "2026-10-23",
+ "complete_through": "2026-10-21",
  "totals": {
-  "clicks": 196,
-  "redirect": 155,
+  "clicks": 213,
+  "redirect": 172,
   "click": 41,
-  "clicks_30d": 168,
-  "redirect_30d": 145,
+  "clicks_30d": 185,
+  "redirect_30d": 162,
   "click_30d": 23,
-  "views": 99,
-  "views_30d": 60,
-  "sessions": 92,
-  "sessions_30d": 56,
+  "views": 100,
+  "views_30d": 61,
+  "sessions": 93,
+  "sessions_30d": 57,
   "broken_links": 0,
   "untagged": 0
  },
@@ -476,12 +476,20 @@
    "redirect": 2,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-22",
-   "redirect": 0,
+   "redirect": 2,
+   "click": 0,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-23",
+   "redirect": 15,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -492,7 +500,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 136,
+   "clicks": 153,
    "views": 0,
    "sessions": 0
   },
@@ -507,8 +515,8 @@
    "source": "google",
    "medium": "organic",
    "clicks": 15,
-   "views": 21,
-   "sessions": 22
+   "views": 22,
+   "sessions": 23
   },
   {
    "source": "guidle",
@@ -572,13 +580,13 @@
    "campaign": "jokesjokesjokes",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 136,
+   "clicks": 153,
    "first": "2026-10-13",
-   "last": "2026-10-21",
+   "last": "2026-10-23",
    "content": [
     {
      "content": "52679097035400",
-     "clicks": 106
+     "clicks": 110
     }
    ]
   },
