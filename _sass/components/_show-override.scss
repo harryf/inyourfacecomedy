@@ -80,11 +80,12 @@
 .show-banner[data-show="jokesjokesjokes"],
 .show-banner[data-show="jokesjokes"],
 .show-banner[data-show="jokes-jokes-jokes"] {
-  --show-accent:   #FF5252;
-  --show-bg:       #14080A;
-  --show-text:     #FFE3D4;
-  --show-cta:      #FFD54F;
-  --show-cta-text: #14080A;
+  // Deep space, yellow title lettering and the red JOKES burst from the 2026-10 flyer.
+  --show-accent:   #FF2D2D;
+  --show-bg:       #070B24;
+  --show-text:     #FFF6CC;
+  --show-cta:      #FFE135;
+  --show-cta-text: #070B24;
 }
 
 .show-banner[data-show="jackpot"],
@@ -95,14 +96,4 @@
   --show-text:     #FFF3E0;
   --show-cta:      #FFD54F;
   --show-cta-text: #0E0F10;
-}
-
-.show-banner[data-show="tall-order"] {
-  // Stage curtain and brush lettering from the Tall Order flyer: near-black
-  // stage, cream brush text, the red underline as accent and CTA.
-  --show-accent:   #E63946;
-  --show-bg:       #14100E;
-  --show-text:     #F3E9D2;
-  --show-cta:      #E63946;
-  --show-cta-text: #F3E9D2;
 }

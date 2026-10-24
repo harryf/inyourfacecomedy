@@ -22,7 +22,7 @@ Encoding.default_external = Encoding::UTF_8
 #     eight; Tuesday and Thursday at the
 #     time of writing). Its period is the envelope of that weekday's shows in the window:
 #     earliest padded open to latest padded close. Alternating shows with different start
-#     times (Jokes at 19:30, Tall Order at 20:00) therefore share one Tuesday period and
+#     times (say one at 19:30, another at 20:00) therefore share one Tuesday period and
 #     produce no per-date exceptions.
 #   * specialHours: per-date overrides for the next SPECIAL_DAYS days. A date on a
 #     non-regular weekday with a show is an open period (a Friday one-off, a monthly

@@ -1,40 +1,43 @@
 ---
 layout: post
 editable: "true"
-title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
-description: A crazy-fun English stand-up night with experienced comics from Zurich and beyond.
+title: Jokes, Jokes, Jokes - English Stand-up comedy show
+tagline: "Some will live. Some will die. You decide. Every Tuesday at ROBIN's."
+description: English stand-up comedy every Tuesday at ROBIN's in Zürich. A curated lineup of local and visiting comics with new jokes and proven bits. You decide which ones live.
 last_modified_at: 2026-10-24T07:03:11+00:00
-feature-img: /assets/img/uploads/jokes_jokes_jokes_facebook_event.png
-image: /assets/img/uploads/jokes_jokes_jokes_facebook_event.png
-thumbnail: /assets/img/uploads/jokes_jokes_jokes_insta_post.png
+feature-img: /assets/img/uploads/jokes-jokes-jokes_wide.png
+image: /assets/img/uploads/jokes-jokes-jokes_square.png
+thumbnail: /assets/img/uploads/jokes-jokes-jokes_square.png
 excerpt_separator: <!--more-->
 permalink: /jokesjokesjokes/
-hosts:
-  - "woocash"
-ticket_url: https://eventfrog.ch/jokes-jokes-jokes
-ticket_url_resolved: https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7496208726681983598.html
+redirect_from:
+  # Tall Order (removed 2026-10-24): its Tuesdays are now Jokes, Jokes, Jokes
+  - /tall-order/
+ticket_url: https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7519756165535785039.html
 event_type: series
 venue_slug: robins
 recurrence_day: Tuesday
-recurrence_time: "19:30"
+recurrence_time: "20:00"
 default_duration_minutes: 150
 next_event_date: 2026-10-27T20:00:00+01:00
 next_event_end_date: 2026-10-27T22:00:00+01:00
 price_chf: 10
 performers:
-  - "Łukasz Segiet"
   - "Various local and visiting comedians"
 ---
-A crazy-fun English stand-up night with experienced comics from Zurich and beyond. Expect loose ideas, polished bits, unexpected jokes, and laughter from places you don’t expect.
+English stand-up comedy every Tuesday at ROBIN's. Comics from Zürich and beyond bring loose ideas, polished bits and jokes nobody has heard yet. Some will live, some will die, and you decide which.
 
-![Jokes, Jokes, Jokes - English Standup Comedy with Woocash](/assets/img/uploads/jokes_jokes_jokes_insta_post.png "Jokes, Jokes, Jokes - English Standup Comedy with Woocash")
+<!--more-->
 
-Hosted by Swiss-based comedian Łukasz Segiet ( [@woocash.comedy](https://instagram.com/woocash.comedy) ), known for off-beat, unpredictable, vibe-driven comedy and a favourite among fellow comedians for his distinctive, non-obvious approach. He invites a lineup of friends and local comics to share the stage each edition.
+![Jokes, Jokes, Jokes: English stand-up comedy every Tuesday at ROBIN's](/assets/img/uploads/jokes-jokes-jokes_wide.png "Jokes, Jokes, Jokes: English Stand-up Comedy")
+
+Swiss-based comedians host the night and build a new lineup for each edition: friends, local comics and visitors passing through. It is a curated open mic, so comics sign up in advance and you get a mix of fresh material and proven jokes. The whole show is in English.
 
 ## When and Where
 
-- **Doors:** 19:00 · **Show:** 19:30
+- **When:** every Tuesday, doors 19:30, show 20:00
 - **Where:** ROBIN's, Zähringerstrasse 33, 8001 Zürich
+- **Tickets:** on Eventfrog, use the button above
 
 ## Getting there
 

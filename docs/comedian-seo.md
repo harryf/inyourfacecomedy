@@ -78,7 +78,7 @@ Current mapping:
 |------|-------|-------|
 | Comedy Brew | harryf.cks, martinadoescomedy | Usually hosted by |
 | Random Facts Exchange | vasilis-theof | Hosted by |
-| Jokes Jokes Jokes | woocash | Hosted by |
+| Jokes Jokes Jokes | (none: hosts rotate since 2026-10-24) | |
 | Jackpot Comedy | jack-roberts | Hosted by |
 | Down Under | chris-darwa | Hosted by |
 | Brexiles | harryf.cks, jack-roberts, shawn-jay | Featuring |
