@@ -5,7 +5,7 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-10-23T07:00:01+00:00'
+generated_at: '2026-10-24T07:03:11+00:00'
 event_count: 38
 events:
 - show: jokesjokesjokes
@@ -13,8 +13,8 @@ events:
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
   url: "/jokesjokesjokes/"
   date: '2026-10-27'
-  start: '2026-10-27T19:30:00+01:00'
-  end: '2026-10-27T21:30:00+01:00'
+  start: '2026-10-27T20:00:00+01:00'
+  end: '2026-10-27T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -84,8 +84,8 @@ events:
   venue_name: ROBIN's
   location: ROBIN's Coffee
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-zuerich-7507743592472958685.html
-  eventfrog_name: 'TALL ORDER: english stand-up comedy open mic'
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7507743592472958685.html
+  eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
@@ -117,8 +117,8 @@ events:
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
   url: "/jokesjokesjokes/"
   date: '2026-11-10'
-  start: '2026-11-10T19:30:00+01:00'
-  end: '2026-11-10T21:30:00+01:00'
+  start: '2026-11-10T20:00:00+01:00'
+  end: '2026-11-10T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -162,8 +162,8 @@ events:
   venue_name: ROBIN's
   location: ROBIN's Coffee
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-zuerich-7507743592519096030.html
-  eventfrog_name: 'TALL ORDER: english stand-up comedy open mic'
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7507743592519096030.html
+  eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: jackpotcomedy
   name: Jackpot Comedy
   title: Jackpot Comedy - downstairs @ OTRO
@@ -234,8 +234,8 @@ events:
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
   url: "/jokesjokesjokes/"
   date: '2026-11-24'
-  start: '2026-11-24T19:30:00+01:00'
-  end: '2026-11-24T21:30:00+01:00'
+  start: '2026-11-24T20:00:00+01:00'
+  end: '2026-11-24T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -292,8 +292,8 @@ events:
   venue_name: ROBIN's
   location: ROBIN's Coffee
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-zuerich-7507743592569427786.html
-  eventfrog_name: 'TALL ORDER: english stand-up comedy open mic'
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7507743592569427786.html
+  eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: mike-casa
   name: Mike Casa
   title: Mike Casa • Stand-up Comedy Show at ROBIN's Zürich • 2 December 2026
@@ -364,8 +364,8 @@ events:
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
   url: "/jokesjokesjokes/"
   date: '2026-12-08'
-  start: '2026-12-08T19:30:00+01:00'
-  end: '2026-12-08T21:30:00+01:00'
+  start: '2026-12-08T20:00:00+01:00'
+  end: '2026-12-08T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
@@ -422,8 +422,8 @@ events:
   venue_name: ROBIN's
   location: ROBIN's Coffee
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/tall-order-english-stand-up-comedy-open-mic-zuerich-7507743592611370827.html
-  eventfrog_name: 'TALL ORDER: english stand-up comedy open mic'
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7507743592611370827.html
+  eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: jackpotcomedy
   name: Jackpot Comedy
   title: Jackpot Comedy - downstairs @ OTRO
@@ -468,8 +468,8 @@ events:
   title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
   url: "/jokesjokesjokes/"
   date: '2026-12-22'
-  start: '2026-12-22T19:30:00+01:00'
-  end: '2026-12-22T21:30:00+01:00'
+  start: '2026-12-22T20:00:00+01:00'
+  end: '2026-12-22T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
