@@ -10,7 +10,9 @@ export type MomentPhase = typeof MOMENT_PHASES[number];
 // move once it has run (Meta errors 1487793 and 1487057, probed 2026-10-09).
 export const PERSISTENT_PHASES: MomentPhase[] = ["planner"];
 export const WINDOWED_PHASES: MomentPhase[] = ["tomorrow", "tonight"];
-export type MomentWhen = "any" | "wet" | "long_weekend";
+// season: a line for one stretch of the year (Halloween week), run for the shows whose date is
+// inside its season and in place of every other line; only in the tomorrow and tonight sets.
+export type MomentWhen = "any" | "wet" | "long_weekend" | "season";
 export type Audience = "cold" | "warm";
 export const AUDIENCES: Audience[] = ["cold", "warm"];
 
@@ -198,10 +200,16 @@ export function wetVerdict(show: string, w: WeatherInput, rule: WetRule = DEFAUL
 
 // Long weekend beats wet (the stronger reason to go out); the planner has no wet line, because a
 // forecast five days out is not worth a promise.
-export function pickWhen(phase: MomentPhase, longWeekend: boolean, wet: boolean): MomentWhen {
+export function pickWhen(phase: MomentPhase, longWeekend: boolean, wet: boolean, season = false): MomentWhen {
+  if (season) return "season";
   if (longWeekend) return "long_weekend";
   if (wet && phase !== "planner") return "wet";
   return "any";
+}
+
+// A season line belongs to a show when the show date is inside its season (both ends included).
+export function inSeason(season: { from: string; until: string } | undefined, show: string): boolean {
+  return !!season && show >= season.from && show <= season.until;
 }
 
 // ---------- money ----------

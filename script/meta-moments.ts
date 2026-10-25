@@ -35,7 +35,7 @@ import { join } from "node:path";
 import { fail, flagBool, flagString, log, parseArgs, warn } from "./lib/email/cli";
 import { OUT_DIR, REPO_ROOT, chfToMinor, healthcheck, loadConfig, metaFromEnv, minorToChf, type MetaConfig } from "./lib/meta-api";
 import { CREATIVE_DIR, adName, creativeSpec, imageFiles, loadBank, patient, uploadImage, writeBoard, type Bank, type Concept } from "./meta-bank";
-import { AUDIENCES, PERSISTENT_PHASES, WINDOWED_PHASES, adsetKey, budgetPlan, csvRows, holidaysFromApi, isLongWeekend, migrateState, nextShow, openWindow, orphanWindows, pickWhen, wetVerdict, windowAdsetName, windowBudgetChf, windowFor, windowStart, windowsFor, zurichHolidays, zurichParts, type Audience, type MomentPhase, type MomentsConfig, type MomentsState, type WeatherVerdict, type WindowSet } from "./lib/moments-lib";
+import { AUDIENCES, PERSISTENT_PHASES, WINDOWED_PHASES, adsetKey, budgetPlan, csvRows, holidaysFromApi, inSeason, isLongWeekend, migrateState, nextShow, openWindow, orphanWindows, pickWhen, wetVerdict, windowAdsetName, windowBudgetChf, windowFor, windowStart, windowsFor, zurichHolidays, zurichParts, type Audience, type MomentPhase, type MomentsConfig, type MomentsState, type WeatherVerdict, type WindowSet } from "./lib/moments-lib";
 
 const USAGE = `usage: bun script/meta-moments.ts [--setup [--validate]] [--dry-run [--validate]] [--at ISO] | --refresh --only IDS [--dry-run | --validate]`;
 const STATE_FILE = join(CREATIVE_DIR, "moments-state.json");   // gitignored with the rest of creative/
@@ -57,7 +57,11 @@ function momentsConfig(config: MetaConfig): MomentsConfig {
   if (!m) fail("meta-ads/config.yml has no moments: block (see config.example.yml)");
   return m;
 }
-function momentConcepts(bank: Bank, phase: MomentPhase): Concept[] { return bank.concepts.filter((c) => c.moment?.phase === phase && c.status !== "retired"); }
+// Only live lines get ads (a bench line waits for Harry's go); a season line joins only the sets
+// of a show inside its season (planner sets take none).
+function momentConcepts(bank: Bank, phase: MomentPhase, show?: string): Concept[] {
+  return bank.concepts.filter((c) => c.moment?.phase === phase && c.status === "live" && (c.moment.when !== "season" || (!!show && inSeason(c.moment.season, show))));
+}
 
 // ---------- setup ----------
 
@@ -152,7 +156,7 @@ async function ensureWindowSets(meta: ReturnType<typeof metaFromEnv>, config: Me
       const w = windowFor(show, phase);
       const start = windowStart(w, now);
       if (start === "ended") continue;
-      const concepts = momentConcepts(bank, phase);
+      const concepts = momentConcepts(bank, phase, show);
       if (!concepts.length) { warn(`${key}: no moment concepts in the bank, skipped`); continue; }
       const name = windowAdsetName(aud, phase, show);
       const chf = windowBudgetChf(plan, aud, phase);
@@ -287,9 +291,10 @@ async function run(dryRun: boolean, validate: boolean, atIso: string | undefined
   }
 
   // The pick for a phase, falling back to the any line when the bank has no ad for the condition;
-  // ads are written before their ad set, so the wrong line never runs for a moment.
+  // ads are written before their ad set, so the wrong line never runs for a moment. A season ad
+  // is only ever put in the sets of a show inside its season, so having one means it runs.
   const pickAds = async (key: string, phase: MomentPhase, ads: [string, { ad_id: string; when: string }][]) => {
-    let when = pickWhen(phase, longWeekend, wet);
+    let when = pickWhen(phase, longWeekend, wet, ads.some(([, a]) => a.when === "season"));
     if (!ads.some(([, a]) => a.when === when)) { warn(`${key}: no ${when} ad, running the any line`); when = "any"; }
     if (!ads.some(([, a]) => a.when === when)) warn(`${key}: no ad for ${when} either, nothing will run`);
     for (const [name, a] of ads) {

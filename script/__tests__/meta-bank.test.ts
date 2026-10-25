@@ -189,6 +189,18 @@ describe("the photo look's focus point", () => {
     writeFileSync(join(dir, "cold.yml"), head + "  - { id: C3, person: p, body: b, title: t, image: { style: photo, focus: [0, 1] }, status: bench }\n  - { id: C4, person: p, body: b, title: t, image: { style: photo }, status: bench }\n");
     expect(loadBank("cold", dir).concepts.map((x) => x.image.focus)).toEqual([[0, 1], undefined]);
   });
+  test("a season line needs when: season, real dates and a tomorrow or tonight phase", () => {
+    const dir = mkdtempSync(join(tmpdir(), "bank-"));
+    const head = "adset: cold\nlink: { show: comedybrew, utm_campaign: cold }\ndescription: d\nconcepts:\n";
+    const line = (moment: string) => `  - { id: C1, person: p, body: b, title: t, image: { style: photo }, moment: ${moment}, status: live }\n`;
+    const ok = "{ from: 2026-10-26, until: 2026-11-01 }";
+    for (const bad of [`{ phase: tonight, when: season }`, `{ phase: tonight, when: any, season: ${ok} }`, `{ phase: planner, when: season, season: ${ok} }`, `{ phase: tonight, when: season, season: { from: 2026-11-01, until: 2026-10-26 } }`, `{ phase: tonight, when: season, season: { from: soon, until: 2026-11-01 } }`]) {
+      writeFileSync(join(dir, "cold.yml"), head + line(bad));
+      expect(() => loadBank("cold", dir)).toThrow(/cold C1: /);
+    }
+    writeFileSync(join(dir, "cold.yml"), head + line(`{ phase: tonight, when: season, season: ${ok} }`));
+    expect(loadBank("cold", dir).concepts[0].moment?.season).toEqual({ from: "2026-10-26", until: "2026-11-01" });
+  });
 });
 
 describe("moments and the board", () => {

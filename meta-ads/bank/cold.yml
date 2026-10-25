@@ -133,3 +133,20 @@ concepts:
     image: { style: photo, photo: /assets/img/gallery/IMG_5294_20260924.jpg, focus: [0.55, 0.35], headline: "No alarm tomorrow.", sub: "English stand-up tonight, 19:30, near Central" }
     moment: { phase: tonight, when: long_weekend }
     status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+  # --- Halloween week, 2026-10-25 (Harry): a season line takes the tomorrow and tonight windows of
+  # every show inside its season, whatever the weather. Halloween is the mood, not the show:
+  # never a costume, a party or a Halloween night promised; Thursday is the usual Comedy Brew. ---
+  - id: C28
+    person: Alone in Halloween week (the woman in denim laughing in the red bar light, the room full behind her)
+    body: "Ghosts and monsters are out this week. Don't be alone: English stand-up tomorrow at ROBIN's, near Central. Doors 19:30."
+    title: "Halloween week. Don't be alone."
+    image: { style: photo, photo: /assets/img/gallery/IMG_5278_20260924.jpg, focus: [0.3, 0.2], headline: "Monsters are out. Don't be alone.", sub: "English stand-up tomorrow, doors 19:30" }
+    moment: { phase: tomorrow, when: season, season: { from: 2026-10-26, until: 2026-11-01 } }
+    status: live         # Harry's go 2026-10-25; the scheduler adds and switches it
+  - id: C29
+    person: Alone in Halloween week (the woman in denim laughing in the red bar light, the room full behind her)
+    body: "Monsters are out this week. Don't sit home alone: English stand-up tonight at ROBIN's, near Central. Doors 19:30."
+    title: "Halloween week. Don't be alone."
+    image: { style: photo, photo: /assets/img/gallery/IMG_5278_20260924.jpg, focus: [0.3, 0.2], headline: "Monsters are out. Don't be alone.", sub: "English stand-up tonight, doors 19:30" }
+    moment: { phase: tonight, when: season, season: { from: 2026-10-26, until: 2026-11-01 } }
+    status: live         # Harry's go 2026-10-25; the scheduler adds and switches it

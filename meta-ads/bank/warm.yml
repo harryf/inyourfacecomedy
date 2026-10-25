@@ -115,3 +115,18 @@ concepts:
     image: { style: photo, photo: "/assets/img/gallery/IMG_4475 Large.jpeg", focus: [0.45, 0.3], headline: "No alarm tomorrow.", sub: "Comedy Brew tonight, 19:30 at ROBIN's" }
     moment: { phase: tonight, when: long_weekend }
     status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+  # --- Halloween week, 2026-10-25 (Harry): see the note in cold.yml. The play is on the name. ---
+  - id: W21
+    person: Halloween week, knows the name (the woman laughing behind her hand, a row of women laughing)
+    body: "Double, double, toil and trouble: Comedy Brew is bubbling tomorrow at ROBIN's. Ten acts, doors 19:30."
+    title: "Something's brewing tomorrow"
+    image: { style: photo, photo: "/assets/img/gallery/IMG_4468 Large.jpeg", focus: [0.78, 0.32], headline: "Not a witches' brew. A Comedy Brew.", sub: "Tomorrow, doors 19:30 at ROBIN's" }
+    moment: { phase: tomorrow, when: season, season: { from: 2026-10-26, until: 2026-11-01 } }
+    status: live         # Harry's go 2026-10-25; the scheduler adds and switches it
+  - id: W22
+    person: Halloween week, knows the name (the woman laughing behind her hand, a row of women laughing)
+    body: "Double, double, toil and trouble: Comedy Brew is bubbling tonight at ROBIN's. Ten acts, doors 19:30, tickets on the door."
+    title: "Something's brewing tonight"
+    image: { style: photo, photo: "/assets/img/gallery/IMG_4468 Large.jpeg", focus: [0.78, 0.32], headline: "Not a witches' brew. A Comedy Brew.", sub: "Tonight, doors 19:30 at ROBIN's" }
+    moment: { phase: tonight, when: season, season: { from: 2026-10-26, until: 2026-11-01 } }
+    status: live         # Harry's go 2026-10-25; the scheduler adds and switches it

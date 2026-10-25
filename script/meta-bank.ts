@@ -83,7 +83,7 @@ export type Status = "live" | "resting" | "bench" | "retired";
 // land in an evergreen ad set and say "tonight" all week.
 export const PHASES = ["planner", "tomorrow", "tonight"] as const;
 export type Phase = typeof PHASES[number];
-export const WHENS = ["any", "wet", "long_weekend"] as const;
+export const WHENS = ["any", "wet", "long_weekend", "season"] as const;
 export type When = typeof WHENS[number];
 export interface Concept {
   id: string; person: string; body: string; title: string; description?: string;
@@ -96,7 +96,8 @@ export interface Concept {
   // same words, so the two can be compared. `twin: false`: the video ad only. `status` is the
   // video ad's own status when it differs from the still's (a retired video beside a live still).
   video?: { composition: string; twin?: boolean; status?: Status };
-  moment?: { phase: Phase; when: When };
+  // season (when: season only): the show dates the line runs for, ISO dates, both ends included.
+  moment?: { phase: Phase; when: When; season?: { from: string; until: string } };
   status: Status;
 }
 // The status that governs the video ad <group>-<id>v: its own when it has one, else the concept's.
@@ -114,6 +115,8 @@ export function loadBank(group: Group, dir = BANK_DIR): Bank {
     const f = c.image.focus;
     const m = c.moment;
     if (m !== undefined && !(PHASES.includes(m?.phase) && WHENS.includes(m?.when))) throw new Error(`${group} ${c.id}: moment must be { phase: ${PHASES.join("|")}, when: ${WHENS.join("|")} }`);
+    if (m && (m.when === "season") !== (m.season !== undefined)) throw new Error(`${group} ${c.id}: a moment.season goes with when: season, and when: season needs one`);
+    if (m?.season && !(m.phase !== "planner" && [m.season.from, m.season.until].every((d) => /^\d{4}-\d{2}-\d{2}$/.test(String(d))) && m.season.from <= m.season.until)) throw new Error(`${group} ${c.id}: moment.season must be { from: YYYY-MM-DD, until: YYYY-MM-DD } on a tomorrow or tonight line`);
     if (f !== undefined && !(Array.isArray(f) && f.length === 2 && f.every((n) => typeof n === "number" && n >= 0 && n <= 1))) throw new Error(`${group} ${c.id}: image.focus must be [x, y] with both between 0 and 1`);
   }
   return b;
@@ -184,7 +187,7 @@ export interface LiveState { label: string; kind: "on" | "waiting" | "off" | "re
 export function adsetLabel(group: string, c: Pick<Concept, "moment">): string { return c.moment ? `${group}-${c.moment.phase}` : `adset_${group}`; }
 export function sectionOf(c: Pick<Concept, "moment">): string {
   if (!c.moment) return "Evergreen (running all week)";
-  const when = { any: "", wet: ", wet or cold turn", long_weekend: ", long weekend" }[c.moment.when];
+  const when = { any: "", wet: ", wet or cold turn", long_weekend: ", long weekend", season: `, season ${c.moment.season?.from} to ${c.moment.season?.until}` }[c.moment.when];
   return { planner: "Planner (Saturday to Monday)", tomorrow: "Tomorrow (the Wednesday)", tonight: "Tonight (show day until doors)" }[c.moment.phase] + when;
 }
 export function sheetRows(dir = CREATIVE_DIR, bankDir = BANK_DIR): SheetRow[] {
@@ -194,7 +197,7 @@ export function sheetRows(dir = CREATIVE_DIR, bankDir = BANK_DIR): SheetRow[] {
     for (const c of loadBank(group, bankDir).concepts) {
       if (c.status !== "live" && c.status !== "bench") continue;
       const post = `${group}/${c.id}-post.png`, story = `${group}/${c.id}-story.png`;
-      const order = c.moment ? 1 + PHASES.indexOf(c.moment.phase) * 3 + WHENS.indexOf(c.moment.when) : 0;
+      const order = c.moment ? 1 + PHASES.indexOf(c.moment.phase) * WHENS.length + WHENS.indexOf(c.moment.when) : 0;
       if (existsSync(join(dir, post)) && existsSync(join(dir, story))) rows.push({ group, id: c.id, person: c.person, body: c.body, title: c.title, post, story, status: c.status, section: sectionOf(c), adset: adsetLabel(group, c), order: order * 10 + GROUPS.indexOf(group) });
     }
   }

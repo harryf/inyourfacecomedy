@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { budgetPlan, csvRows, easter, holidaysFromApi, isLongWeekend, nextShow, openWindow, pickWhen, wetVerdict, windowsFor, zurichHolidays, zurichIso, type MomentsConfig } from "../lib/moments-lib";
+import { budgetPlan, csvRows, easter, holidaysFromApi, inSeason, isLongWeekend, nextShow, openWindow, pickWhen, wetVerdict, windowsFor, zurichHolidays, zurichIso, type MomentsConfig } from "../lib/moments-lib";
 
 const at = (iso: string) => new Date(iso);
 const CFG: MomentsConfig = { weekly_envelope_chf: 91, cold_share: 0.7, split: { planner: 0.2, evergreen: 0.2, tomorrow: 0.2, tonight: 0.4 }, wet_boost: 1.5, long_weekend_boost: 1.5, max_boost: 1.75, floor_chf: 1, old_set_month_chf: 130, postcode_point: "800100", station_point: "71" };
@@ -81,6 +81,13 @@ describe("picking and money", () => {
     expect(pickWhen("tonight", false, true)).toBe("wet");
     expect(pickWhen("planner", false, true)).toBe("any");
     expect(pickWhen("tomorrow", false, false)).toBe("any");
+  });
+  test("a season line beats every condition; its season holds both ends", () => {
+    expect(pickWhen("tonight", true, true, true)).toBe("season");
+    expect(pickWhen("tomorrow", false, false, true)).toBe("season");
+    const s = { from: "2026-10-26", until: "2026-11-01" };
+    expect(["2026-10-25", "2026-10-26", "2026-10-29", "2026-11-01", "2026-11-05"].map((d) => inSeason(s, d))).toEqual([false, true, true, true, false]);
+    expect(inSeason(undefined, "2026-10-29")).toBe(false);
   });
   test("plain week: 70/30 and the curve, about the envelope", () => {
     const p = budgetPlan(CFG, false, false, 600);

@@ -84,6 +84,13 @@ when the day's rain at postcode 8001 is 3 mm or more, or the 3-hour rain chance 
 before. MeteoSwiss on 4 October for Thursday 8 October: 16.2 mm, evening chance up to 63%, high
 14.1 °C after 20.8 °C. All three hold.
 
+**Season lines** (2026-10-25, Halloween week). A tomorrow or tonight line can carry
+`when: season` and `season: { from, until }` (show dates, both ends included). It joins only the
+sets of a show inside its season and, once there, runs in place of every other line, whatever the
+weather or holiday. The scheduler adds ads only for `status: live` lines, so a new line waits on
+bench until Harry's go. First use: C28, C29, W21, W22 for the 29 Oct Brew (Halloween as the mood,
+never a Halloween show promised).
+
 **Holidays.** Source: OpenHolidays API (`openholidaysapi.org`, CH, subdivision CH-ZH, public and
 school holidays), with a computed fallback (the fixed dates plus the Easter dates) so a dead API
 never blocks a run. **long_weekend** = the Friday after the show is a public holiday in Zürich.
