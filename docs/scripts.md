@@ -733,9 +733,12 @@ bun script/meta-moments.ts --dry-run              # what now needs, nothing writ
 bun script/meta-moments.ts --dry-run --validate   # the same, and Meta checks the week's ad set bodies (validate_only)
 bun script/meta-moments.ts --dry-run --at 2026-10-08T08:00:00+02:00   # pretend it is then
 bun script/meta-moments.ts                        # the cron run
+bun script/meta-moments.ts --refresh --only W18 --dry-run    # a moment line whose text or picture changed: what would move
+bun script/meta-moments.ts --refresh --only W18 --validate   # Meta checks the new creative, writes nothing
+bun script/meta-moments.ts --refresh --only W18              # new creative; the ads that can still run move onto it
 ```
 
-Ids live in `meta-ads/creative/bank/moments-state.json` (gitignored); each run appends to `script/meta-out/moments-<date>.md` and rebuilds the local board. A new moment concept: add it to the bank, render it, run `--setup` again (it only makes what is missing). Pure logic in `script/lib/moments-lib.ts`, tests in `script/__tests__/moments-lib.test.ts`.
+Ids live in `meta-ads/creative/bank/moments-state.json` (gitignored); each run appends to `script/meta-out/moments-<date>.md` and rebuilds the local board. A new moment concept: add it to the bank, render it, run `--setup` again (it only makes what is missing). A changed moment concept: edit the bank, render it, then `--refresh --only <id>`: the cached creative is replaced (so later weeks use the new one) and the planner ad, or the ads in tomorrow and tonight sets whose window has not ended, move onto it, keeping their ids; ended sets keep the old creative. Pure logic in `script/lib/moments-lib.ts`, tests in `script/__tests__/moments-lib.test.ts`.
 
 ## `eventfrog-sales.ts`
 

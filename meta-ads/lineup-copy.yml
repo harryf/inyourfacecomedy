@@ -2,7 +2,7 @@
 # to the show before: they do not remember names, they remember the night. Meta shows one
 # body, one title and one description per person and learns which pairing works.
 #
-# Placeholders: {show} Comedy Brew, {weekday} Thursday, {date} Thu 17 Sep, {time} 19:30,
+# Placeholders: {show} Comedy Brew, {weekday} Thursday, {date} Thu 17 Sep, {time} 19:30 (the Eventfrog start, which is doors),
 # {venue} ROBIN's, {price} CHF 10. Bodies must stay at 125 characters or fewer after the
 # placeholders are filled (the script refuses longer ones); titles read best under 40,
 # descriptions under 30. Five of each is Meta's maximum. Edit freely; no names, no prices
@@ -29,5 +29,5 @@ descriptions:
   - "English stand-up, {time}"
   - "2 min from Central"
   - "Every {weekday}, never the same"
-  - "Doors 19:00, show {time}"
+  - "Doors {time}, first act 19:50"
   - "Tickets on Eventfrog"

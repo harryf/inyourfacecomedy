@@ -24,6 +24,9 @@
 //   bun script/meta-moments.ts --dry-run --validate # the same, and Meta checks the week's ad set bodies (validate_only)
 //   bun script/meta-moments.ts                      # make Meta match (the daily cron run)
 //   bun script/meta-moments.ts --dry-run --at 2026-10-08T08:00:00+02:00   # pretend it is then
+//   bun script/meta-moments.ts --refresh --only W18 --dry-run   # a moment ad whose text or picture changed: what would move
+//   bun script/meta-moments.ts --refresh --only W18 --validate  # Meta checks the new creative, nothing written
+//   bun script/meta-moments.ts --refresh --only W18             # new creative; the ads that can still run move onto it
 //
 // Writes script/meta-out/moments-<date>.md (gitignored); ids in meta-ads/creative/bank/moments-state.json.
 
@@ -34,7 +37,7 @@ import { OUT_DIR, REPO_ROOT, chfToMinor, healthcheck, loadConfig, metaFromEnv, m
 import { CREATIVE_DIR, adName, creativeSpec, imageFiles, loadBank, patient, uploadImage, writeBoard, type Bank, type Concept } from "./meta-bank";
 import { AUDIENCES, PERSISTENT_PHASES, WINDOWED_PHASES, adsetKey, budgetPlan, csvRows, holidaysFromApi, isLongWeekend, migrateState, nextShow, openWindow, orphanWindows, pickWhen, wetVerdict, windowAdsetName, windowBudgetChf, windowFor, windowStart, windowsFor, zurichHolidays, zurichParts, type Audience, type MomentPhase, type MomentsConfig, type MomentsState, type WeatherVerdict, type WindowSet } from "./lib/moments-lib";
 
-const USAGE = `usage: bun script/meta-moments.ts [--setup [--validate]] [--dry-run [--validate]] [--at ISO]`;
+const USAGE = `usage: bun script/meta-moments.ts [--setup [--validate]] [--dry-run [--validate]] [--at ISO] | --refresh --only IDS [--dry-run | --validate]`;
 const STATE_FILE = join(CREATIVE_DIR, "moments-state.json");   // gitignored with the rest of creative/
 const HC = "META_MOMENTS_HEALTHCHECKS_URL";
 const COPY_FIELDS = "targeting,optimization_goal,billing_event,bid_strategy,destination_type,attribution_spec,promoted_object";
@@ -385,10 +388,64 @@ async function run(dryRun: boolean, validate: boolean, atIso: string | undefined
   if (!dryRun) { const b = await writeBoard(); log(`board ${b.file}: ${b.rows} ads, states ${b.live ? "read from Meta" : "from the bank files"}`); }
 }
 
+// --refresh: a moment concept's text or picture changed in the bank. A new creative replaces the
+// cached one, so every later week's ad is made from it, and every ad of that concept that can
+// still run moves onto it: the planner ad, or the ads in tomorrow and tonight sets whose window
+// has not ended (ended sets keep the old creative, their history stays as it ran). The ad keeps
+// its id and name; Meta reviews it again. Render the images first (meta-bank.ts --render).
+async function refresh(only: string[], dryRun: boolean, validate: boolean) {
+  if (!only.length) fail(`--refresh needs --only IDS\n${USAGE}`);
+  const config = loadConfig();
+  const act = config.ad_account_id;
+  const state = readMomentsState();
+  const now = new Date();
+  const meta = dryRun ? null : metaFromEnv(config);
+  let found = 0;
+  for (const aud of AUDIENCES) {
+    const bank = loadBank(aud);
+    for (const c of bank.concepts.filter((x) => x.moment && only.includes(x.id))) {
+      found++;
+      const name = adName(aud, c), phase = c.moment!.phase as MomentPhase, key = adsetKey(aud, phase);
+      const files = imageFiles(aud, c);
+      if (!existsSync(files.post) || !existsSync(files.story)) fail(`${name}: no rendered images; run meta-bank.ts --render --local --only ${c.id}`);
+      // the ads that can still run: the persistent planner ad, or the window ads not yet ended
+      const ads: { ad_id: string; where: string }[] = [];
+      if (PERSISTENT_PHASES.includes(phase)) { if (state.ads[name]?.ad_id) ads.push({ ad_id: state.ads[name].ad_id, where: key }); }
+      else for (const [show, sets] of Object.entries(state.windows || {})) {
+        const ad = sets[key]?.ads[name];
+        if (ad && windowStart(windowFor(show, phase), now) !== "ended") ads.push({ ad_id: ad.ad_id, where: sets[key].name });
+      }
+      log(`${name}: "${c.body}"`);
+      log(`  creative ${state.creatives?.[name] || "(none cached)"} is replaced; ads to move: ${ads.length ? ads.map((a) => `${a.ad_id} (${a.where})`).join(", ") : "none"}`);
+      if (dryRun) continue;
+      const momentBank: Bank = { ...bank, link: { ...bank.link, utm_campaign: key } };
+      if (validate) {
+        const post = await uploadImage(meta!, act, name, files.post), story = await uploadImage(meta!, act, name, files.story);
+        try { const r = await patient(`${name} creative`, () => meta!.post(`${act}/adcreatives`, { ...creativeSpec(config, aud, momentBank, c, { post, story }), execution_options: ["validate_only"] })); log(`  validate_only accepted (${JSON.stringify(r)})`); }
+        catch (e: any) { warn(`  validate_only REJECTED: ${e.message}`); }
+        continue;
+      }
+      const old = state.creatives?.[name];
+      if (old) { delete state.creatives![name]; (state.previous_creatives ||= {})[name] = old; saveState(state); }
+      const creativeId = await ensureCreative(meta!, act, config, aud, momentBank, c, state);
+      for (const a of ads) {
+        await patient(`${name} ad`, () => meta!.post(a.ad_id, { creative: { creative_id: creativeId } }));
+        const back = await meta!.get(a.ad_id, { fields: "status,effective_status,creative{id}" });
+        log(`  ad ${a.ad_id} (${a.where}): creative ${old || "?"} -> ${back.creative?.id}, ${back.status}/${back.effective_status}`);
+        if (state.ads[name]?.ad_id === a.ad_id) state.ads[name].creative_id = creativeId;
+      }
+      saveState(state);
+    }
+  }
+  if (!found) fail(`--refresh: no moment concept matches ${only.join(",")}`);
+  log(dryRun ? "\ndry run, nothing written" : validate ? "\nvalidate only, nothing created or moved" : "\ndone; the moved ads go through Meta review again");
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   if (flagBool(args, "help")) { console.log(USAGE); return; }
   if (flagBool(args, "setup")) return setup(flagBool(args, "validate"), flagBool(args, "dry-run"));
+  if (flagBool(args, "refresh")) return refresh((flagString(args, "only") || "").split(",").map((x) => x.trim()).filter(Boolean), flagBool(args, "dry-run"), flagBool(args, "validate"));
   // A pretend time or a validate_only pass on a real run would create a set that starts now and
   // runs its line on the wrong day; both exist for dry runs only.
   if (!flagBool(args, "dry-run") && (flagBool(args, "validate") || flagString(args, "at"))) fail(`--validate and --at need --dry-run on the daily run\n${USAGE}`);
@@ -396,7 +453,7 @@ async function main() {
 }
 
 if (import.meta.main) {
-  const dry = process.argv.includes("--dry-run") || process.argv.includes("--setup");
+  const dry = process.argv.includes("--dry-run") || process.argv.includes("--setup") || process.argv.includes("--refresh");   // only the daily run pings Healthchecks
   main().then(() => dry ? undefined : healthcheck(HC, true)).catch(async (e) => {
     if (!dry) await healthcheck(HC, false, String(e?.message || e));
     fail(String(e?.message || e));

@@ -2,6 +2,9 @@
 # One ad per concept: one body (125 characters or fewer), one headline (under 40), one
 # description, one image. Evergreen: no dates, no comedian names, no prices, one sentence
 # that names a person, nothing that reads as "we watched you", no he, she, her or his (2026-09-29), no em dashes.
+# Times (Harry, 2026-10-25): doors are 19:30 and the first act is on about 19:50, so 19:30 is the
+# earliest time any line names and it is the arrival time, never the start: never 19:00, never
+# "show 19:30" or "acts from 19:30". "Doors 19:30" says it best.
 # image.style is an /adcard/ look (photo, swiss, type, chalk, station, logo); image.photo a
 # gallery path for the photo look; image.headline and image.sub are what the card paints.
 # THE RULE (2026-09-26, from the two ads that work, C7 and W6): every new concept is the photo
@@ -111,7 +114,7 @@ concepts:
     status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
   - id: C24
     person: No plan for tonight, Harry's line (the woman in glasses laughing out loud in a packed room)
-    body: "No idea what to do tonight? Do this: English stand-up at ROBIN's, two minutes from Central. Doors 19:00, tickets on the door."
+    body: "No idea what to do tonight? Do this: English stand-up at ROBIN's, two minutes from Central. Doors 19:30, tickets on the door."
     title: "No plans tonight? Do this."
     image: { style: photo, photo: "/assets/img/gallery/IMG_4460 Large.png", focus: [0.66, 0.4], headline: "No idea what to do tonight? Do this.", sub: "English stand-up, two minutes from Central" }
     moment: { phase: tonight, when: any }
@@ -125,7 +128,7 @@ concepts:
     status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
   - id: C26
     person: No work tomorrow (the man in the white tee laughing under the stage light)
-    body: "Day off tomorrow? Start the long weekend tonight: English stand-up at ROBIN's, two minutes from Central. Doors 19:00."
+    body: "Day off tomorrow? Start the long weekend tonight: English stand-up at ROBIN's, two minutes from Central. Doors 19:30."
     title: "Long weekend starts tonight"
     image: { style: photo, photo: /assets/img/gallery/IMG_5294_20260924.jpg, focus: [0.55, 0.35], headline: "No alarm tomorrow.", sub: "English stand-up tonight, 19:30, near Central" }
     moment: { phase: tonight, when: long_weekend }

@@ -27,7 +27,7 @@ concepts:
     status: live      # back on 2026-10-04 (Harry: it is working; retired by mistake earlier the same morning)
   - id: W8
     person: The person who saw a clip
-    body: "You have seen the clips. Now hear the room. Thursday at ROBIN's, doors 19:00."
+    body: "You have seen the clips. Now hear the room. Thursday at ROBIN's, doors 19:30."
     title: "Now hear the room"
     image: { style: clip, note: "ten seconds of the room laughing, from Harry's phone" }
     status: bench
@@ -46,9 +46,9 @@ concepts:
     status: retired      # retired 2026-10-04 (Harry): not working, paused on Meta, kept there for its data; CTR 1.42 on 848 impressions
   - id: W11
     person: The one with flatmates (three friends laughing in a row)
-    body: "Three friends, one Thursday. Comedy Brew at ROBIN's, doors 19:00, show 19:30, ten comedians, in English. Bring yours."
+    body: "Three friends, one Thursday. Comedy Brew at ROBIN's, doors 19:30, ten comedians, in English. Bring yours."
     title: "Bring the flatmates"
-    image: { style: photo, photo: "/assets/img/gallery/IMG_5160 Large.jpeg", focus: [0.35, 0.5], headline: "Bring the flatmates.", sub: "Thursdays at ROBIN's, doors 19:00" }
+    image: { style: photo, photo: "/assets/img/gallery/IMG_5160 Large.jpeg", focus: [0.35, 0.5], headline: "Bring the flatmates.", sub: "Thursdays at ROBIN's, doors 19:30" }
     status: retired      # retired 2026-10-04 (Harry): not working, paused on Meta, kept there for its data; CTR 1.18 on 423 impressions
   # --- Moments, 2026-10-04 (meta-ads/moments-plan.md): see the note in cold.yml. Warm knows us,
   # so the lines are shorter and say Comedy Brew. ---
@@ -96,9 +96,9 @@ concepts:
     status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
   - id: W18
     person: On tonight (the man in the white tee laughing under the stage light)
-    body: "Comedy Brew is on tonight. Doors 19:00, ten acts from 19:30, two minutes from Central. Tickets on the door too."
+    body: "Comedy Brew is on tonight. Doors 19:30, ten acts, two minutes from Central. Tickets on the door too."
     title: "Comedy Brew tonight"
-    image: { style: photo, photo: /assets/img/gallery/IMG_5294_20260924.jpg, focus: [0.55, 0.35], headline: "Tonight. 19:30. ROBIN's.", sub: "Comedy Brew, doors 19:00" }
+    image: { style: photo, photo: /assets/img/gallery/IMG_5294_20260924.jpg, focus: [0.55, 0.35], headline: "Tonight. Doors 19:30.", sub: "Comedy Brew at ROBIN's" }
     moment: { phase: tonight, when: any }
     status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
   - id: W19
@@ -110,7 +110,7 @@ concepts:
     status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
   - id: W20
     person: No alarm tomorrow (the woman in black laughing hardest, friends around her)
-    body: "Day off tomorrow? Then tonight is the night: Comedy Brew at ROBIN's, doors 19:00, ten acts from 19:30."
+    body: "Day off tomorrow? Then tonight is the night: Comedy Brew at ROBIN's, doors 19:30, ten acts."
     title: "Long weekend starts tonight"
     image: { style: photo, photo: "/assets/img/gallery/IMG_4475 Large.jpeg", focus: [0.45, 0.3], headline: "No alarm tomorrow.", sub: "Comedy Brew tonight, 19:30 at ROBIN's" }
     moment: { phase: tonight, when: long_weekend }

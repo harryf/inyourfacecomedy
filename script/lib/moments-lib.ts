@@ -76,6 +76,7 @@ export interface MomentsState {
   retired_adsets?: Record<string, string>;                 // the daily-budget tomorrow and tonight sets of 4 October, kept for their data
   retired_ads?: Record<string, { ad_id: string; adset: string }>;   // their ads, before the weekly ones took the names
   creatives?: Record<string, string>;                      // "cold-C22" -> creative id, reused every week
+  previous_creatives?: Record<string, string>;             // the creative a --refresh replaced, kept for the record
   ads: Record<string, { ad_id: string; creative_id: string; adset: string; phase: MomentPhase; when: MomentWhen }>;   // planner ads plus the newest window ad per concept (the board reads this)
   windows?: Record<string, Record<string, WindowSet>>;     // show date -> key -> the week's ad set
 }

@@ -126,7 +126,7 @@ Link: `utm_campaign=warm`, same show link, `utm_content={{ad.name}}`.
 | W5 | The habit | Same night, same room, a different show every week. Comedy Brew, Thursdays since 2021. | Same night. Different show. | Adcard: Swiss style |
 | W6 | The visual doubter | This is what a Thursday looks like. Comedy Brew, ROBIN's, two minutes from Central. | This is what Thursday looks like | Gallery: the best room shot, no text on the image |
 | W7 | The calendar reader | Comedy Brew is Thursday; the rest of the week is on the calendar. English stand-up in Zürich, most nights. | This week in Zürich | Week Story, departures board; link to /go/ for Comedy Brew |
-| W8 | The person who saw a clip | You have seen the clips. Now hear the room. Thursday at ROBIN's, doors 19:00. | Now hear the room | Phone clip (Harry), ten seconds of laughter |
+| W8 | The person who saw a clip | You have seen the clips. Now hear the room. Thursday at ROBIN's, doors 19:30. | Now hear the room | Phone clip (Harry), ten seconds of laughter |
 
 ## The bank: Intent (clicked for tickets, never bought)
 
@@ -137,7 +137,7 @@ Link: `utm_campaign=intent`, `utm_content={{ad.name}}`.
 | I1 | The practical one | Two minutes from Central, less than a cocktail, ten comedians. Thursday. Tickets on the door too. | Two minutes from Central | Adcard: photo style over the stage shot |
 | I2 | The one who needs proof | This is what it sounds like. | Thursday, ROBIN's | Phone clip, room laughing, no text |
 | I3 | The one worried about getting home | Still deciding? The last train home is after the show and the door is two minutes from Central. | The last train is after the show | Adcard: station board |
-| I4 | The one who wants a seat | Doors 19:00, show 19:30, seats go. Thursday at ROBIN's. Come early, the bar is open. | Doors 19:00. Seats go. | Adcard: chalkboard |
+| I4 | The one who wants a seat | Doors 19:30, seats go. Thursday at ROBIN's. Come early, the bar is open. | Doors 19:30. Seats go. | Adcard: chalkboard |
 | I5 | The solo visitor | Solo is fine. Half the room came alone. Thursday, English stand-up, near Central. | Half the room came alone | Gallery: audience, mixed |
 | I6 | The one waiting for a reason | Not sure about the lineup? Nobody is. That is the fun of ten acts in one night. | Ten acts. Nobody knows. | Adcard: Bold Type |
 | I7 | The weather excuse | Rain or not, the show is inside and the bar is open. Thursday at ROBIN's. | It is indoors | Adcard: photo style |
