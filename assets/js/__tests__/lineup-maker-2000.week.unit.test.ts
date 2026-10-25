@@ -307,3 +307,32 @@ describe("round nine: the Info line wraps before it shrinks; venues print two wo
     expect(lm6.weekVenueShort("")).toBe("");
   });
 });
+
+describe("the Halloween week style", () => {
+  const lm5 = require("../lineup-maker-2000.js") as {
+    weekCopy: (from: string, v: number, n?: number, style?: string) => { headline: string };
+    weekHeadlines: () => string[];
+    weekHauntHeadlines: () => string[];
+    newStylePairs: () => { style: string; text: string; field: string; kind: string }[];
+    contrastRatio: (a: string, b: string) => number;
+  };
+  test("the halloween style draws its headline from its own pool, the others keep theirs", () => {
+    const haunt = lm5.weekHauntHeadlines(), plain = lm5.weekHeadlines();
+    for (let v = 0; v < 30; v++) {
+      const h = lm5.weekCopy("2026-10-25", v, 5, "halloween").headline;
+      expect(haunt.map((x) => x.replace("{n}", "5"))).toContain(h);
+      expect(plain.map((x) => x.replace("{n}", "5"))).toContain(lm5.weekCopy("2026-10-25", v, 5).headline);
+    }
+  });
+  test("a {n} headline falls back to the pool's first line when there are fewer than two shows", () => {
+    for (let v = 0; v < 50; v++) expect(lm5.weekCopy("2026-10-25", v, 1, "halloween").headline).not.toContain("{n}");
+  });
+  test("haunted headlines follow the house rules: no you or your", () => {
+    for (const h of lm5.weekHauntHeadlines()) expect(h).not.toMatch(/\bYOU(R)?\b/);
+  });
+  test("the haunted style declares contrast pairs that clear WCAG", () => {
+    const pairs = lm5.newStylePairs().filter((p) => p.style === "week-haunt");
+    expect(pairs.length).toBeGreaterThanOrEqual(4);
+    for (const p of pairs) expect(lm5.contrastRatio(p.text, p.field), p.text + " on " + p.field).toBeGreaterThanOrEqual(p.kind === "small" ? 4.5 : 3.0);
+  });
+});

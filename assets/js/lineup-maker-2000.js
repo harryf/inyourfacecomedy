@@ -79,7 +79,7 @@
       stubLines: stubLines, stubLine: stubLine, hostLine: hostLine, hostsOf: hostsOf,
       weekWindow: weekWindow, weekEvents: weekEvents, weekHeadlines: weekHeadlines, weekCopy: weekCopy,
       weekHandles: weekHandles, weekHandlesText: weekHandlesText, weekCaption: weekCaption, weekCalLink: function () { return WEEK_CAL_LINK; },
-      weekIsoWeek: weekIsoWeek, weekComicLayout: weekComicLayout, flapLines: flapLines, weekComicWeight: weekComicWeight, weekMenuPrice: weekMenuPrice, showTagline: showTagline, weekDateBoard: weekDateBoard, weekInfoFor: weekInfoFor, stripEmoji: stripEmoji, weekInfoLines: weekInfoLines, weekVenueShort: weekVenueShort,
+      weekIsoWeek: weekIsoWeek, weekComicLayout: weekComicLayout, flapLines: flapLines, weekComicWeight: weekComicWeight, weekMenuPrice: weekMenuPrice, weekHauntHeadlines: weekHauntHeadlines, showTagline: showTagline, weekDateBoard: weekDateBoard, weekInfoFor: weekInfoFor, stripEmoji: stripEmoji, weekInfoLines: weekInfoLines, weekVenueShort: weekVenueShort,
       isGuest: isGuest, guestName: guestName, guestToken: guestToken, instaHandle: instaHandle,
       lineupUtm: lineupUtm, ticketQuery: ticketQuery
     };
@@ -2218,6 +2218,10 @@
       { style: 'week-menu', text: '#0F0F10', field: '#FBF4E4', kind: 'small' },     // items on the card
       { style: 'week-menu', text: '#B71C1C', field: '#FBF4E4', kind: 'small' },     // course headings
       { style: 'week-menu', text: '#5A5A5E', field: '#FBF4E4', kind: 'small' },     // item descriptions
+      { style: 'week-haunt', text: '#F3E9FF', field: '#2A1540', kind: 'small' },    // show names at the lightest point of the sky
+      { style: 'week-haunt', text: '#FF7A1A', field: '#2A1540', kind: 'small' },    // time and venue, headline
+      { style: 'week-haunt', text: '#CDB8E8', field: '#2A1540', kind: 'small' },    // the Info line
+      { style: 'week-haunt', text: '#2A1206', field: '#D9560A', kind: 'large' },    // weekday and date on the darkest pumpkin lobe
       { style: 'adcard-photo', text: '#FFF3E0', field: '#1A1A1D', kind: 'large' },   // headline on the scrim
       { style: 'adcard-photo', text: '#FFD54F', field: '#1A1A1D', kind: 'small' },   // sub line on the scrim
       { style: 'adcard-swiss', text: '#0F0F10', field: '#F2F2EE', kind: 'small' },   // headline on the paper
@@ -2936,8 +2940,8 @@
   }
   // Same week + same variant = same words. The page rolls a random variant on each fresh load
   // and writes it into the URL; "other words" bumps it. Pure; exported.
-  function weekCopy(fromIso, variant, n) {
-    var w = weekWindow(fromIso), v = (variant | 0), hs = weekHeadlines();
+  function weekCopy(fromIso, variant, n, style) {
+    var w = weekWindow(fromIso), v = (variant | 0), hs = style === 'halloween' ? weekHauntHeadlines() : weekHeadlines();
     var h = hs[ticketHash(w.from + '|week|head|' + v) % hs.length];
     n = (n == null) ? 0 : (n | 0);
     if (h.indexOf('{n}') >= 0) h = n >= 2 ? h.replace('{n}', String(n)) : hs[0];
@@ -3956,6 +3960,161 @@
     });
   }
 
+  // STYLE: Haunted (Halloween). A night sky with stars and a moon, cobwebs in both top corners,
+  // a spider on a thread and bats in the margin above the key area, the headline from its own
+  // pool in pumpkin capitals with an ink outline, then one row per show: the weekday and date on
+  // a pumpkin, the name in bone white, time and venue in pumpkin, the Info line in pale lavender,
+  // a sagging web strand between rows. A graveyard skyline sits under the floor, where the link
+  // sticker goes. No artwork, like the chalkboard and the menu.
+  var HAUNT_TOP = '#2A1540', HAUNT_BOT = '#0B0710', HAUNT_PUMPKIN = '#FF7A1A', HAUNT_BONE = '#F3E9FF', HAUNT_LAV = '#CDB8E8', HAUNT_WEB = '#E9E1F2', HAUNT_INK = '#2A1206';
+  // Harry's headline rules hold here too: nothing bossy, no "you" or "your". Pure; exported.
+  function weekHauntHeadlines() {
+    return ['NOBODY HAUNTS ALONE', 'ALL TREATS, NO TRICKS', 'DIE LAUGHING', 'LAUGHS AFTER DARK', 'A FRIGHTFULLY FUNNY WEEK',
+      '{n} SHOWS, NO TRICKS', 'SPOOKY WEEK AHEAD', 'SCREAMS AND LAUGHS', 'THE HAUNTED WEEK'];
+  }
+  // A corner cobweb: spokes fanning out of (cx, cy) between two angles, joined by rings that sag
+  // toward the centre.
+  function hauntWeb(ctx, cx, cy, r, a0, a1, spokes, rings, width) {
+    var ang = [], i, k;
+    for (i = 0; i < spokes; i++) ang.push(a0 + (a1 - a0) * i / (spokes - 1));
+    function pt(a, d) { return [cx + Math.cos(a) * d, cy + Math.sin(a) * d]; }
+    ctx.save(); ctx.strokeStyle = HAUNT_WEB; ctx.lineWidth = width; ctx.lineCap = 'round'; ctx.globalAlpha = 0.8;
+    ctx.beginPath();
+    ang.forEach(function (a) { var p = pt(a, r); ctx.moveTo(cx, cy); ctx.lineTo(p[0], p[1]); });
+    for (k = 1; k <= rings; k++) {
+      var d = r * k / (rings + 0.4), p0 = pt(ang[0], d);
+      ctx.moveTo(p0[0], p0[1]);
+      for (i = 0; i < ang.length - 1; i++) {
+        var p2 = pt(ang[i + 1], d), mid = pt((ang[i] + ang[i + 1]) / 2, d * 0.86);
+        ctx.quadraticCurveTo(mid[0], mid[1], p2[0], p2[1]);
+      }
+    }
+    ctx.stroke(); ctx.restore();
+  }
+  function hauntSpider(ctx, x, y, size, threadTop) {
+    ctx.save();
+    ctx.strokeStyle = HAUNT_WEB; ctx.lineWidth = 1.6; ctx.globalAlpha = 0.8;
+    ctx.beginPath(); ctx.moveTo(x, threadTop); ctx.lineTo(x, y - size * 0.5); ctx.stroke();
+    ctx.globalAlpha = 1; ctx.strokeStyle = HAUNT_BOT; ctx.fillStyle = HAUNT_BOT; ctx.lineWidth = size * 0.11; ctx.lineCap = 'round';
+    [-1, 1].forEach(function (side) {
+      for (var i = 0; i < 4; i++) {
+        var ly = y - size * 0.1, fx = x + side * size * (1.25 + (i === 1 || i === 2 ? 0.25 : 0)), fy = y + (i - 1.5) * size * 0.6;
+        ctx.beginPath(); ctx.moveTo(x, ly); ctx.quadraticCurveTo(x + side * size * 0.75, Math.min(ly, fy) - size * 0.45, fx, fy); ctx.stroke();
+      }
+    });
+    ctx.beginPath(); ctx.ellipse(x, y + size * 0.15, size * 0.5, size * 0.62, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(x, y - size * 0.45, size * 0.32, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = HAUNT_PUMPKIN;
+    ctx.beginPath(); ctx.arc(x - size * 0.12, y - size * 0.5, size * 0.07, 0, Math.PI * 2); ctx.arc(x + size * 0.12, y - size * 0.5, size * 0.07, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+  }
+  var HAUNT_BAT = 'M0 0 C-6 -8 -18 -10 -30 -4 C-24 -2 -22 2 -22 6 C-17 2 -12 3 -9 7 C-7 3 -3 2 0 4 C3 2 7 3 9 7 C12 3 17 2 22 6 C22 2 24 -2 30 -4 C18 -10 6 -8 0 0 Z M-2 -3 L-3 -8 L-1 -5 L1 -5 L3 -8 L2 -3 Z';
+  function hauntBat(ctx, x, y, s, fill) {
+    if (typeof Path2D === 'undefined') return;
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.fillStyle = fill; ctx.fill(new Path2D(HAUNT_BAT)); ctx.restore();
+  }
+  // A pumpkin of five lobes (darker at the sides) with a stem; rw and rh are the half sizes.
+  function hauntPumpkin(ctx, cx, cy, rw, rh) {
+    ctx.save();
+    ctx.fillStyle = '#4E7A2A'; roundRect(ctx, cx - rw * 0.08, cy - rh * 1.14, rw * 0.16, rh * 0.32, rw * 0.04); ctx.fill();
+    [[-0.42, 0.62, '#D9560A'], [0.42, 0.62, '#D9560A'], [-0.2, 0.7, '#EE6A10'], [0.2, 0.7, '#EE6A10'], [0, 0.6, HAUNT_PUMPKIN]].forEach(function (l) {
+      ctx.fillStyle = l[2]; ctx.beginPath(); ctx.ellipse(cx + l[0] * rw, cy, rw * l[1], rh, 0, 0, Math.PI * 2); ctx.fill();
+    });
+    ctx.restore();
+  }
+  // The graveyard along the bottom edge: a rolling ground line, headstones, a cross, two pumpkins.
+  function hauntGround(ctx, W, H, gh) {
+    var g = H - gh;
+    ctx.save(); ctx.fillStyle = '#05030A';
+    ctx.beginPath(); ctx.moveTo(0, g + gh * 0.3);
+    ctx.quadraticCurveTo(W * 0.15, g - gh * 0.05, W * 0.3, g + gh * 0.25);
+    ctx.quadraticCurveTo(W * 0.5, g + gh * 0.45, W * 0.7, g + gh * 0.2);
+    ctx.quadraticCurveTo(W * 0.86, g + gh * 0.02, W, g + gh * 0.22);
+    ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath(); ctx.fill();
+    [[0.2, 0.34, 0.5], [0.62, 0.28, 0.42], [0.8, 0.3, 0.55]].forEach(function (s) {   // headstones: x share, width share of gh, height share
+      var w = gh * s[1], h = gh * s[2], x = W * s[0] - w / 2, b = g + gh * 0.3;
+      ctx.beginPath(); ctx.moveTo(x, b); ctx.lineTo(x, b - h + w / 2); ctx.arc(x + w / 2, b - h + w / 2, w / 2, Math.PI, 0); ctx.lineTo(x + w, b); ctx.closePath(); ctx.fill();
+    });
+    var cxr = W * 0.42, cb = g + gh * 0.38;   // a cross
+    ctx.fillRect(cxr - gh * 0.04, cb - gh * 0.6, gh * 0.08, gh * 0.6); ctx.fillRect(cxr - gh * 0.17, cb - gh * 0.45, gh * 0.34, gh * 0.08);
+    ctx.restore();
+    hauntPumpkin(ctx, W * 0.08, g + gh * 0.42, gh * 0.2, gh * 0.15);
+    hauntPumpkin(ctx, W * 0.93, g + gh * 0.36, gh * 0.16, gh * 0.12);
+  }
+  function paintWeekHaunt(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story', pad = spec.keySide + 20;
+    var sky = chalkRnd('haunt|sky');   // the sky is the same every week; only the writing changes
+    var bgr = ctx.createLinearGradient(0, 0, 0, H);
+    bgr.addColorStop(0, HAUNT_TOP); bgr.addColorStop(1, HAUNT_BOT);
+    ctx.fillStyle = bgr; ctx.fillRect(0, 0, W, H);
+    ctx.save(); ctx.fillStyle = '#FFFFFF';
+    for (var i = 0; i < 140; i++) { ctx.globalAlpha = 0.15 + sky() * 0.5; ctx.beginPath(); ctx.arc(sky() * W, sky() * H * 0.85, 0.8 + sky() * 1.6, 0, Math.PI * 2); ctx.fill(); }
+    ctx.restore();
+    // the moon, top right, with a glow
+    var mx = W - spec.keySide - (story ? 120 : 100), my = spec.keyTop + (story ? 40 : 20), mr = story ? 72 : 56;
+    var glow = ctx.createRadialGradient(mx, my, mr * 0.5, mx, my, mr * 2.4);
+    glow.addColorStop(0, 'rgba(255,231,176,0.45)'); glow.addColorStop(1, 'rgba(255,231,176,0)');
+    ctx.fillStyle = glow; ctx.fillRect(mx - mr * 2.4, my - mr * 2.4, mr * 4.8, mr * 4.8);
+    ctx.fillStyle = '#FFE7B0'; ctx.beginPath(); ctx.arc(mx, my, mr, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#F2D592';
+    [[0.35, -0.2, 0.17], [-0.3, 0.3, 0.12], [0.15, 0.5, 0.09]].forEach(function (c) { ctx.beginPath(); ctx.arc(mx + c[0] * mr, my + c[1] * mr, c[2] * mr, 0, Math.PI * 2); ctx.fill(); });
+    // webs, spider and bats live mostly in the margin above the key area
+    var wr = story ? 300 : 230;
+    hauntWeb(ctx, 0, 0, wr, 0, Math.PI / 2, 7, 6, 2);
+    hauntWeb(ctx, W, 0, wr * 0.8, Math.PI / 2, Math.PI, 6, 5, 1.8);
+    hauntSpider(ctx, wr * 0.55, story ? spec.keyTop - 30 : spec.keyTop - 40, story ? 26 : 18, wr * 0.3);
+    var bs = story ? 1.6 : 1.2;
+    hauntBat(ctx, mx - mr * 2.2, my - mr * 0.9, bs, HAUNT_BOT); hauntBat(ctx, mx - mr * 2.6, my + mr * 0.5, bs * 0.7, HAUNT_BOT);
+    hauntBat(ctx, mx + mr * 0.2, my - mr * 0.15, bs * 0.9, HAUNT_BOT); hauntBat(ctx, W * 0.38, spec.keyTop * 0.55, bs * 0.6, '#1A0F26');
+    hauntGround(ctx, W, H, story ? 170 : 100);
+    // logo, then the headline in pumpkin capitals with an ink outline
+    var y = weekLogo(ctx, spec, m, spec.keyTop + 6, story ? 100 : 80) + (story ? 30 : 20);
+    var ttl = fitTitle(ctx, m.copy.headline, W - pad * 2, story ? 132 : 104, 60, 2, FONT_DISPLAY);
+    ctx.font = '400 ' + ttl.px + 'px ' + FONT_DISPLAY; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'; ctx.lineJoin = 'round';
+    ttl.lines.forEach(function (ln, li) {
+      var by = y + ttl.px * (li + 0.88) + li * ttl.px * 0.08;
+      ctx.lineWidth = Math.max(8, ttl.px * 0.1); ctx.strokeStyle = HAUNT_BOT; ctx.strokeText(ln, W / 2, by);
+      ctx.fillStyle = HAUNT_PUMPKIN; ctx.fillText(ln, W / 2, by);
+    });
+    y += ttl.lines.length * ttl.px * 1.08 + (story ? 36 : 22);
+    if (!m.rows.length) {
+      ctx.fillStyle = HAUNT_BONE; ctx.font = '400 ' + (story ? 72 : 60) + 'px ' + FONT_DISPLAY; ctx.fillText('NO SHOWS THIS WEEK', W / 2, H / 2);
+      ctx.fillStyle = HAUNT_LAV; ctx.font = '600 30px ' + FONT_BODY; ctx.fillText('the calendar has the next ones', W / 2, H / 2 + 60);
+      return;
+    }
+    var gap = 14, bandBot = weekFloor(spec);
+    var rowH = weekRowH(bandBot - y, m.rows.length, gap, story ? 200 : 150);
+    var startY = y + Math.max(0, (bandBot - y - (rowH * m.rows.length + gap * (m.rows.length - 1))) / 2);
+    m.rows.forEach(function (row, i) {
+      var t = startY + i * (rowH + gap), cy = t + rowH / 2;
+      // weekday and date on a pumpkin at the left
+      var pr = Math.min(rowH * 0.42, story ? 84 : 64), pw = pr * 1.15, pcx = pad + pw;
+      hauntPumpkin(ctx, pcx, cy + pr * 0.08, pw, pr);
+      ctx.fillStyle = HAUNT_INK; ctx.textAlign = 'center';
+      ctx.font = '400 ' + Math.round(pr * 0.6) + 'px ' + FONT_DISPLAY; ctx.fillText(row.day, pcx, cy + pr * 0.02);
+      ctx.font = '400 ' + Math.round(pr * 0.56) + 'px ' + FONT_DISPLAY; ctx.fillText(String(parseInt(row.date, 10) || ''), pcx, cy + pr * 0.6);
+      // name in bone, time and venue in pumpkin, the Info line in lavender
+      var nx = pad + pw * 2 + (story ? 30 : 22), nameW = W - pad - nx;
+      var info = row.info ? weekInfoLines(ctx, row.info, nameW, Math.round(rowH * 0.18), 15, '500', FONT_BODY) : { lines: [] };
+      var k = info.lines.length, nameH = k ? 0.32 : 0.38, subH = k ? 0.16 : 0.2, pitch = 0.19, top = cy - rowH * (nameH + subH + pitch * k) / 2;
+      ctx.textAlign = 'left';
+      var npx = fitFont(ctx, row.name, nameW, Math.round(rowH * nameH), 24, '400', FONT_DISPLAY);
+      ctx.fillStyle = HAUNT_BONE; ctx.fillText(row.name, nx, top + rowH * nameH / 2 + npx * 0.36);
+      var sub = [row.time, row.venue].filter(Boolean).join('  ·  ');
+      var spx = fitFont(ctx, sub, nameW, Math.max(24, Math.round(rowH * subH * 0.9)), 15, '700', FONT_BODY);
+      ctx.fillStyle = HAUNT_PUMPKIN; ctx.fillText(sub, nx, top + rowH * (nameH + subH / 2) + spx * 0.36);
+      if (k) {
+        ctx.fillStyle = HAUNT_LAV; ctx.font = '500 ' + info.px + 'px ' + FONT_BODY;
+        info.lines.forEach(function (ln, li) { ctx.fillText(ln, nx, top + rowH * (nameH + subH + pitch * (li + 0.5)) + info.px * 0.36); });
+      }
+      if (i < m.rows.length - 1) {   // a web strand between rows
+        var sy = t + rowH + gap / 2;
+        ctx.save(); ctx.strokeStyle = HAUNT_WEB; ctx.globalAlpha = 0.35; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.moveTo(pad, sy - 4); ctx.quadraticCurveTo(W / 2, sy + 8, W - pad, sy - 4); ctx.stroke(); ctx.restore();
+      }
+    });
+  }
+
   // STYLE: Restaurant menu. A paper card with double rules on a deep red cover, the headline
   // as the menu title, one course heading per day, items with dotted leaders to the price
   // (the calendar's price: FREE when it is 0), the time and venue as the item's description.
@@ -4069,7 +4228,7 @@
     });
   }
 
-  var WEEK_STYLES = { classic: paintWeekPolaroid, ticket: paintWeekTicket, swiss: paintWeekSwiss, type: paintWeekType, lava: paintWeekLava, comic: paintWeekComic, flap: paintWeekFlap, station: paintWeekStation, chalk: paintWeekChalk, menu: paintWeekMenu };
+  var WEEK_STYLES = { classic: paintWeekPolaroid, ticket: paintWeekTicket, swiss: paintWeekSwiss, type: paintWeekType, lava: paintWeekLava, comic: paintWeekComic, flap: paintWeekFlap, station: paintWeekStation, chalk: paintWeekChalk, menu: paintWeekMenu, halloween: paintWeekHaunt };
   var WEEK_EVENTS = parseCatalog('iyf-week-events');
   var WEEK_INFO = parseCatalog('iyf-week-info');   // the calendar's Info line per show and date
 
@@ -4080,7 +4239,7 @@
     canvas.width = spec.w; canvas.height = spec.h;
     var ctx = canvas.getContext('2d');
     var win = weekWindow(wk.from), evs = weekEvents(WEEK_EVENTS, win.from);
-    var copy = weekCopy(win.from, wk.v, evs.length);
+    var copy = weekCopy(win.from, wk.v, evs.length, style);
     var srcs = ['/assets/img/inyourface.png', assetURL(pickBackdrop())];
     // Rows carry the show's own artwork (the post's thumbnail, else its card image, else the
     // feature image); the hosts stay off the image and only their handles are offered.
@@ -4167,7 +4326,7 @@
       var panel = el('div', 'lineup-lab__flyer');
       panel.appendChild(el('h2', 'lineup-lab__outputs-title', '🎨 Share image'));
       var styleToggle = el('div', 'lineup-lab__fmt-toggle lineup-lab__style-toggle');
-      [['classic', '🎞️ Polaroid'], ['ticket', '🎟️ Ticket'], ['swiss', '🔴 Swiss'], ['type', '🔠 Bold Type'], ['lava', '🌋 Lava'], ['comic', '💥 Comic'], ['flap', '🛫 Departures'], ['station', '🚉 Station'], ['chalk', '🖍️ Chalkboard'], ['menu', '🍽️ Menu']].forEach(function (pr) {
+      [['classic', '🎞️ Polaroid'], ['ticket', '🎟️ Ticket'], ['swiss', '🔴 Swiss'], ['type', '🔠 Bold Type'], ['lava', '🌋 Lava'], ['comic', '💥 Comic'], ['flap', '🛫 Departures'], ['station', '🚉 Station'], ['chalk', '🖍️ Chalkboard'], ['menu', '🍽️ Menu'], ['halloween', '🎃 Halloween']].forEach(function (pr) {
         var b = button('lineup-lab__fmt-btn' + (wk.style === pr[0] ? ' is-on' : ''), pr[1]);
         b.setAttribute('aria-pressed', wk.style === pr[0] ? 'true' : 'false');
         b.addEventListener('click', function () { wk.style = pr[0]; paint(); });
