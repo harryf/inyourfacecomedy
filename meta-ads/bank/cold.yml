@@ -66,6 +66,13 @@ concepts:
     title: "Comedy you get every word of"
     image: { style: photo, photo: /assets/img/gallery/IMG_5275_20260924.jpg, focus: [0.48, 0.42], headline: "Every word landed.", sub: "English stand-up, Thursdays in Zürich" }
     status: retired      # retired 2026-10-04 (Harry): not working, paused on Meta, kept there for its data
+  # --- 2026-10-25: from the 21 Oct frames. ---
+  - id: C27
+    person: New in town, wants a night out (the man in the dark shirt mid-laugh, the row laughing with him)
+    body: "New in Zürich? English stand-up every Thursday, two minutes from Central. Ten acts, doors 19:30, a room full of laughs."
+    title: "Thursday night, mid-laugh"
+    image: { style: photo, photo: /assets/img/gallery/IMG_5485_20261021.jpg, focus: [0.40, 0.33], headline: "Thursday night, mid-laugh.", sub: "English stand-up, two minutes from Central" }
+    status: resting      # pushed PAUSED 2026-10-25 (Harry); set live and run --sync --apply to switch it on
   # --- Moments, 2026-10-04 (meta-ads/moments-plan.md). Same laugh rule, but each line belongs to a
   # window, so these may say "tonight", "tomorrow" or "long weekend": the moment scheduler runs
   # them only inside their window, and --push refuses them. Cold names what and where every time:
