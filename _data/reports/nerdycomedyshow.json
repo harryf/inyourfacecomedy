@@ -3,22 +3,22 @@
  "title": "The NERDY COMEDY Show",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/nerdy-stand-up-comedy-en-7284304661632248367.html",
  "event_type": "series",
- "generated_at": "2026-10-24T08:20:02.128Z",
+ "generated_at": "2026-10-25T09:20:02.128Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-24",
- "complete_through": "2026-10-22",
+ "through": "2026-10-25",
+ "complete_through": "2026-10-23",
  "totals": {
-  "clicks": 193,
-  "redirect": 161,
+  "clicks": 224,
+  "redirect": 192,
   "click": 32,
-  "clicks_30d": 171,
-  "redirect_30d": 153,
-  "click_30d": 18,
-  "views": 63,
-  "views_30d": 35,
-  "sessions": 62,
-  "sessions_30d": 34,
+  "clicks_30d": 199,
+  "redirect_30d": 183,
+  "click_30d": 16,
+  "views": 85,
+  "views_30d": 53,
+  "sessions": 94,
+  "sessions_30d": 62,
   "broken_links": 0,
   "untagged": 0
  },
@@ -489,15 +489,23 @@
   },
   {
    "date": "2026-10-23",
-   "redirect": 28,
+   "redirect": 33,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-24",
-   "redirect": 5,
+   "redirect": 27,
+   "click": 0,
+   "views": 22,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-25",
+   "redirect": 4,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -508,7 +516,7 @@
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 148,
+   "clicks": 179,
    "views": 2,
    "sessions": 2
   },
@@ -530,15 +538,15 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 6,
-   "views": 12,
-   "sessions": 12
+   "views": 16,
+   "sessions": 23
   },
   {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
    "clicks": 4,
-   "views": 4,
-   "sessions": 4
+   "views": 5,
+   "sessions": 5
   },
   {
    "source": "followers",
@@ -576,6 +584,13 @@
    "sessions": 0
   },
   {
+   "source": "VA LBHE ABDF Dbzfel",
+   "medium": "email",
+   "clicks": 0,
+   "views": 17,
+   "sessions": 20
+  },
+  {
    "source": "duckduckgo",
    "medium": "organic",
    "clicks": 0,
@@ -595,13 +610,13 @@
    "campaign": "nerdycomedyshow-20261031",
    "source": "instagram",
    "medium": "social",
-   "clicks": 140,
+   "clicks": 171,
    "first": "2026-10-15",
-   "last": "2026-10-24",
+   "last": "2026-10-25",
    "content": [
     {
      "content": "120251288382680219",
-     "clicks": 129
+     "clicks": 158
     },
     {
      "content": "link_in_bio",
