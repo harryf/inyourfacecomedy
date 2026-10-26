@@ -3,11 +3,11 @@
  "title": "Jackpot Comedy",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jackpot-comedy-7413646370706339342.html",
  "event_type": "series",
- "generated_at": "2026-10-25T09:20:02.128Z",
+ "generated_at": "2026-10-26T09:20:02.028Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-25",
- "complete_through": "2026-10-23",
+ "through": "2026-10-26",
+ "complete_through": "2026-10-24",
  "totals": {
   "clicks": 892,
   "redirect": 817,
@@ -500,11 +500,19 @@
    "redirect": 1,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-25",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-26",
    "redirect": 0,
    "click": 0,
    "views": 0,
