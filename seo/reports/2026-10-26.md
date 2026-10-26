@@ -1,6 +1,6 @@
 # Search Console loop: week of 2026-10-26
 
-Snapshot window 2026-09-26 to 2026-10-23 (28 days of final data, 237 query and page pairs with 3 or more impressions over 71 pages) drives the trend, the movers and the experiment verdicts. Discovery window 2026-07-26 to 2026-10-23 (90 days, 353 pairs) drives the opportunities and page briefs, because small queries only show over a longer run. Generated 2026-10-26T09:26:03.169Z. How to read this and how to log a change: `seo/README.md`.
+Snapshot window 2026-09-26 to 2026-10-23 (28 days of final data, 237 query and page pairs with 3 or more impressions over 71 pages) drives the trend, the movers and the experiment verdicts. Discovery window 2026-07-26 to 2026-10-23 (90 days, 353 pairs) drives the opportunities and page briefs, because small queries only show over a longer run. Generated 2026-10-26T09:40:02.597Z. How to read this and how to log a change: `seo/README.md`.
 
 ## Trend
 
