@@ -269,7 +269,8 @@ datetime,event,source,medium,campaign,content,page
 2026-10-25 01:10,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 01:10,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 01:24,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
-2026-10-25 01:32,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
+2026-10-25 01:29,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
+2026-10-25 01:32,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
 2026-10-25 02:19,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 03:54,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 04:18,ticket_redirect,meta,paid_social,jokesjokesjokes,,Ticket Redirect
@@ -277,6 +278,7 @@ datetime,event,source,medium,campaign,content,page
 2026-10-25 07:33,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 07:55,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 08:51,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-25 08:56,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 09:03,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 09:58,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 11:36,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
@@ -293,11 +295,13 @@ datetime,event,source,medium,campaign,content,page
 2026-10-25 18:07,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 18:33,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 18:34,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-25 18:48,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 18:59,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-25 19:00,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 19:02,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
-2026-10-25 19:03,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
-2026-10-25 19:03,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 19:03,ticket_redirect,meta,paid_social,jokesjokesjokes,,Ticket Redirect
+2026-10-25 19:03,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-25 19:03,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 19:03,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 19:05,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 19:05,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
@@ -309,10 +313,12 @@ datetime,event,source,medium,campaign,content,page
 2026-10-25 19:08,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 19:09,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 19:10,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-25 19:12,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 19:15,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 19:17,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-25 19:17,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 19:21,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
-2026-10-25 20:41,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
+2026-10-25 20:41,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
 2026-10-25 21:39,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 21:40,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-25 22:57,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
@@ -334,3 +340,61 @@ datetime,event,source,medium,campaign,content,page
 2026-10-26 07:04,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-26 07:26,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-26 07:42,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 09:29,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 09:50,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/jokesjokesjokes/
+2026-10-26 10:16,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 10:52,ticket_click,guidle,referral,jokesjokesjokes,,https://inyourfacecomedy.ch/jokesjokesjokes/
+2026-10-26 11:13,ticket_redirect,instagram,social,jokesjokesjokes-20261027,tickets,Ticket Redirect
+2026-10-26 11:13,ticket_redirect,instagram,social,jokesjokesjokes-20261027,tickets,Ticket Redirect
+2026-10-26 11:16,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 11:40,ticket_redirect,meta,paid_social,jokesjokesjokes,,Ticket Redirect
+2026-10-26 11:48,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 12:24,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 12:59,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 14:18,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 14:40,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 15:05,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 16:02,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 16:02,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 16:10,ticket_redirect,meta,paid_social,jokesjokesjokes,,Ticket Redirect
+2026-10-26 16:10,ticket_redirect,meta,paid_social,jokesjokesjokes,,Ticket Redirect
+2026-10-26 16:10,ticket_redirect,meta,paid_social,jokesjokesjokes,,Ticket Redirect
+2026-10-26 16:10,ticket_redirect,meta,paid_social,jokesjokesjokes,,Ticket Redirect
+2026-10-26 16:14,ticket_redirect,meta,paid_social,jokesjokesjokes,,Ticket Redirect
+2026-10-26 16:15,ticket_redirect,meta,paid_social,jokesjokesjokes,,Ticket Redirect
+2026-10-26 16:18,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 16:20,ticket_redirect,meta,paid_social,jokesjokesjokes,,Ticket Redirect
+2026-10-26 16:20,ticket_redirect,meta,paid_social,jokesjokesjokes,,Ticket Redirect
+2026-10-26 17:10,ticket_redirect,instagram,social,jokesjokesjokes-20261027,tickets,Ticket Redirect
+2026-10-26 17:13,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 17:32,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 17:32,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 17:58,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 18:03,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 18:14,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 18:35,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 18:36,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 18:37,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-10-26 18:53,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 19:00,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
+2026-10-26 19:22,ticket_redirect,instagram,social,jokesjokesjokes-20261027,tickets,Ticket Redirect
+2026-10-26 20:25,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-10-26 20:37,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 20:39,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 20:48,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 20:48,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 21:37,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 22:12,ticket_click,guidle,referral,jokesjokesjokes,,https://inyourfacecomedy.ch/jokesjokesjokes/
+2026-10-26 22:35,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 23:03,ticket_click,guidle,referral,jokesjokesjokes,,https://inyourfacecomedy.ch/
+2026-10-26 23:15,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 23:22,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 23:27,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-26 23:42,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
+2026-10-27 02:33,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-27 03:21,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-27 03:49,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-27 06:13,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-27 07:46,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-27 07:47,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/jokesjokesjokes/
+2026-10-27 07:54,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect

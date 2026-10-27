@@ -3,22 +3,22 @@
  "title": "PROMESSI SPASSI",
  "ticket_url": "https://eventfrog.ch/en/p/groups/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081056758243.html",
  "event_type": "monthly",
- "generated_at": "2026-10-26T09:20:02.028Z",
+ "generated_at": "2026-10-27T09:20:01.855Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-26",
- "complete_through": "2026-10-24",
+ "through": "2026-10-27",
+ "complete_through": "2026-10-25",
  "totals": {
-  "clicks": 3212,
-  "redirect": 3170,
+  "clicks": 3232,
+  "redirect": 3190,
   "click": 42,
-  "clicks_30d": 977,
-  "redirect_30d": 957,
-  "click_30d": 20,
+  "clicks_30d": 983,
+  "redirect_30d": 964,
+  "click_30d": 19,
   "views": 102,
-  "views_30d": 41,
+  "views_30d": 39,
   "sessions": 97,
-  "sessions_30d": 36,
+  "sessions_30d": 34,
   "broken_links": 0,
   "untagged": 0
  },
@@ -505,15 +505,23 @@
   },
   {
    "date": "2026-10-25",
-   "redirect": 8,
+   "redirect": 11,
    "click": 0,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-26",
-   "redirect": 3,
+   "redirect": 18,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-27",
+   "redirect": 2,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -524,14 +532,14 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 3046,
+   "clicks": 3061,
    "views": 2,
    "sessions": 2
   },
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 75,
+   "clicks": 80,
    "views": 1,
    "sessions": 1
   },
@@ -700,13 +708,13 @@
    "campaign": "promessi-spassi",
    "source": "instagram",
    "medium": "social",
-   "clicks": 68,
+   "clicks": 73,
    "first": "2026-08-27",
-   "last": "2026-10-22",
+   "last": "2026-10-26",
    "content": [
     {
      "content": "link_in_bio",
-     "clicks": 61
+     "clicks": 62
     }
    ]
   },
@@ -714,13 +722,13 @@
    "campaign": "promessi-spassi-20261118",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 33,
+   "clicks": 48,
    "first": "2026-10-23",
-   "last": "2026-10-26",
+   "last": "2026-10-27",
    "content": [
     {
      "content": "52683068634000",
-     "clicks": 21
+     "clicks": 35
     }
    ]
   },
