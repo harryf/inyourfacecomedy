@@ -1,8 +1,8 @@
 ---
 layout: comedian
 title: "Ali"
-description: "Ali performs English stand-up comedy with IN YOUR FACE in Zürich, Switzerland."
-last_modified_at: "2026-10-26T11:34:01+00:00"
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. Ali is a good boy. Likes belly rubs. Please do not look directly in the eyes."
+last_modified_at: "2026-10-27T09:05:04+00:00"
 slug: "ali"
 photo: "/assets/img/comedians/ali.jpg"
 instagram: ""
@@ -13,6 +13,7 @@ youtube_channel: ""
 website: ""
 priority: "Low"
 image: "/assets/img/comedians/ali.jpg"
-bio: ""
+bio: |
+  Ali is a good boy. Likes belly rubs. Please do not look directly in the eyes.
 ---
 
