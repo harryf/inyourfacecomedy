@@ -24,6 +24,8 @@ next_event_end_date: 2027-04-03T22:00:00+02:00
 
 Die Menschheit hat sich ins World Wide Web verliebt, weil es akademische Informationen für alle frei zugänglich gemacht hat? Ja, genau…
 
+![Digital Daddy, Stand-up von Benjamin Delahaye](/assets/img/uploads/digital-daddy-auf-deutsch_feature.webp "Digital Daddy, Stand-up von Benjamin Delahaye")
+
 Das Internet hat unser Leben verändert und uns alles gegeben: Wissen, Unterhaltung, Plattformen zum Selbstausdruck, und Websites, die definitiv nur von über 18-Jährigen besucht werden. Und im Gegenzug hat es uns… alles genommen. Unsere Aufmerksamkeitsspanne? Weg. Unsere Privatsphäre? Gelöscht. Unsere Fähigkeit zu intelligenter politischer Diskussion? Nun ja, die war schon immer optional.
 
 In *Digital Daddy* taucht der Comedian Benjamin Delahaye tief in unsere kollektive digitale Abhängigkeit ein. Von den grossen Versprechungen der ersten Modemverbindungen bis zum chaotischen Wahnsinn der Social-Media-Ära seziert er die Absurdität einer Welt, in der uns Technologie eigentlich näherbringen sollte, und die uns stattdessen isolierter gemacht hat als je zuvor. Ist das Leben heute wirklich besser?
