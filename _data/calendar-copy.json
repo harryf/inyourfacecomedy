@@ -1,6 +1,15 @@
 {
   "month_flavor": {
     "pool": {
+      "01": [
+        "January in Zürich: the resolutions are cracking, the days are short, and a night of laughing is the one plan that makes it to February."
+      ],
+      "03": [
+        "March in Zürich: the ski crowd is back, the spring jackets come out too early, and a room full of laughing strangers warms you up anyway."
+      ],
+      "04": [
+        "April in Zürich: Sechseläuten is coming, the Böögg is nervous, and so is anyone who has to follow a good punchline."
+      ],
       "05": [
         "May the laughs be with you! Warmer weather, longer days, and comedians who've finally figured out their material."
       ],
@@ -139,7 +148,10 @@
     "assigned": {
       "2026-10": "October in Zürich: the clocks change, the temperature drops, and the only reliable warmth left is a punchline landing exactly on time.",
       "2026-11": "The leaves are down, the fondue is bubbling, and somebody onstage is about to say something they cannot unsay.",
-      "2026-12": "Forget the Christmas markets for one evening and let someone professionally ruin the carol that has been stuck in your head since November."
+      "2026-12": "Forget the Christmas markets for one evening and let someone professionally ruin the carol that has been stuck in your head since November.",
+      "2027-01": "January in Zürich: the resolutions are cracking, the days are short, and a night of laughing is the one plan that makes it to February.",
+      "2027-03": "March in Zürich: the ski crowd is back, the spring jackets come out too early, and a room full of laughing strangers warms you up anyway.",
+      "2027-04": "April in Zürich: Sechseläuten is coming, the Böögg is nervous, and so is anyone who has to follow a good punchline."
     }
   },
   "show_info": {
@@ -233,7 +245,6 @@
         "Your social life called, it wants you at open mic 📞"
       ],
       "assigned": {
-        "2026-10-29": "Martina proves Thursdays are underrated 💫",
         "2026-11-05": "Skip the cult meetup, find your crew here instead 😈",
         "2026-11-12": "Stand-up, new friends, and zero hiking required 🏔️",
         "2026-11-19": "The bravest humans in the room get the biggest laughs 🎤",
@@ -242,6 +253,30 @@
         "2026-12-10": "Tired of small talk? Here the laughs do the work 😄",
         "2026-12-17": "An open mic this good really shouldn't be a secret 🌟",
         "2026-12-24": "Where strangers bond over someone's worst joke 😅"
+      }
+    },
+    "digital-daddy-auf-deutsch": {
+      "pool": [
+        "Benjamins Soloprogramm über unsere Handysucht 📱"
+      ],
+      "assigned": {
+        "2027-04-03": "Benjamins Soloprogramm über unsere Handysucht 📱"
+      }
+    },
+    "digital-daddy-en-francais": {
+      "pool": [
+        "Le solo de Benjamin sur notre addiction au numérique 📱"
+      ],
+      "assigned": {
+        "2027-03-12": "Le solo de Benjamin sur notre addiction au numérique 📱"
+      }
+    },
+    "digital-daddy-in-english": {
+      "pool": [
+        "Benjamin's solo show on our digital addiction 📱"
+      ],
+      "assigned": {
+        "2027-01-29": "Benjamin's solo show on our digital addiction 📱"
       }
     },
     "gratis-zum-mitnehmen": {
@@ -378,7 +413,6 @@
         "Your laugh decides which jokes make it home 🏠"
       ],
       "assigned": {
-        "2026-10-27": "Comedy that zigs where every other night zags 😏",
         "2026-11-03": "Jokes from angles you did not see coming 🎯",
         "2026-11-10": "Polished bits meet loose ideas after dark 🌙",
         "2026-11-17": "The punchline lands where you least expect 🎪",
@@ -479,7 +513,6 @@
         "Esta noche el español no necesita subtítulos, solo risas 😊"
       ],
       "assigned": {
-        "2026-10-29": "Catarsis colectiva en tu idioma, sin subtítulos 🙌",
         "2026-11-05": "Tu experiencia migrante merece un aplauso 👏",
         "2026-11-19": "Donde el español no necesita traducción 🌶️",
         "2026-11-26": "Con acento, sin culpa y con mucho humor 😎",

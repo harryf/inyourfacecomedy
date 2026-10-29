@@ -5,22 +5,9 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-10-29T08:00:01+00:00'
-event_count: 36
+generated_at: '2026-10-29T18:32:25+00:00'
+event_count: 38
 events:
-- show: comedybrew
-  name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
-  url: "/comedybrew/"
-  date: '2026-10-29'
-  start: '2026-10-29T19:30:00+01:00'
-  end: '2026-10-29T22:00:00+01:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-thursday-sorted-zuerich-7466831682483568140.html
-  eventfrog_name: 'Comedy Brew, English Stand-Up: Thursday, sorted'
 - show: nerdycomedyshow
   name: The NERDY COMEDY Show
   title: The NERDY COMEDY Show - English Standup Comedy in ZURICH
@@ -138,19 +125,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165728723715.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
-- show: jackpotcomedy
-  name: Jackpot Comedy
-  title: Jackpot Comedy - downstairs @ OTRO
-  url: "/jackpotcomedy/"
-  date: '2026-11-18'
-  start: '2026-11-18T20:00:00+01:00'
-  end: '2026-11-18T22:00:00+01:00'
-  venue: otro
-  venue_name: Bar OTRO
-  location: OTRO - Cocktailbar Zürich
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798260639068110.html
-  eventfrog_name: Jackpot Comedy
 - show: promessi-spassi
   name: PROMESSI SPASSI
   title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
@@ -164,6 +138,19 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081128061415.html
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
+- show: jackpotcomedy
+  name: Jackpot Comedy
+  title: Jackpot Comedy - downstairs @ OTRO
+  url: "/jackpotcomedy/"
+  date: '2026-11-18'
+  start: '2026-11-18T20:00:00+01:00'
+  end: '2026-11-18T22:00:00+01:00'
+  venue: otro
+  venue_name: Bar OTRO
+  location: OTRO - Cocktailbar Zürich
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798260639068110.html
+  eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
@@ -216,19 +203,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165779055364.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
-- show: comedybrew
-  name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
-  url: "/comedybrew/"
-  date: '2026-11-26'
-  start: '2026-11-26T19:30:00+01:00'
-  end: '2026-11-26T22:00:00+01:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-lost-in-town-find-your-funny-zuerich-7466832108633224028.html
-  eventfrog_name: 'Comedy Brew, English Stand-Up: Lost in town? Find your funny'
 - show: latarima
   name: La Tarima
   title: La Tarima - Comedia en Español
@@ -242,6 +216,19 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-zuerich-7472021574628952076.html
   eventfrog_name: La Tarima - Comedia en Español - ZURICH
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2026-11-26'
+  start: '2026-11-26T19:30:00+01:00'
+  end: '2026-11-26T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-lost-in-town-find-your-funny-zuerich-7466832108633224028.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Lost in town? Find your funny'
 - show: nerdycomedyshow
   name: The NERDY COMEDY Show
   title: The NERDY COMEDY Show - English Standup Comedy in ZURICH
@@ -398,19 +385,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165938438986.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
-- show: jackpotcomedy
-  name: Jackpot Comedy
-  title: Jackpot Comedy - downstairs @ OTRO
-  url: "/jackpotcomedy/"
-  date: '2026-12-16'
-  start: '2026-12-16T20:00:00+01:00'
-  end: '2026-12-16T22:00:00+01:00'
-  venue: otro
-  venue_name: Bar OTRO
-  location: OTRO - Cocktailbar Zürich
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7513927110353783017.html
-  eventfrog_name: Jackpot Comedy
 - show: promessi-spassi
   name: PROMESSI SPASSI
   title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
@@ -424,6 +398,19 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081170004456.html
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
+- show: jackpotcomedy
+  name: Jackpot Comedy
+  title: Jackpot Comedy - downstairs @ OTRO
+  url: "/jackpotcomedy/"
+  date: '2026-12-16'
+  start: '2026-12-16T20:00:00+01:00'
+  end: '2026-12-16T22:00:00+01:00'
+  venue: otro
+  venue_name: Bar OTRO
+  location: OTRO - Cocktailbar Zürich
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7513927110353783017.html
+  eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
@@ -476,5 +463,44 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-en-zurich-zuerich-7501658845556549750.html
   eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
+- show: digital-daddy-in-english
+  name: Digital Daddy (in English)
+  title: Digital Daddy (in English)
+  url: "/digital-daddy-in-english/"
+  date: '2027-01-29'
+  start: '2027-01-29T20:00:00+01:00'
+  end: '2027-01-29T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/digital-daddy-in-english-zuerich-7521622493477487873.html
+  eventfrog_name: Digital Daddy (in English)
+- show: digital-daddy-en-francais
+  name: Digital Daddy (en français)
+  title: Digital Daddy (en français)
+  url: "/digital-daddy-en-francais/"
+  date: '2027-03-12'
+  start: '2027-03-12T20:00:00+01:00'
+  end: '2027-03-12T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/fr/p/humour/humour-cabaret/digital-daddy-en-francais-zuerich-7521622522732761079.html
+  eventfrog_name: Digital Daddy (en Français)
+- show: digital-daddy-auf-deutsch
+  name: Digital Daddy (auf Deutsch)
+  title: Digital Daddy (auf Deutsch)
+  url: "/digital-daddy-auf-deutsch/"
+  date: '2027-04-03'
+  start: '2027-04-03T20:00:00+02:00'
+  end: '2027-04-03T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/digital-daddy-auf-deutsch-zuerich-7521622525819769980.html
+  eventfrog_name: Digital Daddy (auf Deutsch)
 unresolved: []
 no_upcoming: []
