@@ -13,6 +13,19 @@ laptop. The phone app hides most of these settings.
 
 ## Status
 
+**25 October: the 2024 carousel keeps its budget, with tripwires.** Harry asked whether the
+old "Tailored web traffic" set is worn out. It is not: CHF 0.22 per landing page view over the
+last three weeks (0.44 to 0.49 in January to March), click rate 2.2 to 2.4 percent, 1.5 to 1.6
+views per person a week, 5,400 to 5,900 people a week, learning status SUCCESS; the new sets cost
+0.17 to 0.26 since 5 October. Part of October's drop may be the /go/ switch of 4 October. Agreed
+with Harry: shift CHF 1 to 2 of its Tuesday to Thursday boost to the new sets only when two of
+these hold two weeks running: weekly frequency above 2, click rate under 1.8 percent, cost per
+landing page view above 0.30 while evergreen Cold stays under 0.25. Check at the weekly readout.
+Same day, warm-W13 rested (CHF 0.58 per view, one reaction since 28 September); warm-W12 keeps
+the warm-planner money (0.37, six of the set's seven reactions; judge it alone on 31 October).
+`meta-moments.ts` now pauses and skips any moment ad whose bank line is not `status: live`, so
+resting a moment ad is a bank edit plus the next scheduler run (it used to switch it back on).
+
 **9 October: the tomorrow and tonight ad sets are made fresh per show.** On 7 and 8 October the
 cron-unpaused sets delivered from 17:00 and 12:00 and spent 42 to 52 percent of their budgets
 (Meta's three-hour ramp plus daily pacing over the calendar day; the ads themselves cost CHF 0.24

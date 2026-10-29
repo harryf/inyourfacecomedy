@@ -293,7 +293,14 @@ async function run(dryRun: boolean, validate: boolean, atIso: string | undefined
   // The pick for a phase, falling back to the any line when the bank has no ad for the condition;
   // ads are written before their ad set, so the wrong line never runs for a moment. A season ad
   // is only ever put in the sets of a show inside its season, so having one means it runs.
-  const pickAds = async (key: string, phase: MomentPhase, ads: [string, { ad_id: string; when: string }][]) => {
+  // A line the bank no longer marks live (resting, retired) stays paused and is not picked.
+  const live = new Set(AUDIENCES.flatMap((aud) => loadBank(aud).concepts.filter((c) => c.status === "live").map((c) => adName(aud, c))));
+  const pickAds = async (key: string, phase: MomentPhase, all: [string, { ad_id: string; when: string }][]) => {
+    for (const [name, a] of all.filter(([n]) => !live.has(n))) {
+      const curAd = await meta.get(a.ad_id, { fields: "status" });
+      if (curAd.status !== "PAUSED") await write(a.ad_id, `${name} status (not live in the bank)`, { status: "PAUSED" }, curAd.status, "PAUSED");
+    }
+    const ads = all.filter(([n]) => live.has(n));
     let when = pickWhen(phase, longWeekend, wet, ads.some(([, a]) => a.when === "season"));
     if (!ads.some(([, a]) => a.when === when)) { warn(`${key}: no ${when} ad, running the any line`); when = "any"; }
     if (!ads.some(([, a]) => a.when === when)) warn(`${key}: no ad for ${when} either, nothing will run`);

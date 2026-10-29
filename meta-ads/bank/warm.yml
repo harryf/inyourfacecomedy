@@ -50,6 +50,13 @@ concepts:
     title: "Bring the flatmates"
     image: { style: photo, photo: "/assets/img/gallery/IMG_5160 Large.jpeg", focus: [0.35, 0.5], headline: "Bring the flatmates.", sub: "Thursdays at ROBIN's, doors 19:30" }
     status: retired      # retired 2026-10-04 (Harry): not working, paused on Meta, kept there for its data; CTR 1.18 on 423 impressions
+  # --- 2026-10-25: from the 21 Oct frames. ---
+  - id: W23
+    person: The follower who has not been yet (the man in glasses laughing and clapping, a packed room behind)
+    body: "Seen us online but never been? Thursday at ROBIN's: English stand-up, two minutes from Central. Doors 19:30."
+    title: "The whole room's in on it"
+    image: { style: photo, photo: /assets/img/gallery/IMG_5493_20261021.jpg, focus: [0.58, 0.46], headline: "The whole room's in on it.", sub: "Comedy Brew, Thursdays at ROBIN's" }
+    status: resting      # pushed PAUSED 2026-10-25 (Harry); set live and run --sync --apply to switch it on
   # --- Moments, 2026-10-04 (meta-ads/moments-plan.md): see the note in cold.yml. Warm knows us,
   # so the lines are shorter and say Comedy Brew. ---
   - id: W12
@@ -65,7 +72,7 @@ concepts:
     title: "The group chat needs a plan"
     image: { style: photo, photo: "/assets/img/gallery/IMG_5160 Large.jpeg", focus: [0.35, 0.5], headline: "The group chat needed a plan.", sub: "Comedy Brew, Thursday at ROBIN's" }
     moment: { phase: planner, when: any }
-    status: live         # pushed 2026-10-04 by meta-moments.ts --setup; the scheduler switches it
+    status: resting      # 2026-10-25 (Harry): CHF 0.58 per page view, 1 reaction; warm-planner money goes to W12
   - id: W14
     person: Long weekend coming (the woman in glasses laughing out loud in a packed room)
     body: "Friday off? Make Thursday the first night of it: Comedy Brew at ROBIN's, 19:30, ten acts."
