@@ -3,24 +3,24 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/comedy-brew-english-stand-up-open-mic-every-thursday-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-10-28T09:20:02.265Z",
+ "generated_at": "2026-10-29T09:20:01.795Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-28",
- "complete_through": "2026-10-26",
+ "through": "2026-10-29",
+ "complete_through": "2026-10-27",
  "totals": {
-  "clicks": 3928,
-  "redirect": 3624,
-  "click": 304,
-  "clicks_30d": 2458,
-  "redirect_30d": 2306,
-  "click_30d": 152,
-  "views": 711,
-  "views_30d": 303,
-  "sessions": 670,
-  "sessions_30d": 285,
+  "clicks": 4177,
+  "redirect": 3867,
+  "click": 310,
+  "clicks_30d": 2627,
+  "redirect_30d": 2472,
+  "click_30d": 155,
+  "views": 715,
+  "views_30d": 301,
+  "sessions": 675,
+  "sessions_30d": 286,
   "broken_links": 0,
-  "untagged": 0
+  "untagged": 1
  },
  "by_day": [
   {
@@ -521,17 +521,25 @@
   },
   {
    "date": "2026-10-27",
-   "redirect": 48,
-   "click": 3,
+   "redirect": 53,
+   "click": 4,
    "views": 5,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-28",
-   "redirect": 61,
-   "click": 0,
-   "views": 0,
+   "redirect": 197,
+   "click": 4,
+   "views": 3,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-29",
+   "redirect": 102,
+   "click": 1,
+   "views": 1,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -540,30 +548,30 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 3511,
+   "clicks": 3753,
    "views": 4,
    "sessions": 4
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 141,
-   "views": 276,
-   "sessions": 258
+   "clicks": 146,
+   "views": 277,
+   "sessions": 260
   },
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 102,
-   "views": 45,
-   "sessions": 41
+   "clicks": 104,
+   "views": 46,
+   "sessions": 42
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 78,
-   "views": 288,
-   "sessions": 268
+   "clicks": 77,
+   "views": 290,
+   "sessions": 270
   },
   {
    "source": "guidle",
@@ -671,6 +679,13 @@
    "sessions": 0
   },
   {
+   "source": "meta",
+   "medium": "untagged",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
+  },
+  {
    "source": "ronorp.net",
    "medium": "referral",
    "clicks": 1,
@@ -732,13 +747,13 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 970,
+   "clicks": 1026,
    "first": "2026-08-26",
-   "last": "2026-10-28",
+   "last": "2026-10-29",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 912
+     "clicks": 968
     }
    ]
   },
@@ -746,9 +761,9 @@
    "campaign": "cold",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 835,
+   "clicks": 841,
    "first": "2026-09-13",
-   "last": "2026-10-28",
+   "last": "2026-10-29",
    "content": [
     {
      "content": "cold-C13",
@@ -756,7 +771,7 @@
     },
     {
      "content": "cold-C7",
-     "clicks": 279
+     "clicks": 285
     },
     {
      "content": "cold-C4v",
@@ -804,13 +819,13 @@
    "campaign": "warm",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 545,
+   "clicks": 548,
    "first": "2026-09-13",
    "last": "2026-10-28",
    "content": [
     {
      "content": "warm-W6",
-     "clicks": 383
+     "clicks": 386
     },
     {
      "content": "warm-W2",
@@ -846,13 +861,17 @@
    "campaign": "cold-tonight",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 336,
+   "clicks": 399,
    "first": "2026-10-04",
-   "last": "2026-10-25",
+   "last": "2026-10-29",
    "content": [
     {
      "content": "cold-C24",
      "clicks": 253
+    },
+    {
+     "content": "cold-C29",
+     "clicks": 67
     },
     {
      "content": "cold-C25",
@@ -861,10 +880,32 @@
     {
      "content": "cold-C26",
      "clicks": 7
+    }
+   ]
+  },
+  {
+   "campaign": "cold-tomorrow",
+   "source": "meta",
+   "medium": "paid_social",
+   "clicks": 259,
+   "first": "2026-10-04",
+   "last": "2026-10-28",
+   "content": [
+    {
+     "content": "cold-C28",
+     "clicks": 99
     },
     {
-     "content": "cold-C29",
-     "clicks": 4
+     "content": "cold-C21",
+     "clicks": 95
+    },
+    {
+     "content": "cold-C22",
+     "clicks": 47
+    },
+    {
+     "content": "cold-C23",
+     "clicks": 6
     }
    ]
   },
@@ -891,38 +932,12 @@
    ]
   },
   {
-   "campaign": "cold-tomorrow",
-   "source": "meta",
-   "medium": "paid_social",
-   "clicks": 192,
-   "first": "2026-10-04",
-   "last": "2026-10-28",
-   "content": [
-    {
-     "content": "cold-C21",
-     "clicks": 95
-    },
-    {
-     "content": "cold-C22",
-     "clicks": 47
-    },
-    {
-     "content": "cold-C28",
-     "clicks": 32
-    },
-    {
-     "content": "cold-C23",
-     "clicks": 6
-    }
-   ]
-  },
-  {
    "campaign": "warm-tonight",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 136,
+   "clicks": 147,
    "first": "2026-10-04",
-   "last": "2026-10-25",
+   "last": "2026-10-29",
    "content": [
     {
      "content": "warm-W18",
@@ -933,12 +948,12 @@
      "clicks": 30
     },
     {
-     "content": "warm-W20",
-     "clicks": 7
+     "content": "warm-W22",
+     "clicks": 17
     },
     {
-     "content": "warm-W22",
-     "clicks": 6
+     "content": "warm-W20",
+     "clicks": 7
     }
    ]
   },
@@ -946,17 +961,17 @@
    "campaign": "warm-tomorrow",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 108,
+   "clicks": 144,
    "first": "2026-10-04",
    "last": "2026-10-28",
    "content": [
     {
-     "content": "warm-W15",
-     "clicks": 55
+     "content": "warm-W21",
+     "clicks": 58
     },
     {
-     "content": "warm-W21",
-     "clicks": 22
+     "content": "warm-W15",
+     "clicks": 55
     },
     {
      "content": "warm-W16",
@@ -1160,6 +1175,20 @@
    "first": "2026-08-26",
    "last": "2026-08-26",
    "content": []
+  },
+  {
+   "campaign": "comedybrew-20261029",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 1,
+   "first": "2026-10-28",
+   "last": "2026-10-28",
+   "content": [
+    {
+     "content": "tickets",
+     "clicks": 1
+    }
+   ]
   }
  ],
  "csv": "/assets/reports/comedybrew.csv"

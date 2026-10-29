@@ -405,26 +405,40 @@ datetime,event,source,medium,campaign,content,page
 2026-10-27 07:46,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-27 07:47,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/jokesjokesjokes/
 2026-10-27 07:54,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-27 07:58,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-27 09:25,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-27 10:08,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-27 10:08,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-27 10:16,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-27 10:48,ticket_redirect,meta,paid_social,jokesjokesjokes,,Ticket Redirect
+2026-10-27 14:01,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-27 14:22,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
 2026-10-27 14:36,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
-2026-10-27 15:30,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-10-27 15:31,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/jokesjokesjokes/
+2026-10-27 15:20,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
+2026-10-27 15:30,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
+2026-10-27 15:31,ticket_click,google,organic,,,https://inyourfacecomedy.ch/jokesjokesjokes/
 2026-10-27 16:37,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
 2026-10-27 17:56,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
-2026-10-27 17:57,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
-2026-10-27 17:58,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-10-27 17:59,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/jokesjokesjokes/
-2026-10-27 17:59,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/jokesjokesjokes/
+2026-10-27 17:57,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
+2026-10-27 17:58,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
+2026-10-27 17:59,ticket_click,google,organic,,,https://inyourfacecomedy.ch/jokesjokesjokes/
+2026-10-27 17:59,ticket_click,google,organic,,,https://inyourfacecomedy.ch/jokesjokesjokes/
 2026-10-27 18:43,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
 2026-10-27 18:43,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
-2026-10-27 19:27,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/jokesjokesjokes/
-2026-10-27 19:36,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
-2026-10-27 19:36,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
-2026-10-27 19:37,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
+2026-10-27 19:27,ticket_click,google,organic,,,https://inyourfacecomedy.ch/jokesjokesjokes/
+2026-10-27 19:35,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
+2026-10-27 19:36,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
+2026-10-27 19:36,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
+2026-10-27 19:36,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
+2026-10-27 19:37,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
 2026-10-27 19:44,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
 2026-10-27 19:44,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
 2026-10-27 22:04,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
+2026-10-28 10:30,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-10-28 14:47,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-28 14:47,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-28 17:27,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-28 18:10,ticket_redirect,meta,paid_social,jokesjokesjokes,52679097035400,Ticket Redirect
+2026-10-29 00:32,ticket_click,meta,untagged,,,https://inyourfacecomedy.ch/calendar/
+2026-10-29 00:32,ticket_click,meta,untagged,,,https://inyourfacecomedy.ch/calendar/
+2026-10-29 05:51,ticket_redirect,meta,paid_social,jokesjokesjokes,52683614964400,Ticket Redirect

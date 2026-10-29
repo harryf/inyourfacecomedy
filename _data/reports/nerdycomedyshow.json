@@ -3,22 +3,22 @@
  "title": "The NERDY COMEDY Show",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/nerdy-stand-up-comedy-en-7284304661632248367.html",
  "event_type": "series",
- "generated_at": "2026-10-28T09:20:02.265Z",
+ "generated_at": "2026-10-29T09:20:01.795Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-28",
- "complete_through": "2026-10-26",
+ "through": "2026-10-29",
+ "complete_through": "2026-10-27",
  "totals": {
-  "clicks": 317,
-  "redirect": 279,
+  "clicks": 347,
+  "redirect": 309,
   "click": 38,
-  "clicks_30d": 274,
-  "redirect_30d": 262,
+  "clicks_30d": 304,
+  "redirect_30d": 292,
   "click_30d": 12,
-  "views": 101,
-  "views_30d": 44,
-  "sessions": 105,
-  "sessions_30d": 49,
+  "views": 102,
+  "views_30d": 45,
+  "sessions": 106,
+  "sessions_30d": 50,
   "broken_links": 0,
   "untagged": 0
  },
@@ -521,14 +521,22 @@
   },
   {
    "date": "2026-10-27",
-   "redirect": 26,
+   "redirect": 27,
    "click": 1,
+   "views": 1,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-28",
+   "redirect": 29,
+   "click": 0,
    "views": 1,
    "provisional": true,
    "clicks_tracked": true
   },
   {
-   "date": "2026-10-28",
+   "date": "2026-10-29",
    "redirect": 4,
    "click": 0,
    "views": 0,
@@ -540,7 +548,7 @@
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 268,
+   "clicks": 297,
    "views": 2,
    "sessions": 2
   },
@@ -549,12 +557,12 @@
    "medium": "organic",
    "clicks": 18,
    "views": 37,
-   "sessions": 37
+   "sessions": 38
   },
   {
    "source": "meetup",
    "medium": "referral",
-   "clicks": 8,
+   "clicks": 9,
    "views": 1,
    "sessions": 1
   },
@@ -562,7 +570,7 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 6,
-   "views": 13,
+   "views": 14,
    "sessions": 14
   },
   {
@@ -641,13 +649,13 @@
    "campaign": "nerdycomedyshow-20261031",
    "source": "instagram",
    "medium": "social",
-   "clicks": 258,
+   "clicks": 287,
    "first": "2026-10-15",
-   "last": "2026-10-28",
+   "last": "2026-10-29",
    "content": [
     {
      "content": "120251288382680219",
-     "clicks": 245
+     "clicks": 274
     },
     {
      "content": "link_in_bio",
@@ -721,6 +729,15 @@
    "clicks": 1,
    "first": "2026-09-24",
    "last": "2026-09-24",
+   "content": []
+  },
+  {
+   "campaign": "nerdycomedyshow-20261031",
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 1,
+   "first": "2026-10-29",
+   "last": "2026-10-29",
    "content": []
   }
  ],
