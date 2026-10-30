@@ -3,7 +3,7 @@ layout: post
 editable: "true"
 title: "Digital Daddy (auf Deutsch)"
 description: "Digital Daddy: das Stand-up-Soloprogramm von Benjamin Delahaye über unsere digitale Abhängigkeit, auf Deutsch. Samstag, 3. April 2027, im ROBIN's Zürich."
-last_modified_at: 2026-10-29T18:30:29+00:00
+last_modified_at: 2026-10-30T09:50:01+00:00
 feature-img: "/assets/img/uploads/digital-daddy-auf-deutsch_feature.webp"
 image: "/assets/img/uploads/digital-daddy-auf-deutsch_feature.webp"
 excerpt_separator: <!--more-->

@@ -3,7 +3,7 @@ layout: post
 editable: "true"
 title: "Digital Daddy (in English)"
 description: "Digital Daddy: Benjamin Delahaye's stand-up solo show about our digital addiction, in English. Friday 29 January 2027 at ROBIN's, Zürich."
-last_modified_at: 2026-10-29T18:30:28+00:00
+last_modified_at: 2026-10-30T09:50:01+00:00
 feature-img: "/assets/img/uploads/digital-daddy-in-english_feature.webp"
 image: "/assets/img/uploads/digital-daddy-in-english_feature.webp"
 excerpt_separator: <!--more-->
