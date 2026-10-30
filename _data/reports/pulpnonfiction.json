@@ -3,22 +3,22 @@
  "title": "Pulp Non-Fiction",
  "ticket_url": "https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html",
  "event_type": "monthly",
- "generated_at": "2026-10-29T09:20:01.795Z",
+ "generated_at": "2026-10-30T09:20:01.775Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-29",
- "complete_through": "2026-10-27",
+ "through": "2026-10-30",
+ "complete_through": "2026-10-28",
  "totals": {
-  "clicks": 55,
+  "clicks": 57,
   "redirect": 21,
-  "click": 34,
-  "clicks_30d": 31,
+  "click": 36,
+  "clicks_30d": 32,
   "redirect_30d": 11,
-  "click_30d": 20,
+  "click_30d": 21,
   "views": 103,
-  "views_30d": 51,
+  "views_30d": 50,
   "sessions": 102,
-  "sessions_30d": 50,
+  "sessions_30d": 48,
   "broken_links": 0,
   "untagged": 0
  },
@@ -532,11 +532,19 @@
    "redirect": 0,
    "click": 0,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-29",
+   "redirect": 0,
+   "click": 2,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-30",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -548,9 +556,9 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 14,
-   "views": 36,
-   "sessions": 36
+   "clicks": 16,
+   "views": 35,
+   "sessions": 35
   },
   {
    "source": "meetup",
@@ -570,8 +578,8 @@
    "source": "google",
    "medium": "organic",
    "clicks": 8,
-   "views": 17,
-   "sessions": 18
+   "views": 18,
+   "sessions": 19
   },
   {
    "source": "IN YOUR FACE Comedy",

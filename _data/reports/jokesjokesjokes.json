@@ -3,22 +3,22 @@
  "title": "Jokes, Jokes, Jokes",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7519756165535785039.html",
  "event_type": "series",
- "generated_at": "2026-10-29T09:20:01.795Z",
+ "generated_at": "2026-10-30T09:20:01.775Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-29",
- "complete_through": "2026-10-27",
+ "through": "2026-10-30",
+ "complete_through": "2026-10-28",
  "totals": {
-  "clicks": 443,
-  "redirect": 363,
-  "click": 80,
-  "clicks_30d": 403,
-  "redirect_30d": 346,
-  "click_30d": 57,
-  "views": 119,
+  "clicks": 462,
+  "redirect": 380,
+  "click": 82,
+  "clicks_30d": 422,
+  "redirect_30d": 363,
+  "click_30d": 59,
+  "views": 120,
   "views_30d": 42,
-  "sessions": 113,
-  "sessions_30d": 41,
+  "sessions": 115,
+  "sessions_30d": 42,
   "broken_links": 0,
   "untagged": 2
  },
@@ -529,16 +529,24 @@
   },
   {
    "date": "2026-10-28",
-   "redirect": 4,
-   "click": 1,
+   "redirect": 5,
+   "click": 2,
+   "views": 1,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-29",
+   "redirect": 17,
+   "click": 3,
    "views": 1,
    "provisional": true,
    "clicks_tracked": true
   },
   {
-   "date": "2026-10-29",
-   "redirect": 1,
-   "click": 2,
+   "date": "2026-10-30",
+   "redirect": 0,
+   "click": 0,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
@@ -548,7 +556,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 339,
+   "clicks": 356,
    "views": 0,
    "sessions": 0
   },
@@ -567,18 +575,18 @@
    "sessions": 5
   },
   {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 13,
+   "views": 28,
+   "sessions": 27
+  },
+  {
    "source": "guidle",
    "medium": "referral",
    "clicks": 13,
    "views": 24,
    "sessions": 21
-  },
-  {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 11,
-   "views": 27,
-   "sessions": 25
   },
   {
    "source": "chatgpt.com",
@@ -635,13 +643,13 @@
    "campaign": "jokesjokesjokes",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 339,
+   "clicks": 356,
    "first": "2026-10-13",
    "last": "2026-10-29",
    "content": [
     {
      "content": "52679097035400",
-     "clicks": 279
+     "clicks": 291
     },
     {
      "content": "52683614964400",
