@@ -1,0 +1,440 @@
+// =============================================================================
+// Special night page + home strip (docs/special-pages.md)
+// =============================================================================
+// `_layouts/special.liquid` renders `.iyf-special[data-theme=...]`, the home page
+// renders `.iyf-promo-strip[data-theme=...]` through _includes/promo-strip.liquid.
+// The base block keeps the site's type and buttons; a theme block only sets the
+// --sp-* palette and its decoration (fog, bats, web, drips for halloween).
+// Brand tokens are never touched: the ticket button reads --show-cta like a card.
+// -----------------------------------------------------------------------------
+
+.iyf-special {
+  // Theme hooks with the plain defaults (a page without a theme still works).
+  --sp-bg:        var(--surface-dark);
+  --sp-bg-2:      var(--surface-dark-2);
+  --sp-text:      var(--brand-cream);
+  --sp-muted:     rgba(255, 243, 224, 0.72);
+  --sp-accent:    var(--brand-yellow);
+  --sp-accent-2:  var(--brand-red);
+  --sp-line:      rgba(255, 243, 224, 0.18);
+  --sp-card:      rgba(255, 255, 255, 0.04);
+
+  --show-cta:      var(--sp-accent);
+  --show-cta-text: var(--brand-ink);
+  --cta-hover:     var(--sp-accent-2);
+  --cta-text:      var(--brand-cream);
+  --cta-focus-ring: var(--sp-accent);
+
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--sp-bg);
+  color: var(--sp-text);
+  border-bottom: 0;
+  // Full bleed: the theme's article gets %padding-post, this page paints edge to edge.
+  padding: 0;
+  width: 100%;
+
+  > .iyf-hero,
+  > .post-content { position: relative; z-index: 1; }
+
+  &__fog, &__bats { position: absolute; inset: 0; pointer-events: none; }
+  &__fog  { z-index: 0; display: none; }
+  &__bats { z-index: 2; display: none; }
+  &__web  { display: none; }
+
+  // ---- hero -----------------------------------------------------------------
+  &__hero {
+    min-height: 50vh;
+    padding-top: var(--space-9);
+    padding-bottom: var(--space-8);
+    background-color: var(--sp-bg-2);
+  }
+  &__hook {
+    font-size: var(--fs-3xl);
+    max-width: 16ch;
+    color: var(--sp-text);
+    @media (max-width: 767px) { font-size: var(--fs-2xl); max-width: 22ch; }
+  }
+  &__answer {
+    color: var(--sp-text);
+    max-width: 36rem;
+    font-size: var(--fs-xl);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 0 0 18px rgba(0, 0, 0, 0.9);
+  }
+  &__over {
+    color: var(--sp-muted);
+    a { color: var(--sp-accent); }
+  }
+
+  // ---- body -----------------------------------------------------------------
+  &__body {
+    max-width: var(--container-wide);
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-5) var(--space-10);
+    text-align: left;
+  }
+
+  &__events {
+    display: grid;
+    gap: var(--space-7);
+    margin-bottom: var(--space-9);
+  }
+  &__event {
+    display: grid;
+    gap: var(--space-5);
+    padding: var(--space-5);
+    background: var(--sp-card);
+    border: 1px solid var(--sp-line);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 24px 50px -30px rgba(0, 0, 0, 0.8);
+    @media (min-width: 768px) {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      align-items: center;
+      padding: var(--space-6);
+    }
+  }
+  &__poster {
+    display: block;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--sp-line);
+    img { display: block; width: 100%; height: auto; }
+  }
+  &__event-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    .btn-ticket { align-self: flex-start; margin-top: var(--space-2); }
+  }
+  &__act {
+    font-family: var(--font-accent);
+    font-size: var(--fs-md);
+    color: var(--sp-accent);
+    margin: 0;
+  }
+  &__event-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-2xl);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-snug);
+    text-transform: uppercase;
+    color: var(--sp-text);
+    margin: 0;
+  }
+  &__event-label {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: var(--fs-sm);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--sp-muted);
+    margin: 0;
+  }
+  &__blurb {
+    color: var(--sp-text);
+    font-size: var(--fs-base);
+    line-height: var(--lh-normal);
+    p { margin: 0 0 var(--space-3); }
+    p:last-child { margin-bottom: 0; }
+  }
+
+  &__h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-2xl);
+    letter-spacing: var(--ls-snug);
+    text-transform: uppercase;
+    color: var(--sp-text);
+    text-align: center;
+    margin: 0 0 var(--space-5);
+  }
+
+  &__timeline {
+    max-width: var(--container-narrow);
+    margin: 0 auto var(--space-9);
+  }
+  &__steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-left: 2px dashed var(--sp-line);
+    li {
+      position: relative;
+      display: grid;
+      grid-template-columns: 5.5rem 1fr;
+      gap: var(--space-3);
+      padding: var(--space-3) 0 var(--space-3) var(--space-6);
+      &::before {
+        content: "";
+        position: absolute;
+        left: -7px;
+        top: calc(var(--space-3) + 0.45em);
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--sp-accent);
+        box-shadow: 0 0 0 4px var(--sp-bg);
+      }
+    }
+  }
+  &__time {
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    letter-spacing: 0.02em;
+    color: var(--sp-accent);
+    line-height: 1.2;
+  }
+  &__what {
+    color: var(--sp-text);
+    font-size: var(--fs-base);
+    line-height: var(--lh-normal);
+  }
+
+  &__prose {
+    max-width: var(--container-prose);
+    margin: 0 auto var(--space-9);
+    color: var(--sp-text);
+    font-size: var(--fs-md);
+    line-height: var(--lh-loose);
+    h2 {
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-snug);
+      color: var(--sp-accent);
+      margin: var(--space-7) 0 var(--space-3);
+    }
+    p { margin: 0 0 var(--space-4); }
+    a { color: var(--sp-accent); text-decoration: underline; text-underline-offset: 3px; }
+    strong { color: var(--sp-accent); }
+  }
+
+  &__closing {
+    text-align: center;
+    padding-top: var(--space-7);
+    border-top: 1px solid var(--sp-line);
+  }
+  &__venue {
+    margin: var(--space-5) 0 0;
+    color: var(--sp-muted);
+    a { color: var(--sp-muted); }
+    a:hover { color: var(--sp-accent); }
+  }
+}
+
+// =============================================================================
+// Theme: halloween
+// =============================================================================
+.iyf-special[data-theme="halloween"] {
+  --sp-bg:        #0b060f;
+  --sp-bg-2:      #1a0b1c;
+  --sp-text:      #FFF3E0;
+  --sp-muted:     rgba(255, 243, 224, 0.7);
+  --sp-accent:    #FF7A1A;            // pumpkin
+  --sp-accent-2:  #B71C1C;            // dried blood (brand red deep)
+  --sp-line:      rgba(255, 122, 26, 0.35);
+  --sp-card:      rgba(255, 122, 26, 0.06);
+  --show-cta-text: #140A08;
+  --cta-hover:     #FF9A3D;
+  --cta-text:      #140A08;
+
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255, 122, 26, 0.16), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(120, 20, 60, 0.35), transparent 60%),
+    var(--sp-bg);
+
+  // Fog: two soft layers drifting in opposite directions.
+  .iyf-special__fog {
+    display: block;
+    &::before, &::after {
+      content: "";
+      position: absolute;
+      inset: -20% -40%;
+      background:
+        radial-gradient(closest-side, rgba(255, 243, 224, 0.10), transparent) 10% 70% / 50% 40% no-repeat,
+        radial-gradient(closest-side, rgba(255, 243, 224, 0.08), transparent) 70% 30% / 60% 45% no-repeat,
+        radial-gradient(closest-side, rgba(255, 122, 26, 0.07), transparent) 40% 95% / 70% 30% no-repeat;
+      animation: iyf-fog-drift 38s ease-in-out infinite alternate;
+    }
+    &::after {
+      animation-duration: 53s;
+      animation-direction: alternate-reverse;
+      opacity: 0.8;
+    }
+  }
+
+  // Bats glide across the hero.
+  .iyf-special__bats { display: block; height: 70vh; inset: 0 0 auto 0; }
+  .iyf-special__bat {
+    position: absolute;
+    width: 42px;
+    height: 21px;
+    fill: #2a1030;
+    filter: drop-shadow(0 0 5px rgba(255, 122, 26, 0.95)) drop-shadow(0 0 14px rgba(255, 122, 26, 0.5));
+    opacity: 0.95;
+    animation: iyf-bat-fly 26s linear infinite;
+  }
+  .iyf-special__bat--1 { top: 10%; animation-delay: -4s; }
+  .iyf-special__bat--2 { top: 22%; width: 30px; height: 15px; animation-delay: -14s; animation-duration: 32s; }
+  .iyf-special__bat--3 { top: 6%;  width: 56px; height: 28px; animation-delay: -21s; animation-duration: 40s; }
+
+  // The web in the hero corner.
+  .iyf-special__web {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: clamp(120px, 22vw, 220px);
+    height: auto;
+    color: rgba(255, 243, 224, 0.42);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .iyf-special__hero {
+    background-color: #1a0b1c;
+    // Deeper scrim so the bright flyer stays a backdrop and the words win.
+    &::after {
+      background: linear-gradient(
+        to bottom,
+        rgba(11, 6, 15, 0.78) 0%,
+        rgba(11, 6, 15, 0.62) 35%,
+        rgba(11, 6, 15, 0.90) 75%,
+        #0b060f 100%
+      );
+    }
+  }
+
+  // The hook: a glow that flickers like a bad bulb, and blood under the words.
+  .iyf-special__hook {
+    text-shadow:
+      0 0 12px rgba(255, 122, 26, 0.55),
+      0 0 32px rgba(255, 122, 26, 0.35),
+      0 2px 8px rgba(0, 0, 0, 0.7);
+    animation: iyf-flicker 7s steps(1, end) infinite;
+    padding-bottom: var(--space-3);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 28' preserveAspectRatio='none'><path fill='%23B71C1C' d='M0 0h320v5c-8 0-10 7-14 12s-5 9-8 9-4-6-6-9-4-5-8-5-5 1-7 1-4-3-7-3-5 11-9 11-5-12-9-12-6 4-10 4-5-2-9-2-6 7-9 7-5-4-8-4-6 2-9 2-5-9-9-9-6 3-10 3-5-1-9-1-5 17-10 17-5-17-9-17-5 3-9 3-5-2-9-2-6 5-9 5-5-3-8-3-5 1-8 1-5-7-9-7-5 11-9 11-6-11-10-11-5 2-9 2-5-4-9-4-6 8-9 8-5-8-9-8-5 3-9 3-5-2-9-2-6 13-9 13-5-13-8-13-5 4-9 4-5-1-9-1-6-6-10-6-5 2-9 2-5-3-9-3-6 1-9 1-5-6-9-6-6 10-10 10-5-10-9-10-5 0-9 0-5-3-9-3-6 7-10 7-5-7-9-7-6 3-10 3-5-2-9-2-6 9-10 9-5-9-9-9-5 5-9 5-5-3-9-3-5 1-9 1-5-5-9-5-6 11-10 11-5-11-9-11-5 6-9 6-5-4-9-4-6 9-10 9-5-9-9-9-5 2-9 2-5-2-9-2-6 7-10 7-5-7-9-7-5 0-9 0-5-3-9-3-4 6-7 6-3-6-5-6z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: 50% 100%;
+    background-size: min(100%, 36rem) 1.1rem;
+  }
+
+  .iyf-special__event:nth-child(odd)  { transform: rotate(-0.7deg); }
+  .iyf-special__event:nth-child(even) { transform: rotate(0.7deg); }
+  .iyf-special__event {
+    transition: transform var(--t-base) var(--ease-out);
+    &:hover { transform: rotate(0deg); }
+  }
+  .iyf-special__event-title {
+    text-shadow: 0 0 18px rgba(255, 122, 26, 0.35);
+  }
+}
+
+@keyframes iyf-fog-drift {
+  from { transform: translate3d(-6%, 0, 0) scale(1); }
+  to   { transform: translate3d(6%, -2%, 0) scale(1.08); }
+}
+@keyframes iyf-bat-fly {
+  0%   { transform: translate3d(-12vw, 0, 0) rotate(-6deg) scaleX(1); }
+  25%  { transform: translate3d(22vw, -4vh, 0) rotate(4deg) scaleX(1); }
+  50%  { transform: translate3d(58vw, 2vh, 0) rotate(-3deg) scaleX(1); }
+  75%  { transform: translate3d(86vw, -6vh, 0) rotate(5deg) scaleX(1); }
+  100% { transform: translate3d(112vw, -2vh, 0) rotate(-6deg) scaleX(1); }
+}
+@keyframes iyf-flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.72; }
+  21% { opacity: 0.9; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iyf-special .iyf-special__fog::before,
+  .iyf-special .iyf-special__fog::after,
+  .iyf-special .iyf-special__bat,
+  .iyf-special .iyf-special__hook { animation: none; }
+  .iyf-special .iyf-special__bats { display: none; }
+}
+
+// =============================================================================
+// Home page strip
+// =============================================================================
+.iyf-promo-strip {
+  --sp-bg-2:     var(--surface-dark-2);
+  --sp-text:     var(--brand-cream);
+  --sp-accent:   var(--brand-yellow);
+  --sp-line:     rgba(255, 243, 224, 0.18);
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+  align-items: center;
+  margin: var(--space-6) auto 0;
+  width: calc(100% - 18%);
+  max-width: var(--container-wide);
+  padding: var(--space-5) var(--space-6);
+  border: 1px solid var(--sp-line);
+  border-radius: var(--radius-lg);
+  background: var(--sp-bg-2);
+  color: var(--sp-text);
+  text-decoration: none;
+  transition: transform var(--t-base) var(--ease-out), box-shadow var(--t-base) var(--ease-out);
+
+  &:hover { text-decoration: none; transform: translateY(-2px); }
+
+  @media (min-width: 768px) {
+    grid-template-columns: auto 1fr auto;
+    gap: var(--space-6);
+  }
+  @media (max-width: 767px) {
+    width: calc(100% - 2rem);
+  }
+
+  &__date {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: var(--fs-sm);
+    letter-spacing: var(--ls-extra);
+    text-transform: uppercase;
+    color: var(--sp-accent);
+  }
+  &__hook {
+    font-family: var(--font-display);
+    font-size: var(--fs-xl);
+    line-height: var(--lh-tight);
+    text-transform: uppercase;
+    color: var(--sp-text);
+  }
+  &__cta {
+    justify-self: start;
+    font-family: var(--font-display);
+    font-size: var(--fs-md);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.2rem;
+    border-radius: var(--radius-md);
+    background: var(--sp-accent);
+    color: var(--brand-ink);
+    white-space: nowrap;
+    @media (min-width: 768px) { justify-self: end; }
+  }
+}
+
+.iyf-promo-strip[data-theme="halloween"] {
+  --sp-bg-2:   #1a0b1c;
+  --sp-text:   #FFF3E0;
+  --sp-accent: #FF7A1A;
+  --sp-line:   rgba(255, 122, 26, 0.45);
+  background:
+    radial-gradient(ellipse 60% 120% at 0% 50%, rgba(255, 122, 26, 0.18), transparent 70%),
+    #1a0b1c;
+  box-shadow: 0 0 0 0 rgba(255, 122, 26, 0.35);
+  animation: iyf-strip-glow 3.2s var(--ease-in-out) infinite;
+  .iyf-promo-strip__hook { text-shadow: 0 0 14px rgba(255, 122, 26, 0.45); }
+}
+@keyframes iyf-strip-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 122, 26, 0.35); }
+  50%      { box-shadow: 0 0 0 8px rgba(255, 122, 26, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .iyf-promo-strip[data-theme="halloween"] { animation: none; }
+}

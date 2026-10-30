@@ -1,0 +1,116 @@
+---
+layout: default
+---
+{%- comment -%}
+  special.liquid: a one-night promo page that is NOT a show page (docs/special-pages.md).
+  Built for the 2026 Halloween double bill at ROBIN's; reusable for any themed night
+  that bundles two or more existing Eventfrog events behind one link for Instagram,
+  Meetup and the home page.
+
+  Front matter contract (pages/halloween.md is the worked example):
+    theme        palette and decoration, a data-theme value styled in
+                 _sass/components/_special-event.scss (halloween today)
+    hook         the first line people read, a question that names the pain
+    subtitle     the answer, one sentence
+    date_label   "Sat 31 Oct 2026" (text, shown in the eyebrow and the home strip)
+    venue        text for the eyebrow; venue_url for the map link
+    promo_home   true puts the strip on the home page (_includes/promo-strip.liquid)
+    promo_until  ISO time; after it the strip disappears and this page says the night is over
+    events       list of the bundled events; each has name, label, time, blurb, image,
+                 ticket_url, cta, show (GA data-show slug), price_chf, date (YYYY-MM-DD)
+    timeline     list of {time, what} rows for the evening
+    The markdown body renders between the events and the closing buttons.
+  Ticket buttons carry the same data attributes as show pages so assets/js/ticket-click.js
+  reports clicks per event (docs/campaign-links.md).
+{%- endcomment -%}
+{%- assign over = false -%}
+{%- if page.promo_until and page.promo_until < site.time -%}{%- assign over = true -%}{%- endif -%}
+<article class="iyf-special" data-theme="{{ page.theme | default: 'plain' }}">
+  <div class="iyf-special__fog" aria-hidden="true"></div>
+  <div class="iyf-special__bats" aria-hidden="true">
+    <svg class="iyf-special__bat iyf-special__bat--1" viewBox="0 0 64 32"><path d="M32 6c-3 6-8 8-14 6-4 2-6 6-5 11 5-4 9-3 12 1 2-3 5-5 7-5s5 2 7 5c3-4 7-5 12-1 1-5-1-9-5-11-6 2-11 0-14-6z"/></svg>
+    <svg class="iyf-special__bat iyf-special__bat--2" viewBox="0 0 64 32"><path d="M32 6c-3 6-8 8-14 6-4 2-6 6-5 11 5-4 9-3 12 1 2-3 5-5 7-5s5 2 7 5c3-4 7-5 12-1 1-5-1-9-5-11-6 2-11 0-14-6z"/></svg>
+    <svg class="iyf-special__bat iyf-special__bat--3" viewBox="0 0 64 32"><path d="M32 6c-3 6-8 8-14 6-4 2-6 6-5 11 5-4 9-3 12 1 2-3 5-5 7-5s5 2 7 5c3-4 7-5 12-1 1-5-1-9-5-11-6 2-11 0-14-6z"/></svg>
+  </div>
+
+  <header
+    id="main"
+    class="iyf-hero iyf-hero--dim iyf-special__hero"
+    {% if page.feature-img %}style="background-image: url('{{ page.feature-img | relative_url }}');"{% endif %}
+  >
+    <svg class="iyf-special__web" viewBox="0 0 200 200" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="1.2">
+        <path d="M0 0L200 200M0 0L200 120M0 0L120 200M0 0L200 60M0 0L60 200M0 0L200 20M0 0L20 200"/>
+        <path d="M40 0Q38 38 0 40M80 0Q76 76 0 80M120 0Q114 114 0 120M160 0Q152 152 0 160M200 0Q190 190 0 200"/>
+      </g>
+    </svg>
+    <p class="iyf-hero__eyebrow">{{ page.date_label }}{% if page.venue %} · {{ page.venue }}{% endif %}</p>
+    <h1 id="{{ page.title | cgi_escape }}" class="iyf-hero__title iyf-special__hook">{{ page.hook | default: page.title }}</h1>
+    {% if page.subtitle %}<p class="iyf-hero__subtitle iyf-special__answer">{{ page.subtitle }}</p>{% endif %}
+    {% if over %}
+      <p class="iyf-special__over">This night has been and gone. <a href="/calendar/">The calendar</a> has the next ones.</p>
+    {% elsif page.events %}
+      <div class="iyf-hero__actions">
+        {% for ev in page.events %}
+          <a class="btn-ticket btn-ticket--xl" href="{{ ev.ticket_url }}" data-show="{{ ev.show }}" data-venue="{{ page.venue_slug }}" data-date="{{ ev.date }}" data-price="{{ ev.price_chf | default: 0 }}" rel="noopener" target="_blank">{{ ev.cta | default: 'Get Tickets' }}</a>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </header>
+
+  <section class="post-content iyf-special__body">
+    {% if page.events %}
+      <div class="iyf-special__events">
+        {% for ev in page.events %}
+          <div class="iyf-special__event">
+            {% if ev.image %}
+              <a class="iyf-special__poster" href="{{ ev.ticket_url }}" rel="noopener" target="_blank" aria-label="{{ ev.name }}: tickets on Eventfrog">
+                <img src="{{ ev.image | relative_url }}" alt="{{ ev.name }}{% if ev.label %}: {{ ev.label }}{% endif %}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+              </a>
+            {% endif %}
+            <div class="iyf-special__event-text">
+              <p class="iyf-special__act">Act {{ forloop.index }}{% if ev.time %} · {{ ev.time }}{% endif %}</p>
+              <h2 class="iyf-special__event-title">{{ ev.name }}</h2>
+              {% if ev.label %}<p class="iyf-special__event-label">{{ ev.label }}</p>{% endif %}
+              {% if ev.blurb %}<div class="iyf-special__blurb">{{ ev.blurb | markdownify }}</div>{% endif %}
+              {% unless over %}
+                <a class="btn-ticket" href="{{ ev.ticket_url }}" data-show="{{ ev.show }}" data-venue="{{ page.venue_slug }}" data-date="{{ ev.date }}" data-price="{{ ev.price_chf | default: 0 }}" rel="noopener" target="_blank">{{ ev.cta | default: 'Get Tickets' }}</a>
+              {% endunless %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if page.timeline %}
+      <section class="iyf-special__timeline" aria-labelledby="special-timeline">
+        <h2 id="special-timeline" class="iyf-special__h2">How the night goes</h2>
+        <ol class="iyf-special__steps">
+          {% for step in page.timeline %}
+            <li><span class="iyf-special__time">{{ step.time }}</span><span class="iyf-special__what">{{ step.what }}</span></li>
+          {% endfor %}
+        </ol>
+      </section>
+    {% endif %}
+
+    <div class="iyf-special__prose">
+      {{ content }}
+    </div>
+
+    {% unless over %}
+      {% if page.events %}
+        <div class="iyf-special__closing">
+          <h2 class="iyf-special__h2">{{ page.closing_title | default: 'Pick one. Or both.' }}</h2>
+          <div class="iyf-hero__actions">
+            {% for ev in page.events %}
+              <a class="btn-ticket btn-ticket--xl" href="{{ ev.ticket_url }}" data-show="{{ ev.show }}" data-venue="{{ page.venue_slug }}" data-date="{{ ev.date }}" data-price="{{ ev.price_chf | default: 0 }}" rel="noopener" target="_blank">{{ ev.cta | default: 'Get Tickets' }}</a>
+            {% endfor %}
+          </div>
+          {% if page.venue_url %}
+            <p class="iyf-special__venue"><a href="{{ page.venue_url }}" rel="noopener" target="_blank">{{ page.venue_address | default: page.venue }} &rarr;</a></p>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endunless %}
+  </section>
+</article>

@@ -1,0 +1,17 @@
+{%- comment -%}
+  promo-strip.liquid: the home page strip for a special night (docs/special-pages.md).
+  Any page with `promo_home: true` and a `promo_until` still in the future gets one
+  strip here, under the hero and above Upcoming Shows. The strip takes its palette
+  from the page's `theme`. Nothing to switch off afterwards: the daily build drops
+  it once promo_until has passed.
+{%- endcomment -%}
+{%- assign promos = site.pages | where: "promo_home", true -%}
+{%- for promo in promos -%}
+  {%- if promo.promo_until and promo.promo_until >= site.time -%}
+    <a class="iyf-promo-strip" data-theme="{{ promo.theme | default: 'plain' }}" href="{{ promo.url | relative_url }}">
+      <span class="iyf-promo-strip__date">{{ promo.date_label }}</span>
+      <span class="iyf-promo-strip__hook">{{ promo.hook | default: promo.title }}</span>
+      <span class="iyf-promo-strip__cta">{{ promo.strip_cta | default: 'See the night' }} &rarr;</span>
+    </a>
+  {%- endif -%}
+{%- endfor -%}

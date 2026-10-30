@@ -131,4 +131,5 @@ All internal docs live in `docs/` (index: `docs/README.md`), which `_config.yml`
 | `docs/emails.md` | Mailchimp playbook: the three email scripts, the builder limitation, the review-and-send flow |
 | `docs/google-preferred-source.md` | The preferred-source deeplink on `/follow/` and the footer |
 | `docs/meta-ads.md` | The Meta ads runbook: five-stage ad sets, API access, creative and list folders, the `script/meta-*.ts` jobs, the moment scheduler (plan: `meta-ads/moments-plan.md`; moment ads never go through `meta-bank.ts --push`, and `meta-moments.ts` owns the Cold and Warm daily budgets). Ids in `meta-ads/config.yml` (from `config.example.yml`); working plans stay in `meta-ads/`; the video ads are the Remotion project in `video/` (own README, audio never in git) |
+| `docs/special-pages.md` | One-night promo pages (`layout: special`, `pages/halloween.md`): front matter, the home strip, reuse next year |
 | `docs/writing-guide.md` | House style |

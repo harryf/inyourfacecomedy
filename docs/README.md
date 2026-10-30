@@ -21,6 +21,7 @@ Claude Code, [`CLAUDE.md`](../CLAUDE.md) (the rules that bite). Then:
 | [`meta-ads.md`](meta-ads.md) | You work on the Meta ads: the runbook, status first. Working plans sit beside the data in `meta-ads/` (creative bank, video plan); the video ads are rendered in `video/`, which has its own README |
 | [`google-business-profile-api-setup.md`](google-business-profile-api-setup.md) | The Google listing job misbehaves: API access, OAuth, moderation history |
 | [`google-preferred-source.md`](google-preferred-source.md) | You wonder about the "preferred source" link on `/follow/` and the footer |
+| [`special-pages.md`](special-pages.md) | You promote a one-night bundle (two or more Eventfrog events behind one link): the `special` layout, its front matter, the home strip, the Halloween worked example |
 | [`writing-guide.md`](writing-guide.md) | You write any visitor-facing copy, doc or commit message: house style |
 
 Conventions: lowercase kebab-case file names; docs refer to each other by bare file name and to the
