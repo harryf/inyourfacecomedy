@@ -42,7 +42,7 @@ All gitignored, all at the repo root, none ever committed. Names only here; valu
 | `GSC_SITE` (optional), `GSC_HEALTHCHECKS_URL` | `gsc-report.ts`, which reads Search Console with the `GA_REPORTS_CREDENTIALS` account (a Restricted user on the property; `search-console.md`) |
 | `GRIST_API_KEY` | `sync-comedians.rb`, `meta-lineup-ad.ts` |
 | `EVENTFROG_ORGANIZER`, `EVENTFROG_HEALTHCHECKS_URL` | `eventfrog-sales.ts`, the ticket count in `robins-calendar.ts`, the reads in `eventfrog-content.ts`. A read-only Organiser key since October 2026; `script/lib/eventfrog-api.ts` has one verb, GET, over a whitelist of paths |
-| `EVENTFROG_ORGANIZER_WRITE`, `EVENTFROG_CONTENT_HEALTHCHECKS_URL` (optional) | `eventfrog-content.ts` writes titles and descriptions with it through `script/lib/eventfrog-write.ts` (PATCH on an event or a group, the three copy fields only). An Organiser key of the read/write type from the Cockpit, Settings, API keys |
+| `EVENTFROG_ORGANIZER_WRITE`, `EVENTFROG_CONTENT_HEALTHCHECKS_URL` (optional) | `eventfrog-content.ts` writes titles and descriptions with it, and `eventfrog-dates.ts` creates new Comedy Brew dates, both through `script/lib/eventfrog-write.ts` (the three copy fields on an event or a group; a copy of an event; a copied event's group and times; no delete). An Organiser key of the read/write type from the Cockpit, Settings, API keys |
 | `META_ACCESS_TOKEN`, `META_ADS_HEALTHCHECKS_URL`, `META_MOMENTS_HEALTHCHECKS_URL` | the `meta-*.ts` scripts (the last one is `meta-moments.ts`'s own check), plus ids and budgets in gitignored `meta-ads/config.yml` (from `config.example.yml`) |
 | `MC_API_KEY` | the three email scripts |
 | `ROBINS_CALENDAR` | `robins-calendar.ts`: the exact title of the calendar in Calendar.app |
@@ -67,6 +67,7 @@ Scheduled jobs first. "Git" says whether the script commits and pushes by itself
 | `robins-calendar.ts` | ROBIN's shows into the Apple calendar shared with the bar staff, with a ticket count in the last three days | launchd, 11:05 daily | no |
 | `eventfrog-sales.ts` | Comedy Brew sales snapshots, the capacity guard, the Saturday review | by hand for now; cron lines below | no |
 | `eventfrog-content.ts` | Comedy Brew titles and descriptions on Eventfrog: the series page and every upcoming date, hooks from `_data/eventfrog-copy.json`; writes only differences | cron, 09:20 daily (installed 2026-10-14; needs `EVENTFROG_ORGANIZER_WRITE`) | no |
+| `eventfrog-dates.ts` | New Comedy Brew Thursdays on Eventfrog up to the `horizon` in `_data/eventfrog-copy.json`, each a copy of the latest date with its own copy; the created ids in `script/eventfrog-out/dates-state.json`; new dates are published by hand in the Cockpit | by hand, when the horizon moves (needs `EVENTFROG_ORGANIZER_WRITE`) | no |
 | `meta-lineup-ad.ts` | The weekly lineup ad in the Buyers ad set | parked since 2026-09-18 (the ad set is paused; see `meta-ads.md`), not run | no |
 | `ga-annotations.ts` | Show dates as annotations on GA charts | by hand; cron line below | no |
 

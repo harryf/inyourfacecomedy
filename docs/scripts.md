@@ -841,6 +841,48 @@ Tests: `script/__tests__/eventfrog-content.test.ts` (the writer's refusals, body
 and headers; the hook walk; the title rules; the history matcher over the four historical
 names; the copy's contents; the comparison; the plan).
 
+The pool file has two more keys. `dates` pins a hook to one day (`"2027-05-06": "Day off?
+Make a night of it"`): a pinned line beats the walk for that date only, follows the same
+rules (29 characters, no closing punctuation, no city) and may name the season or a long
+weekend, never a forecast. `horizon` is the last Thursday `eventfrog-dates.ts` creates.
+
+## `eventfrog-dates.ts`
+
+Creates the Comedy Brew Thursdays that do not exist yet on Eventfrog, up to the `horizon` in
+`_data/eventfrog-copy.json`. Each one is a copy of the latest published date through the
+Organizer API's copy endpoint (`POST /organizer/v1/events/{id}/copy`: begin and end in
+local time, the time zone, the locale and the title), read back and compared with the source
+on the group, the times, the ticket categories (Normal CHF 10 with 60 seats, Students CHF 5
+as the sub-category), the emblem, the location and the online payment setup. Group and times
+are patched when off; anything else that differs stops the run before the next date. The copy
+then gets its own title, short description and description from the content template at once.
+Built 2026-10-30 for the 30 Thursdays of January to July 2027.
+
+```
+bun script/eventfrog-dates.ts                             # dry run: the missing Thursdays and their titles
+bun script/eventfrog-dates.ts --apply --only 2027-01-07   # one date
+bun script/eventfrog-dates.ts --apply                     # all of them, ten seconds apart
+```
+
+Two things Eventfrog decides. A copy arrives unpublished and the API has no publish
+operation, so after a run Harry publishes each new date in the Cockpit (the run lists them).
+And the organiser listing does not return unpublished events at all, so the script keeps every
+id it created in the gitignored `script/eventfrog-out/dates-state.json`, reads those events by
+id on the next run, counts them as existing and repairs their copy if it drifted; a date
+deleted in the Cockpit answers 404 and is created again. Once a date is published the listing
+owns it and the daily `eventfrog-content.ts` run keeps its copy. Gaps before the latest
+published date are never filled: a skipped week there was a decision. Nothing is deleted.
+
+Writes go through `lib/eventfrog-write.ts`: `copyEvent` (the copy path only, five fields) and
+`patchPlacement` (an event's group id and times, nothing else) beside the content job's
+`patchCopy`. Needs `EVENTFROG_ORGANIZER_WRITE`. A created date costs about six API calls, so
+the pacing keeps a batch under the account's 30 calls a minute. Hand-run; nothing schedules it.
+
+Tests: `script/__tests__/eventfrog-dates.test.ts` (the missing-Thursday list, the copy
+request and its body, the copy verb and the Location header, the placement patch and its
+whitelist, the read-back comparison in Zürich time, the ticket category comparison, the state
+file, pinned lines in the pool and in the content job).
+
 ## `robins-calendar.ts`
 
 Mirrors the website calendar (`_data/calendar.yml`, venue `robins` only) into the Apple calendar

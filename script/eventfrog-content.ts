@@ -69,24 +69,51 @@ export function groupIdFromPost(slug: string, postsDir = join(REPO_ROOT, "_posts
   throw new Error(`no post with permalink /${slug}/`);
 }
 
-export function loadHooks(path = join(REPO_ROOT, "_data", "eventfrog-copy.json")): string[] {
-  const j = JSON.parse(readFileSync(path, "utf8")) as { hooks?: unknown };
-  const hooks = Array.isArray(j.hooks) ? j.hooks.filter((h): h is string => typeof h === "string" && h.trim().length > 0) : [];
-  if (!hooks.length) throw new Error(`${path}: no hooks`);
-  for (const h of hooks) {
-    if (/—/.test(h)) throw new Error(`hook has an em dash: ${h}`);
-    if (h.length > HOOK_MAX) throw new Error(`hook over ${HOOK_MAX} characters (Eventfrog caps the title at ${TITLE_MAX}): ${h}`);
-    if (/[.!]$/.test(h)) throw new Error(`hook ends with punctuation (the template adds it): ${h}`);
-  }
-  return hooks;
+/** The copy pool file: the evergreen `hooks` walked by week, `dates` pinned to one day each
+ *  (the season, a long weekend), and the `horizon` eventfrog-dates.ts creates dates up to. */
+export interface CopyPool { hooks: string[]; dates: Record<string, string>; horizon?: string }
+
+export function checkHook(h: string, what = "hook"): void {
+  if (/—/.test(h)) throw new Error(`${what} has an em dash: ${h}`);
+  if (h.length > HOOK_MAX) throw new Error(`${what} over ${HOOK_MAX} characters (Eventfrog caps the title at ${TITLE_MAX}): ${h}`);
+  if (/[.!]$/.test(h)) throw new Error(`${what} ends with punctuation (the template adds it): ${h}`);
 }
 
-/** The hook for a date: the pool walked one line per week, counted from the first night
- *  (27 February 2022), so a date always gets the same line, consecutive Thursdays never
- *  repeat within a pool length, and nothing depends on which other dates exist. Editing the
- *  pool shifts future dates, which the next run rewrites once. Pure. */
+export function loadCopyPool(path = join(REPO_ROOT, "_data", "eventfrog-copy.json")): CopyPool {
+  const j = JSON.parse(readFileSync(path, "utf8")) as { hooks?: unknown; dates?: unknown; horizon?: unknown };
+  const hooks = Array.isArray(j.hooks) ? j.hooks.filter((h): h is string => typeof h === "string" && h.trim().length > 0) : [];
+  if (!hooks.length) throw new Error(`${path}: no hooks`);
+  for (const h of hooks) checkHook(h);
+  const dates: Record<string, string> = {};
+  if (j.dates !== undefined) {
+    if (!j.dates || typeof j.dates !== "object" || Array.isArray(j.dates)) throw new Error(`${path}: dates must be an object of YYYY-MM-DD to hook`);
+    for (const [d, h] of Object.entries(j.dates as Record<string, unknown>)) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || Number.isNaN(Date.parse(d + "T00:00:00Z"))) throw new Error(`${path}: dates key is not a date: ${d}`);
+      if (typeof h !== "string" || !h.trim()) throw new Error(`${path}: dates[${d}] is not a hook`);
+      checkHook(h, `pinned hook ${d}`);
+      dates[d] = h;
+    }
+  }
+  let horizon: string | undefined;
+  if (j.horizon !== undefined) {
+    if (typeof j.horizon !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(j.horizon) || Number.isNaN(Date.parse(j.horizon + "T00:00:00Z"))) throw new Error(`${path}: horizon must be YYYY-MM-DD`);
+    horizon = j.horizon;
+  }
+  return { hooks, dates, horizon };
+}
+
+export function loadHooks(path = join(REPO_ROOT, "_data", "eventfrog-copy.json")): string[] {
+  return loadCopyPool(path).hooks;
+}
+
+/** The hook for a date: a line pinned to the date wins; otherwise the pool walked one line
+ *  per week, counted from the first night (27 February 2022), so a date always gets the same
+ *  line, consecutive Thursdays never repeat within a pool length, and nothing depends on which
+ *  other dates exist. Editing the pool shifts future dates, which the next run rewrites once. Pure. */
 export const FIRST_NIGHT = "2022-02-27";
-export function pickHook(date: string, hooks: string[]): string {
+export function pickHook(date: string, hooks: string[], dates: Record<string, string> = {}): string {
+  const pinned = dates[date];
+  if (pinned) return pinned;
   const days = Math.round((Date.parse(date + "T00:00:00Z") - Date.parse(FIRST_NIGHT + "T00:00:00Z")) / 86_400_000);
   const week = Math.floor(days / 7);
   return hooks[((week % hooks.length) + hooks.length) % hooks.length];
@@ -256,7 +283,7 @@ export function currentCopy(li: EventLite["localizedInfo"]): { locale: string; c
 
 export interface PageJob { kind: "group" | "event"; path: string; label: string; date?: string; locale: string; current: Copy; wanted: Copy; changed: Field[] }
 
-export function planJobs(group: { id: string; localizedInfo: EventLite["localizedInfo"] }, events: EventLite[], hist: { nights: number; since: string }, hooks: string[], reviews: Reviews, nowIso: string, show = COMEDY_BREW): PageJob[] {
+export function planJobs(group: { id: string; localizedInfo: EventLite["localizedInfo"] }, events: EventLite[], hist: { nights: number; since: string }, hooks: string[], reviews: Reviews, nowIso: string, show = COMEDY_BREW, dates: Record<string, string> = {}): PageJob[] {
   const jobs: PageJob[] = [];
   const g = currentCopy(group.localizedInfo);
   const gw = seriesCopy(hist, reviews, show);
@@ -267,7 +294,7 @@ export function planJobs(group: { id: string; localizedInfo: EventLite["localize
   for (const e of upcoming) {
     const c = currentCopy(e.localizedInfo);
     const date = zurichDate(e.beginDate);
-    const w = eventCopy(e, pickHook(date, hooks), reviews, show);
+    const w = eventCopy(e, pickHook(date, hooks, dates), reviews, show);
     jobs.push({ kind: "event", path: `/organizer/v1/events/${e.id}`, label: date, date, locale: c.locale, current: c.copy, wanted: w, changed: changedFields(c.copy, w) });
   }
   return jobs;
@@ -287,7 +314,8 @@ async function main(): Promise<void> {
   const ef: Eventfrog = eventfrogFromEnv();
   const nowIso = new Date().toISOString();
   const groupId = groupIdFromPost(show.slug);
-  const hooks = loadHooks();
+  const pool = loadCopyPool();
+  const hooks = pool.hooks;
   const reviews = loadReviews();
 
   let group: { id: string; localizedInfo: EventLite["localizedInfo"] };
@@ -304,7 +332,7 @@ async function main(): Promise<void> {
   const hist = history(all, nowIso);
   log(`${show.slug}: group ${groupId}, ${inGroup.length} events in the group, history ${hist.nights} nights since ${hist.since || "?"}`);
 
-  let jobs = planJobs(group, inGroup, hist, hooks, reviews, nowIso, show);
+  let jobs = planJobs(group, inGroup, hist, hooks, reviews, nowIso, show, pool.dates);
   if (groupOnly) jobs = jobs.filter((j) => j.kind === "group");
   if (eventsOnly) jobs = jobs.filter((j) => j.kind === "event");
   if (only) jobs = jobs.filter((j) => j.kind === "event" && j.date === only);

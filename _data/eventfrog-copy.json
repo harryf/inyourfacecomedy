@@ -1,5 +1,6 @@
 {
-  "_comment": "Hook lines for the Comedy Brew Eventfrog pages, written by script/eventfrog-content.ts. One hook per date, picked by the show date so a page keeps its line. Each hook ends up as the title suffix after 'Comedy Brew, English Stand-Up: ' and as the first bold sentence of the description. Keep them evergreen (no tonight, no weather, no weekday but Thursday), at most 29 characters (Eventfrog caps a title at 60 and the prefix takes 31), no full stop, and no city: Eventfrog appends 'in Zürich' to the title itself. The pool is walked one line per week from the first night in 2022, so consecutive Thursdays never repeat; adding or reordering lines shifts future dates once. Edit freely; the next 09:20 run rewrites the pages that changed.",
+  "_comment": "Hook lines for the Comedy Brew Eventfrog pages, written by script/eventfrog-content.ts. One hook per date: a line pinned under `dates` wins for that date; otherwise `hooks` is walked one line per week from the first night in 2022, so a page keeps its line and consecutive Thursdays never repeat (adding or reordering pool lines shifts future dates once). Each hook ends up as the title suffix after 'Comedy Brew, English Stand-Up: ' and as the first bold sentence of the description. Pool lines stay evergreen (no tonight, no weather, no weekday but Thursday); a pinned line may name the season or the long weekend, never a forecast, a price or a name. At most 29 characters (Eventfrog caps a title at 60 and the prefix takes 31), no full stop, and no city: Eventfrog appends 'in Zürich' to the title itself. `horizon` is the last Thursday script/eventfrog-dates.ts creates on Eventfrog. Edit freely; the next 09:20 run rewrites the pages that changed.",
+  "horizon": "2027-07-29",
   "hooks": [
     "Fix your Thursday boredom",
     "New in town? This is Thursday",
@@ -15,5 +16,21 @@
     "Have you actually been?",
     "Ten comedians, one Thursday",
     "Stayed for the Thursdays"
-  ]
+  ],
+  "dates": {
+    "2027-01-07": "New year, same Thursday",
+    "2027-01-14": "Dark outside, bright in here",
+    "2027-02-18": "Not on the slopes? Thursday",
+    "2027-03-11": "Spring is getting there",
+    "2027-03-25": "Start the long weekend early",
+    "2027-04-01": "No joke, it's Thursday",
+    "2027-04-08": "Lighter evenings, same laughs",
+    "2027-04-15": "Before the Böögg burns",
+    "2027-05-06": "Day off? Make a night of it",
+    "2027-05-13": "Long weekend? Start Thursday",
+    "2027-06-24": "Long days, late laughs",
+    "2027-07-01": "Summer's here, so is Thursday",
+    "2027-07-22": "Still in town? So are we",
+    "2027-07-29": "Skipped the beach? Good call"
+  }
 }
