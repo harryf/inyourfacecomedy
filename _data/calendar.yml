@@ -5,8 +5,8 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-10-30T08:00:01+00:00'
-event_count: 39
+generated_at: '2026-10-31T08:00:01+00:00'
+event_count: 68
 events:
 - show: nerdycomedyshow
   name: The NERDY COMEDY Show
@@ -203,19 +203,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165779055364.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
-- show: latarima
-  name: La Tarima
-  title: La Tarima - Comedia en Español
-  url: "/latarima/"
-  date: '2026-11-26'
-  start: '2026-11-26T19:30:00+01:00'
-  end: '2026-11-26T21:30:00+01:00'
-  venue: goldfisch-club
-  venue_name: Goldfisch Club
-  location: Goldfisch Club
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-zuerich-7472021574628952076.html
-  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
@@ -385,19 +372,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165938438986.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
-- show: jackpotcomedy
-  name: Jackpot Comedy
-  title: Jackpot Comedy - downstairs @ OTRO
-  url: "/jackpotcomedy/"
-  date: '2026-12-16'
-  start: '2026-12-16T20:00:00+01:00'
-  end: '2026-12-16T22:00:00+01:00'
-  venue: otro
-  venue_name: Bar OTRO
-  location: OTRO - Cocktailbar Zürich
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7513927110353783017.html
-  eventfrog_name: Jackpot Comedy
 - show: promessi-spassi
   name: PROMESSI SPASSI
   title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
@@ -411,6 +385,19 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081170004456.html
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
+- show: jackpotcomedy
+  name: Jackpot Comedy
+  title: Jackpot Comedy - downstairs @ OTRO
+  url: "/jackpotcomedy/"
+  date: '2026-12-16'
+  start: '2026-12-16T20:00:00+01:00'
+  end: '2026-12-16T22:00:00+01:00'
+  venue: otro
+  venue_name: Bar OTRO
+  location: OTRO - Cocktailbar Zürich
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7513927110353783017.html
+  eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
@@ -474,8 +461,60 @@ events:
   venue_name: ROBIN's
   location: ROBIN's Coffee
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-stayed-for-the-thursdays-zuerich-7521657850856244379.html
-  eventfrog_name: 'Comedy Brew, English Stand-Up: Stayed for the Thursdays'
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-fix-your-thursday-boredom-zuerich-7521657850856244379.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Fix your Thursday boredom'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-01-07'
+  start: '2027-01-07T19:30:00+01:00'
+  end: '2027-01-07T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-new-year-same-thursday-zuerich-7521848404105780352.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: New year, same Thursday'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-01-14'
+  start: '2027-01-14T19:30:00+01:00'
+  end: '2027-01-14T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-dark-outside-bright-in-here-zuerich-7521849396004157848.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Dark outside, bright in here'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-01-21'
+  start: '2027-01-21T19:30:00+01:00'
+  end: '2027-01-21T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-bring-the-flatmates-zuerich-7521849439973049496.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Bring the flatmates'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-01-28'
+  start: '2027-01-28T19:30:00+01:00'
+  end: '2027-01-28T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-where-thursday-goes-zuerich-7521849483501540122.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Where Thursday goes'
 - show: digital-daddy-in-english
   name: Digital Daddy (in English)
   title: Digital Daddy (in English)
@@ -489,6 +528,84 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/digital-daddy-in-english-zuerich-7521622493477487873.html
   eventfrog_name: Digital Daddy (in English)
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-02-04'
+  start: '2027-02-04T19:30:00+01:00'
+  end: '2027-02-04T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-thursday-sorted-zuerich-7521849527034225223.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Thursday, sorted'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-02-11'
+  start: '2027-02-11T19:30:00+01:00'
+  end: '2027-02-11T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-half-the-room-came-alone-zuerich-7521849570705320899.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Half the room came alone'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-02-18'
+  start: '2027-02-18T19:30:00+01:00'
+  end: '2027-02-18T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-not-on-the-slopes-thursday-zuerich-7521849614238005738.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Not on the slopes? Thursday'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-02-25'
+  start: '2027-02-25T19:30:00+01:00'
+  end: '2027-02-25T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-two-minutes-from-central-zuerich-7521849657779077770.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Two minutes from Central'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-03-04'
+  start: '2027-03-04T19:30:00+01:00'
+  end: '2027-03-04T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-lost-in-town-find-your-funny-zuerich-7521849701395648652.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Lost in town? Find your funny'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-03-11'
+  start: '2027-03-11T19:30:00+01:00'
+  end: '2027-03-11T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-spring-is-getting-there-zuerich-7521849745020607145.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Spring is getting there'
 - show: digital-daddy-en-francais
   name: Digital Daddy (en français)
   title: Digital Daddy (en français)
@@ -502,6 +619,45 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/fr/p/humour/humour-cabaret/digital-daddy-en-francais-zuerich-7521622522732761079.html
   eventfrog_name: Digital Daddy (en Français)
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-03-18'
+  start: '2027-03-18T19:30:00+01:00'
+  end: '2027-03-18T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-have-you-actually-been-zuerich-7521849788557484401.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Have you actually been?'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-03-25'
+  start: '2027-03-25T19:30:00+01:00'
+  end: '2027-03-25T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-start-the-long-weekend-early-zuerich-7521849832178247936.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Start the long weekend early'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-04-01'
+  start: '2027-04-01T19:30:00+02:00'
+  end: '2027-04-01T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-no-joke-it-s-thursday-zuerich-7521849875715127482.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: No joke, it''s Thursday'
 - show: digital-daddy-auf-deutsch
   name: Digital Daddy (auf Deutsch)
   title: Digital Daddy (auf Deutsch)
@@ -515,5 +671,226 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/digital-daddy-auf-deutsch-zuerich-7521622525819769980.html
   eventfrog_name: Digital Daddy (auf Deutsch)
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-04-08'
+  start: '2027-04-08T19:30:00+02:00'
+  end: '2027-04-08T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-lighter-evenings-same-laughs-zuerich-7521849919251944075.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Lighter evenings, same laughs'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-04-15'
+  start: '2027-04-15T19:30:00+02:00'
+  end: '2027-04-15T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-before-the-boeoegg-burns-zuerich-7521849962788828138.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Before the Böögg burns'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-04-22'
+  start: '2027-04-22T19:30:00+02:00'
+  end: '2027-04-22T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-nobody-will-make-you-talk-zuerich-7521850006371848276.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Nobody will make you talk'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-04-29'
+  start: '2027-04-29T19:30:00+02:00'
+  end: '2027-04-29T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-bring-the-flatmates-zuerich-7521850049900342376.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Bring the flatmates'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-05-06'
+  start: '2027-05-06T19:30:00+02:00'
+  end: '2027-05-06T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-day-off-make-a-night-of-it-zuerich-7521850093441414623.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Day off? Make a night of it'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-05-13'
+  start: '2027-05-13T19:30:00+02:00'
+  end: '2027-05-13T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-long-weekend-start-thursday-zuerich-7521850137028635246.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Long weekend? Start Thursday'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-05-20'
+  start: '2027-05-20T19:30:00+02:00'
+  end: '2027-05-20T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-half-the-room-came-alone-zuerich-7521850180515184930.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Half the room came alone'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-05-27'
+  start: '2027-05-27T19:30:00+02:00'
+  end: '2027-05-27T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-come-alone-leave-with-mates-zuerich-7521850224043677967.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Come alone, leave with mates'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-06-03'
+  start: '2027-06-03T19:30:00+02:00'
+  end: '2027-06-03T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-two-minutes-from-central-zuerich-7521850267790272482.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Two minutes from Central'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-06-10'
+  start: '2027-06-10T19:30:00+02:00'
+  end: '2027-06-10T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-lost-in-town-find-your-funny-zuerich-7521850311369095528.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Lost in town? Find your funny'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-06-17'
+  start: '2027-06-17T19:30:00+02:00'
+  end: '2027-06-17T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-the-group-chat-needed-a-plan-zuerich-7521850354993989600.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: The group chat needed a plan'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-06-24'
+  start: '2027-06-24T19:30:00+02:00'
+  end: '2027-06-24T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-long-days-late-laughs-zuerich-7521850398665085301.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Long days, late laughs'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-07-01'
+  start: '2027-07-01T19:30:00+02:00'
+  end: '2027-07-01T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-summer-s-here-so-is-thursday-zuerich-7521850442151632430.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Summer''s here, so is Thursday'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-07-08'
+  start: '2027-07-08T19:30:00+02:00'
+  end: '2027-07-08T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-stayed-for-the-thursdays-zuerich-7521850485734649633.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Stayed for the Thursdays'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-07-15'
+  start: '2027-07-15T19:30:00+02:00'
+  end: '2027-07-15T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-fix-your-thursday-boredom-zuerich-7521850529271535798.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Fix your Thursday boredom'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-07-22'
+  start: '2027-07-22T19:30:00+02:00'
+  end: '2027-07-22T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-still-in-town-so-are-we-zuerich-7521850572758081511.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Still in town? So are we'
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2027-07-29'
+  start: '2027-07-29T19:30:00+02:00'
+  end: '2027-07-29T22:00:00+02:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-skipped-the-lake-good-call-zuerich-7521850616202684879.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Skipped the lake? Good call'
 unresolved: []
 no_upcoming: []
