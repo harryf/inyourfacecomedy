@@ -150,8 +150,12 @@
       "2026-11": "The leaves are down, the fondue is bubbling, and somebody onstage is about to say something they cannot unsay.",
       "2026-12": "Forget the Christmas markets for one evening and let someone professionally ruin the carol that has been stuck in your head since November.",
       "2027-01": "January in Zürich: the resolutions are cracking, the days are short, and a night of laughing is the one plan that makes it to February.",
+      "2027-02": "Live English stand-up comedy in Zürich — February 2027.",
       "2027-03": "March in Zürich: the ski crowd is back, the spring jackets come out too early, and a room full of laughing strangers warms you up anyway.",
-      "2027-04": "April in Zürich: Sechseläuten is coming, the Böögg is nervous, and so is anyone who has to follow a good punchline."
+      "2027-04": "April in Zürich: Sechseläuten is coming, the Böögg is nervous, and so is anyone who has to follow a good punchline.",
+      "2027-05": "May the laughs be with you! Warmer weather, longer days, and comedians who've finally figured out their material.",
+      "2027-06": "Zürich in June: the lake glitters, the terraces are packed, and somewhere tonight a comic is about to bomb magnificently.",
+      "2027-07": "The evenings are long, the lake is warm, and the only thing cooler than a swim right now is the punchline you never saw coming."
     }
   },
   "show_info": {
@@ -252,7 +256,38 @@
         "2026-12-03": "Comedy Brew: fresh pint of funny, every single week 🍻",
         "2026-12-10": "Tired of small talk? Here the laughs do the work 😄",
         "2026-12-17": "An open mic this good really shouldn't be a secret 🌟",
-        "2026-12-24": "Where strangers bond over someone's worst joke 😅"
+        "2026-12-24": "Where strangers bond over someone's worst joke 😅",
+        "2026-12-31": "Thursday nights just got a whole lot funnier 🍺",
+        "2027-01-07": "Harry Fücks and Martina want your Thursday 🎤",
+        "2027-01-14": "Skip the hike, Comedy Brew has you covered 😄",
+        "2027-01-21": "The open mic where awkward moments feel like home 🎭",
+        "2027-01-28": "Your Thursday just found its new best tradition 🍻",
+        "2027-02-04": "Strangers become friends one punchline at a time 🤝",
+        "2027-02-11": "English comedy brewed fresh every Thursday night 🎤",
+        "2027-02-18": "No trail boots needed, just your sense of humour 😂",
+        "2027-02-25": "Where newcomers step up and totally nail it 🌟",
+        "2027-03-04": "Meet your people the non-cult meetup way 😅",
+        "2027-03-11": "Harry Fücks and Martina are your hosts 🎉",
+        "2027-03-18": "Brave enough to grab the mic? Thursday awaits 👏",
+        "2027-03-25": "Cheaper than therapy and twice as funny 😂",
+        "2027-04-01": "New in town? This is your crowd right here 🫶",
+        "2027-04-08": "The only Thursday night plan worth keeping 🎊",
+        "2027-04-15": "Cult-free socialising powered by English comedy 😈",
+        "2027-04-22": "Hiking the social scene? Wrong trail, try comedy 🥾",
+        "2027-04-29": "Harry Fücks is hosting and chaos is guaranteed 🌀",
+        "2027-05-06": "Comedy Brew: your Thursday just found its purpose 🎯",
+        "2027-05-13": "English open mic where the awkward becomes gold 😂",
+        "2027-05-20": "New in town? These comedians will adopt you 🤗",
+        "2027-05-27": "Martina proves Thursdays are underrated 💫",
+        "2027-06-03": "English comedy night with real people, real fails 🎭",
+        "2027-06-10": "Martina is warming up the mic for you 🔥",
+        "2027-06-17": "No altitude, no membership card, just comedy 🎉",
+        "2027-06-24": "Your Thursday evening has been waiting for this 🙌",
+        "2027-07-01": "Harry Fücks won't hold back and neither should you 😤",
+        "2027-07-08": "Making friends in a new city? Laugh your way in 😂",
+        "2027-07-15": "Comedy Brew Thursdays: consistently delightful chaos 🌪️",
+        "2027-07-22": "Local legends and fresh faces share one brave mic 🎤",
+        "2027-07-29": "The only open mic where awkward is actually an asset 😬"
       }
     },
     "digital-daddy-auf-deutsch": {
@@ -515,7 +550,6 @@
       "assigned": {
         "2026-11-05": "Tu experiencia migrante merece un aplauso 👏",
         "2026-11-19": "Donde el español no necesita traducción 🌶️",
-        "2026-11-26": "Con acento, sin culpa y con mucho humor 😎",
         "2026-12-10": "Andrea Ramírez y la mejor excusa para salir 🎶"
       }
     },

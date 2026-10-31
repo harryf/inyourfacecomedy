@@ -5,7 +5,7 @@ nav_title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
 description: "Every IN YOUR FACE comedy show in Zürich, month by month through 2026: dates, venues and ticket links for English stand-up nights and open mics. Comedy Veranstaltungen in Zürich auf Englisch. Updated weekly."
-last_modified_at: 2026-10-29T18:32:46+00:00
+last_modified_at: 2026-10-31T10:00:01+00:00
 permalink: /calendar/
 redirect_from:   # every removed show lands here (CLAUDE.md, Removing a show)
   # Balkan Baddie (removed 2026-01-04)
@@ -110,7 +110,6 @@ Auf Deutsch: alle Comedy Veranstaltungen und Auftritte von IN YOUR FACE in Züri
 | Nov 19 | Thu | [La Tarima](https://inyourfacecomedy.ch/latarima/) | Donde el español no necesita traducción 🌶️ | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-zuerich-7502463051880252299.html) |
 | Nov 22 | Sun | [Gratis Comedy Zum Mitnehmen](https://inyourfacecomedy.ch/gratis-zum-mitnehmen/) | New material night, zero douchebags policy, pay what you like 🎤 | [Get Tickets](https://eventfrog.ch/de/p/comedy/comedy-kabarett/gratis-comedy-zum-mitnehmen-free-entry-stand-up-comedy-zuerich-7492505145781047015.html) |
 | Nov 24 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | Expect the unexpected, then laugh at it anyway 😆 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165779055364.html) |
-| Nov 26 | Thu | [La Tarima](https://inyourfacecomedy.ch/latarima/) | Con acento, sin culpa y con mucho humor 😎 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-zuerich-7472021574628952076.html) |
 | Nov 26 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Harry Fücks and Martina: Thursday perfected ✨ | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-lost-in-town-find-your-funny-zuerich-7466832108633224028.html) |
 | Nov 28 | Sat | [The NERDY COMEDY Show](https://inyourfacecomedy.ch/nerdycomedyshow/) | Strong D&D edition opinions? This is your room 🎲 | [Get Tickets](https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-en-zurich-zuerich-7501658632838204314.html) |
 
@@ -140,6 +139,7 @@ Auf Deutsch: alle Comedy Veranstaltungen und Auftritte von IN YOUR FACE in Züri
 | Dec 22 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | A vibe driven night of brand new punchlines 🚀 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165992964957.html) |
 | Dec 24 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Where strangers bond over someone's worst joke 😅 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-stayed-for-the-thursdays-zuerich-7466832589996740615.html) |
 | Dec 26 | Sat | [The NERDY COMEDY Show](https://inyourfacecomedy.ch/nerdycomedyshow/) | Pavel and Sussman roast your card game addiction 🃏 | [Get Tickets](https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-en-zurich-zuerich-7501658845556549750.html) |
+| Dec 31 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Thursday nights just got a whole lot funnier 🍺 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-fix-your-thursday-boredom-zuerich-7521657850856244379.html) |
 
 </div>
 
@@ -150,7 +150,25 @@ Auf Deutsch: alle Comedy Veranstaltungen und Auftritte von IN YOUR FACE in Züri
 
 | Date | Day | Show | Info | Tickets |
 |------|-----|------|------|---------|
+| Jan 7 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Harry Fücks and Martina want your Thursday 🎤 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-new-year-same-thursday-zuerich-7521848404105780352.html) |
+| Jan 14 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Skip the hike, Comedy Brew has you covered 😄 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-dark-outside-bright-in-here-zuerich-7521849396004157848.html) |
+| Jan 21 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | The open mic where awkward moments feel like home 🎭 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-bring-the-flatmates-zuerich-7521849439973049496.html) |
+| Jan 28 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Your Thursday just found its new best tradition 🍻 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-where-thursday-goes-zuerich-7521849483501540122.html) |
 | Jan 29 | Fri | [Digital Daddy (in English)](https://inyourfacecomedy.ch/digital-daddy-in-english/) | Benjamin's solo show on our digital addiction 📱 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/digital-daddy-in-english-zuerich-7521622493477487873.html) |
+
+</div>
+
+<h2 class="iyf-month-heading">February 2027</h2>
+<p class="iyf-month-flavor">Live English stand-up comedy in Zürich — February 2027.</p>
+
+<div class="iyf-calendar" markdown="1">
+
+| Date | Day | Show | Info | Tickets |
+|------|-----|------|------|---------|
+| Feb 4 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Strangers become friends one punchline at a time 🤝 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-thursday-sorted-zuerich-7521849527034225223.html) |
+| Feb 11 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | English comedy brewed fresh every Thursday night 🎤 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-half-the-room-came-alone-zuerich-7521849570705320899.html) |
+| Feb 18 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | No trail boots needed, just your sense of humour 😂 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-not-on-the-slopes-thursday-zuerich-7521849614238005738.html) |
+| Feb 25 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Where newcomers step up and totally nail it 🌟 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-two-minutes-from-central-zuerich-7521849657779077770.html) |
 
 </div>
 
@@ -161,7 +179,11 @@ Auf Deutsch: alle Comedy Veranstaltungen und Auftritte von IN YOUR FACE in Züri
 
 | Date | Day | Show | Info | Tickets |
 |------|-----|------|------|---------|
+| Mar 4 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Meet your people the non-cult meetup way 😅 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-lost-in-town-find-your-funny-zuerich-7521849701395648652.html) |
+| Mar 11 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Harry Fücks and Martina are your hosts 🎉 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-spring-is-getting-there-zuerich-7521849745020607145.html) |
 | Mar 12 | Fri | [Digital Daddy (en français)](https://inyourfacecomedy.ch/digital-daddy-en-francais/) | Le solo de Benjamin sur notre addiction au numérique 📱 | [Get Tickets](https://eventfrog.ch/fr/p/humour/humour-cabaret/digital-daddy-en-francais-zuerich-7521622522732761079.html) |
+| Mar 18 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Brave enough to grab the mic? Thursday awaits 👏 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-have-you-actually-been-zuerich-7521849788557484401.html) |
+| Mar 25 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Cheaper than therapy and twice as funny 😂 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-start-the-long-weekend-early-zuerich-7521849832178247936.html) |
 
 </div>
 
@@ -172,7 +194,55 @@ Auf Deutsch: alle Comedy Veranstaltungen und Auftritte von IN YOUR FACE in Züri
 
 | Date | Day | Show | Info | Tickets |
 |------|-----|------|------|---------|
+| Apr 1 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | New in town? This is your crowd right here 🫶 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-no-joke-it-s-thursday-zuerich-7521849875715127482.html) |
 | Apr 3 | Sat | [Digital Daddy (auf Deutsch)](https://inyourfacecomedy.ch/digital-daddy-auf-deutsch/) | Benjamins Soloprogramm über unsere Handysucht 📱 | [Get Tickets](https://eventfrog.ch/de/p/comedy/comedy-kabarett/digital-daddy-auf-deutsch-zuerich-7521622525819769980.html) |
+| Apr 8 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | The only Thursday night plan worth keeping 🎊 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-lighter-evenings-same-laughs-zuerich-7521849919251944075.html) |
+| Apr 15 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Cult-free socialising powered by English comedy 😈 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-before-the-boeoegg-burns-zuerich-7521849962788828138.html) |
+| Apr 22 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Hiking the social scene? Wrong trail, try comedy 🥾 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-nobody-will-make-you-talk-zuerich-7521850006371848276.html) |
+| Apr 29 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Harry Fücks is hosting and chaos is guaranteed 🌀 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-bring-the-flatmates-zuerich-7521850049900342376.html) |
+
+</div>
+
+<h2 class="iyf-month-heading">May 2027</h2>
+<p class="iyf-month-flavor">May the laughs be with you! Warmer weather, longer days, and comedians who've finally figured out their material.</p>
+
+<div class="iyf-calendar" markdown="1">
+
+| Date | Day | Show | Info | Tickets |
+|------|-----|------|------|---------|
+| May 6 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Comedy Brew: your Thursday just found its purpose 🎯 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-day-off-make-a-night-of-it-zuerich-7521850093441414623.html) |
+| May 13 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | English open mic where the awkward becomes gold 😂 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-long-weekend-start-thursday-zuerich-7521850137028635246.html) |
+| May 20 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | New in town? These comedians will adopt you 🤗 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-half-the-room-came-alone-zuerich-7521850180515184930.html) |
+| May 27 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Martina proves Thursdays are underrated 💫 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-come-alone-leave-with-mates-zuerich-7521850224043677967.html) |
+
+</div>
+
+<h2 class="iyf-month-heading">June 2027</h2>
+<p class="iyf-month-flavor">Zürich in June: the lake glitters, the terraces are packed, and somewhere tonight a comic is about to bomb magnificently.</p>
+
+<div class="iyf-calendar" markdown="1">
+
+| Date | Day | Show | Info | Tickets |
+|------|-----|------|------|---------|
+| Jun 3 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | English comedy night with real people, real fails 🎭 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-two-minutes-from-central-zuerich-7521850267790272482.html) |
+| Jun 10 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Martina is warming up the mic for you 🔥 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-lost-in-town-find-your-funny-zuerich-7521850311369095528.html) |
+| Jun 17 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | No altitude, no membership card, just comedy 🎉 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-the-group-chat-needed-a-plan-zuerich-7521850354993989600.html) |
+| Jun 24 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Your Thursday evening has been waiting for this 🙌 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-long-days-late-laughs-zuerich-7521850398665085301.html) |
+
+</div>
+
+<h2 class="iyf-month-heading">July 2027</h2>
+<p class="iyf-month-flavor">The evenings are long, the lake is warm, and the only thing cooler than a swim right now is the punchline you never saw coming.</p>
+
+<div class="iyf-calendar" markdown="1">
+
+| Date | Day | Show | Info | Tickets |
+|------|-----|------|------|---------|
+| Jul 1 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Harry Fücks won't hold back and neither should you 😤 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-summer-s-here-so-is-thursday-zuerich-7521850442151632430.html) |
+| Jul 8 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Making friends in a new city? Laugh your way in 😂 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-stayed-for-the-thursdays-zuerich-7521850485734649633.html) |
+| Jul 15 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Comedy Brew Thursdays: consistently delightful chaos 🌪️ | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-fix-your-thursday-boredom-zuerich-7521850529271535798.html) |
+| Jul 22 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Local legends and fresh faces share one brave mic 🎤 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-still-in-town-so-are-we-zuerich-7521850572758081511.html) |
+| Jul 29 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | The only open mic where awkward is actually an asset 😬 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-skipped-the-lake-good-call-zuerich-7521850616202684879.html) |
 
 </div>
 
