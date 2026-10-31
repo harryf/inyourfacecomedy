@@ -3,22 +3,22 @@
  "title": "The NERDY COMEDY Show",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/nerdy-stand-up-comedy-en-7284304661632248367.html",
  "event_type": "series",
- "generated_at": "2026-10-30T09:28:21.886Z",
+ "generated_at": "2026-10-31T09:20:02.301Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-30",
- "complete_through": "2026-10-28",
+ "through": "2026-10-31",
+ "complete_through": "2026-10-29",
  "totals": {
-  "clicks": 391,
-  "redirect": 353,
-  "click": 38,
-  "clicks_30d": 348,
-  "redirect_30d": 336,
-  "click_30d": 12,
-  "views": 103,
-  "views_30d": 46,
-  "sessions": 107,
-  "sessions_30d": 51,
+  "clicks": 472,
+  "redirect": 424,
+  "click": 48,
+  "clicks_30d": 429,
+  "redirect_30d": 407,
+  "click_30d": 22,
+  "views": 107,
+  "views_30d": 49,
+  "sessions": 112,
+  "sessions_30d": 55,
   "broken_links": 0,
   "untagged": 0
  },
@@ -537,17 +537,25 @@
   },
   {
    "date": "2026-10-29",
-   "redirect": 30,
+   "redirect": 33,
    "click": 0,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-30",
-   "redirect": 10,
-   "click": 0,
-   "views": 0,
+   "redirect": 67,
+   "click": 9,
+   "views": 3,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-31",
+   "redirect": 11,
+   "click": 1,
+   "views": 1,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -556,30 +564,30 @@
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 339,
+   "clicks": 405,
    "views": 2,
    "sessions": 2
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 18,
-   "views": 38,
-   "sessions": 38
+   "clicks": 20,
+   "views": 40,
+   "sessions": 40
   },
   {
    "source": "meetup",
    "medium": "referral",
-   "clicks": 10,
+   "clicks": 13,
    "views": 1,
    "sessions": 1
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 6,
-   "views": 14,
-   "sessions": 15
+   "clicks": 11,
+   "views": 16,
+   "sessions": 18
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -589,18 +597,18 @@
    "sessions": 9
   },
   {
+   "source": "chatgpt.com",
+   "medium": "ai-assistant",
+   "clicks": 4,
+   "views": 1,
+   "sessions": 1
+  },
+  {
    "source": "followers",
    "medium": "social",
    "clicks": 4,
    "views": 0,
    "sessions": 0
-  },
-  {
-   "source": "chatgpt.com",
-   "medium": "ai-assistant",
-   "clicks": 3,
-   "views": 1,
-   "sessions": 1
   },
   {
    "source": "guidle",
@@ -610,6 +618,20 @@
    "sessions": 6
   },
   {
+   "source": "duckduckgo",
+   "medium": "organic",
+   "clicks": 2,
+   "views": 1,
+   "sessions": 1
+  },
+  {
+   "source": "mailchimp",
+   "medium": "email",
+   "clicks": 2,
+   "views": 0,
+   "sessions": 0
+  },
+  {
    "source": "google-business",
    "medium": "referral",
    "clicks": 1,
@@ -617,15 +639,15 @@
    "sessions": 0
   },
   {
-   "source": "mailchimp",
-   "medium": "email",
+   "source": "meta",
+   "medium": "paid_social",
    "clicks": 1,
    "views": 0,
    "sessions": 0
   },
   {
-   "source": "meta",
-   "medium": "paid_social",
+   "source": "polyuni",
+   "medium": "social",
    "clicks": 1,
    "views": 0,
    "sessions": 0
@@ -645,13 +667,6 @@
    "sessions": 1
   },
   {
-   "source": "duckduckgo",
-   "medium": "organic",
-   "clicks": 0,
-   "views": 1,
-   "sessions": 1
-  },
-  {
    "source": "microsite.guidle.com",
    "medium": "referral",
    "clicks": 0,
@@ -664,17 +679,21 @@
    "campaign": "nerdycomedyshow-20261031",
    "source": "instagram",
    "medium": "social",
-   "clicks": 329,
+   "clicks": 395,
    "first": "2026-10-15",
-   "last": "2026-10-30",
+   "last": "2026-10-31",
    "content": [
     {
      "content": "120251288382680219",
-     "clicks": 315
+     "clicks": 333
+    },
+    {
+     "content": "120251455211360219",
+     "clicks": 43
     },
     {
      "content": "link_in_bio",
-     "clicks": 3
+     "clicks": 7
     }
    ]
   },
@@ -703,6 +722,15 @@
   },
   {
    "campaign": "nerdycomedyshow-20261031",
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 5,
+   "first": "2026-10-29",
+   "last": "2026-10-31",
+   "content": []
+  },
+  {
+   "campaign": "nerdycomedyshow-20261031",
    "source": "followers",
    "medium": "social",
    "clicks": 4,
@@ -711,24 +739,19 @@
    "content": []
   },
   {
-   "campaign": "nerdycomedyshow-20261031",
-   "source": "meetup",
-   "medium": "referral",
-   "clicks": 2,
-   "first": "2026-10-29",
-   "last": "2026-10-29",
-   "content": []
-  },
-  {
    "campaign": "halloween-sidequest",
    "source": "mailchimp",
    "medium": "email",
-   "clicks": 1,
+   "clicks": 2,
    "first": "2026-10-29",
-   "last": "2026-10-29",
+   "last": "2026-10-31",
    "content": [
     {
      "content": "mail1",
+     "clicks": 1
+    },
+    {
+     "content": "mail2",
      "clicks": 1
     }
    ]
@@ -767,6 +790,15 @@
    "clicks": 1,
    "first": "2026-09-24",
    "last": "2026-09-24",
+   "content": []
+  },
+  {
+   "campaign": "nerdycomedyshow-20261031",
+   "source": "polyuni",
+   "medium": "social",
+   "clicks": 1,
+   "first": "2026-10-30",
+   "last": "2026-10-30",
    "content": []
   }
  ],

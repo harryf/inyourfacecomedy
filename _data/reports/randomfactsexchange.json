@@ -3,11 +3,11 @@
  "title": "Random Facts Exchange",
  "ticket_url": "https://eventfrog.ch/en/p/groups/random-facts-exchange-7434337254674303477.html",
  "event_type": "series",
- "generated_at": "2026-10-30T09:28:21.886Z",
+ "generated_at": "2026-10-31T09:20:02.301Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-30",
- "complete_through": "2026-10-28",
+ "through": "2026-10-31",
+ "complete_through": "2026-10-29",
  "totals": {
   "clicks": 55,
   "redirect": 0,
@@ -540,11 +540,19 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-30",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-31",
    "redirect": 0,
    "click": 0,
    "views": 0,

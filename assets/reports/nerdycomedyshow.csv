@@ -362,10 +362,10 @@ datetime,event,source,medium,campaign,content,page
 2026-10-29 14:50,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
 2026-10-29 15:35,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
 2026-10-29 16:51,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-29 16:53,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
 2026-10-29 18:11,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
 2026-10-29 18:32,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
 2026-10-29 18:54,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
-2026-10-29 19:20,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
 2026-10-29 19:20,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
 2026-10-29 19:24,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
 2026-10-29 19:53,ticket_redirect,mailchimp,email,halloween-sidequest,mail1,Ticket Redirect
@@ -375,9 +375,12 @@ datetime,event,source,medium,campaign,content,page
 2026-10-29 21:36,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
 2026-10-29 21:43,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
 2026-10-29 22:22,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-29 22:41,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
 2026-10-29 22:45,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
 2026-10-29 23:12,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
 2026-10-29 23:13,ticket_redirect,meetup,referral,nerdycomedyshow-20261031,,Ticket Redirect
+2026-10-29 23:16,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-29 23:17,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
 2026-10-29 23:23,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
 2026-10-29 23:38,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
 2026-10-30 00:50,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
@@ -390,3 +393,81 @@ datetime,event,source,medium,campaign,content,page
 2026-10-30 07:51,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
 2026-10-30 08:12,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
 2026-10-30 08:18,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-30 08:38,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-30 08:54,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/nerdycomedyshow/
+2026-10-30 10:16,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-30 12:08,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-10-30 12:22,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-30 12:34,ticket_redirect,meetup,referral,nerdycomedyshow-20261031,,Ticket Redirect
+2026-10-30 13:33,ticket_redirect,instagram,social,nerdycomedyshow-20261031,link_in_bio,Ticket Redirect
+2026-10-30 13:33,ticket_redirect,instagram,social,nerdycomedyshow-20261031,link_in_bio,Ticket Redirect
+2026-10-30 14:11,ticket_redirect,instagram,social,nerdycomedyshow-20261031,,Ticket Redirect
+2026-10-30 14:37,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-30 14:52,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 15:04,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 15:28,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 15:41,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 15:45,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 16:17,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 16:22,ticket_redirect,instagram,social,nerdycomedyshow-20261031,link_in_bio,Ticket Redirect
+2026-10-30 16:27,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 17:06,ticket_redirect,meetup,referral,nerdycomedyshow-20261031,,Ticket Redirect
+2026-10-30 17:07,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-30 17:23,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-30 17:26,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 17:36,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 17:52,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 17:58,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 18:20,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-30 18:28,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-30 18:28,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 18:28,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 18:44,ticket_redirect,polyuni,social,nerdycomedyshow-20261031,,Ticket Redirect
+2026-10-30 18:51,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-30 18:58,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 18:58,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 19:02,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-10-30 19:02,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 19:04,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 19:17,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/nerdycomedyshow/
+2026-10-30 19:17,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 19:54,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 20:04,ticket_redirect,instagram,social,nerdycomedyshow-20261031,link_in_bio,Ticket Redirect
+2026-10-30 20:04,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 20:22,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 20:38,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 20:48,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 20:53,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 20:59,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-30 21:02,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
+2026-10-30 21:06,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
+2026-10-30 21:22,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 21:23,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-30 21:29,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 21:29,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 21:39,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 21:41,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-30 21:41,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 21:42,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 22:16,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-30 22:24,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/calendar/
+2026-10-30 22:34,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 22:41,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 23:12,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-30 23:31,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 23:37,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 23:37,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-30 23:49,ticket_click,duckduckgo,organic,,,https://inyourfacecomedy.ch/halloween/
+2026-10-30 23:50,ticket_click,duckduckgo,organic,,,https://inyourfacecomedy.ch/halloween/
+2026-10-31 00:09,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-31 00:10,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/halloween/
+2026-10-31 00:20,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-31 00:54,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-31 01:03,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-31 01:12,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-31 02:31,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-31 02:31,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-31 05:03,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251455211360219,Ticket Redirect
+2026-10-31 05:24,ticket_redirect,instagram,social,nerdycomedyshow-20261031,120251288382680219,Ticket Redirect
+2026-10-31 08:16,ticket_redirect,mailchimp,email,halloween-sidequest,mail2,Ticket Redirect
+2026-10-31 08:17,ticket_redirect,meetup,referral,nerdycomedyshow-20261031,,Ticket Redirect

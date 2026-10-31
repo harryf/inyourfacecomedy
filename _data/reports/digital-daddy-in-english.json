@@ -3,11 +3,11 @@
  "title": "Digital Daddy (in English)",
  "ticket_url": "https://eventfrog.ch/en/p/comedy/comedy-cabaret/digital-daddy-in-english-zuerich-7521622493477487873.html",
  "event_type": "one-off",
- "generated_at": "2026-10-30T09:28:21.886Z",
+ "generated_at": "2026-10-31T09:20:02.301Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-30",
- "complete_through": "2026-10-28",
+ "through": "2026-10-31",
+ "complete_through": "2026-10-29",
  "totals": {
   "clicks": 1,
   "redirect": 0,
@@ -15,8 +15,8 @@
   "clicks_30d": 1,
   "redirect_30d": 0,
   "click_30d": 1,
-  "views": 0,
-  "views_30d": 0,
+  "views": 1,
+  "views_30d": 1,
   "sessions": 1,
   "sessions_30d": 1,
   "broken_links": 0,
@@ -539,12 +539,20 @@
    "date": "2026-10-29",
    "redirect": 0,
    "click": 1,
+   "views": 1,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-30",
+   "redirect": 0,
+   "click": 0,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
   },
   {
-   "date": "2026-10-30",
+   "date": "2026-10-31",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -557,7 +565,7 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 1,
-   "views": 0,
+   "views": 1,
    "sessions": 1
   }
  ],

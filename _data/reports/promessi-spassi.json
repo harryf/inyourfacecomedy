@@ -3,22 +3,22 @@
  "title": "PROMESSI SPASSI",
  "ticket_url": "https://eventfrog.ch/en/p/groups/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081056758243.html",
  "event_type": "monthly",
- "generated_at": "2026-10-30T09:28:21.886Z",
+ "generated_at": "2026-10-31T09:20:02.301Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-30",
- "complete_through": "2026-10-28",
+ "through": "2026-10-31",
+ "complete_through": "2026-10-29",
  "totals": {
-  "clicks": 3280,
-  "redirect": 3238,
+  "clicks": 3285,
+  "redirect": 3243,
   "click": 42,
-  "clicks_30d": 992,
-  "redirect_30d": 976,
-  "click_30d": 16,
+  "clicks_30d": 979,
+  "redirect_30d": 964,
+  "click_30d": 15,
   "views": 103,
-  "views_30d": 39,
+  "views_30d": 37,
   "sessions": 98,
-  "sessions_30d": 34,
+  "sessions_30d": 32,
   "broken_links": 0,
   "untagged": 0
  },
@@ -540,12 +540,20 @@
    "redirect": 24,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-30",
-   "redirect": 2,
+   "redirect": 6,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-31",
+   "redirect": 1,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -556,7 +564,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 3105,
+   "clicks": 3109,
    "views": 2,
    "sessions": 2
   },
@@ -570,7 +578,7 @@
   {
    "source": "dolcevita",
    "medium": "social",
-   "clicks": 23,
+   "clicks": 24,
    "views": 0,
    "sessions": 0
   },
@@ -732,13 +740,13 @@
    "campaign": "promessi-spassi-20261118",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 92,
+   "clicks": 96,
    "first": "2026-10-23",
-   "last": "2026-10-30",
+   "last": "2026-10-31",
    "content": [
     {
      "content": "52683068634000",
-     "clicks": 78
+     "clicks": 82
     }
    ]
   },
@@ -760,9 +768,9 @@
    "campaign": "promessi-spassi-20261021",
    "source": "dolcevita",
    "medium": "social",
-   "clicks": 23,
+   "clicks": 24,
    "first": "2026-10-14",
-   "last": "2026-10-29",
+   "last": "2026-10-30",
    "content": []
   },
   {

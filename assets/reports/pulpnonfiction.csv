@@ -54,5 +54,8 @@ datetime,event,source,medium,campaign,content,page
 2026-10-04 19:54,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
 2026-10-15 12:35,ticket_redirect,guidle,referral,pulpnonfiction,,Ticket Redirect
 2026-10-15 20:38,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
-2026-10-29 14:32,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-10-29 14:32,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
 2026-10-29 18:28,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
+2026-10-30 21:46,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect
+2026-10-30 21:52,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect
+2026-10-30 22:32,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect
