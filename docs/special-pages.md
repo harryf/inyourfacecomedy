@@ -1,6 +1,6 @@
 # Special pages: one night, several events, one link
 
-A special page promotes a themed night that bundles two or more existing Eventfrog events, so Instagram, Meetup and the home page can point at one URL. It is not a show page: no `_posts` entry, no `next_event_date`, nothing the daily jobs touch. The first one is `pages/halloween.md` (`/halloween/`, Saturday 31 October 2026: The NERDY COMEDY Show Halloween Sidequest at 20:00, then the Halloween Party at ROBIN's with DJ Igor from 22:00).
+A special page promotes a themed night that bundles two or more existing Eventfrog events, so Instagram, Meetup and the home page can point at one URL. It is not a show page: no `_posts` entry, no `next_event_date`, nothing the daily jobs touch. The first one was `pages/halloween.md` (`/halloween/`, Saturday 31 October 2026: The NERDY COMEDY Show Halloween Sidequest at 20:00, then the Halloween Party at ROBIN's with DJ Igor from 22:00), removed on 1 November 2026 with `/halloween/` redirecting to the calendar. Read it back with `git show 78874ff3:pages/halloween.md`.
 
 ## The pieces
 
@@ -9,7 +9,7 @@ A special page promotes a themed night that bundles two or more existing Eventfr
 | `_layouts/special.liquid` | The page: hero with the hook, one card per event with its flyer and ticket button, a timeline, the markdown body, closing buttons and the venue link |
 | `_includes/promo-strip.liquid` | The strip on the home page, under the hero and above Upcoming Shows, for every page with `promo_home: true` whose `promo_until` is still ahead |
 | `_sass/components/_special-event.scss` | Base styles (the site's type and buttons) plus one block per `theme`. `halloween` adds fog, three gliding bats, a cobweb in the hero corner, a blood drip under the hook and a flicker on it; all of it off under `prefers-reduced-motion` |
-| `pages/halloween.md` | The worked example and next year's starting point |
+| `pages/halloween.md` (in git history only, `git show 78874ff3:pages/halloween.md`) | The worked example and next year's starting point; its two flyers are still in `assets/img/uploads/halloween-2026-*.jpg` |
 
 ## Front matter
 
@@ -61,4 +61,4 @@ The markdown body renders between the timeline and the closing buttons.
 
 ## Next year
 
-Copy `pages/halloween.md` to the new year's page, swap the two flyers, the two Eventfrog URLs, the dates, `promo_until` and the copy. Keep `theme: halloween`. A different kind of night (a New Year's bundle, say) needs a new `[data-theme="..."]` block in the SCSS with its own `--sp-*` palette and nothing else.
+Restore `pages/halloween.md` from git history as the new year's page, swap the two flyers, the two Eventfrog URLs, the dates, `promo_until` and the copy. Keep `theme: halloween`. A different kind of night (a New Year's bundle, say) needs a new `[data-theme="..."]` block in the SCSS with its own `--sp-*` palette and nothing else.

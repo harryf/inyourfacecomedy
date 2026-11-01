@@ -8,6 +8,8 @@ description: "Every IN YOUR FACE comedy show in Zürich, month by month through 
 last_modified_at: 2026-11-01T10:00:01+00:00
 permalink: /calendar/
 redirect_from:   # every removed show lands here (CLAUDE.md, Removing a show)
+  # Halloween 2026 double bill, special page (removed 2026-11-01)
+  - /halloween/
   # Balkan Baddie (removed 2026-01-04)
   - /balkan-baddie/
   # Cracking Time (removed 2025-02-09)
