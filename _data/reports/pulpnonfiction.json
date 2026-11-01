@@ -3,21 +3,21 @@
  "title": "Pulp Non-Fiction",
  "ticket_url": "https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html",
  "event_type": "monthly",
- "generated_at": "2026-10-31T09:20:02.301Z",
+ "generated_at": "2026-11-01T09:20:02.039Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-31",
- "complete_through": "2026-10-29",
+ "through": "2026-11-01",
+ "complete_through": "2026-10-30",
  "totals": {
-  "clicks": 60,
-  "redirect": 24,
-  "click": 36,
-  "clicks_30d": 33,
-  "redirect_30d": 13,
-  "click_30d": 20,
-  "views": 107,
-  "views_30d": 46,
-  "sessions": 108,
+  "clicks": 67,
+  "redirect": 28,
+  "click": 39,
+  "clicks_30d": 40,
+  "redirect_30d": 17,
+  "click_30d": 23,
+  "views": 110,
+  "views_30d": 45,
+  "sessions": 112,
   "sessions_30d": 46,
   "broken_links": 0,
   "untagged": 0
@@ -545,14 +545,22 @@
   },
   {
    "date": "2026-10-30",
-   "redirect": 3,
+   "redirect": 5,
    "click": 0,
    "views": 4,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-31",
+   "redirect": 2,
+   "click": 3,
+   "views": 3,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-01",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -564,9 +572,16 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 15,
-   "views": 38,
+   "clicks": 18,
+   "views": 36,
    "sessions": 39
+  },
+  {
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 16,
+   "views": 0,
+   "sessions": 0
   },
   {
    "source": "meetup",
@@ -576,25 +591,18 @@
    "sessions": 2
   },
   {
-   "source": "instagram",
-   "medium": "social",
-   "clicks": 12,
-   "views": 0,
-   "sessions": 0
-  },
-  {
    "source": "google",
    "medium": "organic",
    "clicks": 9,
-   "views": 18,
-   "sessions": 20
+   "views": 21,
+   "sessions": 22
   },
   {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
    "clicks": 6,
-   "views": 14,
-   "sessions": 14
+   "views": 16,
+   "sessions": 16
   },
   {
    "source": "test",
@@ -664,6 +672,20 @@
    "content": []
   },
   {
+   "campaign": "pulpnonfiction-20261101",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 7,
+   "first": "2026-10-30",
+   "last": "2026-10-31",
+   "content": [
+    {
+     "content": "tickets",
+     "clicks": 7
+    }
+   ]
+  },
+  {
    "campaign": "pulpnonfiction-20260906",
    "source": "instagram",
    "medium": "social",
@@ -671,20 +693,6 @@
    "first": "2026-09-05",
    "last": "2026-09-05",
    "content": []
-  },
-  {
-   "campaign": "pulpnonfiction-20261101",
-   "source": "instagram",
-   "medium": "social",
-   "clicks": 3,
-   "first": "2026-10-30",
-   "last": "2026-10-30",
-   "content": [
-    {
-     "content": "tickets",
-     "clicks": 3
-    }
-   ]
   },
   {
    "campaign": "pulpnonfiction-20261004",

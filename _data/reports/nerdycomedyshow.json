@@ -3,24 +3,24 @@
  "title": "The NERDY COMEDY Show",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/nerdy-stand-up-comedy-en-7284304661632248367.html",
  "event_type": "series",
- "generated_at": "2026-10-31T09:20:02.301Z",
+ "generated_at": "2026-11-01T09:20:02.039Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-31",
- "complete_through": "2026-10-29",
+ "through": "2026-11-01",
+ "complete_through": "2026-10-30",
  "totals": {
-  "clicks": 472,
-  "redirect": 424,
-  "click": 48,
-  "clicks_30d": 429,
-  "redirect_30d": 407,
-  "click_30d": 22,
-  "views": 107,
-  "views_30d": 49,
-  "sessions": 112,
-  "sessions_30d": 55,
+  "clicks": 509,
+  "redirect": 442,
+  "click": 67,
+  "clicks_30d": 466,
+  "redirect_30d": 425,
+  "click_30d": 41,
+  "views": 118,
+  "views_30d": 59,
+  "sessions": 124,
+  "sessions_30d": 66,
   "broken_links": 0,
-  "untagged": 0
+  "untagged": 2
  },
  "by_day": [
   {
@@ -545,17 +545,25 @@
   },
   {
    "date": "2026-10-30",
-   "redirect": 67,
+   "redirect": 80,
    "click": 9,
-   "views": 3,
-   "provisional": true,
+   "views": 6,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-31",
-   "redirect": 11,
-   "click": 1,
-   "views": 1,
+   "redirect": 16,
+   "click": 20,
+   "views": 9,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-01",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -564,30 +572,37 @@
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 405,
+   "clicks": 420,
    "views": 2,
    "sessions": 2
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 20,
-   "views": 40,
-   "sessions": 40
-  },
-  {
-   "source": "meetup",
-   "medium": "referral",
-   "clicks": 13,
-   "views": 1,
-   "sessions": 1
+   "clicks": 23,
+   "views": 46,
+   "sessions": 47
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 11,
-   "views": 16,
-   "sessions": 18
+   "clicks": 19,
+   "views": 20,
+   "sessions": 22
+  },
+  {
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 16,
+   "views": 1,
+   "sessions": 1
+  },
+  {
+   "source": "chatgpt.com",
+   "medium": "ai-assistant",
+   "clicks": 7,
+   "views": 2,
+   "sessions": 2
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -595,13 +610,6 @@
    "clicks": 6,
    "views": 9,
    "sessions": 9
-  },
-  {
-   "source": "chatgpt.com",
-   "medium": "ai-assistant",
-   "clicks": 4,
-   "views": 1,
-   "sessions": 1
   },
   {
    "source": "followers",
@@ -625,6 +633,13 @@
    "sessions": 1
   },
   {
+   "source": "l.instagram.com",
+   "medium": "referral",
+   "clicks": 2,
+   "views": 0,
+   "sessions": 0
+  },
+  {
    "source": "mailchimp",
    "medium": "email",
    "clicks": 2,
@@ -632,7 +647,21 @@
    "sessions": 0
   },
   {
+   "source": "meta",
+   "medium": "untagged",
+   "clicks": 2,
+   "views": 0,
+   "sessions": 0
+  },
+  {
    "source": "google-business",
+   "medium": "referral",
+   "clicks": 1,
+   "views": 0,
+   "sessions": 0
+  },
+  {
+   "source": "meetup.com",
    "medium": "referral",
    "clicks": 1,
    "views": 0,
@@ -679,23 +708,32 @@
    "campaign": "nerdycomedyshow-20261031",
    "source": "instagram",
    "medium": "social",
-   "clicks": 395,
+   "clicks": 410,
    "first": "2026-10-15",
    "last": "2026-10-31",
    "content": [
     {
      "content": "120251288382680219",
-     "clicks": 333
+     "clicks": 339
     },
     {
      "content": "120251455211360219",
-     "clicks": 43
+     "clicks": 50
     },
     {
      "content": "link_in_bio",
-     "clicks": 7
+     "clicks": 8
     }
    ]
+  },
+  {
+   "campaign": "nerdycomedyshow-20261031",
+   "source": "meetup",
+   "medium": "referral",
+   "clicks": 8,
+   "first": "2026-10-29",
+   "last": "2026-10-31",
+   "content": []
   },
   {
    "campaign": "nerdycomedyshow-20260926",
@@ -719,15 +757,6 @@
      "clicks": 3
     }
    ]
-  },
-  {
-   "campaign": "nerdycomedyshow-20261031",
-   "source": "meetup",
-   "medium": "referral",
-   "clicks": 5,
-   "first": "2026-10-29",
-   "last": "2026-10-31",
-   "content": []
   },
   {
    "campaign": "nerdycomedyshow-20261031",

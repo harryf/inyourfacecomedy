@@ -3,11 +3,11 @@
  "title": "Mike Casa",
  "ticket_url": "https://eventfrog.ch/en/p/comedy/comedy-cabaret/2-dec-mike-casa-stand-up-comedy-show-robin-s-zurich-zuerich-7507006161725486601.html",
  "event_type": "one-off",
- "generated_at": "2026-10-31T09:20:02.301Z",
+ "generated_at": "2026-11-01T09:20:02.039Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-31",
- "complete_through": "2026-10-29",
+ "through": "2026-11-01",
+ "complete_through": "2026-10-30",
  "totals": {
   "clicks": 10,
   "redirect": 0,
@@ -17,8 +17,8 @@
   "click_30d": 9,
   "views": 39,
   "views_30d": 29,
-  "sessions": 36,
-  "sessions_30d": 26,
+  "sessions": 37,
+  "sessions_30d": 27,
   "broken_links": 0,
   "untagged": 0
  },
@@ -548,11 +548,19 @@
    "redirect": 0,
    "click": 0,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-10-31",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-01",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -573,7 +581,7 @@
    "medium": "(none)",
    "clicks": 2,
    "views": 14,
-   "sessions": 15
+   "sessions": 16
   },
   {
    "source": "chatgpt.com",

@@ -3,17 +3,17 @@
  "title": "Jokes, Jokes, Jokes",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7519756165535785039.html",
  "event_type": "series",
- "generated_at": "2026-10-31T09:20:02.301Z",
+ "generated_at": "2026-11-01T09:20:02.039Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-10-31",
- "complete_through": "2026-10-29",
+ "through": "2026-11-01",
+ "complete_through": "2026-10-30",
  "totals": {
-  "clicks": 496,
-  "redirect": 412,
+  "clicks": 505,
+  "redirect": 421,
   "click": 84,
-  "clicks_30d": 455,
-  "redirect_30d": 395,
+  "clicks_30d": 464,
+  "redirect_30d": 404,
   "click_30d": 60,
   "views": 120,
   "views_30d": 42,
@@ -545,14 +545,22 @@
   },
   {
    "date": "2026-10-30",
-   "redirect": 25,
+   "redirect": 27,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-10-31",
+   "redirect": 7,
    "click": 0,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
   },
   {
-   "date": "2026-10-31",
+   "date": "2026-11-01",
    "redirect": 3,
    "click": 0,
    "views": 0,
@@ -564,7 +572,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 388,
+   "clicks": 397,
    "views": 0,
    "sessions": 0
   },
@@ -644,21 +652,21 @@
    "campaign": "jokesjokesjokes",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 388,
+   "clicks": 397,
    "first": "2026-10-13",
-   "last": "2026-10-31",
+   "last": "2026-11-01",
    "content": [
     {
      "content": "52679097035400",
-     "clicks": 313
+     "clicks": 318
     },
     {
      "content": "52683271279600",
-     "clicks": 8
+     "clicks": 9
     },
     {
      "content": "52683614964400",
-     "clicks": 1
+     "clicks": 4
     }
    ]
   },
