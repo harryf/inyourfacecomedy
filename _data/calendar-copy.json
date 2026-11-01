@@ -4,6 +4,9 @@
       "01": [
         "January in Zürich: the resolutions are cracking, the days are short, and a night of laughing is the one plan that makes it to February."
       ],
+      "02": [
+        "Live English stand-up comedy in Zürich — February 2027."
+      ],
       "03": [
         "March in Zürich: the ski crowd is back, the spring jackets come out too early, and a room full of laughing strangers warms you up anyway."
       ],
@@ -146,7 +149,6 @@
       ]
     },
     "assigned": {
-      "2026-10": "October in Zürich: the clocks change, the temperature drops, and the only reliable warmth left is a punchline landing exactly on time.",
       "2026-11": "The leaves are down, the fondue is bubbling, and somebody onstage is about to say something they cannot unsay.",
       "2026-12": "Forget the Christmas markets for one evening and let someone professionally ruin the carol that has been stuck in your head since November.",
       "2027-01": "January in Zürich: the resolutions are cracking, the days are short, and a night of laughing is the one plan that makes it to February.",
@@ -595,7 +597,6 @@
         "Pavel Zborik asks: is your backlog a hobby or denial? 🕹️"
       ],
       "assigned": {
-        "2026-10-31": "Stand-up for multiverse explainers, uninvited 🦸",
         "2026-11-28": "Strong D&D edition opinions? This is your room 🎲",
         "2026-12-26": "Pavel and Sussman roast your card game addiction 🃏"
       }

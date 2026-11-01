@@ -5,7 +5,7 @@ nav_title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
 description: "Every IN YOUR FACE comedy show in Zürich, month by month through 2026: dates, venues and ticket links for English stand-up nights and open mics. Comedy Veranstaltungen in Zürich auf Englisch. Updated weekly."
-last_modified_at: 2026-10-31T10:00:01+00:00
+last_modified_at: 2026-11-01T10:00:01+00:00
 permalink: /calendar/
 redirect_from:   # every removed show lands here (CLAUDE.md, Removing a show)
   # Balkan Baddie (removed 2026-01-04)
@@ -76,19 +76,6 @@ Whether you are looking for open mics, featured shows or touring comedians, you 
 
 Auf Deutsch: alle Comedy Veranstaltungen und Auftritte von IN YOUR FACE in Zürich 2026 auf einen Blick, gespielt auf Englisch (kein Schweizerdeutsch nötig).
 
-<h2 class="iyf-month-heading">October 2026</h2>
-<p class="iyf-month-flavor">October in Zürich: the clocks change, the temperature drops, and the only reliable warmth left is a punchline landing exactly on time.</p>
-
-<div class="iyf-calendar" markdown="1">
-
-| Date | Day | Show | Info | Tickets |
-|------|-----|------|------|---------|
-| Oct 31 | Sat | [The NERDY COMEDY Show](https://inyourfacecomedy.ch/nerdycomedyshow/) | Stand-up for multiverse explainers, uninvited 🦸 | [Get Tickets](https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-halloween-sidequest-en-zurich-zuerich-7501658372279695641.html) |
-
-</div>
-
-{% include review-quote.liquid offset="half" %}
-
 <h2 class="iyf-month-heading">November 2026</h2>
 <p class="iyf-month-flavor">The leaves are down, the fondue is bubbling, and somebody onstage is about to say something they cannot unsay.</p>
 
@@ -104,8 +91,8 @@ Auf Deutsch: alle Comedy Veranstaltungen und Auftritte von IN YOUR FACE in Züri
 | Nov 11 | Wed | [Jackpot Comedy](https://inyourfacecomedy.ch/jackpotcomedy/) | Jack Roberts rolls the dice on your funny bone 🎰 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798019957299982.html) |
 | Nov 12 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Stand-up, new friends, and zero hiking required 🏔️ | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-come-alone-leave-with-mates-zuerich-7466831890344846441.html) |
 | Nov 17 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | The punchline lands where you least expect 🎪 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165728723715.html) |
-| Nov 18 | Wed | [PROMESSI SPASSI](https://inyourfacecomedy.ch/promessi-spassi/) | Zero traduzioni, zero scuse, solo risate 🇮🇹 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081128061415.html) |
 | Nov 18 | Wed | [Jackpot Comedy](https://inyourfacecomedy.ch/jackpotcomedy/) | Some punchlines land, some crash. All worth it 🎲 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798260639068110.html) |
+| Nov 18 | Wed | [PROMESSI SPASSI](https://inyourfacecomedy.ch/promessi-spassi/) | Zero traduzioni, zero scuse, solo risate 🇮🇹 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081128061415.html) |
 | Nov 19 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | The bravest humans in the room get the biggest laughs 🎤 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-two-minutes-from-central-zuerich-7466831998151048185.html) |
 | Nov 19 | Thu | [La Tarima](https://inyourfacecomedy.ch/latarima/) | Donde el español no necesita traducción 🌶️ | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-zuerich-7502463051880252299.html) |
 | Nov 22 | Sun | [Gratis Comedy Zum Mitnehmen](https://inyourfacecomedy.ch/gratis-zum-mitnehmen/) | New material night, zero douchebags policy, pay what you like 🎤 | [Get Tickets](https://eventfrog.ch/de/p/comedy/comedy-kabarett/gratis-comedy-zum-mitnehmen-free-entry-stand-up-comedy-zuerich-7492505145781047015.html) |
@@ -114,6 +101,8 @@ Auf Deutsch: alle Comedy Veranstaltungen und Auftritte von IN YOUR FACE in Züri
 | Nov 28 | Sat | [The NERDY COMEDY Show](https://inyourfacecomedy.ch/nerdycomedyshow/) | Strong D&D edition opinions? This is your room 🎲 | [Get Tickets](https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-en-zurich-zuerich-7501658632838204314.html) |
 
 </div>
+
+{% include review-quote.liquid offset="half" %}
 
 <h2 class="iyf-month-heading">December 2026</h2>
 <p class="iyf-month-flavor">Forget the Christmas markets for one evening and let someone professionally ruin the carol that has been stuck in your head since November.</p>
@@ -242,7 +231,7 @@ Auf Deutsch: alle Comedy Veranstaltungen und Auftritte von IN YOUR FACE in Züri
 | Jul 8 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Making friends in a new city? Laugh your way in 😂 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-stayed-for-the-thursdays-zuerich-7521850485734649633.html) |
 | Jul 15 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Comedy Brew Thursdays: consistently delightful chaos 🌪️ | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-fix-your-thursday-boredom-zuerich-7521850529271535798.html) |
 | Jul 22 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Local legends and fresh faces share one brave mic 🎤 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-still-in-town-so-are-we-zuerich-7521850572758081511.html) |
-| Jul 29 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | The only open mic where awkward is actually an asset 😬 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-skipped-the-lake-good-call-zuerich-7521850616202684879.html) |
+| Jul 29 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | The only open mic where awkward is actually an asset 😬 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-skipped-the-beach-good-call-zuerich-7521850616202684879.html) |
 
 </div>
 
