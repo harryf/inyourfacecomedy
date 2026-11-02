@@ -10,6 +10,7 @@ Disallow: /week/
 Disallow: /go/
 Disallow: /linkbuilder/
 Disallow: /reports/
+Disallow: /produce/
 Disallow: /ski-resort-comedy-tour.html
 
 Sitemap: {{ site.url }}/sitemap.xml

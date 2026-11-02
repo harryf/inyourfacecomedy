@@ -458,6 +458,20 @@ check("Anti: /week/ carries noindex robots meta") do
 end
 check("Anti: sitemap does NOT list /week/") { [!sitemap_text.include?("/week/"), "leaked into sitemap"] }
 check("robots.txt disallows /week/") { [read_site("robots.txt").include?("Disallow: /week/"), "missing Disallow"] }
+
+# /produce/ is the page shared by hand with comedians and promoters who want a night at
+# ROBIN's (docs/producer-page.md). Unlisted like the tools, and it must never carry a price.
+produce_html = (read_site("produce/index.html") rescue "")
+check("/produce/ builds and carries noindex robots meta") do
+  [produce_html =~ /name=["']robots["']\s+content=["']noindex/i ? true : false, "page missing or no noindex meta"]
+end
+check("Anti: sitemap does NOT list /produce/") { [!sitemap_text.include?("/produce/"), "leaked into sitemap"] }
+check("robots.txt disallows /produce/") { [read_site("robots.txt").include?("Disallow: /produce/"), "missing Disallow"] }
+check("Anti: /produce/ is off the nav and names no price") do
+  nav = (read_site("index.html") rescue "")[/<nav.*?<\/nav>/m].to_s
+  body = produce_html[/<section class="post-content">.*?<\/section>/m].to_s
+  [!nav.include?("/produce/") && body !~ /\bCHF\b|\bFr\.\s*\d|\d+\s*(francs?|Franken)\b/i, "nav link or a price on the page"]
+end
 check("/week/ script carries the ten week painters") do
   js = File.read(File.join(SITE, "assets/js/lineup-maker-2000.js"))
   missing = %w[paintWeekPolaroid paintWeekTicket paintWeekSwiss paintWeekType paintWeekLava paintWeekComic paintWeekFlap paintWeekStation paintWeekChalk paintWeekMenu].reject { |fn| js.include?("function #{fn}(") }
