@@ -3,22 +3,22 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/comedy-brew-english-stand-up-open-mic-every-thursday-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-11-01T09:20:02.039Z",
+ "generated_at": "2026-11-02T09:20:02.217Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-01",
- "complete_through": "2026-10-30",
+ "through": "2026-11-02",
+ "complete_through": "2026-10-31",
  "totals": {
-  "clicks": 4436,
-  "redirect": 4106,
-  "click": 330,
-  "clicks_30d": 2643,
-  "redirect_30d": 2489,
-  "click_30d": 154,
-  "views": 765,
-  "views_30d": 319,
-  "sessions": 723,
-  "sessions_30d": 303,
+  "clicks": 4481,
+  "redirect": 4150,
+  "click": 331,
+  "clicks_30d": 2630,
+  "redirect_30d": 2477,
+  "click_30d": 153,
+  "views": 767,
+  "views_30d": 316,
+  "sessions": 721,
+  "sessions_30d": 295,
   "broken_links": 0,
   "untagged": 0
  },
@@ -553,17 +553,25 @@
   },
   {
    "date": "2026-10-31",
-   "redirect": 42,
+   "redirect": 51,
    "click": 2,
-   "views": 7,
-   "provisional": true,
+   "views": 8,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-01",
-   "redirect": 14,
+   "redirect": 38,
+   "click": 1,
+   "views": 9,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-02",
+   "redirect": 11,
    "click": 0,
-   "views": 8,
+   "views": 0,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -572,16 +580,16 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 3990,
+   "clicks": 4034,
    "views": 4,
    "sessions": 4
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 159,
-   "views": 297,
-   "sessions": 280
+   "clicks": 160,
+   "views": 301,
+   "sessions": 281
   },
   {
    "source": "instagram",
@@ -594,8 +602,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 83,
-   "views": 308,
-   "sessions": 287
+   "views": 305,
+   "sessions": 283
   },
   {
    "source": "guidle",
@@ -720,8 +728,8 @@
    "source": "eventfrog",
    "medium": "(none)",
    "clicks": 0,
-   "views": 14,
-   "sessions": 14
+   "views": 15,
+   "sessions": 15
   },
   {
    "source": "duckduckgo",
@@ -764,13 +772,13 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 1066,
+   "clicks": 1074,
    "first": "2026-08-26",
-   "last": "2026-11-01",
+   "last": "2026-11-02",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 1008
+     "clicks": 1016
     }
    ]
   },
@@ -778,17 +786,17 @@
    "campaign": "cold",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 857,
+   "clicks": 875,
    "first": "2026-09-13",
-   "last": "2026-11-01",
+   "last": "2026-11-02",
    "content": [
     {
      "content": "cold-C13",
-     "clicks": 395
+     "clicks": 397
     },
     {
      "content": "cold-C7",
-     "clicks": 301
+     "clicks": 317
     },
     {
      "content": "cold-C4v",
@@ -836,13 +844,13 @@
    "campaign": "warm",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 560,
+   "clicks": 561,
    "first": "2026-09-13",
    "last": "2026-11-01",
    "content": [
     {
      "content": "warm-W6",
-     "clicks": 398
+     "clicks": 399
     },
     {
      "content": "warm-W2",
@@ -930,17 +938,17 @@
    "campaign": "cold-planner",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 232,
+   "clicks": 243,
    "first": "2026-10-04",
-   "last": "2026-11-01",
+   "last": "2026-11-02",
    "content": [
     {
      "content": "cold-C18",
-     "clicks": 174
+     "clicks": 182
     },
     {
      "content": "cold-C19",
-     "clicks": 46
+     "clicks": 49
     },
     {
      "content": "cold-C20",
@@ -1004,13 +1012,13 @@
    "campaign": "warm-planner",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 84,
+   "clicks": 90,
    "first": "2026-10-04",
-   "last": "2026-11-01",
+   "last": "2026-11-02",
    "content": [
     {
      "content": "warm-W12",
-     "clicks": 55
+     "clicks": 61
     },
     {
      "content": "warm-W13",
