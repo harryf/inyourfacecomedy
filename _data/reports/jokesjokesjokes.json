@@ -3,22 +3,22 @@
  "title": "Jokes, Jokes, Jokes",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7519756165535785039.html",
  "event_type": "series",
- "generated_at": "2026-11-03T09:20:02.316Z",
+ "generated_at": "2026-11-04T09:20:01.872Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-03",
- "complete_through": "2026-11-01",
+ "through": "2026-11-04",
+ "complete_through": "2026-11-02",
  "totals": {
-  "clicks": 556,
-  "redirect": 469,
-  "click": 87,
-  "clicks_30d": 513,
-  "redirect_30d": 452,
-  "click_30d": 61,
-  "views": 126,
-  "views_30d": 46,
-  "sessions": 123,
-  "sessions_30d": 48,
+  "clicks": 575,
+  "redirect": 484,
+  "click": 91,
+  "clicks_30d": 532,
+  "redirect_30d": 467,
+  "click_30d": 65,
+  "views": 129,
+  "views_30d": 49,
+  "sessions": 128,
+  "sessions_30d": 53,
   "broken_links": 0,
   "untagged": 0
  },
@@ -569,17 +569,25 @@
   },
   {
    "date": "2026-11-02",
-   "redirect": 23,
-   "click": 0,
+   "redirect": 27,
+   "click": 1,
    "views": 3,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-03",
-   "redirect": 6,
-   "click": 1,
-   "views": 2,
+   "redirect": 16,
+   "click": 4,
+   "views": 5,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-04",
+   "redirect": 1,
+   "click": 0,
+   "views": 0,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -588,14 +596,14 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 443,
+   "clicks": 458,
    "views": 0,
    "sessions": 0
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 47,
+   "clicks": 48,
    "views": 32,
    "sessions": 33
   },
@@ -607,6 +615,13 @@
    "sessions": 5
   },
   {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 14,
+   "views": 33,
+   "sessions": 36
+  },
+  {
    "source": "guidle",
    "medium": "referral",
    "clicks": 14,
@@ -614,18 +629,11 @@
    "sessions": 22
   },
   {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 12,
-   "views": 31,
-   "sessions": 32
-  },
-  {
    "source": "chatgpt.com",
    "medium": "ai-assistant",
-   "clicks": 4,
-   "views": 4,
-   "sessions": 3
+   "clicks": 5,
+   "views": 5,
+   "sessions": 4
   },
   {
    "source": "meetup",
@@ -668,21 +676,21 @@
    "campaign": "jokesjokesjokes",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 443,
+   "clicks": 458,
    "first": "2026-10-13",
-   "last": "2026-11-03",
+   "last": "2026-11-04",
    "content": [
     {
      "content": "52679097035400",
-     "clicks": 359
+     "clicks": 370
     },
     {
      "content": "52683271279600",
-     "clicks": 10
+     "clicks": 12
     },
     {
      "content": "52683614964400",
-     "clicks": 7
+     "clicks": 9
     }
    ]
   },

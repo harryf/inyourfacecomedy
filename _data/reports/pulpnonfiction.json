@@ -3,11 +3,11 @@
  "title": "Pulp Non-Fiction",
  "ticket_url": "https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html",
  "event_type": "monthly",
- "generated_at": "2026-11-03T09:20:02.316Z",
+ "generated_at": "2026-11-04T09:20:01.872Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-03",
- "complete_through": "2026-11-01",
+ "through": "2026-11-04",
+ "complete_through": "2026-11-02",
  "totals": {
   "clicks": 72,
   "redirect": 30,
@@ -572,11 +572,19 @@
    "redirect": 0,
    "click": 1,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-03",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-04",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -595,7 +603,7 @@
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 16,
+   "clicks": 15,
    "views": 36,
    "sessions": 36
   },
@@ -609,7 +617,7 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 11,
+   "clicks": 12,
    "views": 25,
    "sessions": 25
   },
