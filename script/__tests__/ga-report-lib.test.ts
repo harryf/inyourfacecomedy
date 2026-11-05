@@ -2,7 +2,7 @@
 // aggregation, CSV. No network; the GA calls live in script/ga-report.ts.
 import { describe, expect, test } from "bun:test";
 import {
-  aggregate, attribute, frontMatterOf, gaDate, gaDateTime, addDays, isNoiseSource, parseShow, reportPage, toCsv,
+  aggregate, attribute, frontMatterOf, gaDate, gaDateTime, addDays, isNoiseSource, parseShow, reportPage, toCsv, variantOf,
   type ClickRow, type PageRow, type Show,
 } from "../lib/ga-report-lib";
 
@@ -150,10 +150,10 @@ describe("ga-report • csv + page stub", () => {
       click({ event: "ticket_click", source: "google", medium: "organic", campaign: "(organic)", page: "/comedybrew/", query: "", datetime: "2026-08-26 20:00" }),
     ], "https://inyourfacecomedy.ch");
     const lines = csv.trim().split("\n");
-    expect(lines[0]).toBe("datetime,event,source,medium,campaign,content,page");
-    expect(lines[1]).toBe("2026-08-26 20:00,ticket_click,google,organic,,,https://inyourfacecomedy.ch/comedybrew/");
-    expect(lines[2]).toBe('2026-08-27 08:00,ticket_redirect,meta,paid_social,comedybrew,"a,b",Ticket Redirect');
-    expect(lines[3]).toBe("2026-08-30 09:00,ticket_redirect,(direct),(none),,,Ticket Redirect");
+    expect(lines[0]).toBe("datetime,event,source,medium,campaign,content,page,variant");
+    expect(lines[1]).toBe("2026-08-26 20:00,ticket_click,google,organic,,,https://inyourfacecomedy.ch/comedybrew/,");
+    expect(lines[2]).toBe('2026-08-27 08:00,ticket_redirect,meta,paid_social,comedybrew,"a,b",Ticket Redirect,');
+    expect(lines[3]).toBe("2026-08-30 09:00,ticket_redirect,(direct),(none),,,Ticket Redirect,");
     expect(lines[4]).toBe(lines[3]);                                          // bucket of 2 → two rows
     expect(lines.length).toBe(5);
   });
@@ -163,5 +163,44 @@ describe("ga-report • csv + page stub", () => {
     expect(p).toContain("permalink: /reports/comedybrew/");
     expect(p).toContain("noindex: true");
     expect(p).toContain("sitemap: false");
+  });
+});
+
+// Ticket variants: /go/?show=<slug>&variant=<id> clicks (an alternative Eventfrog listing
+// of the same show) stay in the show's report, counted under their own campaign AND in a
+// by_variant breakdown; the CSV names the variant per row (docs/campaign-links.md).
+describe("ga-report • ticket variants", () => {
+  const VQ = "show=jokesjokesjokes&variant=interactive&utm_source=meta&utm_medium=paid_social&utm_campaign=jokesjokesjokes-interactive";
+  const jokes: Show = { slug: "jokesjokesjokes", title: "Jokes, Jokes, Jokes", ticketUrl: "https://eventfrog.ch/j", eventType: "series" };
+  const clicks: ClickRow[] = [
+    click({ query: "show=jokesjokesjokes&utm_source=meta&utm_medium=paid_social&utm_campaign=jokesjokesjokes", campaign: "jokesjokesjokes", date: "2026-11-01", datetime: "2026-11-01 10:00", count: 4 }),
+    click({ query: VQ, campaign: "jokesjokesjokes-interactive", date: "2026-11-03", datetime: "2026-11-03 10:00", count: 3 }),
+    click({ query: VQ, campaign: "jokesjokesjokes-interactive", date: "2026-11-05", datetime: "2026-11-05 10:00", count: 2 }),
+    // Site buttons never carry a variant; a query naming one on a ticket_click is ignored.
+    click({ event: "ticket_click", source: "google", medium: "organic", campaign: "(organic)", page: "/jokesjokesjokes/", query: "variant=interactive", date: "2026-11-05", datetime: "2026-11-05 11:00", count: 1 }),
+  ];
+  const r = aggregate({ show: jokes, clicks, pages: [], brokenLinks: 0, since: "2026-08-26", today: "2026-11-05", generatedAt: "x", csvPath: "/x.csv" });
+
+  test("variant clicks count as campaign clicks of the show and get their own campaign row", () => {
+    expect(r.totals).toMatchObject({ redirect: 9, click: 1 });
+    expect(r.by_campaign.map((c) => [c.campaign, c.clicks])).toEqual([["jokesjokesjokes-interactive", 5], ["jokesjokesjokes", 4]]);
+  });
+  test("by_variant totals the variant's clicks with its active window", () => {
+    expect(r.by_variant).toEqual([{ variant: "interactive", clicks: 5, clicks_30d: 5, first: "2026-11-03", last: "2026-11-05" }]);
+  });
+  test("a report without variant clicks has an empty by_variant", () => {
+    expect(aggregate({ show, clicks: [click({})], pages: [], brokenLinks: 0, since: "2026-08-26", today: "2026-08-28", generatedAt: "x", csvPath: "/x.csv" }).by_variant).toEqual([]);
+  });
+  test("variantOf reads only slug-shaped ids", () => {
+    expect(variantOf(VQ)).toBe("interactive");
+    expect(variantOf("show=x")).toBe("");
+    expect(variantOf("variant=https://evil.example")).toBe("");
+    expect(variantOf("variant=" + "a".repeat(65))).toBe("");
+  });
+  test("the CSV names the variant per redirect row", () => {
+    const lines = toCsv(clicks, "https://inyourfacecomedy.ch").trim().split("\n");
+    expect(lines[1]).toBe("2026-11-01 10:00,ticket_redirect,meta,paid_social,jokesjokesjokes,,Ticket Redirect,");
+    expect(lines[5]).toBe("2026-11-03 10:00,ticket_redirect,meta,paid_social,jokesjokesjokes-interactive,,Ticket Redirect,interactive");
+    expect(lines[lines.length - 1]).toBe("2026-11-05 11:00,ticket_click,google,organic,,,https://inyourfacecomedy.ch/jokesjokesjokes/,");
   });
 });

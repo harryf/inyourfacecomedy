@@ -14,6 +14,14 @@ redirect_from:
   # Tall Order (removed 2026-10-24): its Tuesdays are now Jokes, Jokes, Jokes
   - /tall-order/
 ticket_url: https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7519756165535785039.html
+# Alternative Eventfrog listings of the same show (a different flyer and description on
+# Eventfrog, nothing on this site). Only /go/?variant=<id>, the link builder and the
+# traffic report read this; the calendar and the show page never do. docs/campaign-links.md,
+# "Ticket variants".
+ticket_variants:
+  - id: interactive
+    label: Interactive flyer
+    ticket_url: https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-interactive-english-stand-up-comedy-7524099855406361436.html
 event_type: series
 venue_slug: robins
 recurrence_day: Tuesday

@@ -70,7 +70,10 @@ is sent only by the two ticket events (a page-level set would stamp a value on e
 scroll and engagement event as well); there it feeds Key event value. `ticket_click` (site buttons, from
 `data-venue` / `data-date` / `data-price` on `.btn-ticket`) and `ticket_redirect` (`/go/`,
 from the catalogs in `_includes/go-catalogs.liquid`) carry the same six fields, so "ticket
-clicks by venue" and "clicks by days to show" work across both.
+clicks by venue" and "clicks by days to show" work across both. `ticket_redirect` also carries
+`variant` (a ticket variant id, `(none)`, or `(unknown)`; `campaign-links.md`, "Ticket
+variants"), not registered as a dimension: the report reads the variant from the `/go/` query
+string instead.
 
 **GA only runs on the live host.** `head.liquid` and `_layouts/go.html` skip `gtag('config')`
 unless `location.hostname` ends in `inyourfacecomedy.ch`, so `jekyll serve`, Netlify deploy

@@ -564,6 +564,78 @@ check("home upcoming cards show the Eventfrog start time of the show's next even
   [!cards.empty? && bad.empty?, cards.empty? ? "no cards found on the home page" : bad.join(", ")]
 end
 
+# ── ticket variants ───────────────────────────────────────────────────────────
+# A post may declare `ticket_variants:` (alternative Eventfrog listings of the same
+# show, a different flyer and description, nothing on the site). The daily refresh
+# writes their dates to _data/ticket_variants.yml; only the /go/ catalogs, the link
+# builder and the traffic report read any of it. docs/campaign-links.md, "Ticket
+# variants". What must hold: the front matter is well-formed, the variant never
+# reaches the calendar or the show page, and /go/ knows every variant and its dates.
+section "Ticket variants"
+VARIANTS_DATA = File.join(ROOT, "_data", "ticket_variants.yml")
+variant_doc = (YAML.safe_load(File.read(VARIANTS_DATA), permitted_classes: [Date, Time], aliases: true) rescue nil) if File.exist?(VARIANTS_DATA)
+variant_events = variant_doc.is_a?(Hash) && variant_doc["events"].is_a?(Array) ? variant_doc["events"] : []
+declared_variants = shows.flat_map do |s|
+  list = s[:fm]["ticket_variants"]
+  (list.is_a?(Array) ? list : []).map { |v| [s, v] }
+end
+check("ticket_variants: every entry has a slug id (unique per show), a label and an https Eventfrog ticket_url that is not the show's own") do
+  bad = declared_variants.filter_map do |s, v|
+    name = File.basename(s[:file])
+    next "#{name}: not a map" unless v.is_a?(Hash)
+    id = v["id"].to_s
+    next "#{name}: id #{id.inspect}" unless id =~ /\A[a-z0-9-]+\z/
+    next "#{name}/#{id}: no label" if v["label"].to_s.strip.empty?
+    url = v["ticket_url"].to_s
+    next "#{name}/#{id}: ticket_url #{url.inspect}" unless url =~ %r{\Ahttps://(www\.)?eventfrog\.ch/\S+\z}
+    next "#{name}/#{id}: same ticket_url as the show" if url == s[:fm]["ticket_url"].to_s || url == s[:fm]["ticket_url_resolved"].to_s
+    nil
+  end
+  dupes = declared_variants.group_by { |s, v| [s[:file], v.is_a?(Hash) ? v["id"].to_s : ""] }.select { |_, l| l.size > 1 }.keys
+  [bad.empty? && dupes.empty?, (bad + dupes.map { |f, id| "#{File.basename(f)}: id #{id} twice" }).join(", ")]
+end
+check("_data/ticket_variants.yml: present and well-formed whenever a post declares ticket_variants") do
+  if declared_variants.empty?
+    [true, ""]
+  else
+    ok = variant_doc.is_a?(Hash) && variant_doc["event_count"] == variant_events.length &&
+      variant_events.all? { |e| e["show"].to_s != "" && e["variant"].to_s =~ /\A[a-z0-9-]+\z/ && e["ticket_url"].to_s.include?("eventfrog") && e["ticket_url"].to_s !~ %r{/p/(?:groups|gruppen|groupes)/} }
+    [ok, File.exist?(VARIANTS_DATA) ? "bad shape: run script/refresh-calendar-data.rb" : "missing: run script/refresh-calendar-data.rb"]
+  end
+end
+check("_data/ticket_variants.yml: every event belongs to a declared variant of its show") do
+  known = declared_variants.filter_map { |s, v| v.is_a?(Hash) && s[:dir] ? [s[:dir], v["id"].to_s] : nil }
+  orphans = variant_events.reject { |e| known.include?([e["show"].to_s, e["variant"].to_s]) }
+  [orphans.empty?, orphans.first(3).map { |e| "#{e["show"]}/#{e["variant"]}" }.join(", ") + ": removed from the post? re-run script/refresh-calendar-data.rb"]
+end
+check("Anti: a ticket variant never reaches the calendar (calendar.yml, /calendar/, the home page, the show page)") do
+  variant_urls = declared_variants.filter_map { |_, v| v.is_a?(Hash) ? v["ticket_url"].to_s : nil } + variant_events.map { |e| e["ticket_url"].to_s }
+  variant_urls.reject!(&:empty?)
+  leaks = []
+  leaks << "calendar.yml" if cal_events.any? { |e| variant_urls.include?(e["ticket_url"].to_s) }
+  { "/calendar/" => read_site("calendar/index.html"), "home" => home }.each { |name, h| leaks << name if variant_urls.any? { |u| h.include?(u) } }
+  declared_variants.each do |s, v|
+    next unless v.is_a?(Hash) && s[:dir]
+    page = (read_site(File.join(s[:dir], "index.html")) rescue "")
+    leaks << "/#{s[:dir]}/" if page.include?(v["ticket_url"].to_s)
+  end
+  [leaks.empty?, "variant ticket links found in: #{leaks.uniq.join(", ")}"]
+end
+check("/go/ and /linkbuilder/ catalogs carry every ticket variant and its dates") do
+  missing = []
+  %w[go linkbuilder].each do |page|
+    h = read_site("#{page}/index.html")
+    declared_variants.each do |s, v|
+      next unless v.is_a?(Hash)
+      missing << "#{page}: #{s[:dir]}/#{v["id"]}" unless h.include?(%("id":#{v["id"].to_s.to_json})) && h.include?(%("tickets":#{v["ticket_url"].to_s.to_json}))
+    end
+    variant_events.each do |e|
+      missing << "#{page}: #{e["show"]}/#{e["variant"]} #{e["date"]}" unless h.include?(%("variant":#{e["variant"].to_s.to_json},"date":#{e["date"].to_s.to_json}))
+    end
+  end
+  [missing.empty?, missing.first(4).join(", ")]
+end
+
 # ── related shows row ─────────────────────────────────────────────────────────
 # Every show page and every comedian page ends with a row of up to three cards
 # pointing at OTHER shows that are still running. The row is generated, so the

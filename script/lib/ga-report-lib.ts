@@ -85,6 +85,9 @@ export interface PageRow {
 export interface DayStat { date: string; redirect: number; click: number; views: number; provisional: boolean; clicks_tracked: boolean }
 export interface SourceStat { source: string; medium: string; clicks: number; views: number; sessions: number }
 export interface CampaignStat { campaign: string; source: string; medium: string; clicks: number; first: string; last: string; content: { content: string; clicks: number }[] }
+// Campaign clicks that went to a ticket VARIANT (an alternative Eventfrog listing of the
+// show, `/go/?show=<slug>&variant=<id>`; docs/campaign-links.md, "Ticket variants").
+export interface VariantStat { variant: string; clicks: number; clicks_30d: number; first: string; last: string }
 
 export interface Report {
   slug: string;
@@ -106,7 +109,16 @@ export interface Report {
   by_day: DayStat[];
   by_source: SourceStat[];
   by_campaign: CampaignStat[];
+  by_variant: VariantStat[];   // empty unless a variant link was ever clicked
   csv: string;                 // site path to the CSV download
+}
+
+// The ticket variant a /go/ click went to, from the page query (`variant=<id>`), or "".
+// Ids are slug-shaped by contract (check-site pins the front matter); anything else is
+// treated as no variant, so a crafted query never becomes a report row.
+export function variantOf(query: string): string {
+  const v = (new URLSearchParams(query ?? "").get("variant") ?? "").trim();
+  return /^[a-z0-9-]{1,64}$/.test(v) ? v : "";
 }
 
 // Local dev and preview-build hosts that leak into GA as referrers. Filtered at
@@ -201,6 +213,7 @@ export function aggregate(opts: {
   for (const d of dateRange(pagesSince, today)) days.set(d, { date: d, redirect: 0, click: 0, views: 0, provisional: d > completeThrough, clicks_tracked: d >= since });
   const src = new Map<string, SourceStat>();
   const camp = new Map<string, CampaignStat>();
+  const vari = new Map<string, VariantStat>();
   const keyS = (s: string, m: string) => `${s} ${m}`;
 
   let redirect = 0, click = 0, redirect30 = 0, click30 = 0, untagged = 0;
@@ -209,6 +222,16 @@ export function aggregate(opts: {
     if (day) { if (r.event === "ticket_redirect") day.redirect += r.count; else day.click += r.count; }
     if (r.event === "ticket_redirect") { redirect += r.count; if (r.date >= cutoff30) redirect30 += r.count; }
     else { click += r.count; if (r.date >= cutoff30) click30 += r.count; }
+
+    const variant = r.event === "ticket_redirect" ? variantOf(r.query) : "";
+    if (variant) {
+      const v = vari.get(variant) ?? { variant, clicks: 0, clicks_30d: 0, first: r.date, last: r.date };
+      v.clicks += r.count;
+      if (r.date >= cutoff30) v.clicks_30d += r.count;
+      if (r.date < v.first) v.first = r.date;
+      if (r.date > v.last) v.last = r.date;
+      vari.set(variant, v);
+    }
 
     const { source, medium, campaign, content } = attribute(r);
     if (medium === "untagged") untagged += r.count;
@@ -244,6 +267,7 @@ export function aggregate(opts: {
   const by_source = [...src.values()].sort((a, b) => b.clicks - a.clicks || b.sessions - a.sessions || a.source.localeCompare(b.source));
   const by_campaign = [...camp.values()].map((c) => ({ ...c, content: c.content.sort((a, b) => b.clicks - a.clicks) }))
     .sort((a, b) => b.clicks - a.clicks || a.campaign.localeCompare(b.campaign));
+  const by_variant = [...vari.values()].sort((a, b) => b.clicks - a.clicks || a.variant.localeCompare(b.variant));
 
   return {
     slug: show.slug,
@@ -265,6 +289,7 @@ export function aggregate(opts: {
     by_day: [...days.values()],
     by_source,
     by_campaign,
+    by_variant,
     csv: opts.csvPath,
   };
 }
@@ -274,8 +299,9 @@ export function aggregate(opts: {
 // sales report. GA hands us minute buckets (count per identical-dimension row);
 // a bucket of n becomes n identical rows so the runner never has to multiply.
 // "page" is where the click happened: "Ticket Redirect" for the /go/ campaign
-// hop, else the full page URL. RFC 4180 quoting.
-export const CSV_HEADER = ["datetime", "event", "source", "medium", "campaign", "content", "page"];
+// hop, else the full page URL. "variant" is the ticket variant id a /go/ click went to
+// (its sales sit in that listing's own Eventfrog event), else empty. RFC 4180 quoting.
+export const CSV_HEADER = ["datetime", "event", "source", "medium", "campaign", "content", "page", "variant"];
 
 function csvCell(v: string | number): string {
   const s = String(v);
@@ -292,7 +318,8 @@ export function toCsv(rows: ClickRow[], siteUrl: string): string {
   const lines = [CSV_HEADER.join(",")];
   for (const r of sorted) {
     const { source, medium, campaign, content } = attribute(r);
-    const line = [r.datetime, r.event, source, medium, campaign, content, pageLabel(r.page, siteUrl)].map(csvCell).join(",");
+    const variant = r.event === "ticket_redirect" ? variantOf(r.query) : "";
+    const line = [r.datetime, r.event, source, medium, campaign, content, pageLabel(r.page, siteUrl), variant].map(csvCell).join(",");
     for (let i = 0; i < r.count; i++) lines.push(line);
   }
   return lines.join("\n") + "\n";

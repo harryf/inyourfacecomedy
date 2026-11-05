@@ -22,6 +22,16 @@
  *                             degrade gracefully and never 404 on Eventfrog
  *    unknown show slug      → /404.html?from=go&show=<slug>&utm_… — deliberately
  *                             loud, so GA can alert on broken campaign links
+ *    …&variant=<id>         → the same chain against the show's ticket VARIANT of
+ *                             that id (an alternative Eventfrog listing of the same
+ *                             show, declared under `ticket_variants:` on the post;
+ *                             its dates come from _data/ticket_variants.yml, its
+ *                             group page is the series fallback). A plain link never
+ *                             lands on a variant date and a variant link never on a
+ *                             main one. An id the post does not declare (experiment
+ *                             over, ad still running) falls back to the show's own
+ *                             chain, quietly: the visitor still gets tickets, and the
+ *                             report still sees `variant=` in the query.
  *
  *  Meta: when _layouts/go.html has loaded the pixel (live host, not notrack), the
  *  same click is sent as a TicketRedirect custom event with an eventID, before the
@@ -55,6 +65,7 @@
       primaryTitle: primaryTitle,
       isUpcoming: isUpcoming,
       nextEvent: nextEvent,
+      findVariant: findVariant,
       resolveTarget: resolveTarget,
       build404: build404,
       linkTag: linkTag,
@@ -113,23 +124,44 @@
     return nowMs < endMs;
   }
 
-  /** The show's earliest upcoming calendar event with a ticket link, or null. Pure. */
-  function nextEvent(events, show, today, nowMs) {
+  /** Does this calendar event belong to the show, and to the SAME ticket listing
+   *  (main when variantId is empty, else that variant)? Pure. */
+  function eventMatches(e, show, variantId) {
+    return norm(e.show) === norm(show.slug) && norm(e.variant || '') === norm(variantId || '');
+  }
+
+  /** The show's earliest upcoming calendar event with a ticket link, or null. Pure.
+   *  `variantId` (optional) restricts the search to that ticket variant's dates. */
+  function nextEvent(events, show, today, nowMs, variantId) {
     var best = null;
     for (var j = 0; j < events.length; j++) {
       var e = events[j];
-      if (norm(e.show) !== norm(show.slug) || !e.tickets) continue;
+      if (!eventMatches(e, show, variantId) || !e.tickets) continue;
       if (!isUpcoming(e, today, nowMs)) continue;
       if (!best || e.date < best.date) best = e;
     }
     return best;
   }
 
+  /** The show's ticket variant with this id, or null (no id, no variants, unknown id). Pure. */
+  function findVariant(show, variantParam) {
+    var want = norm(variantParam);
+    if (!want || !show || !show.variants) return null;
+    for (var i = 0; i < show.variants.length; i++) {
+      var v = show.variants[i];
+      if (v && norm(v.id) === want && v.tickets) return v;
+    }
+    return null;
+  }
+
   /** Resolve a show/date pair against the catalogs. Pure; `today` (YYYY-MM-DD) and
-   *  `nowMs` (epoch ms, for the show-day cut-off) injected for tests.
-   *  Returns {kind: 'event'|'next'|'series'|'showpage', url, show[, event]} or {kind: 'notfound'}.
+   *  `nowMs` (epoch ms, for the show-day cut-off) injected for tests. `variantParam`
+   *  (optional) picks one of the show's ticket variants; when it names one, every
+   *  step below runs against that variant's dates and its group page, and `variant`
+   *  is set on the result. An unknown id is ignored (the show's own chain).
+   *  Returns {kind: 'event'|'next'|'series'|'showpage', url, show[, event][, variant]} or {kind: 'notfound'}.
    *  Every returned url is catalog data or a same-site path — never query-string input. */
-  function resolveTarget(shows, events, showParam, dateParam, today, nowMs) {
+  function resolveTarget(shows, events, showParam, dateParam, today, nowMs, variantParam) {
     var want = norm(showParam);
     if (!want) return { kind: 'notfound' };
     var show = null;
@@ -137,19 +169,23 @@
       if (norm(shows[i].slug) === want) { show = shows[i]; break; }
     }
     if (!show) return { kind: 'notfound' };
+    var variant = findVariant(show, variantParam);
+    var vid = variant ? variant.id : '';
+    function out(res) { if (variant) res.variant = variant; return res; }
 
     // A valid, non-past date → that date's own event page, if the calendar has it.
     if (isValidDate(dateParam) && dateParam >= today) {
       for (var j = 0; j < events.length; j++) {
         var e = events[j];
-        if (norm(e.show) === norm(show.slug) && e.date === dateParam && e.tickets) {
-          return { kind: 'event', url: e.tickets, show: show, event: e };
+        if (eventMatches(e, show, vid) && e.date === dateParam && e.tickets) {
+          return out({ kind: 'event', url: e.tickets, show: show, event: e });
         }
       }
     }
     // No date, or a stale one → the next upcoming date's own page.
-    var next = nextEvent(events, show, today, nowMs);
-    if (next) return { kind: 'next', url: next.tickets, show: show, event: next };
+    var next = nextEvent(events, show, today, nowMs, vid);
+    if (next) return out({ kind: 'next', url: next.tickets, show: show, event: next });
+    if (variant) return out({ kind: 'series', url: variant.tickets, show: show });
     if (show.tickets) return { kind: 'series', url: show.tickets, show: show };
     return { kind: 'showpage', url: show.url || '/calendar/', show: show };
   }
@@ -208,7 +244,8 @@
       value: ctx.value,
       currency: ctx.currency,
       link: linkTag(params),
-      resolution: res.kind
+      resolution: res.kind,
+      variant: res.variant ? res.variant.id : '(none)'
     };
   }
 
@@ -245,13 +282,14 @@
   var params = new URLSearchParams(window.location.search);
   var showParam = (params.get('show') || '').trim();
   var dateParam = (params.get('date') || '').trim();
+  var variantParam = (params.get('variant') || '').trim();
   var now = new Date();
   var today = localISODate(now);
 
   var res = resolveTarget(
     readCatalog('iyf-go-shows'),
     readCatalog('iyf-go-events'),
-    showParam, dateParam, today, now.getTime()
+    showParam, dateParam, today, now.getTime(), variantParam
   );
 
   var target = res.kind === 'notfound' ? build404(window.location.search, showParam) : res.url;
@@ -313,6 +351,9 @@
     date: isValidDate(dateParam) ? dateParam : '(series)',
     destination: target,
     resolution: res.kind,
+    // Which ticket listing the click went to: the variant id, '(unknown)' when the link
+    // named one the post no longer declares, '(none)' for the show's own listing.
+    variant: res.variant ? res.variant.id : (variantParam ? '(unknown)' : '(none)'),
     event_callback: function () { trigger = trigger || 'event_callback'; go(); },
     event_timeout: EVENT_TIMEOUT_MS
   };

@@ -7,11 +7,11 @@ const lb = require("../link-builder.js") as {
   SOURCES: Array<{ id: string; label: string; medium: string }>;
   slugify: (s: string) => string;
   mediumFor: (source: string) => string;
-  campaignDefault: (slug: string, date: string) => string;
+  campaignDefault: (slug: string, date: string, variant?: string) => string;
   buildLink: (
     origin: string,
     show: { slug: string; url: string },
-    opts: { date?: string; source: string; medium?: string; campaign?: string; content?: string }
+    opts: { date?: string; variant?: string; source: string; medium?: string; campaign?: string; content?: string }
   ) => { url: string; kind: string };
 };
 
@@ -72,6 +72,10 @@ describe("link-builder • campaignDefault follows the series-vs-occurrence choi
   test("specific occurrence: {show}-{yyyymmdd}", () => {
     expect(lb.campaignDefault("jackpotcomedy", "2026-09-16")).toBe("jackpotcomedy-20260916");
   });
+  test("a ticket variant gets its own campaign: {show}-{variant}[-{yyyymmdd}]", () => {
+    expect(lb.campaignDefault("jokesjokesjokes", "", "interactive")).toBe("jokesjokesjokes-interactive");
+    expect(lb.campaignDefault("jokesjokesjokes", "2026-11-10", "interactive")).toBe("jokesjokesjokes-interactive-20261110");
+  });
 });
 
 describe("link-builder • buildLink", () => {
@@ -126,6 +130,25 @@ describe("link-builder • buildLink", () => {
     expect(built.kind).toBe("page");
     expect(new URL(built.url).pathname).toBe("/jackpotcomedy/");
     expect(new URL(built.url).searchParams.get("utm_campaign")).toBe("jackpotcomedy");
+  });
+
+  test("a ticket variant rides along as &variant=<id> on the /go/ link, slugified", () => {
+    const series = lb.buildLink(ORIGIN, { slug: "jokesjokesjokes", url: "/jokesjokesjokes/" }, {
+      variant: "Interactive", source: "meta", medium: "paid_social", campaign: "jokesjokesjokes-interactive",
+    });
+    expect(series.kind).toBe("series");
+    const u = new URL(series.url);
+    expect(u.pathname).toBe("/go/");
+    expect(u.searchParams.get("show")).toBe("jokesjokesjokes");
+    expect(u.searchParams.get("variant")).toBe("interactive");
+    const dated = lb.buildLink(ORIGIN, { slug: "jokesjokesjokes", url: "/jokesjokesjokes/" }, {
+      variant: "interactive", date: "2026-11-10", source: "meta", medium: "paid_social", campaign: "x",
+    });
+    expect(dated.kind).toBe("event");
+    expect(new URL(dated.url).searchParams.get("variant")).toBe("interactive");
+    expect(new URL(dated.url).searchParams.get("date")).toBe("2026-11-10");
+    // No variant, no parameter: existing links stay byte-identical.
+    expect(new URL(lb.buildLink(ORIGIN, SHOW, { source: "meta", medium: "paid_social", campaign: "x" }).url).searchParams.get("variant")).toBeNull();
   });
 
   test("google-ads: direct show-page URL with NO utm params (gclid auto-tagging)", () => {

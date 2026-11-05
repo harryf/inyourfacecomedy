@@ -10,6 +10,11 @@
  *    - utm_medium defaults to GA4's own channel-group tokens per source;
  *    - picking google-ads emits a DIRECT show-page URL with no UTMs at all
  *      (gclid auto-tagging; /go/ would trip the destination-mismatch policy).
+ *    - a show's ticket VARIANTS (alternative Eventfrog listings declared under
+ *      `ticket_variants:` on the post, nothing on the site) are offered as a
+ *      "Ticket page" row; a variant link carries &variant=<id> and its campaign
+ *      defaults to <show>-<variant>[-<yyyymmdd>], so the show's report lists it
+ *      as its own campaign (docs/campaign-links.md, "Ticket variants").
  *
  *  Catalogs come from _includes/go-catalogs.liquid — curated site data only.
  */
@@ -64,10 +69,12 @@
   }
 
   // One campaign per intent: 'comedybrew' promotes the whole series (evergreen,
-  // one row in GA forever), 'jackpotcomedy-20260916' promotes a single occurrence.
-  // Which one you get follows the "Link to" choice — no extra UI. Editable anyway.
-  function campaignDefault(slug, date) {
-    return date ? slug + '-' + date.replace(/-/g, '') : slug;
+  // one row in GA forever), 'jackpotcomedy-20260916' promotes a single occurrence,
+  // 'jokesjokesjokes-interactive' promotes a ticket variant (its own row in the show's
+  // report). Which one you get follows the "Link to" choice, no extra UI. Editable anyway.
+  function campaignDefault(slug, date, variant) {
+    var base = variant ? slug + '-' + variant : slug;
+    return date ? base + '-' + date.replace(/-/g, '') : base;
   }
 
   function primaryTitle(t) {
@@ -83,7 +90,7 @@
     return WD[d.getDay()] + ' ' + d.getDate() + ' ' + MO[d.getMonth()];
   }
 
-  /** Assemble the link. Pure. opts: {dest, date, source, medium, campaign, content}.
+  /** Assemble the link. Pure. opts: {dest, date, variant, source, medium, campaign, content}.
    *  google-ads → direct URL, no UTMs at all (kind 'direct');
    *  dest 'page' → the site page itself with UTM tags straight on it, no /go/
    *  (our own GA sees on-site visits anyway; /go/ exists only because Eventfrog
@@ -96,6 +103,7 @@
     var p = new URLSearchParams();
     if (opts.dest !== 'page') {
       p.set('show', target.slug);
+      if (opts.variant) p.set('variant', slugify(opts.variant));
       if (opts.date) p.set('date', opts.date);
     }
     p.set('utm_source', slugify(opts.source));
@@ -132,6 +140,7 @@
     showSlug: '',
     pageSlug: '',        // a plain site page instead of a show (mutually exclusive)
     showDest: 'tickets', // 'tickets' via /go/, or 'page' = the show's page on our site
+    variant: '',         // '' = the show's own listing, else a ticket_variants id
     date: '',            // '' = whole series
     source: '',
     medium: '',
@@ -155,11 +164,21 @@
     return null;
   }
 
-  function upcomingDates(show) {
+  function currentVariant() {
+    var show = currentShow();
+    if (!show || !state.variant || !show.variants) return null;
+    for (var i = 0; i < show.variants.length; i++) {
+      if (show.variants[i].id === state.variant) return show.variants[i];
+    }
+    return null;
+  }
+
+  // The dates of ONE listing: the show's own (variantId '') or that variant's.
+  function upcomingDates(show, variantId) {
     var out = [];
     for (var i = 0; i < events.length && out.length < 12; i++) {
       var e = events[i];
-      if (e.show === show.slug && e.date >= todayIso) out.push(e.date);
+      if (e.show === show.slug && (e.variant || '') === (variantId || '') && e.date >= todayIso) out.push(e.date);
     }
     return out;
   }
@@ -181,7 +200,10 @@
     '</header>' +
     '<section class="link-builder__section" id="lb-shows"><h2 class="link-builder__label">Show</h2><div class="link-builder__grid" id="lb-show-grid"></div>' +
       '<h2 class="link-builder__label link-builder__label--sub">Or a page on the site</h2><div class="link-builder__chips" id="lb-page-chips"></div></section>' +
-    '<section class="link-builder__section" id="lb-target" hidden><h2 class="link-builder__label">Link to</h2><div class="link-builder__chips" id="lb-target-chips"></div></section>' +
+    '<section class="link-builder__section" id="lb-target" hidden>' +
+      '<div id="lb-variants" hidden><h2 class="link-builder__label">Ticket page</h2><div class="link-builder__chips" id="lb-variant-chips"></div>' +
+        '<p class="link-builder__note" id="lb-variant-note" hidden></p></div>' +
+      '<h2 class="link-builder__label" id="lb-target-label">Link to</h2><div class="link-builder__chips" id="lb-target-chips"></div></section>' +
     '<section class="link-builder__section" id="lb-sources"><h2 class="link-builder__label">Source</h2><div class="link-builder__chips" id="lb-source-chips"></div>' +
       '<input class="link-builder__input" id="lb-source-free" type="text" inputmode="text" autocapitalize="none" placeholder="or type a source (e.g. whatsapp)">' +
       '<p class="link-builder__note" id="lb-gads-note" hidden>Google Ads links go straight to the show page with no UTM tags: the Ads/GA4 link auto-tags the click (gclid), and a /go/ redirect would trip the destination-mismatch ad policy.</p>' +
@@ -203,6 +225,10 @@
     showGrid: document.getElementById('lb-show-grid'),
     pageChips: document.getElementById('lb-page-chips'),
     target: document.getElementById('lb-target'),
+    variants: document.getElementById('lb-variants'),
+    variantChips: document.getElementById('lb-variant-chips'),
+    variantNote: document.getElementById('lb-variant-note'),
+    targetLabel: document.getElementById('lb-target-label'),
     targetChips: document.getElementById('lb-target-chips'),
     sourceChips: document.getElementById('lb-source-chips'),
     sourceFree: document.getElementById('lb-source-free'),
@@ -240,20 +266,45 @@
     el.pageChips.innerHTML = html;
   }
 
+  // The "Ticket page" row: only for a show with ticket variants. The show's own
+  // listing first, then each variant as a dashed chip, with a note saying what a
+  // variant link does, because nothing else on the site ever shows the variant.
+  function renderVariants(show) {
+    var hasVariants = !!(show && show.variants && show.variants.length);
+    el.variants.hidden = !hasVariants;
+    if (!hasVariants) { el.variantChips.innerHTML = ''; el.variantNote.hidden = true; return; }
+    var html = '<button type="button" class="link-builder__chip' + (state.variant === '' ? ' is-on' : '') + '" data-variant="">' + esc(primaryTitle(show.title)) + ' (standard)</button>';
+    for (var i = 0; i < show.variants.length; i++) {
+      var v = show.variants[i];
+      html += '<button type="button" class="link-builder__chip link-builder__chip--variant' + (state.variant === v.id ? ' is-on' : '') + '" data-variant="' + esc(v.id) + '">' + esc(v.label || v.id) + '</button>';
+    }
+    el.variantChips.innerHTML = html;
+    var cur = currentVariant();
+    el.variantNote.hidden = !cur;
+    if (cur) {
+      el.variantNote.textContent = cur.label + ' is an alternative Eventfrog listing of ' + primaryTitle(show.title) +
+        ' (its own flyer and description, not shown on this site). The link carries variant=' + cur.id +
+        ' and lands on that listing; clicks go into the ' + primaryTitle(show.title) + ' report under their own campaign.';
+    }
+  }
+
   function renderTarget() {
     var show = currentShow();
     el.target.hidden = !show;
-    if (!show) { state.date = ''; state.showDest = 'tickets'; el.targetChips.innerHTML = ''; return; }
+    if (!show) { state.date = ''; state.variant = ''; state.showDest = 'tickets'; el.targetChips.innerHTML = ''; renderVariants(null); return; }
+    renderVariants(show);
+    var variant = currentVariant();
     var isRecurring = show.type === 'series' || show.type === 'monthly';
     var onTickets = state.showDest === 'tickets';
     var html = '<button type="button" class="link-builder__chip' + (onTickets && state.date === '' ? ' is-on' : '') + '" data-dest="tickets" data-date="">' + (isRecurring ? 'Whole series' : 'Tickets') + '</button>';
     if (isRecurring) {
-      var dates = upcomingDates(show);
+      var dates = upcomingDates(show, variant ? variant.id : '');
       for (var i = 0; i < dates.length; i++) {
         html += '<button type="button" class="link-builder__chip' + (onTickets && state.date === dates[i] ? ' is-on' : '') + '" data-dest="tickets" data-date="' + esc(dates[i]) + '">' + esc(dateLabel(dates[i])) + '</button>';
       }
     }
-    html += '<button type="button" class="link-builder__chip' + (state.showDest === 'page' ? ' is-on' : '') + '" data-dest="page" data-date="">Show page</button>';
+    // A variant is an Eventfrog listing only; there is no page for it on the site.
+    if (!variant) html += '<button type="button" class="link-builder__chip' + (state.showDest === 'page' ? ' is-on' : '') + '" data-dest="page" data-date="">Show page</button>';
     el.targetChips.innerHTML = html;
   }
 
@@ -266,14 +317,15 @@
     el.sourceChips.innerHTML = html;
   }
 
-  // The current pick, page or show, normalized: {obj, dest, date, campaignSlug}.
+  // The current pick, page or show, normalized: {obj, dest, date, variant, campaignSlug}.
   function selection() {
     var page = currentPage();
-    if (page) return { obj: page, dest: 'page', date: '', campaignSlug: page.slug };
+    if (page) return { obj: page, dest: 'page', date: '', variant: '', campaignSlug: page.slug };
     var show = currentShow();
     if (!show) return null;
-    if (state.showDest === 'page') return { obj: show, dest: 'page', date: '', campaignSlug: show.slug };
-    return { obj: show, dest: 'tickets', date: state.date, campaignSlug: show.slug };
+    if (state.showDest === 'page') return { obj: show, dest: 'page', date: '', variant: '', campaignSlug: show.slug };
+    var variant = currentVariant();
+    return { obj: show, dest: 'tickets', date: state.date, variant: variant ? variant.id : '', campaignSlug: show.slug };
   }
 
   function applyDefaults() {
@@ -283,7 +335,7 @@
       el.medium.value = state.medium;
     }
     if (!state.campaignDirty && sel) {
-      state.campaign = campaignDefault(sel.campaignSlug, sel.date);
+      state.campaign = campaignDefault(sel.campaignSlug, sel.date, sel.variant);
       el.campaign.value = state.campaign;
     }
   }
@@ -301,15 +353,17 @@
     }
     var built = buildLink(ORIGIN, sel.obj, {
       dest: sel.dest === 'page' ? 'page' : undefined,
-      date: sel.date, source: state.source, medium: state.medium,
+      date: sel.date, variant: sel.variant, source: state.source, medium: state.medium,
       campaign: state.campaign, content: state.content
     });
+    var cur = currentVariant();
+    var listing = primaryTitle(sel.obj.title) + (sel.variant && cur ? ' · ' + cur.label + ' listing' : '');
     el.url.textContent = built.url;
     el.preview.textContent =
       built.kind === 'direct' ? '→ ' + sel.obj.url + ' on our site, gclid auto-tagging' :
       built.kind === 'page' ? '→ ' + sel.obj.url + ' on our site, UTM tags on the page' :
-      built.kind === 'event' ? '→ Eventfrog: ' + primaryTitle(sel.obj.title) + ' · ' + dateLabel(sel.date) :
-      '→ Eventfrog: ' + primaryTitle(sel.obj.title) + ' (next date, picked when the link is tapped)';
+      built.kind === 'event' ? '→ Eventfrog: ' + listing + ' · ' + dateLabel(sel.date) :
+      '→ Eventfrog: ' + listing + ' (next date, picked when the link is tapped)';
     el.copy.disabled = false;
   }
 
@@ -330,9 +384,22 @@
     state.showSlug = btn.getAttribute('data-slug');
     state.pageSlug = '';
     state.showDest = 'tickets';
+    state.variant = '';
     state.date = '';
     state.campaignDirty = false;
     renderAll();
+  });
+
+  el.variantChips.addEventListener('click', function (ev) {
+    var btn = ev.target.closest('[data-variant]');
+    if (!btn) return;
+    state.variant = btn.getAttribute('data-variant');
+    state.showDest = 'tickets';
+    state.date = '';
+    state.campaignDirty = false;
+    renderTarget();
+    applyDefaults();
+    updateBar();
   });
 
   el.pageChips.addEventListener('click', function (ev) {
@@ -341,6 +408,7 @@
     state.pageSlug = btn.getAttribute('data-page');
     state.showSlug = '';
     state.showDest = 'tickets';
+    state.variant = '';
     state.date = '';
     state.campaignDirty = false;
     renderAll();

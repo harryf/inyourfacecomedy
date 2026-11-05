@@ -139,6 +139,14 @@ an Event longer than a day is skipped with a `[series]` line in the log. Cancell
 dropped; ticket URLs that no longer resolve are listed under `unresolved:` instead of vanishing.
 Non-Eventfrog ticket URLs are skipped on purpose.
 
+A post's `ticket_variants:` (alternative Eventfrog listings of the same show, a different flyer and
+description, nothing on the site) go through the same walk afterwards, into `_data/ticket_variants.yml`
+(show, variant id, label, date, start, end, that date's ticket link). Only the `/go/` catalogs, the
+link builder and the traffic report read that file; the calendar never does. A variant that fails to
+resolve is logged as `[variant]` and skipped without touching the show. The file is written once any
+post declares variants and emptied, not deleted, after the last one is removed. `campaign-links.md`,
+"Ticket variants".
+
 ```
 ruby script/refresh-calendar-data.rb [--dry-run] [--verbose | --quiet]
 ```

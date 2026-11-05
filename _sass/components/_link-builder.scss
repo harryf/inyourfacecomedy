@@ -108,6 +108,11 @@
       color: var(--brand-cream);
     }
   }
+  // A ticket variant (an alternative Eventfrog listing, nothing on the site): dashed,
+  // so it never reads as just another date or source chip.
+  &__chip--variant { border-style: dashed; }
+  // The note under the Ticket page row sits above the Link to label: give it room.
+  #lb-variant-note { margin-bottom: var(--space-4); }
 
   // --- inputs -----------------------------------------------------------------
   &__field {

@@ -13,9 +13,10 @@ const go = require("../../../_includes/go-redirect.js") as {
   primaryTitle: (t: string) => string;
   isUpcoming: (e: unknown, today: string, nowMs?: number) => boolean;
   nextEvent: (events: unknown[], show: unknown, today: string, nowMs?: number) => { date: string } | null;
+  findVariant: (show: unknown, variantParam: string) => { id: string } | null;
   resolveTarget: (
     shows: unknown[], events: unknown[],
-    showParam: string, dateParam: string, today: string, nowMs?: number
+    showParam: string, dateParam: string, today: string, nowMs?: number, variantParam?: string
   ) => { kind: string; url?: string; show?: { slug: string }; event?: { date: string } };
   build404: (search: string, showParam: string) => string;
   linkTag: (p: URLSearchParams) => string;
@@ -267,7 +268,7 @@ describe("go-redirect • Meta pixel TicketRedirect payload", () => {
     expect(go.pixelParams(r, P, TODAY)).toEqual({
       content_name: "comedybrew", content_ids: ["comedybrew"], content_type: "product",
       show_date: "2026-09-03", days_to_show: "08-14", price_chf: 10, value: 10, currency: "CHF",
-      link: "meta|paid_social|comedybrew-20260903|", resolution: "event",
+      link: "meta|paid_social|comedybrew-20260903|", resolution: "event", variant: "(none)",
     });
   });
 
@@ -295,5 +296,86 @@ describe("go-redirect • Meta pixel TicketRedirect payload", () => {
     const b = go.newEventId();
     expect(a.length).toBeGreaterThan(20);
     expect(a).not.toBe(b);
+  });
+});
+
+// Ticket variants: an alternative Eventfrog listing of the same show (a different
+// flyer and description), declared under `ticket_variants:` on the post and never
+// shown on the site. /go/?show=<slug>&variant=<id> runs the same chain against the
+// variant's own dates and group page. The invariant: a plain link never lands on a
+// variant date, a variant link never on a main one (docs/campaign-links.md).
+describe("go-redirect • ticket variants", () => {
+  const VSHOWS = [
+    { slug: "jokesjokesjokes", title: "Jokes, Jokes, Jokes - English Stand-up", url: "/jokesjokesjokes/", tickets: "https://eventfrog.ch/en/p/groups/jokes-group.html", type: "series", next: "2026-11-10T20:00:00+01:00", venue: "robins", price: 10,
+      variants: [{ id: "interactive", label: "Interactive flyer", tickets: "https://eventfrog.ch/en/p/groups/jokes-interactive-group.html" }] },
+    { slug: "comedybrew", title: "Comedy Brew", url: "/comedybrew/", tickets: "https://eventfrog.ch/en/p/groups/brew-group.html", type: "series", next: "", venue: "robins", price: 10 },
+  ];
+  // The variant has an EARLIER date than the main listing on purpose: a plain link must not take it.
+  const VEVENTS = [
+    { show: "jokesjokesjokes", variant: "", date: "2026-11-17", end: "2026-11-17T22:00:00+01:00", tickets: "https://eventfrog.ch/en/p/comedy/jokes-1117.html", venue: "robins", price: 10 },
+    { show: "jokesjokesjokes", variant: "interactive", date: "2026-11-10", end: "2026-11-10T22:00:00+01:00", tickets: "https://eventfrog.ch/en/p/comedy/jokes-interactive-1110.html", venue: "", price: 0 },
+    { show: "jokesjokesjokes", variant: "interactive", date: "2026-11-17", end: "2026-11-17T22:00:00+01:00", tickets: "https://eventfrog.ch/en/p/comedy/jokes-interactive-1117.html", venue: "", price: 0 },
+    { show: "comedybrew", date: "2026-11-12", end: "", tickets: "https://eventfrog.ch/en/p/comedy/brew-1112.html", venue: "robins", price: 10 },
+  ];
+  const T = "2026-11-05";
+
+  test("a variant link lands on the variant's next date page, and says which variant", () => {
+    const r = go.resolveTarget(VSHOWS, VEVENTS, "jokesjokesjokes", "", T, undefined, "interactive");
+    expect(r.kind).toBe("next");
+    expect(r.url).toBe("https://eventfrog.ch/en/p/comedy/jokes-interactive-1110.html");
+    expect((r as { variant?: { id: string } }).variant).toMatchObject({ id: "interactive" });
+  });
+
+  test("a plain link never lands on a variant date, even an earlier one", () => {
+    const r = go.resolveTarget(VSHOWS, VEVENTS, "jokesjokesjokes", "", T);
+    expect(r.kind).toBe("next");
+    expect(r.url).toBe("https://eventfrog.ch/en/p/comedy/jokes-1117.html");
+    expect((r as { variant?: unknown }).variant).toBeUndefined();
+  });
+
+  test("variant + date picks that date's variant page, not the main page of the same date", () => {
+    const r = go.resolveTarget(VSHOWS, VEVENTS, "jokesjokesjokes", "2026-11-17", T, undefined, "interactive");
+    expect(r.kind).toBe("event");
+    expect(r.url).toBe("https://eventfrog.ch/en/p/comedy/jokes-interactive-1117.html");
+  });
+
+  test("with no upcoming variant date, the variant's own group page is the fallback (never the main one)", () => {
+    const r = go.resolveTarget(VSHOWS, VEVENTS, "jokesjokesjokes", "", "2026-12-31", undefined, "interactive");
+    expect(r.kind).toBe("series");
+    expect(r.url).toBe("https://eventfrog.ch/en/p/groups/jokes-interactive-group.html");
+  });
+
+  test("an unknown variant id (experiment over, ad still running) falls back to the show's own chain", () => {
+    const r = go.resolveTarget(VSHOWS, VEVENTS, "jokesjokesjokes", "", T, undefined, "gone");
+    expect(r.kind).toBe("next");
+    expect(r.url).toBe("https://eventfrog.ch/en/p/comedy/jokes-1117.html");
+    expect((r as { variant?: unknown }).variant).toBeUndefined();
+    // A show without variants ignores the parameter the same way.
+    expect(go.resolveTarget(VSHOWS, VEVENTS, "comedybrew", "", T, undefined, "interactive").url).toBe("https://eventfrog.ch/en/p/comedy/brew-1112.html");
+  });
+
+  test("variant ids match like slugs (case and separators ignored)", () => {
+    expect(go.findVariant(VSHOWS[0], "Inter-Active")).toMatchObject({ id: "interactive" });
+    expect(go.findVariant(VSHOWS[0], "")).toBeNull();
+    expect(go.findVariant(VSHOWS[1], "interactive")).toBeNull();
+  });
+
+  test("the variant parameter can never name a destination (hostile inputs)", () => {
+    const catalogUrls = [
+      ...VSHOWS.map((s) => s.tickets), ...VSHOWS.map((s) => s.url),
+      ...VSHOWS.flatMap((s) => ((s as { variants?: { tickets: string }[] }).variants || []).map((v) => v.tickets)),
+      ...VEVENTS.map((e) => e.tickets),
+    ];
+    for (const bad of ["https://evil.example", "//evil.example", "javascript:alert(1)", "<script>", "interactive https://evil.example"]) {
+      const r = go.resolveTarget(VSHOWS, VEVENTS, "jokesjokesjokes", "", T, undefined, bad);
+      expect(catalogUrls).toContain(r.url!);
+    }
+  });
+
+  test("pixelParams carries the variant id, '(none)' for the show's own listing", () => {
+    const vr = go.resolveTarget(VSHOWS, VEVENTS, "jokesjokesjokes", "", T, undefined, "interactive");
+    expect(go.pixelParams(vr, new URLSearchParams(""), T)).toMatchObject({ content_name: "jokesjokesjokes", variant: "interactive" });
+    const pr = go.resolveTarget(VSHOWS, VEVENTS, "jokesjokesjokes", "", T);
+    expect(go.pixelParams(pr, new URLSearchParams(""), T)).toMatchObject({ variant: "(none)" });
   });
 });

@@ -145,6 +145,52 @@ layout: page
     {% endif %}
   </section>
 
+{% comment %}
+  Ticket variants: campaign clicks that went to an alternative Eventfrog listing of this
+  show (`ticket_variants:` on the post; docs/campaign-links.md, "Ticket variants"). The
+  section only appears once such a link has been clicked. Labels come from the post;
+  a variant the post no longer declares shows its id.
+{% endcomment %}
+{% if r.by_variant and r.by_variant.size > 0 %}
+  {% assign show_url = "/" | append: r.slug | append: "/" %}
+  {% assign show_post = site.posts | where: "url", show_url | first %}
+  {% assign variant_sum = 0 %}
+  {% assign variant_sum_30d = 0 %}
+  {% for v in r.by_variant %}{% assign variant_sum = variant_sum | plus: v.clicks %}{% assign variant_sum_30d = variant_sum_30d | plus: v.clicks_30d %}{% endfor %}
+  <section class="iyf-report__section">
+    <h2>Ticket pages</h2>
+    <div class="iyf-report__table-wrap">
+    <table class="iyf-report__table">
+      <thead><tr><th>Eventfrog listing</th><th class="iyf-report__num">Campaign clicks</th><th class="iyf-report__num">Last 30 days</th><th>Active</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Standard listing</td>
+          <td class="iyf-report__num">{{ t.redirect | minus: variant_sum }}</td>
+          <td class="iyf-report__num">{{ t.redirect_30d | minus: variant_sum_30d }}</td>
+          <td></td>
+        </tr>
+      {% for v in r.by_variant %}
+        {% assign vlabel = v.variant %}
+        {% if show_post and show_post.ticket_variants %}
+          {% assign vdef = show_post.ticket_variants | where: "id", v.variant | first %}
+          {% if vdef and vdef.label %}{% assign vlabel = vdef.label %}{% endif %}
+        {% endif %}
+        <tr>
+          <td>{{ vlabel }} <code>variant={{ v.variant }}</code></td>
+          <td class="iyf-report__num">{{ v.clicks }}</td>
+          <td class="iyf-report__num">{{ v.clicks_30d }}</td>
+          <td>{{ v.first | date: "%-d %b" }}{% if v.last != v.first %} to {{ v.last | date: "%-d %b" }}{% endif %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    <p class="iyf-report__note">An alternative listing is a second Eventfrog page for the same show with its own flyer and
+    description; it is not shown on this site, so only campaign links reach it. Its sales are in that
+    listing's own Eventfrog event. The site's own buttons always go to the standard listing.</p>
+  </section>
+{% endif %}
+
   <section class="iyf-report__section">
     <h2>Where the traffic came from</h2>
     <div class="iyf-report__table-wrap">

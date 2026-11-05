@@ -116,9 +116,13 @@ def commit_and_push!
   # Avoid daily churn from the generated_at re-stamp on the calendar data files.
   discard_if_only_timestamp("_data/calendar.yml")
   discard_if_only_timestamp("_data/calendar_past.yml")
+  discard_if_only_timestamp("_data/ticket_variants.yml")
 
-  out, ok = git_run("add", "-A", "_posts", "index.html",
-                    "_data/calendar.yml", "_data/calendar_past.yml", "_data/venues.yml")
+  # ticket_variants.yml only exists once a post declares ticket_variants (a pathspec
+  # that matches nothing makes git add fail).
+  paths = ["_posts", "index.html", "_data/calendar.yml", "_data/calendar_past.yml", "_data/venues.yml"]
+  paths << "_data/ticket_variants.yml" if File.exist?(File.join(PROJECT_ROOT, "_data", "ticket_variants.yml"))
+  out, ok = git_run("add", "-A", *paths)
   raise "git add failed: #{out}" unless ok
 
   _, no_staged = git_run("diff", "--quiet", "--staged")

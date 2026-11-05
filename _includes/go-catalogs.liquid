@@ -11,14 +11,20 @@
   #iyf-go-events — every upcoming instance from _data/calendar.yml (EventFrog-derived,
                    cron-refreshed): show slug, date, end time (so /go/ knows when
                    tonight's show is over and the next date takes over), that date's
-                   own ticket link.
+                   own ticket link. `variant` is "" for these. After them come the
+                   dates of every ticket variant from _data/ticket_variants.yml
+                   (same refresh job), each carrying its variant id, so a plain
+                   /go/?show= link never resolves to a variant date and a
+                   /go/?show=&variant= link never resolves to a main one.
+  Ticket variants: a post's `ticket_variants:` list (id, label, ticket_url) rides
+  along on its show entry as `variants`; see docs/campaign-links.md, "Ticket variants".
 {% endcomment %}
 {% assign iyf_go_shows = site.posts | where_exp: "p", "p.ticket_url" %}
 <script type="application/json" id="iyf-go-shows">
-[{% for s in iyf_go_shows %}{"slug":{{ s.url | remove: "/" | jsonify }},"title":{{ s.title | jsonify }},"url":{{ s.url | jsonify }},"tickets":{{ s.ticket_url_resolved | default: s.ticket_url | jsonify }},"type":{{ s.event_type | default: "one-off" | jsonify }},"next":{% if s.next_event_date %}{{ s.next_event_date | date_to_xmlschema | jsonify }}{% else %}""{% endif %},"venue":{{ s.venue_slug | default: "" | jsonify }},"price":{{ s.price_chf | default: 0 | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+[{% for s in iyf_go_shows %}{"slug":{{ s.url | remove: "/" | jsonify }},"title":{{ s.title | jsonify }},"url":{{ s.url | jsonify }},"tickets":{{ s.ticket_url_resolved | default: s.ticket_url | jsonify }},"type":{{ s.event_type | default: "one-off" | jsonify }},"next":{% if s.next_event_date %}{{ s.next_event_date | date_to_xmlschema | jsonify }}{% else %}""{% endif %},"venue":{{ s.venue_slug | default: "" | jsonify }},"price":{{ s.price_chf | default: 0 | jsonify }},"variants":[{% for v in s.ticket_variants %}{% if v.id and v.ticket_url %}{"id":{{ v.id | jsonify }},"label":{{ v.label | default: v.id | jsonify }},"tickets":{{ v.ticket_url | jsonify }}}{% unless forloop.last %},{% endunless %}{% endif %}{% endfor %}]}{% unless forloop.last %},{% endunless %}{% endfor %}]
 </script>
 <script type="application/json" id="iyf-go-events">
-[{% for e in site.data.calendar.events %}{"show":{{ e.show | jsonify }},"date":{{ e.date | jsonify }},"end":{{ e.end | default: "" | jsonify }},"tickets":{{ e.ticket_url | jsonify }},"venue":{{ e.venue | default: "" | jsonify }},"price":{{ e.price_chf | default: 0 | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+[{% for e in site.data.calendar.events %}{"show":{{ e.show | jsonify }},"variant":"","date":{{ e.date | jsonify }},"end":{{ e.end | default: "" | jsonify }},"tickets":{{ e.ticket_url | jsonify }},"venue":{{ e.venue | default: "" | jsonify }},"price":{{ e.price_chf | default: 0 | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}{% for e in site.data.ticket_variants.events %},{"show":{{ e.show | jsonify }},"variant":{{ e.variant | jsonify }},"date":{{ e.date | jsonify }},"end":{{ e.end | default: "" | jsonify }},"tickets":{{ e.ticket_url | jsonify }},"venue":"","price":0}{% endfor %}]
 </script>
 {% unless include.skip_pages %}
 {% comment %}

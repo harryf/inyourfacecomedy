@@ -41,6 +41,9 @@ https://inyourfacecomedy.ch/go/?show=jackpotcomedy&date=2026-09-16&utm_source=ma
   date skips the exact-match branch and takes the `show` chain from the top (next upcoming
   date, then series link), so an expired campaign link never dumps anyone on a dead Eventfrog
   event page.
+- `variant` (optional): the id of one of the show's **ticket variants** (below). The same
+  chain runs against that variant's own dates and group page instead of the show's. An id the
+  post does not declare is ignored and the link behaves like a plain `show` link.
 - `utm_*`: passed by the campaign link, read by GA, not interpreted by our code.
 
 Slug matching reuses the case- and separator-insensitive normalization from
@@ -59,9 +62,55 @@ The page embeds two small JSON catalogs at build time, exactly the pattern
    catalog prefers (`| default: ticket_url`). Only the campaign-link layer reads the
    hidden field; show pages keep the short vanity link, and the field is auto-removed
    if a vanity slug and its resolution ever converge.
-2. **Dates**: `site.data.calendar.events` (show slug, date, that date's individual `ticket_url`).
+2. **Dates**: `site.data.calendar.events` (show slug, date, that date's individual `ticket_url`),
+   each with `variant: ""`, followed by the dates of every ticket variant from
+   `_data/ticket_variants.yml`, each carrying its variant id.
 
 No fetches at runtime, no server, nothing to deploy beyond the static build.
+
+### Ticket variants: a second Eventfrog listing of the same show
+
+Sometimes a show runs a second Eventfrog group in parallel: the same nights, the same room,
+but a different flyer and description (the first was Jokes, Jokes, Jokes "Interactive" in
+November 2026, an experiment on whether the flyer sells). The site must not show it (one show,
+one page, one calendar row), but ads and posts need a tracked link to it and the clicks belong
+in the show's own report, separated from the standard listing's. That is a ticket variant:
+
+```yaml
+# on the show's post, next to ticket_url
+ticket_variants:
+  - id: interactive                 # slug-shaped, unique within the post; ends up in URLs and GA
+    label: Interactive flyer        # what the link builder and the report call it
+    ticket_url: https://eventfrog.ch/en/p/groups/...-7524099855406361436.html   # the variant's group page
+```
+
+What reads it, and nothing else does:
+
+| Piece | What it does with a variant |
+|---|---|
+| `script/refresh-calendar-data.rb` (daily, via the 09:00 job) | Walks the variant's group page to its individual date pages exactly like a show, and writes them to `_data/ticket_variants.yml` (show, variant, label, date, start, end, that date's `ticket_url`). Never into `calendar.yml`, never into the post, never into `venues.yml`. The file is written once any post declares variants and emptied, not deleted, after the last one goes, so no stale date list outlives its variant. A variant that fails to resolve is logged as `[variant]` and skipped; the show itself still refreshes. The 09:00 job stages the file by name |
+| `_includes/go-catalogs.liquid` | The show entry gains `variants: [{id, label, tickets}]`; the variant dates join the events catalog with their `variant` id, main dates carry `variant: ""` |
+| `/go/` | `&variant=<id>` runs the resolution chain against that variant only: the picked date's variant page, else the variant's next upcoming date page, else the variant's group page. A plain link never lands on a variant date and a variant link never on a main one, whichever is sooner. The `ticket_redirect` event and the pixel event carry `variant` (the id, `(none)`, or `(unknown)` for an id the post no longer declares) |
+| `/linkbuilder/` | A show with variants gets a **Ticket page** row above Link to: the standard listing and one dashed chip per variant, with a note saying what the link does. Picking a variant swaps the date chips for the variant's dates, hides Show page (there is no page for it on the site), adds `&variant=<id>` to the link and defaults the campaign to `<show>-<variant>` or `<show>-<variant>-<yyyymmdd>` |
+| `script/ga-report.ts` | Nothing to change: the show filter matches `/go/?...show=<slug>...` with any other parameters, so variant clicks are the show's clicks. `aggregate()` reads `variant=` from the query into `by_variant` (clicks, last 30 days, active window), the CSV gains a `variant` column, and the report page shows a **Ticket pages** table (standard listing vs each variant, label from the post) once a variant link has been clicked |
+| `script/check-site.rb`, section "Ticket variants" | Front matter well-formed; data file present and consistent; the variant's URLs absent from `calendar.yml`, `/calendar/`, the home page and the show page; `/go/` and `/linkbuilder/` carry every variant and its dates |
+
+Things to know:
+
+- **Sales live in the variant's own Eventfrog event.** Nothing on the site or in
+  `script/eventfrog-sales.ts` adds them to the standard listing's numbers; read the variant's
+  cockpit separately.
+- **The campaign name is the separation in GA.** The builder's default is `<show>-<variant>`;
+  if you rename the campaign, keep the variant in it, or rely on the Ticket pages table, which
+  counts by the `variant=` parameter regardless of the campaign name.
+- **Ending an experiment**: pause the ads first, then delete the `ticket_variants` entry and run
+  `ruby script/refresh-calendar-data.rb` (or wait for the 09:00 job). A link that still carries
+  the old id falls back to the show's standard chain, so nobody loses their ticket, but the
+  report shows those clicks under the old campaign name only.
+- **Decap CMS** (`/admin/`) does not know the field; like `hosts:` and `redirect_from:`, add it
+  in the file, not in the CMS.
+- The on-site Get Tickets buttons, the home cards, the calendar, the staff calendar, the GBP
+  posts and the Eventfrog content job all keep using the show's own `ticket_url`.
 
 ### Why it cannot be abused for malicious SEO redirection
 
@@ -216,7 +265,9 @@ drives the layout:
 
 1. **Pick the show.** All shows from the embedded catalog (every post with a `ticket_url`),
    shown as tappable cards with name and next date.
-2. **Pick the target.** For `event_type: series` / `monthly` shows, a choice: **whole series**
+2. **Pick the target.** A show with ticket variants first shows a **Ticket page** row: the
+   standard listing or one of the variants (dashed chips; see "Ticket variants" above).
+   Then, for `event_type: series` / `monthly` shows, a choice: **whole series**
    (evergreen link, right for always-on campaigns; it lands on whichever date is next when
    the link is tapped) or **a specific date** from the upcoming dates in `calendar.yml`
    (right for a single-show push; the builder warns that date links go stale after the show
@@ -233,7 +284,8 @@ drives the layout:
    `utm_campaign` follows the series-vs-occurrence choice in step 2 with no extra UI: a
    whole-series link defaults to just the show slug (`comedybrew`, one evergreen campaign
    that accumulates in GA), a date link defaults to `{show}-{yyyymmdd}`
-   (`jackpotcomedy-20260916`, one campaign per occurrence). Editable either way, so a
+   (`jackpotcomedy-20260916`, one campaign per occurrence), a ticket variant link to
+   `{show}-{variant}` or `{show}-{variant}-{yyyymmdd}`. Editable either way, so a
    month-scoped push like `comedybrew-202609` is one edit. An optional `utm_content` field
    for ad-variant labelling.
 5. **Copy.** The built link in a read-only box with a copy button, plus a one-line preview of
@@ -377,8 +429,10 @@ refresh uses:
 
 Per show the report counts `ticket_redirect` (campaign links via `/go/`) and `ticket_click`
 (the site's own buttons) since 2026-08-26, split by day, by source/medium, and by campaign with
-`utm_content` (Meta fills in the ad id) underneath, plus show-page sessions by source and the
-number of broken-link 404s carrying the show's slug. Things worth knowing:
+`utm_content` (Meta fills in the ad id) underneath, plus show-page sessions by source, the
+number of broken-link 404s carrying the show's slug and, once a ticket variant link has been
+clicked, a Ticket pages table (standard listing vs each variant, from the `variant=` parameter
+on the `/go/` query). Things worth knowing:
 
 - **Page visits reach back 30 days, clicks do not.** `page_view` on the show page has always
   existed, so the visits column and the by-day table start at the earlier of 30 days ago and
