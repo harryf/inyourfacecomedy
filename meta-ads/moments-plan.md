@@ -89,7 +89,10 @@ before. MeteoSwiss on 4 October for Thursday 8 October: 16.2 mm, evening chance 
 sets of a show inside its season and, once there, runs in place of every other line, whatever the
 weather or holiday. The scheduler adds ads only for `status: live` lines, so a new line waits on
 bench until Harry's go. First use: C28, C29, W21, W22 for the 29 Oct Brew (Halloween as the mood,
-never a Halloween show promised).
+never a Halloween show promised). On the 29 Oct Brew they cost CHF 0.15 to 0.17 per landing page
+view against 0.20 to 0.42 for the usual lines on 22 Oct; retired 31 Oct and kept for next October.
+Second use: C30, C31, W24, W25 "It's dark by five. Warm in here." for the Brews of 12 to 26 November
+(the clocks went back on 25 October).
 
 **Holidays.** Source: OpenHolidays API (`openholidaysapi.org`, CH, subdivision CH-ZH, public and
 school holidays), with a computed fallback (the fixed dates plus the Easter dates) so a dead API

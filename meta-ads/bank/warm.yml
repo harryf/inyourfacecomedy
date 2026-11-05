@@ -129,11 +129,26 @@ concepts:
     title: "Something's brewing tomorrow"
     image: { style: photo, photo: "/assets/img/gallery/IMG_4468 Large.jpeg", focus: [0.78, 0.32], headline: "Not a witches' brew. A Comedy Brew.", sub: "Tomorrow, doors 19:30 at ROBIN's" }
     moment: { phase: tomorrow, when: season, season: { from: 2026-10-26, until: 2026-11-01 } }
-    status: live         # Harry's go 2026-10-25; the scheduler adds and switches it
+    status: retired      # Halloween week over; paused on Meta 2026-10-31 (Harry). Kept for the data and next October.
   - id: W22
     person: Halloween week, knows the name (the woman laughing behind her hand, a row of women laughing)
     body: "Double, double, toil and trouble: Comedy Brew is bubbling tonight at ROBIN's. Ten acts, doors 19:30, tickets on the door."
     title: "Something's brewing tonight"
     image: { style: photo, photo: "/assets/img/gallery/IMG_4468 Large.jpeg", focus: [0.78, 0.32], headline: "Not a witches' brew. A Comedy Brew.", sub: "Tonight, doors 19:30 at ROBIN's" }
     moment: { phase: tonight, when: season, season: { from: 2026-10-26, until: 2026-11-01 } }
-    status: live         # Harry's go 2026-10-25; the scheduler adds and switches it
+    status: retired      # Halloween week over; paused on Meta 2026-10-31 (Harry). Kept for the data and next October.
+  # --- Dark evenings, 2026-10-31 (Harry): see the note in cold.yml. ---
+  - id: W24
+    person: Knows the name, evenings came early (the front row grinning and laughing, rows of the packed room behind)
+    body: "The nights came early. Comedy Brew is on tomorrow at ROBIN's: ten acts, doors 19:30."
+    title: "Dark at five. Brew at 19:30."
+    image: { style: photo, photo: /assets/img/gallery/IMG_5487_20261021.jpg, focus: [0.55, 0.3], headline: "It's dark by five. Warm in here.", sub: "Comedy Brew tomorrow, 19:30 at ROBIN's" }
+    moment: { phase: tomorrow, when: season, season: { from: 2026-11-12, until: 2026-11-26 } }
+    status: live         # Harry's go 2026-10-31; the scheduler adds and switches it
+  - id: W25
+    person: Knows the name, evenings came early (the front row grinning and laughing, rows of the packed room behind)
+    body: "The nights came early. Comedy Brew is on tonight at ROBIN's: ten acts, doors 19:30, tickets on the door."
+    title: "Dark at five. Brew tonight."
+    image: { style: photo, photo: /assets/img/gallery/IMG_5487_20261021.jpg, focus: [0.55, 0.3], headline: "It's dark by five. Warm in here.", sub: "Comedy Brew tonight, 19:30 at ROBIN's" }
+    moment: { phase: tonight, when: season, season: { from: 2026-11-12, until: 2026-11-26 } }
+    status: live         # Harry's go 2026-10-31; the scheduler adds and switches it
