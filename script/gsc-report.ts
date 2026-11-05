@@ -197,22 +197,40 @@ function git(...a: string[]): { ok: boolean; out: string } {
   return { ok: r.status === 0, out: (r.stdout || "") + (r.stderr || "") };
 }
 
+// A push that fails for a reason other than a race (ssh refusing the key for a moment after
+// the Mac wakes, DNS not up yet, GitHub returning an error) is retried a few times with a
+// pause. The commit is made before the first attempt, so even a run that gives up leaves
+// the snapshot in git, and the next weekly run pushes both commits.
+const PUSH_ATTEMPTS = 4;
+const PUSH_RETRY_SECONDS = 30;
+
+function pushWithRetry(): string {
+  for (let attempt = 1; ; attempt++) {
+    let r = git("push", "origin", "master");
+    if (r.ok) return attempt === 1 ? "pushed" : `pushed on attempt ${attempt}`;
+    if (/non-fast-forward|fetch first|rejected/i.test(r.out)) {
+      r = git("pull", "--rebase", "origin", "master");
+      if (!r.ok) throw new Error(`git pull --rebase failed: ${r.out}`);
+      r = git("push", "origin", "master");
+      if (r.ok) return "pushed after rebase";
+      throw new Error(`git push after rebase failed: ${r.out}`);
+    }
+    const reason = r.out.trim().split("\n")[0] || "no output";
+    if (attempt >= PUSH_ATTEMPTS) {
+      throw new Error(`git push failed ${attempt} times (${reason}); the commit is local, run \`git push origin master\` by hand or let the next weekly run push it`);
+    }
+    console.error(`git push attempt ${attempt} failed (${reason}); retrying in ${PUSH_RETRY_SECONDS}s`);
+    Bun.sleepSync(PUSH_RETRY_SECONDS * 1000);
+  }
+}
+
 function commitAndPush(date: string): string {
   let r = git("add", "-A", "seo");
   if (!r.ok) throw new Error(`git add failed: ${r.out}`);
   if (git("diff", "--quiet", "--staged").ok) return "no changes";
   r = git("commit", "-m", `chore: Search Console snapshot and report (${date})`);
   if (!r.ok) throw new Error(`git commit failed: ${r.out}`);
-  r = git("push", "origin", "master");
-  if (r.ok) return "pushed";
-  if (/non-fast-forward|fetch first|rejected/i.test(r.out)) {
-    r = git("pull", "--rebase", "origin", "master");
-    if (!r.ok) throw new Error(`git pull --rebase failed: ${r.out}`);
-    r = git("push", "origin", "master");
-    if (!r.ok) throw new Error(`git push after rebase failed: ${r.out}`);
-    return "pushed after rebase";
-  }
-  throw new Error(`git push failed: ${r.out}`);
+  return pushWithRetry();
 }
 
 async function ping(suffix: "" | "/start" | "/fail", body?: string): Promise<void> {

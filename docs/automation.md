@@ -251,7 +251,7 @@ script whose variable is unset skips the ping silently; nothing else changes.
 |---|---|---|
 | `HEALTHCHECKS_URL` | the four Ruby cron jobs, sharing one check | `refresh-next-event-dates.rb`, `refresh-calendar-page.rb`, `sync-comedians.rb`, `post-events-to-google.rb`, `hours-to-google.rb` and `reviews-from-google.rb` (all three prefer `GBP_HEALTHCHECKS_URL` if that is ever set) |
 | `GA_REPORTS_HEALTHCHECKS_URL` | the reports job | `ga-report.ts`. Also `/fail` when GA shows a new broken `/go/` link, so a typo in a campaign link alerts |
-| `GSC_HEALTHCHECKS_URL` | the Search Console loop, check "IYF gsc-report" (created 2026-09-18) | `gsc-report.ts`, weekly: `/start`, the page summary on success, `/fail` with the error (period 7 days, grace 1 day, so a missed Monday alerts Tuesday) |
+| `GSC_HEALTHCHECKS_URL` | the Search Console loop, check "IYF gsc-report" (created 2026-09-18) | `gsc-report.ts`, weekly: `/start`, the page summary on success, `/fail` with the error (period 7 days, grace 1 day, so a missed Monday alerts Tuesday). A push that fails for a transient reason is retried four times, 30 seconds apart, before the run counts as failed |
 | `EVENTFROG_HEALTHCHECKS_URL` | Comedy Brew sales | `eventfrog-sales.ts`: success per run, readout lines to `/log` (recorded, no alarm), `/fail` on a guard action, a sold-out show or a rejected key |
 | `META_ADS_HEALTHCHECKS_URL` | the Meta jobs, one check to start | `meta-lineup-ad.ts`, `meta-adsets.ts`, `meta-insights.ts` |
 | `META_MOMENTS_HEALTHCHECKS_URL` | the moment scheduler, its own check (it writes to Meta twice a day) | `meta-moments.ts`; schedule `30 7,12 * * *`, grace 6 hours |
