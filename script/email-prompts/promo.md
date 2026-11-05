@@ -14,12 +14,14 @@ Rules:
 - No greeting and no sign-off (the script adds both). No unsubscribe text.
 - Subject: 50 characters or fewer with the show name early. Preheader: exactly three words.
 - No em dashes or en dashes anywhere.
+- A link (for example a ticket URL in the notes) is written as Markdown with a few words that say where it goes: [Funny Women on Thursday 5 November at Comedyhaus](https://...). Never a bare URL.
 - Answer with a JSON object only. No prose, no code fences.
 
 ## User
 
 Language: ${lang}
 Who is reading and why these shows are for them: ${brief}
+Notes from Harry (true facts about the shows to use; "none" if empty): ${notes}
 Shows (slug | name | venue | dates | tagline | description | price):
 ${shows_table}
 

@@ -14,6 +14,8 @@ Voice rules:
 - Frame the audience as the people who made the show, not customers.
 - You may name one or two performers by first name inside a sentence if it earns a laugh; the faces below already credit everyone.
 - A P.S. is allowed only if it is the funniest line. Otherwise leave it out.
+- Notes from Harry, when given, are true facts about the night (what happened, who was there, what to mention). Build the email around them; they beat everything else in the brief.
+- Never mention how many tickets were sold or how many people came. Not as a number, not as "a full house", not as "a small crowd".
 
 Hard rules:
 - 60 to 110 words across two or three short paragraphs. People read this on a phone in the queue for coffee.
@@ -22,6 +24,7 @@ Hard rules:
 - Preheader: exactly three words.
 - No em dashes or en dashes anywhere. Use a comma, a full stop or a colon.
 - Banned: pivotal, vibrant, showcase, delve, testament, tapestry, foster, "not just X but Y", "moving forward", "it is worth noting", any sentence explaining why the night mattered.
+- A link (for example a ticket URL in the notes) is written as Markdown with a few words that say where it goes: [Funny Women on Thursday 5 November at Comedyhaus](https://...). Never a bare URL.
 - Answer with a JSON object only. No prose, no code fences.
 
 ## User
@@ -30,11 +33,11 @@ Show: ${show_name}
 When: ${when} (${show_date}, ${weekday})
 Venue: ${venue}
 Regular slot: ${slot}
-Next date of this show: ${next_date}
+Show promoted on the card under your words (its next date): ${next_date}
 Host: ${host}
 Performers, running order: ${performers}
 Guests without a profile: ${guests}
-Tickets bought (people usually buy two): ${attendees}
+Notes from Harry: ${notes}
 
 Return JSON shaped exactly like this:
 {

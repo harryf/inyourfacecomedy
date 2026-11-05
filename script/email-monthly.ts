@@ -4,6 +4,7 @@
 //   bun script/email-monthly.ts                 # next five weeks from today
 //   bun script/email-monthly.ts --month 2026-10 # one calendar month
 //   bun script/email-monthly.ts --weeks 6 --dry-run
+//   bun script/email-monthly.ts --notes "Halloween special on the 31st, new Tuesday show"
 //   bun script/email-monthly.ts --copy script/email-out/<file>.copy.json --update 8350100
 //
 // One card per show with its real dates (never hand-typed), a bolded show count
@@ -85,7 +86,8 @@ async function main() {
     month_label: win.label, show_count: String(showCount), window_from: fmtDate(win.from, { year: true }), window_to: fmtDate(win.to, { year: true }),
     shows_table: showsTable(rows), show_slugs: rows.map((r) => r.slug).join(","),
   };
-  const { copy } = resolveCopy("monthly", args, vars, baseName, `monthly:${win.from}..${win.to}`) as { copy: MonthlyCopy; path: string };
+  const { copy: c, path: copyPath } = await resolveCopy("monthly", args, vars, baseName, `monthly:${win.from}..${win.to}`);
+  const copy = c as MonthlyCopy;
   const blurbs = new Map(copy.shows.map((s) => [s.slug, s]));
   for (const r of rows) if (!blurbs.has(r.slug)) warn(`copy has no blurb for ${r.slug}; the card will use the tagline`);
 
@@ -123,6 +125,7 @@ async function main() {
   await publish({
     mc, baseName, title: `${win.label} Calendar`, subject: copy.subject, preheader: copy.preheader, html, text: renderText(doc),
     update: flagString(args, "update"), dryRun, noOpen: flagBool(args, "no-open"), yes: flagBool(args, "yes"),
+    rerun: { copyPath },
   });
 }
 

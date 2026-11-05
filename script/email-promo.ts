@@ -4,6 +4,7 @@
 //   bun script/email-promo.ts --show promessi-spassi --csv ~/Desktop/italians.csv --lang it --brief "Italian speakers in Zürich"
 //   bun script/email-promo.ts --show latarima --segment "City - Zurich" --lang es --brief "..."
 //   bun script/email-promo.ts --show filippo-spreafico,promessi-spassi --all --brief "everyone: two Italian nights"
+//   ... --notes "Filippo's Netflix special drops the week before"   # facts for the writer
 //   ... --dry-run / --copy <file> --update <web id>
 //
 // --csv takes any file with email addresses in it (one per line or a column);
@@ -28,9 +29,11 @@ const USAGE = `Usage: bun script/email-promo.ts --show <slug[,slug]> (--csv <fil
   --segment <name>   existing Mailchimp tag / segment name
   --all              the whole audience
   --brief "<text>"   who the readers are and why these shows are for them (goes to Claude)
+                     (--notes, below, is for facts about the show itself)
   --lang en|it|es|de language of the whole email (default en)
   --no-flyers        no flyer on each show card (the first show's flyer becomes a hero instead)
   --no-hero          with --no-flyers: no hero either
+  --banner-first     with --no-flyers: the hero opens the email in place of the logo bar, greeting under it
 
 The copy file may carry per-show blurbs: "shows": [{"slug": "...", "blurb": "..."}], any language each.
   --model <name>     claude model for the copy (default sonnet, or EMAIL_CLAUDE_MODEL)
@@ -138,7 +141,8 @@ async function main() {
   const vars: Record<string, string> = {
     lang, brief: flagString(args, "brief") || "subscribers who might like these shows", shows_table: showsTable(rows), show_name: rows.map((r) => r.name).join(" & "),
   };
-  const { copy } = resolveCopy("promo", args, vars, baseName, `promo:${slugs.join("+")}`) as { copy: PromoCopy; path: string };
+  const { copy: c, path: copyPath } = await resolveCopy("promo", args, vars, baseName, `promo:${slugs.join("+")}`);
+  const copy = c as PromoCopy;
 
   // Each card carries its show's flyer (--no-flyers: one hero of the first
   // show instead). Per-show blurbs from the copy file beat the tagline.
@@ -170,11 +174,15 @@ async function main() {
   const doc: EmailDoc = {
     subject: copy.subject, preheader: copy.preheader, lang, greeting: greetingFor(lang),
     logoUrl: await logoUrl(mc), siteUrl: SITE_URL, calendarUrl: CALENDAR_URL, blocks,
+    bannerFirst: flagBool(args, "banner-first") && blocks[0]?.kind === "hero",
   };
   log(`  to     ${audience}`);
   await publish({
     mc, baseName, title: `Promo: ${rows.map((r) => r.name).join(" & ")} (${lang}) ${today}`, subject: copy.subject, preheader: copy.preheader,
     html: renderHtml(doc), text: renderText(doc), segmentId: segment?.id, expectedCount: segment?.member_count, update: flagString(args, "update"), dryRun, noOpen: flagBool(args, "no-open"), yes,
+    // A CSV run made (or filled) a tag; the re-run sends to that tag instead
+    // of importing the CSV again.
+    rerun: { copyPath, ...(segment && flagString(args, "csv") ? { drop: ["csv", "tag"], add: ["--segment", segment.name] } : {}) },
   });
 }
 

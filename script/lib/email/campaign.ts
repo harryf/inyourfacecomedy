@@ -3,8 +3,7 @@
 // Mailchimp draft, read it back, and open it in the browser. Nothing here
 // sends; Mailchimp's own checklist is the send gate. See docs/emails.md.
 
-import { join } from "node:path";
-import { OUT_DIR, confirm, fail, log, openInBrowser, warn, writeOut } from "./cli";
+import { confirm, fail, log, offerToEdit, openInBrowser, rerunCommand, shellQuote, shortPath, warn, writeOut } from "./cli";
 import { checkHtml, extractLinks, previewHtml } from "./render";
 import { FROM_EMAIL, LIST_ID, type Mailchimp } from "./mailchimp";
 
@@ -22,6 +21,24 @@ export interface PublishOptions {
   dryRun: boolean;
   noOpen: boolean;
   yes?: boolean;
+  rerun: Rerun;
+}
+
+// How to replay this run with an edited copy file. `drop` and `add` adjust
+// the original arguments, e.g. a CSV run replays as --segment <the new tag>.
+export interface Rerun { copyPath: string; drop?: string[]; add?: string[] }
+
+// Flags that only matter when Claude writes the words, plus the ones the
+// re-run line sets itself.
+const RERUN_DROP = ["copy", "update", "notes", "model", "no-ai"];
+
+async function printRerun(r: Rerun, webId?: number): Promise<void> {
+  const cmd = rerunCommand(process.argv.slice(2), process.argv[1], {
+    drop: [...RERUN_DROP, ...(r.drop ?? [])],
+    add: [...(r.add ?? []), "--copy", shortPath(r.copyPath), ...(webId ? ["--update", String(webId)] : [])],
+  });
+  log(`\nTo change the words, edit ${shellQuote(shortPath(r.copyPath))} and re-run:\n\n  ${cmd}\n`);
+  await offerToEdit(r.copyPath);
 }
 
 export interface PublishResult { htmlPath: string; textPath: string; webId?: number; apiId?: string; url?: string }
@@ -68,6 +85,7 @@ export async function publish(o: PublishOptions): Promise<PublishResult> {
     const previewPath = writeOut(`${o.baseName}.preview.html`, previewHtml(o.html));
     log(`\nDry run: no Mailchimp writes. Preview (merge tags filled in): ${previewPath}`);
     if (!o.noOpen) openInBrowser(previewPath);
+    await printRerun(o.rerun);
     return { htmlPath, textPath };
   }
 
@@ -138,8 +156,8 @@ export async function publish(o: PublishOptions): Promise<PublishResult> {
   log(`  content   ${c.content_type}, ${Buffer.byteLength(stored.html, "utf8")} bytes stored`);
   log(`  ${url}`);
   log(`\nIn Mailchimp: Preview, Send a test email, then Send. Do not click Edit design (it migrates the`);
-  log(`campaign into the builder and drops this HTML). To change the words: edit`);
-  log(`${join(OUT_DIR, o.baseName + ".copy.json")} and re-run with --copy <that file> --update ${webId}`);
+  log(`campaign into the builder and drops this HTML).`);
   if (!o.noOpen) openInBrowser(url);
+  await printRerun(o.rerun, webId);
   return { htmlPath, textPath, webId, apiId, url };
 }

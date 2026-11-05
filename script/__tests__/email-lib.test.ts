@@ -2,8 +2,8 @@
 // calendar grouping and date lines, the rendered HTML's email-client rules, the
 // plain-text twin, tag parsing. No network, no Mailchimp, no filesystem writes.
 import { describe, expect, test } from "bun:test";
-import { parseArgs } from "../lib/email/cli";
-import { mkdtempSync, writeFileSync } from "node:fs";
+import { parseArgs, rerunCommand, shellQuote } from "../lib/email/cli";
+import { mkdtempSync, readFileSync as readFile, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { parseEventTag } from "../lib/email/mailchimp";
@@ -14,7 +14,8 @@ import {
   calendarCheckedAt, calendarEvents, calendarStale, comedianFromFrontMatter, datesFor, datesLine, findComedian, findShow, fmtDate, frontMatterOf, groupByShow,
   instagramHandle, norm, shortName, showFromFrontMatter, weekdayOf, type CalendarEvent,
 } from "../lib/email/site";
-import { cleanText, extractJson, placeholderCopy, renderPrompt, validateCopy, wordCount } from "../lib/email/copy";
+import { bareUrl, cleanText, extractJson, headcountMention, loadPrompt, placeholderCopy, renderPrompt, validateCopy, wordCount } from "../lib/email/copy";
+import { greetingFor } from "../lib/email/common";
 import { isGuest, guestName, parseThankyouLink, resolvePeople, tagMatchesShow, whenPhrase } from "../email-thankyou";
 import { heroTitleFor, keepForMonthly, pickHero, windowFor } from "../email-monthly";
 import { emailsFrom, segmentNameFor } from "../email-promo";
@@ -214,6 +215,28 @@ describe("copy validation", () => {
     expect(p.user).toBe("Show: Brew");
     expect(() => renderPrompt("## System\na\n## User\n${missing}", {})).toThrow(/missing/);
   });
+  test("a generated thank-you never says how many came", () => {
+    const ty = (p: string) => ({ subject: "Thanks", preheader: "a b c", paragraphs: [p] });
+    for (const bad of ["All 23 of you were great.", "Forty people laughed.", "A full house on a Thursday.", "Sold out again!", "60 tickets, 60 heroes."]) {
+      expect(headcountMention("thankyou", ty(bad))).toBeTruthy();
+    }
+    for (const ok of ["You were a good room.", "Mateo did 7 minutes on fondue.", "See you on the 9th."]) {
+      expect(headcountMention("thankyou", ty(ok))).toBeUndefined();
+    }
+    expect(headcountMention("monthly", ty("Sold out") as never)).toBeUndefined();
+  });
+  test("generated copy links with Markdown, never a bare URL", () => {
+    const ty = (ps: string) => ({ subject: "Thanks", preheader: "a b c", paragraphs: ["Hi."], ps });
+    expect(bareUrl(ty("Catch Martina: https://eventfrog.ch/en/p/x.html"))).toBe("https://eventfrog.ch/en/p/x.html");
+    expect(bareUrl(ty("See www.example.ch soon"))).toBe("www.example.ch");
+    expect(bareUrl(ty("Catch Martina at [Funny Women](https://eventfrog.ch/en/p/x.html)."))).toBeUndefined();
+  });
+  test("every prompt takes Harry's notes and the thank-you gets no ticket count", () => {
+    const vars = new Proxy({} as Record<string, string>, { has: () => true, get: (_t, k) => `<${String(k)}>` });
+    for (const t of ["thankyou", "monthly", "promo"] as const) expect(loadPrompt(t, vars).user).toContain("<notes>");
+    const ty = readFile(join(import.meta.dir, "..", "email-prompts", "thankyou.md"), "utf8");
+    expect(ty).not.toContain("${attendees}");
+  });
   test("placeholder copy passes validation for all three types", () => {
     for (const t of ["thankyou", "monthly", "promo"] as const) {
       expect(() => validateCopy(t, placeholderCopy(t, { show_name: "Comedy Brew", show_slugs: "comedybrew,latarima", month_label: "October 2026" }))).not.toThrow();
@@ -328,6 +351,15 @@ describe("render", () => {
     expect(h).not.toContain("*|IF:FNAME|*");
     expect(h).toContain('width="600" height="400" alt="Crowd"');
   });
+  test("bannerFirst drops the logo bar and opens with the hero, greeting below it", () => {
+    const hero = { kind: "hero" as const, src: "https://mcusercontent.com/x/h.jpg", alt: "Banner", width: 1200, height: 800 };
+    const h = renderHtml(doc([hero, { kind: "paragraph", text: "Hello." }], { bannerFirst: true }));
+    expect(h).not.toContain('alt="IN YOUR FACE Comedy"');
+    expect(h.indexOf('alt="Banner"')).toBeLessThan(h.indexOf("*|IF:FNAME|*"));
+    expect(h.indexOf("*|IF:FNAME|*")).toBeLessThan(h.indexOf("Hello."));
+    const plain = renderHtml(doc([hero], { bannerFirst: false }));
+    expect(plain).toContain('alt="IN YOUR FACE Comedy"');
+  });
   test("previewHtml resolves merge tags for the local preview only", () => {
     const p = previewHtml(html);
     expect(p).toContain("Hi Harry,");
@@ -345,5 +377,20 @@ describe("cli args", () => {
     const a = parseArgs(["https://x/?show=a", "--segment", "Tag name", "--dry-run", "--lang=it", "--show", "a,b", "--yes", "--update", "8350024"]);
     expect(a.positional).toEqual(["https://x/?show=a"]);
     expect(a.flags).toEqual({ segment: "Tag name", "dry-run": true, lang: "it", show: "a,b", yes: true, update: "8350024" });
+  });
+  test("rerunCommand replays the run with the copy file, dropping first-run flags", () => {
+    const cwd = "/repo";
+    const argv = ["https://x/?show=a&host=b&thankyou", "--notes", "Lukas's birthday", "--model=opus", "--dry-run", "--date", "2026-10-01"];
+    expect(rerunCommand(argv, "/repo/script/email-thankyou.ts", { drop: ["notes", "model", "copy", "update"], add: ["--copy", "script/email-out/x.copy.json", "--update", "8350024"] }, cwd))
+      .toBe("bun script/email-thankyou.ts 'https://x/?show=a&host=b&thankyou' --dry-run --date 2026-10-01 --copy script/email-out/x.copy.json --update 8350024");
+    // A CSV promo replays against the tag it made, and an old --copy/--update is replaced.
+    expect(rerunCommand(["--show", "latarima", "--csv", "/tmp/a.csv", "--tag", "es", "--copy", "old.json", "--update=1"], "/elsewhere/email-promo.ts",
+      { drop: ["csv", "tag", "copy", "update"], add: ["--segment", "promo es", "--copy", "new.json"] }, cwd))
+      .toBe("bun /elsewhere/email-promo.ts --show latarima --segment 'promo es' --copy new.json");
+    expect(shellQuote("it's")).toBe(`'it'\\''s'`);
+  });
+  test("every greeting falls back when the first name is empty", () => {
+    for (const l of ["en", "it", "es", "de"] as const) expect(greetingFor(l)).toMatch(/^\*\|IF:FNAME\|\*.+\*\|ELSE:\|\*[^*|]+,\*\|END:IF\|\*$/);
+    expect(GREETING_MERGE).toContain("*|ELSE:|*Hi there,");
   });
 });

@@ -57,6 +57,7 @@ export interface EmailDoc {
   lang: string;                 // en | it | es | de
   greeting: string | null;      // null = no greeting line; default FNAME conditional
   logoUrl: string;              // hosted logo or "" (falls back to a wordmark)
+  bannerFirst?: boolean;        // true = no logo bar; a leading hero block opens the email, the greeting follows it
   siteUrl: string;
   calendarUrl: string;
   blocks: Block[];
@@ -224,7 +225,10 @@ export function blockHtml(b: Block): string {
 // ---------- document ----------
 export function renderHtml(doc: EmailDoc): string {
   const greeting = doc.greeting === null ? "" : greetingHtml(doc.greeting || GREETING_MERGE);
-  const body = doc.blocks.map(blockHtml).join("\n");
+  const first = doc.blocks[0];
+  const banner = doc.bannerFirst && first?.kind === "hero" ? heroHtml(first) : "";
+  const body = (banner ? doc.blocks.slice(1) : doc.blocks).map(blockHtml).join("\n");
+  const top = (doc.bannerFirst ? "" : headerHtml(doc)) + banner;
   return `<!DOCTYPE html>
 <html lang="${esc(doc.lang || "en")}" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
@@ -250,7 +254,7 @@ p,a,td{mso-line-height-rule:exactly;}
 <body style="margin:0;padding:0;background-color:${T.bg};">
 ${preheaderHtml()}
 ${table(`width="100%" style="width:100%;background-color:${T.bg};"`, `<tr><td align="center" style="padding:16px 8px;">` +
-    table(`class="iyf-container" width="${T.width}" style="width:${T.width}px;max-width:${T.width}px;background-color:${T.surface};"`, headerHtml(doc) + greeting + body + `<tr><td style="height:12px;font-size:0;line-height:12px;">&nbsp;</td></tr>` + footerHtml(doc)) +
+    table(`class="iyf-container" width="${T.width}" style="width:${T.width}px;max-width:${T.width}px;background-color:${T.surface};"`, top + greeting + body + `<tr><td style="height:12px;font-size:0;line-height:12px;">&nbsp;</td></tr>` + footerHtml(doc)) +
     `</td></tr>`)}
 </body>
 </html>

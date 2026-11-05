@@ -18,6 +18,7 @@ Hard rules:
 - No em dashes or en dashes anywhere. Use a comma, full stop, colon or parenthesis.
 - No "not just X but Y", no "moving forward", no "vibrant", "showcase", "delve", "testament", "tapestry".
 - Never claim a show is sold out, new, or "the last one" unless the brief says so.
+- A link (for example a ticket URL in the notes) is written as Markdown with a few words that say where it goes: [Funny Women on Thursday 5 November at Comedyhaus](https://...). Never a bare URL.
 - Answer with a JSON object only. No prose, no code fences.
 
 ## User
@@ -25,6 +26,7 @@ Hard rules:
 Month: ${month_label}
 Total upcoming shows in the window: ${show_count}
 Window: ${window_from} to ${window_to}
+Notes from Harry (true facts to use: specials, new shows, what to push; "none" if empty): ${notes}
 
 Shows (slug | name | venue | dates | regular slot | tagline | description):
 ${shows_table}

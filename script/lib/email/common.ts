@@ -3,8 +3,8 @@
 // strings, the show table handed to the prompt.
 
 import { existsSync } from "node:fs";
-import { join } from "node:path";
-import { OUT_DIR, ROOT, flagBool, flagString, log, warn, type Args } from "./cli";
+import { join, resolve } from "node:path";
+import { OUT_DIR, ROOT, ask, flagBool, flagString, log, warn, type Args } from "./cli";
 import { ensureUploaded, imageDimensions, localFileUrl, resizeSquare, resizeWidth, sourceStamp } from "./images";
 import { generateCopy, loadCopy, placeholderCopy, saveCopy, type Copy, type EmailType } from "./copy";
 import { Mailchimp } from "./mailchimp";
@@ -46,25 +46,32 @@ export function mailchimpFor(args: Args): Mailchimp | null {
   try { return Mailchimp.fromEnv(); } catch (e) { throw new Error(`${(e as Error).message}; use --dry-run to preview without Mailchimp`); }
 }
 
-// --copy <file> wins, then --no-ai, else Claude. Whatever is used gets saved
-// as <base>.copy.json so a re-run with --copy is always possible.
-export function resolveCopy(type: EmailType, args: Args, vars: Record<string, string>, baseName: string, forKey: string): { copy: Copy; path: string } {
-  const path = join(OUT_DIR, `${baseName}.copy.json`);
-  let copy: Copy;
+// --copy <file> wins, then --no-ai, else Claude. Claude gets ${notes}: the
+// --notes text, or what Harry types at the prompt (Enter skips). A fresh copy
+// is saved as <base>.copy.json; a --copy run keeps its file, so the printed
+// re-run line keeps pointing at the file being edited.
+export async function resolveCopy(type: EmailType, args: Args, vars: Record<string, string>, baseName: string, forKey: string): Promise<{ copy: Copy; path: string }> {
   const file = flagString(args, "copy");
   if (file) {
-    copy = loadCopy(type, file, forKey);
+    const copy = loadCopy(type, file, forKey);
     log(`  copy   from ${file}`);
-  } else if (flagBool(args, "no-ai")) {
+    return { copy, path: resolve(file) };
+  }
+  const path = join(OUT_DIR, `${baseName}.copy.json`);
+  let notes = flagString(args, "notes")?.trim() || "";
+  let copy: Copy;
+  if (flagBool(args, "no-ai")) {
     copy = placeholderCopy(type, vars);
     log(`  copy   placeholder (--no-ai)`);
   } else {
-    log(`  copy   asking claude (${process.env.EMAIL_CLAUDE_MODEL || "sonnet"})...`);
+    if (args.flags.notes === undefined && !flagBool(args, "yes")) notes = await ask("Notes for the writer (what happened, what to mention; Enter to skip):");
+    vars.notes = notes || "none";
+    log(`  copy   asking claude (${flagString(args, "model") || process.env.EMAIL_CLAUDE_MODEL || "sonnet"})...`);
     const r = generateCopy(type, vars, { model: flagString(args, "model") });
     for (const f of r.fixes) warn(f);
     copy = r.copy;
   }
-  saveCopy(path, copy, forKey);
+  saveCopy(path, copy, forKey, notes);
   log(`  saved  ${path}`);
   return { copy, path };
 }
@@ -75,6 +82,8 @@ export function hostedName(prefix: string, src: string, ext: string): string {
 }
 
 // Refuse to build dates on a calendar the cron has not refreshed, unless told to.
+// Fresh means either stamp is recent: generated_at moves only when the data changed,
+// the checked-at stamp on every real run of refresh-calendar-data.rb.
 export function requireFreshCalendar(generatedAt: string, args: Args): void {
   const checkedAt = calendarCheckedAt();
   if (!calendarStale(generatedAt) || !calendarStale(checkedAt)) return;
@@ -83,8 +92,6 @@ export function requireFreshCalendar(generatedAt: string, args: Args): void {
   else throw new Error(msg + ". Pass --allow-stale to go ahead anyway.");
 }
 
-// Fresh means either stamp is recent: generated_at moves only when the data changed,
-// the checked-at stamp on every real run of refresh-calendar-data.rb.
 // ---------- language strings ----------
 export type Lang = "en" | "it" | "es" | "de";
 

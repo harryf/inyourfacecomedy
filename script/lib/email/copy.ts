@@ -138,6 +138,25 @@ export function validateCopy(type: EmailType, raw: unknown): { copy: Copy; fixes
   return { copy, fixes };
 }
 
+// A thank-you never says how many came: the ticket count undercounts the room
+// (one buyer, several seats) and a headcount is dull. Checked on generated
+// copy only; words Harry writes into the copy file are his call.
+const HEADCOUNT = /\b(\d+|dozens?|hundreds?|forty|fifty|sixty|seventy|eighty|ninety)\s+(of\s+you|people|tickets?|guests?|seats?|strangers|faces)\b|\bfull house\b|\bsold[ -]?out\b|\bpacked (room|house)\b|\bhow many of you\b/i;
+export function headcountMention(type: EmailType, copy: Copy): string | undefined {
+  if (type !== "thankyou") return undefined;
+  const c = copy as ThankyouCopy;
+  return [c.subject, c.preheader, ...c.paragraphs, c.ps ?? ""].map((t) => t.match(HEADCOUNT)?.[0]).find(Boolean);
+}
+
+// A URL outside [words](url) lands in the email as raw text. Checked on
+// generated copy; the renderer links only the Markdown form.
+export function bareUrl(copy: Copy): string | undefined {
+  const texts: string[] = [];
+  const walk = (v: unknown) => { if (typeof v === "string") texts.push(v); else if (Array.isArray(v)) v.forEach(walk); else if (v && typeof v === "object") Object.values(v).forEach(walk); };
+  walk(copy);
+  return texts.map((t) => t.replace(/\[[^\]]+\]\([^)\s]+\)/g, "").match(/\b(?:https?:\/\/|www\.)\S+/i)?.[0]).find(Boolean);
+}
+
 // ---------- generate / save / load ----------
 export function generateCopy(type: EmailType, vars: Record<string, string>, opts: { model?: string; retries?: number } = {}): { copy: Copy; fixes: string[]; raw: string } {
   const prompt = loadPrompt(type, vars);
@@ -146,6 +165,10 @@ export function generateCopy(type: EmailType, vars: Record<string, string>, opts
     const raw = runClaude(attempt === 0 ? prompt : { ...prompt, user: prompt.user + `\n\nYour previous answer was rejected: ${lastErr?.message}. Answer again with valid JSON only.` }, opts.model);
     try {
       const { copy, fixes } = validateCopy(type, extractJson(raw));
+      const count = headcountMention(type, copy);
+      if (count) throw new Error(`copy rejected: mentions how many came ("${count}"); never mention ticket or audience numbers`);
+      const url = bareUrl(copy);
+      if (url) throw new Error(`copy rejected: bare URL ${url}; write links as [a few words](url)`);
       return { copy, fixes, raw };
     } catch (e) {
       lastErr = e as Error;
@@ -156,9 +179,10 @@ export function generateCopy(type: EmailType, vars: Record<string, string>, opts
 }
 
 // The file remembers what it was written for (`_for`), so a comedybrew
-// thank-you cannot be replayed onto another show by mistake.
-export function saveCopy(path: string, copy: Copy, forKey: string): void {
-  writeFileSync(path, JSON.stringify({ _for: forKey, ...copy }, null, 2) + "\n");
+// thank-you cannot be replayed onto another show by mistake, and the notes
+// the writer was given (`_notes`, for reference; never rendered).
+export function saveCopy(path: string, copy: Copy, forKey: string, notes = ""): void {
+  writeFileSync(path, JSON.stringify({ _for: forKey, ...(notes ? { _notes: notes } : {}), ...copy }, null, 2) + "\n");
 }
 
 export function loadCopy(type: EmailType, path: string, forKey: string): Copy {

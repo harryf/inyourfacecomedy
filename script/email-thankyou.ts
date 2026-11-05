@@ -2,6 +2,8 @@
 // Post-show thank-you email from a Lineup Maker thank-you link.
 //
 //   bun script/email-thankyou.ts "https://inyourfacecomedy.ch/comedians/?show=comedybrew&host=…&first=…&second=…&thankyou"
+//   bun script/email-thankyou.ts <link> --notes "Lukas's birthday, power cut mid-set"   # facts for the writer
+//   bun script/email-thankyou.ts <link> --next comedybrew   # the card promotes another show (or --next none)
 //   bun script/email-thankyou.ts <link> --dry-run          # render + open locally, no Mailchimp
 //   bun script/email-thankyou.ts <link> --segment "<tag>"  # pick the audience segment by name
 //   bun script/email-thankyou.ts <link> --copy script/email-out/<file>.copy.json --update 8350024
@@ -29,6 +31,7 @@ const USAGE = `Usage: bun script/email-thankyou.ts <thank-you link> [options]
   <thank-you link>   the /comedians/?show=…&thankyou link from Lineup Maker 2000
   --segment <name>   Mailchimp tag/segment to send to (default: newest tag matching the show, asked)
   --date YYYY-MM-DD  show date (default: from the tag name, else the last past date of the show)
+  --next <slug|none> show the "next one" card promotes (default: this show's next date)
   --model <name>     claude model for the copy (default sonnet, or EMAIL_CLAUDE_MODEL)
 ${USAGE_FOOTER}`;
 
@@ -102,7 +105,6 @@ async function main() {
   const show = findShow(shows, lineup.show);
   if (!show) fail(`unknown show "${lineup.show}" (no _posts entry with that permalink)`);
   const venues = loadVenues();
-  const venueName = venues[show.venueSlug]?.name || show.venueName || "the venue";
   const comedians = loadComedians();
   const cal = loadCalendar("calendar.yml");
   requireFreshCalendar(cal.generatedAt, args);
@@ -163,19 +165,33 @@ async function main() {
     showDate = lastPast.date;
   }
   const when = whenPhrase(showDate, today);
-  const next = datesFor(upcoming, show.slug, today).find((e) => e.date > showDate);
+  // Where the night was: the past calendar entry for that date. The post's
+  // venue follows the show's NEXT date (refresh job), so a touring show's post
+  // can already name the next city.
+  const night = past.find((e) => norm(e.show) === norm(show.slug) && e.date === showDate);
+  const nightVenue = night?.venue || show.venueSlug;
+  const venueName = night?.venueName || venues[nightVenue]?.name || show.venueName || "the venue";
+
+  // The card under the words: this show's next date, or --next <slug> (a
+  // touring show's next date may be in another city), or --next none.
+  const nextFlag = flagString(args, "next");
+  const nextShow = nextFlag === "none" ? undefined : nextFlag ? findShow(shows, nextFlag) : show;
+  if (nextFlag && nextFlag !== "none" && !nextShow) fail(`unknown show "${nextFlag}" for --next`);
+  const next = nextShow ? datesFor(upcoming, nextShow.slug, today).find((e) => e.date > showDate) : undefined;
+  if (nextShow && nextFlag && !next) warn(`${nextShow.name} has no upcoming date in calendar.yml; no "next one" card`);
+  if (!nextFlag && next && next.venue !== nightVenue) warn(`the next ${show.name} is at ${next.venueName}, not ${venueName}; pass --next <slug> to promote another show, or --next none`);
   const slot = slotFor(show, venueName);
+  const nextSlot = nextShow ? slotFor(nextShow, venues[nextShow.venueSlug]?.name || nextShow.venueName || "") : "";
 
   // Copy.
   const baseName = `${stamp()}-thankyou-${show.slug}`;
   const performers = people.map((p) => p.name).join(", ");
   const vars: Record<string, string> = {
     show_name: show.name, when, show_date: fmtDate(showDate, { year: true }), weekday: weekdayOf(showDate), venue: venueName,
-    slot: slot || "none (one-off show)", next_date: next ? `${fmtDate(next.date)} ${timeOf(next.start)} at ${next.venueName}` : "none scheduled",
+    slot: slot || "none (one-off show)", next_date: next && nextShow ? `${nextShow.name}, ${fmtDate(next.date)} ${timeOf(next.start)} at ${next.venueName}` : "none scheduled",
     host: host.map((p) => p.name).join(", ") || "none", performers, guests: people.filter((p) => p.guest).map((p) => p.name).join(", ") || "none",
-    attendees: segment ? String(segment.member_count) : "unknown",
   };
-  const { copy } = resolveCopy("thankyou", args, vars, baseName, `thankyou:${show.slug}`) as { copy: ThankyouCopy; path: string };
+  const { copy, path: copyPath } = await resolveCopy("thankyou", args, vars, baseName, `thankyou:${show.slug}`) as { copy: ThankyouCopy; path: string };
 
   // Images: faces and logo hosted on Mailchimp (or local files in a dry run).
   // A face that cannot be produced stops the run: an email of initials discs
@@ -199,12 +215,12 @@ async function main() {
   // Document.
   const blocks: Block[] = copy.paragraphs.map((text) => ({ kind: "paragraph", text }));
   if (copy.ps) blocks.push({ kind: "paragraph", text: `*P.S. ${copy.ps}*` });
-  if (next) {
-    blocks.push({ kind: "heading", text: slot ? `${show.name} is on ${slot.replace(/,.*$/, "")}` : `Next ${show.name}` });
+  if (next && nextShow) {
+    blocks.push({ kind: "heading", text: nextSlot ? `${nextShow.name} is on ${nextSlot.replace(/,.*$/, "")}` : `Next ${nextShow.name}` });
     blocks.push({
-      kind: "showCard", name: show.name, href: show.url, date: next.date,
+      kind: "showCard", name: nextShow.name, href: nextShow.url, date: next.date,
       eyebrow: `${weekdayOf(next.date).slice(0, 3)} · ${timeOf(next.start)} · ${next.venueName}`,
-      datesLine: `Next one: ${fmtDate(next.date)}`, blurb: show.tagline || undefined, linkLabel: "Tickets & info",
+      datesLine: `Next one: ${fmtDate(next.date)}`, blurb: nextShow.tagline || undefined, linkLabel: "Tickets & info",
     });
   }
   blocks.push({ kind: "button", label: "See all our shows", href: CALENDAR_URL });
@@ -222,6 +238,8 @@ async function main() {
     mc, baseName, title: `Thanks: ${show.name} ${fmtDate(showDate, { weekday: false, year: true })}`,
     subject: copy.subject, preheader: copy.preheader, html: renderHtml(doc), text: renderText(doc),
     segmentId: segment?.id, expectedCount: segment?.member_count, update: flagString(args, "update"), dryRun, noOpen: flagBool(args, "no-open"), yes: flagBool(args, "yes"),
+    // The re-run names the tag this run settled on, so it does not ask again.
+    rerun: { copyPath, add: segment && !flagString(args, "segment") ? ["--segment", segment.name] : [] },
   });
 }
 
