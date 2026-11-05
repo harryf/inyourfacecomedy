@@ -77,3 +77,6 @@ script/robins-out/
 
 # Re-index tool state (last processed commit, submissions). Never commit.
 script/reindex-out/
+
+# Calendar refresh heartbeat (when refresh-calendar-data.rb last ran for real)
+script/refresh-out/

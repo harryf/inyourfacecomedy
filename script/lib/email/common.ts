@@ -8,7 +8,7 @@ import { OUT_DIR, ROOT, flagBool, flagString, log, warn, type Args } from "./cli
 import { ensureUploaded, imageDimensions, localFileUrl, resizeSquare, resizeWidth, sourceStamp } from "./images";
 import { generateCopy, loadCopy, placeholderCopy, saveCopy, type Copy, type EmailType } from "./copy";
 import { Mailchimp } from "./mailchimp";
-import { SITE_URL, type CalendarEvent, type Show, calendarStale, datesLine, timeOf, weekdayOf } from "./site";
+import { SITE_URL, type CalendarEvent, type Show, calendarCheckedAt, calendarStale, datesLine, timeOf, weekdayOf } from "./site";
 
 export const LOGO_SRC = join(ROOT, "assets", "img", "inyourface.png");
 
@@ -76,12 +76,15 @@ export function hostedName(prefix: string, src: string, ext: string): string {
 
 // Refuse to build dates on a calendar the cron has not refreshed, unless told to.
 export function requireFreshCalendar(generatedAt: string, args: Args): void {
-  if (!calendarStale(generatedAt)) return;
-  const msg = `calendar.yml was generated ${generatedAt || "never"}; the daily refresh may have missed a run (ruby script/refresh-calendar-data.rb)`;
+  const checkedAt = calendarCheckedAt();
+  if (!calendarStale(generatedAt) || !calendarStale(checkedAt)) return;
+  const msg = `calendar.yml was generated ${generatedAt || "never"} and last checked against Eventfrog ${checkedAt || "never"}; the daily refresh may have missed a run (ruby script/refresh-calendar-data.rb)`;
   if (flagBool(args, "allow-stale") || flagBool(args, "dry-run")) warn(msg);
   else throw new Error(msg + ". Pass --allow-stale to go ahead anyway.");
 }
 
+// Fresh means either stamp is recent: generated_at moves only when the data changed,
+// the checked-at stamp on every real run of refresh-calendar-data.rb.
 // ---------- language strings ----------
 export type Lang = "en" | "it" | "es" | "de";
 

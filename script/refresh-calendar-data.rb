@@ -67,6 +67,10 @@ PAST_FILE  = File.join(ROOT, "_data", "calendar_past.yml")
 # docs/campaign-links.md, "Ticket variants".
 VARIANTS_FILE = File.join(ROOT, "_data", "ticket_variants.yml")
 VENUES     = File.join(ROOT, "_data", "venues.yml")
+# Written on every real run, changed or not. The 09:00 job reverts a calendar.yml whose
+# only difference is generated_at, so on a quiet day that stamp stays put; the email
+# scripts read this file to tell "nothing changed" from "the job did not run". Gitignored.
+STAMP_FILE = File.join(ROOT, "script", "refresh-out", "calendar-checked-at")
 # EventFrog group pages only list UPCOMING instances, so a show that has happened
 # can't be re-fetched. We accumulate recent-past events from our own daily
 # snapshots instead: every run, events that have rolled into the past are carried
@@ -742,6 +746,8 @@ if options[:dry_run]
 else
   File.write(DATA_FILE, yaml)
   say("Wrote #{DATA_FILE}", options)
+  Dir.mkdir(File.dirname(STAMP_FILE)) unless Dir.exist?(File.dirname(STAMP_FILE))
+  File.write(STAMP_FILE, now.utc.strftime("%Y-%m-%dT%H:%M:%S+00:00") + "\n")
   File.write(PAST_FILE, past_yaml)
   say("Wrote #{PAST_FILE} (#{past_records.size} past event(s))", options)
   if write_variants

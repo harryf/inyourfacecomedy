@@ -234,7 +234,15 @@ export function groupByShow(events: CalendarEvent[], from: string, to: string): 
   return [...groups.entries()].map(([show, evs]) => ({ show, events: evs }));
 }
 
-// Is the calendar file older than `hours`? Cron refreshes it daily.
+// When refresh-calendar-data.rb last ran for real, changed or not. The daily job
+// reverts a calendar.yml that differs only in generated_at, so on a quiet day that
+// stamp stays where it was while this one moves. Empty when the file is missing.
+export const CALENDAR_CHECKED_AT = join(ROOT, "script", "refresh-out", "calendar-checked-at");
+export function calendarCheckedAt(file = CALENDAR_CHECKED_AT): string {
+  return existsSync(file) ? readFileSync(file, "utf8").trim() : "";
+}
+
+// Is a stamp older than `hours`? Cron refreshes the calendar daily.
 export function calendarStale(generatedAt: string, hours = 36, now = Date.now()): boolean {
   const t = Date.parse(generatedAt);
   if (!Number.isFinite(t)) return true;

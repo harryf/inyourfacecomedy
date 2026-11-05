@@ -14,19 +14,30 @@ All three share `script/lib/email/` (renderer, Mailchimp client, copy generator,
 
 ```
 --dry-run        render to script/email-out/ and open the preview locally; nothing touches Mailchimp
+--notes "<text>" facts for the writer: what happened at the show, what to mention, a special
+                 (asked for on a terminal when Claude writes the words; Enter skips)
 --copy <file>    reuse a saved .copy.json instead of asking Claude (edit the file, re-run)
 --no-ai          placeholder words (for testing the layout)
 --update <id>    update an existing draft (the number in the Mailchimp URL) instead of creating a new one
 --no-open        do not open the browser
 --yes            skip the confirmations
+--allow-stale    go ahead although the calendar data looks unrefreshed (see below)
 ```
+
+The scripts refuse to build dates on calendar data the daily job has not refreshed: fresh means
+`generated_at` in `_data/calendar.yml` or the heartbeat `script/refresh-out/calendar-checked-at`
+(written by every real run of `refresh-calendar-data.rb`, changed or not) is under 36 hours old.
+A refusal means the 09:00 job missed a run: check `script/refresh.log`, run
+`ruby script/refresh-calendar-data.rb`, or pass `--allow-stale` when you know the data is right.
+
+At the end of every run (dry or real) the script prints the exact command to replay it with the copy file, `--copy` and `--update <web id>` filled in, and offers to open the copy file in VS Code (`code <file>`, Enter means yes). Edit, save, paste the line. A `--copy` run keeps using that file, so the line stays the same however often you go round. The thank-you line names the tag the run settled on (`--segment`), and a CSV promo line sends to the tag the CSV made instead of importing it again.
 
 Every run writes `script/email-out/<stamp>-<type>-<slug>.html`, `.txt`, `.copy.json` and (dry runs) `.preview.html`. The directory is gitignored. `MC_API_KEY` is read from `.env` here, or from the old exporter's `.env` as a fallback; it never enters the repo.
 
 ### What a run does
 
 1. Reads the site: `_data/calendar.yml` for dates, `_posts` for show pages, `_comedians` for faces and Instagram handles, `_data/gallery.yml` for the monthly hero photo. Nothing is typed in by hand.
-2. Asks Claude for the words (subject, exactly-three-word preview text, body pieces) using the prompt in `script/email-prompts/<type>.md`, then validates: subject 50 characters or fewer, preview text three words, no em dashes (they are replaced with commas), every show present. Rejected answers are retried once with the reason. The result is saved as `.copy.json`.
+2. Asks Claude for the words (subject, exactly-three-word preview text, body pieces) using the prompt in `script/email-prompts/<type>.md`, then validates: subject 50 characters or fewer, preview text three words, no em dashes (they are replaced with commas), every show present. Rejected answers are retried once with the reason. Your `--notes` go into the prompt as facts that beat everything else, and are kept in the copy file as `_notes` (never rendered). The result is saved as `.copy.json`.
 3. Renders HTML and plain text, resizes any photos with `sips` and uploads them once to Mailchimp's File Manager (cached in `script/email-out/cache/uploads.json`).
 4. Checks the HTML (under Gmail's 102KB clip, unsubscribe tag present, no address tags, no flex/grid/background images/web fonts, every image has alt text) and probes every link for a 2xx/3xx. Social sites only warn (they block bots).
 5. Creates the draft (`from_name` Harry, reply-to harry@inyourfacecomedy.ch, no auto footer, opens and clicks tracked, Google Analytics tagging off), uploads the content, reads it back and re-checks, then prints the edit URL and opens it in Brave (Chrome is the work browser); `EMAIL_BROWSER="Google Chrome"` or `EMAIL_BROWSER=""` (system default) in `.env` overrides.
@@ -34,6 +45,12 @@ Every run writes `script/email-out/<stamp>-<type>-<slug>.html`, `.txt`, `.copy.j
 ### Thank-you specifics
 
 Input is the thank-you link Lineup Maker 2000 produces (`/comedians/?show=…&host=…&first=…&second=…&thankyou`). `guest:Name` entries become name-only tiles. The script lists the newest tags in Mailchimp, marks the ones that match the show, proposes the newest match with its member count, and asks before using it. The show date comes from the tag name (`… 3.9.2026 19:30, ROBIN's Coffee`). Pass `--segment "<tag name>"` to choose another, `--date` to override the date.
+
+The email never says how many came: the ticket count is lower than the room (one buyer, several seats) and a headcount is dull. The prompt forbids it and a generated answer that mentions one is rejected and retried; words you write into the copy file yourself are not checked.
+
+The greeting is `Hi <first name>,` with a Mailchimp fallback to `Hi there,` when the first name is empty (about one subscriber in eight signed up with an email address only, October 2026). The monthly email has no greeting line.
+
+The "next one" card promotes the same show by default; `--next comedybrew` promotes another show instead (for a touring show whose next date is in another city; the script warns when the next date is at another venue), `--next none` drops the card.
 
 The email: greeting, two or three short paragraphs, a "next one" card (series shows say the regular slot, e.g. every Thursday at ROBIN's; one-offs get the next date if there is one), a calendar button, then the faces: photo linking to Instagram with the handle underneath, grouped Host / First half / Second half in running order.
 
@@ -47,7 +64,7 @@ Shows in another language are listed only when they happen at ROBIN's: Promessi 
 
 ### Promo specifics
 
-`--csv` takes any file with email addresses in it (a Mailchimp export, a spreadsheet column, one per line). Only subscribed audience members can be targeted; the others are listed and skipped, and the subscribed ones become a static segment named `promo-<show>-<date>`. Keep those files outside the repo. `--lang it|es|de` switches greeting, sign-off and the prompt; `--brief` tells Claude who is reading and why the show is for them. The first show's flyer is the hero.
+`--no-flyers` turns the first show's flyer into a hero above the text instead of a picture on each card; `--banner-first` with it drops the logo bar so that hero opens the email and the greeting sits under it (the Pulp Non-Fiction past-guests mail). `--csv` takes any file with email addresses in it (a Mailchimp export, a spreadsheet column, one per line). Only subscribed audience members can be targeted; the others are listed and skipped, and the subscribed ones become a static segment named `promo-<show>-<date>`. Keep those files outside the repo. `--lang it|es|de` switches greeting, sign-off and the prompt; `--brief` tells Claude who is reading and why the show is for them. The first show's flyer is the hero.
 
 ## Mailchimp and the builders
 
@@ -55,7 +72,7 @@ Mailchimp's current email builder has no content API, and custom-coded HTML is a
 
 **Never click Edit design on one of these drafts.** Mailchimp migrates the campaign into the builder and the HTML is gone (this killed the first September 2026 draft, web id 8349857, still in the list as a dead shell). To change anything:
 
-- Words: edit the `.copy.json` the run printed, then re-run the same command with `--copy <file> --update <web id>`.
+- Words: edit the `.copy.json` the run printed, then paste the re-run line it printed (it carries `--copy <file> --update <web id>`).
 - Layout: change the renderer (`script/lib/email/render.ts`), re-run with `--update`.
 - Subject or preview text: also in the `.copy.json`, same re-run.
 

@@ -3,12 +3,15 @@
 // plain-text twin, tag parsing. No network, no Mailchimp, no filesystem writes.
 import { describe, expect, test } from "bun:test";
 import { parseArgs } from "../lib/email/cli";
+import { mkdtempSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { parseEventTag } from "../lib/email/mailchimp";
 import {
   GMAIL_CLIP_BYTES, GREETING_MERGE, MAX_HTML_BYTES, checkHtml, extractLinks, inline, previewHtml, renderHtml, renderText, type EmailDoc,
 } from "../lib/email/render";
 import {
-  calendarEvents, calendarStale, comedianFromFrontMatter, datesFor, datesLine, findComedian, findShow, fmtDate, frontMatterOf, groupByShow,
+  calendarCheckedAt, calendarEvents, calendarStale, comedianFromFrontMatter, datesFor, datesLine, findComedian, findShow, fmtDate, frontMatterOf, groupByShow,
   instagramHandle, norm, shortName, showFromFrontMatter, weekdayOf, type CalendarEvent,
 } from "../lib/email/site";
 import { cleanText, extractJson, placeholderCopy, renderPrompt, validateCopy, wordCount } from "../lib/email/copy";
@@ -125,6 +128,13 @@ describe("site data", () => {
     expect(calendarStale("2026-09-05T09:25:31+00:00", 36, now)).toBe(false);
     expect(calendarStale("2026-09-03T09:25:31+00:00", 36, now)).toBe(true);
     expect(calendarStale("", 36, now)).toBe(true);
+  });
+  test("calendarCheckedAt reads the refresh heartbeat, empty when missing", () => {
+    const dir = mkdtempSync(join(tmpdir(), "iyf-cal-"));
+    const stamp = join(dir, "calendar-checked-at");
+    expect(calendarCheckedAt(stamp)).toBe("");
+    writeFileSync(stamp, "2026-11-05T08:00:27+00:00\n");
+    expect(calendarCheckedAt(stamp)).toBe("2026-11-05T08:00:27+00:00");
   });
 });
 

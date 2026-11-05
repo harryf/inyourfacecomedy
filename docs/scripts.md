@@ -147,6 +147,11 @@ resolve is logged as `[variant]` and skipped without touching the show. The file
 post declares variants and emptied, not deleted, after the last one is removed. `campaign-links.md`,
 "Ticket variants".
 
+Every real run also writes the time to the gitignored `script/refresh-out/calendar-checked-at`. The
+09:00 job reverts a `calendar.yml` whose only difference is `generated_at`, so on a day without
+changes that stamp stays where it was; the email scripts read the heartbeat to tell "nothing
+changed" from "the job did not run" (`emails.md`, `--allow-stale`).
+
 ```
 ruby script/refresh-calendar-data.rb [--dry-run] [--verbose | --quiet]
 ```
