@@ -4,7 +4,7 @@
 # Eventfrog). Read ONLY by _includes/go-catalogs.liquid (so /go/?variant=<id> lands
 # on that listing's own date page), the link builder and the traffic report.
 # The calendar, the show pages and the staff calendar never read this file.
-generated_at: '2026-11-05T14:06:22+00:00'
+generated_at: '2026-11-05T22:12:29+00:00'
 event_count: 7
 events:
 - show: jokesjokesjokes
