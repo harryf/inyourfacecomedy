@@ -1,73 +1,73 @@
-datetime,event,source,medium,campaign,content,page
-2026-08-26 14:13,ticket_redirect,(direct),(none),,,Ticket Redirect
-2026-08-27 15:40,ticket_click,meetup,referral,promessi-spassi,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-08-27 15:41,ticket_click,meetup,referral,promessi-spassi,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-08-27 16:04,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
-2026-08-30 14:58,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-09-04 14:05,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
-2026-09-05 10:09,ticket_click,test,verify,linktest,go-link-dim,https://inyourfacecomedy.ch/
-2026-09-05 11:01,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
-2026-09-05 11:34,ticket_redirect,instagram,social,pulpnonfiction-20260906,,Ticket Redirect
-2026-09-05 11:34,ticket_redirect,instagram,social,pulpnonfiction-20260906,,Ticket Redirect
-2026-09-05 11:39,ticket_redirect,instagram,social,pulpnonfiction-20260906,,Ticket Redirect
-2026-09-05 11:42,ticket_click,test,verify,linktest,go-link-dim,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-09-05 11:44,ticket_redirect,instagram,social,pulpnonfiction-20260906,,Ticket Redirect
-2026-09-05 13:18,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-09-06 10:03,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
-2026-09-06 11:30,ticket_click,google,organic,,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-09-06 17:14,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
-2026-09-06 18:46,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-09-06 18:46,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
-2026-09-06 22:27,ticket_redirect,google-business,referral,pulpnonfiction,,Ticket Redirect
-2026-09-26 22:18,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
-2026-09-27 07:30,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
-2026-09-28 10:46,ticket_click,IN YOUR FACE Comedy,email,e0df6575a9-EMAIL_CAMPAIGN_2026_09_27_07_47,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-09-29 19:16,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-09-30 21:23,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-10-01 13:09,ticket_click,IN YOUR FACE Comedy,email,e0df6575a9-EMAIL_CAMPAIGN_2026_09_27_07_47,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-10-01 21:07,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
-2026-10-03 00:14,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-10-03 00:24,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-10-03 11:23,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-10-03 16:26,ticket_click,google,organic,,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-10-03 17:16,ticket_click,IN YOUR FACE Comedy,email,e0df6575a9-EMAIL_CAMPAIGN_2026_09_27_07_47,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-10-04 09:05,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-10-04 09:05,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
-2026-10-04 09:14,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-10-04 09:41,ticket_redirect,instagram,social,pulpnonfiction-20261004,,Ticket Redirect
-2026-10-04 11:09,ticket_click,IN YOUR FACE Comedy,email,e0df6575a9-EMAIL_CAMPAIGN_2026_09_27_07_47,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-10-04 11:11,ticket_click,IN YOUR FACE Comedy,email,e0df6575a9-EMAIL_CAMPAIGN_2026_09_27_07_47,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-10-04 11:26,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
-2026-10-04 13:04,ticket_click,IN YOUR FACE Comedy,email,e0df6575a9-EMAIL_CAMPAIGN_2026_09_27_07_47,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-10-04 14:05,ticket_click,instagram,social,week,,https://inyourfacecomedy.ch/calendar/
-2026-10-04 14:09,ticket_click,instagram,social,week,,https://inyourfacecomedy.ch/calendar/
-2026-10-04 14:32,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-10-04 14:44,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
-2026-10-04 16:04,ticket_redirect,instagram,social,pulpnonfiction-20261004,,Ticket Redirect
-2026-10-04 16:39,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-10-04 17:15,ticket_click,instagram,social,week,,https://inyourfacecomedy.ch/calendar/
-2026-10-04 17:16,ticket_click,google,organic,,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-10-04 18:21,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
-2026-10-04 18:28,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
-2026-10-04 18:30,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
-2026-10-04 18:42,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-10-04 19:54,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-10-15 12:35,ticket_redirect,guidle,referral,pulpnonfiction,,Ticket Redirect
-2026-10-15 20:38,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect
-2026-10-29 14:32,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-10-29 18:28,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-10-30 21:46,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect
-2026-10-30 21:47,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect
-2026-10-30 21:51,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect
-2026-10-30 21:52,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect
-2026-10-30 22:32,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect
-2026-10-31 12:16,ticket_click,IN YOUR FACE Comedy,email,8ef3b6178c-EMAIL_CAMPAIGN_2026_10_31_07_42,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-10-31 15:10,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect
-2026-10-31 17:38,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect
-2026-10-31 21:14,ticket_click,IN YOUR FACE Comedy,email,8ef3b6178c-EMAIL_CAMPAIGN_2026_10_31_07_42,,https://inyourfacecomedy.ch/pulpnonfiction/
-2026-10-31 22:08,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect
-2026-10-31 22:29,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-11-01 12:19,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect
-2026-11-01 12:58,ticket_click,instagram,social,week,,https://inyourfacecomedy.ch/calendar/
-2026-11-01 18:10,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-11-02 01:02,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
+datetime,event,source,medium,campaign,content,page,variant
+2026-08-26 14:13,ticket_redirect,(direct),(none),,,Ticket Redirect,
+2026-08-27 15:40,ticket_click,meetup,referral,promessi-spassi,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-08-27 15:41,ticket_click,meetup,referral,promessi-spassi,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-08-27 16:04,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect,
+2026-08-30 14:58,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,
+2026-09-04 14:05,ticket_click,google,organic,,,https://inyourfacecomedy.ch/,
+2026-09-05 10:09,ticket_click,test,verify,linktest,go-link-dim,https://inyourfacecomedy.ch/,
+2026-09-05 11:01,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/,
+2026-09-05 11:34,ticket_redirect,instagram,social,pulpnonfiction-20260906,,Ticket Redirect,
+2026-09-05 11:34,ticket_redirect,instagram,social,pulpnonfiction-20260906,,Ticket Redirect,
+2026-09-05 11:39,ticket_redirect,instagram,social,pulpnonfiction-20260906,,Ticket Redirect,
+2026-09-05 11:42,ticket_click,test,verify,linktest,go-link-dim,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-09-05 11:44,ticket_redirect,instagram,social,pulpnonfiction-20260906,,Ticket Redirect,
+2026-09-05 13:18,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-09-06 10:03,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/,
+2026-09-06 11:30,ticket_click,google,organic,,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-09-06 17:14,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect,
+2026-09-06 18:46,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/,
+2026-09-06 18:46,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect,
+2026-09-06 22:27,ticket_redirect,google-business,referral,pulpnonfiction,,Ticket Redirect,
+2026-09-26 22:18,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect,
+2026-09-27 07:30,ticket_click,google,organic,,,https://inyourfacecomedy.ch/,
+2026-09-28 10:46,ticket_click,IN YOUR FACE Comedy,email,e0df6575a9-EMAIL_CAMPAIGN_2026_09_27_07_47,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-09-29 19:16,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-09-30 21:23,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,
+2026-10-01 13:09,ticket_click,IN YOUR FACE Comedy,email,e0df6575a9-EMAIL_CAMPAIGN_2026_09_27_07_47,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-10-01 21:07,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect,
+2026-10-03 00:14,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/,
+2026-10-03 00:24,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-10-03 11:23,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-10-03 16:26,ticket_click,google,organic,,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-10-03 17:16,ticket_click,IN YOUR FACE Comedy,email,e0df6575a9-EMAIL_CAMPAIGN_2026_09_27_07_47,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-10-04 09:05,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-10-04 09:05,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect,
+2026-10-04 09:14,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-10-04 09:41,ticket_redirect,instagram,social,pulpnonfiction-20261004,,Ticket Redirect,
+2026-10-04 11:09,ticket_click,IN YOUR FACE Comedy,email,e0df6575a9-EMAIL_CAMPAIGN_2026_09_27_07_47,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-10-04 11:11,ticket_click,IN YOUR FACE Comedy,email,e0df6575a9-EMAIL_CAMPAIGN_2026_09_27_07_47,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-10-04 11:26,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect,
+2026-10-04 13:04,ticket_click,IN YOUR FACE Comedy,email,e0df6575a9-EMAIL_CAMPAIGN_2026_09_27_07_47,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-10-04 14:05,ticket_click,instagram,social,week,,https://inyourfacecomedy.ch/calendar/,
+2026-10-04 14:09,ticket_click,instagram,social,week,,https://inyourfacecomedy.ch/calendar/,
+2026-10-04 14:32,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/,
+2026-10-04 14:44,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect,
+2026-10-04 16:04,ticket_redirect,instagram,social,pulpnonfiction-20261004,,Ticket Redirect,
+2026-10-04 16:39,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-10-04 17:15,ticket_click,instagram,social,week,,https://inyourfacecomedy.ch/calendar/,
+2026-10-04 17:16,ticket_click,google,organic,,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-10-04 18:21,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect,
+2026-10-04 18:28,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect,
+2026-10-04 18:30,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect,
+2026-10-04 18:42,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-10-04 19:54,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,
+2026-10-15 12:35,ticket_redirect,guidle,referral,pulpnonfiction,,Ticket Redirect,
+2026-10-15 20:38,ticket_redirect,meetup,referral,pulpnonfiction,,Ticket Redirect,
+2026-10-29 14:32,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,
+2026-10-29 18:28,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/,
+2026-10-30 21:46,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect,
+2026-10-30 21:47,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect,
+2026-10-30 21:51,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect,
+2026-10-30 21:52,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect,
+2026-10-30 22:32,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect,
+2026-10-31 12:16,ticket_click,IN YOUR FACE Comedy,email,8ef3b6178c-EMAIL_CAMPAIGN_2026_10_31_07_42,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-10-31 15:10,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect,
+2026-10-31 17:38,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect,
+2026-10-31 21:14,ticket_click,IN YOUR FACE Comedy,email,8ef3b6178c-EMAIL_CAMPAIGN_2026_10_31_07_42,,https://inyourfacecomedy.ch/pulpnonfiction/,
+2026-10-31 22:08,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect,
+2026-10-31 22:29,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,
+2026-11-01 12:19,ticket_redirect,instagram,social,pulpnonfiction-20261101,tickets,Ticket Redirect,
+2026-11-01 12:58,ticket_click,instagram,social,week,,https://inyourfacecomedy.ch/calendar/,
+2026-11-01 18:10,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,
+2026-11-02 01:02,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,

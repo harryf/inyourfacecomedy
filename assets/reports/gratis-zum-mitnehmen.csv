@@ -1,55 +1,55 @@
-datetime,event,source,medium,campaign,content,page
-2026-09-05 11:59,ticket_click,test,verify,linktest,go-link-dim,https://inyourfacecomedy.ch/calendar/
-2026-09-07 09:16,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-09-07 21:14,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-09-14 18:31,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-09-14 18:31,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-09-14 18:32,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-09-17 00:39,ticket_click,eventfrog.ch,referral,,,https://inyourfacecomedy.ch/
-2026-09-18 07:44,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
-2026-09-20 18:12,ticket_click,instagram,social,calendar,week,https://inyourfacecomedy.ch/calendar/
-2026-09-22 14:36,ticket_click,instagram,social,calendar,inyourface_profile,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
-2026-09-24 17:05,ticket_redirect,meetup,referral,gratis-zum-mitnehmen,,Ticket Redirect
-2026-09-26 11:47,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-09-27 08:12,ticket_redirect,meetup,referral,gratis-zum-mitnehmen,,Ticket Redirect
-2026-09-27 10:47,ticket_click,google,organic,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
-2026-09-27 11:00,ticket_click,instagram,social,calendar,,https://inyourfacecomedy.ch/calendar/
-2026-09-27 11:16,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
-2026-09-27 11:24,ticket_redirect,meetup,referral,gratis-zum-mitnehmen,,Ticket Redirect
-2026-09-27 14:09,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
-2026-09-27 14:55,ticket_redirect,meetup,referral,gratis-zum-mitnehmen,,Ticket Redirect
-2026-09-27 14:59,ticket_redirect,meetup,referral,gratis-zum-mitnehmen,,Ticket Redirect
-2026-09-27 18:34,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
-2026-09-27 18:39,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
-2026-09-27 18:41,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
-2026-09-27 18:49,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
-2026-09-27 19:07,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
-2026-10-01 22:09,ticket_click,google,organic,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
-2026-10-03 19:50,ticket_click,google,organic,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
-2026-10-05 13:19,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/calendar/
-2026-10-08 11:20,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-10-09 01:05,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-10-11 13:35,ticket_click,instagram,social,week,,https://inyourfacecomedy.ch/calendar/
-2026-10-11 21:00,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-10-13 13:10,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-10-14 22:41,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-10-15 15:23,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-10-15 23:39,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
-2026-10-16 14:54,ticket_click,google,organic,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/
-2026-10-16 19:31,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/
-2026-10-16 21:36,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-10-17 09:04,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
-2026-10-17 11:38,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-10-17 14:05,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/
-2026-10-17 14:25,ticket_click,google,organic,,,https://inyourfacecomedy.ch/
-2026-10-17 17:38,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect
-2026-10-17 18:42,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect
-2026-10-17 21:18,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect
-2026-10-18 00:54,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect
-2026-10-18 05:27,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect
-2026-10-18 09:55,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect
-2026-10-18 13:17,ticket_click,instagram,social,week,,https://inyourfacecomedy.ch/calendar/
-2026-10-18 13:36,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect
-2026-10-19 02:10,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect
-2026-10-20 22:31,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
-2026-11-02 18:34,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/
+datetime,event,source,medium,campaign,content,page,variant
+2026-09-05 11:59,ticket_click,test,verify,linktest,go-link-dim,https://inyourfacecomedy.ch/calendar/,
+2026-09-07 09:16,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/,
+2026-09-07 21:14,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/,
+2026-09-14 18:31,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,
+2026-09-14 18:31,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,
+2026-09-14 18:32,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,
+2026-09-17 00:39,ticket_click,eventfrog.ch,referral,,,https://inyourfacecomedy.ch/,
+2026-09-18 07:44,ticket_click,google,organic,,,https://inyourfacecomedy.ch/,
+2026-09-20 18:12,ticket_click,instagram,social,calendar,week,https://inyourfacecomedy.ch/calendar/,
+2026-09-22 14:36,ticket_click,instagram,social,calendar,inyourface_profile,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/,
+2026-09-24 17:05,ticket_redirect,meetup,referral,gratis-zum-mitnehmen,,Ticket Redirect,
+2026-09-26 11:47,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,
+2026-09-27 08:12,ticket_redirect,meetup,referral,gratis-zum-mitnehmen,,Ticket Redirect,
+2026-09-27 10:47,ticket_click,google,organic,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/,
+2026-09-27 11:00,ticket_click,instagram,social,calendar,,https://inyourfacecomedy.ch/calendar/,
+2026-09-27 11:16,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/,
+2026-09-27 11:24,ticket_redirect,meetup,referral,gratis-zum-mitnehmen,,Ticket Redirect,
+2026-09-27 14:09,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/,
+2026-09-27 14:55,ticket_redirect,meetup,referral,gratis-zum-mitnehmen,,Ticket Redirect,
+2026-09-27 14:59,ticket_redirect,meetup,referral,gratis-zum-mitnehmen,,Ticket Redirect,
+2026-09-27 18:34,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/,
+2026-09-27 18:39,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/,
+2026-09-27 18:41,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/,
+2026-09-27 18:49,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/,
+2026-09-27 19:07,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/,
+2026-10-01 22:09,ticket_click,google,organic,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/,
+2026-10-03 19:50,ticket_click,google,organic,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/,
+2026-10-05 13:19,ticket_click,chatgpt.com,ai-assistant,,,https://inyourfacecomedy.ch/calendar/,
+2026-10-08 11:20,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/,
+2026-10-09 01:05,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,
+2026-10-11 13:35,ticket_click,instagram,social,week,,https://inyourfacecomedy.ch/calendar/,
+2026-10-11 21:00,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/,
+2026-10-13 13:10,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,
+2026-10-14 22:41,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/,
+2026-10-15 15:23,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,
+2026-10-15 23:39,ticket_click,google,organic,,,https://inyourfacecomedy.ch/,
+2026-10-16 14:54,ticket_click,google,organic,,,https://inyourfacecomedy.ch/gratis-zum-mitnehmen/,
+2026-10-16 19:31,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/,
+2026-10-16 21:36,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,
+2026-10-17 09:04,ticket_click,google,organic,,,https://inyourfacecomedy.ch/,
+2026-10-17 11:38,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,
+2026-10-17 14:05,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/,
+2026-10-17 14:25,ticket_click,google,organic,,,https://inyourfacecomedy.ch/,
+2026-10-17 17:38,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect,
+2026-10-17 18:42,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect,
+2026-10-17 21:18,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect,
+2026-10-18 00:54,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect,
+2026-10-18 05:27,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect,
+2026-10-18 09:55,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect,
+2026-10-18 13:17,ticket_click,instagram,social,week,,https://inyourfacecomedy.ch/calendar/,
+2026-10-18 13:36,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect,
+2026-10-19 02:10,ticket_redirect,instagram,social,gratis-zum-mitnehmen-20261018,tickets,Ticket Redirect,
+2026-10-20 22:31,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,
+2026-11-02 18:34,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,

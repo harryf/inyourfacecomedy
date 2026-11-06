@@ -3,22 +3,22 @@
  "title": "Mike Casa",
  "ticket_url": "https://eventfrog.ch/en/p/comedy/comedy-cabaret/2-dec-mike-casa-stand-up-comedy-show-robin-s-zurich-zuerich-7507006161725486601.html",
  "event_type": "one-off",
- "generated_at": "2026-11-05T09:20:01.427Z",
+ "generated_at": "2026-11-06T09:20:01.636Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-05",
- "complete_through": "2026-11-03",
+ "through": "2026-11-06",
+ "complete_through": "2026-11-04",
  "totals": {
-  "clicks": 10,
+  "clicks": 13,
   "redirect": 0,
-  "click": 10,
-  "clicks_30d": 9,
+  "click": 13,
+  "clicks_30d": 12,
   "redirect_30d": 0,
-  "click_30d": 9,
-  "views": 48,
-  "views_30d": 35,
-  "sessions": 44,
-  "sessions_30d": 31,
+  "click_30d": 12,
+  "views": 62,
+  "views_30d": 48,
+  "sessions": 59,
+  "sessions_30d": 45,
   "broken_links": 0,
   "untagged": 0
  },
@@ -586,13 +586,21 @@
   {
    "date": "2026-11-04",
    "redirect": 0,
-   "click": 0,
-   "views": 5,
-   "provisional": true,
+   "click": 2,
+   "views": 17,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-05",
+   "redirect": 0,
+   "click": 1,
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-06",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -604,16 +612,23 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 6,
-   "views": 21,
-   "sessions": 17
+   "clicks": 7,
+   "views": 22,
+   "sessions": 18
   },
   {
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 2,
-   "views": 19,
-   "sessions": 20
+   "views": 17,
+   "sessions": 18
+  },
+  {
+   "source": "IN YOUR FACE Comedy",
+   "medium": "email",
+   "clicks": 2,
+   "views": 6,
+   "sessions": 7
   },
   {
    "source": "chatgpt.com",
@@ -623,15 +638,15 @@
    "sessions": 1
   },
   {
-   "source": "instagram",
-   "medium": "social",
-   "clicks": 0,
-   "views": 2,
-   "sessions": 2
-  },
-  {
    "source": "VA LBHE ABDF Dbzfel",
    "medium": "email",
+   "clicks": 0,
+   "views": 11,
+   "sessions": 11
+  },
+  {
+   "source": "instagram",
+   "medium": "social",
    "clicks": 0,
    "views": 2,
    "sessions": 2
@@ -652,5 +667,6 @@
   }
  ],
  "by_campaign": [],
+ "by_variant": [],
  "csv": "/assets/reports/mike-casa.csv"
 }
