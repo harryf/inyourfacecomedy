@@ -5,8 +5,8 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-11-05T22:12:29+00:00'
-event_count: 66
+generated_at: '2026-11-07T16:04:59+00:00'
+event_count: 67
 events:
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
@@ -18,6 +18,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 4
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165674197658.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
@@ -31,6 +32,7 @@ events:
   venue: otro
   venue_name: Bar OTRO
   location: OTRO - Cocktailbar Zürich
+  price_chf: 0
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798019957299982.html
   eventfrog_name: Jackpot Comedy
@@ -44,6 +46,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-come-alone-leave-with-mates-zuerich-7466831890344846441.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Come alone, leave with mates'
@@ -57,6 +60,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 4
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165728723715.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
@@ -70,6 +74,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081128061415.html
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
@@ -83,6 +88,7 @@ events:
   venue: otro
   venue_name: Bar OTRO
   location: OTRO - Cocktailbar Zürich
+  price_chf: 0
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798260639068110.html
   eventfrog_name: Jackpot Comedy
@@ -96,6 +102,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-two-minutes-from-central-zuerich-7466831998151048185.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Two minutes from Central'
@@ -109,6 +116,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 0
   status: EventScheduled
   ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/gratis-comedy-zum-mitnehmen-free-entry-stand-up-comedy-zuerich-7492505145781047015.html
   eventfrog_name: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
@@ -122,6 +130,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 4
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165779055364.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
@@ -135,6 +144,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-lost-in-town-find-your-funny-zuerich-7466832108633224028.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Lost in town? Find your funny'
@@ -148,6 +158,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 0
   status: EventScheduled
   ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-en-zurich-zuerich-7501658632838204314.html
   eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
@@ -161,6 +172,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 4
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165829387013.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
@@ -174,6 +186,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN'S Coffee
+  price_chf: 39
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/2-dec-mike-casa-stand-up-comedy-show-robin-s-zurich-zuerich-7507006161725486601.html
   eventfrog_name: '2 DEC: Mike Casa Stand-up Comedy Show @ROBIN''S ZURICH!'
@@ -187,6 +200,7 @@ events:
   venue: otro
   venue_name: Bar OTRO
   location: OTRO - Cocktailbar Zürich
+  price_chf: 0
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798497231377139.html
   eventfrog_name: Jackpot Comedy
@@ -213,6 +227,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-the-group-chat-needed-a-plan-zuerich-7466832257447133527.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: The group chat needed a plan'
@@ -226,6 +241,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 0
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/pulp-non-fiction-storytelling-open-mic-zurich-zuerich-7480253427534024794.html
   eventfrog_name: Pulp Non-Fiction Storytelling Open Mic Zurich
@@ -239,6 +255,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 4
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165888107299.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
@@ -252,6 +269,7 @@ events:
   venue: otro
   venue_name: Bar OTRO
   location: OTRO - Cocktailbar Zürich
+  price_chf: 0
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798703465316750.html
   eventfrog_name: Jackpot Comedy
@@ -265,6 +283,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-have-you-actually-been-zuerich-7466832348371257785.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Have you actually been?'
@@ -278,6 +297,7 @@ events:
   venue: yaman-caf-bar
   venue_name: YAMAN Café-Bar
   location: YAMAN Café-Bar
+  price_chf: 13
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-zuerich-7472022011318929691.html
   eventfrog_name: La Tarima - Comedia en Español - ZURICH
@@ -291,6 +311,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 4
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165938438986.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
@@ -304,6 +325,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081170004456.html
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
@@ -317,6 +339,7 @@ events:
   venue: otro
   venue_name: Bar OTRO
   location: OTRO - Cocktailbar Zürich
+  price_chf: 0
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7513927110353783017.html
   eventfrog_name: Jackpot Comedy
@@ -330,6 +353,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-ten-comedians-one-thursday-zuerich-7466832472350693337.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Ten comedians, one Thursday'
@@ -343,6 +367,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 4
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165992964957.html
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
@@ -356,6 +381,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-stayed-for-the-thursdays-zuerich-7466832589996740615.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Stayed for the Thursdays'
@@ -369,6 +395,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 0
   status: EventScheduled
   ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-en-zurich-zuerich-7501658845556549750.html
   eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
@@ -382,6 +409,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-fix-your-thursday-boredom-zuerich-7521657850856244379.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Fix your Thursday boredom'
@@ -395,6 +423,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-new-year-same-thursday-zuerich-7521848404105780352.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: New year, same Thursday'
@@ -408,6 +437,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-dark-outside-bright-in-here-zuerich-7521849396004157848.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Dark outside, bright in here'
@@ -421,6 +451,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7523079901512996148.html
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
@@ -434,6 +465,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-bring-the-flatmates-zuerich-7521849439973049496.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Bring the flatmates'
@@ -447,6 +479,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-where-thursday-goes-zuerich-7521849483501540122.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Where Thursday goes'
@@ -460,9 +493,24 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 28
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/digital-daddy-in-english-zuerich-7521622493477487873.html
   eventfrog_name: Digital Daddy (in English)
+- show: mike-casa-schwiizerduetsch
+  name: Mike Casa uf Schwiizerdütsch
+  title: Mike Casa uf Schwiizerdütsch
+  url: "/mike-casa-schwiizerduetsch/"
+  date: '2027-01-30'
+  start: '2027-01-30T20:00:00+01:00'
+  end: '2027-01-30T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN'S Coffee
+  price_chf: 39
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/30-jan-mike-casa-show-uf-schwiizerduetsch-robin-s-zurich-zuerich-7524856337496327654.html
+  eventfrog_name: '30 JAN: Mike Casa Show uf Schwiizerdütsch @ROBIN''S ZURICH!'
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
@@ -473,6 +521,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-thursday-sorted-zuerich-7521849527034225223.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Thursday, sorted'
@@ -486,6 +535,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-half-the-room-came-alone-zuerich-7521849570705320899.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Half the room came alone'
@@ -499,6 +549,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7523081074156537283.html
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
@@ -512,6 +563,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-not-on-the-slopes-thursday-zuerich-7521849614238005738.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Not on the slopes? Thursday'
@@ -525,6 +577,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-two-minutes-from-central-zuerich-7521849657779077770.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Two minutes from Central'
@@ -538,6 +591,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-lost-in-town-find-your-funny-zuerich-7521849701395648652.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Lost in town? Find your funny'
@@ -551,6 +605,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-spring-is-getting-there-zuerich-7521849745020607145.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Spring is getting there'
@@ -564,6 +619,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 28
   status: EventScheduled
   ticket_url: https://eventfrog.ch/fr/p/humour/humour-cabaret/digital-daddy-en-francais-zuerich-7521622522732761079.html
   eventfrog_name: Digital Daddy (en Français)
@@ -577,6 +633,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7523082599197049535.html
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
@@ -590,6 +647,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-have-you-actually-been-zuerich-7521849788557484401.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Have you actually been?'
@@ -603,6 +661,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-start-the-long-weekend-early-zuerich-7521849832178247936.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Start the long weekend early'
@@ -616,6 +675,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-no-joke-it-s-thursday-zuerich-7521849875715127482.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: No joke, it''s Thursday'
@@ -629,6 +689,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 28
   status: EventScheduled
   ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/digital-daddy-auf-deutsch-zuerich-7521622525819769980.html
   eventfrog_name: Digital Daddy (auf Deutsch)
@@ -642,6 +703,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-lighter-evenings-same-laughs-zuerich-7521849919251944075.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Lighter evenings, same laughs'
@@ -655,6 +717,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-before-the-boeoegg-burns-zuerich-7521849962788828138.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Before the Böögg burns'
@@ -668,6 +731,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7523082714464924176.html
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
@@ -681,6 +745,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-nobody-will-make-you-talk-zuerich-7521850006371848276.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Nobody will make you talk'
@@ -694,6 +759,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-bring-the-flatmates-zuerich-7521850049900342376.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Bring the flatmates'
@@ -707,6 +773,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-day-off-make-a-night-of-it-zuerich-7521850093441414623.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Day off? Make a night of it'
@@ -720,6 +787,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-long-weekend-start-thursday-zuerich-7521850137028635246.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Long weekend? Start Thursday'
@@ -733,6 +801,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-half-the-room-came-alone-zuerich-7521850180515184930.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Half the room came alone'
@@ -746,6 +815,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-come-alone-leave-with-mates-zuerich-7521850224043677967.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Come alone, leave with mates'
@@ -759,6 +829,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-two-minutes-from-central-zuerich-7521850267790272482.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Two minutes from Central'
@@ -772,6 +843,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-lost-in-town-find-your-funny-zuerich-7521850311369095528.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Lost in town? Find your funny'
@@ -785,6 +857,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-the-group-chat-needed-a-plan-zuerich-7521850354993989600.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: The group chat needed a plan'
@@ -798,6 +871,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-long-days-late-laughs-zuerich-7521850398665085301.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Long days, late laughs'
@@ -811,6 +885,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-summer-s-here-so-is-thursday-zuerich-7521850442151632430.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Summer''s here, so is Thursday'
@@ -824,6 +899,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-stayed-for-the-thursdays-zuerich-7521850485734649633.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Stayed for the Thursdays'
@@ -837,6 +913,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-fix-your-thursday-boredom-zuerich-7521850529271535798.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Fix your Thursday boredom'
@@ -850,6 +927,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-still-in-town-so-are-we-zuerich-7521850572758081511.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Still in town? So are we'
@@ -863,6 +941,7 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
+  price_chf: 5
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-skipped-the-beach-good-call-zuerich-7521850616202684879.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Skipped the beach? Good call'

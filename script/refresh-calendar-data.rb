@@ -347,7 +347,7 @@ def first_chf_price(offers)
   list = offers.is_a?(Array) ? offers : [offers]
   prices = list.filter_map do |o|
     next unless o.is_a?(Hash) && o["priceCurrency"].to_s.upcase == "CHF"
-    p = o["price"]
+    p = o["price"] || o["lowPrice"]   # an AggregateOffer carries lowPrice/highPrice, no price
     Float(p) rescue nil
   end
   prices.empty? ? nil : prices.first.round
