@@ -3,22 +3,22 @@
  "title": "Random Facts Exchange",
  "ticket_url": "https://eventfrog.ch/en/p/groups/random-facts-exchange-7434337254674303477.html",
  "event_type": "series",
- "generated_at": "2026-11-06T09:20:01.636Z",
+ "generated_at": "2026-11-07T09:20:01.543Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-06",
- "complete_through": "2026-11-04",
+ "through": "2026-11-07",
+ "complete_through": "2026-11-05",
  "totals": {
-  "clicks": 58,
+  "clicks": 60,
   "redirect": 0,
-  "click": 58,
-  "clicks_30d": 23,
+  "click": 60,
+  "clicks_30d": 25,
   "redirect_30d": 0,
-  "click_30d": 23,
-  "views": 131,
-  "views_30d": 44,
-  "sessions": 125,
-  "sessions_30d": 42,
+  "click_30d": 25,
+  "views": 133,
+  "views_30d": 45,
+  "sessions": 127,
+  "sessions_30d": 43,
   "broken_links": 0,
   "untagged": 0
  },
@@ -594,13 +594,21 @@
   {
    "date": "2026-11-05",
    "redirect": 0,
+   "click": 2,
+   "views": 2,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-06",
+   "redirect": 0,
    "click": 0,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
   },
   {
-   "date": "2026-11-06",
+   "date": "2026-11-07",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -631,6 +639,13 @@
    "sessions": 1
   },
   {
+   "source": "IN YOUR FACE Comedy",
+   "medium": "email",
+   "clicks": 3,
+   "views": 3,
+   "sessions": 3
+  },
+  {
    "source": "ecosia.org",
    "medium": "organic",
    "clicks": 2,
@@ -654,13 +669,6 @@
   {
    "source": "guidle",
    "medium": "referral",
-   "clicks": 1,
-   "views": 1,
-   "sessions": 1
-  },
-  {
-   "source": "IN YOUR FACE Comedy",
-   "medium": "email",
    "clicks": 1,
    "views": 1,
    "sessions": 1

@@ -3,22 +3,22 @@
  "title": "Pulp Non-Fiction",
  "ticket_url": "https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html",
  "event_type": "monthly",
- "generated_at": "2026-11-06T09:20:01.636Z",
+ "generated_at": "2026-11-07T09:20:01.543Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-06",
- "complete_through": "2026-11-04",
+ "through": "2026-11-07",
+ "complete_through": "2026-11-05",
  "totals": {
-  "clicks": 72,
+  "clicks": 73,
   "redirect": 30,
-  "click": 42,
-  "clicks_30d": 19,
+  "click": 43,
+  "clicks_30d": 20,
   "redirect_30d": 11,
-  "click_30d": 8,
-  "views": 129,
-  "views_30d": 32,
-  "sessions": 127,
-  "sessions_30d": 31,
+  "click_30d": 9,
+  "views": 138,
+  "views_30d": 41,
+  "sessions": 134,
+  "sessions_30d": 38,
   "broken_links": 0,
   "untagged": 0
  },
@@ -594,13 +594,21 @@
   {
    "date": "2026-11-05",
    "redirect": 0,
-   "click": 0,
-   "views": 1,
-   "provisional": true,
+   "click": 1,
+   "views": 8,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-06",
+   "redirect": 0,
+   "click": 0,
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-07",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -620,8 +628,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 15,
-   "views": 37,
-   "sessions": 37
+   "views": 38,
+   "sessions": 38
   },
   {
    "source": "meetup",
@@ -640,9 +648,9 @@
   {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
-   "clicks": 8,
-   "views": 17,
-   "sessions": 17
+   "clicks": 9,
+   "views": 23,
+   "sessions": 21
   },
   {
    "source": "test",
@@ -673,6 +681,13 @@
    "sessions": 36
   },
   {
+   "source": "l.instagram.com",
+   "medium": "referral",
+   "clicks": 0,
+   "views": 3,
+   "sessions": 3
+  },
+  {
    "source": "duckduckgo",
    "medium": "organic",
    "clicks": 0,
@@ -681,13 +696,6 @@
   },
   {
    "source": "facebook.com",
-   "medium": "referral",
-   "clicks": 0,
-   "views": 1,
-   "sessions": 1
-  },
-  {
-   "source": "l.instagram.com",
    "medium": "referral",
    "clicks": 0,
    "views": 1,
