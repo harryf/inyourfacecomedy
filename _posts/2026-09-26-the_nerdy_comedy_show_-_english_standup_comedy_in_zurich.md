@@ -18,8 +18,8 @@ default_duration_minutes: 150
 venue_slug: robins
 next_event_date: 2026-11-28T19:30:00+01:00
 next_event_end_date: 2026-11-28T22:00:00+01:00
-price_chf: 8
-last_modified_at: 2026-11-01T08:00:01+00:00
+price_chf: 0
+last_modified_at: 2026-11-08T08:00:01+00:00
 ---
 **STAND-UP FOR PEOPLE WHO'VE ARGUED ABOUT ALIGNMENT CHARTS**
 

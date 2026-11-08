@@ -4,7 +4,7 @@ editable: "true"
 title: Jokes, Jokes, Jokes - English Stand-up comedy show
 tagline: "Some will live. Some will die. You decide. Every Tuesday at ROBIN's."
 description: English stand-up comedy every Tuesday at ROBIN's in Zürich. A curated lineup of local and visiting comics with new jokes and proven bits. You decide which ones live.
-last_modified_at: 2026-11-06T09:50:01+00:00
+last_modified_at: 2026-11-08T08:00:01+00:00
 feature-img: /assets/img/uploads/jokes-jokes-jokes_wide.png
 image: /assets/img/uploads/jokes-jokes-jokes_square.png
 thumbnail: /assets/img/uploads/jokes-jokes-jokes_square.png
@@ -29,7 +29,7 @@ recurrence_time: "20:00"
 default_duration_minutes: 150
 next_event_date: 2026-11-10T20:00:00+01:00
 next_event_end_date: 2026-11-10T22:00:00+01:00
-price_chf: 10
+price_chf: 4
 performers:
   - "Various local and visiting comedians"
 ---

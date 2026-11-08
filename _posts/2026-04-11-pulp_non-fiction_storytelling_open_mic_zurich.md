@@ -19,11 +19,11 @@ recurrence_time: "19:00"
 default_duration_minutes: 150
 next_event_date: 2026-12-06T19:00:00+01:00
 next_event_end_date: 2026-12-06T21:00:00+01:00
-price_chf: 10
+price_chf: 0
 performers:
   - Albert Louw
   - Various local and visiting storytellers
-last_modified_at: 2026-11-03T08:00:02+00:00
+last_modified_at: 2026-11-08T08:00:01+00:00
 ---
 **Storytelling is an art from that has evolved with us over millennia. It is in our DNA to share stories. Let's keep this ancient tradition alive in the funkiest way. Join us for an unforgettable evening where laughter intertwines with the strange and the surreal, as comedian Albert Louw and his extraordinary friends share their most captivating tales!**
 

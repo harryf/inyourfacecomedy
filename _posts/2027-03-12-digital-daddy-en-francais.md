@@ -3,7 +3,7 @@ layout: post
 editable: "true"
 title: "Digital Daddy (en français)"
 description: "Digital Daddy : le spectacle de stand-up de Benjamin Delahaye sur notre addiction numérique, en français. Vendredi 12 mars 2027 au ROBIN's, Zurich."
-last_modified_at: 2026-10-30T09:50:01+00:00
+last_modified_at: 2026-11-08T08:00:01+00:00
 feature-img: "/assets/img/uploads/digital-daddy-en-francais_feature.webp"
 image: "/assets/img/uploads/digital-daddy-en-francais_feature.webp"
 excerpt_separator: <!--more-->
@@ -19,6 +19,7 @@ venue_slug: robins
 default_duration_minutes: 150
 next_event_date: 2027-03-12T20:00:00+01:00
 next_event_end_date: 2027-03-12T22:00:00+01:00
+price_chf: 28
 ---
 ## Digital Daddy (en français)
 
