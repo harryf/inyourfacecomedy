@@ -2,8 +2,8 @@
 layout: post
 editable: "true"
 title: Jokes, Jokes, Jokes - English Stand-up comedy show
-tagline: "You write the post-its. They make them funny. Every Tuesday at ROBIN's."
-description: English stand-up comedy every Tuesday at ROBIN's in Zürich. Write a post-it on the way in and the comics turn it into jokes on stage. Some will live, some will die, and you decide which.
+tagline: "You write the post-its. They have to make them funny. Every Tuesday at ROBIN's."
+description: English stand-up comedy every Tuesday at ROBIN's in Zürich. Write a post-it on the way in and watch the comics sweat it into a joke on stage. Some will live, some will die, and you decide which.
 last_modified_at: 2026-11-08T08:00:01+00:00
 feature-img: /assets/img/uploads/jokes-jokes-jokes_wide.png
 image: /assets/img/uploads/jokes-jokes-jokes_square.png
@@ -33,17 +33,25 @@ price_chf: 4
 performers:
   - "Various local and visiting comedians"
 ---
-English stand-up comedy every Tuesday at ROBIN's, with a twist: you write the prompts. On the way in you get a post-it. Write a word, a sentence, a confession or a terrible drawing and drop it in the box. The comics pull them out on stage and have to make them funny. Some jokes will live, some will die, and you decide which.
+English stand-up comedy every Tuesday at ROBIN's, and for once the pressure is on them. On the way in you get a post-it. Write a word, a sentence, a confession or a terrible drawing and drop it in the box. The comics pull them out on stage and have to make them funny. Some jokes will live, some will die, and you decide which.
 
 <!--more-->
 
 ![Jokes, Jokes, Jokes: English stand-up comedy every Tuesday at ROBIN's](/assets/img/uploads/jokes-jokes-jokes_wide.png "Jokes, Jokes, Jokes: English Stand-up Comedy")
 
+## Your turn
+
+Ever been picked on in the front row? This is where you get it back. Write the thing you would never say out loud, the drawing you are slightly ashamed of, the word that cannot possibly be funny. Nobody reads it until a comic is standing on stage holding it, with a full room waiting. They sweat, you don't. That's the deal.
+
+## In it together
+
+Most comedy nights are them up there and you down here. Here that line goes. The jokes the room laughs hardest at are the ones the room wrote, and the comic who lands one made it with you, not at you. By the end of the night the best bits belong to everyone who was there and to nobody who wasn't.
+
 ## How the night works
 
-Doors open, you get a post-it and a pen. Whatever you write goes in the box, and nobody reads it until a comic is standing on stage with it. Writing one is optional and nobody gets dragged up: if you would rather watch, grab a drink and watch the comics squirm.
+Doors open, you get a post-it and a pen. Whatever you write goes in the box. Writing one is optional and nobody gets dragged up: if you would rather watch, grab a drink and watch the comics squirm.
 
-Each comic does their own set, then pulls a post-it from the box and turns whatever you wrote into comedy on the spot. No preparation, no escape. By the end of the night the room has heard jokes that did not exist until the box opened, and the crowd that wrote them is the one laughing at them.
+Each comic does their own set, then pulls a post-it from the box and turns whatever you wrote into comedy on the spot. No preparation, no escape.
 
 ## Who is on
 
