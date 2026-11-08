@@ -3,7 +3,7 @@ layout: post
 editable: "true"
 title: "Mike Casa uf Schwiizerdütsch"
 description: "Mike Casa live im ROBIN's Zürich, diesmal komplett auf Schweizerdeutsch: brandneues Material, Publikumslieblinge und ein Opening Act. Samstag, 30. Januar 2027, Türöffnung 19:00."
-last_modified_at: 2026-11-07T15:59:56+00:00
+last_modified_at: 2026-11-08T09:50:01+00:00
 feature-img: "/assets/img/uploads/mike-casa-schwiizerduetsch_feature.webp"
 image: "/assets/img/uploads/mike-casa-schwiizerduetsch_feature.webp"
 excerpt_separator: <!--more-->
