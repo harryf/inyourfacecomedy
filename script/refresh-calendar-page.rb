@@ -178,12 +178,17 @@ SHOW_HINTS = {
     "card, own goal, penalty, kickoff, the beautiful game, extra time). Favour football " \
     "emojis: ⚽ 🥅 🟥 🟨 🏆 🙌. HARD BAN: never mention the World Cup, any tournament name, " \
     "or any country's team.",
-  # Every Tuesday at ROBIN's since 2026-10-24, rebranded on a Star Wars style flyer
-  # ("Some will live, some will die, you decide"); hosts rotate, so no host is named.
-  "jokesjokesjokes" => "A curated English open mic every Tuesday: comics bring new and " \
-    "proven jokes and the audience decides which ones live. Lean into surprise, trial " \
-    "and verdict, jokes that survive or crash. Favour playful emojis: 🎲 🙃 🎯 🗳️ 😂 🎤 🎭. " \
-    "Never name a host.",
+  # Every Tuesday at ROBIN's since 2026-10-24, Star Wars style flyer ("Some will live,
+  # some will die, you decide"). Since November 2026 the audience writes post-its on the
+  # way in (a word, a sentence, a confession, a drawing) and each comic pulls one out
+  # after their set and has to make it funny on the spot. Hosts rotate, so no host is named.
+  "jokesjokesjokes" => "An English stand-up night every Tuesday where the audience writes " \
+    "the prompts: on the way in everyone can write a post-it (a word, a sentence, a " \
+    "confession, a terrible drawing) and drop it in a box; each comic does their own set, " \
+    "then pulls a post-it out and has to turn it into comedy on the spot. Writing one is " \
+    "optional, nobody is pulled on stage. Lean into the post-it, the box, the dare, jokes " \
+    "that did not exist until the crowd wrote them, some live and some die. Favour " \
+    "playful emojis: 📝 📦 🎲 🙃 🎯 🗳️ 😂 🎤 🎭. Never name a host.",
   # This show is performed in ITALIAN. Without this steer an empty pool falls back to
   # FALLBACK_INFO, which is English, and an English teaser on an Italian show is simply
   # wrong (that is exactly what happened on 2026-07-27). The generic prompt already says
