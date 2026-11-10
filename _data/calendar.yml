@@ -5,7 +5,7 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-11-07T16:04:59+00:00'
+generated_at: '2026-11-10T08:00:01+00:00'
 event_count: 67
 events:
 - show: jokesjokesjokes
@@ -160,8 +160,8 @@ events:
   location: ROBIN's Coffee
   price_chf: 0
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-en-zurich-zuerich-7501658632838204314.html
-  eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
+  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-gta-sidequest-en-zurich-zuerich-7501658632838204314.html
+  eventfrog_name: 'The NERDY COMEDY Show: GTA Sidequest (EN) - ZURICH'
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
   title: Jokes, Jokes, Jokes - English Stand-up comedy show
@@ -390,15 +390,15 @@ events:
   title: The NERDY COMEDY Show - English Standup Comedy in ZURICH
   url: "/nerdycomedyshow/"
   date: '2026-12-26'
-  start: '2026-12-26T19:30:00+01:00'
+  start: '2026-12-26T20:00:00+01:00'
   end: '2026-12-26T22:00:00+01:00'
   venue: robins
   venue_name: ROBIN's
   location: ROBIN's Coffee
   price_chf: 0
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-en-zurich-zuerich-7501658845556549750.html
-  eventfrog_name: The NERDY COMEDY Show (EN) - ZURICH
+  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-x-mas-sidequest-en-zurich-zuerich-7501658845556549750.html
+  eventfrog_name: 'The NERDY COMEDY Show: X-mas Sidequest (EN) - ZURICH'
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
