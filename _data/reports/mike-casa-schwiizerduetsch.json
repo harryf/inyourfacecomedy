@@ -3,11 +3,11 @@
  "title": "Mike Casa uf Schwiizerdütsch",
  "ticket_url": "https://eventfrog.ch/de/p/comedy/comedy-kabarett/30-jan-mike-casa-show-uf-schwiizerduetsch-robin-s-zurich-zuerich-7524856337496327654.html",
  "event_type": "one-off",
- "generated_at": "2026-11-08T09:20:02.637Z",
+ "generated_at": "2026-11-10T09:20:05.833Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-08",
- "complete_through": "2026-11-06",
+ "through": "2026-11-10",
+ "complete_through": "2026-11-08",
  "totals": {
   "clicks": 0,
   "redirect": 0,
@@ -612,11 +612,27 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-08",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": false,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-09",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-10",
    "redirect": 0,
    "click": 0,
    "views": 0,
