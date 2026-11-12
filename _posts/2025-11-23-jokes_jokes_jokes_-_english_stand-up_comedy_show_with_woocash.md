@@ -4,7 +4,7 @@ editable: "true"
 title: Jokes, Jokes, Jokes - English Stand-up comedy show
 tagline: "You write the post-its. They have to make them funny. Every Tuesday at ROBIN's."
 description: English stand-up comedy every Tuesday at ROBIN's in Zürich. Write a post-it on the way in and watch the comics sweat it into a joke on stage. Some will live, some will die, and you decide which.
-last_modified_at: 2026-11-09T09:50:04+00:00
+last_modified_at: 2026-11-12T08:51:15+00:00
 feature-img: /assets/img/uploads/jokes-jokes-jokes_wide.png
 image: /assets/img/uploads/jokes-jokes-jokes_square.png
 thumbnail: /assets/img/uploads/jokes-jokes-jokes_square.png
@@ -27,9 +27,9 @@ venue_slug: robins
 recurrence_day: Tuesday
 recurrence_time: "20:00"
 default_duration_minutes: 150
-next_event_date: 2026-11-10T20:00:00+01:00
-next_event_end_date: 2026-11-10T22:00:00+01:00
-price_chf: 4
+next_event_date: 2026-11-17T20:00:00+01:00
+next_event_end_date: 2026-11-17T22:00:00+01:00
+price_chf: 5
 performers:
   - "Various local and visiting comedians"
 ---
