@@ -5,7 +5,7 @@ nav_title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
 description: "Every IN YOUR FACE comedy show in Zürich, month by month through 2026: dates, venues and ticket links for English stand-up nights and open mics. Comedy Veranstaltungen in Zürich auf Englisch. Updated weekly."
-last_modified_at: 2026-11-08T12:58:45+00:00
+last_modified_at: 2026-11-12T08:50:17+00:00
 permalink: /calendar/
 redirect_from:   # every removed show lands here (CLAUDE.md, Removing a show)
   # Halloween 2026 double bill, special page (removed 2026-11-01)
@@ -85,17 +85,15 @@ Auf Deutsch: alle Comedy Veranstaltungen und Auftritte von IN YOUR FACE in Züri
 
 | Date | Day | Show | Info | Tickets |
 |------|-----|------|------|---------|
-| Nov 10 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | You write the post-it, they make it funny 📝 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165674197658.html) |
-| Nov 11 | Wed | [Jackpot Comedy](https://inyourfacecomedy.ch/jackpotcomedy/) | Jack Roberts rolls the dice on your funny bone 🎰 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798019957299982.html) |
 | Nov 12 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Stand-up, new friends, and zero hiking required 🏔️ | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-come-alone-leave-with-mates-zuerich-7466831890344846441.html) |
 | Nov 17 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | Your turn to make the comics sweat 😅 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165728723715.html) |
-| Nov 18 | Wed | [PROMESSI SPASSI](https://inyourfacecomedy.ch/promessi-spassi/) | Zero traduzioni, zero scuse, solo risate 🇮🇹 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081128061415.html) |
 | Nov 18 | Wed | [Jackpot Comedy](https://inyourfacecomedy.ch/jackpotcomedy/) | Some punchlines land, some crash. All worth it 🎲 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798260639068110.html) |
+| Nov 18 | Wed | [PROMESSI SPASSI](https://inyourfacecomedy.ch/promessi-spassi/) | Zero traduzioni, zero scuse, solo risate 🇮🇹 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081128061415.html) |
 | Nov 19 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | The bravest humans in the room get the biggest laughs 🎤 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-two-minutes-from-central-zuerich-7466831998151048185.html) |
 | Nov 22 | Sun | [Gratis Comedy Zum Mitnehmen](https://inyourfacecomedy.ch/gratis-zum-mitnehmen/) | New material night, zero douchebags policy, pay what you like 🎤 | [Get Tickets](https://eventfrog.ch/de/p/comedy/comedy-kabarett/gratis-comedy-zum-mitnehmen-free-entry-stand-up-comedy-zuerich-7492505145781047015.html) |
 | Nov 24 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | Jokes written by the comics, prompted by you ✍️ | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165779055364.html) |
 | Nov 26 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Harry Fücks and Martina: Thursday perfected ✨ | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-lost-in-town-find-your-funny-zuerich-7466832108633224028.html) |
-| Nov 28 | Sat | [The NERDY COMEDY Show](https://inyourfacecomedy.ch/nerdycomedyshow/) | Strong D&D edition opinions? This is your room 🎲 | [Get Tickets](https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-en-zurich-zuerich-7501658632838204314.html) |
+| Nov 28 | Sat | [The NERDY COMEDY Show](https://inyourfacecomedy.ch/nerdycomedyshow/) | Strong D&D edition opinions? This is your room 🎲 | [Get Tickets](https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-gta-sidequest-en-zurich-zuerich-7501658632838204314.html) |
 
 </div>
 
@@ -124,7 +122,7 @@ Auf Deutsch: alle Comedy Veranstaltungen und Auftritte von IN YOUR FACE in Züri
 | Dec 17 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | An open mic this good really shouldn't be a secret 🌟 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-ten-comedians-one-thursday-zuerich-7466832472350693337.html) |
 | Dec 22 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | Your confession, their punchline 🤫 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165992964957.html) |
 | Dec 24 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Where strangers bond over someone's worst joke 😅 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-stayed-for-the-thursdays-zuerich-7466832589996740615.html) |
-| Dec 26 | Sat | [The NERDY COMEDY Show](https://inyourfacecomedy.ch/nerdycomedyshow/) | Pavel and Sussman roast your card game addiction 🃏 | [Get Tickets](https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-en-zurich-zuerich-7501658845556549750.html) |
+| Dec 26 | Sat | [The NERDY COMEDY Show](https://inyourfacecomedy.ch/nerdycomedyshow/) | Pavel and Sussman roast your card game addiction 🃏 | [Get Tickets](https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-x-mas-sidequest-en-zurich-zuerich-7501658845556549750.html) |
 | Dec 31 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Thursday nights just got a whole lot funnier 🍺 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-fix-your-thursday-boredom-zuerich-7521657850856244379.html) |
 
 </div>

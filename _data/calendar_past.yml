@@ -3,9 +3,23 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-11-10T08:22:05+00:00'
+generated_at: '2026-11-12T08:50:17+00:00'
 past_count: 16
 events:
+- show: jokesjokesjokes
+  name: Jokes, Jokes, Jokes
+  title: Jokes, Jokes, Jokes - English Stand-up comedy show
+  url: "/jokesjokesjokes/"
+  date: '2026-11-10'
+  start: '2026-11-10T20:00:00+01:00'
+  end: '2026-11-10T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 4
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165674197658.html
+  eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: latarima
   name: La Tarima
   title: La Tarima - Comedia en Español
@@ -201,17 +215,3 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-zuerich-7466831316161423428.html
   eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
-- show: jackpotcomedy
-  name: Jackpot Comedy
-  title: Jackpot Comedy - downstairs @ OTRO
-  url: "/jackpotcomedy/"
-  date: '2026-10-07'
-  start: '2026-10-07T20:00:00+02:00'
-  end: '2026-10-07T22:00:00+02:00'
-  venue: otro
-  venue_name: Bar OTRO
-  location: OTRO - Cocktailbar Zürich
-  price_chf: 0
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/theatre-stage/comedy-cabaret/jackpot-comedy-7501965911726808268.html
-  eventfrog_name: Jackpot Comedy
