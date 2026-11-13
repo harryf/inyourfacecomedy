@@ -5,23 +5,9 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-11-12T08:51:15+00:00'
-event_count: 64
+generated_at: '2026-11-13T08:00:01+00:00'
+event_count: 65
 events:
-- show: comedybrew
-  name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
-  url: "/comedybrew/"
-  date: '2026-11-12'
-  start: '2026-11-12T19:30:00+01:00'
-  end: '2026-11-12T22:00:00+01:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 5
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-come-alone-leave-with-mates-zuerich-7466831890344846441.html
-  eventfrog_name: 'Comedy Brew, English Stand-Up: Come alone, leave with mates'
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
   title: Jokes, Jokes, Jokes - English Stand-up comedy show
@@ -259,6 +245,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-have-you-actually-been-zuerich-7466832348371257785.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Have you actually been?'
+- show: latarima
+  name: La Tarima
+  title: La Tarima - Comedia en Español
+  url: "/latarima/"
+  date: '2026-12-10'
+  start: '2026-12-10T20:00:00+01:00'
+  end: '2026-12-10T22:00:00+01:00'
+  venue: yaman-caf-bar
+  venue_name: YAMAN Café-Bar
+  location: YAMAN Café-Bar
+  price_chf: 13
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-zuerich-7472022011318929691.html
+  eventfrog_name: La Tarima - Comedia en Español - ZURICH
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
   title: Jokes, Jokes, Jokes - English Stand-up comedy show
@@ -315,6 +315,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-ten-comedians-one-thursday-zuerich-7466832472350693337.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Ten comedians, one Thursday'
+- show: nerdycomedyshow
+  name: The NERDY COMEDY Show
+  title: The NERDY COMEDY Show - English Standup Comedy in ZURICH
+  url: "/nerdycomedyshow/"
+  date: '2026-12-19'
+  start: '2026-12-19T19:00:00+01:00'
+  end: '2026-12-19T20:00:00+01:00'
+  venue: the-beast-basel-comedy-club
+  venue_name: The Beast Basel Comedy Club
+  location: The Beast Basel Comedy Club
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-en-basel-basel-7525710506990032835.html
+  eventfrog_name: The NERDY COMEDY Show (EN) - BASEL
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
   title: Jokes, Jokes, Jokes - English Stand-up comedy show
@@ -904,9 +918,4 @@ events:
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-skipped-the-beach-good-call-zuerich-7521850616202684879.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Skipped the beach? Good call'
 unresolved: []
-no_upcoming:
-- show: latarima
-  ticket_url: https://eventfrog.ch/en/p/groups/la-tarima-open-mic-7487916867123691072.html
-  resolved_to: https://eventfrog.ch/en/p/groups/la-tarima-open-mic-7487916867123691072.html
-  reason: resolved but 0 future events — ticket_url may point at one past event instead
-    of the series
+no_upcoming: []

@@ -3,9 +3,23 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-11-12T08:51:15+00:00'
+generated_at: '2026-11-13T08:00:01+00:00'
 past_count: 16
 events:
+- show: comedybrew
+  name: Comedy Brew
+  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  url: "/comedybrew/"
+  date: '2026-11-12'
+  start: '2026-11-12T19:30:00+01:00'
+  end: '2026-11-12T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 5
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-come-alone-leave-with-mates-zuerich-7466831890344846441.html
+  eventfrog_name: 'Comedy Brew, English Stand-Up: Come alone, leave with mates'
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
   title: Jokes, Jokes, Jokes - English Stand-up comedy show
@@ -202,16 +216,3 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/science-technology/random-facts-exchange-21th-edition-amboss-rampe-zuerich-7434312734643117655.html
   eventfrog_name: Random Facts Exchange 21th Edition - Amboss Rampe
-- show: comedybrew
-  name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
-  url: "/comedybrew/"
-  date: '2026-10-08'
-  start: '2026-10-08T19:30:00+02:00'
-  end: '2026-10-08T22:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/in-your-face-comedy-brew-english-stand-up-comedy-open-mic-zuerich-7466831316161423428.html
-  eventfrog_name: IN YOUR FACE Comedy Brew - English Stand-Up Comedy Open Mic
