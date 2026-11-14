@@ -1,8 +1,8 @@
 ---
 layout: post
 editable: false
-title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
-description: "Zürich's weekly English comedy open mic at ROBIN's near Central. Every Thursday, doors 19:30. Ten comedians, new jokes, first-timers, all in English."
+title: "Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday"
+description: "Zürich's weekly English comedy open mic at ROBIN's Bar & Coffee near Central. Every Thursday, doors 19:30. Ten comedians, new jokes, first-timers, in English."
 last_modified_at: 2026-11-13T08:00:00+00:00
 feature-img: "assets/img/uploads/comedybrew_featured.png"
 image: "/assets/img/uploads/comedybrew_horizontal.png"
@@ -40,7 +40,7 @@ Is looking for friends in Zurich harder than finding affordable rent? Tired of g
 ## The essentials
 
 - **Every Thursday.** Doors 19:30, show 19:50 to about 22:00, a 15-minute break in the middle. Home in time for the last tram.
-- **ROBIN's, Zähringerstrasse 33, 8001 Zürich.** Two minutes from Central, five from the main station.
+- **ROBIN's Bar & Coffee, Zähringerstrasse 33, 8001 Zürich.** Two minutes from Central, five from the main station.
 - **Tickets on Eventfrog.** The Get Tickets button above takes you there. Buy in advance; door sales slow everyone down.
 - **In English.** Every set, every week. No Swiss German needed.
 - **About ten comedians a night.** Pros testing new jokes and first-timers getting their first five minutes.
@@ -63,7 +63,7 @@ Join local English-speaking comedians and new-comers for a Thursday night of com
  Come and see both the best local talent trying new material and new-comers to comedy getting their first taste. It's always a wild, fun and unpredictable night.
 
 
-<h3>What about ROBIN'S?</h3>
+<h3>What about ROBIN's Bar & Coffee?</h3>
 ROBIN's is a multifaceted gem in the <a href="https://goo.gl/maps/RLpgaaVbGDYWaZmEA">heart of Zürich</a>. Begin your day with expertly brewed coffee in a warm and inviting atmosphere.
 
 ![Friend staff at ROBINs, featuring Maria](/assets/img/gallery/robins1.jpeg){:class="img-responsive"}

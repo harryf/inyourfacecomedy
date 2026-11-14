@@ -37,3 +37,21 @@
   queries: ["comedy zürich 2026", "comedy shows 2026", "comedy 2026", "comedy september 2026", "comedy schweiz 2026", "comedy veranstaltungen 2026", "comedy auftritte 2026"]
   change: "Calendar title now 'Comedy Zürich 2026: Calendar of English Stand-up Shows' (was 'Comedy in Zürich Tonight & This Week', a niche the home page already wins), description rewritten for dated searches with a German phrase, one German intro line added; month headings unchanged"
   status: open
+- id: exp-2026-11-14-1
+  date: 2026-11-14
+  page: /comedybrew/
+  queries: ["open mic zürich", "open mic zurich", "open mic comedy zürich", "open mic comedy zurich", "comedy open mic zürich"]
+  change: "Title now 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday' (Open Mic Zürich in the first 30 characters; Comedy Brew stays first because primaryTitle() in the reports and /go/ takes the text before the colon)"
+  status: open
+- id: exp-2026-11-14-2
+  date: 2026-11-14
+  page: /comedybrew/
+  queries: ["robins bar", "robin's bar & coffee", "robins bar and coffee", "robins", "robins zurich", "robins zürich", "robins coffee", "robins coffee zurich", "robins bar zurich"]
+  change: "The page names the venue in full: 'ROBIN's Bar & Coffee' in the meta description, the essentials line and the 'What about' heading (was ROBIN's)"
+  status: open
+- id: exp-2026-11-14-3
+  date: 2026-11-14
+  page: /calendar/
+  queries: ["comedy shows zürich", "comedy shows zurich", "comedy show zürich", "comedy show zurich", "comedy night zürich", "comedy night zurich", "comedy zürich 2026", "comedy shows"]
+  change: "Calendar title now 'Comedy Shows Zürich 2026: English Comedy Nights and Tickets' and the description leads with 'Every comedy show in Zürich', naming comedy nights, open mics and one-off shows; the home page keeps 'stand-up comedy Zürich' and 'comedy club' so the two pages stop sharing the shows and nights queries"
+  status: open
