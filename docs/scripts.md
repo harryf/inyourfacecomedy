@@ -607,7 +607,11 @@ one description, one image spec and a status per concept. Images are rendered th
 site's own pages in headless Brave (`script/lib/headless.ts`, shared with the lineup script):
 `/adcard/` paints a headline over a photo or on a brand field in six looks (photo, swiss, type,
 chalk, station, logo), `/week/` paints the week list for the calendar concepts, and a `clip`
-concept is a phone video Harry supplies.
+concept is a phone video Harry supplies. The photo look takes a season tint (`image.season:
+winter` in the bank, `season=winter` on the page): an ember scrim and a gold rule above the
+headline, the photo untouched. A render of a tinted concept also writes its plain twin
+(`<id>-plain-<format>.png`) and `meta-ads/creative/bank/season-compare.html`, the tinted card
+beside the plain one, so the tint is judged on the same photo and words (`meta-ads/winter-plan.md`).
 
 ```
 bundle exec jekyll build --future                       # the local render reads _site/

@@ -97,8 +97,9 @@ Second use: C30, C31, W24, W25 "It's dark by five. Warm in here." for the Brews 
 **Holidays.** Source: OpenHolidays API (`openholidaysapi.org`, CH, subdivision CH-ZH, public and
 school holidays), with a computed fallback (the fixed dates plus the Easter dates) so a dead API
 never blocks a run. **long_weekend** = the Friday after the show is a public holiday in Zürich.
-Next ones: Christmas (Fri 25 Dec 2026; is there a Brew on 24 Dec?), New Year (Fri 1 Jan 2027, and
-31 Dec already has a Brew), Good Friday (26 Mar 2027). Ascension (Thu 6 May 2027) is a holiday on
+Next ones: Christmas (Fri 25 Dec 2026, the 24 Dec Brew is on), New Year (Fri 1 Jan 2027, and
+31 Dec already has a Brew; both nights carry season lines from `winter-plan.md`, and the boost is 1.0
+until after 14 January 2027 on Harry's call to keep the holiday budget level), Good Friday (26 Mar 2027). Ascension (Thu 6 May 2027) is a holiday on
 show day itself and gets its own look later. School holidays (Zürich autumn break 5 to 17 Oct)
 are a note on the review, not a condition: they move the room's mix more than its mood.
 

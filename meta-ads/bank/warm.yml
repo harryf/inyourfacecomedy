@@ -152,3 +152,60 @@ concepts:
     image: { style: photo, photo: /assets/img/gallery/IMG_5487_20261021.jpg, focus: [0.55, 0.3], headline: "It's dark by five. Warm in here.", sub: "Comedy Brew tonight, 19:30 at ROBIN's" }
     moment: { phase: tonight, when: season, season: { from: 2026-11-12, until: 2026-11-26 } }
     status: live         # Harry's go 2026-10-31; the scheduler adds and switches it
+  # --- Winter, 2026-11-14 (Harry's go): see the note in cold.yml and meta-ads/winter-plan.md. ---
+  - id: W26
+    person: Knows the name, has done the markets (the woman in the grey blazer laughing, the packed room behind)
+    body: "Skip one Glühwein and that is a Comedy Brew ticket. Tomorrow at ROBIN's: ten acts, doors 19:30, tickets on the door."
+    title: "Skip one Glühwein"
+    image: { style: photo, photo: /assets/img/gallery/IMG_5488_20261021.jpg, focus: [0.17, 0.29], season: winter, headline: "Skip one Glühwein. Come to this.", sub: "Comedy Brew tomorrow, 19:30 at ROBIN's" }
+    moment: { phase: tomorrow, when: season, season: { from: 2026-11-27, until: 2026-12-23 } }
+    status: live         # Harry's go 2026-11-14; the scheduler adds and switches it
+  - id: W27
+    person: Knows the name, has done the markets (the woman in the grey blazer laughing, the packed room behind)
+    body: "Glühwein money, better spent. Comedy Brew is on tonight at ROBIN's: ten acts, doors 19:30, tickets on the door."
+    title: "Better than a Glühwein"
+    image: { style: photo, photo: /assets/img/gallery/IMG_5488_20261021.jpg, focus: [0.17, 0.29], season: winter, headline: "Glühwein money. Better spent.", sub: "Comedy Brew tonight, 19:30 at ROBIN's" }
+    moment: { phase: tonight, when: season, season: { from: 2026-11-27, until: 2026-12-23 } }
+    status: live         # Harry's go 2026-11-14; the scheduler adds and switches it
+  - id: W28
+    person: Follower still in town on Christmas Eve (the laugh behind a hand in the red sweater, the bar row laughing)
+    body: "Christmas Eve plans? Comedy Brew is on. Tomorrow at ROBIN's, ten acts, doors 19:30, tickets on the door."
+    title: "Comedy Brew on Christmas Eve"
+    image: { style: photo, photo: /assets/img/gallery/IMG_5608_20261105.jpg, focus: [0.66, 0.37], season: winter, headline: "Yes, there's a Brew on Christmas Eve.", sub: "Tomorrow, 19:30 at ROBIN's" }
+    moment: { phase: tomorrow, when: season, season: { from: 2026-12-24, until: 2026-12-24 } }
+    status: live         # Harry's go 2026-11-14
+  - id: W29
+    person: Follower still in town on Christmas Eve (the laugh behind a hand in the red sweater, the bar row laughing)
+    body: "Christmas Eve and still in town? Comedy Brew tonight at ROBIN's: ten acts, doors 19:30, tickets on the door."
+    title: "Brew tonight. Christmas Eve."
+    image: { style: photo, photo: /assets/img/gallery/IMG_5608_20261105.jpg, focus: [0.66, 0.37], season: winter, headline: "Still in town? So is the Brew.", sub: "Comedy Brew tonight, 19:30 at ROBIN's" }
+    moment: { phase: tonight, when: season, season: { from: 2026-12-24, until: 2026-12-24 } }
+    status: live         # Harry's go 2026-11-14
+  - id: W30
+    person: Follower with a late party on New Year's Eve (the woman in green laughing, a spritz in the row, the room behind)
+    body: "New Year's Eve, early shift: Comedy Brew at ROBIN's, doors 19:30, ten acts, then the night is yours."
+    title: "Comedy Brew, New Year's Eve"
+    image: { style: photo, photo: "/assets/img/gallery/IMG_5151 Large.jpeg", focus: [0.38, 0.35], season: winter, headline: "The early shift of New Year's Eve.", sub: "Comedy Brew tomorrow, 19:30 at ROBIN's" }
+    moment: { phase: tomorrow, when: season, season: { from: 2026-12-31, until: 2026-12-31 } }
+    status: live         # Harry's go 2026-11-14; if the card reads flat, IMG_5603_20261105 focus [0.86, 0.33] is the swap
+  - id: W31
+    person: Follower with a late party on New Year's Eve (the woman in green laughing, a spritz in the row, the room behind)
+    body: "Before the fireworks: Comedy Brew tonight at ROBIN's, ten acts, doors 19:30, tickets on the door."
+    title: "Before the fireworks"
+    image: { style: photo, photo: "/assets/img/gallery/IMG_5151 Large.jpeg", focus: [0.38, 0.35], season: winter, headline: "Laugh first. Fireworks later.", sub: "Comedy Brew tonight, 19:30 at ROBIN's" }
+    moment: { phase: tonight, when: season, season: { from: 2026-12-31, until: 2026-12-31 } }
+    status: live         # Harry's go 2026-11-14
+  - id: W32
+    person: Made a resolution to get out more (the bar row laughing along, the bottles and the lights behind)
+    body: "Resolution: get out more. Tomorrow counts. Comedy Brew at ROBIN's, ten acts, doors 19:30, tickets on the door."
+    title: "Get out more. Start tomorrow."
+    image: { style: photo, photo: /assets/img/gallery/IMG_5603_20261105.jpg, focus: [0.86, 0.33], season: winter, headline: "Get out more. Tomorrow counts.", sub: "Comedy Brew tomorrow, 19:30 at ROBIN's" }
+    moment: { phase: tomorrow, when: season, season: { from: 2027-01-01, until: 2027-01-14 } }
+    status: live         # Harry's go 2026-11-14
+  - id: W33
+    person: Made a resolution to get out more (the bar row laughing along, the bottles and the lights behind)
+    body: "January needs a laugh. Comedy Brew tonight at ROBIN's: ten acts, doors 19:30, tickets on the door."
+    title: "January needs this"
+    image: { style: photo, photo: /assets/img/gallery/IMG_5603_20261105.jpg, focus: [0.86, 0.33], season: winter, headline: "January needs a laugh. Tonight.", sub: "Comedy Brew tonight, 19:30 at ROBIN's" }
+    moment: { phase: tonight, when: season, season: { from: 2027-01-01, until: 2027-01-14 } }
+    status: live         # Harry's go 2026-11-14

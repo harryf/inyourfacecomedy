@@ -90,7 +90,9 @@ export interface Concept {
   // The photo look is the bank's rule since 2026-09-26: one laughing audience face, large, and a
   // headline that reads as that person's caption. `focus` is [x, y], 0 to 1 from the photo's top
   // left, the point the 4:5 and 9:16 crops keep in frame (the face); without it the crop is centred.
-  image: { style: string; photo?: string; focus?: [number, number]; bg?: string; headline?: string; sub?: string; week_style?: string; note?: string };
+  // season (photo look only): a tint on the card, one of SEASONS; the render also writes a plain
+  // twin (<id>-plain-<format>.png) and the comparison sheet, so the tint can be judged.
+  image: { style: string; photo?: string; focus?: [number, number]; bg?: string; headline?: string; sub?: string; week_style?: string; note?: string; season?: string };
   // A Remotion composition in video/ (rendered to video/out/<composition>.mp4). `twin: true`
   // (the default): the still ad <group>-<id> runs beside the video ad <group>-<id>v with the
   // same words, so the two can be compared. `twin: false`: the video ad only. `status` is the
@@ -118,23 +120,28 @@ export function loadBank(group: Group, dir = BANK_DIR): Bank {
     if (m && (m.when === "season") !== (m.season !== undefined)) throw new Error(`${group} ${c.id}: a moment.season goes with when: season, and when: season needs one`);
     if (m?.season && !(m.phase !== "planner" && [m.season.from, m.season.until].every((d) => /^\d{4}-\d{2}-\d{2}$/.test(String(d))) && m.season.from <= m.season.until)) throw new Error(`${group} ${c.id}: moment.season must be { from: YYYY-MM-DD, until: YYYY-MM-DD } on a tomorrow or tonight line`);
     if (f !== undefined && !(Array.isArray(f) && f.length === 2 && f.every((n) => typeof n === "number" && n >= 0 && n <= 1))) throw new Error(`${group} ${c.id}: image.focus must be [x, y] with both between 0 and 1`);
+    if (c.image.season !== undefined && !(SEASONS.includes(c.image.season) && c.image.style === "photo")) throw new Error(`${group} ${c.id}: image.season must be ${SEASONS.join("|")} on the photo look`);
   }
   return b;
 }
+export const SEASONS = ["winter"] as const;
 
 // The card's URL on the page (the page reads these fields; state lives in the URL).
-export function adcardUrl(base: string, c: Concept, format: "post" | "story"): string {
+// plain: true leaves the season tint off (the comparison twin).
+export function adcardUrl(base: string, c: Concept, format: "post" | "story", plain = false): string {
   const q = new URLSearchParams({ headline: c.image.headline || c.title, sub: c.image.sub || "", style: c.image.style, photo: c.image.photo || "", format });
   if (c.image.focus) q.set("focus", c.image.focus.join(","));
   if (c.image.bg !== undefined) q.set("bg", c.image.bg);
+  if (c.image.season && !plain) q.set("season", c.image.season);
   return `${base}/adcard/?${q}`;
 }
 
 // Runs inside the page: wait for the draw hook, draw the card off screen, return a PNG.
-function adcardExpression(c: Concept, format: "post" | "story"): string {
+function adcardExpression(c: Concept, format: "post" | "story", plain = false): string {
   const ad: Record<string, string> = { headline: c.image.headline || c.title, sub: c.image.sub || "", style: c.image.style, photo: c.image.photo || "" };
   if (c.image.focus) ad.focus = c.image.focus.join(",");
   if (c.image.bg !== undefined) ad.bg = c.image.bg;   // absent: the page's default per style (the station board's show photo)
+  if (c.image.season && !plain) ad.season = c.image.season;
   return `(async () => {
     const wait = (ms) => new Promise((r) => setTimeout(r, ms));
     for (let i = 0; i < 60 && typeof window.__iyfDrawAdCard !== "function"; i++) await wait(500);
@@ -746,6 +753,7 @@ async function main() {
   log(`rendering from ${base}`);
   const { cdp, kill } = await openBrowser("iyf-meta-bank");
   let rendered = 0, skipped = 0;
+  const compare: { group: string; id: string; season: string; headline: string }[] = [];
   try {
     for (const group of onlyGroup ? [onlyGroup] : GROUPS) {
       const bank = loadBank(group);
@@ -763,12 +771,17 @@ async function main() {
           } else {
             await navigate(cdp, adcardUrl(base, c, format));
             png = await evaluate<string>(cdp, adcardExpression(c, format));
+            if (c.image.season) {   // the plain twin, for the comparison sheet
+              await navigate(cdp, adcardUrl(base, c, format, true));
+              writeFileSync(join(dir, `${c.id}-plain-${format}.png`), pngBytes(await evaluate<string>(cdp, adcardExpression(c, format, true))));
+            }
           }
           const file = join(dir, `${c.id}-${format}.png`);
           writeFileSync(file, pngBytes(png));
           out[format] = file;
         }
-        log(`${group} ${c.id}: ${c.image.style} -> ${out.post} and -story.png`);
+        if (c.image.season) compare.push({ group, id: c.id, season: c.image.season, headline: c.image.headline || c.title });
+        log(`${group} ${c.id}: ${c.image.style}${c.image.season ? ` (${c.image.season}, plus a plain twin)` : ""} -> ${out.post} and -story.png`);
         rendered++;
       }
     }
@@ -776,8 +789,16 @@ async function main() {
     const sheet = join(CREATIVE_DIR, "index.html");
     const board = await writeBoard();
     const rows = { length: board.rows };
+    if (compare.length) { const f = join(CREATIVE_DIR, "season-compare.html"); writeFileSync(f, compareSheet(compare)); log(`season comparison sheet ${f}: ${compare.length} card(s), tinted beside plain`); }
     log(`\n${rendered} concept(s) rendered, ${skipped} skipped; contact sheet ${sheet} lists ${rows.length}`);
   } finally { kill(); local?.stop(); }
+}
+
+// The comparison sheet: every rendered concept with a season tint, the tinted post and story
+// beside the plain twins, so the tint is judged on the same photo and words.
+export function compareSheet(rows: { group: string; id: string; season: string; headline: string }[]): string {
+  const fig = (r: typeof rows[number]) => `<figure><figcaption><b>${r.group}-${r.id}</b> ${r.headline}</figcaption><div><img src="${r.group}/${r.id}-post.png" alt="${r.season}"><img src="${r.group}/${r.id}-plain-post.png" alt="plain"><img class="story" src="${r.group}/${r.id}-story.png" alt="${r.season}"><img class="story" src="${r.group}/${r.id}-plain-story.png" alt="plain"></div><p>${r.season} tint on the left of each pair, plain on the right</p></figure>`;
+  return `<!doctype html><meta charset="utf-8"><title>IYF ads: season tint beside plain</title><style>body{font:14px/1.4 system-ui;margin:20px;background:#eee}figure{margin:0 0 28px;background:#fff;padding:10px}img{width:300px;vertical-align:top;margin:0 10px 6px 0}img.story{width:170px}figcaption{margin-bottom:8px}p{margin:0;color:#555}</style><h1>Season tint beside plain, ${new Date().toISOString().slice(0, 16)} UTC</h1>${rows.map(fig).join("")}`;
 }
 
 if (import.meta.main) main().catch((e) => fail(String(e?.message || e)));

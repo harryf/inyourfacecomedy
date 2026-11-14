@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { BANK_DIR, GROUPS, adcardUrl, contactSheet, loadBank, sheetRows, type Concept } from "../meta-bank";
+import { BANK_DIR, GROUPS, adcardUrl, compareSheet, contactSheet, loadBank, sheetRows, type Concept } from "../meta-bank";
 
 const c = (p: Partial<Concept>): Concept => ({ id: "X1", person: "someone", body: "b", title: "t", image: { style: "photo" }, status: "bench", ...p });
 
@@ -276,4 +276,27 @@ test("a paused planner set with last week's end is not 'window over': its ads wa
   const now = new Date("2026-10-09T12:30:00+02:00");
   const planner = { name: "cold-planner", status: "PAUSED", effective_status: "PAUSED", start_time: "2026-10-04T09:18:34+0200", end_time: "2026-10-05T23:59:00+0200" };
   expect(liveLabel({ status: "ACTIVE", effective_status: "ADSET_PAUSED", adset: planner }, true, now)).toEqual({ label: "picked, waits for its window", kind: "waiting", adset: "cold-planner" });
+});
+
+describe("the season tint on the photo look (meta-ads/winter-plan.md)", () => {
+  test("adcardUrl carries season=winter, and the plain twin leaves it off", () => {
+    const k = c({ image: { style: "photo", photo: "/p.jpg", season: "winter" } });
+    expect(new URL(adcardUrl("http://x", k, "post")).searchParams.get("season")).toBe("winter");
+    expect(new URL(adcardUrl("http://x", k, "post", true)).searchParams.has("season")).toBe(false);
+    expect(new URL(adcardUrl("http://x", c({ image: { style: "photo", photo: "/p.jpg" } }), "post")).searchParams.has("season")).toBe(false);
+  });
+  test("loadBank accepts winter on the photo look and refuses anything else", () => {
+    const bank = (rows: string) => { const d = mkdtempSync(join(tmpdir(), "bank-")); writeFileSync(join(d, "cold.yml"), `adset: cold\nlink: { show: comedybrew, utm_campaign: cold }\ndescription: d\nconcepts:\n${rows}`); return d; };
+    const line = (img: string) => bank(`  - { id: C1, person: p, body: b, title: t, image: { ${img} }, status: bench }\n`);
+    expect(loadBank("cold", line("style: photo, season: winter")).concepts[0].image.season).toBe("winter");
+    expect(() => loadBank("cold", line("style: photo, season: summer"))).toThrow(/cold C1: image.season/);
+    expect(() => loadBank("cold", line("style: swiss, season: winter"))).toThrow(/cold C1: image.season/);
+  });
+  test("the comparison sheet puts the tinted card beside its plain twin", () => {
+    const html = compareSheet([{ group: "cold", id: "C32", season: "winter", headline: "Cheaper than a Glühwein. Funnier too." }]);
+    expect(html).toContain('src="cold/C32-post.png"');
+    expect(html).toContain('src="cold/C32-plain-post.png"');
+    expect(html).toContain('src="cold/C32-plain-story.png"');
+    expect(html).toContain("Cheaper than a Glühwein");
+  });
 });

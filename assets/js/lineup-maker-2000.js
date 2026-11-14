@@ -75,7 +75,7 @@
       dayLabel: dayLabel, flyerDate: flyerDate, faceScale: faceScale, flyerSpec: flyerSpec,
       ticketSerial: ticketSerial, ticketPalettes: ticketPalettes, ticketPalette: ticketPalette,
       lavaSeeds: lavaSeeds, caseNumber: caseNumber, contrastRatio: contrastRatio, newStylePairs: newStylePairs,
-      showCode: showCode, chargeLines: chargeLines, chargeLine: chargeLine, firstName: firstName, adcardStyles: adcardStyles,
+      showCode: showCode, chargeLines: chargeLines, chargeLine: chargeLine, firstName: firstName, adcardStyles: adcardStyles, adcardSeasons: adcardSeasons,
       stubLines: stubLines, stubLine: stubLine, hostLine: hostLine, hostsOf: hostsOf,
       weekWindow: weekWindow, weekEvents: weekEvents, weekHeadlines: weekHeadlines, weekCopy: weekCopy,
       weekHandles: weekHandles, weekHandlesText: weekHandlesText, weekCaption: weekCaption, weekCalLink: function () { return WEEK_CAL_LINK; },
@@ -2224,6 +2224,9 @@
       { style: 'week-haunt', text: '#2A1206', field: '#D9560A', kind: 'large' },    // weekday and date on the darkest pumpkin lobe
       { style: 'adcard-photo', text: '#FFF3E0', field: '#1A1A1D', kind: 'large' },   // headline on the scrim
       { style: 'adcard-photo', text: '#FFD54F', field: '#1A1A1D', kind: 'small' },   // sub line on the scrim
+      { style: 'adcard-photo-winter', text: '#FFF3E0', field: '#2A0E0B', kind: 'large' },   // headline on the ember scrim
+      { style: 'adcard-photo-winter', text: '#FFD54F', field: '#2A0E0B', kind: 'small' },   // sub line on the ember scrim
+      { style: 'adcard-photo-winter', text: '#E8B84A', field: '#2A0E0B', kind: 'large' },   // the gold rule
       { style: 'adcard-swiss', text: '#0F0F10', field: '#F2F2EE', kind: 'small' },   // headline on the paper
       { style: 'adcard-swiss', text: '#E53935', field: '#F2F2EE', kind: 'large' },   // sub and label in red
       { style: 'adcard-type', text: '#FFF3E0', field: '#0F0F10', kind: 'small' },    // capitals on ink
@@ -4392,6 +4395,8 @@
   // drawAdCard(canvas, ad, format, done) with ad = { headline, sub, style, photo }; exposed as
   // window.__iyfDrawAdCard for script/meta-bank.ts.
   var AD_INK = '#0F0F10', AD_CREAM = '#FFF3E0', AD_YELLOW = '#FFD54F', AD_RED = '#E53935', AD_SCRIM = '#1A1A1D';
+  var AD_WINTER_INK = '#2A0E0B', AD_GOLD = '#E8B84A';   // the winter look: ember scrim, gold rule (season=winter)
+  function adcardSeasons() { return ['winter']; }
   function adcardStyles() { return ['photo', 'swiss', 'type', 'chalk', 'station', 'logo']; }
   var AD_STATION_BG = '/assets/img/uploads/comedybrew_featured.png';   // the station board's default backdrop; bg= in the URL overrides, empty for none
   // Shrink from startPx until the text fits in maxLines (or minPx). Returns { px, lines }.
@@ -4416,12 +4421,17 @@
   // The rule for these ads (meta-ads/creative-bank-plan.md): one laughing audience face, large,
   // and a headline that reads as that person's caption. m.focus = [x, y] (0 to 1, from the top
   // left of the photo) keeps the face in frame when the 4:5 and 9:16 crops cut the sides.
+  // m.season = 'winter' (the December and January lines, meta-ads/winter-plan.md) warms the
+  // scrim: ember red where the plain look is grey ink, and a thin gold rule above the headline.
+  // The photo, the face and the words are untouched; no snow, no stars, no red-and-green.
   function paintAdPhoto(ctx, spec, m) {
     var W = spec.w, H = spec.h, story = spec.format === 'story', pad = spec.keySide + 30, maxW = W - pad * 2;
-    ctx.fillStyle = AD_INK; ctx.fillRect(0, 0, W, H);
+    var winter = m.season === 'winter';
+    ctx.fillStyle = winter ? AD_WINTER_INK : AD_INK; ctx.fillRect(0, 0, W, H);
     if (m.photo) drawCover(ctx, m.photo, 0, 0, W, H, m.focus ? m.focus[0] : undefined, m.focus ? m.focus[1] : undefined);
     var g = ctx.createLinearGradient(0, H * 0.3, 0, H);
-    g.addColorStop(0, 'rgba(15,15,16,0)'); g.addColorStop(0.45, 'rgba(15,15,16,0.72)'); g.addColorStop(1, 'rgba(15,15,16,0.95)');
+    if (winter) { g.addColorStop(0, 'rgba(96,28,14,0)'); g.addColorStop(0.45, 'rgba(96,28,14,0.74)'); g.addColorStop(1, 'rgba(42,14,11,0.96)'); }
+    else { g.addColorStop(0, 'rgba(15,15,16,0)'); g.addColorStop(0.45, 'rgba(15,15,16,0.72)'); g.addColorStop(1, 'rgba(15,15,16,0.95)'); }
     ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
     adLogo(ctx, m, pad - 10, spec.keyTop + 10, story ? 130 : 100);
     var bottom = H - spec.keyBottom - 26;
@@ -4430,6 +4440,7 @@
     var head = adFit(ctx, m.headline, maxW, story ? 124 : 108, 56, 3, '400', FONT_DISPLAY);
     var headH = head.lines.length * head.px * 1.04;
     var y = bottom - subH - headH;
+    if (winter) { ctx.fillStyle = AD_GOLD; ctx.fillRect(pad, y - (story ? 34 : 28), Math.round(maxW * 0.22), story ? 8 : 6); }
     ctx.font = '400 ' + head.px + 'px ' + FONT_DISPLAY;
     adLines(ctx, head, pad, y, AD_CREAM, 'left', 1.04);
     if (sub) { ctx.font = '600 ' + sub.px + 'px ' + FONT_BODY; adLines(ctx, sub, pad, bottom - subH + 10, AD_YELLOW, 'left', 1.2); }
@@ -4591,7 +4602,7 @@
     loadBrandFonts()
       .then(function () { return Promise.all(srcs.map(function (s) { return s ? loadImg(s) : Promise.resolve(null); })); })
       .then(function (imgs) {
-        paint(ctx, spec, { headline: stripEmoji(ad.headline || ''), sub: stripEmoji(ad.sub || ''), logo: imgs[0], photo: imgs[1], bg: imgs[2], focus: parseFocus(ad.focus) });
+        paint(ctx, spec, { headline: stripEmoji(ad.headline || ''), sub: stripEmoji(ad.sub || ''), logo: imgs[0], photo: imgs[1], bg: imgs[2], focus: parseFocus(ad.focus), season: adcardSeasons().indexOf(ad.season) >= 0 ? ad.season : '' });
         if (done) done(null);
       })
       .catch(function (e) { if (done) done(e); });
@@ -4601,11 +4612,12 @@
   function renderAdcard() {
     ensureFlyerCss(); ensureWeekCss();
     var p = new URLSearchParams(window.location.search);
-    var ad = { headline: (p.get('headline') || 'Lost in Zürich? Find your funny.').trim(), sub: (p.get('sub') || '').trim(), style: (p.get('style') || 'photo').trim().toLowerCase(), photo: (p.get('photo') || '').trim(), focus: (p.get('focus') || '').trim(), bg: p.has('bg') ? (p.get('bg') || '').trim() : undefined, format: (p.get('format') || 'post').trim().toLowerCase() };
+    var ad = { headline: (p.get('headline') || 'Lost in Zürich? Find your funny.').trim(), sub: (p.get('sub') || '').trim(), style: (p.get('style') || 'photo').trim().toLowerCase(), photo: (p.get('photo') || '').trim(), focus: (p.get('focus') || '').trim(), bg: p.has('bg') ? (p.get('bg') || '').trim() : undefined, season: (p.get('season') || '').trim().toLowerCase(), format: (p.get('format') || 'post').trim().toLowerCase() };
     if (!AD_STYLES[ad.style]) ad.style = 'photo';
+    if (adcardSeasons().indexOf(ad.season) < 0) ad.season = '';
     if (ad.format !== 'story') ad.format = 'post';
     function sync() {
-      var q = 'headline=' + enc(ad.headline) + '&sub=' + enc(ad.sub) + '&style=' + enc(ad.style) + '&photo=' + enc(ad.photo) + (ad.focus ? '&focus=' + enc(ad.focus) : '') + (ad.bg !== undefined ? '&bg=' + enc(ad.bg) : '') + '&format=' + enc(ad.format);
+      var q = 'headline=' + enc(ad.headline) + '&sub=' + enc(ad.sub) + '&style=' + enc(ad.style) + '&photo=' + enc(ad.photo) + (ad.focus ? '&focus=' + enc(ad.focus) : '') + (ad.bg !== undefined ? '&bg=' + enc(ad.bg) : '') + (ad.season ? '&season=' + enc(ad.season) : '') + '&format=' + enc(ad.format);
       try { window.history.replaceState(null, '', window.location.pathname + '?' + q); } catch (e) { /* sandbox */ }
     }
     function build() {
@@ -4624,6 +4636,8 @@
       var styles = el('div', 'iyf-week__actions');
       adcardStyles().forEach(function (s) { var b = el('button', 'lineup-lab__copy' + (s === ad.style ? ' is-active' : ''), s); b.type = 'button'; b.addEventListener('click', function () { ad.style = s; paint(); }); styles.appendChild(b); });
       ['post', 'story'].forEach(function (f) { var b = el('button', 'lineup-lab__copy' + (f === ad.format ? ' is-active' : ''), f); b.type = 'button'; b.addEventListener('click', function () { ad.format = f; paint(); }); styles.appendChild(b); });
+      // The season tint, photo look only: plain, or one of adcardSeasons().
+      [''].concat(adcardSeasons()).forEach(function (s) { var b = el('button', 'lineup-lab__copy' + (s === ad.season ? ' is-active' : ''), s || 'plain'); b.type = 'button'; b.addEventListener('click', function () { ad.season = s; paint(); }); styles.appendChild(b); });
       adRoot.appendChild(styles);
       var canvas = document.createElement('canvas'); canvas.className = 'lineup-lab__flyer'; canvas.style.maxWidth = '420px'; canvas.style.width = '100%'; canvas.style.display = 'block'; canvas.style.margin = '1rem auto';
       adRoot.appendChild(canvas);

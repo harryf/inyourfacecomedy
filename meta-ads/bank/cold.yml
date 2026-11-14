@@ -173,3 +173,65 @@ concepts:
     image: { style: photo, photo: /assets/img/gallery/IMG_5484_20261021.jpg, focus: [0.5, 0.3], headline: "It's dark by five. Warm in here.", sub: "English stand-up tonight, doors 19:30" }
     moment: { phase: tonight, when: season, season: { from: 2026-11-12, until: 2026-11-26 } }
     status: live         # Harry's go 2026-10-31; the scheduler adds and switches it
+  # --- Winter, 2026-11-14 (Harry's go; the plan: meta-ads/winter-plan.md). Four season windows
+  # from the Christmas markets to the second week of January, tomorrow and tonight only; the
+  # comparison with a Glühwein stays in the headline (Harry: it is very Zürich). image.season:
+  # winter is the ember scrim and gold rule on the card; the render writes a plain twin beside
+  # it (season-compare.html) and Harry decides. Window 3's photos are placeholders until the
+  # 19 and 26 November shows are shot. ---
+  - id: C32
+    person: Just paid for a Glühwein at the market (the woman in the grey blazer laughing open-mouthed, the whole room behind)
+    body: "Paid more for a Glühwein than a comedy ticket? Tomorrow: English stand-up at ROBIN's, near Central. Doors 19:30."
+    title: "Cheaper than a Glühwein"
+    image: { style: photo, photo: /assets/img/gallery/IMG_5489_20261021.jpg, focus: [0.19, 0.28], season: winter, headline: "Cheaper than a Glühwein. Funnier too.", sub: "English stand-up tomorrow, doors 19:30" }
+    moment: { phase: tomorrow, when: season, season: { from: 2026-11-27, until: 2026-12-23 } }
+    status: live         # Harry's go 2026-11-14; the scheduler adds and switches it
+  - id: C33
+    person: Just paid for a Glühwein at the market (the woman in the grey blazer laughing open-mouthed, the whole room behind)
+    body: "A Glühwein and its deposit cost more than a seat here. English stand-up tonight at ROBIN's, near Central. Doors 19:30."
+    title: "Cheaper than a Glühwein"
+    image: { style: photo, photo: /assets/img/gallery/IMG_5489_20261021.jpg, focus: [0.19, 0.28], season: winter, headline: "Cheaper than a Glühwein. Warmer too.", sub: "English stand-up tonight, doors 19:30" }
+    moment: { phase: tonight, when: season, season: { from: 2026-11-27, until: 2026-12-23 } }
+    status: live         # Harry's go 2026-11-14; the scheduler adds and switches it
+  - id: C34
+    person: In Zürich for Christmas, no family table (the man in black laughing at the room, the red sweater and the rows behind)
+    body: "In Zürich for Christmas and not at a family table? Tomorrow, Christmas Eve: English stand-up at ROBIN's. Doors 19:30."
+    title: "Christmas Eve, in English"
+    image: { style: photo, photo: /assets/img/gallery/IMG_5490_20261021.jpg, focus: [0.39, 0.44], season: winter, headline: "Not flying home? Come to this.", sub: "English stand-up on Christmas Eve, doors 19:30" }
+    moment: { phase: tomorrow, when: season, season: { from: 2026-12-24, until: 2026-12-24 } }
+    status: live         # Harry's go 2026-11-14; the face sits at 0.44, so the story headline stays one line
+  - id: C35
+    person: In Zürich for Christmas, no family table (the man in black laughing at the room, the red sweater and the rows behind)
+    body: "Christmas Eve in Zürich with no plans? English stand-up tonight at ROBIN's, near Central. Doors 19:30."
+    title: "Christmas Eve, no plans?"
+    image: { style: photo, photo: /assets/img/gallery/IMG_5490_20261021.jpg, focus: [0.39, 0.44], season: winter, headline: "Christmas Eve, with strangers who laugh.", sub: "English stand-up tonight, doors 19:30" }
+    moment: { phase: tonight, when: season, season: { from: 2026-12-24, until: 2026-12-24 } }
+    status: live         # Harry's go 2026-11-14
+  - id: C36
+    person: New Year's Eve plans still open (the woman in denim grinning, drinks in hand all around, the neon behind)
+    body: "New Year's Eve plans still open? Start with English stand-up at ROBIN's, near Central. Doors 19:30, then the night is yours."
+    title: "Start New Year's Eve laughing"
+    image: { style: photo, photo: /assets/img/gallery/IMG_5279_20260924.jpg, focus: [0.34, 0.33], season: winter, headline: "Start the last night of the year laughing.", sub: "English stand-up tomorrow, doors 19:30" }
+    moment: { phase: tomorrow, when: season, season: { from: 2026-12-31, until: 2026-12-31 } }
+    status: live         # Harry's go 2026-11-14
+  - id: C37
+    person: New Year's Eve plans still open (the woman in denim grinning, drinks in hand all around, the neon behind)
+    body: "Nothing fixed for tonight yet? English stand-up at ROBIN's first, near Central. Doors 19:30, then wherever next."
+    title: "New Year's Eve starts here"
+    image: { style: photo, photo: /assets/img/gallery/IMG_5279_20260924.jpg, focus: [0.34, 0.33], season: winter, headline: "Start New Year's Eve here.", sub: "English stand-up tonight, doors 19:30" }
+    moment: { phase: tonight, when: season, season: { from: 2026-12-31, until: 2026-12-31 } }
+    status: live         # Harry's go 2026-11-14
+  - id: C38
+    person: Back at work, evenings dark again (PLACEHOLDER photo, the dark-by-five frame; swap for a 19 or 26 November shot)
+    body: "Back at work and the evenings are dark again? Tomorrow: English stand-up at ROBIN's, near Central. Doors 19:30."
+    title: "New year, same Thursday"
+    image: { style: photo, photo: /assets/img/gallery/IMG_5484_20261021.jpg, focus: [0.5, 0.3], season: winter, headline: "New year. Same Thursday. Same laugh.", sub: "English stand-up tomorrow, doors 19:30" }
+    moment: { phase: tomorrow, when: season, season: { from: 2027-01-01, until: 2027-01-14 } }
+    status: live         # Harry's go 2026-11-14; photo to be replaced before the 1 January run
+  - id: C39
+    person: Back at work, evenings dark again (PLACEHOLDER photo, the dark-by-five frame; swap for a 19 or 26 November shot)
+    body: "First weeks back and nothing to look forward to? English stand-up tonight at ROBIN's, near Central. Doors 19:30."
+    title: "Dark outside. Bright in here."
+    image: { style: photo, photo: /assets/img/gallery/IMG_5484_20261021.jpg, focus: [0.5, 0.3], season: winter, headline: "Dark outside. Bright in here.", sub: "English stand-up tonight, doors 19:30" }
+    moment: { phase: tonight, when: season, season: { from: 2027-01-01, until: 2027-01-14 } }
+    status: live         # Harry's go 2026-11-14; photo to be replaced before the 1 January run

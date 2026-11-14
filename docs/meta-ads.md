@@ -13,6 +13,21 @@ laptop. The phone app hides most of these settings.
 
 ## Status
 
+**14 November, afternoon: the winter lines are in the bank.** Harry asked for a series from the
+Christmas markets to the second week of January that keeps the audience in focus, with the
+Glühwein angle (a Glühwein at the Wienachtsdorf plus its glass deposit costs more than a Brew
+ticket). The plan and the reasoning: `meta-ads/winter-plan.md`. Built the same afternoon: twelve
+season lines, C32 to C39 and W26 to W33, in four windows (Glühwein 27 November to 23 December;
+Christmas Eve; New Year's Eve; 1 to 14 January), tomorrow and tonight sets only, each on an unused
+laughing-audience frame from the gallery. The card gained a `season: winter` tint (ember scrim,
+gold rule, the photo untouched) and the render writes a plain twin of every tinted card plus
+`meta-ads/creative/bank/season-compare.html`; Harry picked the tint from that sheet the same afternoon, so the lines keep `season: winter`. The scheduler creates a show's tomorrow and tonight sets six days ahead, so the first winter ads reach Meta on the 27 November run (for 3 December). Budget
+stays level: `long_weekend_boost` is 1.0 in `config.yml` until after 14 January, so the 24 and
+31 December weeks cost the same CHF 92 as any other. Dry runs of the scheduler on 2 December,
+23 December and 7 January put the right season line in each new set. Still to do: the January
+Cold photos (C38, C39 carry the dark-by-five frame as a placeholder) from the 19 or 26 November
+shows, and the Friday run before 3 December is the first live one.
+
 **14 November: the /go/ page sends the pixel hit directly.** Nine weekly readouts attributed
 zero ticket clicks to any ad while the "Ticket click" custom conversion fired every day (622
 times in the 28 days to 13 November) and the pixel logged about 1,500 TicketRedirect events a
