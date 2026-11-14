@@ -19,7 +19,7 @@
     <meta property="og:image" content="{{ site.url }}/assets/img/thumbs/inyourface_thumb.png">
     <link rel="preconnect" href="https://eventfrog.ch">
     <link rel="preconnect" href="https://www.googletagmanager.com">
-    <link rel="preconnect" href="https://connect.facebook.net">
+    <link rel="preconnect" href="https://www.facebook.com">
     {% if site.google_analytics %}
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
     <script>
@@ -41,26 +41,17 @@
     </script>
     {% endif %}
     {% if site.meta_pixel %}
-    <!-- Meta Pixel: the loader is a copy of the snippet in _includes/default/head.liquid
-         (this layout skips the theme head on purpose). Unlike the theme pages it is gated on
-         the live host and the ?notrack=1 flag, the same way gtag is above, so previews and the
-         promoter's own clicks stay out of the Meta audiences. The redirect script then fires
-         a TicketRedirect custom event (docs/campaign-links.md, "Capturing the UTM tags"). -->
+    <!-- Meta pixel, sent directly. This page never loads fbevents.js: the script is 432 KB
+         (114 KB over the wire) and takes longer to arrive than the redirect budget, so the
+         events it would queue were lost on the ad-click path (docs/campaign-links.md,
+         "The Meta pixel gets the same click"). The redirect script builds the PageView and
+         TicketRedirect hits itself and sends them with keepalive. Gated on the live host and
+         the ?notrack=1 flag, the same way gtag is above. -->
     <script>
       (function () {
         var track = true;
         try { track = localStorage.getItem('iyf-notrack') !== '1'; } catch (e) {}
-        if (!track || !/(^|\.)inyourfacecomedy\.ch$/.test(location.hostname)) return;
-        !function(f, b, e, v, n, t, s) {
-          if (f.fbq) { return; }
-          n = f.fbq = function() { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments) };
-          if (!f._fbq) { f._fbq = n; }
-          n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = [];
-          t = b.createElement(e); t.async = !0; t.src = v;
-          s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
-        }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', {{ site.meta_pixel }});
-        fbq('track', 'PageView');
+        if (track && /(^|\.)inyourfacecomedy\.ch$/.test(location.hostname)) window.iyfMetaPixel = '{{ site.meta_pixel }}';
       })();
     </script>
     {% endif %}

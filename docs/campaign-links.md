@@ -151,28 +151,39 @@ setTimeout(go, 450);            // ad blocker / gtag-missing fallback, whichever
 // go() = window.location.replace(target)
 ```
 
-**The Meta pixel gets the same click.** `_layouts/go.html` loads the pixel (a copy of the
-head.liquid snippet, gated on the live host and the `?notrack=1` flag like gtag on the same
-page, so previews and the promoter's own clicks stay out of the Meta audiences) and fires
-`PageView`; the script then sends, before the GA event:
+**The Meta pixel gets the same click, sent directly.** `/go/` does not load `fbevents.js`.
+The script is 432 KB (114 KB over the wire) and on a phone takes longer to arrive than the
+redirect budget, so until 14 November 2026 the events it queued were lost on exactly the
+ad-click path: the pixel received about a quarter of the ticket redirects, and Meta
+attributed none of them to an ad in nine weeks of readouts (the custom conversion fired, the
+ad never got the credit). Instead `_layouts/go.html` sets `window.iyfMetaPixel` when tracking
+is allowed (live host, not `?notrack=1`, like gtag on the same page, so previews and the
+promoter's own clicks stay out of the Meta audiences) and `go-redirect.js` builds the two
+requests the script would have made and sends them with `fetch(..., { keepalive: true })`,
+which survives the navigation:
 
-```js
-fbq('trackCustom', 'TicketRedirect', {
-  content_name: slug, content_ids: [slug], content_type: 'product',
-  show_date, days_to_show, price_chf, value, currency: 'CHF', link, resolution
-}, { eventID: newEventId() });
+```
+https://www.facebook.com/tr/?id=<pixel>&ev=PageView&dl=<page url>&rl=<referrer>&ts=..&fbp=..&fbc=..
+https://www.facebook.com/tr/?id=<pixel>&ev=TicketRedirect&...&eid=<event id>
+    &cd[content_name]=<slug>&cd[content_ids]=["<slug>"]&cd[content_type]=product
+    &cd[show_date]=..&cd[days_to_show]=..&cd[price_chf]=..&cd[value]=..&cd[currency]=CHF
+    &cd[link]=..&cd[resolution]=..&cd[variant]=..
 ```
 
-Nothing waits on it: the inline stub queues the call and `fbevents.js` flushes it when it
-loads (the layout preconnects to `connect.facebook.net`), so a blocked pixel costs the
-redirect nothing, and an unknown show sends no pixel event at all. In Ads Manager this makes
-two things possible: a website custom audience of people who clicked for tickets (URL
-contains `/go/`, or the `TicketRedirect` event, optionally per `content_name`), and an ad set
-optimised for `TicketRedirect` as a custom conversion with `value` as the ticket price. The
-`eventID` is there so a server-side Conversions API event for the same click, if one is ever
-added (it would need a Netlify function, the page itself is static), deduplicates against the
-browser event. Purchases still happen on Eventfrog and stay invisible to the pixel on the
-Free plan.
+`fbc` is `fb.1.<ms>.<fbclid>`, built from the click id Meta appends to every ad link; it is
+what ties the event to the ad click. `fbp` is the `_fbp` browser-id cookie, read when the
+theme pages' pixel script has set it and minted in the same format otherwise; both cookies
+are written for 90 days on the registrable domain so every page sees one browser. Nothing
+waits on the requests, so a blocked endpoint costs the redirect nothing, and an unknown show
+sends no TicketRedirect at all. In Ads Manager this makes two things possible: a website
+custom audience of people who clicked for tickets (URL contains `/go/`, or the
+`TicketRedirect` event, optionally per `content_name`), and the "Ticket click" custom
+conversion with `value` as the ticket price (`meta-ads.md`). The `eid` is there so a
+server-side Conversions API event for the same click, if one is ever added (it would need a
+Netlify function, the page itself is static), deduplicates against the browser event. The
+trade: Meta's match-quality score may read lower for events sent without its script, which
+adds browser signals of its own. Purchases still happen on Eventfrog and stay invisible to
+the pixel on the Free plan.
 
 The redirect must never depend on GA succeeding: with gtag blocked or absent, the timeout
 fires and the visitor still gets their tickets. The page body shows "Taking you to tickets

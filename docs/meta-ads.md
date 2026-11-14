@@ -13,6 +13,20 @@ laptop. The phone app hides most of these settings.
 
 ## Status
 
+**14 November: the /go/ page sends the pixel hit directly.** Nine weekly readouts attributed
+zero ticket clicks to any ad while the "Ticket click" custom conversion fired every day (622
+times in the 28 days to 13 November) and the pixel logged about 1,500 TicketRedirect events a
+month against 5,200 `/go/` redirects on the site. The cause was the page, not the conversion:
+`/go/` redirects on GA's callback or at 450 ms, and `fbevents.js` (432 KB) takes longer than
+that to arrive on a phone, so the events it queued died with the page on every ad click;
+Harry's `debug=1` readout from the phone showed the redirect at 797 ms on the timer. Now the
+page sends the PageView and TicketRedirect requests itself with keepalive, `fbc` built from
+the ad's click id (`campaign-links.md`, "The Meta pixel gets the same click"). What to watch:
+the "Ticket click" column in Ads Manager and the ticket columns in the weekly readout should
+fill from the 19 November show week; the Site visitors and Show clickers audiences should
+start growing past Meta's 1,000 floor; match quality in Events Manager may read lower, which
+is the known trade.
+
 **25 October: the 2024 carousel keeps its budget, with tripwires.** Harry asked whether the
 old "Tailored web traffic" set is worn out. It is not: CHF 0.22 per landing page view over the
 last three weeks (0.44 to 0.49 in January to March), click rate 2.2 to 2.4 percent, 1.5 to 1.6

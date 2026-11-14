@@ -24,6 +24,8 @@ const go = require("../../../_includes/go-redirect.js") as {
   showParams: (res: unknown, today: string) => Record<string, unknown>;
   pixelParams: (res: unknown, params: URLSearchParams, today: string) => Record<string, unknown>;
   newEventId: () => string;
+  metaIds: (cookie: string, search: string, nowMs: number, random?: () => number, hostname?: string) => { fbp: string; fbc: string; cookies: string[] };
+  metaHitUrl: (pixelId: string, event: string, cd: Record<string, unknown>, ctx: Record<string, unknown>) => string;
 };
 
 const SHOWS = [
@@ -296,6 +298,79 @@ describe("go-redirect • Meta pixel TicketRedirect payload", () => {
     const b = go.newEventId();
     expect(a.length).toBeGreaterThan(20);
     expect(a).not.toBe(b);
+  });
+});
+
+// The pixel hit is sent directly (no fbevents.js on /go/): the ids and the URL must be
+// what the script would have sent, or Meta cannot attribute the click to the ad.
+describe("direct Meta pixel hit", () => {
+  const NOW = 1763121600000;
+
+  test("metaIds mints an _fbp when none is set and derives fbc from the ad click id", () => {
+    const ids = go.metaIds("", "?show=comedybrew&fbclid=IwAR0abc", NOW, () => 0.123456789);
+    expect(ids.fbp).toBe("fb.1.1763121600000.1234567890");
+    expect(ids.fbc).toBe("fb.1.1763121600000.IwAR0abc");
+    expect(ids.cookies).toHaveLength(2);
+    expect(ids.cookies[0]).toMatch(/^_fbp=fb\.1\.1763121600000\.1234567890; path=\/; max-age=7776000; SameSite=Lax$/);
+    expect(ids.cookies[1]).toMatch(/^_fbc=fb\.1\.1763121600000\.IwAR0abc; path=\//);
+  });
+
+  test("metaIds scopes the cookies to the registrable domain on the live host only", () => {
+    const live = go.metaIds("", "?fbclid=X", NOW, () => 0.5, "inyourfacecomedy.ch");
+    expect(live.cookies.every((c) => c.endsWith("; domain=.inyourfacecomedy.ch"))).toBe(true);
+    const preview = go.metaIds("", "?fbclid=X", NOW, () => 0.5, "deploy-preview-1--iyf.netlify.app");
+    expect(preview.cookies.some((c) => c.includes("domain="))).toBe(false);
+  });
+
+  test("metaIds keeps the ids a previous page left in the cookies and writes nothing", () => {
+    const ids = go.metaIds("x=1; _fbp=fb.1.1700000000000.0000000001; _fbc=fb.1.1700000000000.OLD", "?show=comedybrew", NOW);
+    expect(ids.fbp).toBe("fb.1.1700000000000.0000000001");
+    expect(ids.fbc).toBe("fb.1.1700000000000.OLD");
+    expect(ids.cookies).toEqual([]);
+  });
+
+  test("metaIds: a new click id replaces the stored fbc, fbp stays", () => {
+    const ids = go.metaIds("_fbp=fb.1.1700000000000.0000000001; _fbc=fb.1.1700000000000.OLD", "?fbclid=NEW", NOW);
+    expect(ids.fbp).toBe("fb.1.1700000000000.0000000001");
+    expect(ids.fbc).toBe("fb.1.1763121600000.NEW");
+    expect(ids.cookies).toHaveLength(1);
+    expect(ids.cookies[0].startsWith("_fbc=fb.1.1763121600000.NEW")).toBe(true);
+  });
+
+  test("metaIds pads a short random to ten digits", () => {
+    expect(go.metaIds("", "", NOW, () => 0.00000000042).fbp).toBe("fb.1.1763121600000.0000000004");
+  });
+
+  test("metaHitUrl carries the pixel id, the event, the ids, the event id and every custom parameter", () => {
+    const url = go.metaHitUrl("5349931195130820", "TicketRedirect",
+      { content_name: "comedybrew", content_ids: ["comedybrew"], value: 10, currency: "CHF", skip: undefined },
+      { dl: "https://inyourfacecomedy.ch/go/?show=comedybrew&fbclid=X", rl: "https://l.instagram.com/", ts: NOW, fbp: "fb.1.1.0000000001", fbc: "fb.1.1.X", eid: "go-1" });
+    const u = new URL(url);
+    expect(u.origin + u.pathname).toBe("https://www.facebook.com/tr/");
+    const q = u.searchParams;
+    expect(q.get("id")).toBe("5349931195130820");
+    expect(q.get("ev")).toBe("TicketRedirect");
+    expect(q.get("dl")).toBe("https://inyourfacecomedy.ch/go/?show=comedybrew&fbclid=X");
+    expect(q.get("rl")).toBe("https://l.instagram.com/");
+    expect(q.get("ts")).toBe(String(NOW));
+    expect(q.get("fbp")).toBe("fb.1.1.0000000001");
+    expect(q.get("fbc")).toBe("fb.1.1.X");
+    expect(q.get("eid")).toBe("go-1");
+    expect(q.get("cd[content_name]")).toBe("comedybrew");
+    expect(q.get("cd[content_ids]")).toBe('["comedybrew"]');
+    expect(q.get("cd[value]")).toBe("10");
+    expect(q.get("cd[currency]")).toBe("CHF");
+    expect(q.has("cd[skip]")).toBe(false);
+    expect(q.get("rqm")).toBe("GET");
+  });
+
+  test("metaHitUrl leaves fbc, rl and eid out when there is none (a PageView with no click id)", () => {
+    const q = new URL(go.metaHitUrl("1", "PageView", {}, { dl: "https://inyourfacecomedy.ch/go/", ts: NOW, fbp: "fb.1.1.0000000001", fbc: "" })).searchParams;
+    expect(q.get("ev")).toBe("PageView");
+    expect(q.has("fbc")).toBe(false);
+    expect(q.has("rl")).toBe(false);
+    expect(q.has("eid")).toBe(false);
+    expect([...q.keys()].filter((k) => k.startsWith("cd["))).toEqual([]);
   });
 });
 

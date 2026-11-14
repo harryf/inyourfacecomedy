@@ -33,9 +33,15 @@
  *                             chain, quietly: the visitor still gets tickets, and the
  *                             report still sees `variant=` in the query.
  *
- *  Meta: when _layouts/go.html has loaded the pixel (live host, not notrack), the
- *  same click is sent as a TicketRedirect custom event with an eventID, before the
- *  GA event; it never delays the redirect.
+ *  Meta: when _layouts/go.html allows tracking (live host, not notrack) it sets
+ *  window.iyfMetaPixel and this script sends the pixel's PageView and a TicketRedirect
+ *  custom event straight to Meta's collection endpoint (www.facebook.com/tr/) with
+ *  keepalive, the request fbevents.js would make, without loading fbevents.js (432 KB,
+ *  slower than the redirect budget: on the ad-click path its queued events were lost,
+ *  14 November 2026). The click id Meta appends to ad links (fbclid) becomes the fbc
+ *  value the attribution rests on; a first-party _fbp cookie is set the way the
+ *  script sets it, so the theme pages and this one share one browser id. Never
+ *  delays the redirect.
  *
  *  GA: this file is INLINED into the page by pages/go.md (it lives in _includes/,
  *  not assets/, so there is no separate fetch on the redirect hot path), and
@@ -72,7 +78,9 @@
       daysToShow: daysToShow,
       showParams: showParams,
       pixelParams: pixelParams,
-      newEventId: newEventId
+      newEventId: newEventId,
+      metaIds: metaIds,
+      metaHitUrl: metaHitUrl
     };
     return;
   }
@@ -249,6 +257,62 @@
     };
   }
 
+  /** The two browser ids the pixel script would send, read or minted the way
+   *  fbevents.js does it. fbp: the _fbp cookie, "fb.1.<ms>.<10 digits>", minted when
+   *  absent. fbc: "fb.1.<ms>.<fbclid>" from the click id Meta appends to every ad link,
+   *  else the _fbc cookie a previous landing left, else "". Returns the cookie strings
+   *  to write (90 days, the registrable domain when the host is ours) so the next page
+   *  finds the same ids. Pure: cookie, query and host strings in, nothing touched. */
+  function metaIds(cookie, search, nowMs, random, hostname) {
+    var jar = {};
+    (cookie || '').split(';').forEach(function (part) {
+      var eq = part.indexOf('=');
+      if (eq > 0) jar[part.slice(0, eq).trim()] = part.slice(eq + 1).trim();
+    });
+    var out = { fbp: jar._fbp || '', fbc: jar._fbc || '', cookies: [] };
+    var clickId = '';
+    try { clickId = new URLSearchParams(search || '').get('fbclid') || ''; } catch (e) {}
+    if (clickId) out.fbc = 'fb.1.' + nowMs + '.' + clickId;
+    if (!out.fbp) out.fbp = 'fb.1.' + nowMs + '.' + String(Math.floor((random || Math.random)() * 1e10)).padStart(10, '0');
+    var attrs = '; path=/; max-age=7776000; SameSite=Lax' + (/(^|\.)inyourfacecomedy\.ch$/.test(hostname || '') ? '; domain=.inyourfacecomedy.ch' : '');
+    if (out.fbp !== jar._fbp) out.cookies.push('_fbp=' + out.fbp + attrs);
+    if (out.fbc && out.fbc !== jar._fbc) out.cookies.push('_fbc=' + out.fbc + attrs);
+    return out;
+  }
+
+  /** The pixel hit as fbevents.js would send it: GET www.facebook.com/tr/ with the pixel
+   *  id, the event name, page URL and referrer, the browser ids, the event id for
+   *  Conversions API deduplication, and every custom parameter as cd[name] (arrays and
+   *  objects as JSON, the shape the script uses). Pure. */
+  function metaHitUrl(pixelId, event, cd, ctx) {
+    var q = new URLSearchParams();
+    q.set('id', String(pixelId));
+    q.set('ev', event);
+    q.set('dl', ctx.dl || '');
+    if (ctx.rl) q.set('rl', ctx.rl);
+    q.set('if', 'false');
+    q.set('ts', String(ctx.ts || 0));
+    if (ctx.fbp) q.set('fbp', ctx.fbp);
+    if (ctx.fbc) q.set('fbc', ctx.fbc);
+    if (ctx.eid) q.set('eid', ctx.eid);
+    Object.keys(cd || {}).forEach(function (k) {
+      var v = cd[k];
+      if (v === undefined || v === null) return;
+      q.set('cd[' + k + ']', typeof v === 'object' ? JSON.stringify(v) : String(v));
+    });
+    q.set('rqm', 'GET');
+    return 'https://www.facebook.com/tr/?' + q.toString();
+  }
+
+  /** Fire a hit without waiting for it: keepalive keeps the request alive across the
+   *  navigation that follows; an image is the fallback for browsers without it. */
+  function sendMetaHit(url) {
+    try {
+      if (typeof fetch === 'function') { fetch(url, { method: 'GET', mode: 'no-cors', credentials: 'include', keepalive: true }).catch(function () {}); return; }
+    } catch (e) {}
+    try { new Image().src = url; } catch (e) {}
+  }
+
   /** One id per click, sent as the pixel eventID so a server-side Conversions API
    *  event for the same click (if one is ever added) deduplicates against it. */
   function newEventId() {
@@ -360,13 +424,23 @@
   var extra = showParams(res, today);
   for (var k in extra) { if (Object.prototype.hasOwnProperty.call(extra, k)) payload[k] = extra[k]; }
 
-  // Meta pixel first: fbq is the queueing stub from _layouts/go.html when the pixel is
-  // on (live host, not notrack) and undefined otherwise. The call queues instantly and
-  // fbevents.js flushes it when it loads; nothing here waits on it, so a blocked or
-  // absent pixel costs the redirect nothing. Same race as the GA event.
-  var pixel = pixelParams(res, params, today);
-  if (typeof window.fbq === 'function' && pixel.content_name) {
-    try { window.fbq('trackCustom', 'TicketRedirect', pixel, { eventID: newEventId() }); } catch (err) {}
+  // Meta pixel first, sent directly: _layouts/go.html sets window.iyfMetaPixel when the
+  // pixel is on (live host, not notrack). Two keepalive requests of a few hundred bytes,
+  // the PageView and the TicketRedirect, go out now and survive the navigation; nothing
+  // here waits on them, so a blocked endpoint costs the redirect nothing.
+  var pixelId = window.iyfMetaPixel;
+  if (pixelId) {
+    try {
+      var ids = metaIds(document.cookie, window.location.search, now.getTime(), Math.random, window.location.hostname);
+      ids.cookies.forEach(function (c) { try { document.cookie = c; } catch (e) {} });
+      var ctx = { dl: window.location.href, rl: document.referrer, ts: now.getTime(), fbp: ids.fbp, fbc: ids.fbc };
+      sendMetaHit(metaHitUrl(pixelId, 'PageView', {}, ctx));
+      var pixel = pixelParams(res, params, today);
+      if (pixel.content_name) {
+        ctx.eid = newEventId();
+        sendMetaHit(metaHitUrl(pixelId, 'TicketRedirect', pixel, ctx));
+      }
+    } catch (err) {}
   }
 
   gaPush('event', 'ticket_redirect', payload);
