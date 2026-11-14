@@ -21,7 +21,13 @@ season lines, C32 to C39 and W26 to W33, in four windows (Glühwein 27 November 
 Christmas Eve; New Year's Eve; 1 to 14 January), tomorrow and tonight sets only, each on an unused
 laughing-audience frame from the gallery. The card gained a `season: winter` tint (ember scrim,
 gold rule, the photo untouched) and the render writes a plain twin of every tinted card plus
-`meta-ads/creative/bank/season-compare.html`; Harry picked the tint from that sheet the same afternoon, so the lines keep `season: winter`. The scheduler creates a show's tomorrow and tonight sets six days ahead, so the first winter ads reach Meta on the 27 November run (for 3 December). Budget
+`meta-ads/creative/bank/season-compare.html`; Harry picked the tint from that sheet the same afternoon, so the lines keep `season: winter`. The scheduler creates a show's tomorrow and tonight sets six days ahead, so the first winter ads would have reached Meta on the 27 November run; Harry wanted them scheduled
+now, so `meta-moments.ts` gained `--ahead DATES` (`scripts.md`) and the same afternoon it made the
+28 tomorrow and tonight sets for 3 December to 14 January on Meta, 112 ads, every set with its
+start and end written, the season line on and the other three paused; Meta reviews the ads from
+now. The daily run owns each set from six days before its show (budget to the forecast, the pick
+again). The January placeholder photo on C38 and C39 is swapped with `--refresh --only C38,C39`
+once the new frame is in the bank. Budget
 stays level: `long_weekend_boost` is 1.0 in `config.yml` until after 14 January, so the 24 and
 31 December weeks cost the same CHF 92 as any other. Dry runs of the scheduler on 2 December,
 23 December and 7 January put the right season line in each new set. Still to do: the January

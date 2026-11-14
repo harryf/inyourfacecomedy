@@ -125,6 +125,22 @@ export function nextShow(events: { show: string; date: string }[], now: Date, sh
   return null;
 }
 
+// --ahead: the shows named on the command line (comma-separated ISO dates) whose tomorrow and
+// tonight sets are made now, weeks before their week, so Meta reviews the ads early (the winter
+// lines, meta-ads/winter-plan.md). Each one must be a Comedy Brew date in the calendar and after
+// today; the daily run then treats the sets as its own once the show is within six days.
+export function aheadShows(arg: string, calendarDates: string[], now: Date): string[] {
+  const { date } = zurichParts(now);
+  const want = [...new Set(String(arg || "").split(",").map((s) => s.trim()).filter(Boolean))].sort();
+  if (!want.length) throw new Error("--ahead needs one or more show dates, comma-separated (YYYY-MM-DD)");
+  for (const d of want) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) throw new Error(`--ahead: not a date: ${d}`);
+    if (!calendarDates.includes(d)) throw new Error(`--ahead: no Comedy Brew on ${d} in _data/calendar.yml`);
+    if (d <= date) throw new Error(`--ahead: ${d} is not ahead (today is ${date}); the daily run owns the coming week`);
+  }
+  return want;
+}
+
 // ---------- holidays ----------
 
 // Zürich public holidays computed (the fallback when the OpenHolidays API is down): fixed dates

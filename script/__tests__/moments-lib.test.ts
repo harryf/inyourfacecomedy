@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { budgetPlan, csvRows, easter, holidaysFromApi, inSeason, isLongWeekend, nextShow, openWindow, pickWhen, wetVerdict, windowsFor, zurichHolidays, zurichIso, type MomentsConfig } from "../lib/moments-lib";
+import { aheadShows, budgetPlan, csvRows, easter, holidaysFromApi, inSeason, isLongWeekend, nextShow, openWindow, pickWhen, wetVerdict, windowsFor, zurichHolidays, zurichIso, type MomentsConfig } from "../lib/moments-lib";
 
 const at = (iso: string) => new Date(iso);
 const CFG: MomentsConfig = { weekly_envelope_chf: 91, cold_share: 0.7, split: { planner: 0.2, evergreen: 0.2, tomorrow: 0.2, tonight: 0.4 }, wet_boost: 1.5, long_weekend_boost: 1.5, max_boost: 1.75, floor_chf: 1, old_set_month_chf: 130, postcode_point: "800100", station_point: "71" };
@@ -31,6 +31,20 @@ describe("windows", () => {
     expect(nextShow(ev, at("2026-10-08T18:00:00+02:00"))).toBeNull();     // the window has ended and the 15th is seven days out
     expect(nextShow(ev, at("2026-10-09T09:00:00+02:00"))).toBe("2026-10-15");
     expect(nextShow([{ show: "comedybrew", date: "2026-10-15" }], at("2026-10-04T09:00:00+02:00"))).toBeNull();
+  });
+});
+
+describe("--ahead: shows whose sets are made early", () => {
+  const cal = ["2026-11-19", "2026-12-03", "2026-12-24"];
+  const now = at("2026-11-14T13:00:00+01:00");
+  test("takes calendar dates after today, sorted and deduplicated", () => {
+    expect(aheadShows("2026-12-24, 2026-12-03,2026-12-03", cal, now)).toEqual(["2026-12-03", "2026-12-24"]);
+  });
+  test("refuses a date off the calendar, a malformed one, today, or nothing", () => {
+    expect(() => aheadShows("2026-12-10", cal, now)).toThrow(/no Comedy Brew on 2026-12-10/);
+    expect(() => aheadShows("3 Dec", cal, now)).toThrow(/not a date/);
+    expect(() => aheadShows("2026-11-14", ["2026-11-14"], now)).toThrow(/not ahead/);
+    expect(() => aheadShows("", cal, now)).toThrow(/one or more/);
   });
 });
 

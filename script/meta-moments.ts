@@ -27,6 +27,8 @@
 //   bun script/meta-moments.ts --refresh --only W18 --dry-run   # a moment ad whose text or picture changed: what would move
 //   bun script/meta-moments.ts --refresh --only W18 --validate  # Meta checks the new creative, nothing written
 //   bun script/meta-moments.ts --refresh --only W18             # new creative; the ads that can still run move onto it
+//   bun script/meta-moments.ts --ahead 2026-12-03,2026-12-10 --dry-run [--validate]   # the sets those shows would get now
+//   bun script/meta-moments.ts --ahead 2026-12-03,2026-12-10   # make them now, weeks early, so Meta reviews the ads; the daily run takes over in their week
 //
 // Writes script/meta-out/moments-<date>.md (gitignored); ids in meta-ads/creative/bank/moments-state.json.
 
@@ -35,9 +37,9 @@ import { join } from "node:path";
 import { fail, flagBool, flagString, log, parseArgs, warn } from "./lib/email/cli";
 import { OUT_DIR, REPO_ROOT, chfToMinor, healthcheck, loadConfig, metaFromEnv, minorToChf, type MetaConfig } from "./lib/meta-api";
 import { CREATIVE_DIR, adName, creativeSpec, imageFiles, loadBank, patient, uploadImage, writeBoard, type Bank, type Concept } from "./meta-bank";
-import { AUDIENCES, PERSISTENT_PHASES, WINDOWED_PHASES, adsetKey, budgetPlan, csvRows, holidaysFromApi, inSeason, isLongWeekend, migrateState, nextShow, openWindow, orphanWindows, pickWhen, wetVerdict, windowAdsetName, windowBudgetChf, windowFor, windowStart, windowsFor, zurichHolidays, zurichParts, type Audience, type MomentPhase, type MomentsConfig, type MomentsState, type WeatherVerdict, type WindowSet } from "./lib/moments-lib";
+import { AUDIENCES, PERSISTENT_PHASES, WINDOWED_PHASES, adsetKey, budgetPlan, csvRows, holidaysFromApi, inSeason, isLongWeekend, migrateState, aheadShows, nextShow, openWindow, orphanWindows, pickWhen, wetVerdict, windowAdsetName, windowBudgetChf, windowFor, windowStart, windowsFor, zurichHolidays, zurichParts, type Audience, type MomentPhase, type MomentsConfig, type MomentsState, type WeatherVerdict, type WindowSet } from "./lib/moments-lib";
 
-const USAGE = `usage: bun script/meta-moments.ts [--setup [--validate]] [--dry-run [--validate]] [--at ISO] | --refresh --only IDS [--dry-run | --validate]`;
+const USAGE = `usage: bun script/meta-moments.ts [--setup [--validate]] [--dry-run [--validate]] [--at ISO] | --refresh --only IDS [--dry-run | --validate] | --ahead DATES [--dry-run [--validate]]`;
 const STATE_FILE = join(CREATIVE_DIR, "moments-state.json");   // gitignored with the rest of creative/
 const HC = "META_MOMENTS_HEALTHCHECKS_URL";
 const COPY_FIELDS = "targeting,optimization_goal,billing_event,bid_strategy,destination_type,attribution_spec,promoted_object";
@@ -400,6 +402,56 @@ async function run(dryRun: boolean, validate: boolean, atIso: string | undefined
   if (!dryRun) { const b = await writeBoard(); log(`board ${b.file}: ${b.rows} ads, states ${b.live ? "read from Meta" : "from the bank files"}`); }
 }
 
+// --ahead: the tomorrow and tonight sets of shows weeks away, made now. Same bodies as the
+// daily run would write on their Friday (lifetime budget from the plan with the holiday read and
+// no weather, start and end on Meta), the ads created and the pick made (season, long weekend or
+// any; wet is unknown this far out). From six days before the show the daily run owns the sets:
+// it fills any missing ad, sets the budget to the forecast plan and makes the pick again.
+async function ahead(arg: string, dryRun: boolean, validate: boolean) {
+  const now = new Date();
+  const config = loadConfig();
+  const mc = momentsConfig(config);
+  const state = readMomentsState();
+  if (!Object.keys(state.adsets).length) fail("no moment ad sets yet: run --setup first");
+  const cal = Bun.YAML.parse(readFileSync(join(REPO_ROOT, "_data", "calendar.yml"), "utf8")) as { events?: { show: string; date: string }[] };
+  const shows = aheadShows(arg, (cal.events || []).filter((e) => e.show === "comedybrew").map((e) => e.date), now);
+  const meta = metaFromEnv(config);
+  const lines: string[] = [];
+  const say = (s: string) => { log(s); lines.push(s); };
+  const z = zurichParts(now);
+  say(`# Moments ahead, ${z.date} ${String(z.hour).padStart(2, "0")}:${String(z.minute).padStart(2, "0")}${dryRun ? " (dry run)" : ""}: ${shows.join(", ")}`);
+  const live = new Set(AUDIENCES.flatMap((aud) => loadBank(aud).concepts.filter((c) => c.status === "live").map((c) => adName(aud, c))));
+  for (const show of shows) {
+    say("");
+    const h = await holidaysAround(show);
+    const longWeekend = isLongWeekend(show, h.dates);
+    const plan = budgetPlan(mc, longWeekend, false, config.monthly_cap_chf);
+    say(`## ${show}: the Friday after is ${longWeekend ? "a holiday (long weekend)" : "a working day"} (${h.source}); weather unknown this far out. Budget plan CHF ${plan.week_chf}, boosts tomorrow ${plan.boost.tomorrow}, tonight ${plan.boost.tonight}.`);
+    const sets = await ensureWindowSets(meta, config, state, show, plan, now, dryRun, validate, say);
+    for (const aud of AUDIENCES) for (const phase of WINDOWED_PHASES) {
+      const set = sets[adsetKey(aud, phase)];
+      if (!set) continue;
+      const ads = Object.entries(set.ads).filter(([n]) => live.has(n));
+      let when = pickWhen(phase, longWeekend, false, ads.some(([, a]) => a.when === "season"));
+      if (!ads.some(([, a]) => a.when === when)) when = "any";
+      for (const [name, a] of ads) {
+        const want = a.when === when ? "ACTIVE" : "PAUSED";
+        const cur = await meta.get(a.ad_id, { fields: "status" });
+        if (cur.status === want) continue;
+        if (!dryRun) await patient(`${name} status`, () => meta.post(a.ad_id, { status: want }));
+        say(`  - ${name}: ${cur.status} -> ${want}${dryRun ? " (would)" : ""}`);
+      }
+      say(`- ${set.name} (${set.adset_id}): the ${when} line runs; ${ads.length} ad(s), lifetime CHF ${windowBudgetChf(plan, aud, phase)}, ${set.start.slice(0, 16)} to ${set.end.slice(0, 16)}`);
+    }
+    if (!dryRun) saveState(state);
+  }
+  mkdirSync(OUT_DIR, { recursive: true });
+  const file = join(OUT_DIR, `moments-${z.date}.md`);
+  (existsSync(file) ? appendFileSync : writeFileSync)(file, (existsSync(file) ? "\n\n" : "") + lines.join("\n") + "\n");
+  log(`\nwritten to ${file}`);
+  if (!dryRun) { const b = await writeBoard(); log(`board ${b.file}: ${b.rows} ads, states ${b.live ? "read from Meta" : "from the bank files"}`); }
+}
+
 // --refresh: a moment concept's text or picture changed in the bank. A new creative replaces the
 // cached one, so every later week's ad is made from it, and every ad of that concept that can
 // still run moves onto it: the planner ad, or the ads in tomorrow and tonight sets whose window
@@ -457,6 +509,7 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
   if (flagBool(args, "help")) { console.log(USAGE); return; }
   if (flagBool(args, "setup")) return setup(flagBool(args, "validate"), flagBool(args, "dry-run"));
+  if (flagString(args, "ahead") !== undefined) return ahead(flagString(args, "ahead") || "", flagBool(args, "dry-run"), flagBool(args, "validate"));
   if (flagBool(args, "refresh")) return refresh((flagString(args, "only") || "").split(",").map((x) => x.trim()).filter(Boolean), flagBool(args, "dry-run"), flagBool(args, "validate"));
   // A pretend time or a validate_only pass on a real run would create a set that starts now and
   // runs its line on the wrong day; both exist for dry runs only.
@@ -465,7 +518,7 @@ async function main() {
 }
 
 if (import.meta.main) {
-  const dry = process.argv.includes("--dry-run") || process.argv.includes("--setup") || process.argv.includes("--refresh");   // only the daily run pings Healthchecks
+  const dry = process.argv.includes("--dry-run") || process.argv.includes("--setup") || process.argv.includes("--refresh") || process.argv.includes("--ahead");   // only the daily run pings Healthchecks
   main().then(() => dry ? undefined : healthcheck(HC, true)).catch(async (e) => {
     if (!dry) await healthcheck(HC, false, String(e?.message || e));
     fail(String(e?.message || e));
