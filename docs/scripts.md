@@ -551,11 +551,26 @@ The Friday readout: Meta's numbers per ad beside the site's `/go/` counts for th
 `utm_content`, floors and verdicts (plan: `meta-ads/creative-bank-plan.md`, "The loop").
 
 ```
-bun script/meta-insights.ts                  # last 14 days, every ad set plus the old one
+bun script/meta-insights.ts                  # last 14 days, every ad set in the campaign plus the old one
 bun script/meta-insights.ts --days 28
-bun script/meta-insights.ts --adset cold
+bun script/meta-insights.ts --adset cold          # one config ad set
+bun script/meta-insights.ts --adset cold-tonight  # one moment phase: every dated set of it in the window
 bun script/meta-insights.ts --apply          # pause the "retire" ads, asks per ad
 ```
+
+Since 14 November 2026 the readout covers every ad set in the campaign, not only the five in
+the config: the moment ad sets `meta-moments.ts` makes (`cold-planner` and `warm-planner`,
+which persist, and one `cold-tomorrow 2026-11-19`, `cold-tonight 2026-11-19`, `warm-tomorrow
+...`, `warm-tonight ...` per show week) are found by name on the campaign and listed when they
+spent in the window or their window is still open. The readout opens with an overview table,
+one row per group (the five config keys plus the six moment phases): ad sets, ads, spend,
+impressions, link clicks, CTR, landing page views, Meta ticket clicks, the site's `/go/`
+clicks tagged with the group's `utm_campaign`, cost per view and per ticket click. Then the
+per-ad sections: config ad sets first, the planner sets, the dated sets newest first. Moment
+sections carry a line saying so: their verdicts are advice for the bank, `--apply` never pauses
+an ad in them (the scheduler owns their status), and the per-ad site column is blank because
+one concept runs in every dated set of a phase, so only the group count in the overview is
+honest. A dated set's header shows its lifetime budget and window instead of a daily budget.
 
 Meta recommendations, two surfaces, printed as their own section after the flags (and in the JSON): the account edge `act_<id>/recommendations` returns what Ads Manager shows as "N recommendations" (type, the ad set or ad it points at, when it appeared, Meta's lift estimate, the text, a deep link into Ads Manager), and the `recommendations` field on each ad set and ad returns per-object checks (for example a language mismatch between copy and targeting). Not every pill is exposed: on 2026-09-14 Ads Manager showed two per ad set, the API one (the Reels video nudge) plus one per-ad item. The script reads them and never applies any: there is no API call that applies a recommendation, and each one is an Advantage+ toggle, a creative asset or a targeting change that the Saturday review decides on. If the edge fails the readout warns and still writes.
 

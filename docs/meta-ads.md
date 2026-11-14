@@ -25,7 +25,12 @@ the ad's click id (`campaign-links.md`, "The Meta pixel gets the same click"). W
 the "Ticket click" column in Ads Manager and the ticket columns in the weekly readout should
 fill from the 19 November show week; the Site visitors and Show clickers audiences should
 start growing past Meta's 1,000 floor; match quality in Events Manager may read lower, which
-is the known trade.
+is the known trade. Same day: the weekly readout now lists every ad set in the campaign, the six
+moment phases included, with an overview table by group at the top (`scripts.md`,
+`meta-insights.ts`); the 14-day overview on 14 November read CHF 252 over 31 ad sets, the
+tonight sets the largest moment line at CHF 64 Cold and CHF 27 Warm, cost per landing page
+view 0.17 to 0.26 everywhere except cold-planner's click rate of 1.28 percent, the lowest in
+the account.
 
 **25 October: the 2024 carousel keeps its budget, with tripwires.** Harry asked whether the
 old "Tailored web traffic" set is worn out. It is not: CHF 0.22 per landing page view over the
@@ -710,7 +715,7 @@ click against 8 October (694 clicks, 13 orders).
 From 4 October, first:
 
 - Wednesday 7 October: check that the 07:30 run opened `cold-tomorrow` and `warm-tomorrow` with the rain ads (C22, W16) in `script/meta-moments.log` or on the board; Thursday the same for `cold-tonight` and `warm-tonight` (C25, W19). An ad set whose window ended last week taking a new end date is the open question (`moments-plan.md`, section 3).
-- The readout (`meta-insights.ts`) does not list the six moment ad sets yet; until it does, read them in Ads Manager or `/reports/` (`utm_campaign` is the ad set name, `utm_content` the ad name).
+- The readout (`meta-insights.ts`) lists the moment ad sets since 14 November 2026 (an overview by group, then every set that ran in the window, `scripts.md`); before that, read them in Ads Manager or `/reports/` (`utm_campaign` is the ad set name, `utm_content` the ad name).
 - Still to build: the weather backtest before the rain boost is trusted, and a sold-out check before tonight opens. Meta may spend up to 75% over a daily budget on one day, which matters for the one-day tonight ad sets.
 
 The week of 21 September: the "Decided for this week" list in the second readout (Status) comes first.

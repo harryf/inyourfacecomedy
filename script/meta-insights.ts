@@ -3,11 +3,15 @@
 //
 //   bun script/meta-insights.ts                  # last 14 days, every ad set in the campaign plus the old one
 //   bun script/meta-insights.ts --days 28
-//   bun script/meta-insights.ts --adset cold     # one ad set (cold, warm, intent, buyers, old)
+//   bun script/meta-insights.ts --adset cold     # one ad set (cold, warm, intent, buyers, old) or one moment
+//                                                #   phase (cold-tonight, warm-planner, ...: every dated set of it)
 //   bun script/meta-insights.ts --apply          # pause the ads with a "retire" verdict (asks first)
 //
 // Writes script/meta-out/insights-<date>.md and .json (gitignored). Never writes to the old
-// ad set (config old_adset_id) or to Buyers, whose one ad the lineup script owns.
+// ad set (config old_adset_id), to Buyers, whose one ad the lineup script owns, or to the
+// moment ad sets (cold-planner, cold-tonight 2026-11-19, ...), which meta-moments.ts owns:
+// those are listed with verdicts as advice, after an overview table of every group's spend
+// (since 14 November 2026; before that the six moment sets were missing from the readout).
 //
 // Meta's recommendations (the "N recommendations" pills in Ads Manager) are read from two
 // surfaces and printed in their own section: the account edge act_<id>/recommendations (the
@@ -54,6 +58,52 @@ export interface AdRow {
   metric: "ticket" | "lpv" | null;
   verdict: "keep" | "retire" | "untested" | "starved" | "protected" | "change";
   note: string;
+}
+
+// A moment ad set, from its name as meta-moments.ts writes it: "cold-planner" (persistent) or
+// "cold-tonight 2026-11-19" (one show's window). phase is the group it reports under and the
+// GA campaign its ads are tagged with; show is the date, "" for a persistent set. null for
+// anything else (the config ad sets, a hand-made set).
+export function momentKeyOf(name: string): { phase: string; show: string } | null {
+  const m = String(name || "").trim().match(/^((?:cold|warm)-(?:planner|tomorrow|tonight))(?: (\d{4}-\d{2}-\d{2}))?$/);
+  return m ? { phase: m[1], show: m[2] || "" } : null;
+}
+
+// The group an ad set reports under in the overview: its config key, or a moment set's phase.
+export function groupOf(key: string): string { return momentKeyOf(key)?.phase || key; }
+
+// The GA campaign tag the ads of a group carry (docs/campaign-links.md): the 2024 carousel's
+// cards say utm_campaign=comedybrew, the bank and moment ads use the ad set's name.
+export function campaignOf(group: string): string { return group === "old" ? "comedybrew" : group; }
+
+// /go/ clicks per utm_campaign across the reports, source meta: the site's count for a whole
+// group, where per-ad matching by name would repeat one concept's total in every dated set.
+export function siteClicksByCampaign(reports: any[]): Map<string, number> {
+  const out = new Map<string, number>();
+  for (const rep of reports) for (const c of rep.by_campaign || []) {
+    if (c.source !== "meta") continue;
+    out.set(String(c.campaign), (out.get(String(c.campaign)) || 0) + Number(c.clicks || 0));
+  }
+  return out;
+}
+
+export interface GroupRow { group: string; adsets: number; ads: number; spend: number; impressions: number; link_clicks: number; lpv: number; ticket: number; site: number | null }
+
+// One row per group over every ad set it holds: the overview table at the top of the readout.
+// Order: the config groups first in their own order, then the moment phases by spend.
+export function overview(rowsByAdset: Map<string, AdRow[]>, siteByCampaign: Map<string, number>): GroupRow[] {
+  const groups = new Map<string, GroupRow>();
+  for (const [key, rows] of rowsByAdset) {
+    const g = groupOf(key);
+    const site = siteByCampaign.get(campaignOf(g));
+    const row = groups.get(g) || { group: g, adsets: 0, ads: 0, spend: 0, impressions: 0, link_clicks: 0, lpv: 0, ticket: 0, site: site === undefined ? null : site };
+    row.adsets += 1; row.ads += rows.length;
+    for (const r of rows) { row.spend += r.spend; row.impressions += r.impressions; row.link_clicks += r.link_clicks; row.lpv += r.lpv; row.ticket += r.ticket; }
+    groups.set(g, row);
+  }
+  const fixed = [...groups.values()].filter((g) => !momentKeyOf(g.group));
+  const moments = [...groups.values()].filter((g) => momentKeyOf(g.group)).sort((a, b) => b.spend - a.spend);
+  return [...fixed, ...moments].map((g) => ({ ...g, spend: Math.round(g.spend * 100) / 100 }));
 }
 
 // Link clicks per hundred impressions, the figure Ads Manager calls CTR (link click-through rate).
@@ -235,14 +285,29 @@ export function renderRecommendations(recs: Recommendation[], error = ""): strin
 const chf = (n: number | null) => (n === null || !Number.isFinite(n) ? "" : n.toFixed(2));
 const pct = (n: number | null) => (n === null || !Number.isFinite(n) ? "" : n.toFixed(2));
 
-export function renderMarkdown(rowsByAdset: Map<string, AdRow[]>, meta: { since: string; until: string; shows: number; siteWindow: string; adsetInfo: Map<string, string>; flags: string[]; rules: InsightsRules; recommendations?: Recommendation[]; recommendationsError?: string }): string {
+export function renderOverview(groups: GroupRow[]): string[] {
+  const L: string[] = ["## Every ad set, by group", "", "Spend, impressions, clicks and views are Meta's for the window; the site column is the report window's /go/ clicks tagged with the group's utm_campaign (the whole group, not per dated set). Moment groups hold one ad set per show week; their sections follow the config ad sets.", ""];
+  L.push("| Group | Ad sets | Ads | Spend | Impr. | Link clicks | CTR % | LPV | Ticket (Meta) | /go/ (site) | CHF/LPV | CHF/ticket |", "|---|---|---|---|---|---|---|---|---|---|---|---|");
+  const t = { spend: 0, impressions: 0, link_clicks: 0, lpv: 0, ticket: 0, site: 0, adsets: 0, ads: 0 };
+  for (const g of groups) {
+    L.push(`| ${g.group} | ${g.adsets} | ${g.ads} | ${g.spend.toFixed(2)} | ${g.impressions} | ${g.link_clicks} | ${pct(ctr(g))} | ${g.lpv} | ${g.ticket} | ${g.site ?? ""} | ${chf(g.lpv ? g.spend / g.lpv : null)} | ${chf(g.ticket ? g.spend / g.ticket : null)} |`);
+    t.spend += g.spend; t.impressions += g.impressions; t.link_clicks += g.link_clicks; t.lpv += g.lpv; t.ticket += g.ticket; t.site += g.site || 0; t.adsets += g.adsets; t.ads += g.ads;
+  }
+  L.push(`| total | ${t.adsets} | ${t.ads} | ${t.spend.toFixed(2)} | ${t.impressions} | ${t.link_clicks} | ${pct(ctr(t))} | ${t.lpv} | ${t.ticket} | ${t.site} | ${chf(t.lpv ? t.spend / t.lpv : null)} | ${chf(t.ticket ? t.spend / t.ticket : null)} |`, "");
+  return L;
+}
+
+export function renderMarkdown(rowsByAdset: Map<string, AdRow[]>, meta: { since: string; until: string; shows: number; siteWindow: string; adsetInfo: Map<string, string>; flags: string[]; rules: InsightsRules; recommendations?: Recommendation[]; recommendationsError?: string; groups?: GroupRow[] }): string {
   const L: string[] = [];
   L.push(`# Meta ads readout, ${meta.since} to ${meta.until}`, "");
   L.push(`${meta.shows} Comedy Brew date(s) in the window. Site /go/ counts cover ${meta.siteWindow} (the report's own window). Meta ticket clicks are the custom conversion, 1-day click; the site count is the ground truth for ranking. Verdicts rank inside one ad set only. CTR is link clicks per hundred impressions; the creative floor is ${meta.rules.ctr_floor}% once an ad has ${meta.rules.ctr_floor_impressions} impressions (the 2024 carousel runs 1.8 to 2.2).`, "");
   if (meta.flags.length) { L.push("**Flags**", ""); for (const f of meta.flags) L.push(`- ${f}`); L.push(""); }
   if (meta.recommendations || meta.recommendationsError) L.push(...renderRecommendations(meta.recommendations || [], meta.recommendationsError || ""));
+  if (meta.groups && meta.groups.length) L.push(...renderOverview(meta.groups));
   for (const [key, rows] of rowsByAdset) {
+    const moment = momentKeyOf(key);
     L.push(`## ${key}${meta.adsetInfo.get(key) ? `: ${meta.adsetInfo.get(key)}` : ""}`, "");
+    if (moment) L.push(`Owned by meta-moments.ts: verdicts here are advice for the bank (rest a line, redo a card), nothing in this set is ever paused by --apply. Per-ad site clicks are not shown: the same concept runs in every ${moment.phase} set, so the site's count for the group is in the overview.`, "");
     L.push("| Ad | Status | Spend | Impr. | Freq. | Link clicks | CTR % | LPV | Ticket (Meta) | /go/ (site) | CHF/ticket | CHF/LPV | Verdict | Note |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|");
     for (const r of [...rows].sort((a, b) => b.spend - a.spend)) L.push(`| ${r.ad_name} | ${r.status} | ${r.spend.toFixed(2)} | ${r.impressions} | ${r.frequency.toFixed(1)} | ${r.link_clicks} | ${pct(ctr(r))} | ${r.lpv} | ${r.ticket} | ${r.site ?? ""} | ${chf(r.cost_per_ticket)} | ${chf(r.cost_per_lpv)} | ${r.verdict} | ${r.note}${r.refreshed ? ` (creative refreshed ${r.refreshed}, counted from there)` : ""} |`);
     const t = rows.reduce((s, r) => ({ spend: s.spend + r.spend, impressions: s.impressions + r.impressions, link_clicks: s.link_clicks + r.link_clicks, lpv: s.lpv + r.lpv, ticket: s.ticket + r.ticket, site: s.site + (r.site || 0) }), { spend: 0, impressions: 0, link_clicks: 0, lpv: 0, ticket: 0, site: 0 });
@@ -269,17 +334,33 @@ async function main() {
   const time_range = { since, until };
   const ticketType = `offsite_conversion.custom.${config.custom_conversion_id}`;
 
-  // Which ad sets: the config's four plus the old one, keyed by config name.
+  // Which ad sets: the config's four plus the old one, keyed by config name, then every moment
+  // ad set in the campaign (meta-moments.ts names them; a dated set is listed when it ran in
+  // the window or is still live), keyed by its own name.
   const keyOf = new Map<string, string>();
   for (const [k, id] of Object.entries(config.adsets)) if (id) keyOf.set(String(id), k);
   if (config.old_adset_id) keyOf.set(String(config.old_adset_id), "old");
-  const wanted = only ? [only] : [...new Set(keyOf.values())];
-  for (const w of wanted) if (![...keyOf.values()].includes(w)) fail(`--adset ${w} is not one of ${[...keyOf.values()].join(", ")}`);
 
   // Ads, then insights at ad level (ads without delivery are absent from insights and get zero rows).
   const ads = await meta.getAll(`${config.campaign_id}/ads`, { fields: "id,name,adset_id,status,effective_status,created_time" });
   // 1-day click attribution to match the ad sets, so the numbers agree with Ads Manager.
   const ins = await meta.getAll(`${config.campaign_id}/insights`, { level: "ad", time_range, action_attribution_windows: ["1d_click"], fields: "ad_id,adset_id,spend,impressions,reach,frequency,inline_link_clicks,actions" });
+  const campaignAdsets = await meta.getAll(`${config.campaign_id}/adsets`, { fields: "id,name,effective_status,daily_budget,lifetime_budget,optimization_goal,start_time,end_time" });
+  const spentAdsets = new Set(ins.filter((r: any) => Number(r.spend || 0) > 0).map((r: any) => String(r.adset_id)));
+  const momentSets = new Map<string, any>();
+  for (const a of campaignAdsets) {
+    if (keyOf.has(String(a.id)) || !momentKeyOf(a.name)) continue;
+    // A dated set keeps its ACTIVE status after its window: list it only when it spent in
+    // the window or its window is still open (no end, or an end inside or after the window).
+    const stillOpen = a.effective_status === "ACTIVE" && (!a.end_time || String(a.end_time).slice(0, 10) >= since);
+    if (!spentAdsets.has(String(a.id)) && !stillOpen) continue;
+    keyOf.set(String(a.id), String(a.name));
+    momentSets.set(String(a.name), a);
+  }
+  const isMoment = (key: string) => momentSets.has(key);
+  const allKeys = [...new Set(keyOf.values())];
+  const wanted = only ? allKeys.filter((k) => k === only || groupOf(k) === only) : allKeys;
+  if (!wanted.length) fail(`--adset ${only} is not one of ${[...new Set(allKeys.map(groupOf))].join(", ")}`);
   const insById = new Map(ins.map((r: any) => [String(r.ad_id), r]));
   const seenTypes = [...new Set(ins.flatMap((r: any) => (r.actions || []).map((a: any) => String(a.action_type))))].sort();
   const conversionSeen = seenTypes.includes(ticketType);
@@ -300,13 +381,19 @@ async function main() {
     const row: AdRow = {
       adset: key, adset_id: String(ad.adset_id), ad_id: String(ad.id), ad_name: ad.name, status: ad.effective_status || ad.status, created: String(ad.created_time).slice(0, 10),
       spend, impressions: Number(r.impressions || 0), reach: Number(r.reach || 0), frequency: Number(r.frequency || 0), link_clicks: Number(r.inline_link_clicks || 0), lpv, ticket,
-      site: siteFor(site.clicks, { ad_id: String(ad.id), ad_name: ad.name }),
+      site: isMoment(key) ? null : siteFor(site.clicks, { ad_id: String(ad.id), ad_name: ad.name }),
       cost_per_ticket: ticket ? spend / ticket : null, cost_per_lpv: lpv ? spend / lpv : null, metric: null, verdict: "keep", note: "",
     };
     if (!rowsByAdset.has(key)) rowsByAdset.set(key, []);
     rowsByAdset.get(key)!.push(row);
   }
   for (const key of wanted) if (!rowsByAdset.has(key)) rowsByAdset.set(key, []);
+  // Sections in reading order: the config ad sets as listed, then the planner sets, then the
+  // dated sets newest first.
+  const order = (k: string) => { const m = momentKeyOf(k); return m ? (m.show ? `2-${m.show}-${m.phase}` : `1-${m.phase}`) : "0"; };
+  const ordered = [...rowsByAdset.entries()].sort((a, b) => { const oa = order(a[0]), ob = order(b[0]); return oa === ob ? 0 : oa === "0" ? -1 : ob === "0" ? 1 : oa.startsWith("2") && ob.startsWith("2") ? ob.localeCompare(oa) : oa.localeCompare(ob); });
+  rowsByAdset.clear();
+  for (const [k, v] of ordered) rowsByAdset.set(k, v);
 
   // An ad whose creative was refreshed inside the window (meta-bank.ts --refresh) is judged on
   // the new creative only: its numbers are re-read from the refresh date and it counts as new.
@@ -327,18 +414,30 @@ async function main() {
   const names = new Map<string, string>();
   for (const [id, k] of keyOf) names.set(id, `adset ${k}`);
   for (const ad of ads) names.set(String(ad.id), `ad ${ad.name}`);
+  const idOf = new Map<string, string>([...keyOf].map(([id, k]) => [k, id]));
+  // Audience sizes once per audience, not once per ad set: the moment sets share the four
+  // Warm audiences, and the account's call budget is small (the API rate-limits a readout
+  // that asks thirty times).
+  const audienceSize = new Map<string, string>();
+  const sizeOf = async (c: any): Promise<string> => {
+    const id = String(c.id);
+    if (!audienceSize.has(id)) { try { const s = await meta.get(id, { fields: "name,approximate_count_lower_bound,approximate_count_upper_bound" }); audienceSize.set(id, `${s.name} ${s.approximate_count_lower_bound}-${s.approximate_count_upper_bound}`); } catch { audienceSize.set(id, `${c.name || id} ?`); } }
+    return audienceSize.get(id)!;
+  };
   for (const [key, rows] of rowsByAdset) {
-    const id = key === "old" ? config.old_adset_id! : config.adsets[key as keyof typeof config.adsets];
-    const a = await meta.get(id, { fields: "name,effective_status,daily_budget,optimization_goal,targeting" });
+    const id = idOf.get(key)!;
+    const a = campaignAdsets.find((x: any) => String(x.id) === id && x.targeting) || await meta.get(id, { fields: "name,effective_status,daily_budget,lifetime_budget,optimization_goal,targeting,start_time,end_time" });
     const sizes: string[] = [];
-    for (const c of a.targeting?.custom_audiences || []) { try { const s = await meta.get(c.id, { fields: "name,approximate_count_lower_bound,approximate_count_upper_bound" }); sizes.push(`${s.name} ${s.approximate_count_lower_bound}-${s.approximate_count_upper_bound}`); } catch { sizes.push(`${c.name || c.id} ?`); } }
+    for (const c of a.targeting?.custom_audiences || []) sizes.push(await sizeOf(c));
     const f7 = freq7.get(String(id)) || 0;
-    adsetInfo.set(key, `${a.name}, ${a.effective_status}, CHF ${minorToChf(a.daily_budget)}/day, ${a.optimization_goal}, 7-day frequency ${f7.toFixed(1)}${sizes.length ? `, audiences: ${sizes.join("; ")}` : ""}`);
+    const budget = Number(a.lifetime_budget || 0) ? `lifetime CHF ${minorToChf(a.lifetime_budget)}${a.start_time ? `, ${String(a.start_time).slice(0, 16).replace("T", " ")} to ${String(a.end_time || "").slice(0, 16).replace("T", " ")}` : ""}` : `CHF ${minorToChf(a.daily_budget)}/day`;
+    adsetInfo.set(key, `${a.name}, ${a.effective_status}, ${budget}, ${a.optimization_goal}, 7-day frequency ${f7.toFixed(1)}${sizes.length ? `, audiences: ${sizes.join("; ")}` : ""}`);
     if (f7 > rules.frequency_flag) flags.push(`${key}: 7-day frequency ${f7.toFixed(1)} is over ${rules.frequency_flag}; the audience is running out of people`);
     const spend = rows.reduce((s, r) => s + r.spend, 0), ticket = rows.reduce((s, r) => s + r.ticket, 0);
     if (ticket && spend / ticket > 3) flags.push(`${key}: CHF ${(spend / ticket).toFixed(2)} per ticket click over the window; look at the ad set, not the ads`);
     rowsByAdset.set(key, verdicts(rows, rules, today, key === "old" || key === "buyers"));
   }
+  const groups = overview(rowsByAdset, siteClicksByCampaign(reports));
 
   const cal = ["calendar.yml", "calendar_past.yml"].map((f) => join(REPO_ROOT, "_data", f)).filter(existsSync).map((p) => readFileSync(p, "utf8"));
   const shows = showsInWindow(cal, "comedybrew", since, until);
@@ -363,15 +462,16 @@ async function main() {
     warn(`recommendations could not be read: ${recommendationsError.slice(0, 200)}`);
     flags.push("Meta recommendations could not be read this run (see the section)");
   }
-  const md = renderMarkdown(rowsByAdset, { since, until, shows, siteWindow: site.window, adsetInfo, flags, rules, recommendations: recommendations || [], recommendationsError });
+  const md = renderMarkdown(rowsByAdset, { since, until, shows, siteWindow: site.window, adsetInfo, flags, rules, recommendations: recommendations || [], recommendationsError, groups });
   mkdirSync(OUT_DIR, { recursive: true });
   const base = join(OUT_DIR, `insights-${today}`);
   writeFileSync(`${base}.md`, md);
-  writeFileSync(`${base}.json`, JSON.stringify({ since, until, shows, site_window: site.window, rules, flags, recommendations, recommendations_error: recommendationsError || null, adsets: Object.fromEntries(rowsByAdset) }, null, 2));
+  writeFileSync(`${base}.json`, JSON.stringify({ since, until, shows, site_window: site.window, rules, flags, recommendations, recommendations_error: recommendationsError || null, groups, adsets: Object.fromEntries(rowsByAdset) }, null, 2));
   log(md);
   log(`\nwritten ${base}.md and .json`);
 
-  const retire = [...rowsByAdset.values()].flat().filter((r) => r.verdict === "retire");
+  // Only the bank's own ad sets are ever paused here: the moment sets belong to the scheduler.
+  const retire = [...rowsByAdset.entries()].filter(([k]) => !isMoment(k)).flatMap(([, rows]) => rows).filter((r) => r.verdict === "retire");
   if (!apply) { if (retire.length) log(`${retire.length} ad(s) with a retire verdict; run with --apply to pause them`); return; }
   if (!retire.length) { log("nothing to retire"); return; }
   for (const r of retire) {

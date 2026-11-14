@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { DEFAULT_RULES } from "../lib/meta-api";
-import { actionCount, collectRecommendations, ctr, median, rankingMetric, renderRecommendations, showsInWindow, siteClicksByContent, siteFor, verdicts, type AdRow } from "../meta-insights";
+import { actionCount, campaignOf, collectRecommendations, ctr, groupOf, median, momentKeyOf, overview, rankingMetric, renderOverview, renderRecommendations, showsInWindow, siteClicksByCampaign, siteClicksByContent, siteFor, verdicts, type AdRow } from "../meta-insights";
 import { capAllows, desiredFor, diffFields, postBody, projectedMonthChf, showsInNext30Days } from "../meta-adsets";
 
 const row = (p: Partial<AdRow>): AdRow => ({
@@ -85,6 +85,55 @@ describe("verdicts", () => {
   test("paused ads keep, protected ad sets are never judged", () => {
     expect(verdicts([withCosts({ ad_name: "p", status: "PAUSED" })], DEFAULT_RULES, "2026-08-10")[0].verdict).toBe("keep");
     expect(verdicts([withCosts({ ad_name: "o", spend: 100, ticket: 10 })], DEFAULT_RULES, "2026-08-10", true)[0].verdict).toBe("protected");
+  });
+});
+
+describe("moment ad sets in the readout", () => {
+  test("momentKeyOf reads the scheduler's names and nothing else", () => {
+    expect(momentKeyOf("cold-planner")).toEqual({ phase: "cold-planner", show: "" });
+    expect(momentKeyOf("warm-tonight 2026-11-19")).toEqual({ phase: "warm-tonight", show: "2026-11-19" });
+    expect(momentKeyOf("adset_cold")).toBeNull();
+    expect(momentKeyOf("cold")).toBeNull();
+    expect(momentKeyOf("cold-tonight x")).toBeNull();
+    expect(momentKeyOf("Tailored web traffic campaign 01/07/2024 Ad set")).toBeNull();
+  });
+
+  test("groupOf and campaignOf: config keys stay, dated sets fold into their phase, the carousel is tagged comedybrew", () => {
+    expect(groupOf("cold")).toBe("cold");
+    expect(groupOf("cold-tonight 2026-11-19")).toBe("cold-tonight");
+    expect(campaignOf("old")).toBe("comedybrew");
+    expect(campaignOf("warm-planner")).toBe("warm-planner");
+  });
+
+  test("siteClicksByCampaign sums meta campaigns across reports", () => {
+    const reps = [
+      { by_campaign: [{ campaign: "cold-tonight", source: "meta", clicks: 700 }, { campaign: "cold-tonight", source: "instagram", clicks: 5 }] },
+      { by_campaign: [{ campaign: "cold-tonight", source: "meta", clicks: 66 }, { campaign: "comedybrew", source: "meta", clicks: 10 }] },
+    ];
+    const m = siteClicksByCampaign(reps);
+    expect(m.get("cold-tonight")).toBe(766);
+    expect(m.get("comedybrew")).toBe(10);
+    expect(m.has("instagram")).toBe(false);
+  });
+
+  test("overview: one row per group, config groups first in their order, moment phases by spend, site from the group's campaign", () => {
+    const rows = new Map<string, AdRow[]>([
+      ["old", [row({ adset: "old", ad_name: "carousel", spend: 30, impressions: 7000, link_clicks: 160, lpv: 110 })]],
+      ["cold", [row({ adset: "cold", ad_name: "cold-C7", spend: 9, impressions: 2200, link_clicks: 44, lpv: 40 }), row({ adset: "cold", ad_name: "cold-C13", spend: 2, impressions: 500, link_clicks: 10, lpv: 12 })]],
+      ["cold-tonight 2026-11-12", [row({ adset: "cold-tonight 2026-11-12", ad_name: "cold-C24", spend: 25, impressions: 5000, link_clicks: 120, lpv: 100 })]],
+      ["cold-tonight 2026-11-05", [row({ adset: "cold-tonight 2026-11-05", ad_name: "cold-C24", spend: 25, impressions: 5000, link_clicks: 110, lpv: 90 })]],
+      ["cold-planner", [row({ adset: "cold-planner", ad_name: "cold-C18", spend: 15, impressions: 3000, link_clicks: 60, lpv: 50 })]],
+    ]);
+    const site = new Map([["comedybrew", 1260], ["cold", 846], ["cold-tonight", 766]]);
+    const g = overview(rows, site);
+    expect(g.map((x) => x.group)).toEqual(["old", "cold", "cold-tonight", "cold-planner"]);
+    const tonight = g[2];
+    expect(tonight).toMatchObject({ adsets: 2, ads: 2, spend: 50, impressions: 10000, link_clicks: 230, lpv: 190, site: 766 });
+    expect(g[3].site).toBeNull();
+    expect(g[0].site).toBe(1260);
+    const md = renderOverview(g).join("\n");
+    expect(md).toContain("| cold-tonight | 2 | 2 | 50.00 | 10000 | 230 | 2.30 | 190 | 0 | 766 | 0.26 |  |");
+    expect(md).toContain("| total | 5 | 6 | 106.00 |");
   });
 });
 
