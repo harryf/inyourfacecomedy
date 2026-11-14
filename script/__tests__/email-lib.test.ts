@@ -16,7 +16,7 @@ import {
 } from "../lib/email/site";
 import { bareUrl, cleanText, extractJson, headcountMention, loadPrompt, placeholderCopy, renderPrompt, validateCopy, wordCount } from "../lib/email/copy";
 import { greetingFor } from "../lib/email/common";
-import { isGuest, guestName, parseThankyouLink, resolvePeople, tagMatchesShow, whenPhrase } from "../email-thankyou";
+import { insertAfterParagraph, isGuest, guestName, parseThankyouLink, resolvePeople, tagMatchesShow, whenPhrase } from "../email-thankyou";
 import { heroTitleFor, keepForMonthly, pickHero, windowFor } from "../email-monthly";
 import { emailsFrom, segmentNameFor } from "../email-promo";
 import { heroPageHtml } from "../lib/email/images";
@@ -392,5 +392,27 @@ describe("cli args", () => {
   test("every greeting falls back when the first name is empty", () => {
     for (const l of ["en", "it", "es", "de"] as const) expect(greetingFor(l)).toMatch(/^\*\|IF:FNAME\|\*.+\*\|ELSE:\|\*[^*|]+,\*\|END:IF\|\*$/);
     expect(GREETING_MERGE).toContain("*|ELSE:|*Hi there,");
+  });
+});
+
+describe("insertAfterParagraph (--photo placement)", () => {
+  const p = (text: string) => ({ kind: "paragraph" as const, text });
+  const photo = [{ kind: "spacer" as const, px: 18 }, { kind: "hero" as const, src: "x", alt: "a", width: 4, height: 3 }];
+  const kinds = (b: Array<{ kind: string }>) => b.map((x) => x.kind).join(",");
+
+  test("after the last paragraph by default (0 or past the end)", () => {
+    const blocks = [p("one"), p("two"), { kind: "button" as const, label: "b", href: "h" }];
+    expect(kinds(insertAfterParagraph(blocks, photo, 0))).toBe("paragraph,paragraph,spacer,hero,button");
+    expect(kinds(insertAfterParagraph(blocks, photo, 9))).toBe("paragraph,paragraph,spacer,hero,button");
+  });
+
+  test("after paragraph n when asked", () => {
+    const blocks = [p("one"), p("two"), p("three")];
+    expect(kinds(insertAfterParagraph(blocks, photo, 1))).toBe("paragraph,spacer,hero,paragraph,paragraph");
+    expect(kinds(insertAfterParagraph(blocks, photo, 2))).toBe("paragraph,paragraph,spacer,hero,paragraph");
+  });
+
+  test("no paragraphs: the picture leads", () => {
+    expect(kinds(insertAfterParagraph([{ kind: "button" as const, label: "b", href: "h" }], photo, 1))).toBe("spacer,hero,button");
   });
 });

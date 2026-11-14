@@ -50,6 +50,8 @@ The email never says how many came: the ticket count is lower than the room (one
 
 The greeting is `Hi <first name>,` with a Mailchimp fallback to `Hi there,` when the first name is empty (about one subscriber in eight signed up with an email address only, October 2026). The monthly email has no greeting line.
 
+`--photo <file>` puts one picture from the night in the body, after the last paragraph (`--photo-after 2` puts it after the second), resized to the email width like the monthly hero and uploaded once; `--photo-alt` is the alt text and is required, `--photo-caption` adds a small line under it. The words should introduce the picture, so write the copy with it in mind (first used for the post-it drawing of the room at Jokes, Jokes, Jokes, 10 November 2026).
+
 The "next one" card promotes the same show by default; `--next comedybrew` promotes another show instead (for a touring show whose next date is in another city; the script warns when the next date is at another venue), `--next none` drops the card.
 
 The email: greeting, two or three short paragraphs, a "next one" card (series shows say the regular slot, e.g. every Thursday at ROBIN's; one-offs get the next date if there is one), a calendar button, then the faces: photo linking to Instagram with the handle underneath, grouped Host / First half / Second half in running order.

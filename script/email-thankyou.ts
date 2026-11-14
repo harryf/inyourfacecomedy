@@ -7,6 +7,7 @@
 //   bun script/email-thankyou.ts <link> --dry-run          # render + open locally, no Mailchimp
 //   bun script/email-thankyou.ts <link> --segment "<tag>"  # pick the audience segment by name
 //   bun script/email-thankyou.ts <link> --copy script/email-out/<file>.copy.json --update 8350024
+//   bun script/email-thankyou.ts <link> --photo ~/Pictures/x.jpg --photo-alt "..." --photo-caption "..."  # one picture in the body
 //
 // Flow: parse the link, resolve every comedian against _comedians/, find the
 // newest Mailchimp tag for this show (asks before using it), write the copy
@@ -16,7 +17,7 @@
 
 import { existsSync } from "node:fs";
 import { USAGE_FOOTER, confirm, fail, flagBool, flagString, loadEnv, log, parseArgs, stamp, todayISO, warn } from "./lib/email/cli";
-import { CALENDAR_URL, greetingFor, hostedName, hostedSquare, logoUrl, mailchimpFor, requireFreshCalendar, resolveCopy, signoffFor, slotFor } from "./lib/email/common";
+import { CALENDAR_URL, greetingFor, hostedName, hostedSquare, hostedWide, logoUrl, mailchimpFor, requireFreshCalendar, resolveCopy, signoffFor, slotFor } from "./lib/email/common";
 import { publish } from "./lib/email/campaign";
 import { parseEventTag, type Segment } from "./lib/email/mailchimp";
 import { renderHtml, renderText, type Block, type EmailDoc, type Face } from "./lib/email/render";
@@ -32,6 +33,10 @@ const USAGE = `Usage: bun script/email-thankyou.ts <thank-you link> [options]
   --segment <name>   Mailchimp tag/segment to send to (default: newest tag matching the show, asked)
   --date YYYY-MM-DD  show date (default: from the tag name, else the last past date of the show)
   --next <slug|none> show the "next one" card promotes (default: this show's next date)
+  --photo <file>     one picture from the night, placed in the body after the words
+  --photo-alt <text> what the picture shows (required with --photo; it is the alt text)
+  --photo-caption <text>  small line under the picture (optional)
+  --photo-after <n>  put the picture after paragraph n instead of after the last one
   --model <name>     claude model for the copy (default sonnet, or EMAIL_CLAUDE_MODEL)
 ${USAGE_FOOTER}`;
 
@@ -88,6 +93,18 @@ export function tagMatchesShow(tagName: string, show: Show, eventfrogNames: stri
   const n = norm(tagName);
   if (n.includes(norm(show.name))) return true;
   return eventfrogNames.some((e) => e && n.startsWith(norm(e)));
+}
+
+// A picture from the night (`--photo`) goes into the body after paragraph
+// `after` (1-based; past the end means after the last paragraph), so the words
+// before it can introduce it and the words after it can move on.
+export function insertAfterParagraph(blocks: Block[], extra: Block[], after: number): Block[] {
+  const idx: number[] = [];
+  blocks.forEach((b, i) => { if (b.kind === "paragraph") idx.push(i); });
+  if (!idx.length) return [...extra, ...blocks];
+  const n = Math.min(Math.max(1, Math.floor(after || idx.length)), idx.length);
+  const at = idx[n - 1] + 1;
+  return [...blocks.slice(0, at), ...extra, ...blocks.slice(at)];
 }
 
 async function main() {
@@ -212,8 +229,24 @@ async function main() {
     faceGroups.push({ label: g.label, people: faces });
   }
 
+  // One picture from the night, hosted like the monthly hero (resized to the
+  // email width, under the hero byte budget, uploaded once).
+  const photo = flagString(args, "photo");
+  const photoBlocks: Block[] = [];
+  if (photo) {
+    const alt = flagString(args, "photo-alt")?.trim();
+    if (!existsSync(photo)) fail(`--photo: no file at ${photo}`);
+    if (!alt) fail("--photo needs --photo-alt \"what the picture shows\" (the alt text)");
+    const h = await hostedWide(mc, photo, 1200, hostedName("iyf-email-photo-1200", photo, "jpg"));
+    photoBlocks.push({ kind: "spacer", px: 18 }, { kind: "hero", src: h.url, alt, width: h.width, height: h.height });
+    const caption = flagString(args, "photo-caption")?.trim();
+    if (caption) photoBlocks.push({ kind: "note", text: caption });
+    log(`  photo  ${photo} (${h.width}x${h.height})`);
+  }
+
   // Document.
-  const blocks: Block[] = copy.paragraphs.map((text) => ({ kind: "paragraph", text }));
+  let blocks: Block[] = copy.paragraphs.map((text) => ({ kind: "paragraph", text }));
+  if (photoBlocks.length) blocks = insertAfterParagraph(blocks, photoBlocks, Number(flagString(args, "photo-after") || 0));
   if (copy.ps) blocks.push({ kind: "paragraph", text: `*P.S. ${copy.ps}*` });
   if (next && nextShow) {
     blocks.push({ kind: "heading", text: nextSlot ? `${nextShow.name} is on ${nextSlot.replace(/,.*$/, "")}` : `Next ${nextShow.name}` });
