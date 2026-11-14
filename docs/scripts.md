@@ -761,7 +761,7 @@ threshold: `~/Documents/2026-09-13-comedy-brew-sales-tracking-strategy.md`. Conf
 `comedybrew:` block in `meta-ads/config.yml`. Key: `EVENTFROG_ORGANIZER` in `.env`.
 
 ```
-bun script/eventfrog-sales.ts --poll --slot daily      # 09:00: next two shows, snapshot and order rows, readout; a past show within 7 days gets its final record
+bun script/eventfrog-sales.ts --poll --slot daily      # cron 10:30 daily: next two shows, snapshot and order rows, readout; a past show within 7 days gets its final record
 bun script/eventfrog-sales.ts --poll --slot midday     # Tue and Wed 13, 17, 20: the next show only
 bun script/eventfrog-sales.ts --poll --slot showday    # Thu 10 to 20 hourly: the next show; no-op when today is not a show
 bun script/eventfrog-sales.ts --backfill [--limit 6]   # past Comedy Brews: order rows, check-ins, payouts, spend, final records
@@ -802,9 +802,12 @@ Healthchecks: create a check "IYF Eventfrog sales" (grace 26 hours), put its URL
 `EVENTFROG_HEALTHCHECKS_URL`. Every run pings success; readout lines go to `/log`; a guard
 action, a sold-out show or a rejected key goes to `/fail` (Telegram).
 
-Not scheduled yet. After a week of hand runs (`--guard` without `--apply` for the first two weeks)
-the four cron lines in `automation.md` take over: a daily snapshot, three more on Tuesday and
-Wednesday, hourly on show day, and the Saturday review.
+The daily slot runs from cron at 10:30 since 2026-11-14 (`automation.md`), after the GA report
+it reads site clicks from. The other three lines (Tuesday and Wednesday polls, the hourly
+show-day poll, the Saturday review) are documented there and not installed. The organizer
+listing drops past events within days (on 2026-11-14 it started at the show two days before),
+so the final record must come from the daily run the morning after a show; a show it missed
+needs a read by event id.
 
 Tests: `script/__tests__/eventfrog-sales.test.ts` (the client's refusals and headers, redaction,
 capacity with the student sub-category, Zürich time across the October change, the window,

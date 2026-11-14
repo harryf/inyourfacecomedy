@@ -65,7 +65,7 @@ Scheduled jobs first. "Git" says whether the script commits and pushes by itself
 | `reindex.ts` | Bumps `last_modified_at` on hand-edited pages so the sitemap `lastmod` is true, pings IndexNow, reads Google's URL Inspection (`search-console.md`) | cron, 10:50 daily | yes (only the stamp bump) |
 | `refresh-calendar-page.rb` | Regenerates `pages/1_calendar.md` from `calendar.yml` and the copy pools, validates it | cron, 11:00 Saturday and Sunday | yes |
 | `robins-calendar.ts` | ROBIN's shows into the Apple calendar shared with the bar staff, with a ticket count in the last three days | launchd, 11:05 daily | no |
-| `eventfrog-sales.ts` | Comedy Brew sales snapshots, the capacity guard, the Saturday review | by hand for now; cron lines below | no |
+| `eventfrog-sales.ts` | Comedy Brew sales snapshots, the final record the day after a show, the capacity guard, the Saturday review | cron, 10:30 daily, the daily slot only (installed 2026-11-14, after the 10:20 GA report it reads site clicks from); the midday, show-day and Saturday lines below are not installed | no |
 | `eventfrog-content.ts` | Comedy Brew titles and descriptions on Eventfrog: the series page and every upcoming date, hooks from `_data/eventfrog-copy.json`; writes only differences | cron, 09:20 daily (installed 2026-10-14; needs `EVENTFROG_ORGANIZER_WRITE`) | no |
 | `eventfrog-dates.ts` | New Comedy Brew Thursdays on Eventfrog up to the `horizon` in `_data/eventfrog-copy.json`, each a copy of the latest date with its own copy; the created ids in `script/eventfrog-out/dates-state.json`; new dates are published by hand in the Cockpit | by hand, when the horizon moves (needs `EVENTFROG_ORGANIZER_WRITE`) | no |
 | `meta-lineup-ad.ts` | The weekly lineup ad in the Buyers ad set | parked since 2026-09-18 (the ad set is paused; see `meta-ads.md`), not run | no |
@@ -174,8 +174,9 @@ what for):
 # GA annotations for show dates, after the 09:00 refresh has landed
 25 10 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/ga-annotations.ts >> script/ga-annotations.log 2>&1
 # (The Meta lineup ad lines, Monday 13:00 and Tuesday 09:00, are gone: Buyers is parked, see meta-ads.md.)
-# Comedy Brew sales (Eventfrog, read-only): daily snapshot; Tuesday and Wednesday three more; show day hourly; Saturday review
-0 9 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/eventfrog-sales.ts --poll --slot daily --guard >> script/eventfrog-sales.log 2>&1
+# Comedy Brew sales (Eventfrog, read-only): daily snapshot and the final record the day after a show, after the 10:20 GA report (installed 2026-11-14)
+30 10 * * * cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/eventfrog-sales.ts --poll --slot daily >> script/eventfrog-sales.log 2>&1
+# Not installed: the Tuesday and Wednesday polls, the hourly show-day poll and the Saturday review (the guard flag prints only; --apply writes to Meta)
 0 13,17,20 * * 2,3 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/eventfrog-sales.ts --poll --slot midday --guard >> script/eventfrog-sales.log 2>&1
 0 10-20 * * 4 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/eventfrog-sales.ts --poll --slot showday --guard >> script/eventfrog-sales.log 2>&1
 30 9 * * 6 cd /Users/harry/Code/personal/inyourfacecomedy && /Users/harry/.bun/bin/bun script/eventfrog-sales.ts --review >> script/eventfrog-sales.log 2>&1

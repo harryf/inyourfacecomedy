@@ -53,6 +53,7 @@ Run the build and the health check after every change and before saying you are 
 | 07:30 and 12:30 daily | `bun script/meta-moments.ts`: Meta moment ads (planner Sat to Mon by status; tomorrow Wed and tonight Thu to 18:00 as fresh lifetime-budget ad sets per show, scheduled on Meta), weather and holiday pick, moment and evergreen budgets; no git | `meta-moments.log` |
 | 10:05 daily | `sync-comedians.rb`: Grist to `_comedians/`, commit, push, IndexNow | `sync-comedians.log` |
 | 10:20 daily | `bun script/ga-report.ts`: GA to `/reports/`, commit, push | `ga-report.log` |
+| 10:30 daily | `bun script/eventfrog-sales.ts --poll --slot daily`: Comedy Brew sales snapshot from Eventfrog, the final record the morning after a show; no git. Eventfrog's organizer listing drops past events within days, so a missed final needs a read by event id | `eventfrog-sales.log` |
 | 11:00 Sat, Sun | `refresh-calendar-page.rb --no-refresh`: regenerate `/calendar/`, commit, push | `refresh.log` |
 | 11:05 daily, **launchd not cron** | `bun script/robins-calendar.ts`: ROBIN's shows into the staff Apple calendar; no git, no Healthchecks ping | `robins-calendar.log` |
 | 09:20 daily | `bun script/eventfrog-content.ts --apply`: Comedy Brew titles and descriptions on Eventfrog (series page plus every upcoming date) from one template and the hook pool; writes only differences; no git | `eventfrog-content.log` |
