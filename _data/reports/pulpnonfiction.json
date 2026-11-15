@@ -3,11 +3,11 @@
  "title": "Pulp Non-Fiction",
  "ticket_url": "https://eventfrog.ch/en/p/groups/pulp-non-fiction-storytelling-open-mic-zurich-7447274382609654226.html",
  "event_type": "monthly",
- "generated_at": "2026-11-14T09:20:32.210Z",
+ "generated_at": "2026-11-15T09:20:01.189Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-14",
- "complete_through": "2026-11-12",
+ "through": "2026-11-15",
+ "complete_through": "2026-11-13",
  "totals": {
   "clicks": 75,
   "redirect": 30,
@@ -15,10 +15,10 @@
   "clicks_30d": 20,
   "redirect_30d": 9,
   "click_30d": 11,
-  "views": 140,
-  "views_30d": 42,
-  "sessions": 136,
-  "sessions_30d": 39,
+  "views": 142,
+  "views_30d": 44,
+  "sessions": 137,
+  "sessions_30d": 40,
   "broken_links": 0,
   "untagged": 0
  },
@@ -660,11 +660,19 @@
    "redirect": 0,
    "click": 1,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-14",
+   "redirect": 0,
+   "click": 0,
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-15",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -742,6 +750,13 @@
    "clicks": 0,
    "views": 3,
    "sessions": 3
+  },
+  {
+   "source": "chatgpt.com",
+   "medium": "ai-assistant",
+   "clicks": 0,
+   "views": 2,
+   "sessions": 1
   },
   {
    "source": "duckduckgo",
