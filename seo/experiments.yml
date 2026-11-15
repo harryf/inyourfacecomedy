@@ -41,7 +41,7 @@
   date: 2026-11-14
   page: /comedybrew/
   queries: ["open mic zürich", "open mic zurich", "open mic comedy zürich", "open mic comedy zurich", "comedy open mic zürich"]
-  change: "Title now 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday' (Open Mic Zürich in the first 30 characters; Comedy Brew stays first because primaryTitle() in the reports and /go/ takes the text before the colon)"
+  change: "Title now 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday' (Open Mic Zürich in the first 30 characters; Comedy Brew stays first because the show name is the text before the first separator; on 15 November the colon joined that rule everywhere, flyers, h1, /go/ and the Google post included, see _includes/title-parts.liquid)"
   status: open
 - id: exp-2026-11-14-2
   date: 2026-11-14
