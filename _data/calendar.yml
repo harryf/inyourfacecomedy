@@ -5,7 +5,7 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-11-13T08:00:01+00:00'
+generated_at: '2026-11-15T08:00:02+00:00'
 event_count: 65
 events:
 - show: jokesjokesjokes
@@ -52,7 +52,7 @@ events:
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2026-11-19'
   start: '2026-11-19T19:30:00+01:00'
@@ -94,7 +94,7 @@ events:
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2026-11-26'
   start: '2026-11-26T19:30:00+01:00'
@@ -177,7 +177,7 @@ events:
   eventfrog_name: Random Facts Exchange 22 Museum Edition
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2026-12-03'
   start: '2026-12-03T19:30:00+01:00'
@@ -233,7 +233,7 @@ events:
   eventfrog_name: Jackpot Comedy
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2026-12-10'
   start: '2026-12-10T19:30:00+01:00'
@@ -303,7 +303,7 @@ events:
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2026-12-17'
   start: '2026-12-17T19:30:00+01:00'
@@ -345,7 +345,7 @@ events:
   eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2026-12-24'
   start: '2026-12-24T19:30:00+01:00'
@@ -373,7 +373,7 @@ events:
   eventfrog_name: 'The NERDY COMEDY Show: X-mas Sidequest (EN) - ZURICH'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2026-12-31'
   start: '2026-12-31T19:30:00+01:00'
@@ -387,7 +387,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Fix your Thursday boredom'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-01-07'
   start: '2027-01-07T19:30:00+01:00'
@@ -401,7 +401,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: New year, same Thursday'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-01-14'
   start: '2027-01-14T19:30:00+01:00'
@@ -429,7 +429,7 @@ events:
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-01-21'
   start: '2027-01-21T19:30:00+01:00'
@@ -443,7 +443,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Bring the flatmates'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-01-28'
   start: '2027-01-28T19:30:00+01:00'
@@ -485,7 +485,7 @@ events:
   eventfrog_name: '30 JAN: Mike Casa Show uf Schwiizerdütsch @ROBIN''S ZURICH!'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-02-04'
   start: '2027-02-04T19:30:00+01:00'
@@ -499,7 +499,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Thursday, sorted'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-02-11'
   start: '2027-02-11T19:30:00+01:00'
@@ -527,7 +527,7 @@ events:
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-02-18'
   start: '2027-02-18T19:30:00+01:00'
@@ -541,7 +541,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Not on the slopes? Thursday'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-02-25'
   start: '2027-02-25T19:30:00+01:00'
@@ -555,7 +555,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Two minutes from Central'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-03-04'
   start: '2027-03-04T19:30:00+01:00'
@@ -569,7 +569,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Lost in town? Find your funny'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-03-11'
   start: '2027-03-11T19:30:00+01:00'
@@ -611,7 +611,7 @@ events:
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-03-18'
   start: '2027-03-18T19:30:00+01:00'
@@ -625,7 +625,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Have you actually been?'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-03-25'
   start: '2027-03-25T19:30:00+01:00'
@@ -639,7 +639,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Start the long weekend early'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-04-01'
   start: '2027-04-01T19:30:00+02:00'
@@ -667,7 +667,7 @@ events:
   eventfrog_name: Digital Daddy (auf Deutsch)
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-04-08'
   start: '2027-04-08T19:30:00+02:00'
@@ -681,7 +681,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Lighter evenings, same laughs'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-04-15'
   start: '2027-04-15T19:30:00+02:00'
@@ -709,7 +709,7 @@ events:
   eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-04-22'
   start: '2027-04-22T19:30:00+02:00'
@@ -723,7 +723,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Nobody will make you talk'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-04-29'
   start: '2027-04-29T19:30:00+02:00'
@@ -737,7 +737,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Bring the flatmates'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-05-06'
   start: '2027-05-06T19:30:00+02:00'
@@ -751,7 +751,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Day off? Make a night of it'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-05-13'
   start: '2027-05-13T19:30:00+02:00'
@@ -765,7 +765,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Long weekend? Start Thursday'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-05-20'
   start: '2027-05-20T19:30:00+02:00'
@@ -779,7 +779,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Half the room came alone'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-05-27'
   start: '2027-05-27T19:30:00+02:00'
@@ -793,7 +793,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Come alone, leave with mates'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-06-03'
   start: '2027-06-03T19:30:00+02:00'
@@ -807,7 +807,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Two minutes from Central'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-06-10'
   start: '2027-06-10T19:30:00+02:00'
@@ -821,7 +821,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Lost in town? Find your funny'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-06-17'
   start: '2027-06-17T19:30:00+02:00'
@@ -835,7 +835,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: The group chat needed a plan'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-06-24'
   start: '2027-06-24T19:30:00+02:00'
@@ -849,7 +849,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Long days, late laughs'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-07-01'
   start: '2027-07-01T19:30:00+02:00'
@@ -863,7 +863,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Summer''s here, so is Thursday'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-07-08'
   start: '2027-07-08T19:30:00+02:00'
@@ -877,7 +877,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Stayed for the Thursdays'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-07-15'
   start: '2027-07-15T19:30:00+02:00'
@@ -891,7 +891,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Fix your Thursday boredom'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-07-22'
   start: '2027-07-22T19:30:00+02:00'
@@ -905,7 +905,7 @@ events:
   eventfrog_name: 'Comedy Brew, English Stand-Up: Still in town? So are we'
 - show: comedybrew
   name: Comedy Brew
-  title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
+  title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
   url: "/comedybrew/"
   date: '2027-07-29'
   start: '2027-07-29T19:30:00+02:00'
