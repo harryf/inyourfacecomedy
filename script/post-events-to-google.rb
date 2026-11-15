@@ -344,11 +344,12 @@ def in_window?(show, now)
   show.finish >= now && show.start <= now + WINDOW_DAYS * 86_400
 end
 
-# Short event title (<= TITLE_MAX): explicit TITLE: line, else the post title up to the
-# first separator (• - —), else a hard truncation.
+# Short event title (<= TITLE_MAX): explicit TITLE: line, else the show name (the post
+# title up to the first separator, the show-name contract in _includes/title-parts.liquid:
+# " • ", " | ", " ‣ ", " · ", " - " (also an em or en dash with spaces), ": "), else a hard truncation.
 def event_title(show, txt_title)
   t = txt_title
-  t ||= show.title.split(/\s[•\-—]\s/).first.to_s.strip
+  t ||= show.title.split(/\s[•|‣·]\s|\s[\u2014\u2013-]\s|:\s/).first.to_s.strip
   t = show.title.strip if t.empty?
   t = t[0, TITLE_MAX].strip if t.length > TITLE_MAX
   t

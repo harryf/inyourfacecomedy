@@ -25,6 +25,9 @@ describe("lineup-maker-2000 • splitTitle (primary segment only)", () => {
   test("returns the first segment, normalizing ' - ' and '•'", () => {
     expect(lm.splitTitle("Brexiles - The Final Countdown")).toBe("Brexiles");
     expect(lm.splitTitle("Comedy Brew • Two Halves")).toBe("Comedy Brew");
+    expect(lm.splitTitle("Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday")).toBe("Comedy Brew");
+    expect(lm.splitTitle("Jokes, Jokes, Jokes - English Stand-up comedy show")).toBe("Jokes, Jokes, Jokes");
+    expect(lm.splitTitle("Doors 19:30 | A Show")).toBe("Doors 19:30");
     expect(lm.splitTitle("Jackpot Comedy")).toBe("Jackpot Comedy");
   });
 });

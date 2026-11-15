@@ -16,9 +16,8 @@
   (e.g. "Stand-Up"); the first segment is the show name.
 {%- endcomment -%}
 {%- assign show_slug = post.permalink | replace: '/', '' | strip -%}
-{%- assign row_title_normalized = post.title | replace: ' - ', ' • ' -%}
-{%- assign row_title_parts = row_title_normalized | split: '•' -%}
-{%- assign row_primary_title = row_title_parts[0] | strip -%}
+{%- include title-parts.liquid title=post.title -%}
+{%- assign row_primary_title = title_name -%}
 <article class="iyf-show-row show-banner" data-show="{{ show_slug }}">
   {%- if post['feature-img'] -%}
     <a class="iyf-show-row__poster" href="{{ post.url | relative_url }}" aria-label="{{ post.title }}">

@@ -77,8 +77,10 @@
     return date ? base + '-' + date.replace(/-/g, '') : base;
   }
 
+  // The show-name contract (_includes/title-parts.liquid): the title up to the first
+  // separator (" • ", " | ", " ‣ ", " · ", " - " (also an em or en dash with spaces), ": ") is the show name.
   function primaryTitle(t) {
-    return (t || '').split(/\s+[•·]\s+|\s+-\s+/)[0].trim();
+    return (t || '').split(/\s[•|‣·]\s|\s[\u2014\u2013-]\s|:\s/)[0].trim();
   }
 
   // 'YYYY-MM-DD' → 'Thu 27 Aug' (noon avoids TZ edge flips).

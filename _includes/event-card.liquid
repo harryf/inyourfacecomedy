@@ -53,17 +53,14 @@
   </div>
 
   {%- comment -%}
-    Same normalize-then-split contract as _layouts/post.liquid: replace
-    ' - ' with ' • ' so both bullet and space-dash-space separators
-    collapse to one delimiter without touching inner hyphens like
-    "Stand-Up". First segment is the show name; second segment becomes
-    the small subtitle line under the title. Cards stop after parts[1]
-    because tertiary segments (e.g. Comedy Brew's "EVERY Thursday at
-    ROBINS…") are already covered by the date/venue meta row.
+    The show-name contract (_includes/title-parts.liquid): the first segment
+    is the show name; the second becomes the small subtitle line under the
+    title. Cards stop after parts[1] because tertiary segments are already
+    covered by the date/venue meta row.
   {%- endcomment -%}
-  {%- assign card_title_normalized = post.title | replace: ' - ', ' • ' -%}
-  {%- assign card_title_parts = card_title_normalized | split: '•' -%}
-  {%- assign card_primary_title = card_title_parts[0] | strip -%}
+  {%- include title-parts.liquid title=post.title -%}
+  {%- assign card_title_parts = title_parts -%}
+  {%- assign card_primary_title = title_name -%}
 
   <h3 class="iyf-event-card__title">
     <a href="{{ post.url | relative_url }}">{{ card_primary_title }}</a>

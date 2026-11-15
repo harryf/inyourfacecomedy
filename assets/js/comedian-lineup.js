@@ -128,11 +128,11 @@
     if (d.getTime() < Date.now() - 12 * 3600 * 1000) return null;
     return WD[d.getDay()] + ' · ' + d.getDate() + ' ' + MO[d.getMonth()];
   }
-  // Mirror post.liquid's title-split contract: normalize ' - ' to ' • ', split on '•';
-  // first segment is the title, the rest collapse into a ' · '-joined subtitle.
+  // The show-name contract (_includes/title-parts.liquid): the title up to the first
+  // separator (" • ", " | ", " ‣ ", " · ", " - " (also an em or en dash with spaces), ": ") is the show name,
+  // the rest collapse into a ' · '-joined subtitle. Same regex as lineup-maker-2000.js.
   function splitTitle(title) {
-    var normalized = (title || '').replace(/ - /g, ' • ');
-    var parts = normalized.split('•').map(function (s) { return s.trim(); }).filter(Boolean);
+    var parts = String(title || '').split(/\s[•|‣·]\s|\s[\u2014\u2013-]\s|:\s/).map(function (s) { return s.trim(); }).filter(Boolean);
     return {
       primary: parts[0] || 'IN YOUR FACE',
       secondary: parts.length > 1 ? parts.slice(1).join(' · ') : ''

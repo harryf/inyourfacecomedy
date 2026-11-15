@@ -188,9 +188,17 @@
     if (isNaN(d.getTime())) return '';
     return WD[d.getDay()] + ' · ' + d.getDate() + ' ' + MO[d.getMonth()];
   }
+  // The show-name contract (_includes/title-parts.liquid, CLAUDE.md "Things that bite"):
+  // a post title is "<show name><separator><the rest>". Separators: " • ", " | ", " ‣ ",
+  // " · ", " - " (also an em or en dash with spaces) and ": ". Inner hyphens ("Stand-Up") and bare colons
+  // ("19:30") are not separators. Same regex as short_name in refresh-calendar-data.rb.
+  // The regex sits inside the function on purpose: the test seam above returns before any
+  // `var` here is assigned, and function declarations are the only thing hoisted whole.
+  function titleParts(t) {
+    return String(t || '').split(/\s[•|‣·]\s|\s[\u2014\u2013-]\s|:\s/).map(function (s) { return s.trim(); }).filter(Boolean);
+  }
   function splitTitle(t) {
-    var parts = (t || '').replace(/ - /g, ' • ').split('•')
-      .map(function (s) { return s.trim(); }).filter(Boolean);
+    var parts = titleParts(t);
     return parts[0] || t || '';
   }
 
@@ -2960,7 +2968,7 @@
   // The show page's second title: "Comedy Brew • English Stand-Up Comedy Open Mic • ..." gives
   // "English Stand-Up Comedy Open Mic"; a title without one gives ''. Pure; exported.
   function showTagline(t) {
-    var parts = (t || '').replace(/ - /g, ' • ').split('•').map(function (s) { return s.trim(); }).filter(Boolean);
+    var parts = titleParts(t);
     return parts[1] || '';
   }
   // "15 Sept": the date the way the station board prints it. Pure; exported.

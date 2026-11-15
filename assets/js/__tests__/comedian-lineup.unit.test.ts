@@ -79,6 +79,10 @@ describe("comedian-lineup • splitTitle (post.liquid title contract)", () => {
   });
   test("a plain title has no secondary", () => {
     expect(cl.splitTitle("Comedy Brew")).toEqual({ primary: "Comedy Brew", secondary: "" });
+    expect(cl.splitTitle("Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday")).toEqual({
+      primary: "Comedy Brew",
+      secondary: "Open Mic Zürich, English Stand-Up Every Thursday",
+    });
   });
 });
 

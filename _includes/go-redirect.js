@@ -115,8 +115,10 @@
   }
 
   // First segment of a show title ("Comedy Brew • …" → "Comedy Brew").
+  /** The show-name contract (_includes/title-parts.liquid): the title up to the first
+   *  separator (" • ", " | ", " ‣ ", " · ", " - " (also an em or en dash with spaces), ": ") is the show name. */
   function primaryTitle(t) {
-    return (t || '').split(/\s+[•·]\s+|\s+-\s+/)[0].trim();
+    return (t || '').split(/\s[•|‣·]\s|\s[\u2014\u2013-]\s|:\s/)[0].trim();
   }
 
   /** Is this calendar event still worth sending someone to? Dates after today

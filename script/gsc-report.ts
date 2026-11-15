@@ -184,7 +184,7 @@ function loadSources(): Sources {
     bodies.set(src.path, scopeOf(src.path) === "full" ? stripMarkup(body) : "");
     if (file.startsWith("_comedians/")) names.people.push(src.title);
     if (file.startsWith("_posts/")) {
-      const short = src.title.split(/\s*[•|:]\s*|\s+-\s+/)[0];
+      const short = src.title.split(/\s[•|‣·]\s|\s[\u2014\u2013-]\s|:\s/)[0];   // the show-name contract, _includes/title-parts.liquid
       if (short && short.split(/\s+/).length <= 4) names.shows.push(short);
     }
   }

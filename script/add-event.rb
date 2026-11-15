@@ -200,7 +200,7 @@ end
 # refresh-calendar-data.rb#short_name — used here to derive a SHORT permalink
 # ("DOUBLE SHOT - English Comedy with…" → "double-shot") rather than a 60-character URL.
 def short_name(title)
-  n = title.split(/\s[•|‣·]\s|\s[—–-]\s|:/).first.to_s.strip
+  n = title.split(/\s[•|‣·]\s|\s[\u2014\u2013-]\s|:\s/).first.to_s.strip
   n.empty? ? title.strip : n
 end
 

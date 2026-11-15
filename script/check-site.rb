@@ -326,6 +326,25 @@ check("every show has a well-formed https ticket_url that renders into its page"
 end
 
 # ── Event JSON-LD ─────────────────────────────────────────────────────────────
+section "Show titles"
+# The show-name contract (_includes/title-parts.liquid, CLAUDE.md "Things that bite"):
+# the text before the first separator is the show name every generator prints (the h1,
+# the cards, the flyers, the Week Story, /go/, the reports, the Google event post). It
+# has to fit a flyer line, so it is capped; the rest of the title can say what it likes.
+TITLE_SEP = /\s[•|‣·]\s|\s[\u2014\u2013-]\s|:\s/
+SHOW_NAME_MAX = 30
+check("every show name (the title before the first separator) is at most #{SHOW_NAME_MAX} characters") do
+  long = shows.filter_map do |s|
+    name = s[:fm]["title"].to_s.split(TITLE_SEP).first.to_s.strip
+    "#{File.basename(s[:file])}: #{name.inspect} (#{name.length})" if name.length > SHOW_NAME_MAX
+  end
+  [long.empty?, long.join("; ")]
+end
+check("no show title carries an em dash") do
+  bad = shows.filter_map { |s| File.basename(s[:file]) if s[:fm]["title"].to_s.include?("\u2014") }
+  [bad.empty?, bad.join(", ")]
+end
+
 section "Event JSON-LD (rich results)"
 check("all show pages: every ld+json block is valid JSON") do
   bad = shows.select { |s| s[:dir] }.flat_map do |s|

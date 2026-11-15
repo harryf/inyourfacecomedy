@@ -23,12 +23,12 @@ layout: default
         space-padding on the dash is deliberate — never replace bare '-'
         because inner hyphens (e.g. "Stand-Up", "Stand-up") are part of
         normal words.
-        First segment is the show name (the h1). The rest collapses into a
+        The split is the show-name contract in _includes/title-parts.liquid:
+        the first segment is the show name (the h1). The rest collapses into a
         subtitle only when page.tagline isn't already providing one.
       {%- endcomment -%}
-      {%- assign title_normalized = page.title | replace: ' - ', ' • ' -%}
-      {%- assign title_parts = title_normalized | split: '•' -%}
-      {%- assign primary_title = title_parts[0] | strip -%}
+      {%- include title-parts.liquid title=page.title -%}
+      {%- assign primary_title = title_name -%}
       <h1 id="{{ page.title | cgi_escape }}" class="iyf-hero__title">{{ primary_title }}</h1>
       {% if page.tagline %}
         <p class="iyf-hero__subtitle">{{ page.tagline }}</p>

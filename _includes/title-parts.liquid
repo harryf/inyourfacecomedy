@@ -1,0 +1,18 @@
+{%- comment -%}
+  The show-name contract (CLAUDE.md, "Things that bite"). A post title is
+  "<show name><separator><the rest>", and every generator prints the show name
+  alone: the page h1, the cards and rows, the flyers, the Week Story, /go/, the
+  link builder, the reports, the calendar data and the Google event post.
+  Separators: " • ", " | ", " ‣ ", " · ", " - " (also an em or en dash with spaces) and ": ". Inner hyphens
+  ("Stand-Up") and bare colons ("19:30") are not separators. The same rule lives in
+  short_name (refresh-calendar-data.rb, add-event.rb), event_title
+  (post-events-to-google.rb), primaryTitle (go-redirect.js, link-builder.js,
+  ga-report-lib.ts) and splitTitle (lineup-maker-2000.js, comedian-lineup.js);
+  check-site.rb asserts the name is short enough for a flyer.
+
+  Usage: {% include title-parts.liquid title=post.title %}
+  Sets:  title_parts  the trimmed segments (an array, at least one)
+         title_name   the first segment, the show name
+{%- endcomment -%}
+{%- assign title_parts = include.title | replace: ' | ', ' • ' | replace: ' ‣ ', ' • ' | replace: ' · ', ' • ' | replace: ' — ', ' • ' | replace: ' – ', ' • ' | replace: ' - ', ' • ' | replace: ': ', ' • ' | split: ' • ' -%}
+{%- assign title_name = title_parts[0] | strip -%}

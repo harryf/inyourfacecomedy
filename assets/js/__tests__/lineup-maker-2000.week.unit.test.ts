@@ -216,6 +216,7 @@ describe("round seven: the station board's taglines and dates", () => {
   test("showTagline is the show page's second title segment", () => {
     expect(lm4.showTagline("Comedy Brew • English Stand-Up Comedy Open Mic • EVERY Thursday at ROBINS")).toBe("English Stand-Up Comedy Open Mic");
     expect(lm4.showTagline("Jackpot Comedy - downstairs @ OTRO")).toBe("downstairs @ OTRO");
+    expect(lm4.showTagline("Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday")).toBe("Open Mic Zürich, English Stand-Up Every Thursday");
     expect(lm4.showTagline("La Tarima - Comedia en Español")).toBe("Comedia en Español");
     expect(lm4.showTagline("Filippo Spreafico")).toBe("");
     expect(lm4.showTagline("")).toBe("");

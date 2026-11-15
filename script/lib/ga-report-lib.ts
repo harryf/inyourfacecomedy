@@ -155,8 +155,10 @@ export function parseShow(frontMatter: string): Show | null {
 
 // Post titles are SEO-length ("Comedy Brew • English Stand-Up ... Zürich"); the
 // report wants the show's name. Same split the link builder uses.
+// The show-name contract (_includes/title-parts.liquid): the title up to the first
+// separator (" • ", " | ", " ‣ ", " · ", " - " (also an em or en dash with spaces), ": ") is the show name.
 export function primaryTitle(title: string): string {
-  return title.split(/\s*[•|]\s*|:\s+|\s+-\s+/)[0].trim() || title;
+  return title.split(/\s[•|‣·]\s|\s[\u2014\u2013-]\s|:\s/)[0].trim() || title;
 }
 
 export function frontMatterOf(fileText: string): string {

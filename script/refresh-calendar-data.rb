@@ -316,9 +316,10 @@ def ticket_variants(fm, slug)
   end
 end
 
-# A human-short label for the calendar: the title up to the first separator.
+# The show name: the title up to the first separator (" • ", " | ", " ‣ ", " · ", " - " (also an em or en dash with spaces), ": "). The show-name contract: _includes/title-parts.liquid, CLAUDE.md
+# "Things that bite". A bare colon ("19:30") is not a separator.
 def short_name(title)
-  n = title.split(/\s[•|‣·]\s|\s[—–-]\s|:/).first.to_s.strip
+  n = title.split(/\s[•|‣·]\s|\s[\u2014\u2013-]\s|:\s/).first.to_s.strip
   n.empty? ? title.strip : n
 end
 

@@ -195,6 +195,7 @@ describe("go-redirect • small helpers", () => {
   test("primaryTitle takes the first segment of a show title", () => {
     expect(go.primaryTitle("Comedy Brew • English Stand-Up")).toBe("Comedy Brew");
     expect(go.primaryTitle("Jackpot Comedy - downstairs @ OTRO")).toBe("Jackpot Comedy");
+    expect(go.primaryTitle("Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday")).toBe("Comedy Brew");
     expect(go.primaryTitle("Plain Title")).toBe("Plain Title");
   });
 

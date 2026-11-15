@@ -106,8 +106,8 @@
   <ul class="iyf-related__grid" role="list">
     {%- for p in rs_picks -%}
       {%- assign rs_slug = p.url | remove: '/' -%}
-      {%- assign rs_title_normalized = p.title | replace: ' - ', ' • ' -%}
-      {%- assign rs_name = rs_title_normalized | split: '•' | first | strip -%}
+      {%- include title-parts.liquid title=p.title -%}
+      {%- assign rs_name = title_name -%}
       {%- assign rs_img = p.image | default: p['feature-img'] -%}
       {%- assign rs_desc = p.tagline | default: p.description | strip_html | strip_newlines | truncate: 160 -%}
       <li class="iyf-related__item show-banner" data-show="{{ rs_slug }}">
