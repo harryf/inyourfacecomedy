@@ -1,8 +1,8 @@
 ---
 layout: comedian
-title: "Francesca o Frances"
-description: "Comedian on IN YOUR FACE Comedy stages in Zürich. 👩‍💻 Book Engineer 🤓 🤷 I think I was born in the wrong year 🕰️"
-last_modified_at: "2026-11-15T17:54:57+00:00"
+title: "Frances D."
+description: "Comedian on IN YOUR FACE Comedy stages in Zürich. Frances D. is Italian for generations, lives in a permanent disappointment state of mind, and is an incurable improv lover."
+last_modified_at: "2026-11-15T21:46:11+00:00"
 slug: "fradalla"
 photo: "/assets/img/comedians/fradalla.jpg"
 instagram: "https://instagram.com/fradalla"
@@ -14,7 +14,6 @@ website: "https://substack.com/@fradalla"
 priority: "Low"
 image: "/assets/img/comedians/fradalla.jpg"
 bio: |
-  👩‍💻 Book Engineer 🤓
-  🤷 I think I was born in the wrong year 🕰️
+  Frances D. is Italian for generations, lives in a permanent disappointment state of mind, and is an incurable improv lover.
 ---
 
