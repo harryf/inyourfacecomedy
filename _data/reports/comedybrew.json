@@ -3,22 +3,22 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/comedy-brew-english-stand-up-open-mic-every-thursday-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-11-15T09:20:01.189Z",
+ "generated_at": "2026-11-16T09:20:01.660Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-15",
- "complete_through": "2026-11-13",
+ "through": "2026-11-16",
+ "complete_through": "2026-11-14",
  "totals": {
-  "clicks": 5754,
-  "redirect": 5353,
+  "clicks": 5824,
+  "redirect": 5423,
   "click": 401,
-  "clicks_30d": 2730,
+  "clicks_30d": 2726,
   "redirect_30d": 2576,
-  "click_30d": 154,
-  "views": 972,
-  "views_30d": 361,
-  "sessions": 920,
-  "sessions_30d": 351,
+  "click_30d": 150,
+  "views": 982,
+  "views_30d": 360,
+  "sessions": 929,
+  "sessions_30d": 349,
   "broken_links": 0,
   "untagged": 0
  },
@@ -668,14 +668,22 @@
    "redirect": 142,
    "click": 3,
    "views": 8,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-15",
+   "redirect": 70,
+   "click": 0,
+   "views": 9,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-16",
    "redirect": 10,
    "click": 0,
-   "views": 1,
+   "views": 2,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -684,7 +692,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 5227,
+   "clicks": 5297,
    "views": 9,
    "sessions": 9
   },
@@ -692,8 +700,8 @@
    "source": "google",
    "medium": "organic",
    "clicks": 192,
-   "views": 362,
-   "sessions": 342
+   "views": 366,
+   "sessions": 345
   },
   {
    "source": "instagram",
@@ -706,8 +714,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 97,
-   "views": 343,
-   "sessions": 318
+   "views": 345,
+   "sessions": 320
   },
   {
    "source": "guidle",
@@ -843,18 +851,18 @@
    "sessions": 46
   },
   {
+   "source": "eventfrog",
+   "medium": "referral",
+   "clicks": 0,
+   "views": 39,
+   "sessions": 38
+  },
+  {
    "source": "VA LBHE ABDF Dbzfel",
    "medium": "email",
    "clicks": 0,
    "views": 39,
    "sessions": 36
-  },
-  {
-   "source": "eventfrog",
-   "medium": "referral",
-   "clicks": 0,
-   "views": 35,
-   "sessions": 34
   },
   {
    "source": "facebook.com",
@@ -876,13 +884,13 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 1325,
+   "clicks": 1334,
    "first": "2026-08-26",
-   "last": "2026-11-15",
+   "last": "2026-11-16",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 1267
+     "clicks": 1276
     }
    ]
   },
@@ -890,9 +898,9 @@
    "campaign": "cold",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 972,
+   "clicks": 981,
    "first": "2026-09-13",
-   "last": "2026-11-15",
+   "last": "2026-11-16",
    "content": [
     {
      "content": "cold-C13",
@@ -900,7 +908,7 @@
     },
     {
      "content": "cold-C7",
-     "clicks": 356
+     "clicks": 365
     },
     {
      "content": "cold-C4v",
@@ -994,13 +1002,13 @@
    "campaign": "warm",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 613,
+   "clicks": 627,
    "first": "2026-09-13",
-   "last": "2026-11-15",
+   "last": "2026-11-16",
    "content": [
     {
      "content": "warm-W6",
-     "clicks": 432
+     "clicks": 446
     },
     {
      "content": "warm-W9",
@@ -1128,17 +1136,17 @@
    "campaign": "cold-planner",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 315,
+   "clicks": 344,
    "first": "2026-10-04",
-   "last": "2026-11-15",
+   "last": "2026-11-16",
    "content": [
     {
      "content": "cold-C18",
-     "clicks": 235
+     "clicks": 262
     },
     {
      "content": "cold-C19",
-     "clicks": 68
+     "clicks": 70
     },
     {
      "content": "cold-C20",
@@ -1196,13 +1204,13 @@
    "campaign": "warm-planner",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 135,
+   "clicks": 144,
    "first": "2026-10-04",
    "last": "2026-11-15",
    "content": [
     {
      "content": "warm-W12",
-     "clicks": 106
+     "clicks": 115
     },
     {
      "content": "warm-W13",

@@ -3,22 +3,22 @@
  "title": "Jokes, Jokes, Jokes",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jokes-jokes-jokes-english-stand-up-comedy-show-7519756165535785039.html",
  "event_type": "series",
- "generated_at": "2026-11-15T09:20:01.189Z",
+ "generated_at": "2026-11-16T09:20:01.660Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-15",
- "complete_through": "2026-11-13",
+ "through": "2026-11-16",
+ "complete_through": "2026-11-14",
  "totals": {
-  "clicks": 920,
-  "redirect": 800,
-  "click": 120,
-  "clicks_30d": 754,
-  "redirect_30d": 673,
-  "click_30d": 81,
-  "views": 194,
-  "views_30d": 96,
-  "sessions": 187,
-  "sessions_30d": 96,
+  "clicks": 998,
+  "redirect": 874,
+  "click": 124,
+  "clicks_30d": 824,
+  "redirect_30d": 739,
+  "click_30d": 85,
+  "views": 196,
+  "views_30d": 98,
+  "sessions": 189,
+  "sessions_30d": 98,
   "broken_links": 0,
   "untagged": 0
  },
@@ -668,12 +668,20 @@
    "redirect": 37,
    "click": 1,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-15",
-   "redirect": 8,
+   "redirect": 73,
+   "click": 4,
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-16",
+   "redirect": 9,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -684,30 +692,30 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 769,
+   "clicks": 842,
    "views": 0,
    "sessions": 0
   },
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 57,
+   "clicks": 60,
    "views": 45,
    "sessions": 45
   },
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 31,
-   "views": 5,
-   "sessions": 6
+   "clicks": 32,
+   "views": 6,
+   "sessions": 7
   },
   {
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 20,
-   "views": 51,
-   "sessions": 51
+   "views": 52,
+   "sessions": 52
   },
   {
    "source": "guidle",
@@ -731,15 +739,15 @@
    "sessions": 10
   },
   {
-   "source": "meetup",
-   "medium": "referral",
-   "clicks": 3,
+   "source": "reddit",
+   "medium": "social",
+   "clicks": 4,
    "views": 0,
    "sessions": 0
   },
   {
-   "source": "reddit",
-   "medium": "social",
+   "source": "meetup",
+   "medium": "referral",
    "clicks": 3,
    "views": 0,
    "sessions": 0
@@ -792,21 +800,21 @@
    "campaign": "jokesjokesjokes",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 592,
+   "clicks": 630,
    "first": "2026-10-13",
-   "last": "2026-11-15",
+   "last": "2026-11-16",
    "content": [
     {
      "content": "52679097035400",
-     "clicks": 474
+     "clicks": 509
     },
     {
      "content": "52683271279600",
-     "clicks": 23
+     "clicks": 25
     },
     {
      "content": "52683614964400",
-     "clicks": 18
+     "clicks": 19
     }
    ]
   },
@@ -814,13 +822,13 @@
    "campaign": "jokesjokesjokes-interactive",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 177,
+   "clicks": 212,
    "first": "2026-11-05",
-   "last": "2026-11-15",
+   "last": "2026-11-16",
    "content": [
     {
      "content": "52686062235600",
-     "clicks": 163
+     "clicks": 198
     }
    ]
   },
@@ -848,6 +856,15 @@
    ]
   },
   {
+   "campaign": "jokesjokesjokes",
+   "source": "reddit",
+   "medium": "social",
+   "clicks": 4,
+   "first": "2026-11-07",
+   "last": "2026-11-15",
+   "content": []
+  },
+  {
    "campaign": "jokesjokesjokes-20260915",
    "source": "instagram",
    "medium": "social",
@@ -871,15 +888,6 @@
    "medium": "referral",
    "clicks": 3,
    "first": "2026-09-15",
-   "last": "2026-11-14",
-   "content": []
-  },
-  {
-   "campaign": "jokesjokesjokes",
-   "source": "reddit",
-   "medium": "social",
-   "clicks": 3,
-   "first": "2026-11-07",
    "last": "2026-11-14",
    "content": []
   },
@@ -919,10 +927,10 @@
  "by_variant": [
   {
    "variant": "interactive",
-   "clicks": 177,
-   "clicks_30d": 177,
+   "clicks": 212,
+   "clicks_30d": 212,
    "first": "2026-11-05",
-   "last": "2026-11-15"
+   "last": "2026-11-16"
   }
  ],
  "csv": "/assets/reports/jokesjokesjokes.csv"
