@@ -3,11 +3,12 @@ layout: post
 editable: "true"
 title: "Mike Casa uf Schwiizerdütsch"
 description: "Mike Casa live im ROBIN's Zürich, diesmal komplett auf Schweizerdeutsch: brandneues Material, Publikumslieblinge und ein Opening Act. Samstag, 30. Januar 2027, Türöffnung 19:00."
-last_modified_at: 2026-11-08T09:50:01+00:00
+last_modified_at: 2026-11-16T08:00:01+00:00
 feature-img: "/assets/img/uploads/mike-casa-schwiizerduetsch_feature.webp"
 image: "/assets/img/uploads/mike-casa-schwiizerduetsch_feature.webp"
 excerpt_separator: <!--more-->
 ticket_url: "https://eventfrog.ch/de/p/comedy/comedy-kabarett/30-jan-mike-casa-show-uf-schwiizerduetsch-robin-s-zurich-zuerich-7524856337496327654.html"
+ticket_url_resolved: https://eventfrog.ch/de/p/comedy/comedy-kabarett/30-jan-mike-casa-uf-schwiizerduetsch-tryout-robin-s-zurich-zuerich-7524856337496327654.html
 permalink: /mike-casa-schwiizerduetsch/
 hosts_label: "Starring"
 hosts:
@@ -21,7 +22,7 @@ start_time: "20:00"
 default_duration_minutes: 150
 next_event_date: 2027-01-30T20:00:00+01:00
 next_event_end_date: 2027-01-30T22:00:00+01:00
-price_chf: 39
+price_chf: 25
 ---
 ## Mike Casa uf Schwiizerdütsch
 

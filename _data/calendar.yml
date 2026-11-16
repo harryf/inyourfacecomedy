@@ -5,7 +5,7 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-11-15T08:00:02+00:00'
+generated_at: '2026-11-16T08:00:01+00:00'
 event_count: 65
 events:
 - show: jokesjokesjokes
@@ -479,10 +479,10 @@ events:
   venue: robins
   venue_name: ROBIN's
   location: ROBIN'S Coffee
-  price_chf: 39
+  price_chf: 25
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/30-jan-mike-casa-show-uf-schwiizerduetsch-robin-s-zurich-zuerich-7524856337496327654.html
-  eventfrog_name: '30 JAN: Mike Casa Show uf Schwiizerdütsch @ROBIN''S ZURICH!'
+  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/30-jan-mike-casa-uf-schwiizerduetsch-tryout-robin-s-zurich-zuerich-7524856337496327654.html
+  eventfrog_name: '30 JAN: Mike Casa uf Schwiizerdütsch TRYOUT @ROBIN''S ZURICH!'
 - show: comedybrew
   name: Comedy Brew
   title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
