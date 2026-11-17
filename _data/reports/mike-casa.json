@@ -3,21 +3,21 @@
  "title": "Mike Casa",
  "ticket_url": "https://eventfrog.ch/en/p/comedy/comedy-cabaret/2-dec-mike-casa-stand-up-comedy-show-robin-s-zurich-zuerich-7507006161725486601.html",
  "event_type": "one-off",
- "generated_at": "2026-11-16T09:20:01.660Z",
+ "generated_at": "2026-11-17T09:20:02.159Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-16",
- "complete_through": "2026-11-14",
+ "through": "2026-11-17",
+ "complete_through": "2026-11-15",
  "totals": {
-  "clicks": 13,
+  "clicks": 14,
   "redirect": 0,
-  "click": 13,
-  "clicks_30d": 10,
+  "click": 14,
+  "clicks_30d": 11,
   "redirect_30d": 0,
-  "click_30d": 10,
-  "views": 75,
+  "click_30d": 11,
+  "views": 76,
   "views_30d": 50,
-  "sessions": 72,
+  "sessions": 73,
   "sessions_30d": 49,
   "broken_links": 0,
   "untagged": 0
@@ -676,13 +676,21 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-16",
    "redirect": 0,
    "click": 0,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-17",
+   "redirect": 0,
+   "click": 1,
    "views": 1,
    "provisional": true,
    "clicks_tracked": true
@@ -697,18 +705,18 @@
    "sessions": 23
   },
   {
+   "source": "IN YOUR FACE Comedy",
+   "medium": "email",
+   "clicks": 3,
+   "views": 8,
+   "sessions": 9
+  },
+  {
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 2,
    "views": 20,
    "sessions": 21
-  },
-  {
-   "source": "IN YOUR FACE Comedy",
-   "medium": "email",
-   "clicks": 2,
-   "views": 7,
-   "sessions": 8
   },
   {
    "source": "chatgpt.com",
