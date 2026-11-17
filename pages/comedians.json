@@ -1,0 +1,38 @@
+---
+layout: null
+permalink: /comedians.json
+sitemap: false
+---
+{%- comment -%}
+  Machine-readable roster: every comedian on the site plus every bookable show, for the
+  Stage Timer tablet (repo harryf/comedy_timer), which refreshes its offline copy from here.
+  Same data the /lineup/ tool embeds (_includes/iyf-catalogs.liquid), so a Lineup Maker
+  link resolves to the same names here and there.
+  Source: _comedians/ (generated from Grist, never hand-edited) and the show posts.
+  `updated` is the comedian's last_modified_at: the tablet fetches a photo again only when it changes.
+{%- endcomment -%}
+{%- assign shows = site.posts | where_exp: "p", "p.ticket_url" -%}
+{
+  "generated_at": {{ site.time | date_to_xmlschema | jsonify }},
+  "comedians": [
+{%- for c in site.comedians %}
+    {
+      "slug": {{ c.slug | jsonify }},
+      "name": {{ c.title | jsonify }},
+      "instagram": {{ c.instagram | default: "" | jsonify }},
+      "photo": {% if c.photo %}{{ c.photo | absolute_url | jsonify }}{% else %}null{% endif %},
+      "updated": {{ c.last_modified_at | default: "" | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+{%- endfor %}
+  ],
+  "shows": [
+{%- for s in shows -%}
+{%- include title-parts.liquid title=s.title %}
+    {
+      "slug": {{ s.url | remove: "/" | jsonify }},
+      "name": {{ title_name | jsonify }},
+      "hosts": {% if s.hosts %}{{ s.hosts | jsonify }}{% else %}[]{% endif %}
+    }{% unless forloop.last %},{% endunless %}
+{%- endfor %}
+  ]
+}
