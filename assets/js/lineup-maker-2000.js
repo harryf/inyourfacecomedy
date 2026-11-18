@@ -81,7 +81,7 @@
       weekHandles: weekHandles, weekHandlesText: weekHandlesText, weekCaption: weekCaption, weekCalLink: function () { return WEEK_CAL_LINK; },
       weekIsoWeek: weekIsoWeek, weekComicLayout: weekComicLayout, flapLines: flapLines, weekComicWeight: weekComicWeight, weekMenuPrice: weekMenuPrice, weekHauntHeadlines: weekHauntHeadlines, showTagline: showTagline, weekDateBoard: weekDateBoard, weekInfoFor: weekInfoFor, stripEmoji: stripEmoji, weekInfoLines: weekInfoLines, weekVenueShort: weekVenueShort,
       isGuest: isGuest, guestName: guestName, guestToken: guestToken, instaHandle: instaHandle,
-      lineupUtm: lineupUtm, ticketQuery: ticketQuery
+      lineupUtm: lineupUtm, ticketQuery: ticketQuery, toonPixels: toonPixels
     };
     return;
   }
@@ -2203,6 +2203,10 @@
       { style: 'lineup', text: '#0F0F10', field: '#FFD54F', kind: 'small' },   // host placard
       { style: 'lineup', text: '#FFF3E0', field: '#E53935', kind: 'large' },   // case strip
       { style: 'lineup', text: '#FFF3E0', field: '#0F0F10', kind: 'small' },   // date bar
+      { style: 'vice', text: '#FFF3E0', field: '#0F0F10', kind: 'small' },     // name banners, venue and the friends line on the ink ground
+      { style: 'vice', text: '#0F0F10', field: '#FFD54F', kind: 'small' },     // HOST tab
+      { style: 'vice', text: '#FFF3E0', field: '#E53935', kind: 'large' },     // date pill (bold 40px)
+      { style: 'vice', text: '#FFD54F', field: '#0F0F10', kind: 'large' },     // title fill inside its ink outline, tagline on the ink sky
       { style: 'week-type', text: '#B9B2A6', field: '#0F0F10', kind: 'small' }, // venue and time on the ink field
       { style: 'week-swiss', text: '#5A5A5E', field: '#F2F2EE', kind: 'small' }, // venue line on the paper
       { style: 'week-ticket', text: '#2B2B2B', field: '#FBF7EE', kind: 'small' }, // stub text
@@ -2695,6 +2699,257 @@
     }
   }
 
+  // --- STYLE 8: Vice (the open-world game loading screen) ---------------------
+  // The look of a certain open-world game's cover and loading screens, in brand colours
+  // and without a word of its trademarks on the canvas: a sunset field (ink sky to red to
+  // a yellow horizon), a striped sun, a perspective grid on an ink ground, palm silhouettes,
+  // and every performer as a loading-screen panel: a flat colour card with a thick ink
+  // frame, the photo run through a cel-shade filter (smoothed, saturated, posterized, ink
+  // outlines from an edge pass) so the faces read as game art, a skewed ink name banner,
+  // a yellow HOST tab, five stars on the headliner. The title is Anton with a heavy ink
+  // outline and a yellow-to-cream fill, the game logo's shape without its font.
+
+  // The cel-shade kernel over raw RGBA pixels, in place. Pure (no DOM), exported for tests.
+  // 1. two 3x3 box blurs flatten skin and fabric into regions; 2. saturation up; 3. each
+  // channel quantized to `levels` steps so every region is a flat fill; 4. a Sobel pass on
+  // the blurred luminance finds the edges, which are pulled towards ink in proportion to
+  // their strength. Alpha is untouched.
+  function toonPixels(d, w, h, opts) {
+    opts = opts || {};
+    var levels = opts.levels || 5, sat = opts.sat != null ? opts.sat : 1.45;
+    var lo = opts.edgeLo != null ? opts.edgeLo : 40, hi = opts.edgeHi != null ? opts.edgeHi : 150;
+    var n = w * h, src = new Float32Array(n * 3), buf = new Float32Array(n * 3), i, x, y, c;
+    for (i = 0; i < n; i++) { src[i * 3] = d[i * 4]; src[i * 3 + 1] = d[i * 4 + 1]; src[i * 3 + 2] = d[i * 4 + 2]; }
+    function blur(from, to) {
+      for (y = 0; y < h; y++) for (x = 0; x < w; x++) {
+        var r = 0, g = 0, b = 0, k = 0;
+        for (var dy = -1; dy <= 1; dy++) { var yy = y + dy; if (yy < 0 || yy >= h) continue;
+          for (var dx = -1; dx <= 1; dx++) { var xx = x + dx; if (xx < 0 || xx >= w) continue;
+            var j = (yy * w + xx) * 3; r += from[j]; g += from[j + 1]; b += from[j + 2]; k++; } }
+        var o = (y * w + x) * 3; to[o] = r / k; to[o + 1] = g / k; to[o + 2] = b / k;
+      }
+    }
+    blur(src, buf); blur(buf, src);          // src now holds the smoothed image
+    var lum = new Float32Array(n);
+    for (i = 0; i < n; i++) lum[i] = 0.299 * src[i * 3] + 0.587 * src[i * 3 + 1] + 0.114 * src[i * 3 + 2];
+    var step = 255 / (levels - 1);
+    for (i = 0; i < n; i++) {
+      var l = lum[i];
+      for (c = 0; c < 3; c++) {
+        var v = l + (src[i * 3 + c] - l) * sat;                 // saturation about the luminance
+        v = Math.round(v / step) * step;                        // posterize
+        buf[i * 3 + c] = v < 0 ? 0 : v > 255 ? 255 : v;
+      }
+    }
+    for (y = 0; y < h; y++) for (x = 0; x < w; x++) {
+      var x0 = x > 0 ? x - 1 : x, x1 = x < w - 1 ? x + 1 : x, y0 = y > 0 ? y - 1 : y, y1 = y < h - 1 ? y + 1 : y;
+      var gx = (lum[y0 * w + x1] + 2 * lum[y * w + x1] + lum[y1 * w + x1]) - (lum[y0 * w + x0] + 2 * lum[y * w + x0] + lum[y1 * w + x0]);
+      var gy = (lum[y1 * w + x0] + 2 * lum[y1 * w + x] + lum[y1 * w + x1]) - (lum[y0 * w + x0] + 2 * lum[y0 * w + x] + lum[y0 * w + x1]);
+      var mag = Math.sqrt(gx * gx + gy * gy);
+      var e = mag <= lo ? 0 : mag >= hi ? 1 : (mag - lo) / (hi - lo);
+      var keep = 1 - e * 0.88, o2 = (y * w + x) * 3, p = (y * w + x) * 4;
+      d[p] = buf[o2] * keep; d[p + 1] = buf[o2 + 1] * keep; d[p + 2] = buf[o2 + 2] * keep;
+    }
+    return d;
+  }
+  // Cover-fit copy of an image on an offscreen canvas with the cel-shade applied. Same
+  // taint guard as monoImage: a tainted canvas keeps the plain photo so the render never fails.
+  function toonImage(img, w, h) {
+    var off = document.createElement('canvas');
+    off.width = Math.max(1, Math.round(w));
+    off.height = Math.max(1, Math.round(h));
+    var c = off.getContext('2d');
+    drawCover(c, img, 0, 0, off.width, off.height);
+    try {
+      var id = c.getImageData(0, 0, off.width, off.height);
+      toonPixels(id.data, off.width, off.height);
+      c.putImageData(id, 0, 0);
+    } catch (e) { /* tainted canvas: keep the plain photo */ }
+    return off;
+  }
+
+  var VICE_FIELDS = ['#E53935', '#FFD54F', '#FFF3E0'];
+
+  // The field: ink sky with seeded stars, a sunset to a yellow horizon, a striped sun, the
+  // ink ground with a perspective grid, palms either side. horizonY is where the ground starts.
+  function drawViceField(ctx, spec, slug, horizonY) {
+    var W = spec.w, H = spec.h, cx = W / 2;
+    var sky = ctx.createLinearGradient(0, 0, 0, horizonY);
+    sky.addColorStop(0, '#0F0F10'); sky.addColorStop(0.42, '#5A1116'); sky.addColorStop(0.72, '#B71C1C'); sky.addColorStop(0.9, '#E53935'); sky.addColorStop(1, '#FFD54F');
+    ctx.fillStyle = sky; ctx.fillRect(0, 0, W, horizonY);
+    var seed = ticketHash(slug + '|vice');
+    ctx.fillStyle = '#FFF3E0';
+    for (var i = 0; i < 70; i++) {
+      seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+      var sx = (seed % 10000) / 10000 * W, sy = ((seed >>> 8) % 10000) / 10000 * horizonY * 0.45;
+      var sr = 1 + ((seed >>> 16) % 3) * 0.7;
+      ctx.globalAlpha = 0.35 + ((seed >>> 20) % 10) / 20;
+      ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    // striped sun sitting on the horizon
+    var sunR = Math.round(W * 0.30), sunY = horizonY - sunR * 0.18;
+    ctx.save();
+    ctx.beginPath(); ctx.rect(0, 0, W, horizonY); ctx.clip();
+    var sun = ctx.createLinearGradient(0, sunY - sunR, 0, sunY + sunR);
+    sun.addColorStop(0, '#FFD54F'); sun.addColorStop(0.55, '#FFB300'); sun.addColorStop(1, '#E53935');
+    ctx.fillStyle = sun; ctx.beginPath(); ctx.arc(cx, sunY, sunR, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#B71C1C';
+    for (var k = 0, yy = sunY + sunR * 0.12, gapS = 10; yy < sunY + sunR; k++) { ctx.fillRect(cx - sunR, yy, sunR * 2, 4 + k * 2.2); yy += gapS + 4 + k * 2.2; gapS += 6; }
+    ctx.restore();
+    // ground: ink with a yellow perspective grid, lines fading away from the horizon
+    ctx.fillStyle = '#0F0F10'; ctx.fillRect(0, horizonY, W, H - horizonY);
+    ctx.save();
+    ctx.strokeStyle = '#FFD54F'; ctx.lineWidth = 2;
+    for (var vx = -W * 1.6; vx <= W * 2.6; vx += W * 0.2) {
+      ctx.globalAlpha = 0.22; ctx.beginPath(); ctx.moveTo(cx + (vx - cx) * 0.08, horizonY); ctx.lineTo(vx, H); ctx.stroke();
+    }
+    for (var t = 0.03, j = 0; t < 1; t = t * 1.42 + 0.02, j++) {
+      var gy = horizonY + (H - horizonY) * t;
+      ctx.globalAlpha = 0.12 + Math.min(0.3, t * 0.4); ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke();
+    }
+    ctx.restore();
+    var hz = ctx.createLinearGradient(0, horizonY - 2, 0, horizonY + 36);
+    hz.addColorStop(0, 'rgba(255,213,79,0.9)'); hz.addColorStop(1, 'rgba(255,213,79,0)');
+    ctx.fillStyle = hz; ctx.fillRect(0, horizonY - 2, W, 38);
+    drawPalm(ctx, spec.keySide + 6, horizonY + 30, Math.round(horizonY * 0.62), -1);
+    drawPalm(ctx, W - spec.keySide - 6, horizonY + 12, Math.round(horizonY * 0.56), 1);
+  }
+
+  // One palm silhouette in ink: a bowed trunk from (x, baseY), eleven fronds fanned over
+  // the top half and drooping at the tips, thin leaflets along each. dir leans the trunk
+  // (-1 left, 1 right).
+  function drawPalm(ctx, x, baseY, h, dir) {
+    var topX = x + dir * h * 0.14, topY = baseY - h, len = h * 0.42;
+    ctx.save();
+    ctx.strokeStyle = '#0F0F10'; ctx.fillStyle = '#0F0F10'; ctx.lineCap = 'round';
+    ctx.lineWidth = Math.max(10, h * 0.05);
+    ctx.beginPath(); ctx.moveTo(x, baseY); ctx.quadraticCurveTo(x - dir * h * 0.04, baseY - h * 0.55, topX, topY); ctx.stroke();
+    for (var i = 0; i < 11; i++) {
+      var a = -Math.PI * 0.97 + (Math.PI * 0.94) * i / 10, fl = len * (0.8 + 0.2 * ((i * 5) % 3) / 2);
+      var mx = topX + Math.cos(a) * fl * 0.55, my = topY + Math.sin(a) * fl * 0.55 - fl * 0.22;
+      var ex = topX + Math.cos(a) * fl, ey = topY + Math.sin(a) * fl + fl * 0.4;
+      ctx.lineWidth = Math.max(5, h * 0.022);
+      ctx.beginPath(); ctx.moveTo(topX, topY); ctx.quadraticCurveTo(mx, my, ex, ey); ctx.stroke();
+      ctx.lineWidth = Math.max(2.5, h * 0.011);
+      for (var t = 0.25; t < 0.98; t += 0.09) {
+        var px = (1 - t) * (1 - t) * topX + 2 * (1 - t) * t * mx + t * t * ex, py = (1 - t) * (1 - t) * topY + 2 * (1 - t) * t * my + t * t * ey;
+        var ll = fl * 0.13 * (1 - t * 0.5);
+        ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px + Math.cos(a + 0.9) * ll, py + Math.sin(a + 0.9) * ll + ll * 0.5); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px + Math.cos(a - 0.9) * ll, py + Math.sin(a - 0.9) * ll + ll * 0.5); ctx.stroke();
+      }
+    }
+    ctx.beginPath(); ctx.arc(topX, topY, Math.max(8, h * 0.045), 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+  }
+
+  // One loading-screen panel: a tilted flat colour card with an ink frame and shadow, the
+  // cel-shaded photo, a skewed ink banner with the name, HOST tab, stars on the headliner.
+  function drawVicePanel(ctx, it, cx, topY, w, idx) {
+    var h = Math.round(w * 1.3), frame = Math.max(6, Math.round(w * 0.04)), tilt = TILTS[idx % TILTS.length] * 0.55;
+    var field = VICE_FIELDS[idx % VICE_FIELDS.length];
+    ctx.save();
+    ctx.translate(cx, topY + h / 2); ctx.rotate(tilt * Math.PI / 180);
+    var x = -w / 2, y = -h / 2;
+    ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 20; ctx.shadowOffsetY = 10;
+    ctx.fillStyle = '#0F0F10'; ctx.fillRect(x, y, w, h);
+    ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
+    ctx.fillStyle = field; ctx.fillRect(x + frame, y + frame, w - 2 * frame, h - 2 * frame);
+    var bannerH = Math.round(w * 0.24), inset = frame * 2;
+    var px = x + inset, py = y + inset, pw = w - 2 * inset, ph = h - 2 * inset - bannerH + frame;
+    if (it.img) ctx.drawImage(toonImage(it.img, pw, ph), px, py, pw, ph);
+    else {
+      ctx.fillStyle = '#2A2A2D'; ctx.fillRect(px, py, pw, ph);
+      ctx.fillStyle = '#FFD54F'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(pw * 0.55) + 'px ' + FONT_DISPLAY;
+      ctx.fillText((it.name || '?').charAt(0).toUpperCase(), px + pw / 2, py + ph / 2 + 4);
+    }
+    ctx.strokeStyle = '#0F0F10'; ctx.lineWidth = Math.max(3, Math.round(frame * 0.5)); ctx.strokeRect(px, py, pw, ph);
+    // name banner, skewed like a loading-screen caption
+    var by = y + h - frame - bannerH, skew = Math.round(w * 0.06);
+    ctx.fillStyle = '#0F0F10';
+    ctx.beginPath(); ctx.moveTo(x + frame, by); ctx.lineTo(x + w - frame, by + skew * 0.4); ctx.lineTo(x + w - frame, y + h - frame); ctx.lineTo(x + frame, y + h - frame); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    var cap = firstName(it.name).toUpperCase();
+    fitFont(ctx, cap, w - frame * 2 - 12, Math.round(bannerH * 0.72), 18, '400', FONT_DISPLAY);
+    ctx.fillText(cap, 0, by + (y + h - frame - by) / 2 + skew * 0.2 + 2);
+    if (it.isHost) {
+      var tw = Math.round(w * 0.42), th = Math.round(w * 0.15);
+      ctx.fillStyle = '#FFD54F'; ctx.fillRect(x - 4, y + frame + Math.round(w * 0.06), tw, th);
+      ctx.strokeStyle = '#0F0F10'; ctx.lineWidth = 3; ctx.strokeRect(x - 4, y + frame + Math.round(w * 0.06), tw, th);
+      ctx.fillStyle = '#0F0F10'; ctx.font = '700 ' + Math.round(th * 0.62) + 'px ' + FONT_BODY; ctx.textAlign = 'center';
+      ctx.fillText('HOST', x - 4 + tw / 2, y + frame + Math.round(w * 0.06) + th / 2 + 1);
+    }
+    if (it.headliner) {
+      var sr = Math.max(9, Math.round(w * 0.055)), gap = sr * 2.5, sy = y + frame + Math.round(w * 0.1);
+      for (var s = 0; s < 5; s++) drawStar(ctx, w / 2 - frame - sr * 1.4 - (4 - s) * gap, sy, sr, '#FFD54F', '#0F0F10');
+    }
+    ctx.restore();
+  }
+  function drawStar(ctx, cx, cy, r, fill, stroke) {
+    ctx.beginPath();
+    for (var i = 0; i < 10; i++) {
+      var rr = i % 2 ? r * 0.45 : r, a = -Math.PI / 2 + i * Math.PI / 5;
+      if (i) ctx.lineTo(cx + Math.cos(a) * rr, cy + Math.sin(a) * rr); else ctx.moveTo(cx + Math.cos(a) * rr, cy + Math.sin(a) * rr);
+    }
+    ctx.closePath();
+    ctx.fillStyle = fill; ctx.fill();
+    ctx.strokeStyle = stroke; ctx.lineWidth = Math.max(2, r * 0.18); ctx.lineJoin = 'round'; ctx.stroke();
+  }
+
+  // The title in the game logo's shape: Anton, a heavy ink outline, a yellow-to-cream fill
+  // and an ink drop. Fitted in the weight it is drawn. Returns the block top.
+  function drawViceTitle(ctx, spec, m, baselineY, startPx) {
+    var cx = spec.w / 2, maxW = spec.w - (spec.keySide + 24) * 2;
+    var text = (m.show ? splitTitle(m.show.title) : 'IN YOUR FACE').toUpperCase();
+    var ttl = fitTitle(ctx, text, maxW, startPx, 60, 2, FONT_DISPLAY);
+    var lineH = ttl.px * 1.04, topY = baselineY - ttl.lines.length * lineH, off = Math.max(5, Math.round(ttl.px * 0.05));
+    ctx.save();
+    ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'; ctx.lineJoin = 'round';
+    ctx.font = '400 ' + ttl.px + 'px ' + FONT_DISPLAY;
+    ttl.lines.forEach(function (ln, i) {
+      var y = topY + (i + 1) * lineH - lineH * 0.2;
+      ctx.lineWidth = Math.max(10, ttl.px * 0.13); ctx.strokeStyle = '#0F0F10';
+      ctx.strokeText(ln, cx + off, y + off); ctx.strokeText(ln, cx, y);
+      var fill = ctx.createLinearGradient(0, y - ttl.px * 0.8, 0, y);
+      fill.addColorStop(0, '#FFF3E0'); fill.addColorStop(0.5, '#FFD54F'); fill.addColorStop(1, '#FFB300');
+      ctx.fillStyle = fill; ctx.fillText(ln, cx, y);
+    });
+    ctx.restore();
+    return topY;
+  }
+
+  function paintVice(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story';
+    var top = spec.keyTop, bottomY = H - spec.keyBottom, pad = spec.keySide + 14, cx = W / 2;
+    var slug = m.show ? m.show.slug : '';
+    // bottom block measured first: meta line, then the title sized to the lines it needs
+    var metaH = 84, metaBase = bottomY - 14, titleBottom = metaBase - metaH;
+    var ttl = fitTitle(ctx, (m.show ? splitTitle(m.show.title) : 'IN YOUR FACE').toUpperCase(), W - (spec.keySide + 24) * 2, story ? 170 : 140, 60, 2, FONT_DISPLAY);
+    var titleTop = titleBottom - Math.round(ttl.lines.length * ttl.px * 1.04);
+    // the horizon sits a little above the title so the sun glows behind the panels and the
+    // title and meta always stand on the ink ground
+    var horizonY = titleTop - (story ? 60 : 40);
+    drawViceField(ctx, spec, slug, horizonY);
+    var headerBottom = flyerHeader(ctx, spec, m, { taglineColor: '#FFD54F', top: top });
+    // panels between the header and the title
+    var friendsH = m.hasGuests ? 60 : 0;
+    var facesTop = headerBottom + 10, facesBottom = titleTop - 36 - friendsH;
+    var bill = hostPrints(m).concat(m.bill.slice());
+    faceGrid(ctx, spec, bill, pad, facesTop, W - pad * 2, facesBottom - facesTop, 1.3, story ? 250 : 215,
+      function (ctx, it, ccx, ty, w, idx) { drawVicePanel(ctx, it, ccx, ty, w, idx); });
+    if (m.hasGuests) {
+      ctx.save();
+      ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '40px ' + FONT_ACCENT;
+      ctx.shadowColor = 'rgba(15,15,16,0.9)'; ctx.shadowBlur = 10;
+      ctx.fillText('… and friends', cx, facesBottom + friendsH / 2);
+      ctx.restore();
+    }
+    drawViceTitle(ctx, spec, m, titleBottom, story ? 170 : 140);
+    drawMeta(ctx, spec, m, metaBase, '#E53935', '#FFF3E0', '#FFF3E0');
+  }
+
   // Style registry - keys map to painters; unknown/empty falls back to classic.
   var FLYER_STYLES = {
     classic: paintFlyer,
@@ -2704,7 +2959,8 @@
     type: paintTypeStack,
     lava: paintLavaLamp,
     swiss: paintSwiss,
-    lineup: paintLineup
+    lineup: paintLineup,
+    vice: paintVice
   };
 
   // Resolve lineup state -> draw the flyer -> callback. done(err|null).
@@ -2847,10 +3103,10 @@
     panel.appendChild(el('p', 'lineup-lab__copy-hint',
       'A ready-to-post flyer built from this lineup. Pick a style + format and download.'));
 
-    // Style toggle - eight looks, same lineup. Persists on the host like the format does.
+    // Style toggle - nine looks, same lineup. Persists on the host like the format does.
     var styleToggle = el('div', 'lineup-lab__fmt-toggle lineup-lab__style-toggle');
     [['classic', '🎞️ Polaroid'], ['ticket', '🎟️ Ticket'], ['riso', '🖨️ Risograph'], ['neon', '🌃 Neon'], ['type', '🔠 Bold Type'],
-     ['lava', '🫧 Lava'], ['swiss', '🔴 Swiss'], ['lineup', '📏 Lineup']].forEach(function (p) {
+     ['lava', '🫧 Lava'], ['swiss', '🔴 Swiss'], ['lineup', '📏 Lineup'], ['vice', '🌴 GTA']].forEach(function (p) {
       var b = button('lineup-lab__fmt-btn' + (sty === p[0] ? ' is-on' : ''), p[1]);
       b.setAttribute('aria-pressed', sty === p[0] ? 'true' : 'false');
       b.addEventListener('click', function () { container.__iyfStyle = p[0]; openFlyer(container, st); });

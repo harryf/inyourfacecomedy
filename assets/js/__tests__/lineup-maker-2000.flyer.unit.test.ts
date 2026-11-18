@@ -323,3 +323,44 @@ describe("flyer • ticketPalette (per-show paper, readable by construction)", (
     expect(all).toContainEqual(lm.ticketPalette(undefined as unknown as string));
   });
 });
+
+describe("flyer • toonPixels (the Vice style's cel-shade kernel)", () => {
+  const { toonPixels } = require("../lineup-maker-2000.js") as {
+    toonPixels: (d: Uint8ClampedArray, w: number, h: number, opts?: { levels?: number }) => Uint8ClampedArray;
+  };
+  // A 12 x 12 image: the left half a mid grey-blue, the right half a warm skin tone.
+  function sample(): Uint8ClampedArray {
+    const w = 12, h = 12, d = new Uint8ClampedArray(w * h * 4);
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+      const i = (y * w + x) * 4, left = x < 6;
+      d[i] = left ? 90 : 230; d[i + 1] = left ? 110 : 170; d[i + 2] = left ? 160 : 140; d[i + 3] = 255;
+    }
+    return d;
+  }
+  test("flat regions come out as flat fills on the posterize steps, alpha untouched", () => {
+    const d = toonPixels(sample(), 12, 12, { levels: 5 });
+    const step = 255 / 4;
+    // a pixel well inside the left half, away from the edge and the border blur
+    const i = (6 * 12 + 1) * 4;
+    for (const c of [0, 1, 2]) expect(Math.abs(d[i + c] / step - Math.round(d[i + c] / step))).toBeLessThan(0.02);
+    expect(d[i + 3]).toBe(255);
+    // every pixel in the same flat column agrees (no noise introduced)
+    for (let y = 1; y < 11; y++) expect(d[(y * 12 + 1) * 4]).toBe(d[i]);
+  });
+  test("the boundary between the two halves is pulled towards ink", () => {
+    const d = toonPixels(sample(), 12, 12);
+    const row = 6;
+    const edge = (row * 12 + 6) * 4, inside = (row * 12 + 2) * 4, insideR = (row * 12 + 10) * 4;
+    const lum = (i: number) => 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+    expect(lum(edge)).toBeLessThan(lum(inside) * 0.6);
+    expect(lum(edge)).toBeLessThan(lum(insideR) * 0.6);
+  });
+  test("a uniform image has no edges, so nothing darkens", () => {
+    const w = 8, h = 8, d = new Uint8ClampedArray(w * h * 4);
+    for (let i = 0; i < d.length; i += 4) { d[i] = 200; d[i + 1] = 120; d[i + 2] = 60; d[i + 3] = 255; }
+    const out = toonPixels(d, w, h);
+    const lum = 0.299 * out[0] + 0.587 * out[1] + 0.114 * out[2];
+    expect(lum).toBeGreaterThan(100);
+    for (let i = 4; i < out.length; i += 4) { expect(out[i]).toBe(out[0]); expect(out[i + 1]).toBe(out[1]); expect(out[i + 2]).toBe(out[2]); }
+  });
+});
