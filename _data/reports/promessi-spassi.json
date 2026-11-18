@@ -3,22 +3,22 @@
  "title": "PROMESSI SPASSI",
  "ticket_url": "https://eventfrog.ch/en/p/groups/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081056758243.html",
  "event_type": "monthly",
- "generated_at": "2026-11-17T09:20:02.159Z",
+ "generated_at": "2026-11-18T09:20:02.272Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-17",
- "complete_through": "2026-11-15",
+ "through": "2026-11-18",
+ "complete_through": "2026-11-16",
  "totals": {
-  "clicks": 4301,
-  "redirect": 4254,
-  "click": 47,
-  "clicks_30d": 1396,
-  "redirect_30d": 1381,
-  "click_30d": 15,
-  "views": 111,
-  "views_30d": 29,
-  "sessions": 106,
-  "sessions_30d": 28,
+  "clicks": 4577,
+  "redirect": 4529,
+  "click": 48,
+  "clicks_30d": 1602,
+  "redirect_30d": 1589,
+  "click_30d": 13,
+  "views": 116,
+  "views_30d": 31,
+  "sessions": 110,
+  "sessions_30d": 29,
   "broken_links": 0,
   "untagged": 0
  },
@@ -684,12 +684,20 @@
    "redirect": 280,
    "click": 1,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-17",
-   "redirect": 52,
+   "redirect": 291,
+   "click": 1,
+   "views": 5,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-18",
+   "redirect": 36,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -700,14 +708,14 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 4077,
+   "clicks": 4342,
    "views": 2,
    "sessions": 2
   },
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 105,
+   "clicks": 116,
    "views": 1,
    "sessions": 1
   },
@@ -736,8 +744,15 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 17,
-   "views": 57,
-   "sessions": 50
+   "views": 58,
+   "sessions": 51
+  },
+  {
+   "source": "google",
+   "medium": "organic",
+   "clicks": 9,
+   "views": 19,
+   "sessions": 18
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -745,13 +760,6 @@
    "clicks": 9,
    "views": 18,
    "sessions": 17
-  },
-  {
-   "source": "google",
-   "medium": "organic",
-   "clicks": 9,
-   "views": 15,
-   "sessions": 15
   },
   {
    "source": "meetup",
@@ -864,9 +872,9 @@
    "campaign": "promessi-spassi",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 3425,
+   "clicks": 3689,
    "first": "2026-08-30",
-   "last": "2026-11-17",
+   "last": "2026-11-18",
    "content": [
     {
      "content": "52672614093400",
@@ -878,19 +886,19 @@
     },
     {
      "content": "52688271936600",
-     "clicks": 366
+     "clicks": 626
     },
     {
      "content": "52672431580800",
      "clicks": 51
     },
     {
-     "content": "52673618076600",
-     "clicks": 16
+     "content": "52688271670800",
+     "clicks": 17
     },
     {
-     "content": "52688271670800",
-     "clicks": 14
+     "content": "52673618076600",
+     "clicks": 16
     },
     {
      "content": "52688271412800",
@@ -902,13 +910,13 @@
    "campaign": "promessi-spassi-20261118",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 650,
+   "clicks": 651,
    "first": "2026-10-23",
-   "last": "2026-11-16",
+   "last": "2026-11-17",
    "content": [
     {
      "content": "52683068634000",
-     "clicks": 631
+     "clicks": 632
     }
    ]
   },
@@ -916,13 +924,13 @@
    "campaign": "promessi-spassi",
    "source": "instagram",
    "medium": "social",
-   "clicks": 97,
+   "clicks": 107,
    "first": "2026-08-27",
-   "last": "2026-11-17",
+   "last": "2026-11-18",
    "content": [
     {
      "content": "link_in_bio",
-     "clicks": 85
+     "clicks": 95
     }
    ]
   },
