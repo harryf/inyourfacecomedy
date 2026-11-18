@@ -10,6 +10,7 @@ sitemap: false
   link resolves to the same names here and there.
   Source: _comedians/ (generated from Grist, never hand-edited) and the show posts.
   `updated` is the comedian's last_modified_at: the tablet fetches a photo again only when it changes.
+  `tagline` is the show post's one-line pitch (empty when the post has none); the tablet prints it on its pre-show slide.
 {%- endcomment -%}
 {%- assign shows = site.posts | where_exp: "p", "p.ticket_url" -%}
 {
@@ -31,6 +32,7 @@ sitemap: false
     {
       "slug": {{ s.url | remove: "/" | jsonify }},
       "name": {{ title_name | jsonify }},
+      "tagline": {{ s.tagline | default: "" | jsonify }},
       "hosts": {% if s.hosts %}{{ s.hosts | jsonify }}{% else %}[]{% endif %}
     }{% unless forloop.last %},{% endunless %}
 {%- endfor %}
