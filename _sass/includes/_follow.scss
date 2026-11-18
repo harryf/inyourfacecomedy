@@ -1,86 +1,342 @@
-// Sprint-0 Task 04 — /follow/ hub layout
-// Scoped to .post-content so it only affects the hub, not other pages.
+// =============================================================================
+// /follow/: the QR-code landing page (pages/5_follow.md)
+// =============================================================================
+// Phone first: a scan on a beermat lands here mid-show. Tokens only. The hero
+// (logo, eyebrow, title) is the shared .iyf-hero in components/_hero.scss; the
+// logo modifier lives here because only this page opts in (hero_logo: true).
+// Sections, top to bottom: the trio of channels to follow, the proof strip,
+// the next three shows (components/_event-card.scss), email, Google, the rest.
+// -----------------------------------------------------------------------------
 
-.post-content {
+.iyf-hero__logo {
+  display: block;
+  flex: none;
+  width: clamp(5.5rem, 22vw, 8.5rem);
+  height: auto;
+  padding: 0;                         // the theme pads every img 9% each side; at desktop width that leaves the logo no content box
+  margin: 0 auto var(--space-4);
+  border-radius: 50%;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+}
 
-  // Section spacing — same rhythm across all hub blocks
-  .hub-shows,
-  .hub-mailchimp,
-  .hub-telegram,
-  .hub-meetup,
-  .hub-google,
-  .hub-google-follow,
-  .hub-channels {
-    margin: 2.5em 0;
+.iyf-follow {
+  max-width: var(--container-wide);
+  margin: 0 auto;
 
-    h2 {
-      margin: 0 0 0.5em 0;
-    }
+  // The theme gives .post-content headings its own colours and sizes; the
+  // sections here set their own so the page reads as one piece.
+  h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-xl);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-tight);
+    text-transform: uppercase;
+    margin: 0 0 var(--space-2);
+  }
+  section > p {
+    font-family: var(--font-body);
+    font-size: var(--fs-base);
+    line-height: var(--lh-normal);
+    margin: 0 0 var(--space-5);
+    max-width: var(--container-prose);
+  }
+}
 
-    p {
-      margin: 0 0 1em 0;
-    }
+// --- The trio: Instagram, Meetup, Facebook --------------------------------
+.iyf-follow-top {
+  text-align: center;
+  margin: var(--space-6) 0 var(--space-8);
+
+  &__title {
+    font-size: var(--fs-2xl) !important;  // the page-level h2 rule above is the floor; the first ask is louder
+  }
+  &__lead {
+    margin: 0 auto var(--space-5) !important;
+    font-family: var(--font-accent);
+    font-size: var(--fs-md) !important;
+    color: var(--muted);
+  }
+}
+
+.iyf-follow-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  @media (min-width: 768px) {
+    gap: var(--space-5);
   }
 
-  // .btn-secondary lives at global scope in _sass/base/_global.scss — sibling to .btn.
-
-  // Other-places-we-are list — icon + label rows
-  .hub-channel-list {
-    list-style: none;
-    padding: 0;
+  li {
+    display: block;
     margin: 0;
+    padding: 0;
+  }
 
-    li {
-      padding: 0.5em 0;
-    }
+  &__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--space-2);
+    height: 100%;
+    min-height: var(--touch-min);
+    padding: var(--space-6) var(--space-2) var(--space-5);
+    background: var(--brand-ink);
+    color: var(--brand-cream);
+    border: 2px solid var(--brand-ink-soft);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.12);
+    transition:
+      background-color var(--t-fast) var(--ease-out),
+      border-color     var(--t-fast) var(--ease-out),
+      transform        var(--t-fast) var(--ease-out);
 
-    a {
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    a:hover {
-      color: var(--brand-red);
+    @media (min-width: 768px) {
+      padding: var(--space-8) var(--space-5) var(--space-6);
     }
 
     i {
-      display: inline-block;
-      width: 1.4rem;
-      color: var(--brand-red);
-      text-align: center;
-      margin-right: 0.5rem;
+      font-size: clamp(2rem, 9vw, 3.25rem);
+      line-height: 1;
+      color: var(--brand-yellow);
+      transition: color var(--t-fast) var(--ease-out);
+    }
+
+    &:hover,
+    &:focus-visible {
+      background: var(--brand-red);
+      border-color: var(--brand-red);
+      transform: translateY(-2px);
+      color: var(--brand-cream);
+    }
+    &:hover i,
+    &:focus-visible i {
+      color: var(--brand-cream);
+    }
+    &:focus-visible {
+      outline: 3px solid var(--cta-focus-ring);
+      outline-offset: 2px;
+    }
+
+    // Instagram, the one we want most: red card, yellow badge.
+    &--first {
+      background: var(--brand-red);
+      border-color: var(--brand-red);
+
+      i { color: var(--brand-cream); }
+
+      &:hover,
+      &:focus-visible {
+        background: var(--brand-red-deep);
+        border-color: var(--brand-red-deep);
+      }
     }
   }
 
-  // Mailchimp form — let it inherit the page's typography rather than fight Mailchimp's stylesheet.
-  // The classic-061523.css link is harmless but we override width so the field doesn't get clipped on mobile.
+  &__badge {
+    position: absolute;
+    top: calc(-1 * var(--space-3));
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.15rem 0.6rem;
+    background: var(--brand-yellow);
+    color: var(--brand-ink);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  &__name {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 4.2vw, var(--fs-lg));
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  &__note {
+    font-family: var(--font-body);
+    font-size: clamp(0.72rem, 2.9vw, var(--fs-sm));
+    line-height: 1.3;
+    opacity: 0.92;
+  }
+}
+
+// --- Proof strip ------------------------------------------------------------
+.iyf-follow-proof {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  list-style: none;
+  margin: 0 0 var(--space-6);
+  padding: var(--space-4);
+  background: var(--surface-elev);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(4, 1fr);
+    padding: var(--space-5) var(--space-6);
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    margin: 0;
+    padding: var(--space-2) 0;
+    text-align: center;
+  }
+
+  strong {
+    font-family: var(--font-display);
+    font-size: var(--fs-xl);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--brand-red);
+  }
+
+  &__star {
+    color: var(--star);
+  }
+
+  span:not(.iyf-follow-proof__star) {
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    line-height: 1.3;
+    color: var(--muted);
+  }
+}
+
+// --- Next three shows -------------------------------------------------------
+.iyf-follow-shows {
+  margin: 0 0 var(--space-9);
+
+  .iyf-section-head {
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-5);
+  }
+
+  &__more {
+    text-align: center;
+    margin: var(--space-6) 0 0 !important;
+    max-width: none !important;
+  }
+}
+
+// --- Email ------------------------------------------------------------------
+.iyf-follow-email {
+  margin: 0 0 var(--space-8);
+  padding: var(--space-6) var(--space-5);
+  background: var(--surface-dark);
+  color: var(--brand-cream);
+  border-radius: var(--radius-lg);
+
+  h2 { color: var(--brand-yellow); }
+  > p { color: var(--brand-cream); }
+
+  // Mailchimp's embed: let it inherit the page typography and cap the width so the
+  // field never clips on a phone. The form markup itself is Mailchimp's, untouched.
   #mc_embed_signup {
     width: 100%;
     max-width: 480px;
+    background: transparent;
+    color: var(--brand-cream);
+
+    label {
+      color: var(--brand-cream);
+      font-family: var(--font-body);
+      font-size: var(--fs-sm);
+    }
 
     input[type="email"] {
       width: 100%;
+      min-height: var(--touch-min);
       padding: 0.6em 0.8em;
-      font-size: 1em;
-      border: 1px solid var(--border);
-      border-radius: 0.25em;
+      font-size: 1rem;
+      color: var(--brand-ink);
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
       margin-top: 0.25em;
     }
 
     input[type="submit"].button {
-      // re-skin Mailchimp's default submit to match .btn
-      background-color: var(--cta-bg);
+      width: 100%;
+      max-width: 22rem;
+      min-height: var(--touch-min);
+      height: auto;
+      margin: var(--space-3) 0 0;
+      padding: 0.65rem 1.4rem;
+      background-color: var(--cta);
       color: var(--cta-text);
-      border: 0;
-      padding: 0.6em 1.2em;
-      font-weight: bold;
-      border-radius: 0.25em;
+      border: 2px solid var(--cta);
+      border-radius: var(--radius-md);
+      font-family: var(--font-display);
+      font-size: var(--fs-md);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
       cursor: pointer;
-      transition: background-color 0.15s ease;
+      transition: background-color var(--t-fast) var(--ease-out);
 
-      &:hover {
-        background-color: var(--cta-bg-hover);
-      }
+      &:hover { background-color: var(--cta-hover); border-color: var(--cta-hover); }
+      &:focus-visible { outline: 3px solid var(--cta-focus-ring); outline-offset: 2px; }
     }
+
+    // Mailchimp's stylesheet paints the (empty) helper span as a white bar under the field.
+    .helper_text { background: transparent; }
+    .helper_text:empty { display: none; }
+
+    .response { color: var(--brand-yellow); }
+  }
+}
+
+// --- Google -----------------------------------------------------------------
+.iyf-follow-google {
+  margin: 0 0 var(--space-8);
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: flex-start;
+    margin: 0 0 var(--space-4);
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  &__note {
+    font-size: var(--fs-sm) !important;
+    color: var(--muted);
+  }
+}
+
+// --- The rest ---------------------------------------------------------------
+.iyf-follow-more {
+  margin: 0 0 var(--space-6);
+
+  .iyf-follow-chips {
+    max-width: 36rem;
+  }
+  .iyf-perform-link {
+    text-align: left;
+    margin: var(--space-6) 0 0;
   }
 }

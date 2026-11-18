@@ -9,6 +9,17 @@ layout: default
     class="iyf-hero iyf-hero--compact"
     {% if page.feature-img %}style="background-image: url('{{ page.feature-img | relative_url }}');"{% endif %}
   >
+    {%- comment -%}
+      hero_logo: true puts the site logo above the title (the /follow/ landing page, where a
+      QR scan must land on something that looks like the beermat). hero_eyebrow: a short line
+      in yellow caps above the title.
+    {%- endcomment -%}
+    {% if page.hero_logo %}
+      <img class="iyf-hero__logo" src="{{ site.avatar | relative_url }}" alt="{{ site.title }} logo" width="900" height="902">
+    {% endif %}
+    {% if page.hero_eyebrow %}
+      <p class="iyf-hero__eyebrow">{{ page.hero_eyebrow }}</p>
+    {% endif %}
     {% unless page.hide_title %}
       {% if page.title_override %}
         <h1 id="{{ page.title_override | default: '' | cgi_escape }}" class="iyf-hero__title">{{ page.title_override }}</h1>

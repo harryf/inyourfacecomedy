@@ -47,8 +47,6 @@ favicon: assets/favicon.ico                             # Icon displayed in the 
 header_text: English Stand-Up Comedy in Zürich  # Change Blog header text
 header_feature_image: assets/img/header/inyourface.jpeg
 header_feature_image_responsive: true
-footer_text: >
-  Get early updates on shows on the <a href="https://t.me/inyourfacecomedy">IN YOUR FACE Telegram Channel</a>
 
 # Blog
 excerpt: false                                           # Or "truncate" (first 250 characters), "false" to disable
@@ -76,7 +74,6 @@ social:
   instagram: https://instagram.com/inyourfacecomedy
   tiktok: https://tiktok.com/@inyourfacecomedy
   facebook: https://www.facebook.com/inyourfacecomedy.ch/
-  telegram: https://t.me/inyourfacecomedy
   meetup: https://www.meetup.com/in-your-face-english_stand-up-comedy-in-zurich/
   youtube: https://www.youtube.com/@inyourfacecomedystudios
 

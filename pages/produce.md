@@ -40,7 +40,7 @@ Many producers bring their own audience and only need the room. If you want ours
 
 - The mailing list: about 1,800 subscribers, four in ten of whom open each email. Your show goes in the monthly show email and, for bigger nights, in a dedicated email to past guests of similar shows.
 - Instagram: about 2,500 followers. Posts and stories for your show, and a place in the Sunday story of the week's shows.
-- The Meetup group (about 900 members), Facebook, Telegram, and the Google listing of ROBIN's, where every show appears as an event.
+- The Meetup group (about 900 members), Facebook, and the Google listing of ROBIN's, where every show appears as an event.
 
 Paid advertising is yours to run. We are happy to tell you what has worked for us.
 
