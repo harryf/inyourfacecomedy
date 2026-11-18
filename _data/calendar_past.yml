@@ -3,9 +3,23 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-11-17T08:00:01+00:00'
+generated_at: '2026-11-18T08:00:01+00:00'
 past_count: 15
 events:
+- show: jokesjokesjokes
+  name: Jokes, Jokes, Jokes
+  title: Jokes, Jokes, Jokes - English Stand-up comedy show
+  url: "/jokesjokesjokes/"
+  date: '2026-11-17'
+  start: '2026-11-17T20:00:00+01:00'
+  end: '2026-11-17T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 5
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165728723715.html
+  eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
 - show: comedybrew
   name: Comedy Brew
   title: Comedy Brew • English Stand-Up Open Mic in Zürich • Every Thursday
@@ -190,16 +204,3 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7501966162084778324.html
   eventfrog_name: Jackpot Comedy
-- show: jokesjokesjokes
-  name: Jokes, Jokes, Jokes
-  title: Jokes, Jokes, Jokes - English Stand-up comedy show with Woocash
-  url: "/jokesjokesjokes/"
-  date: '2026-10-13'
-  start: '2026-10-13T20:00:00+02:00'
-  end: '2026-10-13T22:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7496208726832979064.html
-  eventfrog_name: Jokes, Jokes, Jokes - English Stand-up comedy show
