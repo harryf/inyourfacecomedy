@@ -37,7 +37,7 @@ import { join } from "node:path";
 import { fail, flagBool, flagString, log, parseArgs, warn } from "./lib/email/cli";
 import { OUT_DIR, REPO_ROOT, chfToMinor, healthcheck, loadConfig, metaFromEnv, minorToChf, type MetaConfig } from "./lib/meta-api";
 import { CREATIVE_DIR, adName, creativeSpec, imageFiles, loadBank, patient, uploadImage, writeBoard, type Bank, type Concept } from "./meta-bank";
-import { AUDIENCES, PERSISTENT_PHASES, WINDOWED_PHASES, adsetKey, budgetPlan, csvRows, holidaysFromApi, inSeason, isLongWeekend, migrateState, aheadShows, nextShow, openWindow, orphanWindows, pickWhen, wetVerdict, windowAdsetName, windowBudgetChf, windowFor, windowStart, windowsFor, zurichHolidays, zurichParts, type Audience, type MomentPhase, type MomentsConfig, type MomentsState, type WeatherVerdict, type WindowSet } from "./lib/moments-lib";
+import { AUDIENCES, PERSISTENT_PHASES, WINDOWED_PHASES, adsetKey, budgetPlan, cityEventFor, csvRows, holidaysFromApi, inSeason, isLongWeekend, migrateState, aheadShows, nextShow, openWindow, orphanWindows, pickWhen, wetVerdict, windowAdsetName, windowBudgetChf, windowFor, windowStart, windowsFor, zurichHolidays, zurichParts, type Audience, type CityEvent, type MomentPhase, type MomentsConfig, type MomentsState, type WeatherVerdict, type WindowSet } from "./lib/moments-lib";
 
 const USAGE = `usage: bun script/meta-moments.ts [--setup [--validate]] [--dry-run [--validate]] [--at ISO] | --refresh --only IDS [--dry-run | --validate] | --ahead DATES [--dry-run [--validate]]`;
 const STATE_FILE = join(CREATIVE_DIR, "moments-state.json");   // gitignored with the rest of creative/
@@ -53,6 +53,18 @@ export function readMomentsState(file = STATE_FILE): MomentsState {
   return s;
 }
 function saveState(s: MomentsState) { writeFileSync(STATE_FILE, JSON.stringify(s, null, 2) + "\n"); }
+
+// meta-ads/city-events.yml (committed): the nights the city empties the room. Missing file: none.
+const CITY_EVENTS_FILE = join(REPO_ROOT, "meta-ads", "city-events.yml");
+export function loadCityEvents(file = CITY_EVENTS_FILE): CityEvent[] {
+  if (!existsSync(file)) return [];
+  const rows = Bun.YAML.parse(readFileSync(file, "utf8")) as CityEvent[] | null;
+  for (const e of rows || []) if (!e.name || typeof e.factor !== "number" || (!e.rule && !e.dates)) fail(`meta-ads/city-events.yml: every event needs name, factor and a rule or dates (got ${JSON.stringify(e)})`);
+  return rows || [];
+}
+function cityLine(show: string, city: CityEvent | null): string {
+  return city ? `City event on ${show}: ${city.name}. Moment budgets times ${city.factor}.` : `City events: none on ${show}.`;
+}
 
 function momentsConfig(config: MetaConfig): MomentsConfig {
   const m = (config as any).moments as MomentsConfig | undefined;
@@ -260,11 +272,13 @@ async function run(dryRun: boolean, validate: boolean, atIso: string | undefined
   say(show ? `Next Comedy Brew: ${show}. Windows: ${windowsFor(show).map((w) => `${w.phase} ${w.from}${w.until !== w.from ? ` to ${w.until}` : ""} until ${w.endIso.slice(11, 16)}`).join("; ")}.` : "No Comedy Brew in the next six days: the planner ad sets paused, no week's ad sets to make.");
   say(`Open now: ${window ? window.phase : "none"}.`);
 
-  let longWeekend = false, wet = false;
+  let longWeekend = false, wet = false, city: CityEvent | null = null;
   if (show) {
     const h = await holidaysAround(show);
     longWeekend = isLongWeekend(show, h.dates);
     say(`Holidays (${h.source}): the Friday after the show is ${longWeekend ? "a holiday: long weekend" : "a working day"}.`);
+    city = cityEventFor(show, loadCityEvents());
+    say(cityLine(show, city));
     try {
       const w = await weather(show, mc);
       wet = w.wet;
@@ -274,8 +288,8 @@ async function run(dryRun: boolean, validate: boolean, atIso: string | undefined
       say(`Weather: unavailable (${e.message}); treated as not wet.`);
     }
   }
-  const plan = budgetPlan(mc, longWeekend, wet, config.monthly_cap_chf);
-  say(`Budget plan: CHF ${plan.week_chf} for the show week, boosts planner ${plan.boost.planner}, tomorrow ${plan.boost.tomorrow}, tonight ${plan.boost.tonight}.${plan.note ? ` ${plan.note}.` : ""}`);
+  const plan = budgetPlan(mc, longWeekend, wet, config.monthly_cap_chf, city?.factor ?? 1);
+  say(`Budget plan: CHF ${plan.week_chf} for the show week, boosts planner ${plan.boost.planner}, tomorrow ${plan.boost.tomorrow}, tonight ${plan.boost.tonight}${city ? ` (city event factor ${city.factor} included)` : ""}.${plan.note ? ` ${plan.note}.` : ""}`);
   say("");
 
   const meta = metaFromEnv(config);
@@ -425,8 +439,9 @@ async function ahead(arg: string, dryRun: boolean, validate: boolean) {
     say("");
     const h = await holidaysAround(show);
     const longWeekend = isLongWeekend(show, h.dates);
-    const plan = budgetPlan(mc, longWeekend, false, config.monthly_cap_chf);
-    say(`## ${show}: the Friday after is ${longWeekend ? "a holiday (long weekend)" : "a working day"} (${h.source}); weather unknown this far out. Budget plan CHF ${plan.week_chf}, boosts tomorrow ${plan.boost.tomorrow}, tonight ${plan.boost.tonight}.`);
+    const city = cityEventFor(show, loadCityEvents());
+    const plan = budgetPlan(mc, longWeekend, false, config.monthly_cap_chf, city?.factor ?? 1);
+    say(`## ${show}: the Friday after is ${longWeekend ? "a holiday (long weekend)" : "a working day"} (${h.source}); weather unknown this far out. ${cityLine(show, city)} Budget plan CHF ${plan.week_chf}, boosts tomorrow ${plan.boost.tomorrow}, tonight ${plan.boost.tonight}.`);
     const sets = await ensureWindowSets(meta, config, state, show, plan, now, dryRun, validate, say);
     for (const aud of AUDIENCES) for (const phase of WINDOWED_PHASES) {
       const set = sets[adsetKey(aud, phase)];

@@ -170,6 +170,38 @@ export function isLongWeekend(show: string, holidays: string[]): boolean {
   return holidays.includes(addDays(show, 1));
 }
 
+// ---------- city events ----------
+
+// meta-ads/city-events.yml: nights the city itself empties the room (the Lucy lights switch-on).
+// A rule is the nth weekday of a month (weekday 1 = Monday to 7 = Sunday; nth 1 = first, -1 =
+// last, -2 = second-to-last); explicit dates win for their year.
+export interface CityEventRule { month: number; weekday: number; nth: number }
+export interface CityEvent { name: string; factor: number; rule?: CityEventRule; dates?: string[] }
+export function nthWeekdayOfMonth(year: number, rule: CityEventRule): string {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  const wd = (d: string) => { const w = new Date(`${d}T12:00:00Z`).getUTCDay(); return w === 0 ? 7 : w; };
+  const last = new Date(Date.UTC(year, rule.month, 0)).getUTCDate();
+  let day: number;
+  if (rule.nth > 0) {
+    const first = `${year}-${pad(rule.month)}-01`;
+    day = 1 + ((rule.weekday - wd(first) + 7) % 7) + (rule.nth - 1) * 7;
+  } else {
+    const end = `${year}-${pad(rule.month)}-${pad(last)}`;
+    day = last - ((wd(end) - rule.weekday + 7) % 7) + (rule.nth + 1) * 7;
+  }
+  if (day < 1 || day > last) throw new Error(`no ${rule.nth}. weekday ${rule.weekday} in ${year}-${pad(rule.month)}`);
+  return `${year}-${pad(rule.month)}-${pad(day)}`;
+}
+export function cityEventFor(show: string, events: CityEvent[]): CityEvent | null {
+  const year = Number(show.slice(0, 4));
+  for (const e of events) {
+    if ((e.dates || []).includes(show)) return e;
+    if ((e.dates || []).some((d) => d.startsWith(`${year}-`))) continue;   // this year is pinned by hand
+    if (e.rule && nthWeekdayOfMonth(year, e.rule) === show) return e;
+  }
+  return null;
+}
+
 // ---------- weather ----------
 
 // MeteoSwiss open data, local forecast CSVs (point_id;point_type_id;Date;value; Date is UTC
@@ -245,7 +277,7 @@ export interface MomentsConfig {
 }
 export const DAYS: Record<MomentPhase | "evergreen", number> = { planner: 3, evergreen: 7, tomorrow: 1, tonight: 1 };
 
-export interface BudgetPlan { daily: Record<string, number>; week_chf: number; boost: { planner: number; tomorrow: number; tonight: number }; note: string }
+export interface BudgetPlan { daily: Record<string, number>; week_chf: number; boost: { planner: number; tomorrow: number; tonight: number }; note: string; city_factor: number }
 // A window ad set's lifetime budget: the plan's daily amount over the window's days.
 export function windowBudgetChf(plan: Pick<BudgetPlan, "daily">, aud: Audience, phase: MomentPhase): number {
   return Math.round(plan.daily[adsetKey(aud, phase)] * DAYS[phase] * 100) / 100;
@@ -253,9 +285,10 @@ export function windowBudgetChf(plan: Pick<BudgetPlan, "daily">, aud: Audience, 
 // Daily budgets per ad set key (cold, warm, cold-planner, ...), rounded to 5 Rappen, never under
 // the floor. Boosts multiply the moment shares. The cap check: this week as planned plus 3.35
 // plain weeks plus the old carousel's month; over the cap, the boosts go back to 1 (the base
-// never moves here).
-export function budgetPlan(cfg: MomentsConfig, longWeekend: boolean, wet: boolean, monthlyCapChf: number): BudgetPlan {
-  const clamp = (x: number) => Math.min(x, cfg.max_boost);
+// never moves here). A city event (meta-ads/city-events.yml) multiplies the three moment
+// budgets by its factor after the boosts; the evergreen sets and the floor stay.
+export function budgetPlan(cfg: MomentsConfig, longWeekend: boolean, wet: boolean, monthlyCapChf: number, cityFactor = 1): BudgetPlan {
+  const clamp = (x: number) => Math.round(Math.min(x, cfg.max_boost) * cityFactor * 1000) / 1000;
   let boost = {
     planner: clamp(longWeekend ? cfg.long_weekend_boost : 1),
     tomorrow: clamp((longWeekend ? cfg.long_weekend_boost : 1) * (wet ? cfg.wet_boost : 1)),
@@ -279,10 +312,11 @@ export function budgetPlan(cfg: MomentsConfig, longWeekend: boolean, wet: boolea
   let { daily, week } = build(boost);
   let note = "";
   const month = (w: number) => Math.round((w + plain * 3.35 + cfg.old_set_month_chf) * 100) / 100;
-  if (month(week) > monthlyCapChf && Object.values(boost).some((x) => x > 1)) {
+  const base = clamp(1);   // the moment budgets with no boost, the city factor included
+  if (month(week) > monthlyCapChf && Object.values(boost).some((x) => x > base)) {
     note = `boosts dropped: CHF ${week} this week projects CHF ${month(week)} a month, over the CHF ${monthlyCapChf} cap`;
-    boost = { planner: 1, tomorrow: 1, tonight: 1 };
+    boost = { planner: base, tomorrow: base, tonight: base };
     ({ daily, week } = build(boost));
   }
-  return { daily, week_chf: week, boost, note };
+  return { daily, week_chf: week, boost, note, city_factor: cityFactor };
 }

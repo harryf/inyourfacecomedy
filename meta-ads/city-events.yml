@@ -1,0 +1,15 @@
+# City events that empty the room on a Comedy Brew night. Read by script/meta-moments.ts on every
+# run: when the next show falls on one of these dates, the planner, tomorrow and tonight budgets
+# are multiplied by `factor` (the evergreen sets stay) and the run report names the event.
+# Holidays are not listed here: the job reads those from OpenHolidays (meta-ads/moments-plan.md).
+#
+# An event has a name, a factor, and either a `rule` or explicit `dates` (both allowed; dates win
+# for their year). A rule is the nth weekday of a month: weekday 1 = Monday to 7 = Sunday,
+# nth 1 = first, 2 = second, -1 = last, -2 = second-to-last.
+#
+# First entry: 19 Nov 2026, the night Lucy went on. 0 advance tickets all week, 1 by 17:00 on the
+# day, against 13 to 41 by 14:00 for every other show since September; ads, links and the
+# Eventfrog checkout were all checked and fine. The budget went out as usual (about CHF 120).
+- name: "Lucy: the Bahnhofstrasse Christmas lights go on at 18:00 and the Christmas markets open"
+  rule: { month: 11, weekday: 4, nth: -2 }     # ewz's rule: the second-to-last Thursday of November
+  factor: 0.25

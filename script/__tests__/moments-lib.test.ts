@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { aheadShows, budgetPlan, csvRows, easter, holidaysFromApi, inSeason, isLongWeekend, nextShow, openWindow, pickWhen, wetVerdict, windowsFor, zurichHolidays, zurichIso, type MomentsConfig } from "../lib/moments-lib";
+import { aheadShows, budgetPlan, cityEventFor, csvRows, easter, holidaysFromApi, inSeason, isLongWeekend, nextShow, nthWeekdayOfMonth, openWindow, pickWhen, wetVerdict, windowsFor, zurichHolidays, zurichIso, type CityEvent, type MomentsConfig } from "../lib/moments-lib";
 
 const at = (iso: string) => new Date(iso);
 const CFG: MomentsConfig = { weekly_envelope_chf: 91, cold_share: 0.7, split: { planner: 0.2, evergreen: 0.2, tomorrow: 0.2, tonight: 0.4 }, wet_boost: 1.5, long_weekend_boost: 1.5, max_boost: 1.75, floor_chf: 1, old_set_month_chf: 130, postcode_point: "800100", station_point: "71" };
@@ -174,5 +174,57 @@ describe("per-week window ad sets (lifetime budget, scheduled on Meta; 2026-10-0
     expect(orphanWindows(s, ["2026-10-15"], at("2026-10-09T12:30:00+02:00"))).toEqual([]);
     expect(orphanWindows(s, ["2026-10-22"], at("2026-10-09T12:30:00+02:00")).map((o) => o.show)).toEqual(["2026-10-15"]);
     expect(orphanWindows(s, [], at("2026-10-15T18:00:00+02:00"))).toEqual([]);
+  });
+});
+
+describe("city events (2026-11-19: the Lucy lights night sold nothing)", () => {
+  const LUCY: CityEvent = { name: "Lucy", rule: { month: 11, weekday: 4, nth: -2 }, factor: 0.25 };
+  test("the second-to-last Thursday of November, year by year", () => {
+    expect(nthWeekdayOfMonth(2025, LUCY.rule!)).toBe("2025-11-20");
+    expect(nthWeekdayOfMonth(2026, LUCY.rule!)).toBe("2026-11-19");
+    expect(nthWeekdayOfMonth(2027, LUCY.rule!)).toBe("2027-11-18");
+    expect(nthWeekdayOfMonth(2028, LUCY.rule!)).toBe("2028-11-23");
+  });
+  test("counting from the front and the back, Mondays and Sundays included", () => {
+    expect(nthWeekdayOfMonth(2026, { month: 11, weekday: 1, nth: 1 })).toBe("2026-11-02");
+    expect(nthWeekdayOfMonth(2026, { month: 11, weekday: 7, nth: -1 })).toBe("2026-11-29");
+    expect(nthWeekdayOfMonth(2026, { month: 2, weekday: 7, nth: 1 })).toBe("2026-02-01");
+    expect(() => nthWeekdayOfMonth(2026, { month: 2, weekday: 7, nth: 5 })).toThrow();
+  });
+  test("a show on the rule's date gets the event, any other Thursday none", () => {
+    expect(cityEventFor("2026-11-19", [LUCY])?.name).toBe("Lucy");
+    expect(cityEventFor("2027-11-18", [LUCY])?.name).toBe("Lucy");
+    expect(cityEventFor("2026-11-12", [LUCY])).toBeNull();
+    expect(cityEventFor("2026-11-26", [LUCY])).toBeNull();
+    expect(cityEventFor("2026-11-19", [])).toBeNull();
+  });
+  test("explicit dates win over the rule for their year, the rule still holds for other years", () => {
+    const pinned: CityEvent = { ...LUCY, dates: ["2026-11-26"] };
+    expect(cityEventFor("2026-11-26", [pinned])?.name).toBe("Lucy");
+    expect(cityEventFor("2026-11-19", [pinned])).toBeNull();
+    expect(cityEventFor("2027-11-18", [pinned])?.name).toBe("Lucy");
+    const datesOnly: CityEvent = { name: "Street Parade eve", dates: ["2027-08-12"], factor: 0.5 };
+    expect(cityEventFor("2027-08-12", [datesOnly])?.factor).toBe(0.5);
+    expect(cityEventFor("2026-08-13", [datesOnly])).toBeNull();
+  });
+  test("the factor cuts the three moment budgets, leaves evergreen, keeps the floor", () => {
+    const plain = budgetPlan(CFG, false, false, 600);
+    const cut = budgetPlan(CFG, false, false, 600, 0.25);
+    expect(cut.city_factor).toBe(0.25);
+    expect(cut.boost).toEqual({ planner: 0.25, tomorrow: 0.25, tonight: 0.25 });
+    expect(cut.daily.cold).toBe(plain.daily.cold);
+    expect(cut.daily.warm).toBe(plain.daily.warm);
+    expect(cut.daily["cold-tonight"]).toBeCloseTo(plain.daily["cold-tonight"] * 0.25, 1);
+    expect(cut.daily["cold-planner"]).toBeCloseTo(plain.daily["cold-planner"] * 0.25, 1);
+    for (const v of Object.values(cut.daily)) expect(v).toBeGreaterThanOrEqual(CFG.floor_chf);
+    expect(cut.week_chf).toBeLessThan(plain.week_chf);
+  });
+  test("a wet Lucy night: the wet boost and the factor multiply, the cap fallback keeps the factor", () => {
+    const wet = budgetPlan(CFG, false, true, 600, 0.25);
+    expect(wet.boost.tonight).toBe(0.375);
+    expect(wet.boost.planner).toBe(0.25);
+    const capped = budgetPlan(CFG, true, true, 1, 0.25);
+    expect(capped.boost).toEqual({ planner: 0.25, tomorrow: 0.25, tonight: 0.25 });
+    expect(budgetPlan(CFG, false, false, 600).city_factor).toBe(1);
   });
 });

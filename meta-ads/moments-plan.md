@@ -103,6 +103,18 @@ until after 14 January 2027 on Harry's call to keep the holiday budget level), G
 show day itself and gets its own look later. School holidays (Zürich autumn break 5 to 17 Oct)
 are a note on the review, not a condition: they move the room's mix more than its mood.
 
+**City events** (2026-11-19). The nights the city itself empties the room live in
+`meta-ads/city-events.yml` (committed): a name, a budget `factor`, and a date `rule` (the nth
+weekday of a month, counted from the front or the back) or explicit `dates`. When the next show
+falls on one, the planner, tomorrow and tonight budgets are multiplied by the factor, the
+evergreen sets stay, the floor still holds, and the run report names the event. The ad lines are
+not touched: a dead night gets the usual copy at a quarter of the money. First entry: Lucy, the
+Bahnhofstrasse Christmas lights switch-on at 18:00 on the second-to-last Thursday of November
+(ewz's fixed rule), the same evening the Christmas markets open. On 19 Nov 2026 the Brew had 0
+advance tickets all week and 1 by 17:00 on the day, against 13 to 41 by 14:00 for every other
+show since September; ad links, the `/go/` redirect and the Eventfrog checkout were all checked
+and fine, and about CHF 120 of moment ads went out as on any other week. Next: Thu 18 Nov 2027.
+
 ## 5. Money
 
 Budget stays where it is until Harry says otherwise ("hold the budget for now"). When the job
@@ -113,7 +125,8 @@ the old carousel apart) and splits it:
 - **By moment, following the sales curve:** planner 20%, evergreen 20%, tomorrow 20%,
   tonight 40%. Tonight is a short window, so its daily rate is the highest of the week.
 - **Boosts:** `wet` raises tomorrow and tonight by half; `long_weekend` raises all three moments by
-  half. Never both stacked past 1.75 times.
+  half. Never both stacked past 1.75 times. A city event then multiplies the three moments by its
+  factor (`meta-ads/city-events.yml`, section 4), so a wet Lucy night runs at 1.5 times 0.25.
 - **Guards:** the monthly cap in `config.yml` wins over every boost; the capacity guard in
   `eventfrog-sales.ts --guard` cancels boosts when the room is on track to sell out; the old
   carousel and its budget schedules are never touched.
