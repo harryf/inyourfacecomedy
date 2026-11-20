@@ -3,11 +3,11 @@
  "title": "Random Facts Exchange",
  "ticket_url": "https://eventfrog.ch/en/p/groups/random-facts-exchange-7434337254674303477.html",
  "event_type": "series",
- "generated_at": "2026-11-19T09:20:02.114Z",
+ "generated_at": "2026-11-20T09:20:02.435Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-19",
- "complete_through": "2026-11-17",
+ "through": "2026-11-20",
+ "complete_through": "2026-11-18",
  "totals": {
   "clicks": 65,
   "redirect": 0,
@@ -15,9 +15,9 @@
   "clicks_30d": 11,
   "redirect_30d": 0,
   "click_30d": 11,
-  "views": 142,
+  "views": 143,
   "views_30d": 30,
-  "sessions": 136,
+  "sessions": 137,
   "sessions_30d": 29,
   "broken_links": 0,
   "untagged": 0
@@ -700,11 +700,19 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-19",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-20",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -724,8 +732,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 10,
-   "views": 14,
-   "sessions": 14
+   "views": 15,
+   "sessions": 15
   },
   {
    "source": "instagram",

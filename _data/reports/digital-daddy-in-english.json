@@ -3,11 +3,11 @@
  "title": "Digital Daddy (in English)",
  "ticket_url": "https://eventfrog.ch/en/p/comedy/comedy-cabaret/digital-daddy-in-english-zuerich-7521622493477487873.html",
  "event_type": "one-off",
- "generated_at": "2026-11-19T09:20:02.114Z",
+ "generated_at": "2026-11-20T09:20:02.435Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-19",
- "complete_through": "2026-11-17",
+ "through": "2026-11-20",
+ "complete_through": "2026-11-18",
  "totals": {
   "clicks": 1,
   "redirect": 0,
@@ -700,11 +700,19 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-19",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-20",
    "redirect": 0,
    "click": 0,
    "views": 0,

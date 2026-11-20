@@ -3,11 +3,11 @@
  "title": "Mike Casa uf Schwiizerdütsch",
  "ticket_url": "https://eventfrog.ch/de/p/comedy/comedy-kabarett/30-jan-mike-casa-uf-schwiizerduetsch-tryout-robin-s-zurich-zuerich-7524856337496327654.html",
  "event_type": "one-off",
- "generated_at": "2026-11-19T09:20:02.114Z",
+ "generated_at": "2026-11-20T09:20:02.435Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-19",
- "complete_through": "2026-11-17",
+ "through": "2026-11-20",
+ "complete_through": "2026-11-18",
  "totals": {
   "clicks": 2,
   "redirect": 0,
@@ -15,10 +15,10 @@
   "clicks_30d": 2,
   "redirect_30d": 0,
   "click_30d": 2,
-  "views": 7,
-  "views_30d": 7,
-  "sessions": 8,
-  "sessions_30d": 8,
+  "views": 13,
+  "views_30d": 13,
+  "sessions": 14,
+  "sessions_30d": 14,
   "broken_links": 0,
   "untagged": 0
  },
@@ -700,14 +700,22 @@
    "redirect": 0,
    "click": 2,
    "views": 2,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-19",
    "redirect": 0,
    "click": 0,
-   "views": 0,
+   "views": 3,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-20",
+   "redirect": 0,
+   "click": 0,
+   "views": 3,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -717,15 +725,15 @@
    "source": "google",
    "medium": "organic",
    "clicks": 2,
-   "views": 2,
-   "sessions": 2
+   "views": 5,
+   "sessions": 5
   },
   {
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 0,
-   "views": 3,
-   "sessions": 3
+   "views": 6,
+   "sessions": 6
   },
   {
    "source": "instagram",
