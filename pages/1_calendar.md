@@ -5,7 +5,7 @@ nav_title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
 description: "Every comedy show in Zürich from IN YOUR FACE, month by month through 2026: English comedy nights, open mics and one-off shows with dates, venues and ticket links. Comedy Veranstaltungen in Zürich auf Englisch. Updated weekly."
-last_modified_at: 2026-11-15T10:00:00+00:00
+last_modified_at: 2026-11-21T10:00:01+00:00
 permalink: /calendar/
 redirect_from:   # every removed show lands here (CLAUDE.md, Removing a show)
   # Halloween 2026 double bill, special page (removed 2026-11-01)
@@ -85,10 +85,6 @@ Auf Deutsch: alle Comedy Veranstaltungen und Auftritte von IN YOUR FACE in Züri
 
 | Date | Day | Show | Info | Tickets |
 |------|-----|------|------|---------|
-| Nov 17 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | Your turn to make the comics sweat 😅 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165728723715.html) |
-| Nov 18 | Wed | [Jackpot Comedy](https://inyourfacecomedy.ch/jackpotcomedy/) | Some punchlines land, some crash. All worth it 🎲 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798260639068110.html) |
-| Nov 18 | Wed | [PROMESSI SPASSI](https://inyourfacecomedy.ch/promessi-spassi/) | Zero traduzioni, zero scuse, solo risate 🇮🇹 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081128061415.html) |
-| Nov 19 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | The bravest humans in the room get the biggest laughs 🎤 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-two-minutes-from-central-zuerich-7466831998151048185.html) |
 | Nov 22 | Sun | [Gratis Comedy Zum Mitnehmen](https://inyourfacecomedy.ch/gratis-zum-mitnehmen/) | New material night, zero douchebags policy, pay what you like 🎤 | [Get Tickets](https://eventfrog.ch/de/p/comedy/comedy-kabarett/gratis-comedy-zum-mitnehmen-free-entry-stand-up-comedy-zuerich-7492505145781047015.html) |
 | Nov 24 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | Jokes written by the comics, prompted by you ✍️ | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165779055364.html) |
 | Nov 26 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Harry Fücks and Martina: Thursday perfected ✨ | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-lost-in-town-find-your-funny-zuerich-7466832108633224028.html) |
@@ -116,8 +112,8 @@ Auf Deutsch: alle Comedy Veranstaltungen und Auftritte von IN YOUR FACE in Züri
 | Dec 10 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Tired of small talk? Here the laughs do the work 😄 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-have-you-actually-been-zuerich-7466832348371257785.html) |
 | Dec 10 | Thu | [La Tarima](https://inyourfacecomedy.ch/latarima/) | Andrea Ramírez y la mejor excusa para salir 🎶 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/la-tarima-comedia-en-espanol-zurich-zuerich-7472022011318929691.html) |
 | Dec 15 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | A word, a sentence, a confession, a terrible drawing 🖍️ | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165938438986.html) |
-| Dec 16 | Wed | [Jackpot Comedy](https://inyourfacecomedy.ch/jackpotcomedy/) | Fresh jokes, zero safety net: pure comedy gold 🃏 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7513927110353783017.html) |
 | Dec 16 | Wed | [PROMESSI SPASSI](https://inyourfacecomedy.ch/promessi-spassi/) | Risate italiane senza bisogno di sottotitoli 🇮🇹 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081170004456.html) |
+| Dec 16 | Wed | [Jackpot Comedy](https://inyourfacecomedy.ch/jackpotcomedy/) | Fresh jokes, zero safety net: pure comedy gold 🃏 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7513927110353783017.html) |
 | Dec 17 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | An open mic this good really shouldn't be a secret 🌟 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-ten-comedians-one-thursday-zuerich-7466832472350693337.html) |
 | Dec 19 | Sat | [The NERDY COMEDY Show](https://inyourfacecomedy.ch/nerdycomedyshow/) | Your Steam backlog is a cry for help, we get it 🎮 | [Get Tickets](https://eventfrog.ch/de/p/comedy/comedy-kabarett/the-nerdy-comedy-show-en-basel-basel-7525710506990032835.html) |
 | Dec 22 | Tue | [Jokes, Jokes, Jokes](https://inyourfacecomedy.ch/jokesjokesjokes/) | Your confession, their punchline 🤫 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-english-stand-up-comedy-show-zuerich-7519756165992964957.html) |
@@ -140,7 +136,7 @@ Auf Deutsch: alle Comedy Veranstaltungen und Auftritte von IN YOUR FACE in Züri
 | Jan 21 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | The open mic where awkward moments feel like home 🎭 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-bring-the-flatmates-zuerich-7521849439973049496.html) |
 | Jan 28 | Thu | [Comedy Brew](https://inyourfacecomedy.ch/comedybrew/) | Your Thursday just found its new best tradition 🍻 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-where-thursday-goes-zuerich-7521849483501540122.html) |
 | Jan 29 | Fri | [Digital Daddy (in English)](https://inyourfacecomedy.ch/digital-daddy-in-english/) | Benjamin's solo show on our digital addiction 📱 | [Get Tickets](https://eventfrog.ch/en/p/comedy/comedy-cabaret/digital-daddy-in-english-zuerich-7521622493477487873.html) |
-| Jan 30 | Sat | [Mike Casa uf Schwiizerdütsch](https://inyourfacecomedy.ch/mike-casa-schwiizerduetsch/) | Mike Casas Stand-up, diesmal komplett uf Schwiizerdütsch 🎤 | [Get Tickets](https://eventfrog.ch/de/p/comedy/comedy-kabarett/30-jan-mike-casa-show-uf-schwiizerduetsch-robin-s-zurich-zuerich-7524856337496327654.html) |
+| Jan 30 | Sat | [Mike Casa uf Schwiizerdütsch](https://inyourfacecomedy.ch/mike-casa-schwiizerduetsch/) | Mike Casas Stand-up, diesmal komplett uf Schwiizerdütsch 🎤 | [Get Tickets](https://eventfrog.ch/de/p/comedy/comedy-kabarett/30-jan-mike-casa-uf-schwiizerduetsch-tryout-robin-s-zurich-zuerich-7524856337496327654.html) |
 
 </div>
 
