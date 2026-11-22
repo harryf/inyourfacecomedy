@@ -3,21 +3,21 @@
  "title": "PROMESSI SPASSI",
  "ticket_url": "https://eventfrog.ch/en/p/groups/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081056758243.html",
  "event_type": "monthly",
- "generated_at": "2026-11-21T09:20:01.615Z",
+ "generated_at": "2026-11-22T09:20:01.410Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-21",
- "complete_through": "2026-11-19",
+ "through": "2026-11-22",
+ "complete_through": "2026-11-20",
  "totals": {
-  "clicks": 4824,
-  "redirect": 4774,
+  "clicks": 4838,
+  "redirect": 4788,
   "click": 50,
-  "clicks_30d": 1649,
-  "redirect_30d": 1641,
+  "clicks_30d": 1642,
+  "redirect_30d": 1634,
   "click_30d": 8,
-  "views": 119,
+  "views": 120,
   "views_30d": 19,
-  "sessions": 113,
+  "sessions": 114,
   "sessions_30d": 18,
   "broken_links": 0,
   "untagged": 0
@@ -716,12 +716,20 @@
    "redirect": 17,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-21",
-   "redirect": 4,
+   "redirect": 17,
+   "click": 0,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-22",
+   "redirect": 1,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -732,7 +740,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 4568,
+   "clicks": 4582,
    "views": 2,
    "sessions": 2
   },
@@ -768,8 +776,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 17,
-   "views": 58,
-   "sessions": 51
+   "views": 59,
+   "sessions": 52
   },
   {
    "source": "google",
@@ -903,9 +911,9 @@
    "campaign": "promessi-spassi",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 3914,
+   "clicks": 3928,
    "first": "2026-08-30",
-   "last": "2026-11-21",
+   "last": "2026-11-22",
    "content": [
     {
      "content": "52672614093400",
@@ -917,7 +925,7 @@
     },
     {
      "content": "52688271936600",
-     "clicks": 833
+     "clicks": 847
     },
     {
      "content": "52672431580800",

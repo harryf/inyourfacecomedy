@@ -3,11 +3,11 @@
  "title": "Digital Daddy (auf Deutsch)",
  "ticket_url": "https://eventfrog.ch/de/p/comedy/comedy-kabarett/digital-daddy-auf-deutsch-zuerich-7521622525819769980.html",
  "event_type": "one-off",
- "generated_at": "2026-11-21T09:20:01.615Z",
+ "generated_at": "2026-11-22T09:20:01.410Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-21",
- "complete_through": "2026-11-19",
+ "through": "2026-11-22",
+ "complete_through": "2026-11-20",
  "totals": {
   "clicks": 0,
   "redirect": 0,
@@ -15,10 +15,10 @@
   "clicks_30d": 0,
   "redirect_30d": 0,
   "click_30d": 0,
-  "views": 5,
-  "views_30d": 5,
-  "sessions": 5,
-  "sessions_30d": 5,
+  "views": 6,
+  "views_30d": 6,
+  "sessions": 6,
+  "sessions_30d": 6,
   "broken_links": 0,
   "untagged": 0
  },
@@ -716,7 +716,7 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
@@ -726,22 +726,30 @@
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-22",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
   }
  ],
  "by_source": [
+  {
+   "source": "(direct)",
+   "medium": "(none)",
+   "clicks": 0,
+   "views": 3,
+   "sessions": 3
+  },
   {
    "source": "google",
    "medium": "organic",
    "clicks": 0,
    "views": 3,
    "sessions": 3
-  },
-  {
-   "source": "(direct)",
-   "medium": "(none)",
-   "clicks": 0,
-   "views": 2,
-   "sessions": 2
   }
  ],
  "by_campaign": [],
