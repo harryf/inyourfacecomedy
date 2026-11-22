@@ -5,7 +5,7 @@ nav_title: Calendar
 title_override: IN YOUR FACE Comedy Calendar
 subtitle: Upcoming English Stand Up Comedy Shows in Zurich
 description: "Every comedy show in Zürich from IN YOUR FACE, month by month through 2026: English comedy nights, open mics and one-off shows with dates, venues and ticket links. Comedy Veranstaltungen in Zürich auf Englisch. Updated weekly."
-last_modified_at: 2026-11-21T10:00:01+00:00
+last_modified_at: 2026-11-22T10:00:01+00:00
 permalink: /calendar/
 redirect_from:   # every removed show lands here (CLAUDE.md, Removing a show)
   # Halloween 2026 double bill, special page (removed 2026-11-01)
