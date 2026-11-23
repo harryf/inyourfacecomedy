@@ -5,23 +5,9 @@
 #   unresolved:  ticket_urls that 404 — fix the post's ticket_url.
 #   no_upcoming: ticket_url resolved but found 0 future events (often a
 #                ticket_url pointing at one past event instead of the series).
-generated_at: '2026-11-20T08:00:02+00:00'
-event_count: 61
+generated_at: '2026-11-23T08:00:01+00:00'
+event_count: 60
 events:
-- show: gratis-zum-mitnehmen
-  name: Gratis Comedy Zum Mitnehmen
-  title: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
-  url: "/gratis-zum-mitnehmen/"
-  date: '2026-11-22'
-  start: '2026-11-22T20:00:00+01:00'
-  end: '2026-11-22T22:00:00+01:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 0
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/gratis-comedy-zum-mitnehmen-free-entry-stand-up-comedy-zuerich-7492505145781047015.html
-  eventfrog_name: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
   title: Jokes, Jokes, Jokes - English Stand-up comedy show
@@ -90,8 +76,8 @@ events:
   location: ROBIN'S Coffee
   price_chf: 39
   status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/2-dec-mike-casa-stand-up-comedy-show-robin-s-zurich-zuerich-7507006161725486601.html
-  eventfrog_name: '2 DEC: Mike Casa Stand-up Comedy Show @ROBIN''S ZURICH!'
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/2-dec-15-tickets-left-mike-casa-show-robin-s-zurich-zuerich-7507006161725486601.html
+  eventfrog_name: '2 DEC: 15 TICKETS LEFT Mike Casa Show @ROBIN''S ZURICH!'
 - show: jackpotcomedy
   name: Jackpot Comedy
   title: Jackpot Comedy - downstairs @ OTRO
@@ -862,4 +848,8 @@ events:
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-skipped-the-beach-good-call-zuerich-7521850616202684879.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Skipped the beach? Good call'
 unresolved: []
-no_upcoming: []
+no_upcoming:
+- show: gratis-zum-mitnehmen
+  ticket_url: https://eventfrog.ch/de/p/gruppen/gratis-zurich-7495107963884945951.html
+  resolved_to: https://eventfrog.ch/de/p/gruppen/gratis-zurich-7495107963884945951.html
+  reason: resolved but no event links found at https://eventfrog.ch/de/p/gruppen/gratis-zurich-7495107963884945951.html

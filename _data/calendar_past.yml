@@ -3,9 +3,23 @@
 # EventFrog group pages only list upcoming instances, so past shows can't be
 # re-fetched — they are carried here as they roll out of calendar.yml.
 # Consumed by the crowdwork tool's `thanks` workflow (most-recent-past show).
-generated_at: '2026-11-22T08:00:01+00:00'
+generated_at: '2026-11-23T08:00:01+00:00'
 past_count: 17
 events:
+- show: gratis-zum-mitnehmen
+  name: Gratis Comedy Zum Mitnehmen
+  title: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
+  url: "/gratis-zum-mitnehmen/"
+  date: '2026-11-22'
+  start: '2026-11-22T20:00:00+01:00'
+  end: '2026-11-22T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 0
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/gratis-comedy-zum-mitnehmen-free-entry-stand-up-comedy-zuerich-7492505145781047015.html
+  eventfrog_name: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
 - show: comedybrew
   name: Comedy Brew
   title: 'Comedy Brew: Open Mic Zürich, English Stand-Up Every Thursday'
@@ -20,20 +34,6 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/comedy-brew-english-stand-up-two-minutes-from-central-zuerich-7466831998151048185.html
   eventfrog_name: 'Comedy Brew, English Stand-Up: Two minutes from Central'
-- show: promessi-spassi
-  name: PROMESSI SPASSI
-  title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
-  url: "/promessi-spassi/"
-  date: '2026-11-18'
-  start: '2026-11-18T20:00:00+01:00'
-  end: '2026-11-18T22:00:00+01:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  price_chf: 5
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081128061415.html
-  eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: jackpotcomedy
   name: Jackpot Comedy
   title: Jackpot Comedy - downstairs @ OTRO
@@ -48,6 +48,20 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7512798260639068110.html
   eventfrog_name: Jackpot Comedy
+- show: promessi-spassi
+  name: PROMESSI SPASSI
+  title: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
+  url: "/promessi-spassi/"
+  date: '2026-11-18'
+  start: '2026-11-18T20:00:00+01:00'
+  end: '2026-11-18T22:00:00+01:00'
+  venue: robins
+  venue_name: ROBIN's
+  location: ROBIN's Coffee
+  price_chf: 5
+  status: EventScheduled
+  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/promessi-spassi-stand-up-comedy-italiana-a-zurigo-zuerich-7478864081128061415.html
+  eventfrog_name: PROMESSI SPASSI - Stand-up comedy italiana a Zurigo
 - show: jokesjokesjokes
   name: Jokes, Jokes, Jokes
   title: Jokes, Jokes, Jokes - English Stand-up comedy show
@@ -220,16 +234,3 @@ events:
   status: EventScheduled
   ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jackpot-comedy-zuerich-7501966354213278689.html
   eventfrog_name: Jackpot Comedy
-- show: gratis-zum-mitnehmen
-  name: Gratis Comedy Zum Mitnehmen
-  title: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
-  url: "/gratis-zum-mitnehmen/"
-  date: '2026-10-18'
-  start: '2026-10-18T20:00:00+02:00'
-  end: '2026-10-18T22:00:00+02:00'
-  venue: robins
-  venue_name: ROBIN's
-  location: ROBIN's Coffee
-  status: EventScheduled
-  ticket_url: https://eventfrog.ch/de/p/comedy/comedy-kabarett/gratis-comedy-zum-mitnehmen-free-entry-stand-up-comedy-zuerich-7492504634877050139.html
-  eventfrog_name: Gratis Comedy Zum Mitnehmen - Free Entry Stand Up Comedy
