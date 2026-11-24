@@ -3,22 +3,22 @@
  "title": "PROMESSI SPASSI",
  "ticket_url": "https://eventfrog.ch/en/p/groups/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081056758243.html",
  "event_type": "monthly",
- "generated_at": "2026-11-23T09:20:01.695Z",
+ "generated_at": "2026-11-24T09:20:01.634Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-23",
- "complete_through": "2026-11-21",
+ "through": "2026-11-24",
+ "complete_through": "2026-11-22",
  "totals": {
-  "clicks": 4873,
-  "redirect": 4821,
+  "clicks": 4892,
+  "redirect": 4840,
   "click": 52,
-  "clicks_30d": 1672,
-  "redirect_30d": 1662,
+  "clicks_30d": 1680,
+  "redirect_30d": 1670,
   "click_30d": 10,
-  "views": 121,
-  "views_30d": 20,
-  "sessions": 115,
-  "sessions_30d": 19,
+  "views": 123,
+  "views_30d": 21,
+  "sessions": 117,
+  "sessions_30d": 20,
   "broken_links": 0,
   "untagged": 0
  },
@@ -732,13 +732,21 @@
    "redirect": 29,
    "click": 1,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-23",
-   "redirect": 5,
+   "redirect": 22,
    "click": 1,
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-24",
+   "redirect": 2,
+   "click": 0,
    "views": 0,
    "provisional": true,
    "clicks_tracked": true
@@ -748,7 +756,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 4614,
+   "clicks": 4633,
    "views": 2,
    "sessions": 2
   },
@@ -791,8 +799,8 @@
    "source": "google",
    "medium": "organic",
    "clicks": 11,
-   "views": 23,
-   "sessions": 22
+   "views": 24,
+   "sessions": 23
   },
   {
    "source": "IN YOUR FACE Comedy",
@@ -847,8 +855,8 @@
    "source": "chatgpt.com",
    "medium": "ai-assistant",
    "clicks": 2,
-   "views": 1,
-   "sessions": 1
+   "views": 2,
+   "sessions": 2
   },
   {
    "source": "instagram",
@@ -919,9 +927,9 @@
    "campaign": "promessi-spassi",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 3960,
+   "clicks": 3979,
    "first": "2026-08-30",
-   "last": "2026-11-23",
+   "last": "2026-11-24",
    "content": [
     {
      "content": "52672614093400",
@@ -933,7 +941,7 @@
     },
     {
      "content": "52688271936600",
-     "clicks": 875
+     "clicks": 894
     },
     {
      "content": "52672431580800",

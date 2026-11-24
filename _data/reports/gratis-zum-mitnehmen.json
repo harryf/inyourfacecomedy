@@ -3,11 +3,11 @@
  "title": "Gratis Comedy Zum Mitnehmen",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/gratis-zurich-7495107963884945951.html",
  "event_type": "series",
- "generated_at": "2026-11-23T09:20:01.695Z",
+ "generated_at": "2026-11-24T09:20:01.634Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-23",
- "complete_through": "2026-11-21",
+ "through": "2026-11-24",
+ "complete_through": "2026-11-22",
  "totals": {
   "clicks": 73,
   "redirect": 13,
@@ -15,10 +15,10 @@
   "clicks_30d": 20,
   "redirect_30d": 0,
   "click_30d": 20,
-  "views": 90,
-  "views_30d": 22,
-  "sessions": 86,
-  "sessions_30d": 22,
+  "views": 91,
+  "views_30d": 23,
+  "sessions": 87,
+  "sessions_30d": 23,
   "broken_links": 0,
   "untagged": 0
  },
@@ -732,11 +732,19 @@
    "redirect": 0,
    "click": 5,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-23",
+   "redirect": 0,
+   "click": 0,
+   "views": 1,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-24",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -756,8 +764,8 @@
    "source": "(direct)",
    "medium": "(none)",
    "clicks": 14,
-   "views": 28,
-   "sessions": 28
+   "views": 29,
+   "sessions": 29
   },
   {
    "source": "instagram",

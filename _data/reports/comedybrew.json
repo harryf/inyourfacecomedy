@@ -3,21 +3,21 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/comedy-brew-english-stand-up-open-mic-every-thursday-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-11-23T09:20:01.695Z",
+ "generated_at": "2026-11-24T09:20:01.634Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-23",
- "complete_through": "2026-11-21",
+ "through": "2026-11-24",
+ "complete_through": "2026-11-22",
  "totals": {
-  "clicks": 6553,
-  "redirect": 6120,
-  "click": 433,
-  "clicks_30d": 2839,
-  "redirect_30d": 2701,
+  "clicks": 6592,
+  "redirect": 6156,
+  "click": 436,
+  "clicks_30d": 2807,
+  "redirect_30d": 2669,
   "click_30d": 138,
-  "views": 1071,
+  "views": 1074,
   "views_30d": 374,
-  "sessions": 1014,
+  "sessions": 1017,
   "sessions_30d": 360,
   "broken_links": 0,
   "untagged": 0
@@ -732,14 +732,22 @@
    "redirect": 43,
    "click": 7,
    "views": 8,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-23",
-   "redirect": 8,
-   "click": 2,
-   "views": 0,
+   "redirect": 39,
+   "click": 4,
+   "views": 2,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-24",
+   "redirect": 5,
+   "click": 1,
+   "views": 1,
    "provisional": true,
    "clicks_tracked": true
   }
@@ -748,7 +756,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 5990,
+   "clicks": 6022,
    "views": 9,
    "sessions": 9
   },
@@ -756,22 +764,22 @@
    "source": "google",
    "medium": "organic",
    "clicks": 210,
-   "views": 406,
-   "sessions": 380
+   "views": 408,
+   "sessions": 382
   },
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 126,
+   "clicks": 128,
    "views": 60,
    "sessions": 56
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 108,
-   "views": 351,
-   "sessions": 327
+   "clicks": 112,
+   "views": 352,
+   "sessions": 328
   },
   {
    "source": "guidle",
@@ -797,7 +805,7 @@
   {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
-   "clicks": 12,
+   "clicks": 13,
    "views": 23,
    "sessions": 22
   },
@@ -954,13 +962,13 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 1454,
+   "clicks": 1456,
    "first": "2026-08-26",
-   "last": "2026-11-23",
+   "last": "2026-11-24",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 1396
+     "clicks": 1398
     }
    ]
   },
@@ -968,13 +976,13 @@
    "campaign": "cold",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 1034,
+   "clicks": 1042,
    "first": "2026-09-13",
    "last": "2026-11-23",
    "content": [
     {
      "content": "cold-C13",
-     "clicks": 498
+     "clicks": 506
     },
     {
      "content": "cold-C7",
@@ -1072,13 +1080,13 @@
    "campaign": "warm",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 657,
+   "clicks": 662,
    "first": "2026-09-13",
-   "last": "2026-11-23",
+   "last": "2026-11-24",
    "content": [
     {
      "content": "warm-W6",
-     "clicks": 470
+     "clicks": 475
     },
     {
      "content": "warm-W9",
@@ -1206,13 +1214,13 @@
    "campaign": "cold-planner",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 402,
+   "clicks": 417,
    "first": "2026-10-04",
    "last": "2026-11-23",
    "content": [
     {
      "content": "cold-C18",
-     "clicks": 309
+     "clicks": 324
     },
     {
      "content": "cold-C19",
@@ -1274,13 +1282,13 @@
    "campaign": "warm-planner",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 157,
+   "clicks": 159,
    "first": "2026-10-04",
-   "last": "2026-11-22",
+   "last": "2026-11-23",
    "content": [
     {
      "content": "warm-W12",
-     "clicks": 128
+     "clicks": 130
     },
     {
      "content": "warm-W13",
@@ -1497,6 +1505,20 @@
     {
      "content": "tickets",
      "clicks": 3
+    }
+   ]
+  },
+  {
+   "campaign": "comedybrew-20261126",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 2,
+   "first": "2026-11-23",
+   "last": "2026-11-23",
+   "content": [
+    {
+     "content": "tickets",
+     "clicks": 2
     }
    ]
   },
