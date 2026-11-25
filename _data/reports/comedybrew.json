@@ -3,22 +3,22 @@
  "title": "Comedy Brew",
  "ticket_url": "https://eventfrog.ch/en/p/groups/comedy-brew-english-stand-up-open-mic-every-thursday-7132091334890862636.html",
  "event_type": "series",
- "generated_at": "2026-11-24T09:20:01.634Z",
+ "generated_at": "2026-11-25T09:20:01.890Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-24",
- "complete_through": "2026-11-22",
+ "through": "2026-11-25",
+ "complete_through": "2026-11-23",
  "totals": {
-  "clicks": 6592,
-  "redirect": 6156,
-  "click": 436,
-  "clicks_30d": 2807,
-  "redirect_30d": 2669,
-  "click_30d": 138,
-  "views": 1074,
-  "views_30d": 374,
-  "sessions": 1017,
-  "sessions_30d": 360,
+  "clicks": 6656,
+  "redirect": 6218,
+  "click": 438,
+  "clicks_30d": 2840,
+  "redirect_30d": 2703,
+  "click_30d": 137,
+  "views": 1077,
+  "views_30d": 371,
+  "sessions": 1019,
+  "sessions_30d": 356,
   "broken_links": 0,
   "untagged": 0
  },
@@ -740,13 +740,21 @@
    "redirect": 39,
    "click": 4,
    "views": 2,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-24",
-   "redirect": 5,
-   "click": 1,
+   "redirect": 49,
+   "click": 3,
+   "views": 3,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-25",
+   "redirect": 18,
+   "click": 0,
    "views": 1,
    "provisional": true,
    "clicks_tracked": true
@@ -756,7 +764,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 6022,
+   "clicks": 6081,
    "views": 9,
    "sessions": 9
   },
@@ -764,20 +772,20 @@
    "source": "google",
    "medium": "organic",
    "clicks": 210,
-   "views": 408,
-   "sessions": 382
+   "views": 409,
+   "sessions": 383
   },
   {
    "source": "instagram",
    "medium": "social",
-   "clicks": 128,
+   "clicks": 131,
    "views": 60,
    "sessions": 56
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 112,
+   "clicks": 113,
    "views": 352,
    "sessions": 328
   },
@@ -805,7 +813,7 @@
   {
    "source": "IN YOUR FACE Comedy",
    "medium": "email",
-   "clicks": 13,
+   "clicks": 14,
    "views": 23,
    "sessions": 22
   },
@@ -841,8 +849,8 @@
    "source": "ecosia.org",
    "medium": "organic",
    "clicks": 2,
-   "views": 0,
-   "sessions": 0
+   "views": 2,
+   "sessions": 1
   },
   {
    "source": "hellozurich.ch",
@@ -962,13 +970,13 @@
    "campaign": "comedybrew",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 1456,
+   "clicks": 1490,
    "first": "2026-08-26",
-   "last": "2026-11-24",
+   "last": "2026-11-25",
    "content": [
     {
      "content": "120203748201470314",
-     "clicks": 1398
+     "clicks": 1432
     }
    ]
   },
@@ -976,9 +984,9 @@
    "campaign": "cold",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 1042,
+   "clicks": 1053,
    "first": "2026-09-13",
-   "last": "2026-11-23",
+   "last": "2026-11-25",
    "content": [
     {
      "content": "cold-C13",
@@ -986,7 +994,7 @@
     },
     {
      "content": "cold-C7",
-     "clicks": 375
+     "clicks": 386
     },
     {
      "content": "cold-C4v",
@@ -1080,13 +1088,13 @@
    "campaign": "warm",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 662,
+   "clicks": 667,
    "first": "2026-09-13",
-   "last": "2026-11-24",
+   "last": "2026-11-25",
    "content": [
     {
      "content": "warm-W6",
-     "clicks": 475
+     "clicks": 480
     },
     {
      "content": "warm-W9",
@@ -1122,9 +1130,9 @@
    "campaign": "cold-tomorrow",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 485,
+   "clicks": 492,
    "first": "2026-10-04",
-   "last": "2026-11-18",
+   "last": "2026-11-25",
    "content": [
     {
      "content": "cold-C21",
@@ -1132,7 +1140,7 @@
     },
     {
      "content": "cold-C30",
-     "clicks": 136
+     "clicks": 143
     },
     {
      "content": "cold-C28",
@@ -1236,9 +1244,9 @@
    "campaign": "warm-tomorrow",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 262,
+   "clicks": 264,
    "first": "2026-10-04",
-   "last": "2026-11-18",
+   "last": "2026-11-25",
    "content": [
     {
      "content": "warm-W15",
@@ -1246,7 +1254,7 @@
     },
     {
      "content": "warm-W24",
-     "clicks": 63
+     "clicks": 65
     },
     {
      "content": "warm-W21",
@@ -1453,6 +1461,20 @@
    ]
   },
   {
+   "campaign": "comedybrew-20261126",
+   "source": "instagram",
+   "medium": "social",
+   "clicks": 5,
+   "first": "2026-11-23",
+   "last": "2026-11-24",
+   "content": [
+    {
+     "content": "tickets",
+     "clicks": 5
+    }
+   ]
+  },
+  {
    "campaign": "comedybrew-20261015",
    "source": "instagram",
    "medium": "social",
@@ -1505,20 +1527,6 @@
     {
      "content": "tickets",
      "clicks": 3
-    }
-   ]
-  },
-  {
-   "campaign": "comedybrew-20261126",
-   "source": "instagram",
-   "medium": "social",
-   "clicks": 2,
-   "first": "2026-11-23",
-   "last": "2026-11-23",
-   "content": [
-    {
-     "content": "tickets",
-     "clicks": 2
     }
    ]
   },
