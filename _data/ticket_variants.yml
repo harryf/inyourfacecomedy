@@ -4,17 +4,9 @@
 # Eventfrog). Read ONLY by _includes/go-catalogs.liquid (so /go/?variant=<id> lands
 # on that listing's own date page), the link builder and the traffic report.
 # The calendar, the show pages and the staff calendar never read this file.
-generated_at: '2026-11-18T08:00:01+00:00'
-event_count: 5
+generated_at: '2026-11-25T08:00:01+00:00'
+event_count: 4
 events:
-- show: jokesjokesjokes
-  variant: interactive
-  label: Interactive flyer
-  date: '2026-11-24'
-  start: '2026-11-24T20:00:00+01:00'
-  end: '2026-11-24T22:00:00+01:00'
-  ticket_url: https://eventfrog.ch/en/p/comedy/comedy-cabaret/jokes-jokes-jokes-interactive-english-stand-up-comedy-zuerich-7524099855569939886.html
-  eventfrog_name: Jokes, Jokes, Jokes - Interactive English Stand-up comedy
 - show: jokesjokesjokes
   variant: interactive
   label: Interactive flyer
