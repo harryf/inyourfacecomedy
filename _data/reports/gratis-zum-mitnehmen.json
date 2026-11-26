@@ -3,11 +3,11 @@
  "title": "Gratis Comedy Zum Mitnehmen",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/gratis-zurich-7495107963884945951.html",
  "event_type": "series",
- "generated_at": "2026-11-25T09:20:01.890Z",
+ "generated_at": "2026-11-26T09:20:02.323Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-25",
- "complete_through": "2026-11-23",
+ "through": "2026-11-26",
+ "complete_through": "2026-11-24",
  "totals": {
   "clicks": 73,
   "redirect": 13,
@@ -748,11 +748,19 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-25",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-26",
    "redirect": 0,
    "click": 0,
    "views": 0,

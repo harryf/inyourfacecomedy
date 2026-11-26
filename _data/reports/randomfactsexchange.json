@@ -3,22 +3,22 @@
  "title": "Random Facts Exchange",
  "ticket_url": "https://eventfrog.ch/en/p/groups/random-facts-exchange-7434337254674303477.html",
  "event_type": "series",
- "generated_at": "2026-11-25T09:20:01.890Z",
+ "generated_at": "2026-11-26T09:20:02.323Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-25",
- "complete_through": "2026-11-23",
+ "through": "2026-11-26",
+ "complete_through": "2026-11-24",
  "totals": {
-  "clicks": 70,
+  "clicks": 76,
   "redirect": 0,
-  "click": 70,
-  "clicks_30d": 15,
+  "click": 76,
+  "clicks_30d": 21,
   "redirect_30d": 0,
-  "click_30d": 15,
-  "views": 150,
-  "views_30d": 35,
-  "sessions": 143,
-  "sessions_30d": 33,
+  "click_30d": 21,
+  "views": 156,
+  "views_30d": 40,
+  "sessions": 147,
+  "sessions_30d": 36,
   "broken_links": 0,
   "untagged": 0
  },
@@ -748,11 +748,19 @@
    "redirect": 0,
    "click": 3,
    "views": 2,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-25",
+   "redirect": 0,
+   "click": 6,
+   "views": 6,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-26",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -764,9 +772,9 @@
   {
    "source": "google",
    "medium": "organic",
-   "clicks": 44,
-   "views": 78,
-   "sessions": 74
+   "clicks": 45,
+   "views": 83,
+   "sessions": 77
   },
   {
    "source": "(direct)",
@@ -790,6 +798,13 @@
    "sessions": 4
   },
   {
+   "source": "chatgpt.com",
+   "medium": "(none)",
+   "clicks": 4,
+   "views": 1,
+   "sessions": 1
+  },
+  {
    "source": "ecosia.org",
    "medium": "organic",
    "clicks": 2,
@@ -797,18 +812,18 @@
    "sessions": 3
   },
   {
+   "source": "chatgpt.com",
+   "medium": "ai-assistant",
+   "clicks": 2,
+   "views": 2,
+   "sessions": 2
+  },
+  {
    "source": "eventfrog.ch",
    "medium": "referral",
    "clicks": 1,
    "views": 5,
    "sessions": 3
-  },
-  {
-   "source": "chatgpt.com",
-   "medium": "ai-assistant",
-   "clicks": 1,
-   "views": 2,
-   "sessions": 2
   },
   {
    "source": "guidle",
