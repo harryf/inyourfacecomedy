@@ -2207,6 +2207,11 @@
       { style: 'vice', text: '#0F0F10', field: '#FFD54F', kind: 'small' },     // HOST tab
       { style: 'vice', text: '#FFF3E0', field: '#E53935', kind: 'large' },     // date pill (bold 40px)
       { style: 'vice', text: '#FFD54F', field: '#0F0F10', kind: 'large' },     // title fill inside its ink outline, tagline on the ink sky
+      { style: 'snow', text: '#FFD54F', field: '#183A70', kind: 'large' },     // title on the lightest point of the sky
+      { style: 'snow', text: '#FFF3E0', field: '#183A70', kind: 'small' },     // tagline and the friends line on the sky
+      { style: 'snow', text: '#10264D', field: '#EEF3FA', kind: 'small' },     // name in marker on the frosty frame
+      { style: 'snow', text: '#10264D', field: '#B9CDE8', kind: 'small' },     // venue on the drift, worst case the shaded foot
+      { style: 'snow', text: '#FFF3E0', field: '#E53935', kind: 'large' },     // date pill and HOST tag (bold)
       { style: 'week-type', text: '#B9B2A6', field: '#0F0F10', kind: 'small' }, // venue and time on the ink field
       { style: 'week-swiss', text: '#5A5A5E', field: '#F2F2EE', kind: 'small' }, // venue line on the paper
       { style: 'week-ticket', text: '#2B2B2B', field: '#FBF7EE', kind: 'small' }, // stub text
@@ -2950,6 +2955,248 @@
     drawMeta(ctx, spec, m, metaBase, '#E53935', '#FFF3E0', '#FFF3E0');
   }
 
+  // --- STYLE: Snow (seasonal) ---------------------------------------------------
+  // A snowy night: a navy sky with seeded falling snow, two snowy firs at the edges, a
+  // drift the date stands on. Every print wears a lumpy cap of snow and so does every
+  // letter of the title (yellow, like a lit window). Seeded by show and date, so a
+  // re-render is identical.
+  var SNOW_INK = '#10264D';
+  function snowRand(seed) {
+    var s = seed >>> 0;
+    return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+  // A lumpy pile of snow resting on the segment (x, y) to (x + w, y): bumps of seeded
+  // height above it, a little overhang at the ends, a few rounded drips below.
+  function snowCap(ctx, x, y, w, h, rnd, drips) {
+    var over = Math.max(3, w * 0.03), n = Math.max(3, Math.round(w / Math.max(18, h * 1.6)));
+    var x0 = x - over, x1 = x + w + over, step = (x1 - x0) / n;
+    ctx.beginPath();
+    ctx.moveTo(x0, y + h * 0.35);
+    ctx.quadraticCurveTo(x0 - over * 0.6, y - h * 0.2, x0 + step * 0.3, y - h * 0.55);
+    for (var i = 0; i < n; i++) {
+      var bx = x0 + step * (i + 0.5), bh = h * (0.7 + rnd() * 0.5);
+      var ex = Math.min(x1 - step * 0.3, x0 + step * (i + 1));
+      ctx.quadraticCurveTo(bx, y - bh * 1.35, ex, y - h * (0.45 + rnd() * 0.25));
+    }
+    ctx.quadraticCurveTo(x1 + over * 0.6, y - h * 0.2, x1, y + h * 0.35);
+    // underside, with a few drips hanging over the edge
+    var dn = drips ? 2 + Math.floor(rnd() * 3) : 0, pts = [];
+    for (var d = 0; d < dn; d++) pts.push(x + w * (0.12 + rnd() * 0.76));
+    pts.sort(function (a, b) { return b - a; });
+    var cx = x1;
+    pts.forEach(function (px) {
+      var dw = h * (0.45 + rnd() * 0.35), dh = h * (0.7 + rnd() * 1.1);
+      ctx.lineTo(px + dw, y + h * 0.3);
+      ctx.quadraticCurveTo(px + dw, y + h * 0.3 + dh, px, y + h * 0.3 + dh);
+      ctx.quadraticCurveTo(px - dw, y + h * 0.3 + dh, px - dw, y + h * 0.3);
+      cx = px - dw;
+    });
+    ctx.lineTo(x0, y + h * 0.35);
+    ctx.closePath();
+    ctx.save();
+    ctx.shadowColor = 'rgba(6,18,44,0.45)'; ctx.shadowBlur = Math.max(4, h * 0.5); ctx.shadowOffsetY = Math.max(2, h * 0.18);
+    ctx.fillStyle = '#FFFFFF'; ctx.fill();
+    ctx.restore();
+    // a cool shade along the bottom of the pile
+    ctx.save(); ctx.clip();
+    var sh = ctx.createLinearGradient(0, y - h * 1.2, 0, y + h * 2);
+    sh.addColorStop(0, 'rgba(255,255,255,0)'); sh.addColorStop(0.55, 'rgba(255,255,255,0)'); sh.addColorStop(1, 'rgba(150,180,220,0.55)');
+    ctx.fillStyle = sh; ctx.fillRect(x0 - over, y - h * 2, x1 - x0 + over * 2, h * 5);
+    ctx.restore();
+  }
+  // One six-armed snow crystal, for the big flakes in the margins.
+  function snowCrystal(ctx, x, y, r, rot, alpha) {
+    ctx.save();
+    ctx.translate(x, y); ctx.rotate(rot);
+    ctx.globalAlpha = alpha; ctx.strokeStyle = '#FFFFFF'; ctx.lineCap = 'round';
+    ctx.lineWidth = Math.max(2, r * 0.1);
+    for (var i = 0; i < 6; i++) {
+      ctx.rotate(Math.PI / 3);
+      ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, -r); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, -r * 0.55); ctx.lineTo(r * 0.26, -r * 0.78); ctx.moveTo(0, -r * 0.55); ctx.lineTo(-r * 0.26, -r * 0.78); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, -r * 0.3); ctx.lineTo(r * 0.16, -r * 0.44); ctx.moveTo(0, -r * 0.3); ctx.lineTo(-r * 0.16, -r * 0.44); ctx.stroke();
+    }
+    ctx.restore();
+  }
+  // A fir in deep pine green with four tiers, the top of each tier under a scalloped
+  // layer of snow.
+  function snowFir(ctx, x, baseY, h, rnd) {
+    var tiers = 4, w = h * 0.6;
+    ctx.save();
+    ctx.fillStyle = '#3A2A22'; ctx.fillRect(x - h * 0.03, baseY - h * 0.16, h * 0.06, h * 0.2);
+    for (var t = 0; t < tiers; t++) {
+      var tb = baseY - h * 0.12 - t * h * 0.2, tw = w * (1 - t * 0.2), tt = tb - h * 0.36;
+      ctx.fillStyle = '#123B36';
+      ctx.beginPath(); ctx.moveTo(x, tt); ctx.lineTo(x + tw / 2, tb); ctx.lineTo(x - tw / 2, tb); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = '#0B2724';
+      ctx.beginPath(); ctx.moveTo(x, tt); ctx.lineTo(x + tw / 2, tb); ctx.lineTo(x, tb); ctx.closePath(); ctx.fill();
+      // snow: the upper part of the tier, its lower edge in scallops
+      var sd = 0.5 + rnd() * 0.12, sy = tt + (tb - tt) * sd, sw = tw * sd / 2, n = 4;
+      ctx.fillStyle = '#FFFFFF';
+      ctx.beginPath(); ctx.moveTo(x, tt - 3); ctx.lineTo(x + sw + 2, sy);
+      for (var k = n; k > 0; k--) {
+        var x1 = x - sw + (2 * sw) * (k - 1) / n, xm = (x - sw + (2 * sw) * k / n + x1) / 2;
+        ctx.quadraticCurveTo(xm, sy + h * (0.035 + rnd() * 0.03), x1, sy + (k === 1 ? 0 : h * 0.004));
+      }
+      ctx.lineTo(x - sw - 2, sy); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = 'rgba(150,180,220,0.45)';
+      ctx.beginPath(); ctx.moveTo(x, tt); ctx.lineTo(x + sw + 2, sy); ctx.lineTo(x, sy); ctx.closePath(); ctx.fill();
+    }
+    ctx.restore();
+  }
+  // The night: sky, a soft glow low down, firs on the drift, the drift itself. Returns
+  // nothing; the falling snow is drawn last by snowFall so it sits in front.
+  function drawSnowField(ctx, spec, rnd, driftY) {
+    var W = spec.w, H = spec.h;
+    var sky = ctx.createLinearGradient(0, 0, 0, driftY);
+    sky.addColorStop(0, '#050D20'); sky.addColorStop(0.55, '#0B1C42'); sky.addColorStop(1, '#183A70');
+    ctx.fillStyle = sky; ctx.fillRect(0, 0, W, H);
+    var glow = ctx.createRadialGradient(W / 2, driftY, 10, W / 2, driftY, W * 0.75);
+    glow.addColorStop(0, 'rgba(255,213,79,0.20)'); glow.addColorStop(1, 'rgba(255,213,79,0)');
+    ctx.fillStyle = glow; ctx.fillRect(0, 0, W, H);
+    // a far drift in pale blue behind the near one
+    ctx.fillStyle = '#3E5F96';
+    ctx.beginPath(); ctx.moveTo(0, driftY - 20);
+    ctx.bezierCurveTo(W * 0.2, driftY - 90 - rnd() * 30, W * 0.45, driftY - 10, W * 0.62, driftY - 50);
+    ctx.bezierCurveTo(W * 0.78, driftY - 90 - rnd() * 30, W * 0.9, driftY - 40, W, driftY - 60);
+    ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath(); ctx.globalAlpha = 0.5; ctx.fill(); ctx.globalAlpha = 1;
+    var firH = Math.round(Math.min(H * 0.34, (driftY - spec.keyTop) * 0.62));
+    snowFir(ctx, spec.keySide - 6, driftY + 18, firH, rnd);
+    snowFir(ctx, W - spec.keySide + 6, driftY + 10, Math.round(firH * 0.86), rnd);
+    snowFir(ctx, spec.keySide + firH * 0.3, driftY + 24, Math.round(firH * 0.55), rnd);
+    // the near drift: white at the crest, cooling to a shaded blue at the foot
+    var snow = ctx.createLinearGradient(0, driftY, 0, H);
+    snow.addColorStop(0, '#FFFFFF'); snow.addColorStop(0.35, '#EEF4FC'); snow.addColorStop(1, '#B9CDE8');
+    ctx.fillStyle = snow;
+    ctx.beginPath(); ctx.moveTo(0, driftY + 22);
+    ctx.quadraticCurveTo(W * 0.18, driftY - 4, W * 0.38, driftY + 12);
+    ctx.quadraticCurveTo(W * 0.6, driftY + 30, W * 0.78, driftY + 6);
+    ctx.quadraticCurveTo(W * 0.92, driftY - 6, W, driftY + 16);
+    ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath(); ctx.fill();
+  }
+  // Falling snow, in front of everything except the bands in keep (title and date),
+  // which stay clear so the type reads. Big crystals only in the margins.
+  function snowFall(ctx, spec, rnd, keep) {
+    var W = spec.w, H = spec.h, n = spec.format === 'story' ? 260 : 190;
+    function clear(x, y, r) {
+      for (var i = 0; i < keep.length; i++) { var k = keep[i]; if (x > k.x - r && x < k.x + k.w + r && y > k.y - r && y < k.y + k.h + r) return false; }
+      return true;
+    }
+    ctx.save(); ctx.fillStyle = '#FFFFFF';
+    for (var i = 0; i < n; i++) {
+      var x = rnd() * W, y = rnd() * H, depth = rnd(), r = 1.5 + depth * depth * 6;
+      if (!clear(x, y, r + 4)) continue;
+      ctx.globalAlpha = 0.35 + depth * 0.55;
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.restore();
+    var spots = [[0.07, 0.06], [0.9, 0.05], [0.95, 0.2], [0.05, 0.25]];
+    if (spec.format === 'story') spots.push([0.88, 0.93], [0.12, 0.9]);
+    spots.forEach(function (p) {
+      var x = p[0] * W, y = p[1] * H, r = 22 + rnd() * 26;
+      if (clear(x, y, r)) snowCrystal(ctx, x, y, r, rnd() * Math.PI, 0.55 + rnd() * 0.3);
+    });
+  }
+  // One print: a frosty white frame, the photo, the first name in marker, a cap of snow
+  // on top. HOST tag in brand red, a yellow star on the headliner.
+  function drawSnowPrint(ctx, it, cx, topY, w, idx, seed) {
+    var capH = Math.max(12, Math.round(w * 0.095)), y0 = topY + capH * 1.2;
+    var border = Math.max(8, Math.round(w * 0.055)), photo = w - border * 2, capS = Math.round(w * 0.2), h = border + photo + capS;
+    var tilt = TILTS[idx % TILTS.length] * 0.6, rnd = snowRand(seed + idx * 7919);
+    ctx.save();
+    ctx.translate(cx, y0 + h / 2); ctx.rotate(tilt * Math.PI / 180);
+    var x = -w / 2, y = -h / 2;
+    ctx.shadowColor = 'rgba(2,8,24,0.55)'; ctx.shadowBlur = 22; ctx.shadowOffsetY = 10;
+    ctx.fillStyle = '#EEF3FA'; ctx.fillRect(x, y, w, h);
+    ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
+    if (it.img) drawCover(ctx, it.img, x + border, y + border, photo, photo, 0.5, 0.3);
+    else {
+      ctx.fillStyle = '#183A70'; ctx.fillRect(x + border, y + border, photo, photo);
+      ctx.fillStyle = '#FFD54F'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '400 ' + Math.round(photo * 0.55) + 'px ' + FONT_DISPLAY;
+      ctx.fillText((it.name || '?').charAt(0).toUpperCase(), 0, y + border + photo / 2 + 4);
+    }
+    // a breath of frost over the bottom of the photo
+    var fr = ctx.createLinearGradient(0, y + border + photo * 0.7, 0, y + border + photo);
+    fr.addColorStop(0, 'rgba(238,243,250,0)'); fr.addColorStop(1, 'rgba(238,243,250,0.35)');
+    ctx.fillStyle = fr; ctx.fillRect(x + border, y + border + photo * 0.7, photo, photo * 0.3);
+    ctx.fillStyle = SNOW_INK; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    var cap = firstName(it.name);
+    fitFont(ctx, cap, w - border * 2, Math.round(capS * 0.66), 18, '', FONT_ACCENT);
+    ctx.fillText(cap, 0, y + border + photo + capS / 2 + 2);
+    if (it.isHost) {
+      var tw = Math.round(w * 0.44), th = Math.round(w * 0.14), tx = x + w - tw + 6, ty = y + border + photo - th * 0.6;
+      roundRect(ctx, tx, ty, tw, th, th / 2); ctx.fillStyle = '#E53935'; ctx.fill();
+      ctx.fillStyle = '#FFF3E0'; ctx.font = '700 ' + Math.round(th * 0.6) + 'px ' + FONT_BODY;
+      ctx.fillText('HOST', tx + tw / 2, ty + th / 2 + 1);
+    }
+    snowCap(ctx, x, y, w, capH, rnd, true);
+    if (it.headliner) {
+      var sr = Math.max(14, Math.round(w * 0.11));
+      drawStar(ctx, x + border + sr * 0.6, y + border + sr * 1.4, sr, '#FFD54F', SNOW_INK);
+    }
+    ctx.restore();
+  }
+  // The title in yellow Anton with an ink drop, a cap of snow on every letter.
+  function drawSnowTitle(ctx, spec, ttl, baselineY) {
+    var cx = spec.w / 2, lineH = ttl.px * 1.06, topY = baselineY - ttl.lines.length * lineH;
+    var rnd = snowRand(ticketHash(ttl.lines.join('|') + '|snowtitle'));
+    ctx.save();
+    ctx.font = '400 ' + ttl.px + 'px ' + FONT_DISPLAY;
+    ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+    ttl.lines.forEach(function (ln, i) {
+      var y = topY + (i + 1) * lineH - lineH * 0.16, lw = ctx.measureText(ln).width, x = cx - lw / 2;
+      var m0 = ctx.measureText('H'), asc = (m0.actualBoundingBoxAscent || ttl.px * 0.8);
+      ctx.fillStyle = 'rgba(2,8,24,0.75)'; ctx.fillText(ln, x + 5, y + 6);
+      ctx.fillStyle = '#FFD54F'; ctx.fillText(ln, x, y);
+      for (var c = 0; c < ln.length; c++) {
+        var ch = ln.charAt(c);
+        if (!/\S/.test(ch)) continue;
+        var lx = x + ctx.measureText(ln.slice(0, c)).width, cw = ctx.measureText(ch).width;
+        var mm = ctx.measureText(ch), a = mm.actualBoundingBoxAscent || asc;
+        // letters shorter than a capital (none in Anton caps, but punctuation) get no cap
+        if (a < asc * 0.85) continue;
+        snowCap(ctx, lx + cw * 0.08, y - a + 2, cw * 0.84, Math.max(7, ttl.px * 0.085), rnd, false);
+      }
+    });
+    ctx.restore();
+    return topY;
+  }
+
+  function paintSnow(ctx, spec, m) {
+    var W = spec.w, H = spec.h, story = spec.format === 'story';
+    var top = spec.keyTop, bottomY = H - spec.keyBottom, pad = spec.keySide + 14, cx = W / 2;
+    var slug = m.show ? m.show.slug : '', iso = m.show ? m.show.next : '';
+    var seed = ticketHash(slug + '|' + iso + '|snow');
+    // bottom block first: date on the drift, the title above it measured in its weight
+    var metaBase = bottomY - 10, driftY = metaBase - 104;
+    var ttl = fitTitle(ctx, (m.show ? splitTitle(m.show.title) : 'IN YOUR FACE').toUpperCase(), W - (spec.keySide + 30) * 2, story ? 160 : 132, 60, 2, FONT_DISPLAY);
+    var titleBottom = driftY - 10;
+    var titleTop = titleBottom - Math.round(ttl.lines.length * ttl.px * 1.06) - Math.round(ttl.px * 0.1);
+    drawSnowField(ctx, spec, snowRand(seed), driftY);
+    var headerBottom = flyerHeader(ctx, spec, m, { taglineColor: '#FFF3E0', top: top });
+    var friendsH = m.hasGuests ? 60 : 0;
+    var facesTop = headerBottom + 6, facesBottom = titleTop - 26 - friendsH;
+    var bill = hostPrints(m).concat(m.bill.slice());
+    faceGrid(ctx, spec, bill, pad, facesTop, W - pad * 2, facesBottom - facesTop, 1.34, story ? 250 : 210,
+      function (ctx, it, ccx, ty, w, idx) { drawSnowPrint(ctx, it, ccx, ty, w, idx, seed); });
+    if (m.hasGuests) {
+      ctx.save();
+      ctx.fillStyle = '#FFF3E0'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '40px ' + FONT_ACCENT;
+      ctx.shadowColor = 'rgba(2,8,24,0.9)'; ctx.shadowBlur = 10;
+      ctx.fillText('… and friends', cx, facesBottom + friendsH / 2);
+      ctx.restore();
+    }
+    drawSnowTitle(ctx, spec, ttl, titleBottom);
+    drawMeta(ctx, spec, m, metaBase, '#E53935', '#FFF3E0', SNOW_INK);
+    snowFall(ctx, spec, snowRand(seed ^ 0x9E3779B9), [
+      { x: 0, y: titleTop - 10, w: W, h: titleBottom - titleTop + 30 },
+      { x: 0, y: metaBase - 80, w: W, h: 90 },
+      { x: 0, y: top, w: W, h: headerBottom - top }
+    ]);
+  }
+
   // Style registry - keys map to painters; unknown/empty falls back to classic.
   var FLYER_STYLES = {
     classic: paintFlyer,
@@ -2960,7 +3207,8 @@
     lava: paintLavaLamp,
     swiss: paintSwiss,
     lineup: paintLineup,
-    vice: paintVice
+    vice: paintVice,
+    snow: paintSnow
   };
 
   // Resolve lineup state -> draw the flyer -> callback. done(err|null).
@@ -3103,10 +3351,10 @@
     panel.appendChild(el('p', 'lineup-lab__copy-hint',
       'A ready-to-post flyer built from this lineup. Pick a style + format and download.'));
 
-    // Style toggle - nine looks, same lineup. Persists on the host like the format does.
+    // Style toggle - ten looks, same lineup. Persists on the host like the format does.
     var styleToggle = el('div', 'lineup-lab__fmt-toggle lineup-lab__style-toggle');
     [['classic', '🎞️ Polaroid'], ['ticket', '🎟️ Ticket'], ['riso', '🖨️ Risograph'], ['neon', '🌃 Neon'], ['type', '🔠 Bold Type'],
-     ['lava', '🫧 Lava'], ['swiss', '🔴 Swiss'], ['lineup', '📏 Lineup'], ['vice', '🌴 GTA']].forEach(function (p) {
+     ['lava', '🫧 Lava'], ['swiss', '🔴 Swiss'], ['lineup', '📏 Lineup'], ['vice', '🌴 GTA'], ['snow', '❄️ Snow']].forEach(function (p) {
       var b = button('lineup-lab__fmt-btn' + (sty === p[0] ? ' is-on' : ''), p[1]);
       b.setAttribute('aria-pressed', sty === p[0] ? 'true' : 'false');
       b.addEventListener('click', function () { container.__iyfStyle = p[0]; openFlyer(container, st); });
