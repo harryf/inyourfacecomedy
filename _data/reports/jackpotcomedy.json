@@ -3,22 +3,22 @@
  "title": "Jackpot Comedy",
  "ticket_url": "https://eventfrog.ch/en/p/groups/jackpot-comedy-7413646370706339342.html",
  "event_type": "series",
- "generated_at": "2026-11-26T09:20:02.323Z",
+ "generated_at": "2026-11-27T09:20:01.184Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-26",
- "complete_through": "2026-11-24",
+ "through": "2026-11-27",
+ "complete_through": "2026-11-25",
  "totals": {
-  "clicks": 1197,
-  "redirect": 1087,
+  "clicks": 1201,
+  "redirect": 1091,
   "click": 110,
-  "clicks_30d": 305,
-  "redirect_30d": 270,
+  "clicks_30d": 309,
+  "redirect_30d": 274,
   "click_30d": 35,
   "views": 277,
-  "views_30d": 78,
+  "views_30d": 77,
   "sessions": 257,
-  "sessions_30d": 69,
+  "sessions_30d": 68,
   "broken_links": 0,
   "untagged": 0
  },
@@ -756,12 +756,20 @@
    "redirect": 8,
    "click": 1,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-26",
    "redirect": 2,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-27",
+   "redirect": 4,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -772,7 +780,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 1050,
+   "clicks": 1054,
    "views": 3,
    "sessions": 2
   },
@@ -901,13 +909,13 @@
    "campaign": "jackpotcomedy",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 1050,
+   "clicks": 1054,
    "first": "2026-08-30",
-   "last": "2026-11-26",
+   "last": "2026-11-27",
    "content": [
     {
      "content": "6964168949947",
-     "clicks": 1028
+     "clicks": 1029
     }
    ]
   },

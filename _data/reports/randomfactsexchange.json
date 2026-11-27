@@ -3,11 +3,11 @@
  "title": "Random Facts Exchange",
  "ticket_url": "https://eventfrog.ch/en/p/groups/random-facts-exchange-7434337254674303477.html",
  "event_type": "series",
- "generated_at": "2026-11-26T09:20:02.323Z",
+ "generated_at": "2026-11-27T09:20:01.184Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-26",
- "complete_through": "2026-11-24",
+ "through": "2026-11-27",
+ "complete_through": "2026-11-25",
  "totals": {
   "clicks": 76,
   "redirect": 0,
@@ -756,11 +756,19 @@
    "redirect": 0,
    "click": 6,
    "views": 6,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-26",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-27",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -784,6 +792,13 @@
    "sessions": 16
   },
   {
+   "source": "chatgpt.com",
+   "medium": "ai-assistant",
+   "clicks": 6,
+   "views": 3,
+   "sessions": 3
+  },
+  {
    "source": "instagram",
    "medium": "social",
    "clicks": 5,
@@ -798,25 +813,11 @@
    "sessions": 4
   },
   {
-   "source": "chatgpt.com",
-   "medium": "(none)",
-   "clicks": 4,
-   "views": 1,
-   "sessions": 1
-  },
-  {
    "source": "ecosia.org",
    "medium": "organic",
    "clicks": 2,
    "views": 4,
    "sessions": 3
-  },
-  {
-   "source": "chatgpt.com",
-   "medium": "ai-assistant",
-   "clicks": 2,
-   "views": 2,
-   "sessions": 2
   },
   {
    "source": "eventfrog.ch",

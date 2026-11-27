@@ -538,3 +538,5 @@ datetime,event,source,medium,campaign,content,page,variant
 2026-11-15 19:14,ticket_redirect,nerdygroupmail,social,nerdycomedyshow-20261128,,Ticket Redirect,
 2026-11-23 16:12,ticket_click,(direct),(none),,,https://inyourfacecomedy.ch/calendar/,
 2026-11-24 23:28,ticket_click,google,organic,,,https://inyourfacecomedy.ch/calendar/,
+2026-11-26 16:36,ticket_click,google,organic,,,https://inyourfacecomedy.ch/,
+2026-11-26 18:25,ticket_click,google,organic,,,https://inyourfacecomedy.ch/nerdycomedyshow/,

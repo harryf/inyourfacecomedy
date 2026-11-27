@@ -3,22 +3,22 @@
  "title": "PROMESSI SPASSI",
  "ticket_url": "https://eventfrog.ch/en/p/groups/promessi-spassi-stand-up-comedy-italiana-a-zurigo-7478864081056758243.html",
  "event_type": "monthly",
- "generated_at": "2026-11-26T09:20:02.323Z",
+ "generated_at": "2026-11-27T09:20:01.184Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-26",
- "complete_through": "2026-11-24",
+ "through": "2026-11-27",
+ "complete_through": "2026-11-25",
  "totals": {
-  "clicks": 4930,
-  "redirect": 4878,
+  "clicks": 4942,
+  "redirect": 4890,
   "click": 52,
-  "clicks_30d": 1686,
-  "redirect_30d": 1676,
+  "clicks_30d": 1688,
+  "redirect_30d": 1678,
   "click_30d": 10,
   "views": 125,
-  "views_30d": 23,
+  "views_30d": 22,
   "sessions": 119,
-  "sessions_30d": 22,
+  "sessions_30d": 21,
   "broken_links": 0,
   "untagged": 0
  },
@@ -756,12 +756,20 @@
    "redirect": 20,
    "click": 0,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-26",
-   "redirect": 6,
+   "redirect": 16,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-27",
+   "redirect": 2,
    "click": 0,
    "views": 0,
    "provisional": true,
@@ -772,7 +780,7 @@
   {
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 4667,
+   "clicks": 4679,
    "views": 2,
    "sessions": 2
   },
@@ -943,9 +951,9 @@
    "campaign": "promessi-spassi",
    "source": "meta",
    "medium": "paid_social",
-   "clicks": 4013,
+   "clicks": 4025,
    "first": "2026-08-30",
-   "last": "2026-11-26",
+   "last": "2026-11-27",
    "content": [
     {
      "content": "52672614093400",
@@ -957,7 +965,7 @@
     },
     {
      "content": "52688271936600",
-     "clicks": 927
+     "clicks": 939
     },
     {
      "content": "52672431580800",
