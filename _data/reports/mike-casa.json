@@ -3,11 +3,11 @@
  "title": "Mike Casa",
  "ticket_url": "https://eventfrog.ch/en/p/comedy/comedy-cabaret/2-dec-12-tickets-left-mike-casa-show-robin-s-zurich-zuerich-7507006161725486601.html",
  "event_type": "one-off",
- "generated_at": "2026-11-27T09:20:01.184Z",
+ "generated_at": "2026-11-28T09:20:01.957Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-27",
- "complete_through": "2026-11-25",
+ "through": "2026-11-28",
+ "complete_through": "2026-11-26",
  "totals": {
   "clicks": 18,
   "redirect": 0,
@@ -764,11 +764,19 @@
    "redirect": 0,
    "click": 0,
    "views": 0,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-27",
+   "redirect": 0,
+   "click": 0,
+   "views": 0,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-28",
    "redirect": 0,
    "click": 0,
    "views": 0,

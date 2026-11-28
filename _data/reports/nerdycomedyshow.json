@@ -3,22 +3,22 @@
  "title": "The NERDY COMEDY Show",
  "ticket_url": "https://eventfrog.ch/de/p/gruppen/nerdy-stand-up-comedy-en-7284304661632248367.html",
  "event_type": "series",
- "generated_at": "2026-11-27T09:20:01.184Z",
+ "generated_at": "2026-11-28T09:20:01.957Z",
  "since": "2026-08-26",
  "pages_since": "2026-08-26",
- "through": "2026-11-27",
- "complete_through": "2026-11-25",
+ "through": "2026-11-28",
+ "complete_through": "2026-11-26",
  "totals": {
-  "clicks": 541,
+  "clicks": 542,
   "redirect": 457,
-  "click": 84,
-  "clicks_30d": 190,
-  "redirect_30d": 144,
-  "click_30d": 46,
-  "views": 155,
-  "views_30d": 53,
-  "sessions": 160,
-  "sessions_30d": 55,
+  "click": 85,
+  "clicks_30d": 158,
+  "redirect_30d": 111,
+  "click_30d": 47,
+  "views": 161,
+  "views_30d": 58,
+  "sessions": 167,
+  "sessions_30d": 61,
   "broken_links": 0,
   "untagged": 0
  },
@@ -764,11 +764,19 @@
    "redirect": 0,
    "click": 2,
    "views": 1,
-   "provisional": true,
+   "provisional": false,
    "clicks_tracked": true
   },
   {
    "date": "2026-11-27",
+   "redirect": 0,
+   "click": 1,
+   "views": 6,
+   "provisional": true,
+   "clicks_tracked": true
+  },
+  {
+   "date": "2026-11-28",
    "redirect": 0,
    "click": 0,
    "views": 0,
@@ -788,15 +796,15 @@
    "source": "google",
    "medium": "organic",
    "clicks": 35,
-   "views": 62,
-   "sessions": 64
+   "views": 63,
+   "sessions": 65
   },
   {
    "source": "(direct)",
    "medium": "(none)",
-   "clicks": 20,
-   "views": 26,
-   "sessions": 26
+   "clicks": 21,
+   "views": 31,
+   "sessions": 32
   },
   {
    "source": "meetup",
